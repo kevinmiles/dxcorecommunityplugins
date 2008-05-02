@@ -1,0 +1,150 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Local"
+        ProductVersion = "7.10.3077"
+        SchemaVersion = "2.0"
+        ProjectGuid = "{D7690735-F8BD-4447-97CB-A65D61366631}"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                AssemblyKeyContainerName = ""
+                AssemblyName = "CR_DrawLinesBetweenMethods"
+                AssemblyOriginatorKeyFile = ""
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Grid"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                OutputType = "Library"
+                PreBuildEvent = ""
+                PostBuildEvent = ""
+                RootNamespace = "CR_DrawLinesBetweenMethods"
+                RunPostBuildEvent = "OnBuildSuccess"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "DEBUG;TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "true"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "false"
+                    OutputPath = "..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\PlugIns\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "true"
+                    OutputPath = "..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\PlugIns\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+            </Settings>
+            <References>
+                <Reference
+                    Name = "DevExpress.CodeRush.Common"
+                    AssemblyName = "DevExpress.CodeRush.Common"
+                    HintPath = "C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\1.1\Bin\DevExpress.CodeRush.Common.dll"
+                    AssemblyFolderKey = "hklm\dxcore"
+                />
+                <Reference
+                    Name = "DevExpress.CodeRush.Core"
+                    AssemblyName = "DevExpress.CodeRush.Core"
+                    HintPath = "C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\1.1\Bin\DevExpress.CodeRush.Core.dll"
+                    AssemblyFolderKey = "hklm\dxcore"
+                />
+                <Reference
+                    Name = "DevExpress.CodeRush.VSCore"
+                    AssemblyName = "DevExpress.CodeRush.VSCore"
+                    HintPath = "C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\1.1\Bin\DevExpress.CodeRush.VSCore.dll"
+                    AssemblyFolderKey = "hklm\dxcore"
+                />
+                <Reference
+                    Name = "EnvDTE"
+                    AssemblyName = "EnvDTE"
+                    HintPath = "..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\EnvDTE.dll"
+                />
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                    HintPath = "..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                    HintPath = "..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "System.Windows.Forms"
+                    AssemblyName = "System.Windows.Forms"
+                    HintPath = "..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.dll"
+                />
+                <Reference
+                    Name = "DevExpress.CodeRush.PlugInCore"
+                    AssemblyName = "DevExpress.CodeRush.PlugInCore"
+                    HintPath = "C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\1.1\Bin\DevExpress.CodeRush.PlugInCore.dll"
+                    AssemblyFolderKey = "hklm\dxcore"
+                />
+                <Reference
+                    Name = "DevExpress.CodeRush.StructuralParser"
+                    AssemblyName = "DevExpress.CodeRush.StructuralParser"
+                    HintPath = "C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\1.1\Bin\DevExpress.CodeRush.StructuralParser.dll"
+                    AssemblyFolderKey = "hklm\dxcore"
+                />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DrawLinesBetweenMethodsPlugIn.cs"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DrawLinesBetweenMethodsPlugIn.resx"
+                    DependentUpon = "DrawLinesBetweenMethodsPlugIn.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "OptDrawLinesBetweenMethods.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "OptDrawLinesBetweenMethods.resx"
+                    DependentUpon = "OptDrawLinesBetweenMethods.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+            </Include>
+        </Files>
+    </CSHARP>
+</VisualStudioProject>
+
