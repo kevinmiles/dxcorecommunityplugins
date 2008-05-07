@@ -1,0 +1,198 @@
+﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{95F6E64F-67A4-4423-B9DA-6061455F8B05}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Refactor_CreateStubForHandler</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>On</OptionStrict>
+    <RootNamespace>Refactor_CreateStubForHandler</RootNamespace>
+    <StartupObject>WizardTemplate.Form1</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <MyType>Windows</MyType>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\</OutputPath>
+    <DocumentationFile>Refactor_CreateStubForHandler.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>
+    </NoWarn>
+    <DebugType>full</DebugType>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\PlugIns\</OutputPath>
+    <DocumentationFile>Refactor_CreateStubForHandler.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>
+    </NoWarn>
+    <DebugType>none</DebugType>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.CodeRush.Common">
+      <Name>DevExpress.CodeRush.Common</Name>
+      <HintPath>..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.Common.dll</HintPath>
+      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.Core">
+      <Name>DevExpress.CodeRush.Core</Name>
+      <HintPath>..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.Core.dll</HintPath>
+      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.Interop">
+      <Name>DevExpress.CodeRush.Interop</Name>
+      <HintPath>..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.Interop.dll</HintPath>
+      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.PlugInCore">
+      <Name>DevExpress.CodeRush.PlugInCore</Name>
+      <HintPath>..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.PlugInCore.dll</HintPath>
+      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.StructuralParser">
+      <Name>DevExpress.CodeRush.StructuralParser</Name>
+      <HintPath>..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.StructuralParser.dll</HintPath>
+      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.UserControls">
+      <Name>DevExpress.CodeRush.UserControls</Name>
+      <HintPath>..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.UserControls.dll</HintPath>
+      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.VSCore">
+      <Name>DevExpress.CodeRush.VSCore</Name>
+      <HintPath>..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.VSCore.dll</HintPath>
+      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="DevExpress.Refactor.Core">
+      <Name>DevExpress.Refactor.Core</Name>
+      <HintPath>..\..\..\..\..\..\Program Files\Developer Express Inc\Refactor! for Visual Studio .NET\Bin\DevExpress.Refactor.Core.dll</HintPath>
+      <AssemblyFolderKey>hklm\refactor!</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="EnvDTE">
+      <Name>EnvDTE</Name>
+    </Reference>
+    <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualBasic.Compatibility">
+      <Name>Microsoft.VisualBasic.Compatibility</Name>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\VS2003\Refactor_CreateStubForHandler\AssemblyInfo.vb">
+      <Link>AssemblyInfo.vb</Link>
+    </Compile>
+    <Compile Include="..\..\VS2003\Refactor_CreateStubForHandler\PluginLogic.vb">
+      <Link>PluginLogic.vb</Link>
+    </Compile>
+    <Compile Include="Refactor_CreateStubForHandlerPlugIn.Designer.vb">
+      <DependentUpon>Refactor_CreateStubForHandlerPlugIn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Refactor_CreateStubForHandlerPlugIn.vb">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Refactor_CreateStubForHandlerPlugIn.resx">
+      <DependentUpon>Refactor_CreateStubForHandlerPlugIn.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="My Project\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
