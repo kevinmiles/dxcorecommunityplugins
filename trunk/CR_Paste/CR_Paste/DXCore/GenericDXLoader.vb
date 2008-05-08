@@ -1,6 +1,6 @@
 ﻿Imports DevExpress.CodeRush.Core
 
-Public Class GenericLoader
+Public Class GenericDXLoader
     Inherits BaseDXLoader
 
     Public Sub New(ByVal LanguageID As String)
