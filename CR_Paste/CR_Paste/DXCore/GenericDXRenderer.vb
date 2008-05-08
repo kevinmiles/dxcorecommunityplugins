@@ -2,7 +2,7 @@ Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
 
-Public Class GenericRenderer
+Public Class GenericDXRenderer
     Inherits BaseDXRenderer
     Protected mLanguageID As String
     Sub New(ByVal LanguageID As String)
