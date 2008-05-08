@@ -90,24 +90,20 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\Base\AbstractTranslator.vb" />
+    <Compile Include="DXCore\GenericTranslator.vb" />
     <Compile Include="Abstract\Base\BaseDXLoader.vb" />
     <Compile Include="Abstract\Base\BaseDXRenderer.vb" />
+    <Compile Include="DXCore\GenericRenderer.vb" />
     <Compile Include="Abstract\Interfaces\IDXOperable.vb" />
     <Compile Include="Abstract\Interfaces\IDXRenderer.vb" />
-    <Compile Include="DXCore\Loaders\CSharpLoader.vb" />
-    <Compile Include="DXCore\Renderers\CSharpRenderer.vb" />
-    <Compile Include="DXCore\Renderers\VBNetRenderer.vb" />
+    <Compile Include="DXCore\GenericLoader.vb" />
     <Compile Include="Abstract\Interfaces\IDXLoader.vb" />
-    <Compile Include="DXCore\VBNetAsCSharpViaDXCore.vb" />
     <Compile Include="CR_Paste.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CR_Paste.Designer.vb">
       <DependentUpon>CR_Paste.vb</DependentUpon>
     </Compile>
-    <Compile Include="DXCore\CSharpAsVBNetViaDXCore.vb" />
-    <Compile Include="DXCore\Loaders\VBNetLoader.vb" />
     <Compile Include="Abstract\Interfaces\IPaster.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
   </ItemGroup>

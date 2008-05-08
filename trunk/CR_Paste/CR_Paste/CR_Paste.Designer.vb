@@ -31,10 +31,8 @@ Partial Class CR_Paste
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CR_Paste))
         Me.PasteSmartTag = New DevExpress.CodeRush.Core.SmartTagProvider(Me.components)
         Me.PasteAction = New DevExpress.CodeRush.Core.Action(Me.components)
-        Me.RefactoringProvider1 = New DevExpress.Refactor.Core.RefactoringProvider(Me.components)
         CType(Me.PasteSmartTag, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PasteAction, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RefactoringProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'PasteSmartTag
@@ -54,24 +52,12 @@ Partial Class CR_Paste
         Me.PasteAction.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None
         Me.PasteAction.Image = CType(resources.GetObject("PasteAction.Image"), System.Drawing.Bitmap)
         Me.PasteAction.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
-        '
-        'RefactoringProvider1
-        '
-        Me.RefactoringProvider1.ActionHintText = ""
-        Me.RefactoringProvider1.AutoActivate = True
-        Me.RefactoringProvider1.AutoUndo = False
-        Me.RefactoringProvider1.Description = ""
-        Me.RefactoringProvider1.DisplayName = ""
-        Me.RefactoringProvider1.ProviderName = ""
-        Me.RefactoringProvider1.Register = True
         CType(Me.PasteSmartTag, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PasteAction, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RefactoringProvider1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
     Friend WithEvents PasteSmartTag As DevExpress.CodeRush.Core.SmartTagProvider
     Friend WithEvents PasteAction As DevExpress.CodeRush.Core.Action
-    Friend WithEvents RefactoringProvider1 As DevExpress.Refactor.Core.RefactoringProvider
 
 End Class
