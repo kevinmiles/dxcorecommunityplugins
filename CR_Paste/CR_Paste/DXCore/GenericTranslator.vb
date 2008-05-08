@@ -1,8 +1,12 @@
 Imports System.Windows.Forms
-Public MustInherit Class AbstractTranslator
+Public Class GenericTranslator
     Implements IPaster
     Protected Loader As IDXLoader
     Protected Renderer As IDXRenderer
+    Public Sub New(ByVal RendererLanguageID As String, ByVal LoaderLanguageID As String)
+        Me.Loader = New GenericLoader(LoaderLanguageID)
+        Me.Renderer = New GenericRenderer(RendererLanguageID)
+    End Sub
     Public Sub Paste() Implements IPaster.Paste
         If Not Clipboard.ContainsText() Then
             Exit Sub

@@ -33,10 +33,10 @@ Public Class CR_Paste
         AddHandler mnuVBNetToCSharp.Execute, AddressOf PasteVBNetAsCSharp
     End Sub
     Private Sub PasteCSharpAsVBNet(ByVal sender As Object, ByVal e As EventArgs)
-        Call (New CSharpAsVBNetViaDXCore).Paste()
+        Call New GenericTranslator("Basic", "CSharp").Paste()
     End Sub
     Private Sub PasteVBNetAsCSharp(ByVal sender As Object, ByVal e As EventArgs)
-        Call (New VBNetAsCSharpViaDXCore).Paste()
+        Call New GenericTranslator("CSharp", "Basic").Paste()
     End Sub
 End Class
 

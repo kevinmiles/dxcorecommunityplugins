@@ -5,8 +5,7 @@ Public MustInherit Class BaseDXRenderer
     Implements IDXRenderer
     Public MustOverride ReadOnly Property LanguageID() As String Implements IDXOperable.LanguageID
     Public Function Render(ByVal RootNode As LanguageElement) As String Implements IDXRenderer.Render
-        Dim Code As String = CodeRush.Language.GenerateElement(RootNode, LanguageID)
-        Return Code
+        Return CodeRush.Language.GenerateElement(RootNode, LanguageID)
     End Function
 
     Public Function RenderToEditor(ByVal RootNode As LanguageElement) As String Implements IDXRenderer.RenderToEditor
