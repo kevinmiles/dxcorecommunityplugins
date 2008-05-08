@@ -28,11 +28,8 @@ Partial Class CR_Paste
     <System.Diagnostics.DebuggerStepThrough()> _
       Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CR_Paste))
         Me.PasteSmartTag = New DevExpress.CodeRush.Core.SmartTagProvider(Me.components)
-        Me.PasteAction = New DevExpress.CodeRush.Core.Action(Me.components)
         CType(Me.PasteSmartTag, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PasteAction, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'PasteSmartTag
@@ -44,20 +41,10 @@ Partial Class CR_Paste
         Me.PasteSmartTag.Register = True
         Me.PasteSmartTag.ShowInContextMenu = True
         Me.PasteSmartTag.ShowInPopupMenu = False
-        '
-        'PasteAction
-        '
-        Me.PasteAction.ActionName = "PasteAction"
-        Me.PasteAction.ButtonText = "Paste"
-        Me.PasteAction.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None
-        Me.PasteAction.Image = CType(resources.GetObject("PasteAction.Image"), System.Drawing.Bitmap)
-        Me.PasteAction.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
         CType(Me.PasteSmartTag, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PasteAction, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
     Friend WithEvents PasteSmartTag As DevExpress.CodeRush.Core.SmartTagProvider
-    Friend WithEvents PasteAction As DevExpress.CodeRush.Core.Action
 
 End Class
