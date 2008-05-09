@@ -25,8 +25,8 @@ Public Class CR_Paste
 #End Region
 
     Private Sub PasteSmartTag_GetSmartTagItems(ByVal sender As Object, ByVal ea As GetSmartTagItemsEventArgs) Handles PasteSmartTag.GetSmartTagItems
-        Dim mnuCSharpToVBNet As New SmartTagItem("CSharp As VBNet")
-        Dim mnuVBNetToCSharp As New SmartTagItem("VB As CSharp")
+        Dim mnuCSharpToVBNet As New SmartTagItem("CSharp -> VBNet")
+        Dim mnuVBNetToCSharp As New SmartTagItem("VBNet -> CSharp")
         ea.Add(mnuCSharpToVBNet)
         ea.Add(mnuVBNetToCSharp)
         AddHandler mnuCSharpToVBNet.Execute, AddressOf PasteCSharpAsVBNet
