@@ -149,12 +149,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\VS2003\Refactor_CreateStubForHandler\AssemblyInfo.vb">
-      <Link>AssemblyInfo.vb</Link>
-    </Compile>
-    <Compile Include="..\..\VS2003\Refactor_CreateStubForHandler\PluginLogic.vb">
-      <Link>PluginLogic.vb</Link>
-    </Compile>
+    <Compile Include="AssemblyInfo.vb" />
+    <Compile Include="PluginLogic.vb" />
     <Compile Include="Refactor_CreateStubForHandlerPlugIn.Designer.vb">
       <DependentUpon>Refactor_CreateStubForHandlerPlugIn.vb</DependentUpon>
     </Compile>
