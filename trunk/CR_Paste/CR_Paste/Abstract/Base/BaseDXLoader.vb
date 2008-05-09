@@ -20,8 +20,27 @@ Public MustInherit Class BaseDXLoader
         End Get
     End Property
 
-    Public Overridable Sub Load(ByVal Text As String) Implements IDXLoader.Load
+    Public Overridable Function Load(ByVal Text As String) As Boolean Implements IDXLoader.Load
+        If LanguageID = String.Empty Then
+            Call AllocateLanguageByExample(Text)
+        End If
+        If LanguageID = String.Empty Then
+            Return False
+        End If
         Dim Parser = CodeRush.Language.GetParserFromLanguageID(LanguageID)
         RootNode = Parser.ParseString(Text)
+        Return True
+    End Function
+    Private Sub AllocateLanguageByExample(ByVal Text As String)
+        If isTextOfCodeType(Text, "Basic") Then mLanguageID = "Basic"
+        If isTextOfCodeType(Text, "CSharp") Then mLanguageID = "CSharp"
     End Sub
+    Private Function isTextOfCodeType(ByVal Text As String, ByVal LanguageID As String) As Boolean
+        Dim Parser = CodeRush.Language.GetParserFromLanguageID(LanguageID)
+        Dim RootNode As LanguageElement = Parser.ParseString(Text)
+        If CodeRush.Language.GenerateElement(RootNode) = Text Then
+            Return True
+        End If
+        Return False
+    End Function
 End Class

@@ -13,7 +13,9 @@ Public Class GenericDXTranslator
         End If
         ' Assume Text in Clipboard is CSharp
         ' Load Text as CSharp into A ParseTree
-        Call Loader.Load(Clipboard.GetText())
+        If Not Loader.Load(Clipboard.GetText()) Then
+            Exit Sub
+        End If
         ' Pass ParseTree Through PreProcessor
         ' Render ParseTree as VBNet
         Call Renderer.RenderToEditor(Loader.TreeRoot)
