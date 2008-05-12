@@ -3,7 +3,7 @@ Public Class GenericDXTranslator
     Implements IPaster
     Protected Loader As IDXLoader
     Protected Renderer As IDXRenderer
-    Public Sub New(ByVal RendererLanguageID As String, ByVal LoaderLanguageID As String)
+    Public Sub New(ByVal RendererLanguageID As String, Optional ByVal LoaderLanguageID As String = "")
         Me.Loader = New GenericDXLoader(LoaderLanguageID)
         Me.Renderer = New GenericDXRenderer(RendererLanguageID)
     End Sub
