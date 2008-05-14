@@ -37,10 +37,12 @@ Public Class FormatAssignmentsPlugin
 #End Region
 
     Private Sub FormatAssignments_Apply(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs) Handles FormatAssignments.Apply
+        CodeRush.Documents.ActiveTextView.Selection.ExtendToWholeLines()
         Call JustifyAssignments()
     End Sub
 
     Private Sub FormatAssignments_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs) Handles FormatAssignments.CheckAvailability
+        CodeRush.Documents.ActiveTextView.Selection.ExtendToWholeLines()
         ea.Available = SelectedText.Contains("=") AndAlso CodeRush.Documents.ActiveTextView.Selection.Height > 1
     End Sub
 
@@ -48,7 +50,6 @@ Public Class FormatAssignmentsPlugin
         Dim NewCode As String = SelectedText
         NewCode = JustifyText(NewCode, "=", FurthestRight(NewCode, "=") + 1)
         NewCode = JustifyText(NewCode, "//", FurthestRight(NewCode, "//") + 1)
-        CodeRush.Documents.ActiveTextView.Selection.ExtendToWholeLines()
         CodeRush.Documents.ActiveTextView.Selection.Text = NewCode
     End Sub
 
