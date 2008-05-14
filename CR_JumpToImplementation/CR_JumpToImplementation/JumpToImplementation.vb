@@ -23,8 +23,9 @@ Public Class JumpToImplementation
     End Sub
 #End Region
     Private Sub actJumpToImplementation_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles actJumpToImplementation.Execute
-
         Dim TheInterface As [Interface] = CodeRush.Source.ActiveInterface
+
+        ' Attempt Interface member first 
         Dim InterfaceMember As Member = CType(CodeRush.Source.ActiveMember, Member)
         If InterfaceMember IsNot Nothing Then
             If TypeOf InterfaceMember.Parent Is [Interface] Then
@@ -33,11 +34,14 @@ Public Class JumpToImplementation
                 Exit Sub
             End If
         End If
-        ' Whole Interface
-        Dim TheInterface2 As [Interface] = CodeRush.Source.ActiveInterface
+        ' Use whole interface if nessecary
         If TheInterface IsNot Nothing Then
-            Call LocateInterfaceImplementation(TheInterface)
-            Exit Sub
+            Dim TheClass As [Class] = GetFirstClassImplementingInterface(TheInterface)
+            If TheClass IsNot Nothing Then
+                ' Locate Class
+                Call JumpToLangageElement(TheClass)
+                Exit Sub
+            End If
         End If
     End Sub
     Private Sub LocateClassMemberImplementation(ByVal TheClass As [Class], ByVal InterfaceMember As Member)
@@ -45,32 +49,20 @@ Public Class JumpToImplementation
         For Each Node As LanguageElement In TheClass.Nodes
             If TypeOf Node Is Member Then
                 Dim ClassMember As Member = CType(Node, Member)
-                If ClassMemberImplementsInterfaceMember(ClassMember, InterfaceMember) Then
+                If ClassMember.Implements.Contains(InterfaceMember.Location) Then
                     Call JumpToLangageElement(ClassMember)
                     Exit For
                 End If
             End If
         Next
     End Sub
-    Private Function ClassMemberImplementsInterfaceMember(ByVal classMember As Member, ByVal interfaceMember As Member) As Boolean
-        Return classMember.Implements.Contains(interfaceMember.Location)
-    End Function
-    Private Function CloneOf(ByVal theMember As Member) As Member
-        Throw New NotImplementedException()
-    End Function
-    Private Shared Sub LocateInterfaceImplementation(ByVal TheInterface As [Interface])
-        Dim FoundClass As [Class] = GetFirstClassImplementingInterface(TheInterface)
-        If FoundClass Is Nothing Then
-            Exit Sub
-        End If
-        ' Locate Class
-        Call JumpToLangageElement(FoundClass)
-    End Sub
-    Private Shared Sub JumpToLangageElement(ByVal FoundClass As LanguageElement)
+
+    Private Sub JumpToLangageElement(ByVal FoundClass As LanguageElement)
         Call FoundClass.Document.Activate()
         Call CodeRush.Documents.ActiveTextView.Selection.Set(FoundClass.NameRange)
     End Sub
-    Private Shared Function GetFirstClassImplementingInterface(ByVal TheInterface As [Interface]) As [Class]
+
+    Private Function GetFirstClassImplementingInterface(ByVal TheInterface As [Interface]) As [Class]
         Dim Implementations As ITypeElement() = TheInterface.GetDescendants()
         Dim Found As Boolean = False
         For Each Imp In Implementations
