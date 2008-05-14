@@ -48,8 +48,10 @@ Public Class FormatAssignmentsPlugin
         Dim NewCode As String = SelectedText
         NewCode = JustifyText(NewCode, "=", FurthestRight(NewCode, "=") + 1)
         NewCode = JustifyText(NewCode, "//", FurthestRight(NewCode, "//") + 1)
+        CodeRush.Documents.ActiveTextView.Selection.ExtendToWholeLines()
         CodeRush.Documents.ActiveTextView.Selection.Text = NewCode
     End Sub
+
     Private Function JustifyText(ByVal SourceText As String, ByVal Delimiter As String, ByVal Position As Integer) As String
         Dim Justifier As New Regex(String.Format("^(?<s1>.*){0}(?<s2>.*)$", Delimiter), _
                                    RegexOptions.Multiline)
