@@ -25,6 +25,7 @@ Public Class DX_PickFromListStringProvider
     
     Private Sub PickFromListStringProvider_GetString(ByVal ea As DevExpress.CodeRush.Core.GetStringEventArgs) Handles PickFromListStringProvider.GetString
         ea.Value = PickFromList(ea.Parameters)
+
     End Sub
     Private Function PickFromList(ByVal parameters As ParameterCollection) As String
         Using SelectForm As New SelectForm
