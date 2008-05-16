@@ -1,6 +1,7 @@
 Imports System.Collections
 Imports System
 Imports System.Windows.Forms
+Imports System.Collections.Generic
 Public Class SelectForm
     Inherits Form
 
@@ -150,7 +151,7 @@ Public Class SelectForm
     End Sub
 #End Region
 
-    Public Sub LoadItems(ByVal Items As IEnumerable(Of String))
+    Public Sub LoadItems(ByVal Items() As String))
         mItemSelected = False
         lstItems.Items.Clear()
         For Each Item As String In Items
