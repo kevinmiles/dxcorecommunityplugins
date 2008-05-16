@@ -151,7 +151,7 @@ Public Class SelectForm
     End Sub
 #End Region
 
-    Public Sub LoadItems(ByVal Items() As String))
+    Public Sub LoadItems(ByVal Items() As String)
         mItemSelected = False
         lstItems.Items.Clear()
         For Each Item As String In Items
