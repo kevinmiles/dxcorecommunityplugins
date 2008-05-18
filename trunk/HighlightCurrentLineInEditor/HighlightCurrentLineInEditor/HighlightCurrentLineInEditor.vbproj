@@ -76,7 +76,28 @@
     <Compile Include="HighlightCurrentLineInEditor.Designer.vb">
       <DependentUpon>HighlightCurrentLineInEditor.vb</DependentUpon>
     </Compile>
+    <Compile Include="HighlightCurrentLineOptions.Designer.vb">
+      <DependentUpon>HighlightCurrentLineOptions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="HighlightCurrentLineOptions.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Painting\ColorPicker.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Painting\IPaintColor.vb" />
+    <Compile Include="Painting\PaintColor.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HighlightCurrentLineOptions.resx">
+      <DependentUpon>HighlightCurrentLineOptions.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Painting\ColorPicker.resx">
+      <DependentUpon>ColorPicker.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
