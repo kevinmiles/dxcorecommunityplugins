@@ -4,6 +4,7 @@ Imports System.Windows.Forms
 Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
+Imports HighlightCurrentLineInEditor.Painting
 
 Public Class HighlightCurrentLineInEditor
 
@@ -12,7 +13,7 @@ Public Class HighlightCurrentLineInEditor
     Private mBackGroundBrush As Brush = Nothing
     Public Overrides Sub InitializePlugIn()
         MyBase.InitializePlugIn()
-
+        Call LoadSettings()
         'TODO: Add your initialization code here.
     End Sub
 #End Region
@@ -23,6 +24,17 @@ Public Class HighlightCurrentLineInEditor
         MyBase.FinalizePlugIn()
     End Sub
 #End Region
+    Private mOuterColor As PaintColor
+    Private mInnerColor As PaintColor
+    Public Sub LoadSettings()
+        Using lStorage As DecoupledStorage = HighlightCurrentLineOptions.Storage
+            Dim BackColor As Color = lStorage.ReadColor(HighlightCurrentLineOptions.SECTION, HighlightCurrentLineOptions.KEY_InnerBaseColor, HighlightCurrentLineOptions.DEFAULT_COLOR_INNER.Base)
+            Dim BackOpacity As Integer = lStorage.ReadInt32(HighlightCurrentLineOptions.SECTION, HighlightCurrentLineOptions.KEY_InnerOpacity, HighlightCurrentLineOptions.DEFAULT_COLOR_INNER.Opacity)
+            mInnerColor = New PaintColor(BackColor, BackOpacity)
+            Dim ForeColor As Color = lStorage.ReadColor(HighlightCurrentLineOptions.SECTION, HighlightCurrentLineOptions.KEY_OuterBaseColor, HighlightCurrentLineOptions.DEFAULT_COLOR_OUTER.Base)
+            mOuterColor = New PaintColor(ForeColor, 255)
+        End Using
+    End Sub
 
     Private TextHighlighter As New TextHighlighter
     Private mEaElementRange As SourceRange
@@ -38,7 +50,13 @@ Public Class HighlightCurrentLineInEditor
 
     Private Sub HighlightCurrentLineInEditor_EditorPaint(ByVal ea As DevExpress.CodeRush.Core.EditorPaintEventArgs) Handles Me.EditorPaint
         If mEaElementRange.ToString <> String.Empty Then
-            TextHighlighter.PaintUnfocused(CodeRush.TextViews.Active, mEaElementRange, Color.LightBlue, Color.FromArgb(70, Color.LightBlue))
+            TextHighlighter.PaintUnfocused(CodeRush.TextViews.Active, mEaElementRange, mOuterColor.TrueColor, mInnerColor.TrueColor)
+        End If
+    End Sub
+
+    Private Sub HighlightCurrentLineInEditor_OptionsChanged(ByVal ea As DevExpress.CodeRush.Core.OptionsChangedEventArgs) Handles Me.OptionsChanged
+        If (ea.OptionsPages.Contains(GetType(HighlightCurrentLineOptions))) Then
+            LoadSettings()
         End If
     End Sub
 End Class
