@@ -53,6 +53,7 @@ namespace CR_BlockPainterPlus
             this.minimumLinesCheckBox = new System.Windows.Forms.CheckBox();
             this.lineCountSpinner = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.methodPaintCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.arrowColorPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fontColorPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arrowTrackBar)).BeginInit();
@@ -99,7 +100,7 @@ namespace CR_BlockPainterPlus
             this.arrowTrackBar.Maximum = 255;
             this.arrowTrackBar.Minimum = 50;
             this.arrowTrackBar.Name = "arrowTrackBar";
-            this.arrowTrackBar.Size = new System.Drawing.Size(153, 56);
+            this.arrowTrackBar.Size = new System.Drawing.Size(153, 45);
             this.arrowTrackBar.SmallChange = 15;
             this.arrowTrackBar.TabIndex = 4;
             this.arrowTrackBar.TickFrequency = 15;
@@ -159,7 +160,7 @@ namespace CR_BlockPainterPlus
             this.fontTrackBar.Maximum = 255;
             this.fontTrackBar.Minimum = 50;
             this.fontTrackBar.Name = "fontTrackBar";
-            this.fontTrackBar.Size = new System.Drawing.Size(153, 56);
+            this.fontTrackBar.Size = new System.Drawing.Size(153, 45);
             this.fontTrackBar.SmallChange = 15;
             this.fontTrackBar.TabIndex = 8;
             this.fontTrackBar.TickFrequency = 15;
@@ -219,8 +220,21 @@ namespace CR_BlockPainterPlus
             this.label1.TabIndex = 9;
             this.label1.Text = "lines.";
             // 
+            // methodPaintCheckBox
+            // 
+            this.methodPaintCheckBox.AutoSize = true;
+            this.methodPaintCheckBox.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.methodPaintCheckBox.Location = new System.Drawing.Point(8, 185);
+            this.methodPaintCheckBox.Name = "methodPaintCheckBox";
+            this.methodPaintCheckBox.Size = new System.Drawing.Size(163, 20);
+            this.methodPaintCheckBox.TabIndex = 10;
+            this.methodPaintCheckBox.Text = "do some other stuff.";
+            this.methodPaintCheckBox.UseVisualStyleBackColor = true;
+            this.methodPaintCheckBox.Visible = false;
+            // 
             // BlockPainterOptions
             // 
+            this.Controls.Add(this.methodPaintCheckBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lineCountSpinner);
             this.Controls.Add(this.minimumLinesCheckBox);
@@ -310,5 +324,6 @@ namespace CR_BlockPainterPlus
         private System.Windows.Forms.CheckBox minimumLinesCheckBox;
         private System.Windows.Forms.NumericUpDown lineCountSpinner;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox methodPaintCheckBox;
     }
 }

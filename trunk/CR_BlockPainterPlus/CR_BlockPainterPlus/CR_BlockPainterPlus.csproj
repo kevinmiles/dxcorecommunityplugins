@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
