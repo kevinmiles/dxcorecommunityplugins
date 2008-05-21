@@ -2,12 +2,12 @@
     Public Class TestClass
         Public Sub TestMethod()
             Dim X As New System.Windows.Forms.Button
-            AddHandler X.Click,<<:caret:>>
+            AddHandler X.Click, AddressOf X_Click<<:caret:>>
         End Sub
     End Class
 End Namespace
 
-Namespace Test
+Namespace Result
     Public Class TestClass
         Public Sub TestMethod()
             Dim X As New System.Windows.Forms.Button

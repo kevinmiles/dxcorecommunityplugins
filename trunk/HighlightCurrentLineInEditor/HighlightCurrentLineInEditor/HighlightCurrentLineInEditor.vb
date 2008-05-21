@@ -5,6 +5,7 @@ Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
 Imports HighlightCurrentLineInEditor.Painting
+Imports System.IO
 
 Public Class HighlightCurrentLineInEditor
 
@@ -52,6 +53,9 @@ Public Class HighlightCurrentLineInEditor
         If mEaElementRange.ToString <> String.Empty Then
             TextHighlighter.PaintUnfocused(CodeRush.TextViews.Active, mEaElementRange, mOuterColor.TrueColor, mInnerColor.TrueColor)
         End If
+        Dim X As New StreamReader(New FileStream("Fred", FileMode.Append))
+        X.ReadToEnd()
+
     End Sub
 
     Private Sub HighlightCurrentLineInEditor_OptionsChanged(ByVal ea As DevExpress.CodeRush.Core.OptionsChangedEventArgs) Handles Me.OptionsChanged
