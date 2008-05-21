@@ -1,1 +1,3 @@
 Binary Downloads are hosted [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/ Here]
+
+BinaryOnly Downloads are hosted [http://www.rorybecker.me.uk/DevExpress/Plugins/3rdParty/BinaryOnlyPlugins/ Here]
