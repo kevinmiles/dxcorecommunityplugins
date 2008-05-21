@@ -1,24 +1,17 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CR_ShowFile", "CR_ShowFile.vbproj", "{DCF319F4-ABCF-49FC-BD27-269B2A9A46AE}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CR_ShowFile", "CR_ShowFile\CR_ShowFile.vbproj", "{DCF319F4-ABCF-49FC-BD27-269B2A9A46AE}"
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 1
-		SccProjectUniqueName0 = CR_ShowFile.vbproj
-		SccProjectName0 = \u0022$/Cronos\u0020plugins/CR_ShowFile\u0022,\u0020ADAAAAAA
-		SccLocalPath0 = .
-		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Default = Debug|Default
-		Release|Default = Release|Default
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DCF319F4-ABCF-49FC-BD27-269B2A9A46AE}.Debug|Default.ActiveCfg = Debug|Any CPU
-		{DCF319F4-ABCF-49FC-BD27-269B2A9A46AE}.Debug|Default.Build.0 = Debug|Any CPU
-		{DCF319F4-ABCF-49FC-BD27-269B2A9A46AE}.Release|Default.ActiveCfg = Release|Any CPU
-		{DCF319F4-ABCF-49FC-BD27-269B2A9A46AE}.Release|Default.Build.0 = Release|Any CPU
+		{DCF319F4-ABCF-49FC-BD27-269B2A9A46AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCF319F4-ABCF-49FC-BD27-269B2A9A46AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCF319F4-ABCF-49FC-BD27-269B2A9A46AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCF319F4-ABCF-49FC-BD27-269B2A9A46AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
