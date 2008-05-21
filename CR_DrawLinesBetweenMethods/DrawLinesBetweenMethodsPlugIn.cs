@@ -131,7 +131,7 @@ namespace CR_DrawLinesBetweenMethods
 		bool _fullWidth = false;
 		DashStyle _lineDashStyle = DashStyle.Solid;
 		int _lineWidth = 1;
-		Color _lineColor = Color.Gray;
+		Color _lineColor = Color.Silver;
 		bool _drawLineAtEndOfMethod = false;
 		bool _drawShadow = true;
 
