@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>CR_ShowFile</name>
+    <version>1.0.0.0</version>
+    <fullname>CR_ShowFile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</fullname>
+  </assembly>
+  <members>
+    <member name="M:CR_ShowFile.CodeFile.#ctor(DevExpress.CodeRush.StructuralParser.SourceFile)">
+      <summary>
+ Creates a new instance of CodeFile 
+ </summary>
+ <param name="theFile" /></member>
+    <member name="M:CR_ShowFile.CodeFile.#ctor(DevExpress.CodeRush.Core.Document)">
+      <summary>
+ Creates a new instance of CodeFile 
+ </summary>
+ <param name="" />
+ <param name="fullFilename" /></member>
+    <member name="M:CR_ShowFile.FrmShowFile.#ctor(CR_ShowFile.CodeFileCollection)">
+      <summary>
+ Creates a new instance of FrmShowFile 
+ </summary>
+ <param name="fileNames" /></member>
+    <member name="T:CR_ShowFile.CR_ShowFile.ShowFilePlugIn">
+      <summary>
+ Summary description for ShowFilePlugIn. 
+ </summary>
+    </member>
+    <member name="F:CR_ShowFile.CR_ShowFile.ShowFilePlugIn.InitializeComponen">
+      <summary>
+ Required for Windows.Forms Class Composition Designer support 
+ </summary>
+    </member>
+    <member name="M:CR_ShowFile.CR_ShowFile.ShowFilePlugIn.InitializeComponent">
+      <summary>
+ Required method for Designer support - do not modify 
+ the contents of this method with the code editor. 
+ </summary>
+    </member>
+  </members>
+</doc>
