@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_mdMarkerExtensions", "CR_mdMarkerExtensions.csproj", "{77F76C15-C9FF-4C53-A102-92D12B9AEABD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77F76C15-C9FF-4C53-A102-92D12B9AEABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77F76C15-C9FF-4C53-A102-92D12B9AEABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77F76C15-C9FF-4C53-A102-92D12B9AEABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77F76C15-C9FF-4C53-A102-92D12B9AEABD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
