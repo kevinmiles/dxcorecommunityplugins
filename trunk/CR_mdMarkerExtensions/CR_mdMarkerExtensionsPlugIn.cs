@@ -93,7 +93,7 @@ namespace CR_mdMarkerExtensions
 
       return markers.Count;
     }
-    private void GetMarkerActionProperties( Action action, out NavDestination destination, out bool collect )
+    private void GetMarkerActionProperties(DevExpress.CodeRush.Core.Action action, out NavDestination destination, out bool collect)
     {
       if ( action == MarkerFirstAction || action == MarkerCollectFirstAction )
         destination = NavDestination.First;
