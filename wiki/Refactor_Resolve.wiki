@@ -1,0 +1,2 @@
+Sometimes you know the name of the object you need, but you don't know the correct namespace.
+This plugin tries to find the namespace you need and adds it to the imports (using) section.
