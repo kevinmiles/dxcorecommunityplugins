@@ -1,0 +1,7 @@
+C:\DxCore\Refactor_Generalize\Refactor_Generalize\obj\Debug\ResolveAssemblyReference.cache
+C:\DxCore\Refactor_Generalize\Refactor_Generalize\obj\Debug\Refactor_Generalize.RefactorGeneralizePlugin.resources
+C:\DxCore\Refactor_Generalize\Refactor_Generalize\obj\Debug\Refactor_Generalize.csproj.GenerateResource.Cache
+C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\PlugIns\Refactor_Generalize.dll
+C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\PlugIns\Refactor_Generalize.pdb
+C:\DxCore\Refactor_Generalize\Refactor_Generalize\obj\Debug\Refactor_Generalize.dll
+C:\DxCore\Refactor_Generalize\Refactor_Generalize\obj\Debug\Refactor_Generalize.pdb
