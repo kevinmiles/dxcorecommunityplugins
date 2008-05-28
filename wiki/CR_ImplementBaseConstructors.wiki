@@ -1,0 +1,3 @@
+Code Provider Plugin
+
+Creates constructors for the current class which call the base implementations of same.
