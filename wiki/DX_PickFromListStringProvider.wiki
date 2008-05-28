@@ -1,0 +1,7 @@
+A plugin providing a single StringProvider
+
+The PickFromListStringProvider allows for a list comma seperated strings to be passed to it.
+
+On construction, the list is parsed and presented to the user as a listbox fromwhich one value may be picked.
+
+The picked value is then returned.
