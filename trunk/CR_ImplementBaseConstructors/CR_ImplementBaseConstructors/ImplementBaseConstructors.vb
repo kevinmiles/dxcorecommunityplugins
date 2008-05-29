@@ -2,6 +2,7 @@ Imports System.ComponentModel
 Imports System.Drawing
 Imports System.Environment
 Imports System.Windows.Forms
+Imports System.Collections.Generic
 Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
