@@ -99,12 +99,14 @@ namespace Refactor_Generalize
 
         private void targetPicker_TargetSelected(object sender, TargetSelectedEventArgs ea)
         {
+            CodeRush.UndoStack.BeginUpdate("Generalize");
             //Debug.Assert(String.IsNullOrEmpty(_fullBlockText), "fooey");
             SourcePoint targetPoint = ea.Location.EndInsertionPoint;
             CodeRush.Documents.ActiveTextDocument.ExpandText(targetPoint, "\r\n" + _activeBlock.Text);
             _activeBlock.Delete();
             //CodeRush.Documents.ActiveTextDocument.ExpandText(
             //    ea.Location.InsertionPoint,_fullBlockText);
+            CodeRush.UndoStack.EndUpdate();
         }
 
 
