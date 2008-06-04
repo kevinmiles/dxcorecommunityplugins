@@ -35,6 +35,6 @@ Public Class CreateStubForHandlerTestFixture
     End Sub
     <Test("Test Execute 1", RESOURCE_PATH, "Execute_1.vb")> _
     Public Sub TestExecute_1(ByVal sender As Object, ByVal ea As TestEventArgs)
-        Call AssertExecute()
+        AssertExecute(New CreateStubForHandlerLocalHelper())
     End Sub
 End Class

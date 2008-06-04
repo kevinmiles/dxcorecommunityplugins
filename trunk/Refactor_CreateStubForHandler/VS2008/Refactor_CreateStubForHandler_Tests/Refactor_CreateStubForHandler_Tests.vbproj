@@ -84,6 +84,7 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="CreateStubForHandlerLocalHelper.vb" />
     <Compile Include="CreateStubForHandlerTestFixture.vb">
       <SubType>Component</SubType>
     </Compile>

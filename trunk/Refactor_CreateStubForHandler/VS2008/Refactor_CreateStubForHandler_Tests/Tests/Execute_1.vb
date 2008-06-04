@@ -13,8 +13,9 @@ Namespace Result
             Dim X As New System.Windows.Forms.Button
             AddHandler X.Click, AddressOf X_Click
         End Sub
-        Public Sub X_Click(ByVal Sender As Object, ByVal e As ClickEventArgs)
 
+        Private Sub X_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+            Throw New System.NotImplementedException()
         End Sub
     End Class
 End Namespace
