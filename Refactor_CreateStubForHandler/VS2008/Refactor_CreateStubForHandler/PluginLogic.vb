@@ -96,6 +96,7 @@ Public Module PluginLogic
         ' Create Method
         Dim Method As New Method(MethodName)
         Method.MethodType = MethodTypeEnum.Void
+        Method.Visibility = MemberVisibility.Private
         ' Get Delegate Declaration
         Dim TheDelegate As IDelegateElement = CType(EventDec.Type.GetDeclaration, IDelegateElement)
         ' Create Method Params
@@ -105,7 +106,8 @@ Public Module PluginLogic
             Method.Parameters.Add(NewParam)
         Next
         ' Add Method Body
-        Dim ThrowStatement As [Throw] = GetThrowStatement("System.NotImplementedException")
+        Dim Exc As String = "System.NotImplementedException"
+        Dim ThrowStatement As [Throw] = GetThrowStatement(Exc)
         Dim ThrowWithoutCRLF As String = GenerateWithoutCRLF(ThrowStatement)
         Dim NewSnippetCodeElement As New SnippetCodeElement("«Caret»" & ThrowWithoutCRLF & "«BlockAnchor»" & ControlChars.CrLf)
         Method.AddNode(NewSnippetCodeElement)

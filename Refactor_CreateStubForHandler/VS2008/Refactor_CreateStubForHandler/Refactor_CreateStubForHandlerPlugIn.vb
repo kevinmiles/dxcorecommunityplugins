@@ -1,3 +1,4 @@
+Imports System.Diagnostics
 Imports System
 Imports System.ComponentModel
 Imports System.Drawing
@@ -27,6 +28,8 @@ Public Class Refactor_CreateStubForHandlerPlugIn
 
 #Region "Fields"
     Private _fromAction As Boolean = False
+    Private mDefaultPosition As String = String.Empty
+    Private mUseTargetPicker As Boolean = False
     Private _CaretElement As LanguageElement
 #End Region
 #Region "CodeProvider Trigger"
@@ -46,13 +49,27 @@ Public Class Refactor_CreateStubForHandlerPlugIn
 
     Private Sub CreateHandlerStubCodeProvider_Apply(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs) Handles CreateHandlerStubCodeProvider.Apply
         Try
-            _fromAction = False
-            Picker.Start()
+            If mUseTargetPicker Then
+                _fromAction = False
+                Picker.Start()
+            Else
+                Dim NewMethodInsertPoint As SourcePoint
+                Dim MethodRange As SourceRange = CodeRush.Source.ActiveMethod.Range
+                NewMethodInsertPoint = If(mDefaultPosition = "After", _
+                                          StartOfLine(MethodRange.End, 1), _
+                                          StartOfLine(MethodRange.Start))
+                ' Execute
+                Call PluginLogic.CreateMethodStub(_CaretElement, NewMethodInsertPoint, False)
+            End If
         Catch ex As Exception
-
+            Debug.WriteLine(ex.Message)
         End Try
 
     End Sub
+
+    Private Function StartOfLine(ByVal Point As SourcePoint, Optional ByVal LineOffset As Integer = 0) As SourcePoint
+        Return New SourcePoint(Point.Line + LineOffset, 1)
+    End Function
     Public Function DeclarationIsEnumberable(ByVal VarDeclaration As ITypeElement) As Boolean
         CodeRush.Source.Implements(VarDeclaration.FullName, "Systems.Collections.IEnumerable")
     End Function
@@ -74,4 +91,11 @@ Public Class Refactor_CreateStubForHandlerPlugIn
     Private Sub Picker_TargetSelected(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.PlugInCore.TargetSelectedEventArgs) Handles Picker.TargetSelected
         PluginLogic.CreateMethodStub(_CaretElement, ea.Location.InsertionPoint, _fromAction)
     End Sub
+
+    Private Sub Refactor_CreateStubForHandlerPlugIn_OptionsChanged(ByVal ea As DevExpress.CodeRush.Core.OptionsChangedEventArgs) Handles Me.OptionsChanged
+        If ea.OptionsPages.Contains(GetType(OptionsCreateStubForHandler)) Then
+            Call OptionsCreateStubForHandler.LoadOptions(OptionsCreateStubForHandler.Storage, mDefaultPosition, mUseTargetPicker)
+        End If
+    End Sub
+
 End Class

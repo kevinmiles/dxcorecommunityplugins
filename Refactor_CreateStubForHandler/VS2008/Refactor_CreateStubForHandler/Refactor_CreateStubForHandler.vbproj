@@ -150,6 +150,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.vb" />
+    <Compile Include="OptionsCreateStubForHandler.Designer.vb">
+      <DependentUpon>OptionsCreateStubForHandler.vb</DependentUpon>
+    </Compile>
+    <Compile Include="OptionsCreateStubForHandler.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="PluginLogic.vb" />
     <Compile Include="Refactor_CreateStubForHandlerPlugIn.Designer.vb">
       <DependentUpon>Refactor_CreateStubForHandlerPlugIn.vb</DependentUpon>
@@ -176,6 +182,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="OptionsCreateStubForHandler.resx">
+      <DependentUpon>OptionsCreateStubForHandler.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Refactor_CreateStubForHandlerPlugIn.resx">
       <DependentUpon>Refactor_CreateStubForHandlerPlugIn.vb</DependentUpon>
       <SubType>Designer</SubType>
