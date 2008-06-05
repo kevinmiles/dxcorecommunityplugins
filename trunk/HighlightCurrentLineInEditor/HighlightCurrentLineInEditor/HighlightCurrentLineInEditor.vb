@@ -25,10 +25,12 @@ Public Class HighlightCurrentLineInEditor
         MyBase.FinalizePlugIn()
     End Sub
 #End Region
+    Private mEnabled As Boolean
     Private mOuterColor As PaintColor
     Private mInnerColor As PaintColor
     Public Sub LoadSettings()
         Using lStorage As DecoupledStorage = HighlightCurrentLineOptions.Storage
+            mEnabled = lStorage.ReadBoolean(HighlightCurrentLineOptions.SECTION, "Enabled", True)
             Dim BackColor As Color = lStorage.ReadColor(HighlightCurrentLineOptions.SECTION, HighlightCurrentLineOptions.KEY_InnerBaseColor, HighlightCurrentLineOptions.DEFAULT_COLOR_INNER.Base)
             Dim BackOpacity As Integer = lStorage.ReadInt32(HighlightCurrentLineOptions.SECTION, HighlightCurrentLineOptions.KEY_InnerOpacity, HighlightCurrentLineOptions.DEFAULT_COLOR_INNER.Opacity)
             mInnerColor = New PaintColor(BackColor, BackOpacity)
@@ -50,12 +52,9 @@ Public Class HighlightCurrentLineInEditor
     End Sub
 
     Private Sub HighlightCurrentLineInEditor_EditorPaint(ByVal ea As DevExpress.CodeRush.Core.EditorPaintEventArgs) Handles Me.EditorPaint
-        If mEaElementRange.ToString <> String.Empty Then
+        If mEnabled AndAlso mEaElementRange.ToString <> String.Empty Then
             TextHighlighter.PaintUnfocused(CodeRush.TextViews.Active, mEaElementRange, mOuterColor.TrueColor, mInnerColor.TrueColor)
         End If
-        Dim X As New StreamReader(New FileStream("Fred", FileMode.Append))
-        X.ReadToEnd()
-
     End Sub
 
     Private Sub HighlightCurrentLineInEditor_OptionsChanged(ByVal ea As DevExpress.CodeRush.Core.OptionsChangedEventArgs) Handles Me.OptionsChanged

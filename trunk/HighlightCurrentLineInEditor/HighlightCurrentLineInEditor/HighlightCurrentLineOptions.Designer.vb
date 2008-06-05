@@ -28,8 +28,9 @@ Partial Class HighlightCurrentLineOptions
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()> _
 	Private Sub InitializeComponent()
-        Me.InnerColor = New Global.HighlightCurrentLineInEditor.Controls.ColorPicker
-        Me.OuterColor = New Global.HighlightCurrentLineInEditor.Controls.ColorPicker
+        Me.InnerColor = New HighlightCurrentLineInEditor.Controls.ColorPicker
+        Me.OuterColor = New HighlightCurrentLineInEditor.Controls.ColorPicker
+        Me.chkEnabled = New System.Windows.Forms.CheckBox
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -38,7 +39,7 @@ Partial Class HighlightCurrentLineOptions
         Me.InnerColor.AllowOpacity = True
         Me.InnerColor.ColorBase = System.Drawing.Color.Blue
         Me.InnerColor.LabelWidth = 104
-        Me.InnerColor.Location = New System.Drawing.Point(17, 30)
+        Me.InnerColor.Location = New System.Drawing.Point(41, 66)
         Me.InnerColor.Name = "InnerColor"
         Me.InnerColor.Opacity = 70
         Me.InnerColor.Size = New System.Drawing.Size(264, 24)
@@ -50,22 +51,36 @@ Partial Class HighlightCurrentLineOptions
         Me.OuterColor.AllowOpacity = False
         Me.OuterColor.ColorBase = System.Drawing.Color.Blue
         Me.OuterColor.LabelWidth = 104
-        Me.OuterColor.Location = New System.Drawing.Point(17, 60)
+        Me.OuterColor.Location = New System.Drawing.Point(41, 96)
         Me.OuterColor.Name = "OuterColor"
         Me.OuterColor.Opacity = 255
         Me.OuterColor.Size = New System.Drawing.Size(264, 24)
         Me.OuterColor.TabIndex = 0
         Me.OuterColor.Text = "Outer Color"
         '
+        'chkEnabled
+        '
+        Me.chkEnabled.AutoSize = True
+        Me.chkEnabled.Checked = True
+        Me.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkEnabled.Location = New System.Drawing.Point(41, 28)
+        Me.chkEnabled.Name = "chkEnabled"
+        Me.chkEnabled.Size = New System.Drawing.Size(163, 17)
+        Me.chkEnabled.TabIndex = 1
+        Me.chkEnabled.Text = "Enable Highlight Current Line"
+        Me.chkEnabled.UseVisualStyleBackColor = True
+        '
         'HighlightCurrentLineOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.chkEnabled)
         Me.Controls.Add(Me.OuterColor)
         Me.Controls.Add(Me.InnerColor)
         Me.Name = "HighlightCurrentLineOptions"
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -92,6 +107,7 @@ Partial Class HighlightCurrentLineOptions
     End Sub
     Friend WithEvents InnerColor As Global.HighlightCurrentLineInEditor.Controls.ColorPicker
     Friend WithEvents OuterColor As Global.HighlightCurrentLineInEditor.Controls.ColorPicker
+    Friend WithEvents chkEnabled As System.Windows.Forms.CheckBox
 
 	Public Shared ReadOnly Property FullPath() As String
 		Get
