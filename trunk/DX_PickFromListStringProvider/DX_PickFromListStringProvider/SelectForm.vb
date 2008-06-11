@@ -63,7 +63,7 @@ Public Class SelectForm
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(0, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(256, 23)
+        Me.Label1.Size = New System.Drawing.Size(256, 21)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Select a String"
         '
@@ -84,6 +84,7 @@ Public Class SelectForm
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lstItems)
         Me.Controls.Add(Me.lblSize)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.KeyPreview = True
         Me.Name = "SelectForm"
         Me.ShowInTaskbar = False
@@ -96,6 +97,7 @@ Public Class SelectForm
 #End Region
 
 #Region "Fields"
+    Private mFaded As Boolean = False
     Private mSelectedText As String = String.Empty
     Private mItemSelected As Boolean = False
 #End Region
@@ -123,17 +125,27 @@ Public Class SelectForm
     End Sub
 
     Private Sub SelectForm_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles MyBase.KeyDown
-        Static blnOnEnd As Boolean = False
-        Static blnOnTop As Boolean = False
-
         System.Diagnostics.Debug.WriteLine(e.KeyCode.ToString)
         If e.KeyCode = Windows.Forms.Keys.Down AndAlso lstItems.SelectedIndex = lstItems.Items.Count - 1 Then
             lstItems.SelectedIndex = 0
             e.Handled = True
+            Exit Sub
         End If
         If e.KeyCode = Windows.Forms.Keys.Up AndAlso lstItems.SelectedIndex = 0 Then
             lstItems.SelectedIndex = lstItems.Items.Count - 1
             e.Handled = True
+            Exit Sub
+        End If
+        If e.Control AndAlso Not mFaded Then
+            Me.Opacity = 10
+            mFaded = True
+        End If
+    End Sub
+
+    Private Sub SelectForm_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyUp
+        If Not e.Control AndAlso mFaded Then
+            Me.Opacity = 255
+            mFaded = False
         End If
     End Sub
 #End Region
@@ -172,6 +184,5 @@ Public Class SelectForm
         Me.DialogResult = DialogResult.Cancel
         Me.Hide()
     End Sub
-
 
 End Class
