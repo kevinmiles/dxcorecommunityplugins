@@ -38,6 +38,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.CodeRush.Extensions, Version=3.0.8.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
+    <Reference Include="DevExpress.CodeRush.Interop, Version=3.0.8.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
+    <Reference Include="DevExpress.CodeRush.UserControls, Version=3.0.8.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
+    <Reference Include="DevExpress.Refactor.Core, Version=3.0.8.0, Culture=neutral, PublicKeyToken=3f8e338797a7a380, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
@@ -78,9 +82,17 @@
     <Compile Include="DX_PickFromListStringProvider.Designer.vb">
       <DependentUpon>DX_PickFromListStringProvider.vb</DependentUpon>
     </Compile>
+    <Compile Include="FieldHelper.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
     <Compile Include="SelectForm.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PickListField.vb" />
+    <Compile Include="TextFieldPickList.Designer.vb">
+      <DependentUpon>TextFieldPickList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TextFieldPickList.vb">
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +102,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectForm.resx">
       <DependentUpon>SelectForm.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextFieldPickList.resx">
+      <DependentUpon>TextFieldPickList.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
