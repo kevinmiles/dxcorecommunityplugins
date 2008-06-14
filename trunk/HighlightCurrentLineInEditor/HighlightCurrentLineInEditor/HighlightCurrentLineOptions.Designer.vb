@@ -1,35 +1,37 @@
+Imports HighlightCurrentLineInEditor.Controls
+
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class HighlightCurrentLineOptions
-	Inherits DevExpress.CodeRush.Core.OptionsPage
+    Inherits DevExpress.CodeRush.Core.OptionsPage
 
-	<System.Diagnostics.DebuggerNonUserCode()> _
-	Public Sub New()
-		MyBase.New()
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Public Sub New()
+        MyBase.New()
 
-		'This call is required by the Component Designer.
-		InitializeComponent()
+        'This call is required by the Component Designer.
+        InitializeComponent()
 
-	End Sub
+    End Sub
 
-	'OptionsPage overrides dispose to clean up the component list.
-	<System.Diagnostics.DebuggerNonUserCode()> _
-	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-		If disposing AndAlso components IsNot Nothing Then
-			components.Dispose()
-		End If
-		MyBase.Dispose(disposing)
-	End Sub
+    'OptionsPage overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        If disposing AndAlso components IsNot Nothing Then
+            components.Dispose()
+        End If
+        MyBase.Dispose(disposing)
+    End Sub
 
-	'Required by the Windows Form Designer
-	Private components As System.ComponentModel.IContainer
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
 
-	'NOTE: The following procedure is required by the Windows Form Designer
-	'It can be modified using the Windows Form Designer.  
-	'Do not modify it using the code editor.
-	<System.Diagnostics.DebuggerStepThrough()> _
-	Private Sub InitializeComponent()
-        Me.InnerColor = New HighlightCurrentLineInEditor.Controls.ColorPicker
-        Me.OuterColor = New HighlightCurrentLineInEditor.Controls.ColorPicker
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.  
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Me.InnerColor = New ColorPicker
+        Me.OuterColor = New ColorPicker
         Me.chkEnabled = New System.Windows.Forms.CheckBox
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -109,10 +111,10 @@ Partial Class HighlightCurrentLineOptions
     Friend WithEvents OuterColor As Global.HighlightCurrentLineInEditor.Controls.ColorPicker
     Friend WithEvents chkEnabled As System.Windows.Forms.CheckBox
 
-	Public Shared ReadOnly Property FullPath() As String
-		Get
-			Return GetCategory() + "\" + GetPageName()
-		End Get
-	End Property
+    Public Shared ReadOnly Property FullPath() As String
+        Get
+            Return GetCategory() + "\" + GetPageName()
+        End Get
+    End Property
 
 End Class

@@ -25,9 +25,16 @@ Public Class HighlightCurrentLineInEditor
         MyBase.FinalizePlugIn()
     End Sub
 #End Region
+
+#Region "Fields"
     Private mEnabled As Boolean
     Private mOuterColor As PaintColor
     Private mInnerColor As PaintColor
+    Private TextHighlighter As New TextHighlighter
+    Private mEaElementRange As SourceRange
+    Private mLastLine As Integer = -1
+#End Region
+
     Public Sub LoadSettings()
         Using lStorage As DecoupledStorage = HighlightCurrentLineOptions.Storage
             mEnabled = lStorage.ReadBoolean(HighlightCurrentLineOptions.SECTION, "Enabled", True)
@@ -38,10 +45,6 @@ Public Class HighlightCurrentLineInEditor
             mOuterColor = New PaintColor(ForeColor, 255)
         End Using
     End Sub
-
-    Private TextHighlighter As New TextHighlighter
-    Private mEaElementRange As SourceRange
-    Private mLastLine As Integer = -1
     Private Sub HighlightCurrentLineInEditor_LanguageElementActivated(ByVal ea As DevExpress.CodeRush.Core.LanguageElementActivatedEventArgs) Handles Me.LanguageElementActivated
         Dim Line As Integer = CodeRush.Caret.Line
         If mLastLine <> Line Then
@@ -50,13 +53,11 @@ Public Class HighlightCurrentLineInEditor
             mLastLine = Line
         End If
     End Sub
-
     Private Sub HighlightCurrentLineInEditor_EditorPaint(ByVal ea As DevExpress.CodeRush.Core.EditorPaintEventArgs) Handles Me.EditorPaint
         If mEnabled AndAlso mEaElementRange.ToString <> String.Empty Then
             TextHighlighter.PaintUnfocused(CodeRush.TextViews.Active, mEaElementRange, mOuterColor.TrueColor, mInnerColor.TrueColor)
         End If
     End Sub
-
     Private Sub HighlightCurrentLineInEditor_OptionsChanged(ByVal ea As DevExpress.CodeRush.Core.OptionsChangedEventArgs) Handles Me.OptionsChanged
         If (ea.OptionsPages.Contains(GetType(HighlightCurrentLineOptions))) Then
             LoadSettings()
