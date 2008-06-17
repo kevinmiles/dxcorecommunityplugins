@@ -1,0 +1,5 @@
+To install any of these plugins, download the relevant binary from a download site and place it within your plugin folder.
+
+This directory is "C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins" by default.
+
+Then (re)start studio.
