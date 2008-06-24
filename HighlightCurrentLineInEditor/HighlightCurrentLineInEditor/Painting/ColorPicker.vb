@@ -160,14 +160,15 @@ Namespace Controls
 
 #End Region
         Private Function PickColor(ByVal CancelColor As Color) As Color
-            Dim MyDialog As New ColorDialog
-            MyDialog.AllowFullOpen = False
-            MyDialog.Color = CancelColor
-            If (MyDialog.ShowDialog() = DialogResult.OK) Then
-                Return MyDialog.Color
-            Else
-                Return CancelColor
-            End If
+            Using MyDialog As New ColorDialog()
+                MyDialog.AllowFullOpen = False
+                MyDialog.Color = CancelColor
+                If (MyDialog.ShowDialog() = DialogResult.OK) Then
+                    Return MyDialog.Color
+                Else
+                    Return CancelColor
+                End If
+            End Using
         End Function
         Private Sub tbOpacity_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tbOpacity.Scroll
             Opacity = tbOpacity.Value

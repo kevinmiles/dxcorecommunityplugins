@@ -11,7 +11,6 @@ Public Class HighlightCurrentLineInEditor
 
     'DXCore-generated code...
 #Region " InitializePlugIn "
-    Private mBackGroundBrush As Brush = Nothing
     Public Overrides Sub InitializePlugIn()
         MyBase.InitializePlugIn()
         Call LoadSettings()
@@ -27,6 +26,7 @@ Public Class HighlightCurrentLineInEditor
 #End Region
 
 #Region "Fields"
+    Private mBackGroundBrush As Brush = Nothing
     Private mEnabled As Boolean
     Private mOuterColor As PaintColor
     Private mInnerColor As PaintColor
@@ -45,7 +45,8 @@ Public Class HighlightCurrentLineInEditor
             mOuterColor = New PaintColor(ForeColor, 255)
         End Using
     End Sub
-    Private Sub HighlightCurrentLineInEditor_LanguageElementActivated(ByVal ea As DevExpress.CodeRush.Core.LanguageElementActivatedEventArgs) Handles Me.LanguageElementActivated
+
+    Private Sub HighlightCurrentLineInEditor_CaretMoved(ByVal ea As DevExpress.CodeRush.Core.CaretMovedEventArgs) Handles Me.CaretMoved
         Dim Line As Integer = CodeRush.Caret.Line
         If mLastLine <> Line Then
             mEaElementRange = New SourceRange(Line, 0, Line, 150)
