@@ -1,0 +1,5 @@
+CR_MsdnBclHelp is a plugin which supplies a single action called "MSDN BCL Help" which is bindable to a key (I use Alt+F1) 
+
+When this action is invoked, the action constructs a Url which points at the MSDN (en_us) page for the Type opn which the caret is currently placed, and then launches it in your browser.
+
+I use this in conjunction with the [http://pluralsight.com/community/blogs/craig/archive/2008/06/26/51219.aspx loband version of MSDN] to provide very quick help for any BCL type.
