@@ -4,6 +4,7 @@ Imports System.Windows.Forms
 Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
+Imports System.Diagnostics
 
 Public Class MsdnBclHelpPlugin
 
