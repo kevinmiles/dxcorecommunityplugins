@@ -125,14 +125,3 @@ Public Class JumpToImplementation
 #End Region
 
 End Class
-Public Interface SomeInterface
-    Sub Fred()
-End Interface
-Public Class SomeInterfaceDescendant
-    Implements SomeInterface
-    Friend Sub New()
-    End Sub
-    Public Sub Fred() Implements SomeInterface.Fred
-        Throw New NotImplementedException()
-    End Sub
-End Class
