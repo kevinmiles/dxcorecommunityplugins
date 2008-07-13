@@ -42,7 +42,6 @@ Public Class FormatAssignmentsPlugin
     End Sub
 
     Private Sub FormatAssignments_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs) Handles FormatAssignments.CheckAvailability
-        CodeRush.Documents.ActiveTextView.Selection.ExtendToWholeLines()
         ea.Available = SelectedText.Contains("=") AndAlso CodeRush.Documents.ActiveTextView.Selection.Height > 1
     End Sub
 
