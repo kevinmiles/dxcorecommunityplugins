@@ -102,12 +102,35 @@ Public Class JumpToImplementation
         For Each Node As LanguageElement In TheClass.Nodes
             If TypeOf Node Is Member Then
                 Dim ClassMember As Member = CType(Node, Member)
-                If ClassMember.Implements.Contains(InterfaceMember.Location) Then
+                If ImplementsInterface(ClassMember, InterfaceMember) Then
                     Return ClassMember
                 End If
             End If
         Next
         Return Nothing
+    End Function
+    Function ImplementsInterface(ByVal Member As IMemberElement, ByVal InterfaceMember As IMemberElement) As Boolean
+        If Member Is Nothing OrElse InterfaceMember Is Nothing Then
+            Return False
+        End If
+        Dim interfaceType As IInterfaceElement = If(TypeOf InterfaceMember.ParentType Is IInterfaceElement, CType(InterfaceMember.ParentType, IInterfaceElement), Nothing)
+        If interfaceType Is Nothing Then
+            Return False
+        End If
+        Dim memberType As ITypeElement = If(TypeOf Member.ParentType Is ITypeElement, CType(Member.ParentType, ITypeElement), Nothing)
+        If memberType Is Nothing Then
+            Return False
+        End If
+        If Not memberType.DescendsFrom(interfaceType) Then
+            Return False
+        End If
+        Dim resovler As ISourceTreeResolver = New SourceTreeResolver()
+        Dim MemberWithParams As IWithParameters = If(TypeOf Member Is IWithParameters, CType(Member, IWithParameters), Nothing)
+        Dim InterfaceMemberWithParams As IWithParameters = If(TypeOf InterfaceMember Is IWithParameters, CType(InterfaceMember, IWithParameters), Nothing)
+        If Not SignatureHelper.SignaturesMatch(resovler, MemberWithParams, InterfaceMemberWithParams) Then
+            Return False
+        End If
+        Return True
     End Function
 
 #End Region
