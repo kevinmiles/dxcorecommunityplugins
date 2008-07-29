@@ -1,10 +1,11 @@
 Sometimes you know the name of the object you need, but you don't know the correct namespace.
 This plugin tries to find the namespace you need and adds it to the imports (using) section.
 
-This plugin is almost the same as the build in functionality in VS, but the build in funtionality in VS has some shortcommings:
-When in C#, VS2005 is case sensitive, and can only find a exact match. 
-When in VB.NET, VS2005 can find the right namespace (case insensitive), but can not add a imports statement.
-In C# in VS2005 it only works for declaring a variable, not for method parameters.
-In C# and VB.NET in VS2005 it does not work when using the name of the class and a shared (static) method like 
-
+This plugin is almost the same as the built-in functionality in VS, but the build in functionality in VS has some shortcomings:
+  * When in C#, VS2005 is case sensitive, and can only find a exact match. 
+  * When in VB.NET, VS2005 can find the right namespace (case insensitive), but can not add a imports statement.
+  * In C# in VS2005 it only works for declaring a variable, not for method parameters.
+  * In C# and VB.NET in VS2005 it does not work when using the name of the class and a shared (static) method like:
+{{{
 regex.IsMatch(...
+}}}
