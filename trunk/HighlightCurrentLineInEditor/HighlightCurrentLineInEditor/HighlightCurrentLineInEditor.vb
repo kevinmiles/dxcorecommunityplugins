@@ -49,7 +49,7 @@ Public Class HighlightCurrentLineInEditor
     Private Sub HighlightCurrentLineInEditor_CaretMoved(ByVal ea As DevExpress.CodeRush.Core.CaretMovedEventArgs) Handles Me.CaretMoved
         Dim Line As Integer = CodeRush.Caret.Line
         If mLastLine <> Line Then
-            mEaElementRange = New SourceRange(Line, 0, Line, 150)
+            mEaElementRange = New SourceRange(Line, 1, Line, 150)
             Call CodeRush.TextViews.Active.Invalidate()
             mLastLine = Line
         End If
