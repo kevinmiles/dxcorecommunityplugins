@@ -22,3 +22,8 @@ It's language agnostic, so it works in both C# or VB.NET. I've tied it to the CT
 You can view a slightly more detailed explanation about installation on my blog at:
 
 http://www.rcs-solutions.com/blog/2008/08/06/CodeRushPluginDeveloperInitials.aspx
+
+It can be downloaded from the community site (here!) or my website:
+
+http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_Initials/
+http://www.rcs-solutions.com/Download.ashx?File=CR_Initials.zip
