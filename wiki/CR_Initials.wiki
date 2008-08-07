@@ -26,4 +26,5 @@ http://www.rcs-solutions.com/blog/2008/08/06/CodeRushPluginDeveloperInitials.asp
 It can be downloaded from the community site (here!) or my website:
 
 http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_Initials/
+
 http://www.rcs-solutions.com/Download.ashx?File=CR_Initials.zip
