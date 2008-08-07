@@ -102,7 +102,7 @@ namespace CR_DrawLinesBetweenMethods
 				else
 					leftPos = ea.PaintArgs.GetPoint(ea.LanguageElement.Range.Start).X;
 				
-				Point linePos = ea.PaintArgs.GetPoint(line, 0);
+				Point linePos = ea.PaintArgs.GetPoint(line, 1);
 				int yPos = linePos.Y;
 				Point leftPt = new Point(leftPos, yPos);
 				Point rightPt = new Point(ea.PaintArgs.TextView.Width, yPos);
