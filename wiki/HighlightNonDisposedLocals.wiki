@@ -1,0 +1,13 @@
+#summary Describes the "HighlightNonDisposedLocals" plugin.
+#labels Phase-Support
+
+= Introduction =
+
+This plugin was written by Mark Miller in a series of blog articles.
+
+= Blog Articles =
+
+  * [http://www.doitwith.net/2007/04/20/HighlightingIDisposableLocalsThatDon'tCallDisposePartI.aspx Part 1]
+  * [http://www.doitwith.net/2007/04/24/HighlightingIDisposableLocalsThatDon'tCallDisposePartII.aspx Part 2]
+  *  [http://www.doitwith.net/2007/04/26/HighlightingIDisposableLocalsThatDon'tCallDisposePartIII.aspx Part 3]
+ *  [http://www.doitwith.net/2007/05/09/HighlightingIDisposableLocalsThatDon'tCallDisposePartIV.aspx Part 4]
