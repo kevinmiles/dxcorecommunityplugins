@@ -11,5 +11,5 @@ To install any of these plugins, download the relevant binary (DownloadInstructi
 =Usage=
 Each plugin has its own usage instructions. See the [http://code.google.com/p/dxcorecommunityplugins/w/list wiki] for more on each individual plugin.
 
-=Known Issues=
-For answers to some questions and some workarounds/info on known issues, check out the KnownIssues page.
+=Frequently Asked Questions=
+For answers to some questions and some workarounds/info on known issues, check out the FrequentlyAskedQuestions page.
