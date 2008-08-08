@@ -1,53 +1,15 @@
+#summary Explains how to install the community plugins.
+#labels Featured,Phase-Deploy
 
-==To Install==
-To install any of these plugins, download the relevant binary from a download site and place it within your plugin folder.
+=Installation=
+To install any of these plugins, download the relevant binary (DownloadInstructions) and then...
 
-The *Default* directory is "C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins".
+  # Shut down all instances of Visual Studio.
+  # Place the downloaded plugin(s) into your DXCore plugin folder. This is typically something like: `C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins`
+  # Start Visual Studio. The plugin(s) are now installed.
 
-Then (re)start studio.
+=Usage=
+Each plugin has its own usage instructions. See the [http://code.google.com/p/dxcorecommunityplugins/w/list wiki] for more on each individual plugin.
 
-
-==Issues==
-Sometimes after installing a plugin it will appear to fail. 
-
-===You may not have the DXCore/CodeRush/Refactor installed.===
-All these plugins require that you have one or more of these products installed and working.
-
-===How do I know if DXCore has found the my Refactoring?===
-A catalog of Refactorings that the DXCore has found can be found within the options screen.
-
---- 
-Follow these steps to get to the Catalog options page:
-
-1. From the DevExpress menu, select "Options...".
-2. In the tree view on the left, navigate to this folder:
-
-    Editor\Refactoring
-
-3. Select the "Catalog" options page.
-This page level is Advanced, and will only be visible if the Level combo on the lower-left of the Options dialog is set to Advanced or Expert.
----
-
-===How do I know if DXCore has found the my Code plugin?===
-A catalog of Code plugins that the DXCore has found can be found within the options screen 
----
-Follow these steps to get to the Catalog options page: 
-
-1. From the DevExpress menu, select "Options...". 
-2. In the tree view on the left, navigate to this folder: 
-
-Editor\Code Modification 
-
-3. Select the "Catalog" options page. 
----
-
-==Vista Issues==
-
-===Vista has stolen your dlls===
-
-Strange as this may sound, if you are running vista it is a possibility that It may have stolen your plugin dlls. *Use Explorer to double check* that they are present in the plugins directory. 
-
-Under some circumstances Vista can silently redirect plugin dlls that you might be extracting into another folder if you try to extract them using a program which is not explorer. 
-
-For example if I drag the plugins out of a zip file directly into explorer, 
-then the files seem to be extracted correctly. However if I use a program's built in "extract" function Vista sometimes redirects these files. It is very annoying. 
+=Known Issues=
+For answers to some questions and some workarounds/info on known issues, check out the KnownIssues page.
