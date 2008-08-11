@@ -1,0 +1,52 @@
+#summary Collapses an XML comment down to one line.
+
+= Introduction =
+
+This plug-in is implemented as a Refactoring - hit the Refactor button or click on the refactoring ellipse when inside of an XML comment and it will collapse it down to one line, ex.
+
+{{{
+<summary>
+Sample
+</summary>
+}}}
+
+Will become:
+
+{{{
+<summary>Sample</summary>
+}}}
+
+If the comment spans multiple lines it collapses it in two steps:
+
+{{{
+<summary>
+This
+Is
+Three Lines.
+</summary>
+}}}
+
+* First Collapse
+{{{
+<summary>This
+Is
+Three Lines</summary>
+}}}
+
+* Second Collapse
+
+{{{
+<summary>This Is Three Lines</summary>
+}}}
+
+= Details =
+
+You can view a more detailed explanation on my blog at:
+
+http://www.rcs-solutions.com/blog/2008/08/08/CollapsingXMLCommentTags.aspx
+
+You can download it from:
+
+http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CollapseXMLComment/
+
+http://www.rcs-solutions.com/Download.ashx?File=Refactor_Comments.zip
