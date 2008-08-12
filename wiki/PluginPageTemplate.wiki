@@ -1,0 +1,24 @@
+#summary Template for pages that describe plugin functionality.
+#labels Phase-Design
+
+= Introduction =
+
+Give a one or two sentence description of the problem the plugin solves here. (Don't forget to fill in the summary with a short, one-sentence description of the plugin proper.) The introduction is like a problem statement and solution description. If there are external blog links that explain why things are the way they are, you may want to put them here.
+
+If you have a screen shot of the plugin in action, you can put it here or in the "Usage" section, below.
+
+= Installation =
+
+Refer users to the InstallInstructions page for general instructions on putting the plugin assembly in the right spot and put additional install instructions for the plugin here. For example, if the plugin requires a shortcut key binding, explain to the user what they need to do to add it.
+
+= Usage =
+
+Describe how to use your plugin here. If the plugin does different things, here's where you explain them all. You may also want to put screen shots here.
+
+= Options =
+
+If your plugin has configuration to it, explain the various options here. You may want a screen shot of the options page to accompany it.
+
+= Credits =
+
+List the contributors/authors for the plugin here.
