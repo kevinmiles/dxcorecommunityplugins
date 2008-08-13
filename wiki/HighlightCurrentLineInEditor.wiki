@@ -5,6 +5,8 @@
 
 TODO
 
+Forum thread: http://community.devexpress.com/forums/p/64753/219766.aspx 
+
 = Installation =
 
 Installation instructions can be found on the InstallInstructions page.
