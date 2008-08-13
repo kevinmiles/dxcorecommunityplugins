@@ -1,0 +1,22 @@
+#summary Highlights the currently active line in the editor.
+#labels Phase-Support
+
+= Introduction =
+
+TODO
+
+= Installation =
+
+Installation instructions can be found on the InstallInstructions page.
+
+= Usage =
+
+TODO
+
+= Options =
+
+TODO
+
+= Credits =
+
+Author: Rory Becker
