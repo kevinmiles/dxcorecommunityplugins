@@ -1,0 +1,24 @@
+#summary Draws a line between method declarations.
+#labels Phase-Support
+
+= Introduction =
+
+The VB.NET editor provides a line separator between methods but the C# editor does not. This plugin provides a similar line separation functionality with some additional flexibility for line format.
+
+Blog article: http://blog.dotsmart.net/2008/05/02/lines-between-methods-in-the-c-editor-coderushdxcore-plugin/
+
+= Installation =
+
+Installation instructions can be found on the InstallInstructions page.
+
+= Usage =
+
+TODO
+
+= Options =
+
+TODO
+
+= Credits =
+
+Author: Duncan Smart
