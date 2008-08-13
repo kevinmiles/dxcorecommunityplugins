@@ -1,9 +1,11 @@
-#summary Creates constructors for a class that call base constructors.
+#summary Copy code in one language, paste it in another.
 #labels Phase-Support
 
 = Introduction =
 
 TODO
+
+Forum thread: http://community.devexpress.com/forums/p/64608/219445.aspx
 
 = Installation =
 

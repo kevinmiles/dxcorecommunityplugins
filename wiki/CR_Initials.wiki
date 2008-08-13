@@ -1,4 +1,5 @@
 #summary Inserts developer name or initials as a comment into your source code.
+#labels Phase-Support
 
 = Introduction =
 
@@ -23,8 +24,18 @@ You can view a slightly more detailed explanation about installation on my blog 
 
 http://www.rcs-solutions.com/blog/2008/08/06/CodeRushPluginDeveloperInitials.aspx
 
-It can be downloaded from the community site (here!) or my website:
+= Installation =
 
-http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_Initials/
+Installation instructions can be found on the InstallInstructions page.
 
-http://www.rcs-solutions.com/Download.ashx?File=CR_Initials.zip
+= Usage =
+
+TODO
+
+= Options =
+
+TODO
+
+= Credits =
+
+Author: Paul Mrozowski

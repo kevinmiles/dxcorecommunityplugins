@@ -1,5 +1,5 @@
 #summary Plugin for sorting selected lines, optionally by regular expression.
-#labels Phase-Deploy
+#labels Phase-Support
 
 = Introduction =
 
@@ -41,3 +41,7 @@ Or to sort a list of variable declarations in C# by variable name rather than ty
 ||Sort expression||`$1`||
 
 Sorting with expressions may take some experimentation to get used to, but it can be handy, especially if sorting, say, tab-delimited data or some such.
+
+= Credits =
+
+Author: Travis Illig

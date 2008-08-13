@@ -1,7 +1,22 @@
-A plugin providing a single StringProvider
+#summary String provider allowing you to select from a comma-delimited list.
+#labels Phase-Support
 
-The PickFromListStringProvider allows for a list comma seperated strings to be passed to it.
+= Introduction =
 
-On construction, the list is parsed and presented to the user as a listbox fromwhich one value may be picked.
+This plugin provides a single StringProvider that allows for a list comma seperated strings to be passed to it. The list is parsed and presented to the user as a listbox from which one value may be picked. The picked value is then returned.
 
-The picked value is then returned.
+= Installation =
+
+Installation instructions can be found on the InstallInstructions page.
+
+= Usage =
+
+TODO
+
+= Options =
+
+TODO
+
+= Credits =
+
+Author: Rory Becker

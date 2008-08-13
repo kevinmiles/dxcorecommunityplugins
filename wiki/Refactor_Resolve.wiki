@@ -1,3 +1,8 @@
+#summary Locates the namespace for an object and adds a namespace reference for it.
+#labels Phase-Support
+
+= Introduction =
+
 Sometimes you know the name of the object you need, but you don't know the correct namespace.
 This plugin tries to find the namespace you need and adds it to the imports (using) section.
 
@@ -9,3 +14,19 @@ This plugin is almost the same as the built-in functionality in VS, but the buil
 {{{
 regex.IsMatch(...
 }}}
+
+= Installation =
+
+Installation instructions can be found on the InstallInstructions page.
+
+= Usage =
+
+TODO
+
+= Options =
+
+TODO
+
+= Credits =
+
+Author: Koen Hoefkens

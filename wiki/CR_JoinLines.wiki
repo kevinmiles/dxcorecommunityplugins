@@ -1,5 +1,5 @@
 #summary Plugin for joining selected lines together, optionally with a delimiter.
-#labels Phase-Deploy
+#labels Phase-Support
 
 = Introduction =
 I use !TextPad for text editing and one of the things I like a lot about !TextPad is the Ctrl+J shortcut that allows you to join selected lines to each other. Visual Studio doesn't offer that line joining capability, so I decided to write it.
@@ -23,7 +23,7 @@ http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JoinLines/screenshots/
   # It is recommended that the default binding of "Ctrl + Shift + J", "Enter" provides a join with no delimiter parameter.  To add additional types of joins - space delimited, comma-delimited, etc. - repeat steps 5 through 10, changing the second key binding (in step 7) to something intuitive and setting the appropriate delimiter parameter in step 10.  It's easy to remember the delimiter if you set the delimiter and the second key to the same character.  For example, a pipe-delimited join might have a key binding of "Ctrl + Shift + J", "|".
   # Click "OK" to close the options window when you are done adding shortcuts.
 
-= Configuration =
+= Options =
 [http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JoinLines/screenshots/shortcuts_lg.gif http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JoinLines/screenshots/shortcuts_sm.gif]
 
 
@@ -41,3 +41,7 @@ Once installed and bound to a keyboard shortcut (as noted above):
   # Open a text document in the code editor in Visual Studio.
   # Without selecting anything, enter the keyboard shortcut to activate the command.  The current line the caret is on will be joined with the subsequent line.
   # Select multiple lines then enter the keyboard shortcut to activate the command.  All selected lines will be joined.
+
+= Credits =
+
+Author: Travis Illig

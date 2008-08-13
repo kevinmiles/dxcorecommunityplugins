@@ -1,9 +1,11 @@
-#summary Creates constructors for a class that call base constructors.
+#summary Formats sequential assignment statements so the equals sign aligns.
 #labels Phase-Support
 
 = Introduction =
 
 TODO
+
+Forum thread: http://community.devexpress.com/forums/t/64641.aspx
 
 = Installation =
 

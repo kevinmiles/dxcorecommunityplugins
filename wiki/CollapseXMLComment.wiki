@@ -1,4 +1,5 @@
 #summary Collapses an XML comment down to one line.
+#labels Phase-Support
 
 = Introduction =
 
@@ -39,14 +40,22 @@ Three Lines</summary>
 <summary>This Is Three Lines</summary>
 }}}
 
-= Details =
-
 You can view a more detailed explanation on my blog at:
 
 http://www.rcs-solutions.com/blog/2008/08/08/CollapsingXMLCommentTags.aspx
 
-You can download it from:
+= Installation =
 
-http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CollapseXMLComment/
+Installation instructions can be found on the InstallInstructions page.
 
-http://www.rcs-solutions.com/Download.ashx?File=Refactor_Comments.zip
+= Usage =
+
+TODO
+
+= Options =
+
+TODO
+
+= Credits =
+
+Author: Paul Mrozowski
