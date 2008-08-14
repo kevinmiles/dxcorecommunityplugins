@@ -34,6 +34,7 @@ namespace CR_DrawLinesBetweenMethods
 		Color _lineColor = Color.Silver;
 		bool _drawLineAtEndOfMethod = false;
 		bool _drawShadow = true;
+		bool _enabled = true;
 
 		void loadSettings()
 		{
@@ -48,6 +49,7 @@ namespace CR_DrawLinesBetweenMethods
 					_lineColor = storage.ReadColor("DrawLinesBetweenMethods", "LineColor", _lineColor);
 					_drawLineAtEndOfMethod = storage.ReadBoolean("DrawLinesBetweenMethods", "DrawLineAtEndOfMethod", _drawLineAtEndOfMethod);
 					_drawShadow = storage.ReadBoolean("DrawLinesBetweenMethods", "DrawShadow", _drawShadow);
+					_enabled = storage.ReadBoolean("DrawLinesBetweenMethods", "Enabled", _enabled);
 				}
 
 				_fullWidthChk.Checked = _fullWidth;
@@ -56,6 +58,7 @@ namespace CR_DrawLinesBetweenMethods
 				_lineColorBtn.BackColor = _lineColor;
 				_drawLineAtEndChk.Checked = _drawLineAtEndOfMethod;
 				_drawShadowChk.Checked = _drawShadow;
+				_enabledChk.Checked = _enabled;
 
 			}
 			catch (Exception ex)
@@ -75,6 +78,7 @@ namespace CR_DrawLinesBetweenMethods
 				_lineColor = _lineColorBtn.BackColor;
 				_drawLineAtEndOfMethod = _drawLineAtEndChk.Checked;
 				_drawShadow = _drawShadowChk.Checked;
+				_enabled = _enabledChk.Checked;
 
 				using (DecoupledStorage storage = OptDrawLinesBetweenMethods.Storage)
 				{
@@ -84,6 +88,7 @@ namespace CR_DrawLinesBetweenMethods
 					storage.WriteColor("DrawLinesBetweenMethods", "LineColor", _lineColor);
 					storage.WriteBoolean("DrawLinesBetweenMethods", "DrawLineAtEndOfMethod", _drawLineAtEndOfMethod);
 					storage.WriteBoolean("DrawLinesBetweenMethods", "DrawShadow", _drawShadow);
+					storage.WriteBoolean("DrawLinesBetweenMethods", "Enabled", _enabled);
 				}
 			}
 			catch (Exception ex)
@@ -101,6 +106,12 @@ namespace CR_DrawLinesBetweenMethods
 
 			if (dlg.ShowDialog() == DialogResult.OK)
 				_lineColorBtn.BackColor = dlg.Color;
+		}
+
+		private void OptDrawLinesBetweenMethods_Load(object sender, EventArgs e)
+		{
+			// Enable controls with Enabled checkbox
+			_mainPanel.DataBindings.Add("Enabled", _enabledChk, "Checked");
 		}
 
 	}
