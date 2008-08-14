@@ -61,7 +61,6 @@ namespace CR_DrawLinesBetweenMethods
 			// 
 			// DrawLinesBetweenMethodsPlugIn
 			// 
-			this.EditorPaintLanguageElement += new DevExpress.CodeRush.Core.EditorPaintLanguageElementEventHandler(this.DrawLinesBetweenMethodsPlugIn_EditorPaintLanguageElement);
 			this.OptionsChanged += new DevExpress.CodeRush.Core.OptionsChangedEventHandler(this.DrawLinesBetweenMethodsPlugIn_OptionsChanged);
 			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
@@ -111,7 +110,7 @@ namespace CR_DrawLinesBetweenMethods
 				
 				if (_drawShadow)
 				{
-					Color shadowColor = Color.FromArgb(0x11, 0x00, 0x00, 0x00);
+					Color shadowColor = Color.FromArgb(0x33, _lineColor);
 					using (LinearGradientBrush brush = new LinearGradientBrush(rect, shadowColor, Color.Transparent, 90, true))
 					{
 						ea.PaintArgs.Graphics.FillRectangle(brush, rect);
@@ -134,6 +133,7 @@ namespace CR_DrawLinesBetweenMethods
 		Color _lineColor = Color.Silver;
 		bool _drawLineAtEndOfMethod = false;
 		bool _drawShadow = true;
+		bool _enabled = true;
 
 
 		private void DrawLinesBetweenMethodsPlugIn_OptionsChanged(DevExpress.CodeRush.Core.OptionsChangedEventArgs ea)
@@ -150,7 +150,13 @@ namespace CR_DrawLinesBetweenMethods
 				_lineWidth = storage.ReadInt32("DrawLinesBetweenMethods", "LineWidth", _lineWidth);
 				_lineColor = storage.ReadColor("DrawLinesBetweenMethods", "LineColor", _lineColor);
 				_drawLineAtEndOfMethod = storage.ReadBoolean("DrawLinesBetweenMethods", "DrawLineAtEndOfMethod", _drawLineAtEndOfMethod);
-				_drawShadow= storage.ReadBoolean("DrawLinesBetweenMethods", "DrawShadow", _drawShadow);
+				_drawShadow = storage.ReadBoolean("DrawLinesBetweenMethods", "DrawShadow", _drawShadow);
+				_enabled = storage.ReadBoolean("DrawLinesBetweenMethods", "Enabled", _enabled);
+
+				if (_enabled)
+					this.EditorPaintLanguageElement += DrawLinesBetweenMethodsPlugIn_EditorPaintLanguageElement;
+				else
+					this.EditorPaintLanguageElement -= DrawLinesBetweenMethodsPlugIn_EditorPaintLanguageElement;
 			}
 		}
 
