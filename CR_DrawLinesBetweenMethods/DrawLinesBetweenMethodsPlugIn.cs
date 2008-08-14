@@ -153,10 +153,9 @@ namespace CR_DrawLinesBetweenMethods
 				_drawShadow = storage.ReadBoolean("DrawLinesBetweenMethods", "DrawShadow", _drawShadow);
 				_enabled = storage.ReadBoolean("DrawLinesBetweenMethods", "Enabled", _enabled);
 
+				this.EditorPaintLanguageElement -= DrawLinesBetweenMethodsPlugIn_EditorPaintLanguageElement;
 				if (_enabled)
 					this.EditorPaintLanguageElement += DrawLinesBetweenMethodsPlugIn_EditorPaintLanguageElement;
-				else
-					this.EditorPaintLanguageElement -= DrawLinesBetweenMethodsPlugIn_EditorPaintLanguageElement;
 			}
 		}
 
