@@ -1,0 +1,29 @@
+#summary provides an action (Execute) for executing any arbitrary VS command.
+
+= Introduction =
+
+This plugin provides an action (Execute) for executing and arbitrary VS command.
+
+= Motivation = 
+
+At first glance this would seem to be pointless because it would seem that you can already bind Commands to any Keystroke. This is true 
+
+However it had been requested previously that it would be nice to be able to bind to Mouse input. And since DXCore actions are bindable to Mouse or Keyboard I felt that this would be a good way to do it.
+
+= Installation =
+
+Installation instructions can be found on the InstallInstructions page.
+
+= Usage =
+
+1.> Bind the 'Execute' action to any Key/Mouse shortcut from within DevExpress\Options\IDE\Shortcuts
+
+2.> Specify The name of the Command in the Parameter box.
+
+= Example = 
+
+Bind Ctrl+LeftClick to "Edit.GoToDefinition"
+
+= Credits =
+
+Author: Rory Becker
