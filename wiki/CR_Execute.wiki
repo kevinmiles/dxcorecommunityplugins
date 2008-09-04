@@ -22,7 +22,7 @@ Installation instructions can be found on the InstallInstructions page.
 
 = Example = 
 
-Bind Ctrl+LeftClick to "Edit.GoToDefinition"
+Bind Ctrl+LeftClick to "Execute" with a parameter of "Edit.GoToDefinition"
 
 = Credits =
 
