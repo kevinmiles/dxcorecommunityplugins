@@ -361,7 +361,9 @@ namespace RedGreen
         {
             if (!string.IsNullOrEmpty(location))
             {
-                TestResult result = _testResults.Find(delegate(TestResult testResult) { return testResult.MethodLocation == location; });
+                TestResult result = _testResults.Find(delegate(TestResult testResult) 
+                    { return (LocationMatchesFull(testResult.MethodLocation, location) 
+                            || LocationMatchesAfterRootNs(testResult.MethodLocation, location)); });
                 if (result != null)
                 {
                     switch (result.Result)
@@ -379,6 +381,29 @@ namespace RedGreen
                 }
             }
             return Unknown;
+        }
+
+        /// <summary>
+        /// Check to see if both locations match
+        /// </summary>
+        /// <param name="resultLocation">The method location reported by the test framework</param>
+        /// <param name="iteratingLocation">The method location given when iterating to redraw a method attribute</param>
+        /// <returns>True if 100% match</returns>
+        private static bool LocationMatchesFull(string resultLocation, string iteratingLocation)
+        {
+            return resultLocation == iteratingLocation;
+        }
+
+        /// <summary>
+        /// Check to see if both match when the test result has the root namespace removed
+        /// </summary>
+        /// <param name="resultLocation">The method location reported by the test framework</param>
+        /// <param name="iteratingLocation">The method location given when iterating to redraw a method attribute</param>
+        /// <returns>True if the locations match after the root namespace is removed from the test location</returns>
+        /// <remarks>This is the case for VB. I am not sure why. It may be I just don't know enough about VB.</remarks>
+        private static bool LocationMatchesAfterRootNs(string resultLocation, string iteratingLocation)
+        {
+            return resultLocation.Substring(resultLocation.IndexOf(".") + 1) == iteratingLocation;
         }
 
         /// <summary>
