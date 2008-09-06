@@ -89,41 +89,42 @@ namespace RedGreen
         /// <param name="location">What location to look for</param>
         /// <param name="failAtLine">The line that the location should be on</param>
         /// <returns></returns>
+        /// <remarks>Assumes that the location is in the active file.</remarks>
         internal static LanguageElement GetStatement(string location, int failAtLine)
         {
-            if (false == string.IsNullOrEmpty(location) && CodeRush.Source.ActiveClass != null)
+            if (CodeRush.Source.ActiveSourceFile == null)
             {
-                foreach (LanguageElement method in CodeRush.Source.ActiveClass.Nodes)
+                return null;
+            }
+            LanguageElement node = CodeRush.Source.ActiveSourceFile.GetNodeAt(new SourcePoint(failAtLine, 0));
+            if (node != null)
+            {//Checks full location first and then strips the root namespace and checks again, the latter is a VB work around.
+                if (MatchesAssertLocationOrMethod(location, node.Location) || MatchesAssertLocationOrMethod(location.Substring(location.IndexOf(".") + 1), node.Location))
                 {
-                    if (location == method.Location)
-                    {// Gallio case, location is a method not a statement
-                        LanguageElement statement = method.FirstChild;
-                        while (statement != null)
+                    LanguageElement statement = node.FirstChild;
+                    while (statement != null)
+                    {
+                        if (statement.StartLine == failAtLine)
                         {
-                            if (statement.StartLine == failAtLine)
-                            {
-                                return statement;
-                            }
-                            statement = statement.NextCodeSibling;
+                            return statement;
                         }
-                    }
-                    if (location.StartsWith(method.Location))
-                    {//xUnit case, location is the assert that failed
-                        LanguageElement statement = method.FirstChild;
-                        while (statement != null)
-                        {
-                            if (statement.Location == location)
-                            {
-                                return statement;
-                            }
-                            statement = statement.NextCodeSibling;
-                        }
+                        statement = statement.NextCodeSibling;
                     }
                 }
             }
             return null;
         }
 
+        /// <summary>
+        /// Looks for an exact match (the assert location), or a partial match (the method location)
+        /// </summary>
+        /// <param name="desiredLocation"></param>
+        /// <param name="nodeLocation"></param>
+        /// <returns></returns>
+        private static bool MatchesAssertLocationOrMethod(string desiredLocation, string nodeLocation)
+        {
+            return desiredLocation == nodeLocation || desiredLocation.StartsWith(nodeLocation);
+        }
         /// <summary>
         /// Force a redraw of the class which contains the given language element
         /// </summary>
