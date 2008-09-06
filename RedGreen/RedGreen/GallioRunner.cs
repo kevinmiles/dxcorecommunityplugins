@@ -87,7 +87,8 @@ namespace RedGreen
             launcher.Logger = new LogStreamLogger(logStreamWriter);
 
             launcher.RuntimeSetup = new Gallio.Runtime.RuntimeSetup();
-            launcher.RuntimeSetup.PluginDirectories.Add(@"C:\Program Files\Gallio\bin");
+            string gallioPath = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Gallio").GetValue("").ToString();
+            launcher.RuntimeSetup.PluginDirectories.Add(gallioPath);
 
             // Set the installation path explicitly to ensure that we do not encounter problems
             // when the test assembly contains a local copy of the primary runtime assemblies
