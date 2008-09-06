@@ -292,18 +292,18 @@ namespace RedGreen
 
         private void DrawError(EditorPaintLanguageElementEventArgs ea)
         {
-            TestResult dummy = new TestResult();
-            TestResult currentResult = _testResults.Find(delegate(TestResult result) { return ea.LanguageElement.Location == result.AssertLocation; });
-            if (currentResult != null)
+            TestResult currentResult = GetResultForLocation(ea.LanguageElement.Location);
+            if (currentResult != null && currentResult.Result == TestStatus.Failed)
             {
                 LanguageElement statement = DxCoreUtil.GetStatement(currentResult.AssertLocation, currentResult.FailAtLine);
                 if (statement != null)
                 {
+                    int errorTextStartCol = statement.EndOffset + 5;
                     if (string.IsNullOrEmpty(currentResult.Expected))
                     {// not an equal comparison
                         ea.PaintArgs.OverlayText("<------- Test failed here",
                             currentResult.FailAtLine,
-                            statement.EndOffset + 5,
+                            errorTextStartCol,
                             Failed);
 
                     }
@@ -311,12 +311,12 @@ namespace RedGreen
                     {
                         ea.PaintArgs.OverlayText(string.Format("Expected: {0} Actual: {1}", currentResult.Expected, currentResult.Actual),
                             currentResult.FailAtLine,
-                            statement.EndOffset + 5,
+                            errorTextStartCol,
                             Failed);
                     }
                     else
                     {
-                        int start = statement.EndOffset + 5;
+                        int start = errorTextStartCol;
                         string correctPortion = string.Format("Expected: {0} Actual: {1}", currentResult.Expected, currentResult.Actual.Substring(0, currentResult.Position));
                         ea.PaintArgs.OverlayText(correctPortion,
                             currentResult.FailAtLine,
@@ -361,9 +361,7 @@ namespace RedGreen
         {
             if (!string.IsNullOrEmpty(location))
             {
-                TestResult result = _testResults.Find(delegate(TestResult testResult) 
-                    { return (LocationMatchesFull(testResult.MethodLocation, location) 
-                            || LocationMatchesAfterRootNs(testResult.MethodLocation, location)); });
+                TestResult result = GetResultForLocation(location);
                 if (result != null)
                 {
                     switch (result.Result)
@@ -381,6 +379,20 @@ namespace RedGreen
                 }
             }
             return Unknown;
+        }
+
+        /// <summary>
+        /// Find a test result for the given location 
+        /// </summary>
+        /// <param name="location">What result to find</param>
+        /// <returns>A result or null</returns>
+        private TestResult GetResultForLocation(string location)
+        {
+            return _testResults.Find(delegate(TestResult testResult)
+                                {
+                                    return (LocationMatchesFull(testResult.MethodLocation, location)
+                                          || LocationMatchesAfterRootNs(testResult.MethodLocation, location));
+                                });
         }
 
         /// <summary>
