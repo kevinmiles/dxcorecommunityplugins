@@ -32,7 +32,6 @@ using System.Xml;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
-using Xunit;
 using System.Text.RegularExpressions;
 
 namespace RedGreen

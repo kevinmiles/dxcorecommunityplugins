@@ -41,6 +41,7 @@
     <Compile Include="NunitParserTests.cs" />
     <Compile Include="MbUnitParseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XunitParserTests.cs" />
     <Compile Include="XunitRunnerTests.cs" />
   </ItemGroup>
   <ItemGroup>
