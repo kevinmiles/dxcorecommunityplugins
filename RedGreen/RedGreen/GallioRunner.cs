@@ -43,8 +43,8 @@ namespace RedGreen
     {
         public GallioRunner()
         {
-            AddAttributes("Test");
-            AddFrameworks("MbUnit.Framework", "NUnit.Framework");
+            AddAttributes("Test", "Fact");
+            AddFrameworks("MbUnit.Framework", "NUnit.Framework", "Xunit");
         }
         
         /// <summary>

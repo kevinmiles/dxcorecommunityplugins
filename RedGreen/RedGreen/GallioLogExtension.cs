@@ -48,7 +48,7 @@ namespace RedGreen
         {
             _delimiterFactories.Add(new NUnitGallioParser());
             _delimiterFactories.Add(new MbUnitGallioParser());
-            //Gallio also can run xUnit tests, but we have a custom runner for that framework
+            _delimiterFactories.Add(new XunitGallioParser());
         }
 
         /// <summary>
@@ -105,7 +105,10 @@ namespace RedGreen
         /// <returns>A parser tuned to the testing framework used.</returns>
         private IGallioResultParser GetResultParser(Gallio.Runner.Events.TestStepFinishedEventArgs e)
         {
-            IGallioResultParser parser = _delimiterFactories.Find(delegate(IGallioResultParser h) { return e.Test.FullName.StartsWith(h.Framwork); });
+            IGallioResultParser parser = _delimiterFactories.Find(delegate(IGallioResultParser h)
+            {
+                return e.Test.FullName.ToLower().StartsWith(h.Framwork.ToLower());
+            });
             if (parser != null)
             {
                 return parser;

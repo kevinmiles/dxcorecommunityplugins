@@ -33,7 +33,6 @@ using System.Xml;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
-using Xunit;
 
 namespace RedGreen
 {
@@ -42,7 +41,7 @@ namespace RedGreen
     /// </summary>
     public partial class PlugIn1 : StandardPlugIn
     {
-        private List<ITestRunner> _testRunners = new List<ITestRunner>(new ITestRunner[] { new XunitRunner(), new GallioRunner() });
+        private List<ITestRunner> _testRunners = new List<ITestRunner>(new ITestRunner[] { /*new XunitRunner(),*/ new GallioRunner() });
         private List<TestResult> _testResults = new List<TestResult>();
 
         #region InitializePlugIn

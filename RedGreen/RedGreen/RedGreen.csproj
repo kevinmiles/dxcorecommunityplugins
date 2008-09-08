@@ -62,10 +62,6 @@
     <Reference Include="DevExpress.CodeRush.StructuralParser" />
     <Reference Include="DevExpress.CodeRush.VSCore" />
     <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="xunit.runner.utility, Version=1.0.2.1293, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\3rdParty\xUnit\xunit.runner.utility.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllTestsCompleteEventArgs.cs" />
@@ -90,6 +86,7 @@
     <Compile Include="TestResult.cs" />
     <Compile Include="TestFramework.cs" />
     <Compile Include="TestStatus.cs" />
+    <Compile Include="XunitGallioParser.cs" />
     <Compile Include="XunitResultXmlUtility.cs" />
     <Compile Include="XunitRunner.cs" />
   </ItemGroup>
