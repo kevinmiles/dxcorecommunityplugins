@@ -32,6 +32,7 @@ using Gallio.Model;
 using Gallio.Model.Execution;
 using Gallio.Model.Filters;
 using Gallio.Runner;
+using Gallio.Runtime;
 
 namespace RedGreen
 {
@@ -81,51 +82,42 @@ namespace RedGreen
         /// <param name="filters">A set of filters to narrow the tests that should be run</param>
         private void RunTests(string assemblyPath, params Filter<ITest>[] filters)
         {
-            LogStreamWriter logStreamWriter = Log.Default;
-
             TestLauncher launcher = new TestLauncher();
-            launcher.Logger = new LogStreamLogger(logStreamWriter);
 
-            launcher.RuntimeSetup = new Gallio.Runtime.RuntimeSetup();
-            string gallioPath = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Gallio").GetValue("").ToString();
-            launcher.RuntimeSetup.PluginDirectories.Add(gallioPath);
+            //launcher.Logger = new RedGreenLogger(); // provide your own ILogger implementation if you like... this is optional
+
 
             // Set the installation path explicitly to ensure that we do not encounter problems
             // when the test assembly contains a local copy of the primary runtime assemblies
             // which will confuse the runtime into searching in the wrong place for plugins.
+            launcher.RuntimeSetup = new RuntimeSetup();
+            string gallioPath = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Gallio").GetValue("").ToString();
+            launcher.RuntimeSetup.PluginDirectories.Add(gallioPath);
             launcher.RuntimeSetup.InstallationPath = Path.GetDirectoryName(typeof(GallioRunner).Assembly.Location); 
-
+            //On 9/7/08, the InstallationFolder was not yet available in a packaged version of Gallio. When it is, the below should be used in place of the above three lines!
+            //launcher.RuntimeSetup.InstallationConfiguration = InstallationConfiguration.LoadFromRegistry();
+            //launcher.RuntimeSetup.InstallationPath = launcher.RuntimeSetup.InstallationConfiguration.InstallationFolder;
+            
             launcher.TestExecutionOptions.Filter = new AndFilter<ITest>(filters);
-
+            
             launcher.TestPackageConfig.HostSetup.ShadowCopy = true;
             launcher.TestPackageConfig.HostSetup.ApplicationBaseDirectory = Path.GetDirectoryName(assemblyPath);
             launcher.TestPackageConfig.HostSetup.WorkingDirectory = Path.GetDirectoryName(assemblyPath);
 
+
             launcher.TestPackageConfig.AssemblyFiles.Add(assemblyPath);
+
 
             GallioLogExtension testCompleteReciever = new GallioLogExtension();
             testCompleteReciever.TestComplete += new TestCompleteEventHandler(testCompleteReciever_TestComplete);
             launcher.TestRunnerExtensions.Add(testCompleteReciever);
 
-            string reportDirectory = Path.GetTempPath();
-            launcher.ReportDirectory = reportDirectory;
-            launcher.ReportNameFormat = "SampleRunnerReport";
 
-            launcher.TestRunnerFactoryName = StandardTestRunnerFactoryNames.Local;
-            TestLauncherResult result;
+            TestLauncherResult result = launcher.Run();
 
-            using (logStreamWriter.BeginSection("Log Output"))
-                result = launcher.Run();
 
-            using (logStreamWriter.BeginSection("Text Report"))
-            {
-                foreach (string reportPath in result.ReportDocumentPaths)
-                {
-                    logStreamWriter.WriteLine(File.ReadAllText(reportPath));
-                    File.Delete(reportPath);
-                }
-            }
             RaiseAllComplete(result.Statistics.PassedCount.ToString(),
+
                 result.Statistics.FailedCount.ToString(),
                 result.Statistics.SkippedCount.ToString(),
                 result.Statistics.Duration.ToString());
