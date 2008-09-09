@@ -68,8 +68,7 @@ Partial Class TextFieldPickList
         Me.RefactoringProvider1.DisplayName = ""
         Me.RefactoringProvider1.ProviderName = ""
         Me.RefactoringProvider1.Register = True
-        Me.RefactoringProvider1.SupportsAsyncMode = False
-        '
+		'
         'CodeProvider1
         '
         Me.CodeProvider1.ActionHintText = ""
@@ -79,8 +78,7 @@ Partial Class TextFieldPickList
         Me.CodeProvider1.DisplayName = ""
         Me.CodeProvider1.ProviderName = ""
         Me.CodeProvider1.Register = True
-        Me.CodeProvider1.SupportsAsyncMode = False
-        CType(Me.FieldPickList, System.ComponentModel.ISupportInitialize).EndInit()
+		CType(Me.FieldPickList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RefactoringProvider1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.CodeProvider1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
