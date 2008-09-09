@@ -22,45 +22,45 @@
 // * THE SOFTWARE.
 // */
 
-//using System;
-//using System.Xml;
-//using Xunit;
+using System;
+using System.Xml;
+using Xunit;
 
-//namespace RedGreen
-//{
-//    /// <summary>
-//    /// Utilities used by the xUnit test runner. This is a copy paste of code supplied by xUnit 
-//    /// </summary>
-//    public class XunitResultXmlUtility
-//    {
-//        public static XmlNode GetResult(XmlNode assemblyOrClassNode)
-//        {
-//            return GetResult(assemblyOrClassNode, 0);
-//        }
+namespace RedGreen
+{
+    /// <summary>
+    /// Utilities used by the xUnit test runner. This is a copy paste of code supplied by xUnit 
+    /// </summary>
+    public class XunitResultXmlUtility
+    {
+        public static XmlNode GetResult(XmlNode assemblyOrClassNode)
+        {
+            return GetResult(assemblyOrClassNode, 0);
+        }
 
-//        public static XmlNode GetResult(XmlNode assemblyOrClassNode, int testIndex)
-//        {
-//            if (assemblyOrClassNode.Name == "assembly")
-//                return GetResult(assemblyOrClassNode, 0, testIndex);
-//            return GetResultFromClass(assemblyOrClassNode, testIndex);
-//        }
+        public static XmlNode GetResult(XmlNode assemblyOrClassNode, int testIndex)
+        {
+            if (assemblyOrClassNode.Name == "assembly")
+                return GetResult(assemblyOrClassNode, 0, testIndex);
+            return GetResultFromClass(assemblyOrClassNode, testIndex);
+        }
 
-//        public static XmlNode GetResult(XmlNode assemblyNode, int classIndex, int testIndex)
-//        {
-//            XmlNodeList classNodes = assemblyNode.SelectNodes("class");
-//            if (classNodes.Count <= classIndex)
-//                throw new ArgumentException("Could not find class item with index " + classIndex + " in XML:\r\n" + assemblyNode.OuterXml);
-//            return GetResultFromClass(classNodes[classIndex], testIndex);
-//        }
+        public static XmlNode GetResult(XmlNode assemblyNode, int classIndex, int testIndex)
+        {
+            XmlNodeList classNodes = assemblyNode.SelectNodes("class");
+            if (classNodes.Count <= classIndex)
+                throw new ArgumentException("Could not find class item with index " + classIndex + " in XML:\r\n" + assemblyNode.OuterXml);
+            return GetResultFromClass(classNodes[classIndex], testIndex);
+        }
 
-//        public static XmlNode GetResultFromClass(XmlNode classNode, int testIndex)
-//        {
-//            XmlNodeList testNodes = classNode.SelectNodes("test");
-//            if (testNodes.Count <= testIndex)
-//                throw new ArgumentException("Could not find test item with index " + testIndex + " in XML:\r\n" + classNode.OuterXml);
-//            return testNodes[testIndex];
-//        }
+        public static XmlNode GetResultFromClass(XmlNode classNode, int testIndex)
+        {
+            XmlNodeList testNodes = classNode.SelectNodes("test");
+            if (testNodes.Count <= testIndex)
+                throw new ArgumentException("Could not find test item with index " + testIndex + " in XML:\r\n" + classNode.OuterXml);
+            return testNodes[testIndex];
+        }
 
 
-//    }
-//}
+    }
+}
