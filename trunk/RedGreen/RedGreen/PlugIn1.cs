@@ -85,32 +85,50 @@ namespace RedGreen
 
         private void TestOneClass(string assemblyPath, string assemblyName, Class selectedClass)
         {
-            BuildActiveProject();
+            bool buildPassed = BuildActiveProject();
 
-            string testFramework = GetTestFramework();
-            foreach (ITestRunner runner in _testRunners)
+            if (buildPassed)
             {
-                if (runner.RunsTestsForNamespace(testFramework))
+                ITestRunner runner = GetTestRunner();
+                if (runner != null)
                 {
                     runner.RunClass(assemblyPath, assemblyName, selectedClass.FullName);
-                    break;
                 }
+            }
+            else
+            {
+                ShowOutputWindow();
             }
         }
 
-        private void TestOneMethod(string assemblyPath, string assemblyName, Class selectedClass, Method selectedMethod)
+        private ITestRunner GetTestRunner()
         {
             string testFramework = GetTestFramework();
             foreach (ITestRunner runner in _testRunners)
             {
                 if (runner.RunsTestsForNamespace(testFramework))
                 {
-                    if (runner.IsTest(selectedMethod))
-                    {
-                        BuildActiveProject();
-                        runner.RunMethod(assemblyPath, assemblyName, selectedClass.FullName, selectedMethod.Name);
-                    }
+                    return runner;
                 }
+            }
+            return null;
+        }
+
+        private void TestOneMethod(string assemblyPath, string assemblyName, Class selectedClass, Method selectedMethod)
+        {
+            bool buildPassed = BuildActiveProject();
+
+            if (buildPassed)
+            {
+                ITestRunner runner = GetTestRunner();
+                if (runner != null)
+                {
+                    runner.RunMethod(assemblyPath, assemblyName, selectedClass.FullName, selectedMethod.Name);
+                }
+            }
+            else
+            {
+                ShowOutputWindow();
             }
         }
 
@@ -219,10 +237,22 @@ namespace RedGreen
             return String.Empty;
         }
 
-        private static void BuildActiveProject()
+        private static bool BuildActiveProject()
         {
             EnvDTE.Solution sol = CodeRush.Solution.Active;
             sol.SolutionBuild.Build(true);
+            return sol.SolutionBuild.LastBuildInfo == 0;
+        }
+
+        private static void ShowOutputWindow()
+        {
+            EnvDTE.OutputWindow outputWindow = CodeRush.Windows.Active.DTE.Windows.Item(EnvDTE.Constants.vsWindowKindOutput).Object as EnvDTE.OutputWindow;
+            const string kBuildPane = "Build";
+            EnvDTE.OutputWindowPane buildPane;
+            buildPane = outputWindow.OutputWindowPanes.Item(kBuildPane);
+            System.Diagnostics.Debug.Assert(buildPane != null);
+            buildPane.Activate();
+            outputWindow.Parent.SetFocus();
         }
         #endregion
 
@@ -443,6 +473,11 @@ namespace RedGreen
         private void actNextError_Execute(ExecuteEventArgs ea)
         {
             // Move to next failed test
+        }
+
+        private void actSeRunTest_Execute(ExecuteEventArgs ea)
+        {
+            ClearPriorResults();
         }
     }
 }
