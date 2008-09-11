@@ -30,6 +30,7 @@ Partial Class PlugIn1
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PlugIn1))
         Dim Parameter1 As DevExpress.CodeRush.Core.Parameter = New DevExpress.CodeRush.Core.Parameter(New DevExpress.CodeRush.Core.StringParameterType)
+        Dim Parameter2 As DevExpress.CodeRush.Core.Parameter = New DevExpress.CodeRush.Core.Parameter(New DevExpress.CodeRush.Core.BooleanParameterType)
         Me.Execute = New DevExpress.CodeRush.Core.Action(Me.components)
         CType(Me.Execute, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -46,7 +47,12 @@ Partial Class PlugIn1
         Parameter1.Description = "Command Name"
         Parameter1.Name = "CommandName"
         Parameter1.Optional = False
+        Parameter2.DefaultValue = False
+        Parameter2.Description = "Drop a marker before executing command"
+        Parameter2.Name = "DropMarkerBeforeCommand"
+        Parameter2.Optional = True
         Me.Execute.Parameters.Add(Parameter1)
+        Me.Execute.Parameters.Add(Parameter2)
         CType(Me.Execute, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
