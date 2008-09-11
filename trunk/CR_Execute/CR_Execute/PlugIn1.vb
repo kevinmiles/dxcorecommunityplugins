@@ -23,6 +23,13 @@ Public Class PlugIn1
 	End Sub
 #End Region
     Private Sub Execute_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles Execute.Execute
+        If ea.Action.Parameters.GetBool("DropMarkerBeforeExecution") Then
+            If CodeRush.Documents.ActiveTextDocument IsNot Nothing Then
+                CodeRush.Markers.Drop(CodeRush.Documents.ActiveTextDocument, _
+                                      CodeRush.Caret.SourcePoint.Line, _
+                                      CodeRush.Caret.SourcePoint.Offset)
+            End If
+        End If
         CodeRush.Command.Execute(ea.Action.Parameters.GetString("CommandName"))
     End Sub
 End Class
