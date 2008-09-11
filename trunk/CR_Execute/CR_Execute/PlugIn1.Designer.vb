@@ -49,7 +49,7 @@ Partial Class PlugIn1
         Parameter1.Optional = False
         Parameter2.DefaultValue = False
         Parameter2.Description = "Drop a marker before executing command"
-        Parameter2.Name = "DropMarkerBeforeCommand"
+        Parameter2.Name = "DropMarkerBeforeExecution"
         Parameter2.Optional = True
         Me.Execute.Parameters.Add(Parameter1)
         Me.Execute.Parameters.Add(Parameter2)
