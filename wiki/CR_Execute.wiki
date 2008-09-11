@@ -1,5 +1,14 @@
 #summary provides an action (Execute) for executing any arbitrary VS command.
 
+= Obsolete =
+This plugin is largely obsolete as CR already allows one to bind Mouse and Keys to VS commands aswell as DXCore Actions.
+
+It is less apparent but you can simply type the name of a command into the Command Dropdown on the IDE\Shortcuts options page in CodeRush and this will have the same effect as CR_Execute was designed to.
+
+----
+Perhaps this plugin should be re-envisioned as a way to execute a sequence of actions?
+----
+
 = Introduction =
 
 This plugin provides an action (Execute) for executing and arbitrary VS command.
