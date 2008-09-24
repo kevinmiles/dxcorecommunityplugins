@@ -18,11 +18,11 @@ Namespace CR_WorkBench
 
         ' constructor...
 #Region " Options "
+        ''' <summary>
+        ''' Required for Windows.Forms Class Composition Designer support
+        ''' </summary>
         Public Sub New()
             MyBase.New()
-            ''' <summary>
-            ''' Required for Windows.Forms Class Composition Designer support
-            ''' </summary>
             InitializeComponent()
         End Sub
 #End Region

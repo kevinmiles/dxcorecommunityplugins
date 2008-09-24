@@ -223,6 +223,9 @@ Namespace CR_WorkBench
                     Filename = e.Data.GetData(SourceType)
                 Case DataFormats.FileDrop
                     Filename = e.Data.GetData(SourceType)(0)
+                Case Else
+                    ' Do nothing as we really don't know how to handle anything else
+                    Exit Sub
             End Select
             Call AddFileToWorkBench(Filename)
         End Sub
@@ -252,7 +255,7 @@ Namespace CR_WorkBench
             Next
             SetTextinFile(File, sw.ToString, Encoding.Unicode)
         End Sub
-        Friend Function LoadWorkBench()
+        Friend Sub LoadWorkBench()
             lstFiles.Items.Clear()
             Dim SaveFile As String = GetWorkBenchFileName
             If File.Exists(SaveFile) Then
@@ -263,7 +266,7 @@ Namespace CR_WorkBench
                     End If
                 Next
             End If
-        End Function
+        End Sub
 
         Private Sub mnuRemoveItems_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRemoveItems.Click
             For CurrentItemIndex As Integer = lstFiles.SelectedItems.Count - 1 To 0 Step -1
