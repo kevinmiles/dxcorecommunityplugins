@@ -45,7 +45,7 @@ Public Class ImplementBaseConstructors
         ' Generate New Constructors
         Dim NewConstructors As New List(Of Method)
         For Each Constructor As IMethodElement In OldConstructors
-            Dim NewConstructor As Method = BaseInitialisedConstructorOf(ThisClass.ClassName, Constructor)
+            Dim NewConstructor As Method = BaseInitialisedConstructorOf(ThisClass.Name, Constructor)
             ThisClass.AddNode(NewConstructor) ' Add to tree for Context
             NewConstructors.Add(NewConstructor)
         Next
