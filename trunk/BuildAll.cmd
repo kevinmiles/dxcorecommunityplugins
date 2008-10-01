@@ -26,7 +26,7 @@ goto :EOF
 
 
 :COMPILE_SETUP
-	"%ISCC%" /Q DXCoreCommunityPluginsSuiteSetup.iss
+	%ISCC% /Q DXCoreCommunityPluginsSuiteSetup.iss
 	if %ERRORLEVEL% NEQ 0 (
 		echo.
 		echo ================================================================
