@@ -91,7 +91,19 @@ namespace RedGreen
             // when the test assembly contains a local copy of the primary runtime assemblies
             // which will confuse the runtime into searching in the wrong place for plugins.
             launcher.RuntimeSetup = new RuntimeSetup();
-            string gallioPath = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Gallio").GetValue("").ToString();
+            Microsoft.Win32.RegistryKey gallioKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Gallio");
+            if (gallioKey == null)
+            {
+                System.Windows.Forms.MessageBox.Show(
+                    @"Gallio not installed (registry key HKLM\SOFTWARE\Gallio\(Default) not found).\r\n"
+                    + "Please download from http://www.gallio.org/",
+                    "RedGreen Run Tests",
+                    System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Error);
+                return;
+            }
+            string gallioPath = gallioKey.GetValue("").ToString();
+
             launcher.RuntimeSetup.PluginDirectories.Add(gallioPath);
             launcher.RuntimeSetup.InstallationPath = Path.GetDirectoryName(typeof(GallioRunner).Assembly.Location); 
             //On 9/7/08, the InstallationFolder was not yet available in a packaged version of Gallio. When it is, the below should be used in place of the above three lines!
