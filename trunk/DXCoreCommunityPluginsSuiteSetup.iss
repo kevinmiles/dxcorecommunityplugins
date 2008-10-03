@@ -12,7 +12,7 @@
 AppId=DXCoreCommunityPluginsSuite
 AppName=DXCore Community Plugins Suite
 ; ### Update Version! ###
-AppVerName=DXCore Community Plugins Suite 1.0.0.144
+AppVerName=DXCore Community Plugins Suite 1.0.0.159
 AppPublisherURL=http://code.google.com/p/dxcorecommunityplugins/
 AppSupportURL=http://code.google.com/p/dxcorecommunityplugins/
 AppUpdatesURL=http://code.google.com/p/dxcorecommunityplugins/
@@ -62,29 +62,32 @@ Name: DX_PickFromListStringProvider; Description: "Pick From List String Provide
 Name: RedGreen; Description: "RedGreen"; Types: full
 
 [Files]
+;#### Note we use 'replacesameversion' for many because in many projects AssemblyVersion doesn't automatically change from build to build ####
+
 ;Source: "CollapseXMLComment.dll"; DestDir: "{code:DxPluginsDir}"; Components: format\CollapseXMLComment
-Source: "CR_DrawLinesBetweenMethods.dll"; DestDir: "{code:DxPluginsDir}"; Components: paint\CR_DrawLinesBetweenMethods
-Source: "CR_EnhancedForEach.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_EnhancedForEach
-Source: "CR_EventHandlerCheckTC.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_EventHandlerCheckTC
-Source: "CR_ImplementBaseConstructors.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_ImplementBaseConstructors
-Source: "CR_Initials.dll"; DestDir: "{code:DxPluginsDir}"; Components: format\CR_Initials
-Source: "CR_JoinLines.dll"; DestDir: "{code:DxPluginsDir}"; Components: format\CR_JoinLines
-Source: "CR_JumpToImplementation.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_JumpToImplementation
-Source: "CR_mdMarkerExtensions.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_mdMarkerExtensions
-Source: "CR_MsdnBclHelp.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_MsdnBclHelp
-Source: "CR_Paste.dll"; DestDir: "{code:DxPluginsDir}"; Components: format\CR_Paste
-Source: "CR_ShowFile.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_ShowFile
-Source: "CR_SortLines.dll"; DestDir: "{code:DxPluginsDir}"; Components: format\CR_SortLines
-Source: "DX_PickFromListStringProvider.dll"; DestDir: "{code:DxPluginsDir}"; Components: DX_PickFromListStringProvider
-Source: "HighlightCurrentLineInEditor.dll"; DestDir: "{code:DxPluginsDir}"; Components: paint\HighlightCurrentLineInEditor
-Source: "HighlightNonDisposedLocals.dll"; DestDir: "{code:DxPluginsDir}"; Components: paint\HighlightNonDisposedLocals
-;Source: "Refactor_Resolve.dll"; DestDir: "{code:DxPluginsDir}"; Components: refactor\Resolve
-Source: "Refactor_CreateStubForHandler.dll"; DestDir: "{code:DxPluginsDir}"; Components: refactor\CreateStubForHandler
-Source: "Refactor_FormatAssignments.dll"; DestDir: "{code:DxPluginsDir}"; Components: refactor\FormatAssignments
-Source: "Refactor_Generalize.dll"; DestDir: "{code:DxPluginsDir}"; Components: refactor\Generalize
-Source: "CR_BlockPainterPlus.dll"; DestDir: "{code:DxPluginsDir}"; Components: paint\CR_BlockPainterPlus
-; RedGreen
-Source: "RedGreen.dll"; DestDir: "{code:DxPluginsDir}"; Components: RedGreen
+Source: "CR_DrawLinesBetweenMethods.dll"; DestDir: "{code:DxPluginsDir}"; Components: paint\CR_DrawLinesBetweenMethods; Flags: replacesameversion
+Source: "CR_EnhancedForEach.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_EnhancedForEach; Flags: replacesameversion
+Source: "CR_EventHandlerCheckTC.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_EventHandlerCheckTC; Flags: replacesameversion
+Source: "CR_ImplementBaseConstructors.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_ImplementBaseConstructors; Flags: replacesameversion
+Source: "CR_Initials.dll"; DestDir: "{code:DxPluginsDir}"; Components: format\CR_Initials; Flags: replacesameversion
+Source: "CR_JoinLines.dll"; DestDir: "{code:DxPluginsDir}"; Components: format\CR_JoinLines; Flags: replacesameversion
+Source: "CR_JumpToImplementation.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_JumpToImplementation; Flags: replacesameversion
+Source: "CR_mdMarkerExtensions.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_mdMarkerExtensions; Flags: replacesameversion
+Source: "CR_MsdnBclHelp.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_MsdnBclHelp; Flags: replacesameversion
+Source: "CR_Paste.dll"; DestDir: "{code:DxPluginsDir}"; Components: format\CR_Paste; Flags: replacesameversion
+Source: "CR_ShowFile.dll"; DestDir: "{code:DxPluginsDir}"; Components: CR_ShowFile; Flags: replacesameversion ;
+Source: "CR_SortLines.dll"; DestDir: "{code:DxPluginsDir}"; Components: format\CR_SortLines; Flags: replacesameversion
+Source: "DX_PickFromListStringProvider.dll"; DestDir: "{code:DxPluginsDir}"; Components: DX_PickFromListStringProvider; Flags: replacesameversion
+Source: "HighlightCurrentLineInEditor.dll"; DestDir: "{code:DxPluginsDir}"; Components: paint\HighlightCurrentLineInEditor; Flags: replacesameversion
+Source: "HighlightNonDisposedLocals.dll"; DestDir: "{code:DxPluginsDir}"; Components: paint\HighlightNonDisposedLocals; Flags: replacesameversion
+;Source: "Refactor_Resolve.dll"; DestDir: "{code:DxPluginsDir}"; Components: refactor\Resolve; Flags: replacesameversion
+Source: "Refactor_CreateStubForHandler.dll"; DestDir: "{code:DxPluginsDir}"; Components: refactor\CreateStubForHandler; Flags: replacesameversion
+Source: "Refactor_FormatAssignments.dll"; DestDir: "{code:DxPluginsDir}"; Components: refactor\FormatAssignments; Flags: replacesameversion
+Source: "Refactor_Generalize.dll"; DestDir: "{code:DxPluginsDir}"; Components: refactor\Generalize; Flags: replacesameversion
+Source: "CR_BlockPainterPlus.dll"; DestDir: "{code:DxPluginsDir}"; Components: paint\CR_BlockPainterPlus; Flags: replacesameversion
+; ### RedGreen ###
+Source: "RedGreen.dll"; DestDir: "{code:DxPluginsDir}"; Components: RedGreen; Flags: replacesameversion
+; ... assume these will have proper version numbers so no 'replacesameversion ' flag
 Source: "Gallio.dll"; DestDir: "{code:DxPluginsDir}"; Components: RedGreen
 Source: "xunit.dll"; DestDir: "{code:DxPluginsDir}"; Components: RedGreen
 Source: "xunit.runner.utility.dll"; DestDir: "{code:DxPluginsDir}"; Components: RedGreen
