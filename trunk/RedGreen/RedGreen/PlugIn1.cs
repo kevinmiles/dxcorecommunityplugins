@@ -534,7 +534,13 @@ namespace RedGreen
                 ea.PaintArgs.Graphics.DrawRectangle(new Pen(TileBorderColor), indicator.X, indicator.Y, indicator.Width - 1, indicator.Width - 1);
             }
             ea.PaintArgs.TextView.AddTile(NewTile(indicator, testData));
-            ea.PaintArgs.TextView.Graphics.DrawIcon(new Icon(GetType(), "TestIndicator.ico"), indicator);
+            try
+            {
+                ea.PaintArgs.TextView.Graphics.DrawIcon(new Icon(GetType(), "TestIndicator.ico"), indicator);
+            }
+            catch 
+            {// fail silently if icon is missing from the project.
+            }
         }
 
         /// <summary>
