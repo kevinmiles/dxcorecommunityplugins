@@ -67,31 +67,31 @@ namespace RedGreen
                 TestResult testResult = new TestResult();
                 IGallioResultParser helper = GetResultParser(e);
 
-                testResult.MethodLocation = helper.ReformatLocation(e.Test.FullName.Substring(e.Test.FullName.IndexOf("/") + 1));
                 string rawResult = String.Empty;
+                testResult.Location = helper.ReformatLocation(e.Test.FullName.Substring(e.Test.FullName.IndexOf("/") + 1));
 
                 switch (outcome.DisplayName.ToLower())
                 {
                     case "failed":
                     case "error":
-                        testResult.Result = TestStatus.Failed;
+                        testResult.Status = TestStatus.Failed;
                         testResult.Durration = GetTestDuration(e.TestStepRun);
                         rawResult = FormatFailureMessage(e.TestStepRun);
-                        testResult.Expected = helper.GetExpected(rawResult);
-                        testResult.Actual = helper.GetActual(rawResult);
-                        testResult.FailAtLine = helper.GetLineNumber(rawResult, testResult.MethodLocation);
-                        testResult.Position = helper.GetPosition(rawResult, testResult.Expected, testResult.Actual);
+                        testResult.Failure.Expected = helper.GetExpected(rawResult);
+                        testResult.Failure.Actual = helper.GetActual(rawResult);
+                        testResult.Failure.FailingStatement = DxCoreUtil.GetStatement(testResult.Location, helper.GetLineNumber(rawResult, testResult.Location));
+                        testResult.Failure.ActualDiffersAt = helper.GetPosition(rawResult, testResult.Failure.Expected, testResult.Failure.Actual);
                         break;
 
                     case "passed":
-                        testResult.Result = TestStatus.Passed;
+                        testResult.Status = TestStatus.Passed;
                         testResult.Durration = GetTestDuration(e.TestStepRun);
                         break;
 
                     default:
                     case "skipped":
                     case "ignored":
-                        testResult.Result = TestStatus.Skipped;
+                        testResult.Status = TestStatus.Skipped;
                         break;
                 }
                 RaiseComplete(rawResult, testResult);

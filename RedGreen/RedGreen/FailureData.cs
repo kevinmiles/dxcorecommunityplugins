@@ -22,28 +22,37 @@
  * THE SOFTWARE.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using DevExpress.CodeRush.StructuralParser;
 
 namespace RedGreen
 {
-
-    public class TestResult
+    /// <summary>
+    /// Wraps up all the failure information into a single spot
+    /// </summary>
+    public class FailureData
     {
-        public TestStatus Status { get; set; }
-        public string Durration { get; set; }
-        public FailureData Failure { get; set; }
-        public string Location { get; set; }
+        /// <summary>
+        /// The standard for a passing assert
+        /// </summary>
+        public string Expected { get;  set; }
+        /// <summary>
+        /// What the code tested actually supplied for evaluation
+        /// </summary>
+        public string Actual { get; set; }
+        /// <summary>
+        /// The index where actual begins to have different values
+        /// </summary>
+        public int ActualDiffersAt { get; set; }
+        /// <summary>
+        /// Where the failure occurred
+        /// </summary>
+        public LanguageElement FailingStatement { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the TestResult class.
+        /// Initializes a new instance of the FailureData class.
         /// </summary>
-        public TestResult()
+        public FailureData()
         {
-            Status = TestStatus.Unknown;
-            Failure = new FailureData();
         }
     }
 }

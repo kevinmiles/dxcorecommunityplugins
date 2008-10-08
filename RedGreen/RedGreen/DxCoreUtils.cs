@@ -22,7 +22,6 @@
  * THE SOFTWARE.
  */
 
-using System;
 using System.Collections.Generic;
 using DevExpress.CodeRush.StructuralParser;
 using DevExpress.CodeRush.Core;
@@ -39,18 +38,18 @@ namespace RedGreen
         /// </summary>
         /// <param name="location">The location string for a method</param>
         /// <returns>A LanguageElement with a matching location string and a LanguageElementType equal to Method or null </returns>
-        internal static LanguageElement GetTestMethod(string location)
+        internal static Method GetTestMethod(string location)
         {
             try
             {
                 if (CodeRush.Source.ActiveClass != null)
                 {
-                    LanguageElement testMethod = CodeRush.Source.ActiveClass.FirstChild;
+                    LanguageElement testMethod = CodeRush.Source.ActiveClass.FindChildByElementType(LanguageElementType.Method);
                     while (testMethod != null)
                     {
-                        if (testMethod.ElementType == LanguageElementType.Method && testMethod.Location == location)
+                        if (testMethod.RootNamespaceLocation == location)
                         {
-                            return testMethod;
+                            return (Method)testMethod;
                         }
                         testMethod = testMethod.NextCodeSibling;
                     }
@@ -98,8 +97,8 @@ namespace RedGreen
             }
             LanguageElement node = CodeRush.Source.ActiveSourceFile.GetNodeAt(new SourcePoint(failAtLine, 0));
             if (node != null)
-            {//Checks full location first and then strips the root namespace and checks again, the latter is a VB work around.
-                if (MatchesAssertLocationOrMethod(location, node.Location) || MatchesAssertLocationOrMethod(location.Substring(location.IndexOf(".") + 1), node.Location))
+            {
+                if (location == node.RootNamespaceLocation || location.StartsWith(node.RootNamespaceLocation))
                 {
                     LanguageElement statement = node.FirstChild;
                     while (statement != null)
@@ -116,16 +115,6 @@ namespace RedGreen
         }
 
         /// <summary>
-        /// Looks for an exact match (the assert location), or a partial match (the method location)
-        /// </summary>
-        /// <param name="desiredLocation"></param>
-        /// <param name="nodeLocation"></param>
-        /// <returns></returns>
-        private static bool MatchesAssertLocationOrMethod(string desiredLocation, string nodeLocation)
-        {
-            return desiredLocation == nodeLocation || desiredLocation.StartsWith(nodeLocation);
-        }
-        /// <summary>
         /// Force a redraw of the class which contains the given language element
         /// </summary>
         /// <param name="element">what to invalidate</param>
@@ -133,6 +122,81 @@ namespace RedGreen
         {
             TextView view = element.View as TextView;
             view.Invalidate(element);//(element.StartLine - 1, 0, element.EndLine + 1, 0);
+        }
+
+        /// <summary>
+        /// Iterate through the known methods looking for one with the given location
+        /// </summary>
+        static public Method GetMethod(string location)
+        { //I am sure there is a better way, but this is as good as I have gotten so far.
+            foreach (SourceFile file in CodeRush.Source.ActiveSolution.AllFiles)
+            {
+                foreach (LanguageElement t in file.AllTypes)
+                {
+                    if (location.StartsWith(t.RootNamespaceLocation))
+                    {
+                        LanguageElement methodElement = t.FindChildByElementType(LanguageElementType.Method);
+                        while (methodElement != null)
+                        {
+                            if (methodElement.RootNamespaceLocation == location)
+                            {
+                                return (Method)methodElement;
+                            }
+                            methodElement = methodElement.NextCodeSibling;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Attempts to get the attribute attached the the parent method that is a test attribute
+        /// </summary>
+        public static Attribute GetFirstTestAttribute(LanguageElement element)
+        {
+            Method method = GetMethod(element);
+            if (method != null && method.AttributeCount > 0)
+            {
+                foreach (Attribute attribute in method.Attributes)
+                {
+                    if (IsTest(attribute))
+                    {
+                        return attribute;
+                    }
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Determines if the attribute is a known test attribute
+        /// </summary>
+        public static bool IsTest(Attribute attribute)
+        {
+            List<string> supportedAttributes = new List<string>(new string[] { "Test", "Fact", "TestMethod" });
+            return supportedAttributes.Contains(attribute.ToString());
+        }
+
+        /// <summary>
+        /// Get the method that contains the given LanguageElement
+        /// </summary>
+        public static Method GetMethod(LanguageElement element)
+        {
+            if (element.ElementType == LanguageElementType.Method)
+            {
+                return (Method)element;
+            }
+            if (element.InsideMethod)
+            {
+                LanguageElement method = element;
+                while (method.ElementType != LanguageElementType.Method)
+                {
+                    method = method.Parent;
+                }
+                return (Method)method;
+            }
+            return null;
         }
     }
 }

@@ -36,24 +36,63 @@ using Gallio.Runtime;
 
 namespace RedGreen
 {
+    delegate void TestCompleteEventHandler(object sender, TestCompleteEventArgs args);
+    delegate void AllTestsCompleteEventHandler(object sender, AllTestsCompleteEventArgs args);
+    
     /// <summary>
     /// Runs tests for Gallio supported testing frameworks. 
     /// </summary>
-    class GallioRunner : BaseTestRunner , ITestRunner
+    class GallioRunner //: BaseTestRunner 
     {
         public GallioRunner()
         {
-            AddAttributes("Test", "Fact");
-            AddFrameworks("MbUnit.Framework", "NUnit.Framework", "Xunit");
         }
-        
+
+        /// <summary>
+        /// Raised after a test has been run
+        /// </summary>
+        public event TestCompleteEventHandler TestComplete;
+
+        /// <summary>
+        /// Raised after all tests have been run
+        /// </summary>
+        public event AllTestsCompleteEventHandler AllTestsComplete;
+
+        /// <summary>
+        /// Emmit the TestComplete event
+        /// </summary>
+        /// <param name="raw">result of test in text form</param>
+        /// <param name="parsed">result of in type form</param>
+        protected void RaiseComplete(string raw, TestResult parsed)
+        {
+            if (TestComplete != null)
+            {
+                TestComplete(this, new TestCompleteEventArgs(raw, parsed));
+            }
+        }
+
+        /// <summary>
+        /// Emit the AllTestsComplete event
+        /// </summary>
+        /// <param name="passed">number of tests passed</param>
+        /// <param name="failed">number of tests failed</param>
+        /// <param name="skipped">number of tests skipped</param>
+        /// <param name="duration">time elapsed to run tests</param>
+        protected void RaiseAllComplete(string passed, string failed, string skipped, string duration)
+        {
+            if (AllTestsComplete != null)
+            {
+                AllTestsComplete(this, new AllTestsCompleteEventArgs(passed, failed, skipped, duration));
+            }
+        }
+
         /// <summary>
         /// Run all the tests in a class
         /// </summary>
         /// <param name="assemblyPath">Where the class lives physically on the disk</param>
         /// <param name="assemblyName">The full name of the assembly that contains the class.</param>
         /// <param name="className">Full name of the class that has the tests to run.</param>
-        public void RunClass(string assemblyPath, string assemblyName, string className)
+        public void RunTests(string assemblyPath, string assemblyName, string className)
         {
             RunTests(assemblyPath,
                 new AssemblyFilter<ITest>(new EqualityFilter<string>(assemblyName)),
@@ -67,12 +106,17 @@ namespace RedGreen
         /// <param name="assemblyName">The full name of the assembly that contains the class.</param>
         /// <param name="className">Full name of the class that has the tests to run.</param>
         /// <param name="methodName">The specific method name of the test to run.</param>
-        public void RunMethod(string assemblyPath, string assemblyName, string className, string methodName)
+        public void RunTests(string assemblyPath, string assemblyName, string className, string methodName)
         {
             RunTests(assemblyPath, 
                 new AssemblyFilter<ITest>(new EqualityFilter<string>(assemblyName)), 
                 new TypeFilter<ITest>(new EqualityFilter<string>(className), false), 
                 new MemberFilter<ITest>(new EqualityFilter<string>(methodName)));
+        }
+
+        public void RunTests(string assemblyPath, string assemblyName)
+        {
+            RunTests(assemblyPath, new AssemblyFilter<ITest>(new EqualityFilter<string>(assemblyName)));
         }
 
         /// <summary>
@@ -126,7 +170,6 @@ namespace RedGreen
 
 
             TestLauncherResult result = launcher.Run();
-
 
             RaiseAllComplete(result.Statistics.PassedCount.ToString(),
 
