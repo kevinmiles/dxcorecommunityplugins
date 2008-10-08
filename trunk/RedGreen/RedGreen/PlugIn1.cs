@@ -559,6 +559,44 @@ namespace RedGreen
             }
         }
 
+        //#region XmlDocCommentPainterPlugIn_EditorValidateLanguageElementClipRegion
+        //private void XmlDocCommentPainterPlugIn_EditorValidateLanguageElementClipRegion(DevExpress.CodeRush.Core.EditorValidateLanguageElementClipRegionEventArgs ea)
+        //{
+        //    if (!_FontsInitialized)
+        //    {
+        //        Setting.CreateFonts();
+        //        _FontsInitialized = true;
+        //    }
+
+        //    if (!Setting.Enabled)
+        //        return;
+
+        //    LanguageElement lDocComment = ea.LanguageElement;
+
+        //    if (lDocComment == null || lDocComment.ElementType != LanguageElementType.XmlDocComment)
+        //        return;
+
+        //    if (!ShouldPaintComment(ea.ValidateClipRegionArgs, lDocComment))
+        //        return;                // Don't paint it.
+
+        //    Point lStart;
+        //    if (!ea.ValidateClipRegionArgs.GetPoint(lDocComment.Range.Start, out lStart))
+        //        return;
+        //    Point lStop;
+        //    if (!ea.ValidateClipRegionArgs.GetPoint(lDocComment.Range.End, out lStop))
+        //        return;
+
+        //    int lLeft = lStart.X;
+
+        //    if (lStop.X < lLeft)
+        //        lStop.X = lLeft;
+        //    int lCommentWidth = ea.ValidateClipRegionArgs.DisplayWidth - lLeft;
+        //    int lCommentHeight = lStop.Y - lStart.Y + ea.ValidateClipRegionArgs.LineHeight;
+        //    Rectangle lCommentRectangle = new Rectangle(lLeft, lStart.Y, lCommentWidth, lCommentHeight);
+        //    ea.ValidateClipRegionArgs.ValidateRectangle(lCommentRectangle);
+        //}
+        //#endregion
+
         /// <summary>
         /// Draw the parsed error text at the end of the method causing the test failure 
         /// </summary>
@@ -683,6 +721,37 @@ namespace RedGreen
             {
             	_currentTestData.Result = new TestResult();
                 DxCoreUtil.Invalidate(_currentTestData.Method);
+            }
+        }
+
+        private void actRunTests_Execute(ExecuteEventArgs ea)
+        {
+            ResetTestResults();
+
+            bool buildPassed = BuildActiveProject();
+
+            if (buildPassed)
+            {
+                GallioRunner runner = new GallioRunner();
+                runner.TestComplete += runner_TestComplete;
+                runner.AllTestsComplete += runner_AllTestsComplete;
+
+                Class selectedClass = CodeRush.Source.ActiveClass;
+                Method selectedMethod = CodeRush.Source.ActiveMethod;
+                string assemblyPath = GetAssemblyPath(GetActiveProject());
+                string assemblyName = GetAssemblyName(GetActiveProject());
+                if (selectedMethod != null)
+                {
+                    runner.RunTests(assemblyPath, assemblyName, selectedClass.FullName, selectedMethod.Name);
+                }
+                else if (selectedClass != null)
+                {
+                    runner.RunTests(assemblyPath, assemblyName, selectedClass.FullName);
+                }
+            }
+            else
+            {
+                ShowOutputWindow();
             }
         }
     }
