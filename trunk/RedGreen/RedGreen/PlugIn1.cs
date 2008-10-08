@@ -22,14 +22,11 @@
  * THE SOFTWARE.
  */
 
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Text;
-using System.Xml;
+using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
@@ -39,21 +36,23 @@ namespace RedGreen
     /// <summary>
     /// This plug-in
     /// </summary>
-    public partial class PlugIn1 : StandardPlugIn
+    internal partial class PlugIn1 : StandardPlugIn
     {
-        private List<ITestRunner> _testRunners = new List<ITestRunner>(new ITestRunner[] { /*new XunitRunner(),*/ new GallioRunner() });
-        private List<TestResult> _testResults = new List<TestResult>();
+        private const string kRunTestMenuItem = "Run Test";
+        private const string kRunClassMenuItem = "Run All Tests in Class";
+        private const string kRunAssemblyMenuItem = "Run All Tests in Assembly";
+        private const string kNextFailedTestMenuItem = "Go to Next Failed Test";
+        private const int kDefaultCurrentFailure = -1;
+        private List<TestInfo> _Tests = new List<TestInfo>();
+        private List<TestInfo> _Failures = new List<TestInfo>();
+        private int _currentFailure = kDefaultCurrentFailure;
+        private List<string> _projectsExplored = new List<string>();
+        private TestInfo _hoveredTest = null;
 
         #region InitializePlugIn
         public override void InitializePlugIn()
         {
             base.InitializePlugIn();
-
-            foreach (ITestRunner runner in _testRunners)
-            {
-                runner.TestComplete += new TestCompleteEventHandler(runner_TestComplete);
-                runner.AllTestsComplete += new AllTestsCompleteEventHandler(runner_AllTestsComplete);
-            }
         }
         #endregion
 
@@ -61,38 +60,176 @@ namespace RedGreen
         public override void FinalizePlugIn()
         {
             base.FinalizePlugIn();
+
+        }
+        #endregion
+
+        #region Build Project
+        /// <summary>
+        /// Build the current project.
+        /// </summary>
+        /// <returns>
+        /// returns true if build passed 
+        /// </returns>
+        /// <remarks>Presently builds the solution because I was seeing some issues building the project. It may have been an issue with Gallio and so it could go back to project. Needs some testing/</remarks>
+        private bool BuildActiveProject()
+        {
+            EnvDTE.Solution sol = CodeRush.Solution.Active;
+            EnvDTE.Project project = GetActiveProject();
+            //sol.SolutionBuild.BuildProject(project.ConfigurationManager.ActiveConfiguration.ConfigurationName, project.UniqueName, true);
+            sol.SolutionBuild.Build(true);
+            return sol.SolutionBuild.LastBuildInfo == 0;
+        }
+
+        /// <summary>
+        /// Opens the output window if needed and sets the focus to it.
+        /// </summary>
+        private static void ShowOutputWindow()
+        {
+            EnvDTE.OutputWindow outputWindow = CodeRush.Windows.Active.DTE.Windows.Item(EnvDTE.Constants.vsWindowKindOutput).Object as EnvDTE.OutputWindow;
+            const string kBuildPane = "Build";
+            EnvDTE.OutputWindowPane buildPane = outputWindow.OutputWindowPanes.Item(kBuildPane);
+            System.Diagnostics.Debug.Assert(buildPane != null);
+            buildPane.Activate();
+            outputWindow.Parent.SetFocus();
+        }
+
+        /// <summary>
+        /// Clear the prior results because a build invalidates our knowledge
+        /// </summary>
+        private void PlugIn1_BuildDone(EnvDTE.vsBuildScope scope, EnvDTE.vsBuildAction action)
+        {
+            ResetTestResults();
+        }
+        #endregion
+
+        #region Run Test Tile Interaction
+        /// <summary>
+        /// Force a tile redraw when the cursor enters a tile
+        /// </summary>
+        private void PlugIn1_TileMouseEnter(object sender, TileEventArgs ea)
+        {
+            ea.Tile.Invalidate();
+        }
+
+        /// <summary>
+        /// Force a redraw when the cursor leaves. Also clean up anythine we were doing with the tile
+        /// </summary>
+        private void PlugIn1_TileMouseLeave(object sender, TileEventArgs ea)
+        {
+            ea.Tile.Invalidate();
+            _hoveredTest = null;
+            CodeRush.SmartTags.HidePopupMenu();
+        }
+
+        /// <summary>
+        /// Change the cursor when it enters a tile
+        /// </summary>
+        private void PlugIn1_TileSetCursor(object sender, TileSetCursorEventArgs ea)
+        {
+            Cursor.Current = Cursors.Hand;
+            ea.SetCursorArgs.Cancel = true;
+        }
+
+        /// <summary>
+        /// When the user hovers, save the tile and present a menu of options
+        /// </summary>
+        /// <param name="ea"></param>
+        private void PlugIn1_EditorMouseHover(EditorEventArgs ea)
+        {
+            Tile tile = ea.TextView.ActiveTile;
+            if (TileIsOurs(tile))
+            {
+                _hoveredTest = (TestInfo)tile.Object;
+                Point tilePoint = new Point(tile.Bounds.Left, tile.Bounds.Bottom);
+                Point menuPoint = ea.TextView.ToScreenPoint(tilePoint);
+                CodeRush.SmartTags.ShowPopupMenu(menuPoint, testActions);
+            }
+        }
+
+        /// <summary>
+        /// Provide the list of smartTagItems that will go into the menu. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="ea"></param>
+        private void testActions_GetSmartTagItems(object sender, GetSmartTagItemsEventArgs ea)
+        {
+            AddSmartTagItem(ea, kRunTestMenuItem, PlugIn1_RunTest);
+            AddSmartTagItem(ea, kRunClassMenuItem, PlugIn1_RunTest);
+            //AddSmartTagItem(ea, kRunAssemblyMenuItem, PlugIn1_RunTestSmart); // commented out because I am having an odd hang the first time used until I right click on the VS tab in the tool bar. 
+
+            if (_Failures.Count > 0)
+            {
+                AddSmartTagItem(ea, kNextFailedTestMenuItem, MoveToNextFailure);
+            }
+        }
+
+        /// <summary>
+        /// Do all the busy work to add a menuitem to a smart tag
+        /// </summary>
+        /// <param name="ea">Where to put new menu item</param>
+        /// <param name="menuText">What to put into the smartTagItem</param>
+        /// <param name="handler">What will respond to the user selecting the smart tag item</param>
+        private void AddSmartTagItem(GetSmartTagItemsEventArgs ea, string menuText, System.EventHandler handler)
+        {
+            SmartTagItem menuItem = new SmartTagItem(menuText);
+            menuItem.Execute += handler;
+            ea.Add(menuItem);
+        }
+
+        /// <summary>
+        /// Set the color scheme of the smartTag
+        /// </summary>
+        private void testActions_GetSmartTagItemColors(object sender, GetSmartTagItemColorsEventArgs ea)
+        {
+            ea.PopupMenuColors = new CodePopupMenuColors(); // Need a Test color definition
+        }
+
+        /// <summary>
+        /// Tells the system if a smartTag is needed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="ea"></param>
+        /// <returns></returns>
+        private bool testActions_CheckSmartTagAvailability(object sender, System.EventArgs ea)
+        {
+            return _hoveredTest != null;
         }
         #endregion
 
         #region Run Tests
-        private void actRunTest_Execute(ExecuteEventArgs ea)
+        /// <summary>
+        /// Respond to a SmartTagMenuItem selection and run the appropriate set of tests
+        /// </summary>
+        private void PlugIn1_RunTest(object sender, System.EventArgs ea)
         {
-            ClearPriorResults();
+            ResetTestResults();
 
-            Class selectedClass = CodeRush.Source.ActiveClass;
-            Method selectedMethod = CodeRush.Source.ActiveMethod;
-            string assemblyPath = GetAssemblyPath(GetActiveProject());
-            string assemblyName = GetAssemblyName(GetActiveProject());
-            if (selectedMethod != null)
-            {
-                TestOneMethod(assemblyPath, assemblyName, selectedClass, selectedMethod);
-            }
-            else if (selectedClass != null)
-            {
-                TestOneClass(assemblyPath, assemblyName, selectedClass);
-            }
-        }
-
-        private void TestOneClass(string assemblyPath, string assemblyName, Class selectedClass)
-        {
             bool buildPassed = BuildActiveProject();
 
-            if (buildPassed)
+            if (buildPassed && _hoveredTest != null)
             {
-                ITestRunner runner = GetTestRunner();
-                if (runner != null)
+                GallioRunner runner = new GallioRunner();
+                runner.TestComplete += runner_TestComplete;
+                runner.AllTestsComplete += runner_AllTestsComplete;
+
+                TestInfo testData = _hoveredTest;
+                EnvDTE.Project activeProject = GetActiveProject();
+                string assemblyPath = GetAssemblyPath(activeProject);
+                string assemblyName = GetAssemblyName(activeProject);
+                switch (((SmartTagItem)sender).Caption)
                 {
-                    runner.RunClass(assemblyPath, assemblyName, selectedClass.FullName);
+                    case kRunAssemblyMenuItem:
+                        runner.RunTests(assemblyPath, assemblyName);
+                        break;
+
+                    case kRunClassMenuItem:
+                        runner.RunTests(assemblyPath, assemblyName, ((Class)testData.Method.Parent).FullName);
+                        break;
+
+                    case kRunTestMenuItem:
+                        runner.RunTests(assemblyPath, assemblyName, ((Class)testData.Method.Parent).FullName, testData.Method.Name);
+                        break;
                 }
             }
             else
@@ -101,38 +238,10 @@ namespace RedGreen
             }
         }
 
-        private ITestRunner GetTestRunner()
-        {
-            string testFramework = GetTestFramework();
-            foreach (ITestRunner runner in _testRunners)
-            {
-                if (runner.RunsTestsForNamespace(testFramework))
-                {
-                    return runner;
-                }
-            }
-            return null;
-        }
-
-        private void TestOneMethod(string assemblyPath, string assemblyName, Class selectedClass, Method selectedMethod)
-        {
-            bool buildPassed = BuildActiveProject();
-
-            if (buildPassed)
-            {
-                ITestRunner runner = GetTestRunner();
-                if (runner != null)
-                {
-                    runner.RunMethod(assemblyPath, assemblyName, selectedClass.FullName, selectedMethod.Name);
-                }
-            }
-            else
-            {
-                ShowOutputWindow();
-            }
-        }
-
-        void runner_TestComplete(object sender, TestCompleteEventArgs args)
+        /// <summary>
+        /// Handle the a test is complete event
+        /// </summary>
+        private void runner_TestComplete(object sender, TestCompleteEventArgs args)
         {
             EnvDTE.OutputWindowPane testPane = GetTestingOutputPane();
             if (testPane == null)
@@ -141,13 +250,22 @@ namespace RedGreen
             if (args.RawResult.Length > 0)
             {
                 testPane.OutputString(args.RawResult);
-                testPane.OutputString(Environment.NewLine);
-                testPane.OutputString(Environment.NewLine);
+                testPane.OutputString(System.Environment.NewLine);
+                testPane.OutputString(System.Environment.NewLine);
             }
-            _testResults.Add(args.Result);
+            TestInfo testData = _Tests.Find(test => test.Method.RootNamespaceLocation == args.Result.Location);
+            if (testData == null)
+            {
+                testData = new TestInfo(args.Result.Location);
+                _Tests.Add(testData);
+            }
+            testData.Result = args.Result;
         }
 
-        void runner_AllTestsComplete(object sender, AllTestsCompleteEventArgs args)
+        /// <summary>
+        /// Handle the end of tests event
+        /// </summary>
+        private void runner_AllTestsComplete(object sender, AllTestsCompleteEventArgs args)
         {
             string overview = string.Format("\n{0} passed, {1} failed, {2} skipped, duration: {3} seconds\n",
                                                                                           args.PassCount,
@@ -161,9 +279,32 @@ namespace RedGreen
             resultsPane.OutputString(overview);
             CodeRush.Windows.Active.DTE.StatusBar.Text = overview;
 
+            CreateFailedTestList();
             DxCoreUtil.Invalidate(CodeRush.Source.ActiveClass);
         }
 
+        /// <summary>
+        /// Find the tests that failed and resort them into file/line order
+        /// </summary>
+        private void CreateFailedTestList()
+        {
+            _Failures = _Tests.FindAll(test => test.Result.Status == TestStatus.Failed);
+            _Failures.Sort(delegate(TestInfo lhs, TestInfo rhs)
+                                {
+                                    int locationResult = lhs.Method.Document.FullName.CompareTo(rhs.Method.Document.FullName);
+                                    if (locationResult == 0)
+                                    {
+                                        return lhs.Method.StartLine - rhs.Method.StartLine;
+                                    }
+                                    return locationResult;
+                                }
+                );
+        }
+
+        /// <summary>
+        /// Fetch the test output window
+        /// </summary>
+        /// <returns></returns>
         private static EnvDTE.OutputWindowPane GetTestingOutputPane()
         {
             EnvDTE.OutputWindow outputWindow = CodeRush.Windows.Active.DTE.Windows.Item(EnvDTE.Constants.vsWindowKindOutput).Object as EnvDTE.OutputWindow;
@@ -174,7 +315,7 @@ namespace RedGreen
                 testPane = outputWindow.OutputWindowPanes.Item(kTestsPane);
                 testPane.Clear();
             }
-            catch (ArgumentException /*ex*/)
+            catch
             {
                 testPane = outputWindow.OutputWindowPanes.Add(kTestsPane);
             }
@@ -183,20 +324,10 @@ namespace RedGreen
             return testPane;
         }
 
-        private string GetTestFramework()
-        {
-            foreach (System.Collections.DictionaryEntry reference in CodeRush.Source.NamespaceReferences)
-            {
-                string referenceName = reference.Value.ToString();
-                foreach (ITestRunner runner in _testRunners)
-                {
-                    if (runner.RunsTestsForNamespace(referenceName))
-                        return referenceName;
-                }
-            }
-            return String.Empty;
-        }
-
+        /// <summary>
+        /// Get the VS project object for the current project
+        /// </summary>
+        /// <remarks>Old code from when I first started could use a review for better practice</remarks>
         private EnvDTE.Project GetActiveProject()
         {
             // try to get the current active project
@@ -210,149 +341,254 @@ namespace RedGreen
 
                 if (solution != null || solution.Projects.Count == 1)
                 {
-                    return solution.Projects.Item(0);
+                    return solution.Projects.Item(1);// One based so that the system works with VBA
                 }
             }
             return null;
         }
 
-        static string GetAssemblyPath(EnvDTE.Project vsProject)
+        /// <summary>
+        /// Get the assembly path for a project
+        /// </summary>
+        private static string GetAssemblyPath(EnvDTE.Project vsProject)
         {
             if (vsProject != null)
             {
-                string fullPath = vsProject.Properties.Item("FullPath").Value.ToString();
-                string outputPath = vsProject.ConfigurationManager.ActiveConfiguration.Properties.Item("OutputPath").Value.ToString();
-                string outputDir = Path.Combine(fullPath, outputPath);
-                return Path.Combine(outputDir, vsProject.Properties.Item("OutputFileName").Value.ToString());
+                string outputDir = Path.Combine(GetPropertyValue(vsProject.Properties, "FullPath"),
+                    GetPropertyValue(vsProject.ConfigurationManager.ActiveConfiguration.Properties, "OutputPath"));
+                return Path.Combine(outputDir, GetPropertyValue(vsProject.Properties, "OutputFileName"));
             }
-            return String.Empty;
+            return string.Empty;
         }
 
+        /// <summary>
+        /// Helper function to get the text from a project item
+        /// </summary>
+        private static string GetPropertyValue(EnvDTE.Properties source, string name)
+        {
+            string result = string.Empty;
+            if (source == null || System.String.IsNullOrEmpty(name))
+                return result;
+            EnvDTE.Property property = source.Item(name);
+            if (property != null)
+            {
+                return property.Value.ToString();
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Get the assembly name of a project.
+        /// </summary>
+        /// <param name="vsProject"></param>
+        /// <returns></returns>
         static string GetAssemblyName(EnvDTE.Project vsProject)
         {
-            if (vsProject != null)
-            {
-                return vsProject.Properties.Item("AssemblyName").Value.ToString();
-            }
-            return String.Empty;
-        }
-
-        private static bool BuildActiveProject()
-        {
-            EnvDTE.Solution sol = CodeRush.Solution.Active;
-            sol.SolutionBuild.Build(true);
-            return sol.SolutionBuild.LastBuildInfo == 0;
-        }
-
-        private static void ShowOutputWindow()
-        {
-            EnvDTE.OutputWindow outputWindow = CodeRush.Windows.Active.DTE.Windows.Item(EnvDTE.Constants.vsWindowKindOutput).Object as EnvDTE.OutputWindow;
-            const string kBuildPane = "Build";
-            EnvDTE.OutputWindowPane buildPane;
-            buildPane = outputWindow.OutputWindowPanes.Item(kBuildPane);
-            System.Diagnostics.Debug.Assert(buildPane != null);
-            buildPane.Activate();
-            outputWindow.Parent.SetFocus();
+            return GetPropertyValue(vsProject.Properties, "AssemblyName");
         }
         #endregion
 
-        #region Redraw test attribute
-        private readonly Color Passed = Color.FromArgb(157, 254, 133);
-        private readonly Color Skipped = Color.FromArgb(255, 255, 70);
-        private readonly Color Failed = Color.FromArgb(255, 140, 140);
-        private Color Unknown = Color.White;
-
-        private void ClearPriorResults()
+        #region Interact with Results
+        /// <summary>
+        /// Clear all the result information we know anything about
+        /// </summary>
+        private void ResetTestResults()
         {
-            List<TestResult> temp = new List<TestResult>(_testResults);
-            _testResults.Clear();
-
-            if (temp.Count > 0)
-            {
-                DxCoreUtil.Invalidate(CodeRush.Source.ActiveClass);
-            }
+            _currentFailure = kDefaultCurrentFailure;
+            _Failures = new List<TestInfo>();
+            _Tests.ForEach(test => test.Result = new TestResult());
         }
 
+        /// <summary>
+        /// Move the cursor to the next error and use a beacon to highlight the move 
+        /// </summary>
+        private void MoveToNextFailure(object sender, System.EventArgs ea)
+        {
+            TestInfo nextLocation = LocateNextTest();
+            MoveToTest(nextLocation.Method);
+        }
+
+        /// <summary>
+        /// Determine what the next failed test is
+        /// </summary>
+        private TestInfo LocateNextTest()
+        {
+            int offset = -1;
+            LanguageElement currentMethod = CodeRush.Source.ActiveMethod;
+            if (currentMethod != null)
+            {
+                string currentLocation = currentMethod.RootNamespaceLocation;
+                offset = _Failures.FindIndex(test => test.Location == currentLocation && test.Result.Status == TestStatus.Failed);
+            }
+            if (offset >= 0)
+            {// Within in a test move from here
+                _currentFailure = (++offset) % _Failures.Count;
+            }
+            else
+            {// Not in a test, go to the next one in our list from the last spot
+                _currentFailure = (++_currentFailure) % _Failures.Count;
+            }
+            return _Failures[_currentFailure];
+        }
+
+        /// <summary>
+        /// Put the cursor on the next given element and use a beacon
+        /// </summary>
+        private void MoveToTest(LanguageElement dxCoreElement)
+        {
+            if (dxCoreElement != null)
+            {
+                CodeRush.File.Activate(dxCoreElement.FileNode.Name);
+                CodeRush.Caret.MoveTo(dxCoreElement.StartLine, dxCoreElement.StartOffset);
+                TextView view = (TextView)CodeRush.Source.Active.View;
+                LocatorBeacon beacon = new LocatorBeacon();
+                beacon.Color = FailedColor;
+                beacon.Start(view, dxCoreElement.StartLine, dxCoreElement.StartOffset);
+            }
+        }
+        #endregion
+
+        #region Draw test results
+        private readonly Color PassedColor = Color.FromArgb(157, 254, 133);
+        private readonly Color SkippedColor = Color.FromArgb(255, 255, 70);
+        private readonly Color FailedColor = Color.FromArgb(255, 140, 140);
+        private readonly Color UnknownColor = Color.White;
+        private readonly Color TileBackgroundFillColor = Color.FromArgb(255, 253, 75);
+        private readonly Color TileBorderColor = Color.FromArgb(233, 210, 33);
+        
+        /// <summary>
+        /// Put up the action tile
+        /// redraw the test attribute
+        /// Draw the parsed error text if we can
+        /// </summary>
         private void PlugIn1_EditorPaintLanguageElement(EditorPaintLanguageElementEventArgs ea)
         {
-            try
-            {
-                RedrawTestAttribute(ea);
-                DrawError(ea);
+            Attribute testAttribute = GetTestAttributeForLanguageElement(ea);
+            if (testAttribute == null)
+            {// Nothing to do
+                return;
             }
-            finally
-            {
 
-            }
-        }
-
-        private void RedrawTestAttribute(EditorPaintLanguageElementEventArgs ea)
-        {
-            if (IsTestAttribute(ea.LanguageElement))
+            TestInfo testData = FindDataForTest(testAttribute);
+            if (testData != null)
             {
-                if (!ea.LanguageElement.Range.Contains(new SourcePoint(ea.PaintArgs.CaretLine, ea.PaintArgs.CaretOffset)))
+                if (ea.LanguageElement.ElementType == LanguageElementType.Attribute)
                 {
-                    LanguageElement attribute = ea.LanguageElement;
-                    if (ea.PaintArgs.LineInView(attribute.StartLine))
-                    {
-                        LanguageElement method = GetMethodAttachedTo(attribute);
-                        StringBuilder displayText = GetDisplayText(attribute, method);
-                        ea.PaintArgs.OverlayText(displayText.ToString(),
-                            attribute.StartLine,
-                            attribute.StartOffset - 1,
-                            Color.Black,
-                            GetBackgroundColor(method.Location));
-                    }
+                    DrawTestRunnerIcon(ea, testData);
+                    RedrawTestAttribute(ea.PaintArgs, testData);
+                }
+                else
+                {
+                    DrawError(ea, testData.Result);
                 }
             }
+
         }
 
-        private bool IsTestAttribute(LanguageElement potentialTest)
+        /// <summary>
+        /// Attempt to locate the Test attribute for the given language element
+        /// </summary>
+        private static Attribute GetTestAttributeForLanguageElement(EditorPaintLanguageElementEventArgs ea)
         {
-            foreach (ITestRunner runner in _testRunners)
+            if (ea.LanguageElement.ElementType == LanguageElementType.Attribute)
             {
-                if (runner.IsTestAttribute(potentialTest))
-                {
-                    return true;
-                }
+                return (Attribute)ea.LanguageElement;
             }
-            return false;
+            else if (ea.LanguageElement.ElementType == LanguageElementType.MethodCall)
+            {
+                return DxCoreUtil.GetFirstTestAttribute(ea.LanguageElement);
+            }
+            return null;
         }
 
-        private void DrawError(EditorPaintLanguageElementEventArgs ea)
+        /// <summary>
+        /// Look for information about the the attribute. Create and add an information point if none exists and this is a test attribute
+        /// </summary>
+        private TestInfo FindDataForTest(Attribute testAttribute)
         {
-            TestResult currentResult = GetResultForLocation(ea.LanguageElement.Location);
-            if (currentResult != null && currentResult.Result == TestStatus.Failed)
+            TestInfo testData = _Tests.Find(test => test.Method.RootNamespaceLocation == testAttribute.TargetNode.RootNamespaceLocation);
+            if (testData == null)
             {
-                LanguageElement statement = DxCoreUtil.GetStatement(currentResult.AssertLocation, currentResult.FailAtLine);
-                if (statement != null)
+                if (DxCoreUtil.IsTest(testAttribute))  // probably not needed because we can't get here unless GetFirstTestAttribute already performed the test, but not a bad safeguard.
                 {
-                    int errorTextStartCol = statement.EndOffset + 5;
-                    if (string.IsNullOrEmpty(currentResult.Expected))
+                    testData = new TestInfo(DxCoreUtil.GetMethod(testAttribute.TargetNode));
+                    _Tests.Add(testData);
+                };
+            }
+            return testData;
+        }
+        
+        /// <summary>
+        /// Draw the icon for the tile
+        /// </summary>
+        private void DrawTestRunnerIcon(EditorPaintLanguageElementEventArgs ea, TestInfo testData)
+        {
+            Point topLeft = ea.PaintArgs.TextView.GetPoint(testData.Attribute.StartLine, testData.Attribute.StartOffset);
+            Rectangle indicator = new Rectangle(topLeft.X - 24, topLeft.Y + 2, 16, 16);
+
+            Tile tile = ((TextView)CodeRush.Source.Active.View).ActiveTile;
+            if (TileIsOurs(tile))
+            {// cursor is over tile give a hint
+                ea.PaintArgs.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                ea.PaintArgs.Graphics.FillRectangle(new SolidBrush(TileBackgroundFillColor), indicator);
+                ea.PaintArgs.Graphics.DrawRectangle(new Pen(TileBorderColor), indicator.X, indicator.Y, indicator.Width - 1, indicator.Width - 1);
+            }
+            ea.PaintArgs.TextView.AddTile(NewTile(indicator, testData));
+            ea.PaintArgs.TextView.Graphics.DrawIcon(new Icon(GetType(), "TestIndicator.ico"), indicator);
+        }
+
+        /// <summary>
+        /// Draw all the test attributes the same and put the status color in the background
+        /// </summary>
+        private void RedrawTestAttribute(EditorPaintEventArgs paintArgs, TestInfo testData)
+        {
+            if (paintArgs.LineInView(testData.Attribute.StartLine))
+            {
+                string displayText = GetDisplayText(testData.Attribute, testData.Method);
+                paintArgs.OverlayText(displayText,
+                    testData.Attribute.StartLine,
+                    testData.Attribute.StartOffset - 1,
+                    Color.Black,
+                    GetBackgroundColor(testData.Result.Status));
+            }
+        }
+
+        /// <summary>
+        /// Draw the parsed error text at the end of the method causing the test failure 
+        /// </summary>
+        private void DrawError(EditorPaintLanguageElementEventArgs ea, TestResult testResult)
+        {
+            if (testResult.Status == TestStatus.Failed)
+            {
+                FailureData failure = testResult.Failure;
+                if (failure.FailingStatement != null)
+                {
+                    int errorTextStartCol = failure.FailingStatement.EndOffset + 5;
+                    if (string.IsNullOrEmpty(failure.Expected))
                     {// not an equal comparison
                         ea.PaintArgs.OverlayText("<------- Test failed here",
-                            currentResult.FailAtLine,
+                            failure.FailingStatement.StartLine,
                             errorTextStartCol,
-                            Failed);
+                            FailedColor);
 
                     }
-                    else if (currentResult.Position < 0)
+                    else if (failure.ActualDiffersAt < 0)
                     {
-                        ea.PaintArgs.OverlayText(string.Format("Expected: {0} Actual: {1}", currentResult.Expected, currentResult.Actual),
-                            currentResult.FailAtLine,
+                        ea.PaintArgs.OverlayText(string.Format("Expected: {0} Actual: {1}", failure.Expected, failure.Actual),
+                            failure.FailingStatement.StartLine,
                             errorTextStartCol,
-                            Failed);
+                            FailedColor);
                     }
                     else
                     {
                         int start = errorTextStartCol;
-                        string correctPortion = string.Format("Expected: {0} Actual: {1}", currentResult.Expected, currentResult.Actual.Substring(0, currentResult.Position));
+                        string correctPortion = string.Format("Expected: {0} Actual: {1}", failure.Expected, failure.Actual.Substring(0, failure.ActualDiffersAt));
                         ea.PaintArgs.OverlayText(correctPortion,
-                            currentResult.FailAtLine,
+                            failure.FailingStatement.StartLine,
                             start,
-                            Failed);
-                        ea.PaintArgs.OverlayText(currentResult.Actual.Substring(currentResult.Position),
-                            currentResult.FailAtLine,
+                            FailedColor);
+                        ea.PaintArgs.OverlayText(failure.Actual.Substring(failure.ActualDiffersAt),
+                            failure.FailingStatement.StartLine,
                             start + correctPortion.Length,
                             Color.Red);
                     }
@@ -361,90 +597,24 @@ namespace RedGreen
         }
 
         /// <summary>
-        /// Walk the node tree down to the method that this attribute decorates
-        /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
-        private LanguageElement GetMethodAttachedTo(LanguageElement node)
-        {
-            System.Diagnostics.Debug.Assert(node.ElementType == LanguageElementType.Attribute);
-
-            LanguageElement method = node.NextNode;
-            while (method != null)
-            {
-                if (method.ElementType == LanguageElementType.Method)
-                {
-                    return method;
-                }
-                method = method.NextNode;
-            }
-            return node;
-        }
-
-        /// <summary>
         /// Look up the method location in the test results. If found use the test results to pick the background color
         /// </summary>
         /// <param name="location"></param>
-        /// <returns></returns>
-        private Color GetBackgroundColor(string location)
+        /// <returns></returns> 
+        private Color GetBackgroundColor(TestStatus status)
         {
-            if (!string.IsNullOrEmpty(location))
+            switch (status)
             {
-                TestResult result = GetResultForLocation(location);
-                if (result != null)
-                {
-                    switch (result.Result)
-                    {
-                        case TestStatus.Unknown:
-                        default:
-                            return Unknown;
-                        case TestStatus.Skipped:
-                            return Skipped;
-                        case TestStatus.Passed:
-                            return Passed;
-                        case TestStatus.Failed:
-                            return Failed;
-                    }
-                }
+                case TestStatus.Unknown:
+                default:
+                    return UnknownColor;
+                case TestStatus.Skipped:
+                    return SkippedColor;
+                case TestStatus.Passed:
+                    return PassedColor;
+                case TestStatus.Failed:
+                    return FailedColor;
             }
-            return Unknown;
-        }
-
-        /// <summary>
-        /// Find a test result for the given location 
-        /// </summary>
-        /// <param name="location">What result to find</param>
-        /// <returns>A result or null</returns>
-        private TestResult GetResultForLocation(string location)
-        {
-            return _testResults.Find(delegate(TestResult testResult)
-                                {
-                                    return (LocationMatchesFull(testResult.MethodLocation, location)
-                                          || LocationMatchesAfterRootNs(testResult.MethodLocation, location));
-                                });
-        }
-
-        /// <summary>
-        /// Check to see if both locations match
-        /// </summary>
-        /// <param name="resultLocation">The method location reported by the test framework</param>
-        /// <param name="iteratingLocation">The method location given when iterating to redraw a method attribute</param>
-        /// <returns>True if 100% match</returns>
-        private static bool LocationMatchesFull(string resultLocation, string iteratingLocation)
-        {
-            return resultLocation == iteratingLocation;
-        }
-
-        /// <summary>
-        /// Check to see if both match when the test result has the root namespace removed
-        /// </summary>
-        /// <param name="resultLocation">The method location reported by the test framework</param>
-        /// <param name="iteratingLocation">The method location given when iterating to redraw a method attribute</param>
-        /// <returns>True if the locations match after the root namespace is removed from the test location</returns>
-        /// <remarks>This is the case for VB. I am not sure why. It may be I just don't know enough about VB.</remarks>
-        private static bool LocationMatchesAfterRootNs(string resultLocation, string iteratingLocation)
-        {
-            return resultLocation.Substring(resultLocation.IndexOf(".") + 1) == iteratingLocation;
         }
 
         /// <summary>
@@ -453,31 +623,63 @@ namespace RedGreen
         /// </summary>
         /// <param name="attribute"></param>
         /// <returns>Test plus enough whitespace to make the colored bar extent one char past the end of the closing paren</returns>
-        private static StringBuilder GetDisplayText(LanguageElement attribute, LanguageElement method)
+        private static string GetDisplayText(LanguageElement attribute, LanguageElement method)
         {
-            TextView view = method.View as TextView;
+            TextView view = CodeRush.Source.Active.View as TextView;
 
             StringBuilder displayText = new StringBuilder(" Test");
             int attributeOffset = attribute.StartOffset; // Doesn't include the opening square bracket
             int lineLength = view.LengthOfLine(method.StartLine);
             displayText.Append(' ', lineLength - attributeOffset - 3); // -3 to account for addition of " test" and yet cover past the parens too.
-            return displayText;
+            return displayText.ToString();
         }
-#endregion
+        #endregion
 
+        #region Build Action
+        /// <summary>
+        /// Respond to build menu item
+        /// </summary>
+        /// <param name="ea"></param>
+        private void actBuildProject_Execute(ExecuteEventArgs ea)
+        {
+            bool buildPassed = BuildActiveProject();
+
+            if (!buildPassed)
+            {
+                ShowOutputWindow();
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// Reset what we know
+        /// </summary>
         private void PlugIn1_SolutionOpened()
         {
-            _testResults.Clear();
+            _projectsExplored.Clear();
+            _Tests.Clear();
+            _Failures.Clear();
         }
 
-        private void actNextError_Execute(ExecuteEventArgs ea)
+        TestInfo _currentTestData = null;
+        private void PlugIn1_LanguageElementActivated(LanguageElementActivatedEventArgs ea)
         {
-            // Move to next failed test
+            if (ea.Element.InsideMethod)
+            {
+                Method method = DxCoreUtil.GetMethod(ea.Element);
+                _currentTestData = _Tests.Find(test => test.Method == method);
+            }
         }
 
-        private void actSeRunTest_Execute(ExecuteEventArgs ea)
+        private void PlugIn1_TextChanged(TextChangedEventArgs ea)
         {
-            ClearPriorResults();
+            if (_currentTestData != null && _currentTestData.Result.Status != TestStatus.Unknown)
+            {
+            	_currentTestData.Result = new TestResult();
+                DxCoreUtil.Invalidate(_currentTestData.Method);
+            }
         }
     }
+
+
 }

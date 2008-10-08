@@ -31,7 +31,7 @@ using RedGreen;
 
 namespace RedGreenTests
 {
-    class NunitParserTests
+    public class NunitParserTests
     {
         [Fact]
         public void ExpectedNotPresent()

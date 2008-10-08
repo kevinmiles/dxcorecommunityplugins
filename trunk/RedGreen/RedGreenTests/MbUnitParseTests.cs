@@ -30,7 +30,7 @@ using RedGreen;
 
 namespace RedGreenTests
 {
-    class MbUnitParseTests
+    public class MbUnitParseTests
     {
         [Fact]
         public void StringExpected()
