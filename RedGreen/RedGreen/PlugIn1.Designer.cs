@@ -40,8 +40,10 @@ namespace RedGreen
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlugIn1));
             this.actBuildProject = new DevExpress.CodeRush.Core.Action(this.components);
             this.testActions = new DevExpress.CodeRush.Core.SmartTagProvider(this.components);
+            this.actRunTests = new DevExpress.CodeRush.Core.Action(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.actBuildProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.testActions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.actRunTests)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // actBuildProject
@@ -67,6 +69,14 @@ namespace RedGreen
             this.testActions.CheckSmartTagAvailability += new DevExpress.CodeRush.Core.CheckSmartTagAvailabilityEventHandler(this.testActions_CheckSmartTagAvailability);
             this.testActions.GetSmartTagItems += new DevExpress.CodeRush.Core.GetSmartTagItemsEventHandler(this.testActions_GetSmartTagItems);
             // 
+            // actRunTests
+            // 
+            this.actRunTests.ActionName = "Run Test(s)";
+            this.actRunTests.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.actRunTests.Image = ((System.Drawing.Bitmap)(resources.GetObject("actRunTests.Image")));
+            this.actRunTests.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+            this.actRunTests.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actRunTests_Execute);
+            // 
             // PlugIn1
             // 
             this.TileMouseEnter += new DevExpress.CodeRush.Core.TileEventHandler(this.PlugIn1_TileMouseEnter);
@@ -80,6 +90,7 @@ namespace RedGreen
             this.LanguageElementActivated += new DevExpress.CodeRush.Core.LanguageElementActivatedEventHandler(this.PlugIn1_LanguageElementActivated);
             ((System.ComponentModel.ISupportInitialize)(this.actBuildProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.testActions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.actRunTests)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -88,6 +99,7 @@ namespace RedGreen
 
         private DevExpress.CodeRush.Core.Action actBuildProject;
         private DevExpress.CodeRush.Core.SmartTagProvider testActions;
+        private DevExpress.CodeRush.Core.Action actRunTests;
 
     }
 }
