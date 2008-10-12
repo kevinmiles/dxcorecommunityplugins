@@ -30,6 +30,7 @@ using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
+using System.Collections;
 
 namespace RedGreen
 {
@@ -463,7 +464,7 @@ namespace RedGreen
         /// </summary>
         private void PlugIn1_EditorPaintLanguageElement(EditorPaintLanguageElementEventArgs ea)
         {
-            Attribute testAttribute = GetTestAttributeForLanguageElement(ea);
+            Attribute testAttribute = GetTestAttributeForLanguageElement(ea.LanguageElement);
             if (testAttribute == null)
             {// Nothing to do
                 return;
@@ -487,16 +488,16 @@ namespace RedGreen
 
         /// <summary>
         /// Attempt to locate the Test attribute for the given language element
-        /// </summary>
-        private static Attribute GetTestAttributeForLanguageElement(EditorPaintLanguageElementEventArgs ea)
-        {
-            if (ea.LanguageElement.ElementType == LanguageElementType.Attribute)
-            {
-                return (Attribute)ea.LanguageElement;
-            }
-            else if (ea.LanguageElement.ElementType == LanguageElementType.MethodCall)
-            {
-                return DxCoreUtil.GetFirstTestAttribute(ea.LanguageElement);
+        /// </summary>                                                              
+        private static Attribute GetTestAttributeForLanguageElement(LanguageElement languageElement)
+        {       
+            if (languageElement.ElementType == LanguageElementType.Attribute)
+            {                     
+                return (Attribute)languageElement;
+            }        
+            else if (languageElement.ElementType == LanguageElementType.MethodCall)
+            {                                           
+                return DxCoreUtil.GetFirstTestAttribute(languageElement);
             }
             return null;
         }
@@ -548,7 +549,7 @@ namespace RedGreen
         /// </summary>
         private void RedrawTestAttribute(EditorPaintEventArgs paintArgs, TestInfo testData)
         {
-            if (paintArgs.LineInView(testData.Attribute.StartLine))
+            if (paintArgs.LineInView(testData.Attribute.StartLine) && ShouldPaintTestAttribute(paintArgs, testData.Attribute))
             {
                 string displayText = GetDisplayText(testData.Attribute, testData.Method);
                 paintArgs.OverlayText(displayText,
@@ -559,43 +560,49 @@ namespace RedGreen
             }
         }
 
-        //#region XmlDocCommentPainterPlugIn_EditorValidateLanguageElementClipRegion
-        //private void XmlDocCommentPainterPlugIn_EditorValidateLanguageElementClipRegion(DevExpress.CodeRush.Core.EditorValidateLanguageElementClipRegionEventArgs ea)
-        //{
-        //    if (!_FontsInitialized)
-        //    {
-        //        Setting.CreateFonts();
-        //        _FontsInitialized = true;
-        //    }
+        private void PlugIn1_EditorValidateLanguageElementClipRegion(EditorValidateLanguageElementClipRegionEventArgs ea)
+        {
+            Attribute testAttribute = ea.LanguageElement as Attribute;
+            if (testAttribute == null)
+            {// Nothing to do
+                return;
+            }
 
-        //    if (!Setting.Enabled)
-        //        return;
+            if(!ShouldPaintTestAttribute(ea.ValidateClipRegionArgs, testAttribute))
+            {
+                return;
+            }
 
-        //    LanguageElement lDocComment = ea.LanguageElement;
+            Point start;
+            if (!ea.ValidateClipRegionArgs.GetPoint(testAttribute.Range.Start, out start))
+            {
+                return;
+            }
 
-        //    if (lDocComment == null || lDocComment.ElementType != LanguageElementType.XmlDocComment)
-        //        return;
+            Point stop;
+            int textLength = GetDisplayText(testAttribute, testAttribute.TargetNode).Length - testAttribute.ToString().Length;
+            if (!ea.ValidateClipRegionArgs.GetPoint(new SourcePoint (testAttribute.Range.End.Line, (testAttribute.Range.Start.Offset + textLength)), out stop))
+            {
+                return;
+            }
 
-        //    if (!ShouldPaintComment(ea.ValidateClipRegionArgs, lDocComment))
-        //        return;                // Don't paint it.
+            if (stop.X < start.X)
+            {
+                stop.X = start.X;
+            }
+            int attributeWidth = stop.X - start.X;
+            int attributeHeight = stop.Y - start.Y + ea.ValidateClipRegionArgs.LineHeight;
+            ea.ValidateClipRegionArgs.ValidateRectangle(new Rectangle(start.X, start.Y, attributeWidth, attributeHeight));
+        }
 
-        //    Point lStart;
-        //    if (!ea.ValidateClipRegionArgs.GetPoint(lDocComment.Range.Start, out lStart))
-        //        return;
-        //    Point lStop;
-        //    if (!ea.ValidateClipRegionArgs.GetPoint(lDocComment.Range.End, out lStop))
-        //        return;
-
-        //    int lLeft = lStart.X;
-
-        //    if (lStop.X < lLeft)
-        //        lStop.X = lLeft;
-        //    int lCommentWidth = ea.ValidateClipRegionArgs.DisplayWidth - lLeft;
-        //    int lCommentHeight = lStop.Y - lStart.Y + ea.ValidateClipRegionArgs.LineHeight;
-        //    Rectangle lCommentRectangle = new Rectangle(lLeft, lStart.Y, lCommentWidth, lCommentHeight);
-        //    ea.ValidateClipRegionArgs.ValidateRectangle(lCommentRectangle);
-        //}
-        //#endregion
+        private bool ShouldPaintTestAttribute(BaseEditorPaintEventArgs paintArgs, Attribute testAttribute)
+        {
+            return (!paintArgs.TextViewIsActive ||
+                ((paintArgs.CaretLine < testAttribute.StartLine ||
+                paintArgs.CaretLine > testAttribute.EndLine) ||
+                (paintArgs.CaretLine == testAttribute.StartLine &&
+                paintArgs.CaretOffset < testAttribute.StartOffset)));
+        }
 
         /// <summary>
         /// Draw the parsed error text at the end of the method causing the test failure 
