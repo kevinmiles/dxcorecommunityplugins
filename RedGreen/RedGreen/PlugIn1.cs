@@ -30,7 +30,6 @@ using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
-using System.Collections;
 
 namespace RedGreen
 {
@@ -139,15 +138,19 @@ namespace RedGreen
         private void PlugIn1_EditorMouseHover(EditorEventArgs ea)
         {
             Tile tile = ea.TextView.ActiveTile;
-            if (TileIsOurs(tile))
+            ShowTestPopupMenu(ea.TextView, tile);
+        }
+
+        private void ShowTestPopupMenu(TextView textView, Tile tile)
+        {
+            if (TileIsOurs(tile))// && !CodeRush.SmartTags.IsSmartTagVisible)
             {
                 _hoveredTest = (TestInfo)tile.Object;
                 Point tilePoint = new Point(tile.Bounds.Left, tile.Bounds.Bottom);
-                Point menuPoint = ea.TextView.ToScreenPoint(tilePoint);
+                Point menuPoint = textView.ToScreenPoint(tilePoint);
                 CodeRush.SmartTags.ShowPopupMenu(menuPoint, testActions);
             }
         }
-
         /// <summary>
         /// Provide the list of smartTagItems that will go into the menu. 
         /// </summary>
@@ -531,15 +534,21 @@ namespace RedGreen
             if (TileIsOurs(tile))
             {// cursor is over tile give a hint
                 ea.PaintArgs.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-                ea.PaintArgs.Graphics.FillRectangle(new SolidBrush(TileBackgroundFillColor), indicator);
-                ea.PaintArgs.Graphics.DrawRectangle(new Pen(TileBorderColor), indicator.X, indicator.Y, indicator.Width - 1, indicator.Width - 1);
+                using (SolidBrush backgroundFill = new SolidBrush(TileBackgroundFillColor))
+                {
+                    ea.PaintArgs.Graphics.FillRectangle(backgroundFill, indicator);
+                }
+                using (Pen borderHighlight = new Pen(TileBorderColor))
+                {
+                    ea.PaintArgs.Graphics.DrawRectangle(borderHighlight, indicator.X, indicator.Y, indicator.Width - 1, indicator.Width - 1);
+                }
             }
             ea.PaintArgs.TextView.AddTile(NewTile(indicator, testData));
             try
             {
                 ea.PaintArgs.TextView.Graphics.DrawIcon(new Icon(GetType(), "TestIndicator.ico"), indicator);
             }
-            catch 
+            catch
             {// fail silently if icon is missing from the project.
             }
         }
@@ -760,6 +769,13 @@ namespace RedGreen
             {
                 ShowOutputWindow();
             }
+        }
+
+        private void PlugIn1_EditorMouseUp(EditorMouseEventArgs ea)
+        {
+            //Not working well enough to commit yet.
+            //Tile tile = ea.TextView.ActiveTile;
+            //ShowTestPopupMenu(ea.TextView, tile);
         }
     }
 
