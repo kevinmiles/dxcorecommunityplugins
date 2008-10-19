@@ -35,14 +35,14 @@ namespace RedGreen
 
         public string GetExpected(string source)
         {
-            string kExpectedStartDelimiter = "\r\nExpected: ";
-            string kExpectedEndDelimiter = "\r\nActual:";
+            string kExpectedStartDelimiter = "\nExpected: ";
+            string kExpectedEndDelimiter = "\nActual:";
             return GallioParserUtils.GetSegment(source, String.Empty, kExpectedStartDelimiter, kExpectedEndDelimiter);
         }
 
         public string GetActual(string source)
         {
-            string kActualStartDelimiter = "\r\nActual:   ";
+            string kActualStartDelimiter = "\nActual:   ";
             string kActualEndDelimiter = "\n   at ";
             return GallioParserUtils.GetSegment(source, String.Empty, kActualStartDelimiter, kActualEndDelimiter);
         }
@@ -53,11 +53,11 @@ namespace RedGreen
             {
                 return 0;
             }
-            string positionStartExpression = "\r\nPosition: ";
+            string positionStartExpression = "\nPosition: ";
             int positionStart = source.IndexOf(positionStartExpression) + positionStartExpression.Length;
             if (positionStart >= positionStartExpression.Length)
             {
-                int positionLength = source.IndexOf("\r\nExpected:") - positionStart;
+                int positionLength = source.IndexOf("\nExpected:") - positionStart;
                 string positionText = source.Substring(positionStart, positionLength);
                 return int.Parse(positionText.Substring(positionText.LastIndexOf(" ")));
             }

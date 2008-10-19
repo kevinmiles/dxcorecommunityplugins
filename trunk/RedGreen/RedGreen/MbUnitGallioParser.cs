@@ -38,15 +38,15 @@ namespace RedGreen
 
         public string GetExpected(string source)
         {
-            const string kExpectedStartDelimiter = "failed: [[";
-            const string kExpectedEndDelimiter = "]]";
+            const string kExpectedStartDelimiter = "\n\nExpected Value : ";
+            const string kExpectedEndDelimiter = "\nActual Value   : ";
             return GallioParserUtils.GetSegment(source, String.Empty, kExpectedStartDelimiter, kExpectedEndDelimiter);
         }
 
         public string GetActual(string source)
         {
-            const string kActualStartDelimiter = "!=[[";
-            const string kActualEndDelimiter = "]]";
+            const string kActualStartDelimiter = "\nActual Value   : ";
+            const string kActualEndDelimiter = "\n\n   at";
             return GallioParserUtils.GetSegment(source, String.Empty, kActualStartDelimiter, kActualEndDelimiter);
         }
 
@@ -73,11 +73,11 @@ namespace RedGreen
 
         public int GetLineNumber(string source, string testLocation)
         {
-            int startFileData = source.IndexOf(testLocation);
-            if (startFileData > 0)
+            if (!string.IsNullOrEmpty(source))
             {
-                int endFileData = source.IndexOf("\r\n", startFileData);
-                int lineNumberStart = source.LastIndexOf(" ", endFileData) + 1;
+                string lineStartDelimiter = ":line ";
+                int lineNumberStart = source.LastIndexOf(lineStartDelimiter) + lineStartDelimiter.Length;
+                int endFileData = source.LastIndexOf("\n");
                 return int.Parse(source.Substring(lineNumberStart, endFileData - lineNumberStart));
             }
             return 0;

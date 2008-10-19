@@ -43,7 +43,7 @@ namespace RedGreenTests
         [Fact]
         public void StringExpected()
         {
-            string source = "[failed] NUnit v2.4.7.0/RedGreenPlayground/NUnitTests/AlwaysFails\r\n  String lengths are both 10. Strings differ at index 7.\r\n  Expected: \"hello hill\"\r\n  But was:  \"hello hull\"\r\n  ------------------^\r\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)\r\n   at RedGreen.Playground.NUnitTests.AlwaysFails()\n\r\n";
+            string source = "[failed] NUnit v2.4.7.0/RedGreenPlayground/NUnitTests/AlwaysFails\n  String lengths are both 10. Strings differ at index 7.\n  Expected: \"hello hill\"\n  But was:  \"hello hull\"\n  ------------------^\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)\n   at RedGreen.Playground.NUnitTests.AlwaysFails()\n\n";
             string expected = "\"hello hill\"";
             Assert.Equal(expected, new NUnitGallioParser().GetExpected(source));
         }
@@ -51,7 +51,7 @@ namespace RedGreenTests
         [Fact]
         public void StringExpected2()
         {
-            string source = "[failed] NUnit v2.4.7.0/RedGreenPlayground/NUnitTests/AlwaysFails\r\n  String lengths are both 10. Strings differ at index 7.\r\n  Expected: \"hello hill\"\r\n  But was:  \"hello hull\"\r\n  ------------------^\r\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)\r\n   at RedGreen.Playground.NUnitTests.AlwaysFails()\n\r\n";
+            string source = "[failed] NUnit v2.4.7.0/RedGreenPlayground/NUnitTests/AlwaysFails\n  String lengths are both 10. Strings differ at index 7.\n  Expected: \"hello hill\"\n  But was:  \"hello hull\"\n  ------------------^\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)\n   at RedGreen.Playground.NUnitTests.AlwaysFails()\n\n";
             string expected = "\"hello hill\"";
             NUnitGallioParser parser = new NUnitGallioParser();
             Assert.Equal(expected, parser.GetExpected(source));
@@ -60,7 +60,7 @@ namespace RedGreenTests
         [Fact]
         public void NumberExpected()
         {
-            string source = "  Expected: 0\r\n  But was:  1\r\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Int32 expected, Int32 actual, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Int32 expected, Int32 actual)\r\n   at RedGreenPlayground.NUnitTests.IntFail() in C:\\Users\\jaargero.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\NUnitTests.cs:line 28\n";
+            string source = "  Expected: 0\n  But was:  1\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Int32 expected, Int32 actual, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Int32 expected, Int32 actual)\n   at RedGreenPlayground.NUnitTests.IntFail() in C:\\Users\\jaargero.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\NUnitTests.cs:line 28\n";
             string expected = "0";
             Assert.Equal(expected, new NUnitGallioParser().GetExpected(source));
         }
@@ -75,7 +75,7 @@ namespace RedGreenTests
         [Fact]
         public void StringActual()
         {
-            string source = "[failed] NUnit v2.4.7.0/RedGreenPlayground/NUnitTests/AlwaysFails\r\n  String lengths are both 10. Strings differ at index 7.\r\n  Expected: \"hello hill\"\r\n  But was:  \"hello hull\"\r\n  ------------------^\r\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)\r\n   at RedGreen.Playground.NUnitTests.AlwaysFails()\n\r\n";
+            string source = "[failed] NUnit v2.4.7.0/RedGreenPlayground/NUnitTests/AlwaysFails\n  String lengths are both 10. Strings differ at index 7.\n  Expected: \"hello hill\"\n  But was:  \"hello hull\"\n  ------------------^\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)\n   at RedGreen.Playground.NUnitTests.AlwaysFails()\n\n";
             string expected = "\"hello hull\"";
             Assert.Equal(expected, new NUnitGallioParser().GetActual(source));
         }
@@ -83,7 +83,7 @@ namespace RedGreenTests
         [Fact]
         public void NumericActual()
         {
-            string source = "[failed] NUnit v2.4.7.0/RedGreenPlayground/NUnitTests/IntFails\r\n  Expected: 0\r\n  But was:  1\r\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)\r\n   at RedGreen.Playground.NUnitTests.AlwaysFails()\n\r\n";
+            string source = "[failed] NUnit v2.4.7.0/RedGreenPlayground/NUnitTests/IntFails\n  Expected: 0\n  But was:  1\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)\n   at RedGreen.Playground.NUnitTests.AlwaysFails()\n\n";
             string expected = "1";
             Assert.Equal(expected, new NUnitGallioParser().GetActual(source));
         }
@@ -91,7 +91,7 @@ namespace RedGreenTests
         [Fact]
         public void GetPositionString()
         {
-            string source = "[failed] NUnit v2.4.7.0/RedGreenPlayground/NUnitTests/AlwaysFails\r\n  String lengths are both 10. Strings differ at index 7.\r\n  Expected: \"hello hill\"\r\n  But was:  \"hello hull\"\r\n  ------------------^\r\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)\r\n   at RedGreen.Playground.NUnitTests.AlwaysFails()\n\r\n";
+            string source = "[failed] NUnit v2.4.7.0/RedGreenPlayground/NUnitTests/AlwaysFails\n  String lengths are both 10. Strings differ at index 7.\n  Expected: \"hello hill\"\n  But was:  \"hello hull\"\n  ------------------^\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)\n   at RedGreen.Playground.NUnitTests.AlwaysFails()\n\n";
             Assert.Equal(7, new NUnitGallioParser().GetPosition(source, "hello hill", "hello hull"));
         }
 
@@ -104,7 +104,7 @@ namespace RedGreenTests
         [Fact]
         public void GetLineNumber()
         {
-            Assert.Equal(21, new NUnitGallioParser().GetLineNumber("  String lengths are both 10. Strings differ at index 7.\r\n  Expected: \"hello hill\"\r\n  But was:  \"hello hull\"\r\n  ------------------^\r\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message, Object[] args)\r\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)\r\n   at RedGreenPlayground.NUnitTests.AlwaysFails() in C:\\Users\\jaargero.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\NUnitTests.cs:line 21\n", string.Empty));
+            Assert.Equal(21, new NUnitGallioParser().GetLineNumber("  String lengths are both 10. Strings differ at index 7.\n  Expected: \"hello hill\"\n  But was:  \"hello hull\"\n  ------------------^\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)\n   at RedGreenPlayground.NUnitTests.AlwaysFails() in C:\\Users\\jaargero.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\NUnitTests.cs:line 21\n", string.Empty));
         }
     }
 }
