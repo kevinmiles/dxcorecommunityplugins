@@ -175,7 +175,7 @@ namespace RedGreen
         public static bool IsTest(Attribute attribute)
         {
             List<string> supportedAttributes = new List<string>(new string[] { "Test", "Fact", "TestMethod" });
-            return supportedAttributes.Contains(attribute.ToString());
+            return supportedAttributes.Contains(attribute.ToString()) && attribute.TargetNode.ElementType == LanguageElementType.Method;
         }
 
         /// <summary>

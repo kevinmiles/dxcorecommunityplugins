@@ -39,22 +39,22 @@ namespace RedGreen
         public string GetExpected(string source)
         {
             const string kExpectedStartDelimiter = "  Expected: ";
-            const string kExpectedEndDelimiter = "\r\n  But";
+            const string kExpectedEndDelimiter = "\n  But";
             return GallioParserUtils.GetSegment(source, String.Empty, kExpectedStartDelimiter, kExpectedEndDelimiter);
         }
 
         public string GetActual(string source)
         {
-            const string kActualStartDelimiter = "\r\n  But was:  ";
-            const string kActualEndDelimiter = "\r\n  -";
-            const string kAltActualEndDelimiter = "\r\n   at";
+            const string kActualStartDelimiter = "\n  But was:  ";
+            const string kActualEndDelimiter = "\n  -";
+            const string kAltActualEndDelimiter = "\n\nStack Trace";
             return GallioParserUtils.GetSegment(source, String.Empty, kActualStartDelimiter, kActualEndDelimiter, kAltActualEndDelimiter);
         }
 
         public int GetPosition(string source, string expected, string actual)
         {
             const string kPositionStartDelimiter = "differ at index ";
-            const string kPositionEndDelimiter = ".\r\n  ";
+            const string kPositionEndDelimiter = ".\n  ";
             int start = source.IndexOf(kPositionStartDelimiter);
             if (start > 0)
             {
