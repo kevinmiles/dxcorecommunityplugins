@@ -23,13 +23,8 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using Gallio.Framework;
-using Gallio.Framework.Utilities;
 using Gallio.Model;
-using Gallio.Model.Execution;
 using Gallio.Model.Filters;
 using Gallio.Runner;
 using Gallio.Runtime;
@@ -149,7 +144,7 @@ namespace RedGreen
             string gallioPath = gallioKey.GetValue("").ToString();
 
             launcher.RuntimeSetup.PluginDirectories.Add(gallioPath);
-            launcher.RuntimeSetup.InstallationPath = Path.GetDirectoryName(typeof(GallioRunner).Assembly.Location); 
+            launcher.RuntimeSetup.RuntimePath = gallioPath; 
             //On 9/7/08, the InstallationFolder was not yet available in a packaged version of Gallio. When it is, the below should be used in place of the above three lines!
             //launcher.RuntimeSetup.InstallationConfiguration = InstallationConfiguration.LoadFromRegistry();
             //launcher.RuntimeSetup.InstallationPath = launcher.RuntimeSetup.InstallationConfiguration.InstallationFolder;

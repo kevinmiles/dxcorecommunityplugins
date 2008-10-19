@@ -23,12 +23,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Gallio.Model;
-using Gallio.Runner.Extensions;
-using Gallio.Runner.Reports;
-using Gallio.Model.Execution;
 
 namespace RedGreen
 {

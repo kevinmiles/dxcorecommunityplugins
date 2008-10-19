@@ -24,11 +24,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Gallio.Model;
 using Gallio.Runner.Extensions;
 using Gallio.Runner.Reports;
-using Gallio.Model.Execution;
+using Gallio.Model.Logging;
 
 namespace RedGreen
 {
@@ -146,8 +145,8 @@ namespace RedGreen
         /// <returns></returns>
         private static string FormatFailureMessage(TestStepRun testStepRun)
         {
-            string warnings = FormatStream(testStepRun, LogStreamNames.Warnings);
-            string failures = FormatStream(testStepRun, LogStreamNames.Failures);
+            string warnings = FormatStream(testStepRun, TestLogStreamNames.Warnings);
+            string failures = FormatStream(testStepRun, TestLogStreamNames.Failures);
             if (string.IsNullOrEmpty(warnings))
             {
                 return failures;
@@ -166,7 +165,7 @@ namespace RedGreen
         /// <returns></returns>
         private static string FormatStream(TestStepRun testStepRun, string streamName)
         {
-            ExecutionLogStream stream = testStepRun.ExecutionLog.Streams.Find(delegate(ExecutionLogStream s){return s.Name == streamName;});
+            StructuredTestLogStream stream = testStepRun.TestLog.Streams.Find(delegate(StructuredTestLogStream s) { return s.Name == streamName; });
             return stream != null ? stream.ToString() : String.Empty;
         }
     }
