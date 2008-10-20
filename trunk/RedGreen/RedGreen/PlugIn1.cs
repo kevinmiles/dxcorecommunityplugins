@@ -119,7 +119,10 @@ namespace RedGreen
         {
             ea.Tile.Invalidate();
             _hoveredTest = null;
-            CodeRush.SmartTags.HidePopupMenu();
+            if(CodeRush.SmartTags.IsSmartTagVisible)
+            {
+                CodeRush.SmartTags.HidePopupMenu();
+            }
         }
 
         /// <summary>
@@ -143,7 +146,7 @@ namespace RedGreen
 
         private void ShowTestPopupMenu(TextView textView, Tile tile)
         {
-            if (TileIsOurs(tile))// && !CodeRush.SmartTags.IsSmartTagVisible)
+            if (TileIsOurs(tile) && _hoveredTest == null)
             {
                 _hoveredTest = (TestInfo)tile.Object;
                 Point tilePoint = new Point(tile.Bounds.Left, tile.Bounds.Bottom);
