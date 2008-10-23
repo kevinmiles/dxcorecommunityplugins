@@ -47,7 +47,7 @@ namespace RedGreen
         {
             const string kActualStartDelimiter = "\n  But was:  ";
             const string kActualEndDelimiter = "\n  -";
-            const string kAltActualEndDelimiter = "\n\nStack Trace";
+            const string kAltActualEndDelimiter = "\n\nStack";
             return GallioParserUtils.GetSegment(source, String.Empty, kActualStartDelimiter, kActualEndDelimiter, kAltActualEndDelimiter);
         }
 
@@ -73,7 +73,7 @@ namespace RedGreen
             return source.Replace('/', '.');
         }
 
-        public int GetLineNumber(string source, string testLocation)
+        public int GetLineNumber(string source)
         {
             return int.Parse(source.Substring(source.LastIndexOf(" ")).Trim());
         }

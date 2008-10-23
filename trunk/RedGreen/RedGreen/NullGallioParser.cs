@@ -56,7 +56,7 @@ namespace RedGreen
             return source;
         }
 
-        public int GetLineNumber(string source, string testLocation)
+        public int GetLineNumber(string source)
         {
             return 0;
         }

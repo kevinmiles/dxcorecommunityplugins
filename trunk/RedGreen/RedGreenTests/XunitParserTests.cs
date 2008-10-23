@@ -60,8 +60,7 @@ namespace RedGreenTests
         public void LineNumber()
         {
             string source = "Assert.Equal() Failure\nPosition: First difference is at position 7\nExpected: hello hill\nActual:   hello hull\n   at RedGreenPlayground.Class1.AlwaysFails() in C:\\Users\\jaargero.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\xUnitTests.cs:line 39\n";
-            string location = "RedGreenPlayground.MbUnitTests.IntFail";
-            Assert.Equal(39, new XunitGallioParser().GetLineNumber(source, location));
+            Assert.Equal(39, new XunitGallioParser().GetLineNumber(source));
         }
 
     }
