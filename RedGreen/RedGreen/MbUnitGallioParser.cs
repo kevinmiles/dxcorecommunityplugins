@@ -71,7 +71,7 @@ namespace RedGreen
             return source.Replace('/', '.');
         }
 
-        public int GetLineNumber(string source, string testLocation)
+        public int GetLineNumber(string source)
         {
             if (!string.IsNullOrEmpty(source))
             {

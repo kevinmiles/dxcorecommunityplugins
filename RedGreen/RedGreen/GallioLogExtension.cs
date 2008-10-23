@@ -78,7 +78,7 @@ namespace RedGreen
                         rawResult = FormatFailureMessage(e.TestStepRun);
                         testResult.Failure.Expected = helper.GetExpected(rawResult);
                         testResult.Failure.Actual = helper.GetActual(rawResult);
-                        testResult.Failure.FailingStatement = DxCoreUtil.GetStatement(testResult.Location, helper.GetLineNumber(rawResult, testResult.Location));
+                        testResult.Failure.FailingStatement = DxCoreUtil.GetStatement(testResult.Location, helper.GetLineNumber(rawResult));
                         testResult.Failure.ActualDiffersAt = helper.GetPosition(rawResult, testResult.Failure.Expected, testResult.Failure.Actual);
                         break;
 

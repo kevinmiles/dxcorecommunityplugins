@@ -64,7 +64,7 @@ namespace RedGreen
             return 0;
         }
 
-        public int GetLineNumber(string source, string testLocation)
+        public int GetLineNumber(string source)
         {
             string trimmed = source.Trim();
             return int.Parse(trimmed.Substring(trimmed.LastIndexOf(' ')));

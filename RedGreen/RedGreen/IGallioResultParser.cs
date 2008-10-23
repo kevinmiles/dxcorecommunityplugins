@@ -60,8 +60,7 @@ namespace RedGreen
         /// <summary>
         /// Get the line number of the failure. If a line number is specified.
         /// </summary>
-        /// <param name="testLocation">Needed by one variant to find the location because many line numbers are in the source data</param>
-        int GetLineNumber(string source, string testLocation);
+        int GetLineNumber(string source);
 
         /// <summary>
         /// Get the method location where the failure took place. THe assert location would be preferred, but Gallio doesn't supply that data.

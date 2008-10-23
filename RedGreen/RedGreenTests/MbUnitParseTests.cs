@@ -35,8 +35,8 @@ namespace RedGreenTests
         [Fact]
         public void StringExpected()
         {
-            string source = "Expected values to be equal.\n\nExpected Value : \"who\\'s there\"\nActual Value   : \"who\\'s where\"\n\n   at RedGreenPlayground.MbUnitTests.AlwaysFails() in C:\\Users\\jaargero.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\MbUnitTests.cs:line 21\n";
-            Assert.Equal("Who's there", new MbUnitGallioParser().GetExpected(source));
+            string source = "Expected values to be equal.\n\nExpected Value : \"who's there\"\nActual Value   : \"who's where\"\n\n   at RedGreenPlayground.MbUnitTests.AlwaysFails() in C:\\Users\\jaargero.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\MbUnitTests.cs:line 21\n";
+            Assert.Equal("\"who's there\"", new MbUnitGallioParser().GetExpected(source));
         }
 
         [Fact]
@@ -49,8 +49,8 @@ namespace RedGreenTests
         [Fact]
         public void StringActual()
         {
-            string source = "Expected values to be equal.\n\nExpected Value : \"who\\'s there\"\nActual Value   : \"who\\'s where\"\n\n   at RedGreenPlayground.MbUnitTests.AlwaysFails() in C:\\Users\\jaargero.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\MbUnitTests.cs:line 21\n";
-            Assert.Equal("Who's where", new MbUnitGallioParser().GetActual(source));
+            string source = "Expected values to be equal.\n\nExpected Value : \"who's there\"\nActual Value   : \"who's where\"\n\n   at RedGreenPlayground.MbUnitTests.AlwaysFails() in C:\\Users\\jaargero.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\MbUnitTests.cs:line 21\n";
+            Assert.Equal("\"who's where\"", new MbUnitGallioParser().GetActual(source));
         }
 
         [Fact]
@@ -63,8 +63,8 @@ namespace RedGreenTests
         [Fact]
         public void StringPosition()
         {
-            string source = "Expected values to be equal.\n\nExpected Value : \"who\\'s there\"\nActual Value   : \"who\\'s where\"\n\n   at RedGreenPlayground.MbUnitTests.AlwaysFails() in C:\\Users\\jaargero.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\MbUnitTests.cs:line 21\n";
-            Assert.Equal(7, new MbUnitGallioParser().GetPosition(source, "hello hill", "hello hull"));
+            string source = "Expected values to be equal.\n\nExpected Value : \"who's there\"\nActual Value   : \"who's where\"\n\n   at RedGreenPlayground.MbUnitTests.AlwaysFails() in C:\\Users\\jaargero.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\MbUnitTests.cs:line 21\n";
+            Assert.Equal(7, new MbUnitGallioParser().GetPosition(source, "\"who's there\"", "\"who's where\""));
         }
 
         [Fact]

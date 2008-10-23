@@ -497,7 +497,7 @@ namespace RedGreen
         /// </summary>                                                              
         private static Attribute GetTestAttributeForLanguageElement(LanguageElement languageElement)
         {       
-            if (languageElement.ElementType == LanguageElementType.Attribute)
+            if (languageElement.ElementType == LanguageElementType.Attribute && DxCoreUtil.IsTest((Attribute)languageElement))
             {                     
                 return (Attribute)languageElement;
             }        
@@ -575,7 +575,7 @@ namespace RedGreen
         private void PlugIn1_EditorValidateLanguageElementClipRegion(EditorValidateLanguageElementClipRegionEventArgs ea)
         {
             Attribute testAttribute = ea.LanguageElement as Attribute;
-            if (testAttribute == null)
+            if (testAttribute == null || false == DxCoreUtil.IsTest(testAttribute))
             {// Nothing to do
                 return;
             }
