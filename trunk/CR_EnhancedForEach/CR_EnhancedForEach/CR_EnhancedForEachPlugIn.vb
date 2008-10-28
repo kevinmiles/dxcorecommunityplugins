@@ -25,8 +25,8 @@ Namespace CR_EnhancedForEach
         Friend WithEvents ForEachVarType As DevExpress.CodeRush.Extensions.StringProvider
         Friend WithEvents ForEachVarItemName As DevExpress.CodeRush.Extensions.StringProvider
         Private projHash As New Hashtable
-        Private shared _Cache As new Hashtable
-        Dim isOldVS As Boolean= CodeRush.ApplicationObject.Version.StartsWith("7")
+        Private Shared _Cache As New Hashtable
+        Dim isOldVS As Boolean = CodeRush.ApplicationObject.Version.StartsWith("7")
 
 #Region " private fields... "
         Private components As System.ComponentModel.IContainer
@@ -131,51 +131,61 @@ Namespace CR_EnhancedForEach
 
         Private _EnumVars As New ArrayList
         Private theClass As [Class]
-        Private theStruct As struct
+        Private theStruct As Struct
         Private _parentClassOrStructName As String
         Private activeLe As LanguageElement
         Private _isStatic As Boolean
 
-        Private Sub FillArray(scope as string)
+        Private Sub FillArray(ByVal scope As String)
             _EnumVars.Clear()
-            debug.WriteLine(CodeRush.Documents.ActiveTextDocument.ParseState.ToString)
-            If Not CodeRush.Documents.ActiveTextDocument Is Nothing andalso (CodeRush.Documents.ActiveTextDocument.ParseState=DocumentParseState.OutOfSyncDueToCommittedChanges orelse CodeRush.Documents.ActiveTextDocument.ParseState=DocumentParseState.OutOfSyncDueToUncommittedTextChanges) Then
+            Debug.WriteLine(CodeRush.Documents.ActiveTextDocument.ParseState.ToString)
+            If Not CodeRush.Documents.ActiveTextDocument Is Nothing AndAlso (CodeRush.Documents.ActiveTextDocument.ParseState = DocumentParseState.OutOfSyncDueToCommittedChanges OrElse CodeRush.Documents.ActiveTextDocument.ParseState = DocumentParseState.OutOfSyncDueToUncommittedTextChanges) Then
                 CodeRush.Documents.ActiveTextDocument.ParseIfTextChanged()
             End If
 
-            activeLe = coderush.Source.GetNodeBefore(New SourcePoint(coderush.Caret.Line, coderush.Caret.Offset))
+            activeLe = CodeRush.Source.GetNodeBefore(New SourcePoint(CodeRush.Caret.Line, CodeRush.Caret.Offset))
+
+            Dim theModul As LanguageElement
+            theModul = CodeRush.Source.ActiveType
             If activeLe Is Nothing Then
-                theclass=CodeRush.Source.ActiveClass
-                thestruct=CodeRush.Source.ActiveStruct
+                theClass = CodeRush.Source.ActiveClass
+                theStruct = CodeRush.Source.ActiveStruct
             Else
-                theclass = activeLe.GetClass 
-                thestruct=activeLe.GetStruct
+                theClass = activeLe.GetClass
+                theStruct = activeLe.GetStruct
             End If
-            If (Not activeLe Is Nothing AndAlso activeLe.InsideStruct) OrElse (activeLe Is Nothing AndAlso not theStruct Is Nothing) Then
+            If (Not activeLe Is Nothing AndAlso activeLe.InsideStruct) OrElse (activeLe Is Nothing AndAlso Not theStruct Is Nothing) Then
                 If Not activeLe Is Nothing Then
-                    _parentClassOrStructName = activele.GetStruct.Name    
+                    _parentClassOrStructName = activeLe.GetStruct.Name
                 Else
-                    _parentClassOrStructName=theStruct.Name
+                    _parentClassOrStructName = theStruct.Name
                 End If
-                
             Else
-                _parentClassOrStructName = theclass.Name
+                If TypeOf theModul Is devexpress.CodeRush.StructuralParser.Module Then
+                    _parentClassOrStructName = theModul.Name
+                Else
+                    _parentClassOrStructName = theClass.Name
+                End If
+
+
             End If
-            _isstatic= False 
-            dim themethod as Method=coderush.Source.ActiveMethod
+            _isStatic = False
+            Dim themethod As Method = CodeRush.Source.ActiveMethod
             Dim theProperty As [Property] = CodeRush.Source.ActiveProperty
             If Not themethod Is Nothing Then
-                _isStatic=themethod.IsStatic
+                _isStatic = themethod.IsStatic
             End If
             If Not theProperty Is Nothing Then
-                _isStatic=theProperty.IsStatic
+                _isStatic = theProperty.IsStatic
             End If
             'FillVarsForMainClass()
-            If scope.ToLower="class" Then
+            If scope.ToLower = "class" Then
                 If Not theClass Is Nothing Then
                     FillVarsForClass(theClass)
-                ElseIf not theStruct Is Nothing Then
+                ElseIf Not theStruct Is Nothing Then
                     FillVarsForClass(theStruct)
+                ElseIf Not theModul Is Nothing Then
+                    FillVarsForClass(theModul)
                 End If
             End If
             FillVarsLocal()
@@ -214,29 +224,33 @@ Namespace CR_EnhancedForEach
 
         Private Sub FillVarsForClass(ByVal theElement As LanguageElement, Optional ByVal isParent As Boolean = False)
             Dim ienum As IEnumerator
-            dim theclass as [Class]
-            dim theStruct as struct
-            If typeof theElement is [Class] Then
-                theclass=directcast(theElement,[Class])
-                ienum= theclass.AllVariables.GetEnumerator
-            elseif typeof theElement is struct Then
-                thestruct=directcast(theElement,struct)
-                ienum= thestruct.AllVariables.GetEnumerator
+            Dim theclass As [Class]
+            Dim theStruct As Struct
+            Dim theModule As DevExpress.CodeRush.StructuralParser.Module
+            If TypeOf theElement Is [Class] Then
+                theclass = DirectCast(theElement, [Class])
+                ienum = theclass.AllVariables.GetEnumerator
+            ElseIf TypeOf theElement Is Struct Then
+                theStruct = DirectCast(theElement, Struct)
+                ienum = theStruct.AllVariables.GetEnumerator
+            ElseIf TypeOf theElement Is devexpress.CodeRush.StructuralParser.Module Then
+                theModule = DirectCast(theElement, DevExpress.CodeRush.StructuralParser.Module)
+                ienum = theModule.AllVariables.GetEnumerator
             End If
-             
+
             While ienum.MoveNext
                 Dim var As Variable = DirectCast(ienum.Current, Variable)
                 If (Not var.Visibility = MemberVisibility.Local AndAlso Not var.Visibility = MemberVisibility.Param) Then
                     If Not isParent OrElse Not var.Visibility = MemberVisibility.Private Then
                         'If Not var.GetClass Is Nothing AndAlso ((var.InsideStruct AndAlso var.GetStruct.Name = _parentClassOrStructName) OrElse Not var.InsideStruct) Then
-                        If not(var.InsideMethod orelse var.InsideProperty) Then
-                            If (not var.GetClass is nothing andalso var.GetClass.Name=_parentClassOrStructName)  Then
-                                 If not _isStatic orelse var.IsStatic  Then
+                        If Not (var.InsideMethod OrElse var.InsideProperty) Then
+                            If (Not var.GetClass Is Nothing AndAlso var.GetClass.Name = _parentClassOrStructName) Then
+                                If Not _isStatic OrElse var.IsStatic Then
                                     CheckAndAddVar(var, False)
                                 End If
                             End If
                             'If Not var.GetClass Is Nothing AndAlso ((var.InsideStruct AndAlso var.GetStruct.Name = _parentClassOrStructName) OrElse Not var.InsideStruct) Then
-                               
+
                             'End If
                         End If
                     End If
@@ -259,7 +273,7 @@ Namespace CR_EnhancedForEach
             '        End If
             '    End If
             'end if
-               
+
         End Sub
 
         Private Sub ForEachAction_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles ForEachAction.Execute
@@ -294,24 +308,24 @@ Namespace CR_EnhancedForEach
             Loop
         End Sub
         Private Sub CheckAndAddVar(ByVal var As LanguageElement, ByVal local As Boolean)
-            debug.WriteLine(var.Name)
+            Debug.WriteLine(var.Name)
             Dim typeElement As IElement
-            If CanDoForEach(var,typeElement) Then
+            If CanDoForEach(var, typeElement) Then
                 'Dim leType As LanguageElement = GetTypeLanguageElement(var)
                 'Dim leType As LanguageElement = GetTypeLanguageElement(var)
                 If typeElement Is Nothing Then
                     typeElement = ResolveType(var)
                 End If
-                 
+
                 If Not typeElement Is Nothing AndAlso Not typeElement.Name.ToLower = "string" Then
-                    _EnumVars.Add(New EnumerableElement(var.Name,var, nothing, local))
+                    _EnumVars.Add(New EnumerableElement(var.Name, var, Nothing, local))
                 End If
             End If
         End Sub
         Private Shared Function GetTypeLanguageElement(ByVal le As LanguageElement) As LanguageElement
             Dim leType As LanguageElement
-            If typeof le is Variable Then
-                    Dim var As Variable
+            If TypeOf le Is Variable Then
+                Dim var As Variable
                 var = DirectCast(le, Variable)
                 leType = var.MemberTypeReference
                 If Not leType Is Nothing Then
@@ -323,10 +337,10 @@ Namespace CR_EnhancedForEach
                         leType = DirectCast(var.DetailNodes(0), LanguageElement).Nodes(0)
                     End If
                 End If
-            elseif typeof le is Param then
-                Dim prm As param
-                prm = DirectCast(le, param)
-                
+            ElseIf TypeOf le Is Param Then
+                Dim prm As Param
+                prm = DirectCast(le, Param)
+
                 leType = prm.MemberTypeReference
                 If Not leType Is Nothing Then
                     Return leType
@@ -338,125 +352,125 @@ Namespace CR_EnhancedForEach
                     End If
                 End If
             End If
-            
+
             Return leType
         End Function
-        Private  Function CanDoForEach(ByVal le As LanguageElement, byref leTypeDecl As IElement) As Boolean
+        Private Function CanDoForEach(ByVal le As LanguageElement, ByRef leTypeDecl As IElement) As Boolean
             'Dim letypeIElement As IElement=ResolveType(le)
-            
+
             'If Not letypeIElement Is Nothing Then
             '    If _Cache.ContainsKey(letypeIElement.FullName) Then
             '        Return _cache(letypeIElement.FullName)
             '    End If
             'End If
-            
-            If TypeOf le Is Variable orelse typeof le is Param Then 'AndAlso Not TypeOf le Is ImplicitVariable Then
+
+            If TypeOf le Is Variable OrElse TypeOf le Is Param Then 'AndAlso Not TypeOf le Is ImplicitVariable Then
                 Dim leType As LanguageElement
-                If typeof le is Variable Then
+                If TypeOf le Is Variable Then
                     leType = DirectCast(le, Variable).MemberTypeReference
                 Else
-                    letype= DirectCast(le, Param).MemberTypeReference
+                    leType = DirectCast(le, Param).MemberTypeReference
                 End If
-                If letype.Name.ToLower = "string" OrElse letype.Name.ToLower = "system.string" Then
-                    Return False 
+                If leType.Name.ToLower = "string" OrElse leType.Name.ToLower = "system.string" Then
+                    Return False
                 End If
                 leTypeDecl = leType.GetDeclaration
                 If Not leTypeDecl Is Nothing Then
                     If _Cache.ContainsKey(leTypeDecl.FullName) Then
-                        Return _cache(leTypeDecl.FullName)
+                        Return _Cache(leTypeDecl.FullName)
                     End If
                 End If
-                If not typeof leTypeDecl is IClassElement andalso not  typeof leTypeDecl is IInterfaceElement Then
-                    If Not leTypeDecl Is Nothing andalso leTypeDecl.InReferencedAssembly Then
-                        If not _Cache.ContainsKey(leTypeDecl.FullName) Then
-                                _Cache.Add(leTypeDecl.FullName, False)
+                If Not TypeOf leTypeDecl Is IClassElement AndAlso Not TypeOf leTypeDecl Is IInterfaceElement Then
+                    If Not leTypeDecl Is Nothing AndAlso leTypeDecl.InReferencedAssembly Then
+                        If Not _Cache.ContainsKey(leTypeDecl.FullName) Then
+                            _Cache.Add(leTypeDecl.FullName, False)
                         End If
                     End If
                     Return False
                 End If
                 If ImplementsIEnumerable(leTypeDecl) Then
-                   If Not leTypeDecl Is Nothing andalso leTypeDecl.InReferencedAssembly Then
-                        If not _Cache.ContainsKey(leTypeDecl.FullName) Then
+                    If Not leTypeDecl Is Nothing AndAlso leTypeDecl.InReferencedAssembly Then
+                        If Not _Cache.ContainsKey(leTypeDecl.FullName) Then
                             _Cache.Add(leTypeDecl.FullName, True)
                         End If
                     End If
                     Return True
                 End If
                 'End If
-            'ElseIf TypeOf le Is Param Then 'AndAlso Not TypeOf le Is ImplicitVariable Then
-            '    Dim leType As LanguageElement = DirectCast(le, Param).MemberTypeReference
-            '    If letype.Name.ToLower = "string" OrElse letype.Name.ToLower = "system.string" Then
-            '        Return False
-            '    End If
-            '    leTypeDecl = leType.GetDeclaration
-            '    If Not leTypeDecl Is Nothing  Then
-            '        If _Cache.ContainsKey(leTypeDecl.FullName) Then
-            '            Return _cache(leTypeDecl.FullName)
-            '        End If
-            '    End If
-            '    If not typeof leTypeDecl is IClassElement andalso not  typeof leTypeDecl is IInterfaceElement Then
-            '        If Not leTypeDecl Is Nothing andalso leTypeDecl.InReferencedAssembly Then
-            '            If not _Cache.ContainsKey(leTypeDecl.FullName) Then
-            '                    _Cache.Add(leTypeDecl.FullName, False)
-            '            End If
-            '        End If
-            '        Return False
-            '    End If
-            '    If ImplementsIEnumerable(leTypeDecl) Then
-            '       If Not leTypeDecl Is Nothing andalso leTypeDecl.InReferencedAssembly Then
-            '            If not _Cache.ContainsKey(leTypeDecl.FullName) Then
-            '                _Cache.Add(leTypeDecl.FullName, True)
-            '            End If
-            '        End If
-            '        Return True
-            '    End If
+                'ElseIf TypeOf le Is Param Then 'AndAlso Not TypeOf le Is ImplicitVariable Then
+                '    Dim leType As LanguageElement = DirectCast(le, Param).MemberTypeReference
+                '    If letype.Name.ToLower = "string" OrElse letype.Name.ToLower = "system.string" Then
+                '        Return False
+                '    End If
+                '    leTypeDecl = leType.GetDeclaration
+                '    If Not leTypeDecl Is Nothing  Then
+                '        If _Cache.ContainsKey(leTypeDecl.FullName) Then
+                '            Return _cache(leTypeDecl.FullName)
+                '        End If
+                '    End If
+                '    If not typeof leTypeDecl is IClassElement andalso not  typeof leTypeDecl is IInterfaceElement Then
+                '        If Not leTypeDecl Is Nothing andalso leTypeDecl.InReferencedAssembly Then
+                '            If not _Cache.ContainsKey(leTypeDecl.FullName) Then
+                '                    _Cache.Add(leTypeDecl.FullName, False)
+                '            End If
+                '        End If
+                '        Return False
+                '    End If
+                '    If ImplementsIEnumerable(leTypeDecl) Then
+                '       If Not leTypeDecl Is Nothing andalso leTypeDecl.InReferencedAssembly Then
+                '            If not _Cache.ContainsKey(leTypeDecl.FullName) Then
+                '                _Cache.Add(leTypeDecl.FullName, True)
+                '            End If
+                '        End If
+                '        Return True
+                '    End If
 
-            '    'If ImplementsIEnumerable(leTypeDecl) then 'OrElse (TypeOf letype Is TypeReferenceExpression AndAlso DirectCast(letype, TypeReferenceExpression).TypeReferenceType.tostring = TypeReferenceType.Array.ToString) OrElse DirectCast(le, Param).MemberType.EndsWith("()") OrElse DirectCast(le, Param).MemberType.EndsWith("[]") Then
-            '    '    Return True
-            '    'End If
+                '    'If ImplementsIEnumerable(leTypeDecl) then 'OrElse (TypeOf letype Is TypeReferenceExpression AndAlso DirectCast(letype, TypeReferenceExpression).TypeReferenceType.tostring = TypeReferenceType.Array.ToString) OrElse DirectCast(le, Param).MemberType.EndsWith("()") OrElse DirectCast(le, Param).MemberType.EndsWith("[]") Then
+                '    '    Return True
+                '    'End If
             End If
         End Function
         Private Sub AddToCache(ByVal strName As String, ByVal isEnumerable As Boolean)
-            If not _Cache.ContainsKey(strname) Then
-                _Cache.Add(strname,isEnumerable)
+            If Not _Cache.ContainsKey(strName) Then
+                _Cache.Add(strName, isEnumerable)
             End If
         End Sub
-        Private  function ImplementsIEnumerable(ByVal cls As IElement) as Boolean
+        Private Function ImplementsIEnumerable(ByVal cls As IElement) As Boolean
             'Return True
             Dim impl As ITypeReferenceExpressionCollection
             If _Cache.ContainsKey(cls.FullName) Then
-                    Return _cache(cls.FullName)
+                Return _Cache(cls.FullName)
             End If
-            If typeof cls is IClassElement Then
-                impl = directcast(cls,IClassElement).SecondaryAncestors
-            elseif typeof cls is IInterfaceElement
-                If directcast(cls,IInterfaceElement).fullName=strIEnum orelse directcast(cls,IInterfaceElement).fullName=strGenericIEnum Then
+            If TypeOf cls Is IClassElement Then
+                impl = DirectCast(cls, IClassElement).SecondaryAncestors
+            ElseIf TypeOf cls Is IInterfaceElement Then
+                If DirectCast(cls, IInterfaceElement).FullName = strIEnum OrElse DirectCast(cls, IInterfaceElement).FullName = strGenericIEnum Then
                     If cls.InReferencedAssembly Then
-                        addtocache(cls.FullName,True)
+                        AddToCache(cls.FullName, True)
                     End If
                     Return True
                 End If
-                impl=directcast(cls,IInterfaceElement).SecondaryAncestors
+                impl = DirectCast(cls, IInterfaceElement).SecondaryAncestors
                 'strImplements.Add(directcast(cls,IInterfaceElement).fullName)
-            else
+            Else
                 If cls.InReferencedAssembly Then
                     AddToCache(cls.FullName, False)
                 End If
                 Return False
             End If
-            
+
             For Each interf As ITypeReferenceExpression In impl
                 If _Cache.ContainsKey(interf.FullName) Then
-                    dim blnRes as Boolean= _cache(interf.FullName)
+                    Dim blnRes As Boolean = _Cache(interf.FullName)
                     If cls.InReferencedAssembly Then
-                        addtocache(cls.FullName,blnRes)
+                        AddToCache(cls.FullName, blnRes)
                     End If
                 End If
-                dim decl as IElement = interf.GetDeclaration
-                If  decl Is Nothing Then
-                     If interf.FullName=strIEnum orelse interf.fullName=strGenericIEnum Then
+                Dim decl As IElement = interf.GetDeclaration
+                If decl Is Nothing Then
+                    If interf.FullName = strIEnum OrElse interf.FullName = strGenericIEnum Then
                         If cls.InReferencedAssembly Then
-                            addtocache(cls.FullName,True)
+                            AddToCache(cls.FullName, True)
                         End If
                         Return True
                     End If
@@ -464,17 +478,17 @@ Namespace CR_EnhancedForEach
                     Dim lInterfGetDeclarationFullName As String = decl.FullName
                     If lInterfGetDeclarationFullName = strIEnum OrElse lInterfGetDeclarationFullName = strGenericIEnum Then
                         If cls.InReferencedAssembly Then
-                            addtocache(cls.FullName,True)
+                            AddToCache(cls.FullName, True)
                         End If
                         Return True
                     End If
                 End If
             Next
             Dim baseType As ITypeReferenceExpression
-            If typeof cls is IClassElement Then
-                baseType = directcast(cls,IClassElement).PrimaryAncestor
-            elseif typeof cls is IInterfaceElement
-                baseType=directcast(cls,IInterfaceElement).PrimaryAncestor
+            If TypeOf cls Is IClassElement Then
+                baseType = DirectCast(cls, IClassElement).PrimaryAncestor
+            ElseIf TypeOf cls Is IInterfaceElement Then
+                baseType = DirectCast(cls, IInterfaceElement).PrimaryAncestor
             End If
             If Not baseType Is Nothing Then
                 Dim base As IClassElement = baseType.GetDeclaration
@@ -485,7 +499,7 @@ Namespace CR_EnhancedForEach
             If cls.InReferencedAssembly Then
                 AddToCache(cls.FullName, False)
             End If
-        End function
+        End Function
 
         Private _NameOnClipboard As String
         Private _TypeOnClipboard As String
@@ -493,10 +507,10 @@ Namespace CR_EnhancedForEach
         Private clipboardEnumerableElement As EnumerableElement
 
         Private Function GetDetailsCount(ByVal le As LanguageElement) As Integer
-            Dim counter As Integer=0
-            For Each leDetails As Languageelement In le.DetailNodes
-                If leDetails.Range.Start.Line>le.NameRange.Start.Line orelse ((leDetails.Range.Start.Line=le.NameRange.Start.Line) andalso (leDetails.Range.Start.offset>le.NameRange.Start.offset)) Then
-                    counter+=1
+            Dim counter As Integer = 0
+            For Each leDetails As LanguageElement In le.DetailNodes
+                If leDetails.Range.Start.Line > le.NameRange.Start.Line OrElse ((leDetails.Range.Start.Line = le.NameRange.Start.Line) AndAlso (leDetails.Range.Start.Offset > le.NameRange.Start.Offset)) Then
+                    counter += 1
                 End If
             Next
             Return counter
@@ -506,9 +520,9 @@ Namespace CR_EnhancedForEach
             Dim details As Integer = GetDetailsCount(le)
             If details = 1 Then
                 Dim refEl As LanguageElement = DirectCast(le.DetailNodes(le.DetailNodeCount - 1), LanguageElement)
-                Dim strName As String=le.Document.GetText(refEl.Range.Start.Line,refEl.Range.Start.Offset,refEl.Range.End.Line,refEl.Range.End.Offset)
+                Dim strName As String = le.Document.GetText(refEl.Range.Start.Line, refEl.Range.Start.Offset, refEl.Range.End.Line, refEl.Range.End.Offset)
                 Return strName
-                              
+
             ElseIf details = 2 Then
                 Return "KeyValuePair" & le.Document.GetText(le.NameRange.End.Line, le.NameRange.End.Offset, le.Range.End.Line, le.Range.End.Offset)
 
@@ -558,8 +572,8 @@ Namespace CR_EnhancedForEach
                 '    _ReturnTypeOnClipboard = GetReturnTypeForGeneric(le)
             Else
                 If ea.Details.HasDocument AndAlso ea.Details.HasSource AndAlso Not ea.Details.Type Is Nothing Then
-                    dim leTypeDecl As IElement
-                    If CanDoForEach(le,leTypeDecl) Then
+                    Dim leTypeDecl As IElement
+                    If CanDoForEach(le, leTypeDecl) Then
                         _NameOnClipboard = ea.Details.Text
                         _TypeOnClipboard = ea.Details.Type.FullName
                         'If CodeRush.Source.Implements(ea.Details.Type.FullName, strIEnum) Then
@@ -578,7 +592,7 @@ Namespace CR_EnhancedForEach
                 Else
                     blnLocal = False
                 End If
-                clipboardEnumerableElement = New EnumerableElement(_NameOnClipboard,strClipboardreturnType,blnlocal)
+                clipboardEnumerableElement = New EnumerableElement(_NameOnClipboard, strClipboardreturnType, blnLocal)
             End If
             'MessageBox.Show(_ReturnTypeOnClipboard)
         End Sub
@@ -638,36 +652,36 @@ Namespace CR_EnhancedForEach
             Return "System.Object"
         End Function
 
-'Private function GetElementType( byval element As Ielement)  as string
-'    Dim typeElement As IElement = ResolveType(element) 
-'            If typeof typeElement is TypeReferenceExpression Then
-'                Return directcast(typeElement,TypeReferenceExpression).FullSignature
-'            End If
-'    Dim type As ITypeElement = DirectCast(typeElement, ITypeElement) 
-'    Dim typeRef As ITypeReferenceExpression = Nothing 
-'    Dim members As IMemberElementCollection = type.Members 
-'    For Each member As IMemberElement In members 
-'                If typeof member is IPropertyElement Then
-'                    Dim [property] As IPropertyElement =  directcast(member, IPropertyElement) 
-'                    If not [property] Is Nothing AndAlso [property].IsIndexed Then 
-'                        typeRef = [property].Type 
-'                        Exit For 
-'                    End If 
-'                End If
-'    Next 
-'    Dim elementType As ITypeElement = Nothing 
-'    If not typeRef Is Nothing Then 
-'        elementType = DirectCast(ParserServices.SourceTreeResolver.Resolve(typeRef), ITypeElement) 
-'    End If 
-'            If elementType Is Nothing Then
-'                 Return "System.Object"
-'            Else
-'                return elementType.FullName
-'            End If
-   
-'End function
+        'Private function GetElementType( byval element As Ielement)  as string
+        '    Dim typeElement As IElement = ResolveType(element) 
+        '            If typeof typeElement is TypeReferenceExpression Then
+        '                Return directcast(typeElement,TypeReferenceExpression).FullSignature
+        '            End If
+        '    Dim type As ITypeElement = DirectCast(typeElement, ITypeElement) 
+        '    Dim typeRef As ITypeReferenceExpression = Nothing 
+        '    Dim members As IMemberElementCollection = type.Members 
+        '    For Each member As IMemberElement In members 
+        '                If typeof member is IPropertyElement Then
+        '                    Dim [property] As IPropertyElement =  directcast(member, IPropertyElement) 
+        '                    If not [property] Is Nothing AndAlso [property].IsIndexed Then 
+        '                        typeRef = [property].Type 
+        '                        Exit For 
+        '                    End If 
+        '                End If
+        '    Next 
+        '    Dim elementType As ITypeElement = Nothing 
+        '    If not typeRef Is Nothing Then 
+        '        elementType = DirectCast(ParserServices.SourceTreeResolver.Resolve(typeRef), ITypeElement) 
+        '    End If 
+        '            If elementType Is Nothing Then
+        '                 Return "System.Object"
+        '            Else
+        '                return elementType.FullName
+        '            End If
+
+        'End function
         Private Function GetReturnType(ByVal typeElement As IElement) As String
-          If typeElement Is Nothing Then
+            If typeElement Is Nothing Then
                 Return "System.Object"
             End If
             'If  typeof typeElement is TypeReferenceExpression andalso directcast(typeElement,TypeReferenceExpression).IsGeneric Then
@@ -679,12 +693,12 @@ Namespace CR_EnhancedForEach
         Dim frmSelect As New SelectForm
 
         Private Sub ForEachInit_GetString(ByVal ea As DevExpress.CodeRush.Core.GetStringEventArgs) Handles ForEachInit.GetString
-            If ea.Parameters.All<>"" Then
-                FillArray(ea.Parameters.all)
+            If ea.Parameters.All <> "" Then
+                FillArray(ea.Parameters.All)
             Else
                 FillArray("method")
             End If
-            
+
             If _EnumVars.Count = 1 Then
                 frmSelect.SelectedElement = _EnumVars(0)
                 Return
@@ -702,10 +716,10 @@ Namespace CR_EnhancedForEach
                     formWidth = frmSelect.lblSize.Width
                 End If
             Next
-            formWidth+=20
-            dim screenHeight as Integer=screen.FromPoint(new System.Drawing.Point(posleft,1)).workingArea.Height
-            If posleft + formWidth> screen.FromPoint(new System.Drawing.Point(posleft,1)).workingArea.Width Then
-                posleft=screen.FromPoint(new System.Drawing.Point(posleft,1)).workingArea.Width-formWidth    
+            formWidth += 20
+            Dim screenHeight As Integer = Screen.FromPoint(New System.Drawing.Point(posLeft, 1)).WorkingArea.Height
+            If posLeft + formWidth > Screen.FromPoint(New System.Drawing.Point(posLeft, 1)).WorkingArea.Width Then
+                posLeft = Screen.FromPoint(New System.Drawing.Point(posLeft, 1)).WorkingArea.Width - formWidth
             End If
             If Not clipboardEnumerableElement Is Nothing Then
                 frmSelect.ClipBoardElement = clipboardEnumerableElement
@@ -719,19 +733,19 @@ Namespace CR_EnhancedForEach
             End If
             frmSelect.Hide()
             frmSelect.Height = ((_EnumVars.Count) * 16) + 28
-            If frmSelect.Height>screenHeight/4 Then
-                frmSelect.Height=screenHeight/4
+            If frmSelect.Height > screenHeight / 4 Then
+                frmSelect.Height = screenHeight / 4
             End If
             If Not Me.clipboardEnumerableElement Is Nothing Then
                 frmSelect.ClipBoardElement = Me.clipboardEnumerableElement
             End If
-            If frmselect.Top + frmselect.Height>screenHeight Then
-                If frmselect.Top-frmselect.Height<0 Then
-                    frmselect.Top=0
+            If frmSelect.Top + frmSelect.Height > screenHeight Then
+                If frmSelect.Top - frmSelect.Height < 0 Then
+                    frmSelect.Top = 0
                 Else
-                    frmselect.Top=(frmselect.Top-frmselect.Height)-CodeRush.TextViews.Active.LineHeight
+                    frmSelect.Top = (frmSelect.Top - frmSelect.Height) - CodeRush.TextViews.Active.LineHeight
                 End If
-                
+
             End If
             'frmSelect.ShowDialog()
             frmSelect.DialogResult = DialogResult.Abort
@@ -748,7 +762,7 @@ Namespace CR_EnhancedForEach
         End Sub
 
         Private Sub ForEachVar_GetString(ByVal ea As DevExpress.CodeRush.Core.GetStringEventArgs) Handles ForEachVar.GetString
-             If frmSelect.SelectedElement.Name = " New" Then
+            If frmSelect.SelectedElement.Name = " New" Then
                 ea.Value = "collection"
             Else
                 ea.Value = frmSelect.SelectedElement.Name
@@ -770,53 +784,53 @@ Namespace CR_EnhancedForEach
                 If frmSelect.SelectedElement Is Nothing Then
                     rettype = "System.Object"
                 Else
-                    rettype=GetReturnType(frmSelect.SelectedElement.Element)
-                    frmSelect.SelectedElement.ReturnTypeName=rettype
+                    rettype = GetReturnType(frmSelect.SelectedElement.Element)
+                    frmSelect.SelectedElement.ReturnTypeName = rettype
                 End If
             Else
-                rettype=frmSelect.SelectedElement.ReturnTypeName
+                rettype = frmSelect.SelectedElement.ReturnTypeName
             End If
-            ea.Value = CodeRush.Language.GetSimpleName( rettype)
-           'Dim rettype As String
-           ' If frmSelect.SelectedElement.ReturnTypeName = "" Then
-           '     If frmSelect.SelectedElement.ReturnType Is Nothing Then
-           '         frmSelect.SelectedElement.ReturnType=ResolveType(frmSelect.SelectedElement.Element)
-           '     End If
-           '     'Dim declElement As IElement = resolvetype(frmSelect.SelectedElement.Element)
-           '     Dim declElement As IElement = resolvetype(frmSelect.SelectedElement.Element) 'DirectCast(frmSelect.SelectedElement.ReturnType, ITypeReferenceExpression).GetDeclaration
-           '     If TypeOf declElement Is IClassElement andalso directcast(declElement,IClassElement).IsGeneric andalso typeof frmSelect.SelectedElement.element is Variable Then
-           '         rettype=GetReturnTypeForGeneric(directcast(frmSelect.SelectedElement.element,Variable).MemberTypeReference)
-           '     Else
-           '         rettype = GetReturnType(declElement)
-           '     End If
-           '     frmSelect.SelectedElement.ReturnTypeName=rettype
-           ' Else
-           '     rettype=frmSelect.SelectedElement.ReturnTypeName
-           ' End If
-           ' ea.Value = CodeRush.Language.GetSimpleName( rettype)
+            ea.Value = CodeRush.Language.GetSimpleName(rettype)
+            'Dim rettype As String
+            ' If frmSelect.SelectedElement.ReturnTypeName = "" Then
+            '     If frmSelect.SelectedElement.ReturnType Is Nothing Then
+            '         frmSelect.SelectedElement.ReturnType=ResolveType(frmSelect.SelectedElement.Element)
+            '     End If
+            '     'Dim declElement As IElement = resolvetype(frmSelect.SelectedElement.Element)
+            '     Dim declElement As IElement = resolvetype(frmSelect.SelectedElement.Element) 'DirectCast(frmSelect.SelectedElement.ReturnType, ITypeReferenceExpression).GetDeclaration
+            '     If TypeOf declElement Is IClassElement andalso directcast(declElement,IClassElement).IsGeneric andalso typeof frmSelect.SelectedElement.element is Variable Then
+            '         rettype=GetReturnTypeForGeneric(directcast(frmSelect.SelectedElement.element,Variable).MemberTypeReference)
+            '     Else
+            '         rettype = GetReturnType(declElement)
+            '     End If
+            '     frmSelect.SelectedElement.ReturnTypeName=rettype
+            ' Else
+            '     rettype=frmSelect.SelectedElement.ReturnTypeName
+            ' End If
+            ' ea.Value = CodeRush.Language.GetSimpleName( rettype)
         End Sub
 
         Private Sub ForEachVarItemName_GetString(ByVal ea As DevExpress.CodeRush.Core.GetStringEventArgs) Handles ForEachVarItemName.GetString
             Dim rettype As String
-            rettype=frmSelect.SelectedElement.ReturnTypeName
+            rettype = frmSelect.SelectedElement.ReturnTypeName
             If frmSelect.SelectedElement.ReturnTypeName = "" Then
                 If frmSelect.SelectedElement Is Nothing Then
                     ea.Value = "lObject"
                     Return
                 End If
-                rettype=GetReturnType(frmSelect.SelectedElement.Element)
-                    frmSelect.SelectedElement.ReturnTypeName = rettype
+                rettype = GetReturnType(frmSelect.SelectedElement.Element)
+                frmSelect.SelectedElement.ReturnTypeName = rettype
             End If
             If frmSelect.SelectedElement.ReturnTypeName = "System.Object" Then
                 ea.Value = "item"
             Else
-                dim strRettype as string=CodeRush.Language.GetSimpleName( rettype)
-                If strRettype.IndexOf("(")>-1    Then
-                    ea.value = "l" &  strRettype.Substring(0,strRettype.IndexOf("("))
-                ElseIf strRettype.IndexOf("<")>-1  then
-                     ea.value = "l" & strRettype.Substring(0,strRettype.IndexOf("<"))
+                Dim strRettype As String = CodeRush.Language.GetSimpleName(rettype)
+                If strRettype.IndexOf("(") > -1 Then
+                    ea.Value = "l" & strRettype.Substring(0, strRettype.IndexOf("("))
+                ElseIf strRettype.IndexOf("<") > -1 Then
+                    ea.Value = "l" & strRettype.Substring(0, strRettype.IndexOf("<"))
                 Else
-                    ea.value = "l" & strRettype
+                    ea.Value = "l" & strRettype
                 End If
             End If
             'Dim rettype As String
@@ -826,7 +840,7 @@ Namespace CR_EnhancedForEach
             '        ea.Value = "lObject"
             '        Return
             '    End If
-                
+
             '    Dim declElement As IElement = resolvetype(frmSelect.SelectedElement.Element) 'DirectCast(frmSelect.SelectedElement.ReturnType, ITypeReferenceExpression).GetDeclaration
             '    If TypeOf declElement Is IClassElement andalso directcast(declElement,IClassElement).IsGeneric Then
             '        'rettype=GetReturnTypeForGeneric(frmSelect.SelectedElement.ReturnType)
@@ -834,9 +848,9 @@ Namespace CR_EnhancedForEach
             '    Else
             '        rettype = GetReturnType(declElement)
             '    End If
-                
+
             '        frmSelect.SelectedElement.ReturnTypeName = rettype
-                
+
             'End If
             'If frmSelect.SelectedElement.ReturnTypeName = "System.Object" Then
             '    ea.Value = "item"
@@ -852,7 +866,7 @@ Namespace CR_EnhancedForEach
             'End If
         End Sub
 
-      Private _AsmChecked As new Hashtable
+        Private _AsmChecked As New Hashtable
 
         Private Sub BuildCache()
             Try
@@ -870,7 +884,7 @@ Namespace CR_EnhancedForEach
                     Next
                 Next
             Catch ex As Exception
-                
+
             End Try
             'MessageBox.Show(_cache.Count)
         End Sub
@@ -913,70 +927,70 @@ Namespace CR_EnhancedForEach
                 End If
             End If
         End Sub
-        Private Sub CR_EnhancedForEachPlugIn_ProjectAdded(ByVal project As EnvDTE.Project) Handles MyBase.ProjectAdded 
-                dim workThread As Thread
-                If Not _sol is Nothing Then
+        Private Sub CR_EnhancedForEachPlugIn_ProjectAdded(ByVal project As EnvDTE.Project) Handles MyBase.ProjectAdded
+            Dim workThread As Thread
+            If Not _Sol Is Nothing Then
                 'If not projHash.ContainsKey(ea.document.ProjectElement.FullName) Then
-                    workThread=New Thread(AddressOf BuildCache)
-                    workThread.Priority=ThreadPriority.Lowest
-                    workThread.Start()
+                workThread = New Thread(AddressOf BuildCache)
+                workThread.Priority = ThreadPriority.Lowest
+                workThread.Start()
                 'End If
             End If
         End Sub
 
-            Private Sub CR_EnhancedForEachPlugIn_ReferenceAdded(ByVal ea As DevExpress.CodeRush.Core.ReferenceEventArgs) Handles mybase.ReferenceAdded
+        Private Sub CR_EnhancedForEachPlugIn_ReferenceAdded(ByVal ea As DevExpress.CodeRush.Core.ReferenceEventArgs) Handles MyBase.ReferenceAdded
             For Each item As LanguageElement In _Sol.ProjectElements
-                If typeof item is ProjectElement Then
-                    dim refs As NodeList= DirectCast(item, ProjectElement).AssemblyReferences()
+                If TypeOf item Is ProjectElement Then
+                    Dim refs As NodeList = DirectCast(item, ProjectElement).AssemblyReferences()
                     For Each ref As AssemblyReference In refs
                         If Not ref.IsProjectReference AndAlso ref.FilePath.ToLower = ea.Reference.Path.ToLower Then
-                            CheckAndAddReference(ref.FilePath, True)            
+                            CheckAndAddReference(ref.FilePath, True)
                         End If
                     Next
                 End If
             Next
-                
+
         End Sub
 
         Dim _Sol As SolutionElement
-            Private Sub CR_EnhancedForEachPlugIn_SolutionOpened() Handles mybase.SolutionOpened
-                _Sol=CodeRush.Source.ActiveSolution
-                dim workThread As Thread
-                If Not _sol is Nothing Then
+        Private Sub CR_EnhancedForEachPlugIn_SolutionOpened() Handles MyBase.SolutionOpened
+            _Sol = CodeRush.Source.ActiveSolution
+            Dim workThread As Thread
+            If Not _Sol Is Nothing Then
                 'If not projHash.ContainsKey(ea.document.ProjectElement.FullName) Then
                 'debug.WriteLine(date.Now.ToShortTimeString)
-                dim frmStatus as New frmBuildCache
-                frmstatus.Show
-                frmStatus.Refresh
-                application.DoEvents
-                BuildCache
-                frmstatus.Close
+                Dim frmStatus As New frmBuildCache
+                frmStatus.Show()
+                frmStatus.Refresh()
+                Application.DoEvents()
+                BuildCache()
+                frmStatus.Close()
                 'debug.WriteLine(date.Now.ToShortTimeString)
-                    'workThread=New Thread(AddressOf BuildCache)
-                    'workThread.Priority=ThreadPriority.Lowest
-                    'workThread.Start()
+                'workThread=New Thread(AddressOf BuildCache)
+                'workThread.Priority=ThreadPriority.Lowest
+                'workThread.Start()
                 'End If
             End If
 
         End Sub
-        
-        Private Function ResolveType(ByVal active As IElement) As IElement 
-    Dim resolver As ISourceTreeResolver = ParserServices.SourceTreeResolver 
-    If TypeOf active Is IMemberElement Then 
-        Return resolver.ResolveElementType(active) 
-    End If 
 
-    Dim expression As IExpression '= TryCast(active, IExpression) 
-            If typeof active is IExpression Then
-                expression=directcast(active, IExpression)
+        Private Function ResolveType(ByVal active As IElement) As IElement
+            Dim resolver As ISourceTreeResolver = ParserServices.SourceTreeResolver
+            If TypeOf active Is IMemberElement Then
+                Return resolver.ResolveElementType(active)
             End If
-             
-    If not expression is Nothing Then 
-        Return resolver.ResolveExpression(expression) 
-    End If 
 
-    Return Nothing 
-End Function 
+            Dim expression As IExpression '= TryCast(active, IExpression) 
+            If TypeOf active Is IExpression Then
+                expression = DirectCast(active, IExpression)
+            End If
+
+            If Not expression Is Nothing Then
+                Return resolver.ResolveExpression(expression)
+            End If
+
+            Return Nothing
+        End Function
 
         Private Function GetHardCodedType(ByVal element As IElement, ByVal propertyName As String) As String
             Dim type As ITypeElement = DirectCast(ResolveType(element), ITypeElement)
@@ -1006,74 +1020,74 @@ End Function
             Return [String].Empty
         End Function
 
-Private Function GetGenericType(ByVal element As LanguageElement) As String 
-    Dim typeReference As ITypeReferenceExpression = Nothing 
-    If TypeOf element Is ITypeReferenceExpression Then 
-        typeReference = DirectCast(element, ITypeReferenceExpression) 
-    Else 
-        Dim declaration As IElement = CodeRush.Source.GetDeclaration(element) 
-        If not declaration Is Nothing AndAlso (TypeOf declaration Is IHasType) Then 
-            typeReference = DirectCast(declaration, IHasType).Type 
-        End If 
-    End If 
-    If typeReference Is Nothing Then 
-        Return String.Empty 
-    End If 
-    
-    Dim arguments As ITypeReferenceExpressionCollection = DirectCast(typeReference, IGenericExpression).TypeArguments 
-    If not arguments Is Nothing AndAlso arguments.Count > 0 Then 
-        Dim arg As ITypeReferenceExpression = DirectCast(arguments(0), ITypeReferenceExpression) 
-        Dim typeRefExp As TypeReferenceExpression = SourceModelUtils.CreateTypeReferenceExpression(arg) 
-        Return CodeRush.Language.GenerateExpressionCode(typeRefExp) 
-    End If 
-    Return String.Empty 
-End Function 
-
-Private Function GetIndexedPropertyName(ByVal type As ITypeElement) As String 
-    Dim members As IMemberElementCollection = type.Members 
-    Dim propertyName As String = [String].Empty 
-    For Each member As IMemberElement In members 
-        Dim [property] As IPropertyElement '= TryCast(member, IPropertyElement) 
-        If typeof member is IPropertyElement Then
-            [property]=directcast(member,IPropertyElement)
-        End If
-        If not [property] Is Nothing AndAlso [property].IsIndexed Then 
-            propertyName = [property].Name 
-            Exit For 
-        End If 
-    Next 
-    Return propertyName 
-End Function 
-
-Private function GetElementType( element As LanguageElement) As string 
-    Dim typeElement As IElement = ResolveType(element) 
-            If typeof typeElement is TypeReferenceExpression Then
-                Return directcast(typeElement,TypeReferenceExpression).FullSignature
+        Private Function GetGenericType(ByVal element As LanguageElement) As String
+            Dim typeReference As ITypeReferenceExpression = Nothing
+            If TypeOf element Is ITypeReferenceExpression Then
+                typeReference = DirectCast(element, ITypeReferenceExpression)
+            Else
+                Dim declaration As IElement = CodeRush.Source.GetDeclaration(element)
+                If Not declaration Is Nothing AndAlso (TypeOf declaration Is IHasType) Then
+                    typeReference = DirectCast(declaration, IHasType).Type
+                End If
             End If
-    If Not (TypeOf typeElement Is ITypeElement) Then 
-        Return  "System.Object"
-    End If 
-    
-    Dim type As ITypeElement = DirectCast(typeElement, ITypeElement) 
-    
-    If type.IsGeneric Then 
-        Dim result As String = String.Empty 
-        Dim propertyName As String = GetIndexedPropertyName(type) 
-        If Not propertyName Is Nothing andalso propertyName<>"" Then
-            result = GetHardCodedType(element, propertyName) 
-        If Not result Is Nothing andalso result<>"" Then
-                Return  result
-            End If 
-        End If 
-        result = GetGenericType(element) 
-        If Not result Is Nothing andalso result<>"" Then
-            Return result
-        End If 
-    Else 
-        return CodeRush.Strings.[Get]("EnumerableType", type.FullName)
-    End If 
+            If typeReference Is Nothing Then
+                Return String.Empty
+            End If
+
+            Dim arguments As ITypeReferenceExpressionCollection = DirectCast(typeReference, IGenericExpression).TypeArguments
+            If Not arguments Is Nothing AndAlso arguments.Count > 0 Then
+                Dim arg As ITypeReferenceExpression = DirectCast(arguments(0), ITypeReferenceExpression)
+                Dim typeRefExp As TypeReferenceExpression = SourceModelUtils.CreateTypeReferenceExpression(arg)
+                Return CodeRush.Language.GenerateExpressionCode(typeRefExp)
+            End If
+            Return String.Empty
+        End Function
+
+        Private Function GetIndexedPropertyName(ByVal type As ITypeElement) As String
+            Dim members As IMemberElementCollection = type.Members
+            Dim propertyName As String = [String].Empty
+            For Each member As IMemberElement In members
+                Dim [property] As IPropertyElement '= TryCast(member, IPropertyElement) 
+                If TypeOf member Is IPropertyElement Then
+                    [property] = DirectCast(member, IPropertyElement)
+                End If
+                If Not [property] Is Nothing AndAlso [property].IsIndexed Then
+                    propertyName = [property].Name
+                    Exit For
+                End If
+            Next
+            Return propertyName
+        End Function
+
+        Private Function GetElementType(ByVal element As LanguageElement) As String
+            Dim typeElement As IElement = ResolveType(element)
+            If TypeOf typeElement Is TypeReferenceExpression Then
+                Return DirectCast(typeElement, TypeReferenceExpression).FullSignature
+            End If
+            If Not (TypeOf typeElement Is ITypeElement) Then
+                Return "System.Object"
+            End If
+
+            Dim type As ITypeElement = DirectCast(typeElement, ITypeElement)
+
+            If type.IsGeneric Then
+                Dim result As String = String.Empty
+                Dim propertyName As String = GetIndexedPropertyName(type)
+                If Not propertyName Is Nothing AndAlso propertyName <> "" Then
+                    result = GetHardCodedType(element, propertyName)
+                    If Not result Is Nothing AndAlso result <> "" Then
+                        Return result
+                    End If
+                End If
+                result = GetGenericType(element)
+                If Not result Is Nothing AndAlso result <> "" Then
+                    Return result
+                End If
+            Else
+                Return CodeRush.Strings.[Get]("EnumerableType", type.FullName)
+            End If
             Return ""
-End function 
+        End Function
     End Class
 
 End Namespace
