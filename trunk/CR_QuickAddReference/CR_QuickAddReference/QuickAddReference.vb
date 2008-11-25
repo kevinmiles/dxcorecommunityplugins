@@ -11,7 +11,6 @@ Public Class QuickAddReference
     Private Sub QuickAddReference_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Call PopulateSolutionReferences()
         Call PopulateMRUList()
-        TabRecent.
     End Sub
 
     Private Sub PopulateMRUList(Optional ByVal ForceRefresh As Boolean = False)
