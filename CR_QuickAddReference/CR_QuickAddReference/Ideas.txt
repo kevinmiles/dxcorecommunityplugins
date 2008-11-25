@@ -1,0 +1,7 @@
+﻿common
+commonWeb
+Recent
+references already in other Projects
+- Which projects 
+COM - ignore 4 now - MRU
+GAC - ignore 4 now 
