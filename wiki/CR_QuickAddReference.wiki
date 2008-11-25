@@ -1,0 +1,27 @@
+#summary Replacement for "Add References" dialog which loads quickly.
+
+= Introduction =
+
+In it's early days at the moment. Providing a Solution tab only for now.
+
+= Installation =
+
+Refer users to the InstallInstructions page for general instructions on putting the plugin assembly in the right spot and put additional install instructions for the plugin here. For example, if the plugin requires a shortcut key binding, explain to the user what they need to do to add it.
+
+= Usage =
+
+Assuming installation is done correctly, Quick Add Reference hould be available from the editor Context menu. this leads to the main "Quick Add Reference" dialog which includes different tabs designed to show you different Lists of potential references.
+
+Highlight one or more references and hit the add button.
+
+
+== Tabs ==
+Each tab provides a different list of potential references which you can add to the current project.
+=== Solution Tab ===
+This is the first and currently only tab available.
+
+The solution tab provides a list of references already in use in one or more of the projects in your solution.
+
+= Credits =
+
+Plugin by Rory Becker
