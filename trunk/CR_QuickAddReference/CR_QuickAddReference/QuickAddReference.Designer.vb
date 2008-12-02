@@ -23,23 +23,14 @@ Partial Class QuickAddReference
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Tabs = New System.Windows.Forms.TabControl
-        Me.TabSolution = New System.Windows.Forms.TabPage
-        Me.lstSolution = New System.Windows.Forms.ListView
-        Me.ColName = New System.Windows.Forms.ColumnHeader
-        Me.ColLocation = New System.Windows.Forms.ColumnHeader
-        Me.TabRecent = New System.Windows.Forms.TabPage
-        Me.lstRecent = New System.Windows.Forms.ListView
-        Me.ColumnHeader1 = New System.Windows.Forms.ColumnHeader
-        Me.ColumnHeader2 = New System.Windows.Forms.ColumnHeader
         Me.cmdClose = New System.Windows.Forms.Button
         Me.cmdAdd = New System.Windows.Forms.Button
         Me.cmdRefreshTab = New System.Windows.Forms.Button
-        Me.Panel1 = New System.Windows.Forms.Panel
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Tabs.SuspendLayout()
-        Me.TabSolution.SuspendLayout()
-        Me.TabRecent.SuspendLayout()
-        Me.Panel1.SuspendLayout()
+        Me.Label4 = New System.Windows.Forms.Label
+        Me.Label6 = New System.Windows.Forms.Label
+        Me.ColumnHeader11 = New System.Windows.Forms.ColumnHeader
+        Me.ColumnHeader12 = New System.Windows.Forms.ColumnHeader
+        Me.Label8 = New System.Windows.Forms.Label
         Me.SuspendLayout()
         '
         'Tabs
@@ -47,84 +38,11 @@ Partial Class QuickAddReference
         Me.Tabs.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Tabs.Controls.Add(Me.TabSolution)
-        Me.Tabs.Controls.Add(Me.TabRecent)
         Me.Tabs.Location = New System.Drawing.Point(12, 12)
         Me.Tabs.Name = "Tabs"
         Me.Tabs.SelectedIndex = 0
         Me.Tabs.Size = New System.Drawing.Size(611, 354)
         Me.Tabs.TabIndex = 0
-        '
-        'TabSolution
-        '
-        Me.TabSolution.Controls.Add(Me.lstSolution)
-        Me.TabSolution.Location = New System.Drawing.Point(4, 22)
-        Me.TabSolution.Name = "TabSolution"
-        Me.TabSolution.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabSolution.Size = New System.Drawing.Size(364, 194)
-        Me.TabSolution.TabIndex = 0
-        Me.TabSolution.Text = "Solution"
-        Me.TabSolution.UseVisualStyleBackColor = True
-        '
-        'lstSolution
-        '
-        Me.lstSolution.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lstSolution.CheckBoxes = True
-        Me.lstSolution.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColName, Me.ColLocation})
-        Me.lstSolution.FullRowSelect = True
-        Me.lstSolution.Location = New System.Drawing.Point(6, 6)
-        Me.lstSolution.Name = "lstSolution"
-        Me.lstSolution.Size = New System.Drawing.Size(352, 182)
-        Me.lstSolution.Sorting = System.Windows.Forms.SortOrder.Ascending
-        Me.lstSolution.TabIndex = 0
-        Me.lstSolution.UseCompatibleStateImageBehavior = False
-        Me.lstSolution.View = System.Windows.Forms.View.Details
-        '
-        'ColName
-        '
-        Me.ColName.Text = "Name"
-        Me.ColName.Width = 202
-        '
-        'ColLocation
-        '
-        Me.ColLocation.Text = "Location"
-        Me.ColLocation.Width = 138
-        '
-        'TabRecent
-        '
-        Me.TabRecent.Controls.Add(Me.Panel1)
-        Me.TabRecent.Controls.Add(Me.lstRecent)
-        Me.TabRecent.Location = New System.Drawing.Point(4, 22)
-        Me.TabRecent.Name = "TabRecent"
-        Me.TabRecent.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabRecent.Size = New System.Drawing.Size(603, 328)
-        Me.TabRecent.TabIndex = 1
-        Me.TabRecent.Text = "Recent"
-        Me.TabRecent.UseVisualStyleBackColor = True
-        '
-        'lstRecent
-        '
-        Me.lstRecent.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lstRecent.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
-        Me.lstRecent.FullRowSelect = True
-        Me.lstRecent.Location = New System.Drawing.Point(6, 6)
-        Me.lstRecent.Name = "lstRecent"
-        Me.lstRecent.Size = New System.Drawing.Size(591, 316)
-        Me.lstRecent.TabIndex = 1
-        Me.lstRecent.UseCompatibleStateImageBehavior = False
-        Me.lstRecent.View = System.Windows.Forms.View.Details
-        '
-        'ColumnHeader1
-        '
-        Me.ColumnHeader1.Text = "Name"
-        '
-        'ColumnHeader2
-        '
-        Me.ColumnHeader2.Text = "Location"
         '
         'cmdClose
         '
@@ -156,26 +74,45 @@ Partial Class QuickAddReference
         Me.cmdRefreshTab.Text = "Refresh Tab"
         Me.cmdRefreshTab.UseVisualStyleBackColor = True
         '
-        'Panel1
+        'Label4
         '
-        Me.Panel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Location = New System.Drawing.Point(3, 3)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(600, 325)
-        Me.Panel1.TabIndex = 2
+        Me.Label4.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(238, 146)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(90, 13)
+        Me.Label4.TabIndex = 0
+        Me.Label4.Text = "Not Available yet."
         '
-        'Label1
+        'Label6
         '
-        Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(259, 154)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(90, 13)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Not Available yet."
+        Me.Label6.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(238, 146)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(90, 13)
+        Me.Label6.TabIndex = 0
+        Me.Label6.Text = "Not Available yet."
+        '
+        'ColumnHeader11
+        '
+        Me.ColumnHeader11.Text = "Name"
+        Me.ColumnHeader11.Width = 202
+        '
+        'ColumnHeader12
+        '
+        Me.ColumnHeader12.Text = "Location"
+        Me.ColumnHeader12.Width = -2
+        '
+        'Label8
+        '
+        Me.Label8.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(238, 146)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(90, 13)
+        Me.Label8.TabIndex = 0
+        Me.Label8.Text = "Not Available yet."
         '
         'QuickAddReference
         '
@@ -188,26 +125,16 @@ Partial Class QuickAddReference
         Me.Controls.Add(Me.Tabs)
         Me.Name = "QuickAddReference"
         Me.Text = "QuickAddReference"
-        Me.Tabs.ResumeLayout(False)
-        Me.TabSolution.ResumeLayout(False)
-        Me.TabRecent.ResumeLayout(False)
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents Tabs As System.Windows.Forms.TabControl
-    Friend WithEvents TabSolution As System.Windows.Forms.TabPage
-    Friend WithEvents TabRecent As System.Windows.Forms.TabPage
-    Friend WithEvents lstSolution As System.Windows.Forms.ListView
     Friend WithEvents cmdClose As System.Windows.Forms.Button
     Friend WithEvents cmdAdd As System.Windows.Forms.Button
-    Friend WithEvents ColName As System.Windows.Forms.ColumnHeader
-    Friend WithEvents ColLocation As System.Windows.Forms.ColumnHeader
-    Friend WithEvents lstRecent As System.Windows.Forms.ListView
-    Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
-    Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
     Friend WithEvents cmdRefreshTab As System.Windows.Forms.Button
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents ColumnHeader11 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader12 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents Label8 As System.Windows.Forms.Label
 End Class
