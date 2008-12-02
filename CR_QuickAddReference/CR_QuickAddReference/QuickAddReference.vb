@@ -7,6 +7,7 @@ Imports System.Runtime.CompilerServices
 Imports DevExpress.CodeRush.PlugInCore
 Imports System.Linq
 Imports System.Linq.Expressions
+Imports CR_QuickAddReference
 
 Public Class QuickAddReference
     Private Const SECTION_QUICKADD As String = "QuickAdd"
