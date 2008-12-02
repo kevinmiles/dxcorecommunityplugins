@@ -70,6 +70,20 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyReferenceExt.vb" />
+    <Compile Include="FilePicker.Designer.vb">
+      <DependentUpon>FilePicker.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FilePicker.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OptionsQuickAddReference.Designer.vb">
+      <DependentUpon>OptionsQuickAddReference.vb</DependentUpon>
+    </Compile>
+    <Compile Include="OptionsQuickAddReference.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReferenceCollection.vb" />
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -83,18 +97,46 @@
     <Compile Include="QuickAddReference.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReferenceCollection.vb" />
+    <Compile Include="Reference.vb" />
+    <Compile Include="ReferenceListEditor.Designer.vb">
+      <DependentUpon>ReferenceListEditor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceListEditor.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReferenceListItem.vb" />
+    <Compile Include="ReferenceListView.Designer.vb">
+      <DependentUpon>ReferenceListView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceListView.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FilePicker.resx">
+      <DependentUpon>FilePicker.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsQuickAddReference.resx">
+      <DependentUpon>OptionsQuickAddReference.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PlugIn1.resx">
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="QuickAddReference.resx">
       <DependentUpon>QuickAddReference.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReferenceListEditor.resx">
+      <DependentUpon>ReferenceListEditor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReferenceListView.resx">
+      <DependentUpon>ReferenceListView.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Ideas.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

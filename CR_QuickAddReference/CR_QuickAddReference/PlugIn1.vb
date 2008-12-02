@@ -25,7 +25,7 @@ Public Class PlugIn1
 #End Region
 
     Private Sub actQuickAddReference_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles actQuickAddReference.Execute
-        Dim QAR = New QuickAddReference
-        Call QAR.ShowDialog()
+        Call (New QuickAddReference(Me)).ShowDialog()
     End Sub
+
 End Class
