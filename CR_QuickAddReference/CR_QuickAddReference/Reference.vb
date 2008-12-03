@@ -25,7 +25,7 @@ Public Class Reference
 
 #End Region
     Public Sub New(ByVal DllLocation As String)
-        Me.New(New FileInfo(DllLocation))
+        Me.New(New FileInfo(System.Environment.ExpandEnvironmentVariables(DllLocation)))
     End Sub
     Public Sub New(ByVal Reference As AssemblyReference)
         Me.New(Reference.FilePath)

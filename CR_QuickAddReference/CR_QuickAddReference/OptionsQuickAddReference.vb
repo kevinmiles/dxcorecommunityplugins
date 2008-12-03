@@ -12,14 +12,15 @@ Public Class OptionsQuickAddReference
     Private mWebOptions As ReferenceListEditor
     Private mWinOptions As ReferenceListEditor
 #End Region
+
     'DXCore-generated code...
 #Region " Initialize "
-	Protected Overrides Sub Initialize()
-		MyBase.Initialize()
+    Protected Overrides Sub Initialize()
+        MyBase.Initialize()
 
         'TODO: Add your initialization code here.
 
-	End Sub
+    End Sub
 #End Region
 #Region " GetCategory "
     Public Shared Function GetCategory() As String
@@ -27,9 +28,9 @@ Public Class OptionsQuickAddReference
     End Function
 #End Region
 #Region " GetPageName "
-	Public Shared Function GetPageName() As String
+    Public Shared Function GetPageName() As String
         Return "Quick Add References"
-	End Function
+    End Function
 #End Region
 
     Public Sub New()
@@ -91,24 +92,6 @@ Public Class OptionsQuickAddReference
             ' Potentially add default items back 
         Next
     End Sub
-    Public Shared Function DefaultCommonReferences() As List(Of Reference)
-        Dim Result As New List(Of Reference)
-        Result.Add(New Reference("%WinDir%\Microsoft.Net\Framework\v2.0.50727\System.dll"))
-        Result.Add(New Reference("%WinDir%\Microsoft.NET\Framework\v2.0.50727\System.Xml.dll"))
-        Result.Add(New Reference("%ProgramFiles%\Reference Assemblies\Microsoft\Framework\v3.5\System.Data.DataSetExtensions.dll"))
-        Result.Add(New Reference("%ProgramFiles%\Reference Assemblies\Microsoft\Framework\v3.5\System.Xml.Linq.dll"))
-        Result.Add(New Reference("%WinDir%\Microsoft.Net\Framework\v2.0.50727\System.dll"))
-        Result.Add(New Reference("%WinDir%\Microsoft.Net\Framework\v2.0.50727\System.dll"))
-        Return Result
-    End Function
-    Public Shared Function DefaultWinReferences() As List(Of Reference)
-        Dim Result As New List(Of Reference)
-        Result.Add(New Reference("%WinDir%\Microsoft.Net\Framework\v2.0.50727\System.dll"))
-        Result.Add(New Reference("%WinDir%\Microsoft.Net\Framework\v2.0.50727\System.Drawing.dll"))
-        Result.Add(New Reference("%WinDir%\Microsoft.Net\Framework\v2.0.50727\System.Windows.Forms.dll"))
-        Result.Add(New Reference("%WinDir%\Microsoft.Net\Framework\v2.0.50727\System.dll"))
-        Result.Add(New Reference("%WinDir%\Microsoft.Net\Framework\v2.0.50727\System.dll"))
-        Result.Add(New Reference("%WinDir%\Microsoft.Net\Framework\v2.0.50727\System.dll"))
-        Return Result
-    End Function
+
+
 End Class
