@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyReferenceExt.vb" />
+    <Compile Include="DefaultReferences.vb" />
     <Compile Include="FilePicker.Designer.vb">
       <DependentUpon>FilePicker.vb</DependentUpon>
     </Compile>

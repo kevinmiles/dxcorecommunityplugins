@@ -10,14 +10,14 @@ Imports System.Linq.Expressions
 
 Public Class QuickAddReference
 #Region "Constants"
+    Private mCommonList As CR_QuickAddReference.ReferenceListView
     Private TAB_SOLUTION As Integer = 0
     Private TAB_RECENT As Integer = 1
 #End Region
 #Region "Fields"
     Private MRUList As New ReferenceCollection
-    Private mDict As New Dictionary(Of String, CR_QuickAddReference.ReferenceListView)
+    Private mReferenceListViews As New Dictionary(Of String, ReferenceListView)
     Private mPlugin As StandardPlugIn
-
     Private mSolutionList As ReferenceListView
     Private mRecentList As ReferenceListView
     Private mWebList As ReferenceListView
@@ -33,9 +33,12 @@ Public Class QuickAddReference
 #Region "Constructors"
     Public Sub New(ByVal Plugin As StandardPlugIn)
         Me.InitializeComponent()
+
         mPlugin = Plugin
+
         mSolutionList = CreateReferenceTab("Solution")
         mRecentList = CreateReferenceTab("Recent")
+        mCommonList = CreateReferenceTab("Common")
         mWinList = CreateReferenceTab("Win")
         mWebList = CreateReferenceTab("Web")
         Call LoadMRU()
@@ -70,7 +73,7 @@ Public Class QuickAddReference
         Dim NewTab As New TabPage(TabName)
         NewTab.Controls.Add(ReferenceListView)
         Tabs.TabPages.Add(NewTab)
-        mDict.Add(TabName, ReferenceListView)
+        mReferenceListViews(TabName) = ReferenceListView
         Return ReferenceListView
     End Function
 
@@ -80,8 +83,7 @@ Public Class QuickAddReference
         Static sLoadedSolutionReferences As Boolean = False
         If Not sLoadedSolutionReferences OrElse ForceRefresh Then
             mSolutionList.ListView.Items.Clear()
-            Dim References As ReferenceCollection = GetSolutionReferences()
-            For Each Reference As Reference In References
+            For Each Reference As Reference In GetSolutionReferences().OrderBy(Function(item) item.FileName)
                 mSolutionList.ListView.Items.Add(ReferenceListItem.Of(Reference))
             Next
             sLoadedSolutionReferences = True
@@ -90,13 +92,25 @@ Public Class QuickAddReference
     Private Sub PopulateUserConfiguredList(ByVal ReferenceListView As ReferenceListView, ByVal TabName As String, Optional ByVal ForceRefresh As Boolean = False)
         Static sPopulated As New List(Of String)
         If Not sPopulated.Contains(TabName) OrElse ForceRefresh Then
-            Dim ReferenceList As ReferenceListView = mDict.Item(TabName)
+            Dim ReferenceList As ReferenceListView = mReferenceListViews.Item(TabName)
             ReferenceList.ListView.Items.Clear()
-            For Each SavedReference As String In Storage.ReadStrings(OptionsQuickAddReference.SECTION_QUICKADD, TabName)
-                ReferenceList.ListView.Items.Add(ReferenceListItem.Of(New Reference(SavedReference)))
+            For Each Reference In GetTabReferences(TabName).OrderBy(Function(item) item.FileName)
+                ReferenceList.ListView.Items.Add(ReferenceListItem.Of(Reference))
             Next
         End If
     End Sub
+    Private Function GetTabReferences(ByVal TabName As String) As List(Of Reference)
+        Dim Strings As String() = Storage.ReadStrings(OptionsQuickAddReference.SECTION_QUICKADD, TabName)
+        Dim References As New List(Of Reference)
+        If Strings.Equals(New String() {}) Then
+            For Each item In Strings
+                References.Add(New Reference(item))
+            Next
+        Else
+            References = DefaultReferences.GetTabDefaults(TabName)
+        End If
+        Return References
+    End Function
     Private Sub PopulateMRUReferences(Optional ByVal ForceRefresh As Boolean = False)
         mRecentList.ListView.Items.Clear()
         For Each Reference As Reference In MRUList.Reverse()
@@ -104,7 +118,7 @@ Public Class QuickAddReference
         Next
     End Sub
     Private Sub PopulateCustomLists()
-        For Each List In mDict.Values
+        For Each List In mReferenceListViews.Values
             Dim Values = Storage.ReadStrings(OptionsQuickAddReference.SECTION_QUICKADD, List.SaveKey)
             For Each Value In Values
                 List.ListView.Items.Add(ReferenceListItem.Of(Value))
@@ -119,14 +133,17 @@ Public Class QuickAddReference
     End Sub
 
     Private Sub cmdRefreshTab_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRefreshTab.Click
+        Call RefreshTab(True)
+    End Sub
+    Private Sub RefreshTab(ByVal ForceRefresh As Boolean)
         Select Case Tabs.SelectedIndex
             Case TAB_SOLUTION
-                Call PopulateSolutionReferences(True)
+                Call PopulateSolutionReferences(ForceRefresh)
             Case TAB_RECENT
-                Call PopulateMRUReferences(True)
+                Call PopulateMRUReferences(ForceRefresh)
             Case Else
-                ' do nothing 
-                Call PopulateUserConfiguredList(ActiveReferenceListView(), Tabs.TabPages(Tabs.TabIndex).Text)
+                ' do nothing
+                Call PopulateUserConfiguredList(ActiveReferenceListView(), Tabs.SelectedTab.Text, ForceRefresh)
         End Select
     End Sub
 
@@ -174,4 +191,7 @@ Public Class QuickAddReference
         Call PopulateMRUReferences(True)
     End Sub
 #End Region
+    Private Sub Tabs_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Tabs.SelectedIndexChanged
+        Call RefreshTab(False)
+    End Sub
 End Class
