@@ -78,6 +78,7 @@
     <Compile Include="FilePicker.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ListViewExt.vb" />
     <Compile Include="OptionsQuickAddReference.Designer.vb">
       <DependentUpon>OptionsQuickAddReference.vb</DependentUpon>
     </Compile>

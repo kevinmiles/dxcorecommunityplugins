@@ -7,10 +7,8 @@ Imports System.Runtime.CompilerServices
 Imports DevExpress.CodeRush.PlugInCore
 Imports System.Linq
 Imports System.Linq.Expressions
-
 Public Class QuickAddReference
 #Region "Constants"
-    Private mCommonList As CR_QuickAddReference.ReferenceListView
     Private TAB_SOLUTION As Integer = 0
     Private TAB_RECENT As Integer = 1
 #End Region
@@ -22,6 +20,8 @@ Public Class QuickAddReference
     Private mRecentList As ReferenceListView
     Private mWebList As ReferenceListView
     Private mWinList As ReferenceListView
+    Private mCommonList As ReferenceListView
+    Private mDXCoreList As ReferenceListView
 #End Region
 #Region "Properties"
     Public Shared ReadOnly Property Storage() As DecoupledStorage
@@ -41,12 +41,13 @@ Public Class QuickAddReference
         mCommonList = CreateReferenceTab("Common")
         mWinList = CreateReferenceTab("Win")
         mWebList = CreateReferenceTab("Web")
+        mDXCoreList = CreateReferenceTab("DXCore")
         Call LoadMRU()
         Call PopulateCustomLists()
     End Sub
 #End Region
 #Region "Utils"
-    Private Function ActiveReferenceListView() As CR_QuickAddReference.ReferenceListView
+    Private Function ActiveReferenceListView() As ReferenceListView
         Dim Tab As TabPage = Tabs.SelectedTab
         If TypeOf Tab.Controls(0) Is ReferenceListView Then
             Return CType(Tab.Controls(0), ReferenceListView)
@@ -102,11 +103,8 @@ Public Class QuickAddReference
     Private Function GetTabReferences(ByVal TabName As String) As List(Of Reference)
         Dim Strings As String() = Storage.ReadStrings(OptionsQuickAddReference.SECTION_QUICKADD, TabName)
         Dim References As New List(Of Reference)
-        If Strings.Equals(New String() {}) Then
-            For Each item In Strings
-                References.Add(New Reference(item))
-            Next
-        Else
+        References = (From s In Strings Select New Reference(s)).ToList()
+        If References.Count = 0 Then
             References = DefaultReferences.GetTabDefaults(TabName)
         End If
         Return References
@@ -143,7 +141,9 @@ Public Class QuickAddReference
                 Call PopulateMRUReferences(ForceRefresh)
             Case Else
                 ' do nothing
-                Call PopulateUserConfiguredList(ActiveReferenceListView(), Tabs.SelectedTab.Text, ForceRefresh)
+                Call PopulateUserConfiguredList(ActiveReferenceListView(), _
+                                                Tabs.SelectedTab.Text, _
+                                                ForceRefresh)
         End Select
     End Sub
 
@@ -159,11 +159,10 @@ Public Class QuickAddReference
                     ' swallow exception
                 End Try
             Next
-            TheListview.CheckedItems.Cast(Of ListViewItem)().Where(Function(item) item.Checked = False)
+            TheListview.ClearCheckedItems()
             MsgBox(String.Format("Added '{0}' References", Added))
         End If
     End Sub
-
     Private Sub cmdClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdClose.Click
         SaveMRU()
         Close()
@@ -171,7 +170,7 @@ Public Class QuickAddReference
 #End Region
 #Region "MRU"
     Private Sub SaveMRU()
-        Dim MaxMRU = 5
+        Dim MaxMRU = 20
         Dim ReferenceStrings As New List(Of String)
         Dim Count As Integer = 0
         For Each Reference As Reference In MRUList
