@@ -7,13 +7,15 @@ Imports System.Runtime.CompilerServices
 Imports DevExpress.CodeRush.PlugInCore
 Imports System.Linq
 Imports System.Linq.Expressions
-Imports CR_QuickAddReference
 
 Public Class QuickAddReference
-    Private Const SECTION_QUICKADD As String = "QuickAdd"
+#Region "Constants"
+    Private TAB_SOLUTION As Integer = 0
+    Private TAB_RECENT As Integer = 1
+#End Region
 #Region "Fields"
     Private MRUList As New ReferenceCollection
-    Private mDict As New Dictionary(Of String, ReferenceListView)
+    Private mDict As New Dictionary(Of String, CR_QuickAddReference.ReferenceListView)
     Private mPlugin As StandardPlugIn
 
     Private mSolutionList As ReferenceListView
@@ -21,19 +23,27 @@ Public Class QuickAddReference
     Private mWebList As ReferenceListView
     Private mWinList As ReferenceListView
 #End Region
-
-#Region "Constants"
-    Private TAB_SOLUTION As Integer = 0
-    Private TAB_RECENT As Integer = 1
-    'Private TAB_RECENT As Integer = 2
-    'Private TAB_RECENT As Integer = 3
-    'Private TAB_RECENT As Integer = 4
-    'Private TAB_RECENT As Integer = 5
+#Region "Properties"
+    Public Shared ReadOnly Property Storage() As DecoupledStorage
+        Get
+            Return OptionsQuickAddReference.Storage
+        End Get
+    End Property
 #End Region
-
-
+#Region "Constructors"
+    Public Sub New(ByVal Plugin As StandardPlugIn)
+        Me.InitializeComponent()
+        mPlugin = Plugin
+        mSolutionList = CreateReferenceTab("Solution")
+        mRecentList = CreateReferenceTab("Recent")
+        mWinList = CreateReferenceTab("Win")
+        mWebList = CreateReferenceTab("Web")
+        Call LoadMRU()
+        Call PopulateCustomLists()
+    End Sub
+#End Region
 #Region "Utils"
-    Private Function ActiveReferenceListView() As ReferenceListView
+    Private Function ActiveReferenceListView() As CR_QuickAddReference.ReferenceListView
         Dim Tab As TabPage = Tabs.SelectedTab
         If TypeOf Tab.Controls(0) Is ReferenceListView Then
             Return CType(Tab.Controls(0), ReferenceListView)
@@ -65,19 +75,6 @@ Public Class QuickAddReference
     End Function
 
 #End Region
-#Region "Constructors"
-    Public Sub New(ByVal Plugin As StandardPlugIn)
-        Me.InitializeComponent()
-        mPlugin = Plugin
-        mSolutionList = CreateReferenceTab("Solution")
-        mRecentList = CreateReferenceTab("Recent")
-        mWinList = CreateReferenceTab("Win")
-        mWebList = CreateReferenceTab("Web")
-        Call LoadMRU()
-        Call PopulateCustomLists()
-
-    End Sub
-#End Region
 #Region "List Population"
     Private Sub PopulateSolutionReferences(Optional ByVal ForceRefresh As Boolean = False)
         Static sLoadedSolutionReferences As Boolean = False
@@ -95,7 +92,7 @@ Public Class QuickAddReference
         If Not sPopulated.Contains(TabName) OrElse ForceRefresh Then
             Dim ReferenceList As ReferenceListView = mDict.Item(TabName)
             ReferenceList.ListView.Items.Clear()
-            For Each SavedReference As String In Storage.ReadStrings(SECTION_QUICKADD, TabName)
+            For Each SavedReference As String In Storage.ReadStrings(OptionsQuickAddReference.SECTION_QUICKADD, TabName)
                 ReferenceList.ListView.Items.Add(ReferenceListItem.Of(New Reference(SavedReference)))
             Next
         End If
@@ -106,20 +103,19 @@ Public Class QuickAddReference
             mRecentList.ListView.Items.Add(ReferenceListItem.Of(Reference))
         Next
     End Sub
-#End Region
-
-#Region "UI Events"
-    Private Sub QuickAddReference_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Call PopulateSolutionReferences()
-        Call PopulateMRUReferences()
-    End Sub
     Private Sub PopulateCustomLists()
         For Each List In mDict.Values
-            Dim Values = Storage.ReadStrings("MRU", List.SaveKey)
+            Dim Values = Storage.ReadStrings(OptionsQuickAddReference.SECTION_QUICKADD, List.SaveKey)
             For Each Value In Values
                 List.ListView.Items.Add(ReferenceListItem.Of(Value))
             Next
         Next
+    End Sub
+#End Region
+#Region "UI Events"
+    Private Sub QuickAddReference_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Call PopulateSolutionReferences()
+        Call PopulateMRUReferences()
     End Sub
 
     Private Sub cmdRefreshTab_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRefreshTab.Click
@@ -155,6 +151,8 @@ Public Class QuickAddReference
         SaveMRU()
         Close()
     End Sub
+#End Region
+#Region "MRU"
     Private Sub SaveMRU()
         Dim MaxMRU = 5
         Dim ReferenceStrings As New List(Of String)
@@ -170,15 +168,10 @@ Public Class QuickAddReference
     End Sub
     Private Sub LoadMRU()
         MRUList.Clear()
-        For Each item In Storage.ReadStrings(SECTION_QUICKADD, "MRU")
+        For Each item In Storage.ReadStrings(OptionsQuickAddReference.SECTION_QUICKADD, "MRU")
             MRUList.Add(New Reference(item))
         Next
         Call PopulateMRUReferences(True)
     End Sub
-    Public Shared ReadOnly Property Storage() As DecoupledStorage
-        Get
-            Return OptionsQuickAddReference.Storage
-        End Get
-    End Property
 #End Region
 End Class
