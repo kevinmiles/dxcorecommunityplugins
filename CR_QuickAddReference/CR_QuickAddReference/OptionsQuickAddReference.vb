@@ -6,9 +6,11 @@ Imports CR_QuickAddReference
 
 <UserLevel(UserLevel.Advanced)> _
 Public Class OptionsQuickAddReference
+    Private mDXCoreOptions As ReferenceListEditor
     Public Const SECTION_QUICKADD As String = "QuickAdd"
 #Region "Fields"
     Private mEditors As New List(Of ReferenceListEditor)
+    Private mCommonOptions As ReferenceListEditor
     Private mWebOptions As ReferenceListEditor
     Private mWinOptions As ReferenceListEditor
 #End Region
@@ -55,8 +57,10 @@ Public Class OptionsQuickAddReference
 
     Private Sub InitialiseTabs()
         Call ClearOptionTabs()
+        mCommonOptions = CreateOptionTab("Common")
         mWinOptions = CreateOptionTab("Win")
         mWebOptions = CreateOptionTab("Web")
+        mDXCoreOptions = CreateOptionTab("DXCore")
     End Sub
     Private Sub ClearOptionTabs()
         Tabs.TabPages.Clear()
