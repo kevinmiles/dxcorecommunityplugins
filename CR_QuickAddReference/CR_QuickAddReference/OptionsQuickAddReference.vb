@@ -92,7 +92,6 @@ Public Class OptionsQuickAddReference
         Next
     End Sub
     Public Shared Function DefaultCommonReferences() As List(Of Reference)
-        CodeRush.Project.Active.
         Dim Result As New List(Of Reference)
         Result.Add(New Reference("%WinDir%\Microsoft.Net\Framework\v2.0.50727\System.dll"))
         Result.Add(New Reference("%WinDir%\Microsoft.NET\Framework\v2.0.50727\System.Xml.dll"))
