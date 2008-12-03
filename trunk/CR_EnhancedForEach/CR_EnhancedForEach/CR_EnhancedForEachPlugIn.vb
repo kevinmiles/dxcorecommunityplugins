@@ -27,6 +27,8 @@ Namespace CR_EnhancedForEach
         Private projHash As New Hashtable
         Private Shared _Cache As New Hashtable
         Dim isOldVS As Boolean = CodeRush.ApplicationObject.Version.StartsWith("7")
+        Friend WithEvents CreateForEachFromNode As DevExpress.CodeRush.Core.Action
+        Friend WithEvents SurroundWithForEachnit As DevExpress.CodeRush.Extensions.StringProvider
 
 #Region " private fields... "
         Private components As System.ComponentModel.IContainer
@@ -69,24 +71,27 @@ Namespace CR_EnhancedForEach
         ''' </summary>
         Private Sub InitializeComponent()
             Me.components = New System.ComponentModel.Container
-            Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CR_EnhancedForEachPlugIn))
             Me.ForEachAction = New DevExpress.CodeRush.Core.Action(Me.components)
             Me.ForEachInit = New DevExpress.CodeRush.Extensions.StringProvider(Me.components)
             Me.ForEachVar = New DevExpress.CodeRush.Extensions.StringProvider(Me.components)
             Me.ForEachVarType = New DevExpress.CodeRush.Extensions.StringProvider(Me.components)
             Me.ForEachVarItemName = New DevExpress.CodeRush.Extensions.StringProvider(Me.components)
+            Me.CreateForEachFromNode = New DevExpress.CodeRush.Core.Action(Me.components)
+            Me.SurroundWithForEachnit = New DevExpress.CodeRush.Extensions.StringProvider(Me.components)
             CType(Me.ForEachAction, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me.ForEachInit, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me.ForEachVar, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me.ForEachVarType, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me.ForEachVarItemName, System.ComponentModel.ISupportInitialize).BeginInit()
+            CType(Me.CreateForEachFromNode, System.ComponentModel.ISupportInitialize).BeginInit()
+            CType(Me.SurroundWithForEachnit, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
             '
             'ForEachAction
             '
             Me.ForEachAction.ActionName = "EnhancedForEach"
             Me.ForEachAction.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None
-            Me.ForEachAction.Image = CType(resources.GetObject("ForEachAction.Image"), System.Drawing.Bitmap)
+            Me.ForEachAction.Image = Nothing
             Me.ForEachAction.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
             '
             'ForEachInit
@@ -117,6 +122,20 @@ Namespace CR_EnhancedForEach
             Me.ForEachVarItemName.ProviderName = "ForEachVarItemName"
             Me.ForEachVarItemName.Register = True
             '
+            'CreateForEachFromNode
+            '
+            Me.CreateForEachFromNode.ActionName = "CreateForEachFromNode"
+            Me.CreateForEachFromNode.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None
+            Me.CreateForEachFromNode.Image = Nothing
+            Me.CreateForEachFromNode.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
+            '
+            'SurroundWithForEachnit
+            '
+            Me.SurroundWithForEachnit.Description = ""
+            Me.SurroundWithForEachnit.DisplayName = "SurroundWithForEachnit"
+            Me.SurroundWithForEachnit.ProviderName = "SurroundWithForEachnit"
+            Me.SurroundWithForEachnit.Register = True
+            '
             'CR_EnhancedForEachPlugIn
             '
             CType(Me.ForEachAction, System.ComponentModel.ISupportInitialize).EndInit()
@@ -124,6 +143,8 @@ Namespace CR_EnhancedForEach
             CType(Me.ForEachVar, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Me.ForEachVarType, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Me.ForEachVarItemName, System.ComponentModel.ISupportInitialize).EndInit()
+            CType(Me.CreateForEachFromNode, System.ComponentModel.ISupportInitialize).EndInit()
+            CType(Me.SurroundWithForEachnit, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
         End Sub
@@ -161,7 +182,7 @@ Namespace CR_EnhancedForEach
                     _parentClassOrStructName = theStruct.Name
                 End If
             Else
-                If TypeOf theModul Is devexpress.CodeRush.StructuralParser.Module Then
+                If TypeOf theModul Is DevExpress.CodeRush.StructuralParser.Module Then
                     _parentClassOrStructName = theModul.Name
                 Else
                     _parentClassOrStructName = theClass.Name
@@ -233,7 +254,7 @@ Namespace CR_EnhancedForEach
             ElseIf TypeOf theElement Is Struct Then
                 theStruct = DirectCast(theElement, Struct)
                 ienum = theStruct.AllVariables.GetEnumerator
-            ElseIf TypeOf theElement Is devexpress.CodeRush.StructuralParser.Module Then
+            ElseIf TypeOf theElement Is DevExpress.CodeRush.StructuralParser.Module Then
                 theModule = DirectCast(theElement, DevExpress.CodeRush.StructuralParser.Module)
                 ienum = theModule.AllVariables.GetEnumerator
             End If
@@ -693,177 +714,141 @@ Namespace CR_EnhancedForEach
         Dim frmSelect As New SelectForm
 
         Private Sub ForEachInit_GetString(ByVal ea As DevExpress.CodeRush.Core.GetStringEventArgs) Handles ForEachInit.GetString
-            If ea.Parameters.All <> "" Then
-                FillArray(ea.Parameters.All)
-            Else
-                FillArray("method")
-            End If
-
-            If _EnumVars.Count = 1 Then
-                frmSelect.SelectedElement = _EnumVars(0)
-                Return
-            ElseIf _EnumVars.Count = 0 Then
-                frmSelect.SelectedElement = New EnumerableElement("item", False)
-                Return
-            End If
-            frmSelect.LoadItems(_EnumVars)
-            Dim posLeft As Integer = CodeRush.TextViews.Active.ScreenBounds.Left + CodeRush.TextViews.Active.GetPointFromLineAndColumn(CodeRush.Caret.Line, CodeRush.Caret.Offset).X
-            Dim posTop As Integer = CodeRush.TextViews.Active.ScreenBounds.Top + CodeRush.TextViews.Active.GetPointFromLineAndColumn(CodeRush.Caret.Line, CodeRush.Caret.Offset).Y + CodeRush.TextViews.Active.LineHeight
-            Dim formWidth As Integer = 0
-            For Each item As EnumerableElement In _EnumVars
-                frmSelect.lblSize.Text = item.ToString
-                If frmSelect.lblSize.Width > formWidth Then
-                    formWidth = frmSelect.lblSize.Width
-                End If
-            Next
-            formWidth += 20
-            Dim screenHeight As Integer = Screen.FromPoint(New System.Drawing.Point(posLeft, 1)).WorkingArea.Height
-            If posLeft + formWidth > Screen.FromPoint(New System.Drawing.Point(posLeft, 1)).WorkingArea.Width Then
-                posLeft = Screen.FromPoint(New System.Drawing.Point(posLeft, 1)).WorkingArea.Width - formWidth
-            End If
-            If Not clipboardEnumerableElement Is Nothing Then
-                frmSelect.ClipBoardElement = clipboardEnumerableElement
-            End If
-            frmSelect.Show()
-            frmSelect.Left = posLeft
-            frmSelect.Top = posTop
-            frmSelect.Width = formWidth + 5
-            If frmSelect.Width < 160 Then
-                frmSelect.Width = 160
-            End If
-            frmSelect.Hide()
-            frmSelect.Height = ((_EnumVars.Count) * 16) + 28
-            If frmSelect.Height > screenHeight / 4 Then
-                frmSelect.Height = screenHeight / 4
-            End If
-            If Not Me.clipboardEnumerableElement Is Nothing Then
-                frmSelect.ClipBoardElement = Me.clipboardEnumerableElement
-            End If
-            If frmSelect.Top + frmSelect.Height > screenHeight Then
-                If frmSelect.Top - frmSelect.Height < 0 Then
-                    frmSelect.Top = 0
+            Try
+                If ea.Parameters.All <> "" Then
+                    FillArray(ea.Parameters.All)
                 Else
-                    frmSelect.Top = (frmSelect.Top - frmSelect.Height) - CodeRush.TextViews.Active.LineHeight
+                    FillArray("method")
                 End If
 
-            End If
-            'frmSelect.ShowDialog()
-            frmSelect.DialogResult = DialogResult.Abort
-            frmSelect.TopMost = True
-            frmSelect.Show()
-            frmSelect.lstItems.Focus()
-            Do While frmSelect.DialogResult <> DialogResult.OK AndAlso frmSelect.DialogResult <> DialogResult.Cancel
-                System.Threading.Thread.Sleep(10)
-                Application.DoEvents()
-            Loop
-            If frmSelect.DialogResult = DialogResult.Cancel Then
-                Throw New ApplicationException("Canceled by user")
-            End If
+                If _EnumVars.Count = 1 Then
+                    frmSelect.SelectedElement = _EnumVars(0)
+                    Return
+                ElseIf _EnumVars.Count = 0 Then
+                    frmSelect.SelectedElement = New EnumerableElement("item", False)
+                    Return
+                End If
+                frmSelect.LoadItems(_EnumVars)
+                Dim posLeft As Integer = CodeRush.TextViews.Active.ScreenBounds.Left + CodeRush.TextViews.Active.GetPointFromLineAndColumn(CodeRush.Caret.Line, CodeRush.Caret.Offset).X
+                Dim posTop As Integer = CodeRush.TextViews.Active.ScreenBounds.Top + CodeRush.TextViews.Active.GetPointFromLineAndColumn(CodeRush.Caret.Line, CodeRush.Caret.Offset).Y + CodeRush.TextViews.Active.LineHeight
+                Dim formWidth As Integer = 0
+                For Each item As EnumerableElement In _EnumVars
+                    frmSelect.lblSize.Text = item.ToString
+                    If frmSelect.lblSize.Width > formWidth Then
+                        formWidth = frmSelect.lblSize.Width
+                    End If
+                Next
+                formWidth += 20
+                Dim screenHeight As Integer = Screen.FromPoint(New System.Drawing.Point(posLeft, 1)).WorkingArea.Height
+                If posLeft + formWidth > Screen.FromPoint(New System.Drawing.Point(posLeft, 1)).WorkingArea.Width Then
+                    posLeft = Screen.FromPoint(New System.Drawing.Point(posLeft, 1)).WorkingArea.Width - formWidth
+                End If
+                If Not clipboardEnumerableElement Is Nothing Then
+                    frmSelect.ClipBoardElement = clipboardEnumerableElement
+                End If
+                frmSelect.Show()
+                frmSelect.Left = posLeft
+                frmSelect.Top = posTop
+                frmSelect.Width = formWidth + 5
+                If frmSelect.Width < 160 Then
+                    frmSelect.Width = 160
+                End If
+                frmSelect.Hide()
+                frmSelect.Height = ((_EnumVars.Count) * 16) + 28
+                If frmSelect.Height > screenHeight / 4 Then
+                    frmSelect.Height = screenHeight / 4
+                End If
+                If Not Me.clipboardEnumerableElement Is Nothing Then
+                    frmSelect.ClipBoardElement = Me.clipboardEnumerableElement
+                End If
+                If frmSelect.Top + frmSelect.Height > screenHeight Then
+                    If frmSelect.Top - frmSelect.Height < 0 Then
+                        frmSelect.Top = 0
+                    Else
+                        frmSelect.Top = (frmSelect.Top - frmSelect.Height) - CodeRush.TextViews.Active.LineHeight
+                    End If
+
+                End If
+                frmSelect.DialogResult = DialogResult.Abort
+                frmSelect.TopMost = True
+                frmSelect.Show()
+                frmSelect.lstItems.Focus()
+                Do While frmSelect.DialogResult <> DialogResult.OK AndAlso frmSelect.DialogResult <> DialogResult.Cancel
+                    System.Threading.Thread.Sleep(10)
+                    Application.DoEvents()
+                Loop
+                If frmSelect.DialogResult = DialogResult.Cancel Then
+                    Throw New ApplicationException("Canceled by user")
+                End If
+            Catch ex As Exception
+                'ignore
+            End Try
         End Sub
 
         Private Sub ForEachVar_GetString(ByVal ea As DevExpress.CodeRush.Core.GetStringEventArgs) Handles ForEachVar.GetString
-            If frmSelect.SelectedElement.Name = " New" Then
-                ea.Value = "collection"
-            Else
-                ea.Value = frmSelect.SelectedElement.Name
-            End If
-            ''For Each item As EnumerableElement In _EnumVars
-            ''    ea.Value &= item.ToString() & " "
-            ''Next
-            'If frmSelect.SelectedElement.Name = " New" Then
-            '    ea.Value = "collection"
-            'Else
-            '    ea.Value = frmSelect.SelectedElement.Name
-            'End If
-
+            Try
+                If frmSelect.SelectedElement.Name = " New" Then
+                    ea.Value = "collection"
+                Else
+                    ea.Value = frmSelect.SelectedElement.Name
+                End If
+            Catch ex As Exception
+                'ignore
+            End Try
         End Sub
 
-        Private Sub ForEachVarType_GetString(ByVal ea As DevExpress.CodeRush.Core.GetStringEventArgs) Handles ForEachVarType.GetString
+        Private Function GetRetString(ByVal theElement As EnumerableElement) As String
             Dim rettype As String
-            If frmSelect.SelectedElement.ReturnTypeName = "" Then
-                If frmSelect.SelectedElement Is Nothing Then
+            If theElement.ReturnTypeName = "" Then
+                If theElement Is Nothing Then
                     rettype = "System.Object"
                 Else
-                    rettype = GetReturnType(frmSelect.SelectedElement.Element)
-                    frmSelect.SelectedElement.ReturnTypeName = rettype
+                    rettype = GetReturnType(theElement.Element)
+                    theElement.ReturnTypeName = rettype
                 End If
             Else
-                rettype = frmSelect.SelectedElement.ReturnTypeName
+                rettype = theElement.ReturnTypeName
             End If
-            ea.Value = CodeRush.Language.GetSimpleName(rettype)
-            'Dim rettype As String
-            ' If frmSelect.SelectedElement.ReturnTypeName = "" Then
-            '     If frmSelect.SelectedElement.ReturnType Is Nothing Then
-            '         frmSelect.SelectedElement.ReturnType=ResolveType(frmSelect.SelectedElement.Element)
-            '     End If
-            '     'Dim declElement As IElement = resolvetype(frmSelect.SelectedElement.Element)
-            '     Dim declElement As IElement = resolvetype(frmSelect.SelectedElement.Element) 'DirectCast(frmSelect.SelectedElement.ReturnType, ITypeReferenceExpression).GetDeclaration
-            '     If TypeOf declElement Is IClassElement andalso directcast(declElement,IClassElement).IsGeneric andalso typeof frmSelect.SelectedElement.element is Variable Then
-            '         rettype=GetReturnTypeForGeneric(directcast(frmSelect.SelectedElement.element,Variable).MemberTypeReference)
-            '     Else
-            '         rettype = GetReturnType(declElement)
-            '     End If
-            '     frmSelect.SelectedElement.ReturnTypeName=rettype
-            ' Else
-            '     rettype=frmSelect.SelectedElement.ReturnTypeName
-            ' End If
-            ' ea.Value = CodeRush.Language.GetSimpleName( rettype)
+            Dim retString As String = CodeRush.Language.GetSimpleName(rettype)
+            Return retString
+        End Function
+        Private Sub ForEachVarType_GetString(ByVal ea As DevExpress.CodeRush.Core.GetStringEventArgs) Handles ForEachVarType.GetString
+            Try
+                Dim theElement As EnumerableElement = frmSelect.SelectedElement
+                Dim retString As String = GetRetString(theElement)
+                ea.Value = retString
+            Catch ex As Exception
+                'ignore
+            End Try
         End Sub
 
         Private Sub ForEachVarItemName_GetString(ByVal ea As DevExpress.CodeRush.Core.GetStringEventArgs) Handles ForEachVarItemName.GetString
-            Dim rettype As String
-            rettype = frmSelect.SelectedElement.ReturnTypeName
-            If frmSelect.SelectedElement.ReturnTypeName = "" Then
-                If frmSelect.SelectedElement Is Nothing Then
-                    ea.Value = "lObject"
-                    Return
+            Try
+                Dim rettype As String
+                rettype = frmSelect.SelectedElement.ReturnTypeName
+                If frmSelect.SelectedElement.ReturnTypeName = "" Then
+                    If frmSelect.SelectedElement Is Nothing Then
+                        ea.Value = "lObject"
+                        Return
+                    End If
+                    rettype = GetReturnType(frmSelect.SelectedElement.Element)
+                    frmSelect.SelectedElement.ReturnTypeName = rettype
                 End If
-                rettype = GetReturnType(frmSelect.SelectedElement.Element)
-                frmSelect.SelectedElement.ReturnTypeName = rettype
-            End If
-            If frmSelect.SelectedElement.ReturnTypeName = "System.Object" Then
-                ea.Value = "item"
-            Else
-                Dim strRettype As String = CodeRush.Language.GetSimpleName(rettype)
-                If strRettype.IndexOf("(") > -1 Then
-                    ea.Value = "l" & strRettype.Substring(0, strRettype.IndexOf("("))
-                ElseIf strRettype.IndexOf("<") > -1 Then
-                    ea.Value = "l" & strRettype.Substring(0, strRettype.IndexOf("<"))
+                If frmSelect.SelectedElement.ReturnTypeName = "System.Object" Then
+                    ea.Value = "item"
                 Else
-                    ea.Value = "l" & strRettype
+                    Dim strRettype As String = CodeRush.Language.GetSimpleName(rettype)
+                    If strRettype.IndexOf("(") > -1 Then
+                        ea.Value = "l" & strRettype.Substring(0, strRettype.IndexOf("("))
+                    ElseIf strRettype.IndexOf("<") > -1 Then
+                        ea.Value = "l" & strRettype.Substring(0, strRettype.IndexOf("<"))
+                    Else
+                        ea.Value = "l" & strRettype
+                    End If
                 End If
-            End If
-            'Dim rettype As String
-            'rettype=frmSelect.SelectedElement.ReturnTypeName
-            'If frmSelect.SelectedElement.ReturnTypeName = "" Then
-            '    If frmSelect.SelectedElement Is Nothing Then
-            '        ea.Value = "lObject"
-            '        Return
-            '    End If
-
-            '    Dim declElement As IElement = resolvetype(frmSelect.SelectedElement.Element) 'DirectCast(frmSelect.SelectedElement.ReturnType, ITypeReferenceExpression).GetDeclaration
-            '    If TypeOf declElement Is IClassElement andalso directcast(declElement,IClassElement).IsGeneric Then
-            '        'rettype=GetReturnTypeForGeneric(frmSelect.SelectedElement.ReturnType)
-            '        rettype=GetReturnTypeForGeneric(directcast(frmSelect.SelectedElement.Element,Variable).MemberTypeReference)
-            '    Else
-            '        rettype = GetReturnType(declElement)
-            '    End If
-
-            '        frmSelect.SelectedElement.ReturnTypeName = rettype
-
-            'End If
-            'If frmSelect.SelectedElement.ReturnTypeName = "System.Object" Then
-            '    ea.Value = "item"
-            'Else
-            '    dim strRettype as string=CodeRush.Language.GetSimpleName( rettype)
-            '    If strRettype.IndexOf("(")>-1    Then
-            '        ea.value = "l" &  strRettype.Substring(0,strRettype.IndexOf("("))
-            '    ElseIf strRettype.IndexOf("<")>-1  then
-            '         ea.value = "l" & strRettype.Substring(0,strRettype.IndexOf("<"))
-            '    Else
-            '        ea.value = "l" & strRettype
-            '    End If
-            'End If
+            Catch ex As Exception
+                'ignore
+            End Try
         End Sub
 
         Private _AsmChecked As New Hashtable
@@ -1088,6 +1073,36 @@ Namespace CR_EnhancedForEach
             End If
             Return ""
         End Function
+
+
+
+        Private Sub CreateForEachFromNode_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles CreateForEachFromNode.Execute
+            Try
+                Dim elementRange As SourceRange
+                Dim elBuilder As ElementBuilder
+                elBuilder = CodeRush.Language.GetActiveElementBuilder
+                CodeRush.Documents.ActiveTextDocument.ParseIfNeeded()
+                elementRange = CodeRush.Source.Active.GetFullBlockRange
+                CodeRush.Documents.ActiveTextDocument.SelectText(elementRange)
+                CodeRush.Command.Execute("Embed", "ForEach")
+            Catch ex As Exception
+                'ignore
+            End Try
+        End Sub
+
+        Private Sub SurroundWithForEachnit_GetString(ByVal ea As DevExpress.CodeRush.Core.GetStringEventArgs) Handles SurroundWithForEachnit.GetString
+            Try
+                clipboardEnumerableElement = Nothing
+                CodeRush.Documents.ActiveTextDocument.ParseIfNeeded()
+                CodeRush.Clipboard.Copy()
+                CodeRush.Documents.ActiveTextDocument.ParseIfNeeded()
+                CodeRush.Clipboard.Copy()
+                frmSelect.SelectedElement = clipboardEnumerableElement
+                ea.Value = ""
+            Catch ex As Exception
+                'ignore
+            End Try
+        End Sub
     End Class
 
 End Namespace
