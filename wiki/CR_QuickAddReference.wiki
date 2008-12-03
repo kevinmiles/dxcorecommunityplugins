@@ -18,9 +18,33 @@ Highlight one or more references and hit the add button.
 == Tabs ==
 Each tab provides a different list of potential references which you can add to the current project.
 === Solution Tab ===
-This is the first and currently only tab available.
-
 The solution tab provides a list of references already in use in one or more of the projects in your solution.
+=== Recent Tab ===
+The recent tab will contain the X most recent assemblies added to a project using QuickAddReference. Currently X is 5 (way too low, I will fix this)
+=== Common Tab ===
+This is a user configurable tab which by default contains the following assemblies.
+
+ * System.Configuration.dll
+ * System.Data.dll
+ * System.Data.DataSetExtensions.dll
+ * System.Xml.dll
+ * System.Xml.Linq.dll
+
+=== Win Tab ===
+This is a user configurable tab which by default contains the following assemblies.
+
+ * System.Drawing.dll
+ * System.Windows.Forms.dll
+
+=== Web Tab ===
+This is a user configurable tab which by default contains the following assemblies.
+
+ * System.Web.dll
+ * System.Net.dll
+ * System.Web.Extensions.dll
+ * System.Web.Services.dll
+
+More tabs will follow.
 
 = Credits =
 
