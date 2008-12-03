@@ -2,7 +2,7 @@
 
 = Introduction =
 
-In it's early days at the moment. Providing a Solution tab only for now.
+A plugin to provide a quicker way to add some of the more common assemblies to your project
 
 = Installation =
 
@@ -10,10 +10,9 @@ Refer users to the InstallInstructions page for general instructions on putting 
 
 = Usage =
 
-Assuming installation is done correctly, Quick Add Reference hould be available from the editor Context menu. this leads to the main "Quick Add Reference" dialog which includes different tabs designed to show you different Lists of potential references.
+Assuming installation is done correctly, Quick Add Reference should be available from the editor Context menu. this leads to the main "Quick Add Reference" dialog which includes different tabs designed to show you different Lists of potential references.
 
-Highlight one or more references and hit the add button.
-
+Select one or more references and hit the add button.
 
 == Tabs ==
 Each tab provides a different list of potential references which you can add to the current project.
