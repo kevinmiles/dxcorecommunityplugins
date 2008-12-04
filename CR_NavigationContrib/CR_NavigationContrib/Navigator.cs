@@ -14,7 +14,7 @@ namespace CR_NavigationContrib
     public class Navigator
     {
         /// <summary>
-        /// The source code element that the navigation was iniated on.
+        /// The source code element that the navigation was initiated on.
         /// </summary>
         private LanguageElement _elementActivated;
 
@@ -43,7 +43,6 @@ namespace CR_NavigationContrib
             if (matchingMethodInClass == null)
                 return;
 
-            //if (!CodeRush.File.IsOpen(matchingMethodInClass.FileNode.FilePath))
             CodeRush.File.Activate(matchingMethodInClass.FileNode.FilePath);
 
             CodeRush.Documents.ActiveTextView.Selection.Set(matchingMethodInClass.NameRange);
@@ -51,13 +50,12 @@ namespace CR_NavigationContrib
 
         private Method FindMatchingMethodInClass(Method activatedMethod)
         {
+            ISourceTreeResolver resolver = new SourceTreeResolver();
             Method matchingMethod = null;
             foreach (IElement node in _targetClass.Nodes)
             {
                 if (node is Method)
                 {
-                    ISourceTreeResolver resolver = new SourceTreeResolver();
-
                     if (node.Name != activatedMethod.Name)
                         continue;
 
@@ -69,6 +67,5 @@ namespace CR_NavigationContrib
             }
             return matchingMethod;
         }
-
     }
 }
