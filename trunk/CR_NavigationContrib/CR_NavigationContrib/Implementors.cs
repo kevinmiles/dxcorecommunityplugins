@@ -23,7 +23,11 @@ namespace CR_NavigationContrib
             if (!OnCall(element))
                 return;
 
-            Class declaringType = element.GetDeclaration().Parent as Class;
+            IElement declaration = element.GetDeclaration();
+            if (declaration == null)
+                return;
+
+            Class declaringType = declaration.Parent as Class;
             if (declaringType == null)
                 return;
             
