@@ -1,4 +1,4 @@
-#summary TODO.
+RedGreen is a plug-in that will allow you to launch your unit tests from within Visual Studio. Unlike other tools that do this, it will also parse the test results and overlay them on your test.
 
 = Introduction =
 
@@ -6,11 +6,11 @@ TODO
 
 = Installation =
 
-Installation instructions can be found on the InstallInstructions page.
+Two steps are needed for RedGreen to work. The first is to follow the normal DxCore Community Plug-in instructions. The second is to install Gallio, available at www.gallio.org. RedGreen uses Gallio to run the tests because it supports most of the current testing frameworks.
 
 = Usage =
 
-TODO
+Simply hover over the tets runner Icon and select a "Run" option.
 
 = Options =
 
