@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Software License Agreement for RedGreen
  * 
- * Copyright (c) 2008 Renaissance Learning, Inc. and James Argeropoulos
+ * Copyright (c) 2009 Renaissance Learning, Inc. and James Argeropoulos
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,37 +22,39 @@
  * THE SOFTWARE.
  */
 
-using DevExpress.CodeRush.StructuralParser;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace RedGreen
 {
     /// <summary>
-    /// Wraps up all the failure information into a single spot
+    /// One stop shop to get your Gallio results parser. 
     /// </summary>
-    public class FailureData
+    class ResultParserFactory
     {
-        /// <summary>
-        /// The standard for a passing assert
-        /// </summary>
-        public string Expected { get; set; }
-        /// <summary>
-        /// What the code tested actually supplied for evaluation
-        /// </summary>
-        public string Actual { get; set; }
-        /// <summary>
-        /// The index where actual begins to have different values
-        /// </summary>
-        public int ActualDiffersAt { get; set; }
-        /// <summary>
-        /// Where the failure occurred
-        /// </summary>
-        public LanguageElement FailingStatement { get; set; }
+        private List<IGallioResultParser> _parsers = new List<IGallioResultParser>();
+
+        public ResultParserFactory()
+        {
+            _parsers.Add(new NUnitGallioParser());
+            _parsers.Add(new MbUnitGallioParser());
+            _parsers.Add(new XunitGallioParser());
+        }
 
         /// <summary>
-        /// Initializes a new instance of the FailureData class.
+        /// Obtain a result parser for the framework in use.
         /// </summary>
-        public FailureData()
+        /// <param name="frameworkName"></param>
+        /// <returns>A matching parser or the NullGallioParser if none exist in the collection</returns>
+        public IGallioResultParser GetParser(string frameworkName)
         {
+            IGallioResultParser parser = _parsers.Find(
+                delegate(IGallioResultParser p)
+                {
+                    return frameworkName.ToLower().StartsWith(p.Framwork.ToLower());
+                });
+            return parser != null ? parser : new NullGallioParser();
         }
     }
 }

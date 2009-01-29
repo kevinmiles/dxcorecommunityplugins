@@ -41,9 +41,11 @@ namespace RedGreen
             this.actBuildProject = new DevExpress.CodeRush.Core.Action(this.components);
             this.testActions = new DevExpress.CodeRush.Core.SmartTagProvider(this.components);
             this.actRunTests = new DevExpress.CodeRush.Core.Action(this.components);
+            this.attachDebugger = new DevExpress.CodeRush.Core.Action(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.actBuildProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.testActions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.actRunTests)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.attachDebugger)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // actBuildProject
@@ -60,6 +62,8 @@ namespace RedGreen
             // 
             this.testActions.Description = "Actions available for Test";
             this.testActions.DisplayName = "Test";
+            this.testActions.Image = ((System.Drawing.Bitmap)(resources.GetObject("testActions.Image")));
+            this.testActions.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
             this.testActions.MenuOrder = 0;
             this.testActions.ProviderName = "UnitTest";
             this.testActions.Register = true;
@@ -77,6 +81,16 @@ namespace RedGreen
             this.actRunTests.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
             this.actRunTests.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actRunTests_Execute);
             // 
+            // attachDebugger
+            // 
+            this.attachDebugger.ActionName = "Attach";
+            this.attachDebugger.ButtonText = "Attach";
+            this.attachDebugger.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.attachDebugger.Description = "Attaches to Gallio.Host if it is available";
+            this.attachDebugger.Image = ((System.Drawing.Bitmap)(resources.GetObject("attachDebugger.Image")));
+            this.attachDebugger.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+            this.attachDebugger.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.attachDebugger_Execute);
+            // 
             // PlugIn1
             // 
             this.TileMouseEnter += new DevExpress.CodeRush.Core.TileEventHandler(this.PlugIn1_TileMouseEnter);
@@ -93,6 +107,7 @@ namespace RedGreen
             ((System.ComponentModel.ISupportInitialize)(this.actBuildProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.testActions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.actRunTests)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.attachDebugger)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -102,6 +117,7 @@ namespace RedGreen
         private DevExpress.CodeRush.Core.Action actBuildProject;
         private DevExpress.CodeRush.Core.SmartTagProvider testActions;
         private DevExpress.CodeRush.Core.Action actRunTests;
+        private DevExpress.CodeRush.Core.Action attachDebugger;
 
     }
 }

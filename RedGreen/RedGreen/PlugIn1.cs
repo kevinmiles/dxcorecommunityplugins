@@ -163,7 +163,7 @@ namespace RedGreen
         {
             AddSmartTagItem(ea, kRunTestMenuItem, PlugIn1_RunTest);
             AddSmartTagItem(ea, kRunClassMenuItem, PlugIn1_RunTest);
-            //AddSmartTagItem(ea, kRunAssemblyMenuItem, PlugIn1_RunTestSmart); // commented out because I am having an odd hang the first time used until I right click on the VS tab in the tool bar. 
+            AddSmartTagItem(ea, kRunAssemblyMenuItem, PlugIn1_RunTest);
 
             if (_Failures.Count > 0)
             {
@@ -267,6 +267,22 @@ namespace RedGreen
                 _Tests.Add(testData);
             }
             testData.Result = args.Result;
+        }
+
+        /// <summary>
+        /// Write a line of text to the test pane
+        /// </summary>
+        /// <param name="text"></param>
+        internal static void WriteToTestPane(string text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                EnvDTE.OutputWindowPane testPane = GetTestingOutputPane();
+                if (testPane != null)
+                {
+                    testPane.OutputString(text);
+                }
+            }
         }
 
         /// <summary>
@@ -711,6 +727,7 @@ namespace RedGreen
             {
                 ShowOutputWindow();
             }
+            CodeRush.Windows.Active.DTE.StatusBar.Text = "Build succeded";
         }
         #endregion
 
@@ -779,6 +796,39 @@ namespace RedGreen
             //Not working well enough to commit yet.
             //Tile tile = ea.TextView.ActiveTile;
             //ShowTestPopupMenu(ea.TextView, tile);
+        }
+
+        private void attachDebugger_Execute(ExecuteEventArgs ea)
+        {
+            AttachToDebugger();
+        }
+
+        public static bool AttachToDebugger()
+        {
+            bool alreadyAttached = false;
+            const string kGallioHost = "Gallio.Host";
+
+            foreach (EnvDTE.Process attachedProcess in CodeRush.Solution.Active.DTE.Debugger.DebuggedProcesses)
+            {
+                if (attachedProcess.Name.Contains(kGallioHost))
+                {
+                    alreadyAttached = true;
+                    break;
+                }
+            }
+
+            if (false == alreadyAttached)
+            {
+                foreach (EnvDTE.Process process in CodeRush.Solution.Active.DTE.Debugger.LocalProcesses)
+                {
+                    if (process.Name.Contains(kGallioHost))
+                    {
+                        process.Attach();
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 

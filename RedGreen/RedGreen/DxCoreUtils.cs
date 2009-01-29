@@ -91,25 +91,31 @@ namespace RedGreen
         /// <remarks>Assumes that the location is in the active file.</remarks>
         internal static LanguageElement GetStatement(string location, int failAtLine)
         {
-            if (CodeRush.Source.ActiveSourceFile == null)
+            try
             {
-                return null;
-            }
-            LanguageElement node = CodeRush.Source.ActiveSourceFile.GetNodeAt(new SourcePoint(failAtLine, 0));
-            if (node != null)
-            {
-                if (location == node.RootNamespaceLocation || location.StartsWith(node.RootNamespaceLocation))
+                if (CodeRush.Source.ActiveSourceFile == null)
                 {
-                    LanguageElement statement = node.FirstChild;
-                    while (statement != null)
+                    return null;
+                }
+                LanguageElement node = CodeRush.Source.ActiveSourceFile.GetNodeAt(new SourcePoint(failAtLine, 0));
+                if (node != null)
+                {
+                    if (location == node.RootNamespaceLocation || location.StartsWith(node.RootNamespaceLocation))
                     {
-                        if (statement.StartLine == failAtLine)
+                        LanguageElement statement = node.FirstChild;
+                        while (statement != null)
                         {
-                            return statement;
+                            if (statement.StartLine == failAtLine)
+                            {
+                                return statement;
+                            }
+                            statement = statement.NextCodeSibling;
                         }
-                        statement = statement.NextCodeSibling;
                     }
                 }
+            }
+            catch
+            {// eat exceptions
             }
             return null;
         }

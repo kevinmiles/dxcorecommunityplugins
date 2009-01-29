@@ -24,10 +24,7 @@
 
 using System;
 using System.IO;
-using Gallio.Model;
-using Gallio.Model.Filters;
-using Gallio.Runner;
-using Gallio.Runtime;
+using System.Text;
 
 namespace RedGreen
 {
@@ -39,6 +36,8 @@ namespace RedGreen
     /// </summary>
     class GallioRunner //: BaseTestRunner 
     {
+        private ResultParserFactory _parserFactory = new ResultParserFactory();
+
         public GallioRunner()
         {
         }
@@ -73,12 +72,18 @@ namespace RedGreen
         /// <param name="failed">number of tests failed</param>
         /// <param name="skipped">number of tests skipped</param>
         /// <param name="duration">time elapsed to run tests</param>
-        protected void RaiseAllComplete(string passed, string failed, string skipped, string duration)
+        protected void RaiseAllComplete(SummaryResult result)
         {
             if (AllTestsComplete != null)
             {
-                AllTestsComplete(this, new AllTestsCompleteEventArgs(passed, failed, skipped, duration));
+                AllTestsComplete(this, new AllTestsCompleteEventArgs(result.PassCount, result.FailCount, result.SkipCount, result.Duration));
             }
+        }
+
+        public void RunTests(string assemblyPath, string assemblyName)
+        {
+            RunTestsImpl(assemblyPath,
+                string.Format("/f:Assembly:{0}", assemblyName));
         }
 
         /// <summary>
@@ -89,9 +94,8 @@ namespace RedGreen
         /// <param name="className">Full name of the class that has the tests to run.</param>
         public void RunTests(string assemblyPath, string assemblyName, string className)
         {
-            RunTests(assemblyPath,
-                new AssemblyFilter<ITest>(new EqualityFilter<string>(assemblyName)),
-                new TypeFilter<ITest>(new EqualityFilter<string>(className), false));
+            RunTestsImpl(assemblyPath,
+                string.Format("/f:ExactType:{0}", className));
         }
 
         /// <summary>
@@ -103,15 +107,8 @@ namespace RedGreen
         /// <param name="methodName">The specific method name of the test to run.</param>
         public void RunTests(string assemblyPath, string assemblyName, string className, string methodName)
         {
-            RunTests(assemblyPath, 
-                new AssemblyFilter<ITest>(new EqualityFilter<string>(assemblyName)), 
-                new TypeFilter<ITest>(new EqualityFilter<string>(className), false), 
-                new MemberFilter<ITest>(new EqualityFilter<string>(methodName)));
-        }
-
-        public void RunTests(string assemblyPath, string assemblyName)
-        {
-            RunTests(assemblyPath, new AssemblyFilter<ITest>(new EqualityFilter<string>(assemblyName)));
+            RunTestsImpl(assemblyPath, 
+                string.Format("/f:(ExactType:{0})and(Member:{1})", className, methodName));
         }
 
         /// <summary>
@@ -119,64 +116,64 @@ namespace RedGreen
         /// </summary>
         /// <param name="assemblyPath">Where the class lives physically on the disk</param>
         /// <param name="filters">A set of filters to narrow the tests that should be run</param>
-        private void RunTests(string assemblyPath, params Filter<ITest>[] filters)
+        private void RunTestsImpl(string assemblyPath, string filter)//params Filter<ITest>[] filters)
         {
-            TestLauncher launcher = new TestLauncher();
+            string gallioPath = GetGallioInstalledFolder();
+            if (string.IsNullOrEmpty(gallioPath))
+            {
+                return;
+            }
 
-            //launcher.Logger = new RedGreenLogger(); // provide your own ILogger implementation if you like... this is optional
+            StreamReader sr = null;
+            using (System.Diagnostics.Process p = new System.Diagnostics.Process())
+            {
+                p.StartInfo = new System.Diagnostics.ProcessStartInfo(gallioPath, string.Format("\"{0}\" /v:verbose {1}", assemblyPath, filter));
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.CreateNoWindow = true;
+                p.Start();
+                sr = p.StandardOutput;
+            }
+            string line = sr.ReadLine();
 
+            while (line != "Running the tests.")
+            {// eat the preamble
+                line = sr.ReadLine();
+            }
+            line = sr.ReadLine();
 
-            // Set the installation path explicitly to ensure that we do not encounter problems
-            // when the test assembly contains a local copy of the primary runtime assemblies
-            // which will confuse the runtime into searching in the wrong place for plugins.
-            launcher.RuntimeSetup = new RuntimeSetup();
-            launcher.RuntimeSetup.InstallationConfiguration = InstallationConfiguration.LoadFromRegistry();
-            if (string.IsNullOrEmpty(launcher.RuntimeSetup.InstallationConfiguration.InstallationFolder))
+            ResultParser parser = new ResultParser();
+            while (line != null)
+            {
+                StringBuilder result = new StringBuilder();
+                parser.ReadNextTextResult(sr, ref line, result);
+                string rawResult = result.ToString();
+                if (parser.IsTestResult(rawResult))
+                {// Only raise event for tests completed, not fixtures and the like.
+                    RaiseComplete(result.ToString(), parser.ParseTest(rawResult));
+                }
+                else if (parser.IsRootResult(rawResult))
+                {// All done show summary and invalidate
+                    RaiseAllComplete(parser.ParseSummary(rawResult));
+                }
+            }
+        }
+
+        private static string GetGallioInstalledFolder()
+        {
+            Microsoft.Win32.RegistryKey gallioKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Gallio.org\\Gallio\\3.0");
+            if (gallioKey == null)
             {
                 System.Windows.Forms.MessageBox.Show(
-                    @"Gallio is either not installed or is older than version 3.0.4\r\n"
+                    @"Gallio not installed (registry key HKLM\SOFTWARE\Gallio.org\Gallio\3.0 not found).\r\n"
                     + "Please download from http://www.gallio.org/",
                     "RedGreen Run Tests",
                     System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Error);
-                return;
+                return string.Empty;
             }
-
-            launcher.RuntimeSetup.PluginDirectories.Add(launcher.RuntimeSetup.InstallationConfiguration.InstallationFolder);
-            launcher.RuntimeSetup.RuntimePath = launcher.RuntimeSetup.InstallationConfiguration.InstallationFolder; 
-            
-            launcher.TestExecutionOptions.Filter = new AndFilter<ITest>(filters);
-            
-            launcher.TestPackageConfig.HostSetup.ShadowCopy = true;
-            launcher.TestPackageConfig.HostSetup.ApplicationBaseDirectory = Path.GetDirectoryName(assemblyPath);
-            launcher.TestPackageConfig.HostSetup.WorkingDirectory = Path.GetDirectoryName(assemblyPath);
-
-
-            launcher.TestPackageConfig.AssemblyFiles.Add(assemblyPath);
-
-
-            GallioLogExtension testCompleteReciever = new GallioLogExtension();
-            testCompleteReciever.TestComplete += new TestCompleteEventHandler(testCompleteReciever_TestComplete);
-            launcher.TestRunnerExtensions.Add(testCompleteReciever);
-
-
-            TestLauncherResult result = launcher.Run();
-
-            RaiseAllComplete(result.Statistics.PassedCount.ToString(),
-
-                result.Statistics.FailedCount.ToString(),
-                result.Statistics.SkippedCount.ToString(),
-                result.Statistics.Duration.ToString());
-        }
-
-        /// <summary>
-        /// Re-raise event as though the runner were the source.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        void testCompleteReciever_TestComplete(object sender, TestCompleteEventArgs args)
-        {
-            RaiseComplete(args.RawResult, args.Result);
+            string installFolder = gallioKey.GetValue("InstallationFolder").ToString() ;
+            return Path.Combine(installFolder, @"bin\gallio.echo.exe");
         }
     }
 }
