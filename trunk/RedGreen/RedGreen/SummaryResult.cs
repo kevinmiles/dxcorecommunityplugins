@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Software License Agreement for RedGreen
  * 
- * Copyright (c) 2008 Renaissance Learning, Inc. and James Argeropoulos
+ * Copyright (c) 2009 Renaissance Learning, Inc. and James Argeropoulos
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,37 +22,18 @@
  * THE SOFTWARE.
  */
 
-using DevExpress.CodeRush.StructuralParser;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace RedGreen
 {
-    /// <summary>
-    /// Wraps up all the failure information into a single spot
-    /// </summary>
-    public class FailureData
+    public class SummaryResult
     {
-        /// <summary>
-        /// The standard for a passing assert
-        /// </summary>
-        public string Expected { get; set; }
-        /// <summary>
-        /// What the code tested actually supplied for evaluation
-        /// </summary>
-        public string Actual { get; set; }
-        /// <summary>
-        /// The index where actual begins to have different values
-        /// </summary>
-        public int ActualDiffersAt { get; set; }
-        /// <summary>
-        /// Where the failure occurred
-        /// </summary>
-        public LanguageElement FailingStatement { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the FailureData class.
-        /// </summary>
-        public FailureData()
-        {
-        }
+        public string Duration { get; set; }
+        public string TotalCount { get; set; }
+        public string PassCount { get; set; }
+        public string FailCount { get; set; }
+        public string SkipCount { get; set; }
     }
 }

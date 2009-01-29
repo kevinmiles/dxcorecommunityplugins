@@ -33,7 +33,7 @@ namespace RedGreen
     public class TestResult
     {
         public TestStatus Status { get; set; }
-        public string Durration { get; set; }
+        public string Duration { get; set; }
         public FailureData Failure { get; set; }
         public string Location { get; set; }
 
