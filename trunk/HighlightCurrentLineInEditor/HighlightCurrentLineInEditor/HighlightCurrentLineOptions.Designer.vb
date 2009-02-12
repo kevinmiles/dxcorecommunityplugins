@@ -30,9 +30,10 @@ Partial Class HighlightCurrentLineOptions
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.InnerColor = New ColorPicker
-        Me.OuterColor = New ColorPicker
+        Me.InnerColor = New HighlightCurrentLineInEditor.Controls.ColorPicker
+        Me.OuterColor = New HighlightCurrentLineInEditor.Controls.ColorPicker
         Me.chkEnabled = New System.Windows.Forms.CheckBox
+        Me.TextColor = New HighlightCurrentLineInEditor.Controls.ColorPicker
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -72,10 +73,23 @@ Partial Class HighlightCurrentLineOptions
         Me.chkEnabled.Text = "Enable Highlight Current Line"
         Me.chkEnabled.UseVisualStyleBackColor = True
         '
+        'TextColor
+        '
+        Me.TextColor.AllowOpacity = False
+        Me.TextColor.ColorBase = System.Drawing.Color.Blue
+        Me.TextColor.LabelWidth = 104
+        Me.TextColor.Location = New System.Drawing.Point(41, 126)
+        Me.TextColor.Name = "TextColor"
+        Me.TextColor.Opacity = 255
+        Me.TextColor.Size = New System.Drawing.Size(264, 24)
+        Me.TextColor.TabIndex = 2
+        Me.TextColor.Text = "Text Color"
+        '
         'HighlightCurrentLineOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.TextColor)
         Me.Controls.Add(Me.chkEnabled)
         Me.Controls.Add(Me.OuterColor)
         Me.Controls.Add(Me.InnerColor)
@@ -110,6 +124,7 @@ Partial Class HighlightCurrentLineOptions
     Friend WithEvents InnerColor As Global.HighlightCurrentLineInEditor.Controls.ColorPicker
     Friend WithEvents OuterColor As Global.HighlightCurrentLineInEditor.Controls.ColorPicker
     Friend WithEvents chkEnabled As System.Windows.Forms.CheckBox
+    Friend WithEvents TextColor As Global.HighlightCurrentLineInEditor.Controls.ColorPicker
 
     Public Shared ReadOnly Property FullPath() As String
         Get

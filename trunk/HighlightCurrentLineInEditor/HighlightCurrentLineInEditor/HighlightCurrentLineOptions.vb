@@ -16,10 +16,12 @@ Public Class HighlightCurrentLineOptions
     Public Const KEY_InnerBaseColor As String = "InnerBaseColor"
     Public Const KEY_InnerOpacity As String = "InnerOpacity"
     Public Const KEY_OuterBaseColor As String = "OuterBaseColor"
+    Public Const KEY_TextBaseColor As String = "TextBaseColor"
     Public Const KEY_Enabled As String = "Enabled"
 #Region " Initialize "
-    Public Shared DEFAULT_COLOR_INNER As PaintColor = New PaintColor(Color.LightBlue, 70)
-    Public Shared DEFAULT_COLOR_OUTER As PaintColor = New PaintColor(Color.LightBlue, 255)
+    Public Shared DEFAULT_COLOR_INNER As PaintColor = New PaintColor(Defaults.SelectedBackColor, 255)
+    Public Shared DEFAULT_COLOR_OUTER As PaintColor = New PaintColor(Defaults.SelectedBackColor, 255)
+    Public Shared DEFAULT_COLOR_TEXT As PaintColor = New PaintColor(Defaults.SelectedForeColor, 255)
     Protected Overrides Sub Initialize()
         MyBase.Initialize()
 
@@ -44,6 +46,8 @@ Public Class HighlightCurrentLineOptions
         InnerColor.Opacity = DEFAULT_COLOR_INNER.Opacity
         OuterColor.ColorBase = DEFAULT_COLOR_OUTER.Base
         OuterColor.Opacity = 255
+        TextColor.ColorBase = DEFAULT_COLOR_TEXT.Base
+        TextColor.Opacity = 255
     End Sub
 
     Private Sub HighlightCurrentLineOptions_PreparePage(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.OptionsPageStorageEventArgs) Handles Me.PreparePage
@@ -53,6 +57,8 @@ Public Class HighlightCurrentLineOptions
         InnerColor.Opacity = ea.Storage.ReadInt32(SECTION, KEY_InnerOpacity, DEFAULT_COLOR_INNER.Opacity)
         OuterColor.ColorBase = ea.Storage.ReadColor(SECTION, KEY_OuterBaseColor, DEFAULT_COLOR_OUTER.Base)
         OuterColor.Opacity = 255
+        TextColor.ColorBase = ea.Storage.ReadColor(SECTION, KEY_TextBaseColor, DEFAULT_COLOR_TEXT.Base)
+        TextColor.Opacity = 255
     End Sub
 
     Private Sub HighlightCurrentLineOptions_CommitChanges(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.OptionsPageStorageEventArgs) Handles Me.CommitChanges
@@ -60,6 +66,7 @@ Public Class HighlightCurrentLineOptions
         ea.Storage.WriteColor(SECTION, KEY_InnerBaseColor, InnerColor.ColorBase)
         ea.Storage.WriteInt32(SECTION, KEY_InnerOpacity, InnerColor.Opacity)
         ea.Storage.WriteColor(SECTION, KEY_OuterBaseColor, OuterColor.ColorBase)
+        ea.Storage.WriteColor(SECTION, KEY_TextBaseColor, TextColor.ColorBase)
         ea.Storage.WriteBoolean(SECTION, KEY_Enabled, chkEnabled.Checked)
         ea.Storage.UpdateStorage()
     End Sub
