@@ -30,10 +30,10 @@ Partial Class HighlightCurrentLineOptions
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.InnerColor = New HighlightCurrentLineInEditor.Controls.ColorPicker
-        Me.OuterColor = New HighlightCurrentLineInEditor.Controls.ColorPicker
+        Me.InnerColor = New Global.HighlightCurrentLineInEditor.Controls.ColorPicker
+        Me.OuterColor = New Global.HighlightCurrentLineInEditor.Controls.ColorPicker
         Me.chkEnabled = New System.Windows.Forms.CheckBox
-        Me.TextColor = New HighlightCurrentLineInEditor.Controls.ColorPicker
+        Me.TextColor = New Global.HighlightCurrentLineInEditor.Controls.ColorPicker
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
