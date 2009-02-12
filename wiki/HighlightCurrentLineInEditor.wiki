@@ -3,7 +3,10 @@
 
 = Introduction =
 
-TODO
+This plugin (as it's name suggests) highlights the current line using 3 user configurable colors.
+  * Outer Color: Border of the highlight bar.
+  * Inner Color: The fill color of the highlight bar.
+  * Text Color: The Color of the text highlighted.
 
 Forum thread: http://community.devexpress.com/forums/p/64753/219766.aspx 
 
@@ -11,13 +14,15 @@ Forum thread: http://community.devexpress.com/forums/p/64753/219766.aspx
 
 Installation instructions can be found on the InstallInstructions page.
 
-= Usage =
-
-TODO
-
 = Options =
 
-TODO
+Options are located at Editor\Painting\CurrentLine in the DevExpress\Options screen.
+
+You can...
+  * Enable or disable the plugin.
+  * Change the Outer color of the highlight bar.
+  * Change the Inner color of the highlight bar.
+  * Change the Text color of the highlighted text.
 
 = Credits =
 
