@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedGreen", "RedGreen\RedGre
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RedGreenVBExampleTests", "RedGreenVBExampleTests\RedGreenVBExampleTests.vbproj", "{FE6D700B-DE1F-49B9-A635-9BA3FA3C083B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedGreen.AdHoc", "RedGreen.AdHoc\RedGreen.AdHoc.csproj", "{4D41F74C-B2B4-4DB4-A5B4-170D7FE42AEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,12 @@ Global
 		{FE6D700B-DE1F-49B9-A635-9BA3FA3C083B}.Eval|Any CPU.Build.0 = Release|Any CPU
 		{FE6D700B-DE1F-49B9-A635-9BA3FA3C083B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE6D700B-DE1F-49B9-A635-9BA3FA3C083B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D41F74C-B2B4-4DB4-A5B4-170D7FE42AEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D41F74C-B2B4-4DB4-A5B4-170D7FE42AEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D41F74C-B2B4-4DB4-A5B4-170D7FE42AEE}.Eval|Any CPU.ActiveCfg = Release|Any CPU
+		{4D41F74C-B2B4-4DB4-A5B4-170D7FE42AEE}.Eval|Any CPU.Build.0 = Release|Any CPU
+		{4D41F74C-B2B4-4DB4-A5B4-170D7FE42AEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D41F74C-B2B4-4DB4-A5B4-170D7FE42AEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

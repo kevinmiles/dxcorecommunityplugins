@@ -204,5 +204,22 @@ namespace RedGreen
             }
             return null;
         }
+
+        /// <summary>
+        /// Gets the text that makes up the body of the method
+        /// </summary>
+        /// <param name="method">where to get the text needed</param>
+        /// <returns></returns>
+        public static string GetMethodBodyAsText(Method method)
+        {
+            if (method != null)
+            {
+            	method.Document.GetText(method.Range.Start.Line, 
+                    method.Range.Start.Offset, 
+                    method.Range.End.Line, 
+                    method.Range.End.Offset);
+            }
+            return string.Empty;
+        }
     }
 }

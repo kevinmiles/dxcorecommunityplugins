@@ -84,16 +84,27 @@ namespace RedGreen
         /// <summary>
         /// Opens the output window if needed and sets the focus to it.
         /// </summary>
-        private static void ShowOutputWindow()
+        private static void ShowBuildOutputWindow()
+        {
+            ShowOutputWindowPane("Build");
+        }
+
+        /// <summary>
+        /// Opens the output window if needed and sets the focus to it.
+        /// </summary>
+        private static void ShowTestOutputWindow()
+        {
+            ShowOutputWindowPane("Testing");
+        }
+
+        private static void ShowOutputWindowPane(string paneName)
         {
             EnvDTE.OutputWindow outputWindow = CodeRush.Windows.Active.DTE.Windows.Item(EnvDTE.Constants.vsWindowKindOutput).Object as EnvDTE.OutputWindow;
-            const string kBuildPane = "Build";
-            EnvDTE.OutputWindowPane buildPane = outputWindow.OutputWindowPanes.Item(kBuildPane);
+            EnvDTE.OutputWindowPane buildPane = outputWindow.OutputWindowPanes.Item(paneName);
             System.Diagnostics.Debug.Assert(buildPane != null);
             buildPane.Activate();
             outputWindow.Parent.SetFocus();
         }
-
         /// <summary>
         /// Clear the prior results because a build invalidates our knowledge
         /// </summary>
@@ -241,7 +252,7 @@ namespace RedGreen
             }
             else
             {
-                ShowOutputWindow();
+                ShowBuildOutputWindow();
             }
         }
 
@@ -260,13 +271,16 @@ namespace RedGreen
                 testPane.OutputString(System.Environment.NewLine);
                 testPane.OutputString(System.Environment.NewLine);
             }
-            TestInfo testData = _Tests.Find(test => test.Method.RootNamespaceLocation == args.Result.Location);
-            if (testData == null)
+            if (args.Result != null && args.Result.Location != null)
             {
-                testData = new TestInfo(args.Result.Location);
-                _Tests.Add(testData);
+                TestInfo testData = _Tests.Find(test => test.Method.RootNamespaceLocation == args.Result.Location);
+                if (testData == null)
+                {
+                    testData = new TestInfo(args.Result.Location);
+                    _Tests.Add(testData);
+                }
+                testData.Result = args.Result;
             }
-            testData.Result = args.Result;
         }
 
         /// <summary>
@@ -295,11 +309,7 @@ namespace RedGreen
                                                                                           args.FailCount,
                                                                                           args.SkipCount,
                                                                                           args.Duration);
-            EnvDTE.OutputWindowPane resultsPane = GetTestingOutputPane();
-            if (resultsPane == null)
-                return;
-
-            resultsPane.OutputString(overview);
+            WriteToTestPane(overview);
             CodeRush.Windows.Active.DTE.StatusBar.Text = overview;
 
             CreateFailedTestList();
@@ -487,25 +497,30 @@ namespace RedGreen
         private void PlugIn1_EditorPaintLanguageElement(EditorPaintLanguageElementEventArgs ea)
         {
             Attribute testAttribute = GetTestAttributeForLanguageElement(ea.LanguageElement);
-            if (testAttribute == null)
-            {// Nothing to do
-                return;
-            }
-
-            TestInfo testData = FindDataForTest(testAttribute);
-            if (testData != null)
+            if (testAttribute != null)
             {
-                if (ea.LanguageElement.ElementType == LanguageElementType.Attribute)
+                TestInfo testData = FindDataForTest(testAttribute);
+                if (testData != null)
                 {
-                    DrawTestRunnerIcon(ea, testData);
-                    RedrawTestAttribute(ea.PaintArgs, testData);
-                }
-                else
-                {
-                    DrawError(ea, testData.Result);
+                    if (ea.LanguageElement.ElementType == LanguageElementType.Attribute)
+                    {
+                        DrawTestRunnerIcon(ea.PaintArgs, testData.Attribute.Range.Start, testData);
+                        RedrawTestAttribute(ea.PaintArgs, testData);
+                    }
+                    else
+                    {
+                        DrawError(ea, testData.Result);
+                    }
                 }
             }
-
+            //else if (ea.LanguageElement.ElementType == LanguageElementType.Method)
+            //{// Potential adHocTest
+            //    Method method = (Method)ea.LanguageElement;
+            //    if (method.Parameters.Count == 0)
+            //    {
+            //        DrawTestRunnerIcon(ea.PaintArgs, method.Range.Start, null);
+            //    }
+            //}
         }
 
         /// <summary>
@@ -540,36 +555,43 @@ namespace RedGreen
             }
             return testData;
         }
-        
+
         /// <summary>
         /// Draw the icon for the tile
         /// </summary>
-        private void DrawTestRunnerIcon(EditorPaintLanguageElementEventArgs ea, TestInfo testData)
+        /// <param name="startPoint"></param>
+        private void DrawTestRunnerIcon(EditorPaintEventArgs paintArgs, SourcePoint startPoint, TestInfo testData)
         {
-            Point topLeft = ea.PaintArgs.TextView.GetPoint(testData.Attribute.StartLine, testData.Attribute.StartOffset);
+            Rectangle indicator = CreateIndicator(paintArgs, startPoint);
+            paintArgs.TextView.AddTile(NewTile(indicator, testData));
+            try
+            {
+                paintArgs.TextView.Graphics.DrawIcon(new Icon(GetType(), "TestIndicator.ico"), indicator);
+            }
+            catch
+            {// fail silently if icon is missing from the project.
+            }
+        }
+
+        private Rectangle CreateIndicator(EditorPaintEventArgs paintArgs, SourcePoint referencePoint)
+        {
+            Point topLeft = paintArgs.TextView.GetPoint(referencePoint.Line, referencePoint.Offset);
             Rectangle indicator = new Rectangle(topLeft.X - 24, topLeft.Y + 2, 16, 16);
 
             Tile tile = ((TextView)CodeRush.Source.Active.View).ActiveTile;
             if (TileIsOurs(tile))
             {// cursor is over tile give a hint
-                ea.PaintArgs.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+                paintArgs.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
                 using (SolidBrush backgroundFill = new SolidBrush(TileBackgroundFillColor))
                 {
-                    ea.PaintArgs.Graphics.FillRectangle(backgroundFill, indicator);
+                    paintArgs.Graphics.FillRectangle(backgroundFill, indicator);
                 }
                 using (Pen borderHighlight = new Pen(TileBorderColor))
                 {
-                    ea.PaintArgs.Graphics.DrawRectangle(borderHighlight, indicator.X, indicator.Y, indicator.Width - 1, indicator.Width - 1);
+                    paintArgs.Graphics.DrawRectangle(borderHighlight, indicator.X, indicator.Y, indicator.Width - 1, indicator.Width - 1);
                 }
             }
-            ea.PaintArgs.TextView.AddTile(NewTile(indicator, testData));
-            try
-            {
-                ea.PaintArgs.TextView.Graphics.DrawIcon(new Icon(GetType(), "TestIndicator.ico"), indicator);
-            }
-            catch
-            {// fail silently if icon is missing from the project.
-            }
+            return indicator;
         }
 
         /// <summary>
@@ -725,7 +747,7 @@ namespace RedGreen
 
             if (!buildPassed)
             {
-                ShowOutputWindow();
+                ShowBuildOutputWindow();
             }
             CodeRush.Windows.Active.DTE.StatusBar.Text = "Build succeded";
         }
@@ -768,7 +790,30 @@ namespace RedGreen
 
             if (buildPassed)
             {
-                GallioRunner runner = new GallioRunner();
+
+                if (DxCoreUtil.GetFirstTestAttribute(CodeRush.Source.ActiveMethod) != null)
+                {
+                    RunTestUnitTests();
+                }
+                else
+                {
+                    RunAdHocTests();
+                }
+            }
+            else
+            {
+                ShowBuildOutputWindow();
+            }
+        }
+
+        /// <summary>
+        /// Use the Gallio runner to fire off unit tests
+        /// </summary>
+        private void RunTestUnitTests()
+        {
+            GallioRunner runner = new GallioRunner();
+            try
+            {
                 runner.TestComplete += runner_TestComplete;
                 runner.AllTestsComplete += runner_AllTestsComplete;
 
@@ -785,9 +830,38 @@ namespace RedGreen
                     runner.RunTests(assemblyPath, assemblyName, selectedClass.FullName);
                 }
             }
-            else
+            finally
             {
-                ShowOutputWindow();
+                runner.TestComplete -= runner_TestComplete;
+                runner.AllTestsComplete -= runner_AllTestsComplete;
+            }
+        }
+
+        /// <summary>
+        /// Use the ad-hoc runner to launch parameterless methods
+        /// </summary>
+        private void RunAdHocTests()
+        {
+            AdHocRunner runner = new AdHocRunner();
+            try
+            {
+                runner.TestComplete += runner_TestComplete;
+                runner.AllTestsComplete += runner_AllTestsComplete;
+                Class selectedClass = CodeRush.Source.ActiveClass;
+                Method selectedMethod = CodeRush.Source.ActiveMethod;
+                string assemblyPath = GetAssemblyPath(GetActiveProject());
+                string assemblyName = GetAssemblyName(GetActiveProject());
+                if (selectedMethod != null && selectedMethod.ParameterCount == 0)
+                {
+                    WriteToTestPane(string.Format("Running Ad-Hoc test for Assembly: {0}, Type: {1}, Method: {2}\r\n", Path.GetFileName(assemblyPath), selectedClass, selectedMethod));
+                    runner.RunTest(assemblyPath, assemblyName, selectedClass.FullName, selectedMethod.Name);
+                    ShowTestOutputWindow();
+                }
+            }
+            finally
+            {
+                runner.TestComplete -= runner_TestComplete;
+                runner.AllTestsComplete -= runner_AllTestsComplete;
             }
         }
 
