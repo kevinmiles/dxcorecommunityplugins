@@ -88,20 +88,20 @@ namespace RedGreen.AdHoc
 
         private static string ParseAssemblyArgument(string[] args)
         {
-            return GetSwithcContent(args, "assembly");
+            return GetSwithchContent(args, "assembly");
         }
 
         private static string ParseTypeArgument(string[] args)
         {
-            return GetSwithcContent(args, "type");
+            return GetSwithchContent(args, "type");
         }
 
         private static string ParseMemberArgument(string[] args)
         {
-            return GetSwithcContent(args, "member");
+            return GetSwithchContent(args, "member");
         }
 
-        private static string GetSwithcContent(string[] args, string assemblySwitch)
+        private static string GetSwithchContent(string[] args, string assemblySwitch)
         {
             const string switchFormat = "/{0}:";
             string abreviated = string.Format(switchFormat, assemblySwitch.Substring(0, 1));
