@@ -42,10 +42,12 @@ namespace RedGreen
             this.testActions = new DevExpress.CodeRush.Core.SmartTagProvider(this.components);
             this.actRunTests = new DevExpress.CodeRush.Core.Action(this.components);
             this.attachDebugger = new DevExpress.CodeRush.Core.Action(this.components);
+            this.adHocActions = new DevExpress.CodeRush.Core.SmartTagProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.actBuildProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.testActions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.actRunTests)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.attachDebugger)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adHocActions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // actBuildProject
@@ -61,7 +63,7 @@ namespace RedGreen
             // testActions
             // 
             this.testActions.Description = "Actions available for Test";
-            this.testActions.DisplayName = "Test";
+            this.testActions.DisplayName = "Unit Test";
             this.testActions.Image = ((System.Drawing.Bitmap)(resources.GetObject("testActions.Image")));
             this.testActions.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
             this.testActions.MenuOrder = 0;
@@ -91,6 +93,21 @@ namespace RedGreen
             this.attachDebugger.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
             this.attachDebugger.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.attachDebugger_Execute);
             // 
+            // adHocActions
+            // 
+            this.adHocActions.Description = "Actions available for AdHoc tests ";
+            this.adHocActions.DisplayName = "Ad Hoc";
+            this.adHocActions.Image = ((System.Drawing.Bitmap)(resources.GetObject("adHocActions.Image")));
+            this.adHocActions.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+            this.adHocActions.MenuOrder = 0;
+            this.adHocActions.ProviderName = "AdHocTest";
+            this.adHocActions.Register = true;
+            this.adHocActions.ShowInContextMenu = false;
+            this.adHocActions.ShowInPopupMenu = true;
+            this.adHocActions.GetSmartTagItemColors += new DevExpress.CodeRush.Core.GetSmartTagItemColorsEventHandler(this.adHocActions_GetSmartTagItemColors);
+            this.adHocActions.CheckSmartTagAvailability += new DevExpress.CodeRush.Core.CheckSmartTagAvailabilityEventHandler(this.adHocActions_CheckSmartTagAvailability);
+            this.adHocActions.GetSmartTagItems += new DevExpress.CodeRush.Core.GetSmartTagItemsEventHandler(this.adHocActions_GetSmartTagItems);
+            // 
             // PlugIn1
             // 
             this.TileMouseEnter += new DevExpress.CodeRush.Core.TileEventHandler(this.PlugIn1_TileMouseEnter);
@@ -108,6 +125,7 @@ namespace RedGreen
             ((System.ComponentModel.ISupportInitialize)(this.testActions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.actRunTests)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.attachDebugger)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adHocActions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -118,6 +136,7 @@ namespace RedGreen
         private DevExpress.CodeRush.Core.SmartTagProvider testActions;
         private DevExpress.CodeRush.Core.Action actRunTests;
         private DevExpress.CodeRush.Core.Action attachDebugger;
+        private DevExpress.CodeRush.Core.SmartTagProvider adHocActions;
 
     }
 }

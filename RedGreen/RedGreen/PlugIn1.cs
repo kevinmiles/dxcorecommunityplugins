@@ -159,10 +159,17 @@ namespace RedGreen
         {
             if (TileIsOurs(tile) && _hoveredTest == null)
             {
-                _hoveredTest = (TestInfo)tile.Object;
+                _hoveredTest = tile.Object as TestInfo;
                 Point tilePoint = new Point(tile.Bounds.Left, tile.Bounds.Bottom);
                 Point menuPoint = textView.ToScreenPoint(tilePoint);
-                CodeRush.SmartTags.ShowPopupMenu(menuPoint, testActions);
+                if (_hoveredTest != null)
+                {
+                    CodeRush.SmartTags.ShowPopupMenu(menuPoint, testActions);
+                }
+                else
+                {
+                    CodeRush.SmartTags.ShowPopupMenu(menuPoint, adHocActions);
+                }
             }
         }
         /// <summary>
@@ -513,14 +520,14 @@ namespace RedGreen
                     }
                 }
             }
-            //else if (ea.LanguageElement.ElementType == LanguageElementType.Method)
-            //{// Potential adHocTest
-            //    Method method = (Method)ea.LanguageElement;
-            //    if (method.Parameters.Count == 0)
-            //    {
-            //        DrawTestRunnerIcon(ea.PaintArgs, method.Range.Start, null);
-            //    }
-            //}
+            else if (ea.LanguageElement.ElementType == LanguageElementType.Method)
+            {// Potential adHocTest
+                Method method = (Method)ea.LanguageElement;
+                if (method.Parameters.Count == 0 && DxCoreUtil.GetFirstTestAttribute(ea.LanguageElement) == null && method.IsGeneric == false) 
+                {
+                    DrawTestRunnerIcon(ea.PaintArgs, method.Range.Start, null);
+                }
+            }
         }
 
         /// <summary>
@@ -791,13 +798,15 @@ namespace RedGreen
             if (buildPassed)
             {
 
+                string assemblyPath = GetAssemblyPath(GetActiveProject());
+                string assemblyName = GetAssemblyName(GetActiveProject());
                 if (DxCoreUtil.GetFirstTestAttribute(CodeRush.Source.ActiveMethod) != null)
                 {
-                    RunTestUnitTests();
+                    RunTestUnitTests(assemblyPath, assemblyName, CodeRush.Source.ActiveClass, CodeRush.Source.ActiveMethod);
                 }
                 else
                 {
-                    RunAdHocTests();
+                    RunAdHocTests(assemblyPath, assemblyName, CodeRush.Source.ActiveClass, CodeRush.Source.ActiveMethod);
                 }
             }
             else
@@ -809,7 +818,7 @@ namespace RedGreen
         /// <summary>
         /// Use the Gallio runner to fire off unit tests
         /// </summary>
-        private void RunTestUnitTests()
+        private void RunTestUnitTests(string assemblyPath, string assemblyName, Class selectedClass, Method selectedMethod)
         {
             GallioRunner runner = new GallioRunner();
             try
@@ -817,10 +826,6 @@ namespace RedGreen
                 runner.TestComplete += runner_TestComplete;
                 runner.AllTestsComplete += runner_AllTestsComplete;
 
-                Class selectedClass = CodeRush.Source.ActiveClass;
-                Method selectedMethod = CodeRush.Source.ActiveMethod;
-                string assemblyPath = GetAssemblyPath(GetActiveProject());
-                string assemblyName = GetAssemblyName(GetActiveProject());
                 if (selectedMethod != null)
                 {
                     runner.RunTests(assemblyPath, assemblyName, selectedClass.FullName, selectedMethod.Name);
@@ -840,17 +845,13 @@ namespace RedGreen
         /// <summary>
         /// Use the ad-hoc runner to launch parameterless methods
         /// </summary>
-        private void RunAdHocTests()
+        private void RunAdHocTests(string assemblyPath, string assemblyName, Class selectedClass, Method selectedMethod)
         {
             AdHocRunner runner = new AdHocRunner();
             try
             {
                 runner.TestComplete += runner_TestComplete;
                 runner.AllTestsComplete += runner_AllTestsComplete;
-                Class selectedClass = CodeRush.Source.ActiveClass;
-                Method selectedMethod = CodeRush.Source.ActiveMethod;
-                string assemblyPath = GetAssemblyPath(GetActiveProject());
-                string assemblyName = GetAssemblyName(GetActiveProject());
                 if (selectedMethod != null && selectedMethod.ParameterCount == 0)
                 {
                     WriteToTestPane(string.Format("Running Ad-Hoc test for Assembly: {0}, Type: {1}, Method: {2}\r\n", Path.GetFileName(assemblyPath), selectedClass, selectedMethod));
@@ -904,6 +905,33 @@ namespace RedGreen
             }
             return false;
         }
+
+        #region AdHoc Smart Menu
+        private bool adHocActions_CheckSmartTagAvailability(object sender, System.EventArgs ea)
+        {
+            return default(bool);
+        }
+
+        private void adHocActions_GetSmartTagItemColors(object sender, GetSmartTagItemColorsEventArgs ea)
+        {
+            ea.PopupMenuColors = new CodePopupMenuColors(); // Need a Test color definition
+        }
+
+        private void adHocActions_GetSmartTagItems(object sender, GetSmartTagItemsEventArgs ea)
+        {
+            AddSmartTagItem(ea, kRunTestMenuItem, PlugIn1_RunAdHocTest);
+        }
+
+        private void PlugIn1_RunAdHocTest(object sender, System.EventArgs ea)
+        {
+            string assemblyPath = GetAssemblyPath(GetActiveProject());
+            string assemblyName = GetAssemblyName(GetActiveProject());
+            RunAdHocTests(assemblyPath,
+                assemblyName,
+                CodeRush.Source.ActiveClass,
+                CodeRush.Source.ActiveMethod.NextCodeSibling as Method);
+        }
+        #endregion
     }
 
 
