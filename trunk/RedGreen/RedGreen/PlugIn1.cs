@@ -207,7 +207,7 @@ namespace RedGreen
         /// </summary>
         private void testActions_GetSmartTagItemColors(object sender, GetSmartTagItemColorsEventArgs ea)
         {
-            ea.PopupMenuColors = new CodePopupMenuColors(); // Need a Test color definition
+            ea.PopupMenuColors = new TestPopupMenuColors(); 
         }
 
         /// <summary>
@@ -914,7 +914,8 @@ namespace RedGreen
 
         private void adHocActions_GetSmartTagItemColors(object sender, GetSmartTagItemColorsEventArgs ea)
         {
-            ea.PopupMenuColors = new CodePopupMenuColors(); // Need a Test color definition
+            //ea.PopupMenuColors = new CodePopupMenuColors(); // Need a Test color definition
+            ea.PopupMenuColors = new TestPopupMenuColors(); 
         }
 
         private void adHocActions_GetSmartTagItems(object sender, GetSmartTagItemsEventArgs ea)

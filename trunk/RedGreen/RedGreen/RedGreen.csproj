@@ -94,6 +94,7 @@
     <Compile Include="SummaryResult.cs" />
     <Compile Include="TestCompleteEventArgs.cs" />
     <Compile Include="TestInfo.cs" />
+    <Compile Include="TestPopupMenuColors.cs" />
     <Compile Include="TestResult.cs" />
     <Compile Include="TestStatus.cs" />
     <Compile Include="XunitGallioParser.cs" />
