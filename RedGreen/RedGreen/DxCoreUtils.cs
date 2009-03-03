@@ -33,54 +33,6 @@ namespace RedGreen
     /// </summary>
     internal static class DxCoreUtil
     {
-        /// <summary>
-        /// Get a language element from a location string.
-        /// </summary>
-        /// <param name="location">The location string for a method</param>
-        /// <returns>A LanguageElement with a matching location string and a LanguageElementType equal to Method or null </returns>
-        internal static Method GetTestMethod(string location)
-        {
-            try
-            {
-                if (CodeRush.Source.ActiveClass != null)
-                {
-                    LanguageElement testMethod = CodeRush.Source.ActiveClass.FindChildByElementType(LanguageElementType.Method);
-                    while (testMethod != null)
-                    {
-                        if (testMethod.RootNamespaceLocation == location)
-                        {
-                            return (Method)testMethod;
-                        }
-                        testMethod = testMethod.NextCodeSibling;
-                    }
-                }
-            }
-            catch
-            {// fail siliently
-            }
-            return null;
-        }
-
-        /* Ended up not using this because invalidating the test attribute wasn't working reliably 
-        internal static LanguageElement GetTestAttribute(List<BaseTestRunner> runners, string location)
-        {
-            return GetTestAttribute(runners, GetTestMethod(location));
-        }
-
-        internal static LanguageElement GetTestAttribute(List<BaseTestRunner> runners, LanguageElement method)
-        {
-            System.Diagnostics.Debug.Assert(method.ElementType == LanguageElementType.Method);
-            LanguageElement testAttribute = method.PreviousNode;
-            while (testAttribute != null)
-            {
-                if (IsTestAttribute(runners, testAttribute))
-                {
-                    return testAttribute;
-                }
-            }
-            return null;
-        }
-        */
 
         /// <summary>
         /// Get a statement language element that matches the location and the line number
@@ -175,12 +127,13 @@ namespace RedGreen
             return null;
         }
 
+        static readonly List<string> supportedAttributes = new List<string>(new string[] { "Test", "Fact", "TestMethod" });
+
         /// <summary>
         /// Determines if the attribute is a known test attribute
         /// </summary>
         public static bool IsTest(Attribute attribute)
         {
-            List<string> supportedAttributes = new List<string>(new string[] { "Test", "Fact", "TestMethod" });
             return supportedAttributes.Contains(attribute.ToString()) && attribute.TargetNode.ElementType == LanguageElementType.Method;
         }
 
@@ -203,23 +156,6 @@ namespace RedGreen
                 return (Method)method;
             }
             return null;
-        }
-
-        /// <summary>
-        /// Gets the text that makes up the body of the method
-        /// </summary>
-        /// <param name="method">where to get the text needed</param>
-        /// <returns></returns>
-        public static string GetMethodBodyAsText(Method method)
-        {
-            if (method != null)
-            {
-            	method.Document.GetText(method.Range.Start.Line, 
-                    method.Range.Start.Offset, 
-                    method.Range.End.Line, 
-                    method.Range.End.Offset);
-            }
-            return string.Empty;
         }
     }
 }

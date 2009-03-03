@@ -44,6 +44,7 @@ namespace RedGreen
             const string kAdHocExe = @"C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\RedGreen.AdHoc.exe";
             StringBuilder result = new StringBuilder();
             StreamReader sr = null;
+            DateTime startAt = DateTime.Now;
             using (System.Diagnostics.Process p = new System.Diagnostics.Process())
             {
                 p.StartInfo = new System.Diagnostics.ProcessStartInfo(kAdHocExe);
@@ -60,13 +61,15 @@ namespace RedGreen
                 result.AppendFormat("{0}\n", line);
                 line = sr.ReadLine();
             }
+            DateTime endAt = DateTime.Now;
+            TimeSpan thelta = endAt.Subtract(startAt);
 
             RaiseComplete(result.ToString());
             SummaryResult summary = new SummaryResult();
             summary.PassCount = "1";
             summary.FailCount = "0";
             summary.SkipCount = "0";
-            summary.Duration = "0";
+            summary.Duration =  string.Format("{0}.{1}", thelta.Seconds, thelta.Milliseconds);
             RaiseAllComplete(summary);
         }
 
