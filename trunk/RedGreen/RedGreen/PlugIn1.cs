@@ -43,11 +43,12 @@ namespace RedGreen
         private const string kRunAssemblyMenuItem = "Run All Tests in Assembly";
         private const string kNextFailedTestMenuItem = "Go to Next Failed Test";
         private const int kDefaultCurrentFailure = -1;
+        private const string kTestingStartedMessage = "Testing started...";
         private List<TestInfo> _Tests = new List<TestInfo>();
         private List<TestInfo> _Failures = new List<TestInfo>();
         private int _currentFailure = kDefaultCurrentFailure;
-        private List<string> _projectsExplored = new List<string>();
         private TestInfo _hoveredTest = null;
+        static readonly TestPopupMenuColors sTestMenuColors = new TestPopupMenuColors();
 
         #region InitializePlugIn
         public override void InitializePlugIn()
@@ -71,13 +72,12 @@ namespace RedGreen
         /// <returns>
         /// returns true if build passed 
         /// </returns>
-        /// <remarks>Presently builds the solution because I was seeing some issues building the project. It may have been an issue with Gallio and so it could go back to project. Needs some testing/</remarks>
         private bool BuildActiveProject()
         {
             EnvDTE.Solution sol = CodeRush.Solution.Active;
             EnvDTE.Project project = GetActiveProject();
+            sol.SolutionBuild.Build(true); // We build the whole solution becuase some projects are not configured to build the projects they depend upon first.
             //sol.SolutionBuild.BuildProject(project.ConfigurationManager.ActiveConfiguration.ConfigurationName, project.UniqueName, true);
-            sol.SolutionBuild.Build(true);
             return sol.SolutionBuild.LastBuildInfo == 0;
         }
 
@@ -105,6 +105,7 @@ namespace RedGreen
             buildPane.Activate();
             outputWindow.Parent.SetFocus();
         }
+
         /// <summary>
         /// Clear the prior results because a build invalidates our knowledge
         /// </summary>
@@ -162,18 +163,11 @@ namespace RedGreen
                 _hoveredTest = tile.Object as TestInfo;
                 Point tilePoint = new Point(tile.Bounds.Left, tile.Bounds.Bottom);
                 Point menuPoint = textView.ToScreenPoint(tilePoint);
-                if (_hoveredTest != null)
-                {
-                    CodeRush.SmartTags.ShowPopupMenu(menuPoint, testActions);
-                }
-                else
-                {
-                    CodeRush.SmartTags.ShowPopupMenu(menuPoint, adHocActions);
-                }
+                CodeRush.SmartTags.ShowPopupMenu(menuPoint, (_hoveredTest != null ? testActions : adHocActions));
             }
         }
         /// <summary>
-        /// Provide the list of smartTagItems that will go into the menu. 
+        /// Provide the list of unit test menu options
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="ea"></param>
@@ -202,20 +196,18 @@ namespace RedGreen
             ea.Add(menuItem);
         }
 
+
         /// <summary>
         /// Set the color scheme of the smartTag
         /// </summary>
         private void testActions_GetSmartTagItemColors(object sender, GetSmartTagItemColorsEventArgs ea)
         {
-            ea.PopupMenuColors = new TestPopupMenuColors(); 
+            ea.PopupMenuColors = sTestMenuColors; 
         }
 
         /// <summary>
         /// Tells the system if a smartTag is needed
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="ea"></param>
-        /// <returns></returns>
         private bool testActions_CheckSmartTagAvailability(object sender, System.EventArgs ea)
         {
             return _hoveredTest != null;
@@ -237,6 +229,7 @@ namespace RedGreen
                 GallioRunner runner = new GallioRunner();
                 runner.TestComplete += runner_TestComplete;
                 runner.AllTestsComplete += runner_AllTestsComplete;
+                CodeRush.Windows.Active.DTE.StatusBar.Text = kTestingStartedMessage;
 
                 TestInfo testData = _hoveredTest;
                 EnvDTE.Project activeProject = GetActiveProject();
@@ -268,16 +261,7 @@ namespace RedGreen
         /// </summary>
         private void runner_TestComplete(object sender, TestCompleteEventArgs args)
         {
-            EnvDTE.OutputWindowPane testPane = GetTestingOutputPane();
-            if (testPane == null)
-                return;
-
-            if (args.RawResult.Length > 0)
-            {
-                testPane.OutputString(args.RawResult);
-                testPane.OutputString(System.Environment.NewLine);
-                testPane.OutputString(System.Environment.NewLine);
-            }
+            WriteToTestPane(args.RawResult, true);
             if (args.Result != null && args.Result.Location != null)
             {
                 TestInfo testData = _Tests.Find(test => test.Method.RootNamespaceLocation == args.Result.Location);
@@ -293,8 +277,15 @@ namespace RedGreen
         /// <summary>
         /// Write a line of text to the test pane
         /// </summary>
-        /// <param name="text"></param>
         internal static void WriteToTestPane(string text)
+        {
+            WriteToTestPane(text, false);
+        }
+
+        /// <summary>
+        /// Write a line of text to the test pane
+        /// </summary>
+        internal static void WriteToTestPane(string text, bool appendLineFeed)
         {
             if (!string.IsNullOrEmpty(text))
             {
@@ -302,6 +293,11 @@ namespace RedGreen
                 if (testPane != null)
                 {
                     testPane.OutputString(text);
+                    if (appendLineFeed)
+                    {
+                        testPane.OutputString(System.Environment.NewLine);
+                        testPane.OutputString(System.Environment.NewLine);
+                    }
                 }
             }
         }
@@ -406,15 +402,15 @@ namespace RedGreen
         /// </summary>
         private static string GetPropertyValue(EnvDTE.Properties source, string name)
         {
-            string result = string.Empty;
             if (source == null || System.String.IsNullOrEmpty(name))
-                return result;
+                return string.Empty;
+
             EnvDTE.Property property = source.Item(name);
             if (property != null)
             {
                 return property.Value.ToString();
             }
-            return result;
+            return string.Empty;
         }
 
         /// <summary>
@@ -765,7 +761,6 @@ namespace RedGreen
         /// </summary>
         private void PlugIn1_SolutionOpened()
         {
-            _projectsExplored.Clear();
             _Tests.Clear();
             _Failures.Clear();
         }
@@ -825,6 +820,7 @@ namespace RedGreen
             {
                 runner.TestComplete += runner_TestComplete;
                 runner.AllTestsComplete += runner_AllTestsComplete;
+                CodeRush.Windows.Active.DTE.StatusBar.Text = kTestingStartedMessage;
 
                 if (selectedMethod != null)
                 {
@@ -852,6 +848,7 @@ namespace RedGreen
             {
                 runner.TestComplete += runner_TestComplete;
                 runner.AllTestsComplete += runner_AllTestsComplete;
+                CodeRush.Windows.Active.DTE.StatusBar.Text = kTestingStartedMessage;
                 if (selectedMethod != null && selectedMethod.ParameterCount == 0)
                 {
                     WriteToTestPane(string.Format("Running Ad-Hoc test for Assembly: {0}, Type: {1}, Method: {2}\r\n", Path.GetFileName(assemblyPath), selectedClass, selectedMethod));
@@ -914,8 +911,7 @@ namespace RedGreen
 
         private void adHocActions_GetSmartTagItemColors(object sender, GetSmartTagItemColorsEventArgs ea)
         {
-            //ea.PopupMenuColors = new CodePopupMenuColors(); // Need a Test color definition
-            ea.PopupMenuColors = new TestPopupMenuColors(); 
+            ea.PopupMenuColors = sTestMenuColors; 
         }
 
         private void adHocActions_GetSmartTagItems(object sender, GetSmartTagItemsEventArgs ea)
