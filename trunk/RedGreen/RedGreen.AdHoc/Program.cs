@@ -83,7 +83,14 @@ namespace RedGreen.AdHoc
                 Console.WriteLine("Method not found");
                 return;
             }
-            testInfo.Invoke(fixture, null);
+            try
+            {
+                testInfo.Invoke(fixture, null);
+            }
+            catch (System.Reflection.TargetInvocationException ex)
+            {
+                Console.WriteLine(ex.InnerException.Message);
+            }
         }
 
         private static string ParseAssemblyArgument(string[] args)
