@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="CR_SortCode">
+</Property><Property Name="Solution File" Value="D:\Projecten\Cronos coderush plugins\CR_SortCode\CR_SortCode.sln">
+</Property><Property Name="User Options File" Value="D:\Projecten\Cronos coderush plugins\CR_SortCode\CR_SortCode.suo">
+</Property><Property Name="Date" Value="dinsdag 28 oktober 2008">
+</Property><Property Name="Time" Value="21:53">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="CR_SortCode.sln" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode.sln">
+</Event><Event ErrorLevel="0" Project="" Source="CR_SortCode.suo" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode.suo">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\CR_SortCode.vbproj" Description="Project file successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode\CR_SortCode.vbproj">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\CR_SortCode.vbproj.user" Description="Project user file successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode\CR_SortCode.vbproj.user">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\CR_SortCodePlugIn.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode\CR_SortCodePlugIn.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\CR_SortCodePlugIn.Designer.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode\CR_SortCodePlugIn.Designer.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\NodeFilter.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode\NodeFilter.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\Properties\AssemblyInfo.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode\Properties\AssemblyInfo.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\Region.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode\Region.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\SortCodeOptions.Designer.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode\SortCodeOptions.Designer.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\SortCodeOptions.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode\SortCodeOptions.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\SortMember.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode\SortMember.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\CR_SortCodePlugIn.resx" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode\CR_SortCodePlugIn.resx">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\SortCodeOptions.resx" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCode\SortCodeOptions.resx">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\CR_SortCode.vbproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="CR_SortCode" Source="CR_SortCode\CR_SortCode.vbproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\CR_SortCodeDesigner.vbproj" Description="Project file successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\CR_SortCodeDesigner.vbproj">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\CR_SortCodeDesigner.vbproj.user" Description="Project user file successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\CR_SortCodeDesigner.vbproj.user">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\DefineNodeForm.Designer.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\DefineNodeForm.Designer.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\DefineNodeForm.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\DefineNodeForm.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\ExtendedNode.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\ExtendedNode.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\INode.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\INode.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\ElementNode.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\ElementNode.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\OrganizerTreeview.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\OrganizerTreeview.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\SortCodeDesignerWindows.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\SortCodeDesignerWindows.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\SortCodeDesignerWindows.Designer.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\SortCodeDesignerWindows.Designer.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\Properties\AssemblyInfo.vb" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\Properties\AssemblyInfo.vb">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\NodesSchema.xsx" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\NodesSchema.xsx">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\DefineNodeForm.resx" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\DefineNodeForm.resx">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\OrganizerTreeview.resx" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\OrganizerTreeview.resx">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\SortCodeDesignerWindows.resx" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\SortCodeDesignerWindows.resx">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\NodesSchema.xsd" Description="File successfully backed up as D:\Projecten\Cronos coderush plugins\CR_SortCode\Backup\CR_SortCodeDesigner\NodesSchema.xsd">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\CR_SortCodeDesigner.vbproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\CR_SortCodeDesigner.vbproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="CR_SortCode.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="CR_SortCode.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="CR_SortCode" Source="CR_SortCode\CR_SortCode.vbproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="CR_SortCodeDesigner" Source="CR_SortCodeDesigner\CR_SortCodeDesigner.vbproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
