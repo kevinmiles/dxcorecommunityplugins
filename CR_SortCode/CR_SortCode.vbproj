@@ -1,0 +1,95 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2505BF78-24C4-438D-845A-6452E56E46FB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CR_SortCode</RootNamespace>
+    <AssemblyName>CR_SortCode</AssemblyName>
+    <MyType>Windows</MyType>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\</OutputPath>
+    <DocumentationFile>CR_SortCode.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\PlugIns</OutputPath>
+    <DocumentationFile>CR_SortCode.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="EnvDTE" />
+    <Reference Include="EnvDTE80" />
+    <Reference Include="DevExpress.CodeRush.Common" />
+    <Reference Include="DevExpress.CodeRush.Core" />
+    <Reference Include="DevExpress.CodeRush.PlugInCore" />
+    <Reference Include="DevExpress.CodeRush.StructuralParser" />
+    <Reference Include="DevExpress.CodeRush.VSCore" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CR_SortCodePlugIn.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CR_SortCodePlugIn.Designer.vb">
+      <DependentUpon>CR_SortCodePlugIn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NodeFilter.vb" />
+    <Compile Include="Properties\AssemblyInfo.vb" />
+    <Compile Include="Region.vb" />
+    <Compile Include="SortCodeOptions.Designer.vb">
+      <DependentUpon>SortCodeOptions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SortCodeOptions.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SortMember.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CR_SortCodePlugIn.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CR_SortCodePlugIn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SortCodeOptions.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SortCodeOptions.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

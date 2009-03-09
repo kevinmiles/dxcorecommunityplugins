@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Action" targetNamespace="http://tempuri.org/Action.xsd" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns="http://tempuri.org/Action.xsd" xmlns:mstns="http://tempuri.org/Action.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="Nodes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ID" type="xs:string" />
+        <xs:element name="Name" type="xs:string" />
+        <xs:element name="Type" type="xs:string" />
+        <xs:element name="Visibility" type="xs:string" minOccurs="0" />
+        <xs:element name="Abstract" type="xs:boolean" minOccurs="0" />
+        <xs:element name="Extern" type="xs:boolean" minOccurs="0" />
+        <xs:element name="Overload" type="xs:boolean" minOccurs="0" />
+        <xs:element name="Override" type="xs:boolean" minOccurs="0" />
+        <xs:element name="Virtual" type="xs:boolean" minOccurs="0" />
+        <xs:element name="ParentID" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
