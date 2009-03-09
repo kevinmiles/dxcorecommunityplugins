@@ -1,0 +1,43 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+CR_SortCode
+</name>
+</assembly>
+<members>
+<member name="M:CR_SortCode.NodeFilter.#ctor(System.String,System.String)">
+	<summary>
+ Initializes a new instance of the NodeFilter class.
+ </summary>
+	<param name="visibility"></param>
+	<param name="nodeType"></param>
+</member><member name="M:CR_SortCode.NodeFilter.#ctor(System.String,System.String,System.String,System.String)">
+	<summary>
+ Initializes a new instance of the NodeFilter class.
+ </summary>
+	<param name="visibility"></param>
+	<param name="nodeType"></param>
+	<param name="memberName"></param>
+	<param name="specials"></param>
+</member><member name="M:CR_SortCode.SortMember.#ctor(DevExpress.CodeRush.StructuralParser.Member)">
+	<summary>
+ Initializes a new instance of the SortMember class.
+ </summary>
+	<param name="theMember"></param>
+</member><member name="M:CR_SortCode.LayoutNode.#ctor(System.String,System.String)">
+	<summary>
+ Initializes a new instance of the Region class.
+ </summary>
+	<param name="iD"></param>
+	<param name="description"></param>
+</member><member name="M:CR_SortCode.LayoutNode.#ctor(System.String,System.String,System.Boolean)">
+	<summary>
+ Initializes a new instance of the Region class.
+ </summary>
+	<param name="iD"></param>
+	<param name="description"></param>
+	<param name="isComment"></param>
+</member>
+</members>
+</doc>

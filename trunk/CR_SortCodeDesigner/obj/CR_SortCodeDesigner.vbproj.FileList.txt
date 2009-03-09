@@ -1,0 +1,12 @@
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\CR_SortCodeDesigner.OrganizerTreeview.resources
+obj\Debug\CR_SortCodeDesigner.vbproj.GenerateResource.Cache
+obj\Debug\CR_SortCodeDesigner.dll
+obj\Debug\CR_SortCodeDesigner.xml
+obj\Debug\CR_SortCodeDesigner.pdb
+obj\Debug\CR_SortCodeDesigner.SortCodeDesignerWindows.resources
+obj\Debug\CR_SortCodeDesigner.DefineNodeForm.resources
+obj\Debug\CR_SortCodeDesigner.NodesSchema.xsd
+..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\CR_SortCodeDesigner.dll
+..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\CR_SortCodeDesigner.pdb
+..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\CR_SortCodeDesigner.xml
