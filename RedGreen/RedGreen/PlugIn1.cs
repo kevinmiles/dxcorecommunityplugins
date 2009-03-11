@@ -810,6 +810,37 @@ namespace RedGreen
             }
         }
 
+        private void actRunAllTests_Execute(ExecuteEventArgs ea)
+        {
+            ResetTestResults();
+
+            bool buildPassed = BuildActiveProject();
+
+            if (buildPassed)
+            {
+                string assemblyPath = GetAssemblyPath(GetActiveProject());
+                string assemblyName = GetAssemblyName(GetActiveProject());
+                GallioRunner runner = new GallioRunner();
+                try
+                {
+                    runner.TestComplete += runner_TestComplete;
+                    runner.AllTestsComplete += runner_AllTestsComplete;
+                    CodeRush.Windows.Active.DTE.StatusBar.Text = kTestingStartedMessage;
+
+                    runner.RunTests(assemblyPath, assemblyName);
+                }
+                finally
+                {
+                    runner.TestComplete -= runner_TestComplete;
+                    runner.AllTestsComplete -= runner_AllTestsComplete;
+                }
+            }
+            else
+            {
+                ShowBuildOutputWindow();
+            }
+        }
+
         /// <summary>
         /// Use the Gallio runner to fire off unit tests
         /// </summary>
