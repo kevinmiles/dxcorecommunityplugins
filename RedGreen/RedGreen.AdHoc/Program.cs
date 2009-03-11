@@ -85,7 +85,11 @@ namespace RedGreen.AdHoc
             }
             try
             {
-                testInfo.Invoke(fixture, null);
+                object result = testInfo.Invoke(fixture, null);
+                if (result != null)
+                {
+                    Console.WriteLine(result);
+                }
             }
             catch (System.Reflection.TargetInvocationException ex)
             {
