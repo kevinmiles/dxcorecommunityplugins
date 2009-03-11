@@ -25,6 +25,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Diagnostics;
 namespace RedGreen
 {
     class AdHocRunner
@@ -44,10 +45,11 @@ namespace RedGreen
             const string kAdHocExe = @"C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\RedGreen.AdHoc.exe";
             StringBuilder result = new StringBuilder();
             StreamReader sr = null;
-            DateTime startAt = DateTime.Now;
-            using (System.Diagnostics.Process p = new System.Diagnostics.Process())
+            Stopwatch chrono = new Stopwatch();
+            chrono.Start();
+            using (Process p = new Process())
             {
-                p.StartInfo = new System.Diagnostics.ProcessStartInfo(kAdHocExe);
+                p.StartInfo = new ProcessStartInfo(kAdHocExe);
                 p.StartInfo.Arguments = string.Format("/a:\"{0}\" /t:{1} /m:{2}", assemblyPath, type, method);
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
@@ -61,15 +63,15 @@ namespace RedGreen
                 result.AppendFormat("{0}\n", line);
                 line = sr.ReadLine();
             }
-            DateTime endAt = DateTime.Now;
-            TimeSpan thelta = endAt.Subtract(startAt);
+            chrono.Stop();
+            TimeSpan thelta = chrono.Elapsed;
 
             RaiseComplete(result.ToString());
             SummaryResult summary = new SummaryResult();
             summary.PassCount = "1";
             summary.FailCount = "0";
             summary.SkipCount = "0";
-            summary.Duration =  string.Format("{0}.{1}", thelta.Seconds, thelta.Milliseconds);
+            summary.Duration = string.Format("{0}.{1}", thelta.Seconds, thelta.Milliseconds);
             RaiseAllComplete(summary);
         }
 

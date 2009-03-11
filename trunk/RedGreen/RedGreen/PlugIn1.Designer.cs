@@ -43,11 +43,13 @@ namespace RedGreen
             this.actRunTests = new DevExpress.CodeRush.Core.Action(this.components);
             this.attachDebugger = new DevExpress.CodeRush.Core.Action(this.components);
             this.adHocActions = new DevExpress.CodeRush.Core.SmartTagProvider(this.components);
+            this.actRunAllTests = new DevExpress.CodeRush.Core.Action(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.actBuildProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.testActions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.actRunTests)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.attachDebugger)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.adHocActions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.actRunAllTests)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // actBuildProject
@@ -108,6 +110,14 @@ namespace RedGreen
             this.adHocActions.CheckSmartTagAvailability += new DevExpress.CodeRush.Core.CheckSmartTagAvailabilityEventHandler(this.adHocActions_CheckSmartTagAvailability);
             this.adHocActions.GetSmartTagItems += new DevExpress.CodeRush.Core.GetSmartTagItemsEventHandler(this.adHocActions_GetSmartTagItems);
             // 
+            // actRunAllTests
+            // 
+            this.actRunAllTests.ActionName = "Run All Test in Assembly";
+            this.actRunAllTests.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.actRunAllTests.Image = ((System.Drawing.Bitmap)(resources.GetObject("actRunAllTests.Image")));
+            this.actRunAllTests.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+            this.actRunAllTests.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actRunAllTests_Execute);
+            // 
             // PlugIn1
             // 
             this.TileMouseEnter += new DevExpress.CodeRush.Core.TileEventHandler(this.PlugIn1_TileMouseEnter);
@@ -126,6 +136,7 @@ namespace RedGreen
             ((System.ComponentModel.ISupportInitialize)(this.actRunTests)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.attachDebugger)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.adHocActions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.actRunAllTests)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -137,6 +148,7 @@ namespace RedGreen
         private DevExpress.CodeRush.Core.Action actRunTests;
         private DevExpress.CodeRush.Core.Action attachDebugger;
         private DevExpress.CodeRush.Core.SmartTagProvider adHocActions;
+        private DevExpress.CodeRush.Core.Action actRunAllTests;
 
     }
 }
