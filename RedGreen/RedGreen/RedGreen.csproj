@@ -72,13 +72,16 @@
     <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdHocDetail.cs" />
     <Compile Include="AdHocRunner.cs" />
     <Compile Include="AllTestsCompleteEventArgs.cs" />
+    <Compile Include="BaseTestRunner.cs" />
     <Compile Include="FailureData.cs" />
     <Compile Include="DxCoreUtils.cs" />
     <Compile Include="GallioParserUtils.cs" />
     <Compile Include="GallioRunner.cs" />
     <Compile Include="IGallioResultParser.cs" />
+    <Compile Include="ITestDetail.cs" />
     <Compile Include="MbUnitGallioParser.cs" />
     <Compile Include="NullGallioParser.cs" />
     <Compile Include="NUnitGallioParser.cs" />
@@ -93,9 +96,10 @@
     <Compile Include="ResultParserFactory.cs" />
     <Compile Include="SummaryResult.cs" />
     <Compile Include="TestCompleteEventArgs.cs" />
-    <Compile Include="TestInfo.cs" />
+    <Compile Include="UnitTestDetail.cs" />
     <Compile Include="TestPopupMenuColors.cs" />
     <Compile Include="TestResult.cs" />
+    <Compile Include="TestsStartingEventArgs.cs" />
     <Compile Include="TestStatus.cs" />
     <Compile Include="XunitGallioParser.cs" />
   </ItemGroup>

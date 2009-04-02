@@ -23,13 +23,14 @@
  */
 
 using DevExpress.CodeRush.StructuralParser;
+using DevExpress.CodeRush.Core;
 
 namespace RedGreen
 {
     /// <summary>
     /// Data that describes a test. 
     /// </summary>
-    public class TestInfo
+    public class UnitTestDetail : ITestDetail
     {
         /// <summary>
         /// The text string for the Method. Supplied by the test runner and used to later get the DxCore objects which are associated
@@ -75,7 +76,7 @@ namespace RedGreen
         /// <summary>
         /// Initializes a new instance of the TestInfo class.
         /// </summary>
-        public TestInfo()
+        private UnitTestDetail()
         {
             Result = new TestResult();
         }
@@ -83,15 +84,17 @@ namespace RedGreen
         /// <summary>
         /// Initializes a new instance of the TestInfo class.
         /// </summary>
+        /// <param name="tagProvider"></param>
         /// <param name="method"></param>
-        public TestInfo(Method method)
+        public UnitTestDetail(Method method, SmartTagProvider tagProvider)
             : this()
         {
             _method = method;
             Location = method.Location;
+            _smartTagSource = tagProvider;
         }
 
-        public TestInfo(string location)
+        public UnitTestDetail(string location, SmartTagProvider tagProvider)
             : this()
         {
             Location = location;
@@ -102,6 +105,27 @@ namespace RedGreen
             catch
             {// fail silently, try to get it later
             }
+        }
+
+        SmartTagProvider _smartTagSource;
+        public SmartTagProvider SmartTagProvider
+        {
+            get { return _smartTagSource; }
+        }
+
+        public SourcePoint IconCoordinates
+        {
+            get { return Attribute.Range.Start; }
+        }
+
+        public string ClassName
+        {
+            get { return ((Class)Method.Parent).FullName; }
+        }
+
+        public string MethodName
+        {
+            get{return Method.Name;}
         }
     }
 }

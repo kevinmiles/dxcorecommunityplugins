@@ -27,17 +27,15 @@ using System;
 namespace RedGreen
 {
     /// <summary>
-    /// The argument object passed when the TestsComplete event is raised. 
+    /// Conveys the test runner's starting message to a listener.
     /// </summary>
-    public class TestCompleteEventArgs : EventArgs
+    public class TestsStartingEventArgs
     {
-        public readonly string RawResult;
-        public readonly TestResult Result;
+        public readonly string Message;
 
-        public TestCompleteEventArgs(string raw, TestResult result)
+        public TestsStartingEventArgs(string m)
         {
-            RawResult = raw;
-            Result = result;
+            Message = m;
         }
     }
 }
