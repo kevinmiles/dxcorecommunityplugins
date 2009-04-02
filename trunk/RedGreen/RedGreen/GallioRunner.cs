@@ -28,13 +28,10 @@ using System.Text;
 
 namespace RedGreen
 {
-    delegate void TestCompleteEventHandler(object sender, TestCompleteEventArgs args);
-    delegate void AllTestsCompleteEventHandler(object sender, AllTestsCompleteEventArgs args);
-    
     /// <summary>
     /// Runs tests for Gallio supported testing frameworks. 
     /// </summary>
-    class GallioRunner //: BaseTestRunner 
+    class GallioRunner : BaseTestRunner 
     {
         private ResultParserFactory _parserFactory = new ResultParserFactory();
 
@@ -42,45 +39,7 @@ namespace RedGreen
         {
         }
 
-        /// <summary>
-        /// Raised after a test has been run
-        /// </summary>
-        public event TestCompleteEventHandler TestComplete;
-
-        /// <summary>
-        /// Raised after all tests have been run
-        /// </summary>
-        public event AllTestsCompleteEventHandler AllTestsComplete;
-
-        /// <summary>
-        /// Emmit the TestComplete event
-        /// </summary>
-        /// <param name="raw">result of test in text form</param>
-        /// <param name="parsed">result of in type form</param>
-        protected void RaiseComplete(string raw, TestResult parsed)
-        {
-            if (TestComplete != null)
-            {
-                TestComplete(this, new TestCompleteEventArgs(raw, parsed));
-            }
-        }
-
-        /// <summary>
-        /// Emit the AllTestsComplete event
-        /// </summary>
-        /// <param name="passed">number of tests passed</param>
-        /// <param name="failed">number of tests failed</param>
-        /// <param name="skipped">number of tests skipped</param>
-        /// <param name="duration">time elapsed to run tests</param>
-        protected void RaiseAllComplete(SummaryResult result)
-        {
-            if (AllTestsComplete != null)
-            {
-                AllTestsComplete(this, new AllTestsCompleteEventArgs(result.PassCount, result.FailCount, result.SkipCount, result.Duration));
-            }
-        }
-
-        public void RunTests(string assemblyPath, string assemblyName)
+        public override void RunTests(string assemblyPath, string assemblyName)
         {
             RunTestsImpl(assemblyPath,
                 string.Format("/f:Assembly:{0}", assemblyName));
@@ -92,7 +51,7 @@ namespace RedGreen
         /// <param name="assemblyPath">Where the class lives physically on the disk</param>
         /// <param name="assemblyName">The full name of the assembly that contains the class.</param>
         /// <param name="className">Full name of the class that has the tests to run.</param>
-        public void RunTests(string assemblyPath, string assemblyName, string className)
+        public override void RunTests(string assemblyPath, string assemblyName, string className)
         {
             RunTestsImpl(assemblyPath,
                 string.Format("/f:ExactType:{0}", className));
@@ -105,7 +64,7 @@ namespace RedGreen
         /// <param name="assemblyName">The full name of the assembly that contains the class.</param>
         /// <param name="className">Full name of the class that has the tests to run.</param>
         /// <param name="methodName">The specific method name of the test to run.</param>
-        public void RunTests(string assemblyPath, string assemblyName, string className, string methodName)
+        public override void RunTests(string assemblyPath, string assemblyName, string className, string methodName)
         {
             RunTestsImpl(assemblyPath, 
                 string.Format("/f:(ExactType:{0})and(Member:{1})", className, methodName));

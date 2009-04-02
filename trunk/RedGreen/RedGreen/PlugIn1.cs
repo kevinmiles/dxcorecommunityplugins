@@ -44,10 +44,10 @@ namespace RedGreen
         private const string kNextFailedTestMenuItem = "Go to Next Failed Test";
         private const int kDefaultCurrentFailure = -1;
         private const string kTestingStartedMessage = "Testing started...";
-        private List<TestInfo> _Tests = new List<TestInfo>();
-        private List<TestInfo> _Failures = new List<TestInfo>();
+        private List<UnitTestDetail> _Tests = new List<UnitTestDetail>();
+        private List<UnitTestDetail> _Failures = new List<UnitTestDetail>();
         private int _currentFailure = kDefaultCurrentFailure;
-        private TestInfo _hoveredTest = null;
+        private ITestDetail _hoveredTest = null;
         static readonly TestPopupMenuColors sTestMenuColors = new TestPopupMenuColors();
 
         #region InitializePlugIn
@@ -160,10 +160,10 @@ namespace RedGreen
         {
             if (TileIsOurs(tile) && _hoveredTest == null)
             {
-                _hoveredTest = tile.Object as TestInfo;
+                _hoveredTest = tile.Object as ITestDetail;
                 Point tilePoint = new Point(tile.Bounds.Left, tile.Bounds.Bottom);
                 Point menuPoint = textView.ToScreenPoint(tilePoint);
-                CodeRush.SmartTags.ShowPopupMenu(menuPoint, (_hoveredTest != null ? testActions : adHocActions));
+                CodeRush.SmartTags.ShowPopupMenu(menuPoint, _hoveredTest.SmartTagProvider);
             }
         }
         /// <summary>
@@ -222,38 +222,28 @@ namespace RedGreen
         {
             ResetTestResults();
 
-            bool buildPassed = BuildActiveProject();
-
-            if (buildPassed && _hoveredTest != null)
+            switch (((SmartTagItem)sender).Caption)
             {
-                GallioRunner runner = new GallioRunner();
-                runner.TestComplete += runner_TestComplete;
-                runner.AllTestsComplete += runner_AllTestsComplete;
-                CodeRush.Windows.Active.DTE.StatusBar.Text = kTestingStartedMessage;
+                case kRunAssemblyMenuItem:
+                    StandardRunTestBehavior(new GallioRunner(), (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName));
+                    break;
 
-                TestInfo testData = _hoveredTest;
-                EnvDTE.Project activeProject = GetActiveProject();
-                string assemblyPath = GetAssemblyPath(activeProject);
-                string assemblyName = GetAssemblyName(activeProject);
-                switch (((SmartTagItem)sender).Caption)
-                {
-                    case kRunAssemblyMenuItem:
-                        runner.RunTests(assemblyPath, assemblyName);
-                        break;
+                case kRunClassMenuItem:
+                    StandardRunTestBehavior(new GallioRunner(), (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName, _hoveredTest.ClassName));
+                    break;
 
-                    case kRunClassMenuItem:
-                        runner.RunTests(assemblyPath, assemblyName, ((Class)testData.Method.Parent).FullName);
-                        break;
-
-                    case kRunTestMenuItem:
-                        runner.RunTests(assemblyPath, assemblyName, ((Class)testData.Method.Parent).FullName, testData.Method.Name);
-                        break;
-                }
+                case kRunTestMenuItem:
+                    StandardRunTestBehavior(new GallioRunner(), (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName, _hoveredTest.ClassName, _hoveredTest.MethodName));
+                    break;
             }
-            else
-            {
-                ShowBuildOutputWindow();
-            }
+        }
+
+        /// <summary>
+        /// Handle the Tests starting message
+        /// </summary>
+        private void runner_TestsStarting(object sender, TestsStartingEventArgs args)
+        {
+            WriteToTestPane(args.Message);
         }
 
         /// <summary>
@@ -263,11 +253,11 @@ namespace RedGreen
         {
             WriteToTestPane(args.RawResult, true);
             if (args.Result != null && args.Result.Location != null)
-            {
-                TestInfo testData = _Tests.Find(test => test.Method.RootNamespaceLocation == args.Result.Location);
+            {// Only UnitTests have a result.
+                UnitTestDetail testData = _Tests.Find(test => test.Method.RootNamespaceLocation == args.Result.Location);
                 if (testData == null)
                 {
-                    testData = new TestInfo(args.Result.Location);
+                    testData = new UnitTestDetail(args.Result.Location, testActions);
                     _Tests.Add(testData);
                 }
                 testData.Result = args.Result;
@@ -325,7 +315,7 @@ namespace RedGreen
         private void CreateFailedTestList()
         {
             _Failures = _Tests.FindAll(test => test.Result.Status == TestStatus.Failed);
-            _Failures.Sort(delegate(TestInfo lhs, TestInfo rhs)
+            _Failures.Sort(delegate(UnitTestDetail lhs, UnitTestDetail rhs)
                                 {
                                     int locationResult = lhs.Method.Document.FullName.CompareTo(rhs.Method.Document.FullName);
                                     if (locationResult == 0)
@@ -431,7 +421,7 @@ namespace RedGreen
         private void ResetTestResults()
         {
             _currentFailure = kDefaultCurrentFailure;
-            _Failures = new List<TestInfo>();
+            _Failures = new List<UnitTestDetail>();
             _Tests.ForEach(test => test.Result = new TestResult());
         }
 
@@ -440,14 +430,14 @@ namespace RedGreen
         /// </summary>
         private void MoveToNextFailure(object sender, System.EventArgs ea)
         {
-            TestInfo nextLocation = LocateNextTest();
+            UnitTestDetail nextLocation = LocateNextTest();
             MoveToTest(nextLocation.Method);
         }
 
         /// <summary>
         /// Determine what the next failed test is
         /// </summary>
-        private TestInfo LocateNextTest()
+        private UnitTestDetail LocateNextTest()
         {
             int offset = -1;
             LanguageElement currentMethod = CodeRush.Source.ActiveMethod;
@@ -491,7 +481,7 @@ namespace RedGreen
         private readonly Color UnknownColor = Color.White;
         private readonly Color TileBackgroundFillColor = Color.FromArgb(255, 253, 75);
         private readonly Color TileBorderColor = Color.FromArgb(233, 210, 33);
-        
+
         /// <summary>
         /// Put up the action tile
         /// redraw the test attribute
@@ -502,12 +492,12 @@ namespace RedGreen
             Attribute testAttribute = GetTestAttributeForLanguageElement(ea.LanguageElement);
             if (testAttribute != null)
             {
-                TestInfo testData = FindDataForTest(testAttribute);
+                UnitTestDetail testData = FindDataForTest(testAttribute);
                 if (testData != null)
                 {
                     if (ea.LanguageElement.ElementType == LanguageElementType.Attribute)
                     {
-                        DrawTestRunnerIcon(ea.PaintArgs, testData.Attribute.Range.Start, testData);
+                        DrawTestRunnerIcon(ea.PaintArgs, testData);
                         RedrawTestAttribute(ea.PaintArgs, testData);
                     }
                     else
@@ -519,11 +509,19 @@ namespace RedGreen
             else if (ea.LanguageElement.ElementType == LanguageElementType.Method)
             {// Potential adHocTest
                 Method method = (Method)ea.LanguageElement;
-                if (method.Parameters.Count == 0 && DxCoreUtil.GetFirstTestAttribute(ea.LanguageElement) == null && method.IsGeneric == false) 
+                if ( DxCoreUtil.GetFirstTestAttribute(ea.LanguageElement) == null
+                    && IsAdHoc(method))
                 {
-                    DrawTestRunnerIcon(ea.PaintArgs, method.Range.Start, null);
+                    DrawTestRunnerIcon(ea.PaintArgs, new AdHocDetail(method, adHocActions));
                 }
             }
+        }
+
+        private bool IsAdHoc(Method method)
+        {
+            return method.Parameters.Count == 0
+                    && method.IsGeneric == false
+                    && method.IsConstructor == false;
         }
 
         /// <summary>
@@ -545,14 +543,14 @@ namespace RedGreen
         /// <summary>
         /// Look for information about the the attribute. Create and add an information point if none exists and this is a test attribute
         /// </summary>
-        private TestInfo FindDataForTest(Attribute testAttribute)
+        private UnitTestDetail FindDataForTest(Attribute testAttribute)
         {
-            TestInfo testData = _Tests.Find(test => test.Method.RootNamespaceLocation == testAttribute.TargetNode.RootNamespaceLocation);
+            UnitTestDetail testData = _Tests.Find(test => test.Method.RootNamespaceLocation == testAttribute.TargetNode.RootNamespaceLocation);
             if (testData == null)
             {
                 if (DxCoreUtil.IsTest(testAttribute))  // probably not needed because we can't get here unless GetFirstTestAttribute already performed the test, but not a bad safeguard.
                 {
-                    testData = new TestInfo(DxCoreUtil.GetMethod(testAttribute.TargetNode));
+                    testData = new UnitTestDetail(DxCoreUtil.GetMethod(testAttribute.TargetNode), this.testActions);
                     _Tests.Add(testData);
                 };
             }
@@ -562,11 +560,11 @@ namespace RedGreen
         /// <summary>
         /// Draw the icon for the tile
         /// </summary>
-        /// <param name="startPoint"></param>
-        private void DrawTestRunnerIcon(EditorPaintEventArgs paintArgs, SourcePoint startPoint, TestInfo testData)
+        /// <param name="attributes"></param>
+        private void DrawTestRunnerIcon(EditorPaintEventArgs paintArgs, ITestDetail attributes)
         {
-            Rectangle indicator = CreateIndicator(paintArgs, startPoint);
-            paintArgs.TextView.AddTile(NewTile(indicator, testData));
+            Rectangle indicator = CreateIndicator(paintArgs, attributes.IconCoordinates);
+            paintArgs.TextView.AddTile(NewTile(indicator, attributes));
             try
             {
                 paintArgs.TextView.Graphics.DrawIcon(new Icon(GetType(), "TestIndicator.ico"), indicator);
@@ -600,7 +598,7 @@ namespace RedGreen
         /// <summary>
         /// Draw all the test attributes the same and put the status color in the background
         /// </summary>
-        private void RedrawTestAttribute(EditorPaintEventArgs paintArgs, TestInfo testData)
+        private void RedrawTestAttribute(EditorPaintEventArgs paintArgs, UnitTestDetail testData)
         {
             if (paintArgs.LineInView(testData.Attribute.StartLine) && ShouldPaintTestAttribute(paintArgs, testData.Attribute))
             {
@@ -765,7 +763,7 @@ namespace RedGreen
             _Failures.Clear();
         }
 
-        TestInfo _currentTestData = null;
+        UnitTestDetail _currentTestData = null;
         private void PlugIn1_LanguageElementActivated(LanguageElementActivatedEventArgs ea)
         {
             if (ea.Element.InsideMethod)
@@ -788,110 +786,70 @@ namespace RedGreen
         {
             ResetTestResults();
 
-            bool buildPassed = BuildActiveProject();
-
-            if (buildPassed)
-            {
-
-                string assemblyPath = GetAssemblyPath(GetActiveProject());
-                string assemblyName = GetAssemblyName(GetActiveProject());
+            string className = CodeRush.Source.ActiveClass.FullName;
+            if (CodeRush.Source.ActiveMethod != null)
+            {// Handle trigger in method
+                string methodName = CodeRush.Source.ActiveMethod.Name;
                 if (DxCoreUtil.GetFirstTestAttribute(CodeRush.Source.ActiveMethod) != null)
                 {
-                    RunTestUnitTests(assemblyPath, assemblyName, CodeRush.Source.ActiveClass, CodeRush.Source.ActiveMethod);
+                    StandardRunTestBehavior(new GallioRunner(), 
+                        (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName, className, methodName));
                 }
-                else
+                else if (IsAdHoc(CodeRush.Source.ActiveMethod))
                 {
-                    RunAdHocTests(assemblyPath, assemblyName, CodeRush.Source.ActiveClass, CodeRush.Source.ActiveMethod);
+                    StandardRunTestBehavior(new AdHocRunner(),
+                        (run, assemblyPath, assemblyName) =>
+                        {
+                            run.RunTests(assemblyPath, assemblyName, className, methodName);
+                            ShowTestOutputWindow();
+                        });
                 }
             }
             else
-            {
-                ShowBuildOutputWindow();
+            {// Handle trigger in class
+                StandardRunTestBehavior(new GallioRunner(), 
+                    (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName, className));
             }
         }
 
+        /// <summary>
+        /// Respond to the RunAllTests action by launching all the tests in the assembly.
+        /// </summary>
+        /// <param name="ea"></param>
         private void actRunAllTests_Execute(ExecuteEventArgs ea)
         {
             ResetTestResults();
+            StandardRunTestBehavior(new GallioRunner(), (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName));
+        }
 
+        /// <summary>
+        /// Add the extra common things here that we can't do in the BaseTestRunner without adding too much coupling.
+        /// </summary>
+        /// <param name="runner">What runner to use</param>
+        /// <param name="specificTestAction">What test action to take with the runner </param>
+        private void StandardRunTestBehavior(BaseTestRunner runner, RunTestSelectorAction specificTestAction)
+        {
             bool buildPassed = BuildActiveProject();
 
             if (buildPassed)
             {
-                string assemblyPath = GetAssemblyPath(GetActiveProject());
-                string assemblyName = GetAssemblyName(GetActiveProject());
-                GallioRunner runner = new GallioRunner();
-                try
-                {
-                    runner.TestComplete += runner_TestComplete;
-                    runner.AllTestsComplete += runner_AllTestsComplete;
-                    CodeRush.Windows.Active.DTE.StatusBar.Text = kTestingStartedMessage;
-
-                    runner.RunTests(assemblyPath, assemblyName);
-                }
-                finally
-                {
-                    runner.TestComplete -= runner_TestComplete;
-                    runner.AllTestsComplete -= runner_AllTestsComplete;
-                }
+                EnvDTE.Project activeProject = GetActiveProject();
+                string assemblyPath = GetAssemblyPath(activeProject);
+                string assemblyName = GetAssemblyName(activeProject);
+                CodeRush.Windows.Active.DTE.StatusBar.Text = kTestingStartedMessage;
+                BaseTestRunner.StandardRunTestBehavior(runner,
+                    runner_TestsStarting,
+                    runner_TestComplete,
+                    runner_AllTestsComplete,
+                    assemblyPath,
+                    assemblyName,
+                    specificTestAction);
             }
             else
             {
                 ShowBuildOutputWindow();
             }
-        }
 
-        /// <summary>
-        /// Use the Gallio runner to fire off unit tests
-        /// </summary>
-        private void RunTestUnitTests(string assemblyPath, string assemblyName, Class selectedClass, Method selectedMethod)
-        {
-            GallioRunner runner = new GallioRunner();
-            try
-            {
-                runner.TestComplete += runner_TestComplete;
-                runner.AllTestsComplete += runner_AllTestsComplete;
-                CodeRush.Windows.Active.DTE.StatusBar.Text = kTestingStartedMessage;
-
-                if (selectedMethod != null)
-                {
-                    runner.RunTests(assemblyPath, assemblyName, selectedClass.FullName, selectedMethod.Name);
-                }
-                else if (selectedClass != null)
-                {
-                    runner.RunTests(assemblyPath, assemblyName, selectedClass.FullName);
-                }
-            }
-            finally
-            {
-                runner.TestComplete -= runner_TestComplete;
-                runner.AllTestsComplete -= runner_AllTestsComplete;
-            }
-        }
-
-        /// <summary>
-        /// Use the ad-hoc runner to launch parameterless methods
-        /// </summary>
-        private void RunAdHocTests(string assemblyPath, string assemblyName, Class selectedClass, Method selectedMethod)
-        {
-            AdHocRunner runner = new AdHocRunner();
-            try
-            {
-                runner.TestComplete += runner_TestComplete;
-                runner.AllTestsComplete += runner_AllTestsComplete;
-                CodeRush.Windows.Active.DTE.StatusBar.Text = kTestingStartedMessage;
-                if (selectedMethod != null && selectedMethod.ParameterCount == 0)
-                {
-                    WriteToTestPane(string.Format("Running Ad-Hoc test for Assembly: {0}, Type: {1}, Method: {2}\r\n", Path.GetFileName(assemblyPath), selectedClass, selectedMethod));
-                    runner.RunTest(assemblyPath, assemblyName, selectedClass.FullName, selectedMethod.Name);
-                    ShowTestOutputWindow();
-                }
-            }
-            finally
-            {
-                runner.TestComplete -= runner_TestComplete;
-                runner.AllTestsComplete -= runner_AllTestsComplete;
-            }
         }
 
         private void PlugIn1_EditorMouseUp(EditorMouseEventArgs ea)
@@ -952,12 +910,12 @@ namespace RedGreen
 
         private void PlugIn1_RunAdHocTest(object sender, System.EventArgs ea)
         {
-            string assemblyPath = GetAssemblyPath(GetActiveProject());
-            string assemblyName = GetAssemblyName(GetActiveProject());
-            RunAdHocTests(assemblyPath,
-                assemblyName,
-                CodeRush.Source.ActiveClass,
-                CodeRush.Source.ActiveMethod.NextCodeSibling as Method);
+            StandardRunTestBehavior(new AdHocRunner(),
+                                (run, assemblyPath, assemblyName) =>
+                                {
+                                    run.RunTests(assemblyPath, assemblyName, _hoveredTest.ClassName, _hoveredTest.MethodName);
+                                    ShowTestOutputWindow();
+                                });
         }
         #endregion
     }

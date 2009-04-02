@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Software License Agreement for RedGreen
  * 
- * Copyright (c) 2008 Renaissance Learning, Inc. and James Argeropoulos
+ * Copyright (c) 2009 Renaissance Learning, Inc. and James Argeropoulos
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,21 +23,35 @@
  */
 
 using System;
+using DevExpress.CodeRush.Core;
+using DevExpress.CodeRush.StructuralParser;
 
 namespace RedGreen
 {
     /// <summary>
-    /// The argument object passed when the TestsComplete event is raised. 
+    /// Implementations provide just enough detail about a test to be able to 
+    /// display icons and run tests with runners.
     /// </summary>
-    public class TestCompleteEventArgs : EventArgs
+    interface ITestDetail
     {
-        public readonly string RawResult;
-        public readonly TestResult Result;
+        /// <summary>
+        /// Supplies the actions available when the icon/tile is activated in the UI
+        /// </summary>
+        SmartTagProvider SmartTagProvider { get; }
 
-        public TestCompleteEventArgs(string raw, TestResult result)
-        {
-            RawResult = raw;
-            Result = result;
-        }
+        /// <summary>
+        /// Where the icon should be displayed.
+        /// </summary>
+        SourcePoint IconCoordinates { get; }
+
+        /// <summary>
+        /// The full name of the class so that test runners can correctly reference the test
+        /// </summary>
+        string ClassName { get; }
+
+        /// <summary>
+        /// The test name, used when a specific test will be run. 
+        /// </summary>
+        string MethodName { get; }
     }
 }

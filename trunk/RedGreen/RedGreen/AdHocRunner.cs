@@ -28,20 +28,12 @@ using System.Text;
 using System.Diagnostics;
 namespace RedGreen
 {
-    class AdHocRunner
+    class AdHocRunner : BaseTestRunner
     {
-        /// <summary>
-        /// Raised after a test has been run
-        /// </summary>
-        public event TestCompleteEventHandler TestComplete;
-
-        /// <summary>
-        /// Raised after all tests have been run
-        /// </summary>
-        public event AllTestsCompleteEventHandler AllTestsComplete;
-
-        public void RunTest(string assemblyPath, string assembly, string type, string method)
+        public override void RunTests(string assemblyPath, string assembly, string type, string method)
         {
+            RaiseTestsStarting(string.Format("Running Ad-Hoc test for Assembly: {0}, Type: {1}, Method: {2}\r\n", Path.GetFileName(assemblyPath), type, method));
+
             const string kAdHocExe = @"C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\RedGreen.AdHoc.exe";
             StringBuilder result = new StringBuilder();
             StreamReader sr = null;
@@ -66,7 +58,7 @@ namespace RedGreen
             chrono.Stop();
             TimeSpan thelta = chrono.Elapsed;
 
-            RaiseComplete(result.ToString());
+            RaiseComplete(result.ToString(), null);
             SummaryResult summary = new SummaryResult();
             summary.PassCount = "1";
             summary.FailCount = "0";
@@ -75,27 +67,14 @@ namespace RedGreen
             RaiseAllComplete(summary);
         }
 
-        /// <summary>
-        /// Emmit the TestComplete event
-        /// </summary>
-        /// <param name="raw">result of test in text form</param>
-        protected void RaiseComplete(string raw)
+        public override void RunTests(string assemblyPath, string assembly)
         {
-            if (TestComplete != null)
-            {
-                TestComplete(this, new TestCompleteEventArgs(raw, null));
-            }
+            //No op. Here for API compatibility
         }
 
-        /// <summary>
-        /// Emit the AllTestsComplete event
-        /// </summary>
-        protected void RaiseAllComplete(SummaryResult result)
+        public override void RunTests(string assemblyPath, string assembly, string type)
         {
-            if (AllTestsComplete != null)
-            {
-                AllTestsComplete(this, new AllTestsCompleteEventArgs(result.PassCount, result.FailCount, result.SkipCount, result.Duration));
-            }
+            //No op. Here for API compatibility
         }
     }
 }
