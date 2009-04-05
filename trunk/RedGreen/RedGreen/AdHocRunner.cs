@@ -30,18 +30,35 @@ namespace RedGreen
 {
     class AdHocRunner : BaseTestRunner
     {
+        public void wildcardMain()
+        {
+            try
+            {
+                // Only get subdirectories that begin with the letter "p."
+                string[] dirs = Directory.GetDirectories(@"c:\", "p*");
+                Console.WriteLine("The number of directories starting with p is {0}.", dirs.Length);
+                foreach (string dir in dirs)
+                {
+                    Console.WriteLine(dir);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The process failed: {0}", e.ToString());
+            }
+        }
+
         public override void RunTests(string assemblyPath, string assembly, string type, string method)
         {
             RaiseTestsStarting(string.Format("Running Ad-Hoc test for Assembly: {0}, Type: {1}, Method: {2}\r\n", Path.GetFileName(assemblyPath), type, method));
 
-            const string kAdHocExe = @"C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\RedGreen.AdHoc.exe";
             StringBuilder result = new StringBuilder();
             StreamReader sr = null;
             Stopwatch chrono = new Stopwatch();
             chrono.Start();
             using (Process p = new Process())
             {
-                p.StartInfo = new ProcessStartInfo(kAdHocExe);
+                p.StartInfo = new ProcessStartInfo(LocateAdHocExe());
                 p.StartInfo.Arguments = string.Format("/a:\"{0}\" /t:{1} /m:{2}", assemblyPath, type, method);
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
@@ -67,6 +84,33 @@ namespace RedGreen
             RaiseAllComplete(summary);
         }
 
+        private static string LocateAdHocExe()
+        {
+            string adHocExePath = string.Empty;
+            try
+            {
+                foreach (string devExpFolder in System.IO.Directory.GetDirectories(@"C:\Program Files (x86)", "*"))
+                {
+                    if (System.IO.Path.GetFileName(devExpFolder).StartsWith("DevExpress"))
+                    {
+                        string potentialPath = System.IO.Path.Combine(devExpFolder, @"IDETools\Community\PlugIns\RedGreen.Adhoc.exe");
+                        if (System.IO.File.Exists(potentialPath))
+                        {
+                            adHocExePath = potentialPath;
+                        }
+                    }
+                }
+            }
+            finally
+            {
+                if (string.IsNullOrEmpty(adHocExePath))
+                {
+                    const string kOldAdHocExe = @"C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\RedGreen.AdHoc.exe";
+                    adHocExePath = kOldAdHocExe;
+                }
+            }
+            return adHocExePath;
+        }
         public override void RunTests(string assemblyPath, string assembly)
         {
             //No op. Here for API compatibility
