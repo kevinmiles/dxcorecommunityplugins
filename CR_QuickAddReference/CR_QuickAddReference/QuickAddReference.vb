@@ -42,8 +42,8 @@ Public Class QuickAddReference
         mWinList = CreateReferenceTab("Win")
         mWebList = CreateReferenceTab("Web")
         mDXCoreList = CreateReferenceTab("DXCore")
-        mDXCoreList = CreateReferenceTab("Custom1")
-        mDXCoreList = CreateReferenceTab("Custom2")
+        'mDXCoreList = CreateReferenceTab("Custom1")
+        'mDXCoreList = CreateReferenceTab("Custom2")
         Call LoadMRU()
         Call PopulateCustomLists()
     End Sub
