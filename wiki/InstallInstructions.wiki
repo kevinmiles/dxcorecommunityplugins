@@ -5,7 +5,7 @@
 To install any of these plugins, download the relevant binary (DownloadInstructions) and then...
 
   # Shut down all instances of Visual Studio.
-  # Place the downloaded plugin(s) into your DXCore plugin folder. This is typically something like: `C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins`
+  # Place the downloaded plugin(s) into your DXCore plugin folder. This is typically something like: `C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins`. (For DXCore 9.1 and higher, this path is more like `C:\Program Files\DevExpress 2009.1\IDETools\Community\Plugins\`)
   # Start Visual Studio. The plugin(s) are now installed.
 
 =Usage=
