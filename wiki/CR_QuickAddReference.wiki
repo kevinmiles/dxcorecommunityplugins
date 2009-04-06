@@ -10,7 +10,9 @@ Refer users to the InstallInstructions page for general instructions on putting 
 
 = Usage =
 
-Assuming installation is done correctly, Quick Add Reference should be available from the editor Context menu. this leads to the main "Quick Add Reference" dialog which includes different tabs designed to show you different Lists of potential references.
+Assuming installation is done correctly, 'Quick Add Reference' should be available as a DXCore action. This action can be bound to a hotkey (I used Ctrl+AltT in testing). 
+
+Triggering QuickAddReference leads to the main "Quick Add Reference" dialog which includes different tabs designed to show you different lists of potential references.
 
 Select one or more references and hit the add button.
 
