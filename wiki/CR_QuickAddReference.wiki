@@ -4,6 +4,8 @@
 
 A plugin to provide a quicker way to add some of the more common assemblies to your project
 
+= Download = 
+Primary download is from http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_QuickAddReference/
 = Installation =
 
 Refer users to the InstallInstructions page for general instructions on putting the plugin assembly in the right spot and put additional install instructions for the plugin here. For example, if the plugin requires a shortcut key binding, explain to the user what they need to do to add it.
