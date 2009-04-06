@@ -49,6 +49,10 @@ This is a user configurable tab which by default contains the following assembli
 
 More tabs will follow.
 
+= Limitations =
+ * COM references cannot be added.
+ * Project references cannot be added.
+
 = Credits =
 
 Plugin by Rory Becker
