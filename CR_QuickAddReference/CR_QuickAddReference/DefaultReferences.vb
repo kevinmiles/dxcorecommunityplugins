@@ -56,4 +56,16 @@
         Result.Add(New Reference(AssembliesDXCore & "DevExpress.CodeRush.VSCore.dll"))
         Return Result
     End Function
+    Public Function GetDefaults(ByVal ListName As String) As List(Of Reference)
+        Select Case ListName
+            Case "Common"
+                Return DefaultReferencesCommon()
+            Case "Win"
+                Return DefaultReferencesWin()
+            Case "Web"
+                Return DefaultReferencesWeb()
+            Case "DXCore"
+                Return DefaultReferencesDXCore()
+        End Select
+    End Function
 End Class

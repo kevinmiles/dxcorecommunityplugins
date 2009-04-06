@@ -44,6 +44,16 @@ Public Class OptionsQuickAddReference
     End Sub
 
 
+    Private Sub InitialiseTabs()
+        Call ClearOptionTabs()
+        mCommonOptions = CreateOptionTab("Common")
+        mWinOptions = CreateOptionTab("Win")
+        mWebOptions = CreateOptionTab("Web")
+        mDXCoreOptions = CreateOptionTab("DXCore")
+        mDXCoreOptions = CreateOptionTab("DXCore")
+        mDXCoreOptions = CreateOptionTab("DXCore")
+    End Sub
+
     Private Function CreateOptionTab(ByVal TabName As String) As ReferenceListEditor
         Dim NewTab As New TabPage(TabName)
         Tabs.TabPages.Add(NewTab)
@@ -55,13 +65,6 @@ Public Class OptionsQuickAddReference
         Return ReferenceListEditor
     End Function
 
-    Private Sub InitialiseTabs()
-        Call ClearOptionTabs()
-        mCommonOptions = CreateOptionTab("Common")
-        mWinOptions = CreateOptionTab("Win")
-        mWebOptions = CreateOptionTab("Web")
-        mDXCoreOptions = CreateOptionTab("DXCore")
-    End Sub
     Private Sub ClearOptionTabs()
         Tabs.TabPages.Clear()
         mEditors.Clear()
@@ -94,6 +97,9 @@ Public Class OptionsQuickAddReference
         For Each Editor In mEditors
             Editor.ReferenceListView.ListView.Items.Clear()
             ' Potentially add default items back 
+            For Each Value As Reference In DefaultReferences.GetTabDefaults(Editor.SaveKey)
+                Call Editor.ReferenceListView.ListView.Items.Add(ReferenceListItem.Of(Value))
+            Next
         Next
     End Sub
 
