@@ -21,7 +21,7 @@ Each tab provides a different list of potential references which you can add to 
 === Solution Tab ===
 The solution tab provides a list of references already in use in one or more of the projects in your solution.
 === Recent Tab ===
-The recent tab will contain the X most recent assemblies added to a project using QuickAddReference. Currently X is 5 (way too low, I will fix this)
+The recent tab will contain the 20 most recent assemblies added to a project using QuickAddReference. 
 === Common Tab ===
 This is a user configurable tab which by default contains the following assemblies.
 
