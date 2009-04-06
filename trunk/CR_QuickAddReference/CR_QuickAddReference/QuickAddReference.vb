@@ -42,6 +42,8 @@ Public Class QuickAddReference
         mWinList = CreateReferenceTab("Win")
         mWebList = CreateReferenceTab("Web")
         mDXCoreList = CreateReferenceTab("DXCore")
+        mDXCoreList = CreateReferenceTab("Custom1")
+        mDXCoreList = CreateReferenceTab("Custom2")
         Call LoadMRU()
         Call PopulateCustomLists()
     End Sub
@@ -192,5 +194,25 @@ Public Class QuickAddReference
 #End Region
     Private Sub Tabs_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Tabs.SelectedIndexChanged
         Call RefreshTab(False)
+    End Sub
+
+    Private Sub cmdBrowse_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdBrowse.Click
+        OpenFileDialog.InitialDirectory = Storage.ReadString(OptionsQuickAddReference.SECTION_QUICKADD, "DefaultBrowsePath", "%WinDir%\Microsoft.Net\Framework\")
+        If OpenFileDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
+            For Each Filename In OpenFileDialog.FileNames
+                Try
+                    Call AddReference(New Reference(Filename))
+                Catch ex As Exception
+
+                End Try
+            Next
+            PopulateMRUReferences(True)
+            Storage.WriteString(OptionsQuickAddReference.SECTION_QUICKADD, "DefaultBrowsePath", OpenFileDialog.InitialDirectory)
+        End If
+    End Sub
+
+    Private Sub cmdOptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOptions.Click
+        OptionsQuickAddReference.Show()
+        Call RefreshTab(True)
     End Sub
 End Class

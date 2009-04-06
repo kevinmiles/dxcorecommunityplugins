@@ -22,6 +22,7 @@ Partial Class QuickAddReference
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container
         Me.Tabs = New System.Windows.Forms.TabControl
         Me.cmdClose = New System.Windows.Forms.Button
         Me.cmdAdd = New System.Windows.Forms.Button
@@ -31,6 +32,10 @@ Partial Class QuickAddReference
         Me.ColumnHeader11 = New System.Windows.Forms.ColumnHeader
         Me.ColumnHeader12 = New System.Windows.Forms.ColumnHeader
         Me.Label8 = New System.Windows.Forms.Label
+        Me.cmdBrowse = New System.Windows.Forms.Button
+        Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.cmdOptions = New System.Windows.Forms.Button
         Me.SuspendLayout()
         '
         'Tabs
@@ -114,11 +119,39 @@ Partial Class QuickAddReference
         Me.Label8.TabIndex = 0
         Me.Label8.Text = "Not Available yet."
         '
+        'cmdBrowse
+        '
+        Me.cmdBrowse.Location = New System.Drawing.Point(346, 372)
+        Me.cmdBrowse.Name = "cmdBrowse"
+        Me.cmdBrowse.Size = New System.Drawing.Size(115, 23)
+        Me.cmdBrowse.TabIndex = 2
+        Me.cmdBrowse.Text = "Add via Browse..."
+        Me.ToolTip1.SetToolTip(Me.cmdBrowse, "This will add a reference to your project and to the Recent Tab. (but not to any " & _
+                "other tab.)")
+        Me.cmdBrowse.UseVisualStyleBackColor = True
+        '
+        'OpenFileDialog
+        '
+        Me.OpenFileDialog.Filter = "Assemblies|*.dll|Executables|*.exe|All files|*.*"
+        Me.OpenFileDialog.InitialDirectory = "%WinDir%\Microsoft.Net\Framework\"
+        Me.OpenFileDialog.Multiselect = True
+        '
+        'cmdOptions
+        '
+        Me.cmdOptions.Location = New System.Drawing.Point(93, 372)
+        Me.cmdOptions.Name = "cmdOptions"
+        Me.cmdOptions.Size = New System.Drawing.Size(75, 23)
+        Me.cmdOptions.TabIndex = 3
+        Me.cmdOptions.Text = "Options..."
+        Me.cmdOptions.UseVisualStyleBackColor = True
+        '
         'QuickAddReference
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(635, 407)
+        Me.Controls.Add(Me.cmdOptions)
+        Me.Controls.Add(Me.cmdBrowse)
         Me.Controls.Add(Me.cmdRefreshTab)
         Me.Controls.Add(Me.cmdAdd)
         Me.Controls.Add(Me.cmdClose)
@@ -137,4 +170,8 @@ Partial Class QuickAddReference
     Friend WithEvents ColumnHeader11 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader12 As System.Windows.Forms.ColumnHeader
     Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents cmdBrowse As System.Windows.Forms.Button
+    Friend WithEvents OpenFileDialog As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
+    Friend WithEvents cmdOptions As System.Windows.Forms.Button
 End Class
