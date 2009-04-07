@@ -26,4 +26,7 @@
         End If
     End Sub
 
+    Private Sub ListView_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ListView.SelectedIndexChanged
+
+    End Sub
 End Class

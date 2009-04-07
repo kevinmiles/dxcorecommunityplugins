@@ -2,7 +2,7 @@
     Private Const AssembliesCommon As String = "%ProgramFiles%\Common Files\Microsoft Shared\MSEnv\PublicAssemblies\"
     Private Const AssembliesV35 As String = "%ProgramFiles%\Reference Assemblies\Microsoft\Framework\v3.5\"
     Private Const AssembliesV20 As String = "%WinDir%\Microsoft.Net\Framework\v2.0.50727\"
-    Private Const AssembliesDXCore As String = "%ProgramFiles%\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\"
+    Private Const AssembliesDXCore As String = "%ProgramFiles%\DevExpress 2009.1\IDETools\System\DXCore\BIN\"
 
     Private Shared mDefaultReferences As New Dictionary(Of String, List(Of Reference))
     Shared Sub New()
@@ -18,7 +18,6 @@
         End If
         Return Defaults
     End Function
-
     Public Shared Function DefaultReferencesCommon() As List(Of Reference)
         Dim Result As New List(Of Reference)
         'Result.Add(New Reference(v20 & "System.dll"))
@@ -56,16 +55,5 @@
         Result.Add(New Reference(AssembliesDXCore & "DevExpress.CodeRush.VSCore.dll"))
         Return Result
     End Function
-    Public Function GetDefaults(ByVal ListName As String) As List(Of Reference)
-        Select Case ListName
-            Case "Common"
-                Return DefaultReferencesCommon()
-            Case "Win"
-                Return DefaultReferencesWin()
-            Case "Web"
-                Return DefaultReferencesWeb()
-            Case "DXCore"
-                Return DefaultReferencesDXCore()
-        End Select
-    End Function
+
 End Class

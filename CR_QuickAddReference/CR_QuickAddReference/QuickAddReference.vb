@@ -69,7 +69,18 @@ Public Class QuickAddReference
     Private Sub AddReference(ByVal Reference As Reference)
         CodeRush.Project.Active.AddReference(Reference.FullName)
         MRUList.Add(Reference)
+        Call SaveMRU()
     End Sub
+    'Private Sub AddProjectReference(ByVal ProjectReference As Reference)
+    '    Dim vsProj As VSLangProj.VSProject = CType(CodeRush.Project.Active.ProjectObject, VSProject)
+    '    vsProj.References.AddProject(ProjectReference)
+    '    Dim vsProj As VSLangProj.VSProject = CType(Project.Object, VSProject)
+    '    Dim X As EnvDTE.Project = CodeRush.Project.Active.ProjectObject
+    '    Dim y As VSProject = DevExpress.CodeRush.Core.ProjectServices.GetVSProject(X)
+    '    y.
+    '    MRUList.Add(Reference)
+    'End Sub
+
     Private Function CreateReferenceTab(ByVal TabName As String) As ReferenceListView
         Dim ReferenceListView As New ReferenceListView With {.Dock = DockStyle.Fill}
         ReferenceListView.SaveKey = TabName
@@ -113,6 +124,7 @@ Public Class QuickAddReference
     End Function
     Private Sub PopulateMRUReferences(Optional ByVal ForceRefresh As Boolean = False)
         mRecentList.ListView.Items.Clear()
+        MRUList.Add(Storage.ReadStrings("MRU", "MRU"))
         For Each Reference As Reference In MRUList.Reverse()
             mRecentList.ListView.Items.Add(ReferenceListItem.Of(Reference))
         Next
@@ -129,6 +141,7 @@ Public Class QuickAddReference
 #Region "UI Events"
     Private Sub QuickAddReference_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Call PopulateSolutionReferences()
+
         Call PopulateMRUReferences()
     End Sub
 
@@ -153,7 +166,8 @@ Public Class QuickAddReference
         Dim TheListview As ListView = ActiveReferenceListView().ListView
         If TheListview IsNot Nothing Then
             Dim Added As Integer
-            For Each Item As ReferenceListItem In TheListview.CheckedItems
+            'For Each Item As ReferenceListItem In TheListview.CheckedItems
+            For Each Item As ReferenceListItem In TheListview.SelectedItems
                 Try
                     Call AddReference(Item.Reference)
                     Added += 1
@@ -161,7 +175,7 @@ Public Class QuickAddReference
                     ' swallow exception
                 End Try
             Next
-            TheListview.ClearCheckedItems()
+            'TheListview.ClearCheckedItems()
             MsgBox(String.Format("Added '{0}' References", Added))
         End If
     End Sub

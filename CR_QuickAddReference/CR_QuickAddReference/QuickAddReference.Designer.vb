@@ -46,13 +46,13 @@ Partial Class QuickAddReference
         Me.Tabs.Location = New System.Drawing.Point(12, 12)
         Me.Tabs.Name = "Tabs"
         Me.Tabs.SelectedIndex = 0
-        Me.Tabs.Size = New System.Drawing.Size(611, 354)
+        Me.Tabs.Size = New System.Drawing.Size(616, 355)
         Me.Tabs.TabIndex = 0
         '
         'cmdClose
         '
         Me.cmdClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdClose.Location = New System.Drawing.Point(548, 372)
+        Me.cmdClose.Location = New System.Drawing.Point(553, 373)
         Me.cmdClose.Name = "cmdClose"
         Me.cmdClose.Size = New System.Drawing.Size(75, 23)
         Me.cmdClose.TabIndex = 1
@@ -62,7 +62,7 @@ Partial Class QuickAddReference
         'cmdAdd
         '
         Me.cmdAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdAdd.Location = New System.Drawing.Point(467, 372)
+        Me.cmdAdd.Location = New System.Drawing.Point(472, 373)
         Me.cmdAdd.Name = "cmdAdd"
         Me.cmdAdd.Size = New System.Drawing.Size(75, 23)
         Me.cmdAdd.TabIndex = 1
@@ -72,7 +72,7 @@ Partial Class QuickAddReference
         'cmdRefreshTab
         '
         Me.cmdRefreshTab.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.cmdRefreshTab.Location = New System.Drawing.Point(12, 372)
+        Me.cmdRefreshTab.Location = New System.Drawing.Point(12, 373)
         Me.cmdRefreshTab.Name = "cmdRefreshTab"
         Me.cmdRefreshTab.Size = New System.Drawing.Size(75, 23)
         Me.cmdRefreshTab.TabIndex = 1
@@ -121,7 +121,8 @@ Partial Class QuickAddReference
         '
         'cmdBrowse
         '
-        Me.cmdBrowse.Location = New System.Drawing.Point(346, 372)
+        Me.cmdBrowse.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdBrowse.Location = New System.Drawing.Point(351, 373)
         Me.cmdBrowse.Name = "cmdBrowse"
         Me.cmdBrowse.Size = New System.Drawing.Size(115, 23)
         Me.cmdBrowse.TabIndex = 2
@@ -138,7 +139,8 @@ Partial Class QuickAddReference
         '
         'cmdOptions
         '
-        Me.cmdOptions.Location = New System.Drawing.Point(93, 372)
+        Me.cmdOptions.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.cmdOptions.Location = New System.Drawing.Point(93, 373)
         Me.cmdOptions.Name = "cmdOptions"
         Me.cmdOptions.Size = New System.Drawing.Size(75, 23)
         Me.cmdOptions.TabIndex = 3
@@ -149,7 +151,8 @@ Partial Class QuickAddReference
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(635, 407)
+        Me.CancelButton = Me.cmdClose
+        Me.ClientSize = New System.Drawing.Size(640, 408)
         Me.Controls.Add(Me.cmdOptions)
         Me.Controls.Add(Me.cmdBrowse)
         Me.Controls.Add(Me.cmdRefreshTab)
