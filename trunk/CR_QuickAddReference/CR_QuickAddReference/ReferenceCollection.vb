@@ -2,6 +2,7 @@ Imports DevExpress.CodeRush.StructuralParser
 Imports DevExpress.CodeRush.Core
 Imports System.Windows.Forms
 Imports System.Runtime.CompilerServices
+Imports System.Collections.Generic
 
 Public Class ReferenceCollection
     Implements IEnumerable(Of Reference)
@@ -20,16 +21,26 @@ Public Class ReferenceCollection
         End If
         mList.Add(Reference)
     End Sub
+    Public Sub Add(ByVal References As IEnumerable(Of Reference))
+        For Each Reference In References
+            Add(Reference)
+        Next
+    End Sub
+    Public Sub Add(ByVal References As IEnumerable(Of String))
+        For Each ReferenceString In References
+            Call Add(New Reference(ReferenceString))
+        Next
+    End Sub
     Public Sub Remove(ByVal Reference As Reference)
         mList.Remove(Reference)
         mDict.Remove(Reference.FullName)
     End Sub
 
-    Public Function GetEnumerator() As System.Collections.Generic.IEnumerator(Of Reference) Implements System.Collections.Generic.IEnumerable(Of Reference).GetEnumerator
+    Public Function GetEnumerator() As IEnumerator(Of Reference) Implements IEnumerable(Of Reference).GetEnumerator
         Return mList.GetEnumerator
     End Function
 
-    Public Function GetEnumerator1() As System.Collections.IEnumerator Implements System.Collections.IEnumerable.GetEnumerator
+    Public Function GetEnumerator1() As IEnumerator Implements IEnumerable.GetEnumerator
         Return mList.GetEnumerator
     End Function
 End Class

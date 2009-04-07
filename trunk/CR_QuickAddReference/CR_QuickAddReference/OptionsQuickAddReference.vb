@@ -50,8 +50,6 @@ Public Class OptionsQuickAddReference
         mWinOptions = CreateOptionTab("Win")
         mWebOptions = CreateOptionTab("Web")
         mDXCoreOptions = CreateOptionTab("DXCore")
-        mDXCoreOptions = CreateOptionTab("DXCore")
-        mDXCoreOptions = CreateOptionTab("DXCore")
     End Sub
 
     Private Function CreateOptionTab(ByVal TabName As String) As ReferenceListEditor

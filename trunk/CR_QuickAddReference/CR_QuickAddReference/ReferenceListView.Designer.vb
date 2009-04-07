@@ -29,9 +29,10 @@ Partial Class ReferenceListView
         '
         'ListView
         '
-        Me.ListView.CheckBoxes = True
         Me.ListView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colName, Me.colLocation})
         Me.ListView.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ListView.FullRowSelect = True
+        Me.ListView.HideSelection = False
         Me.ListView.Location = New System.Drawing.Point(0, 0)
         Me.ListView.Name = "ListView"
         Me.ListView.Size = New System.Drawing.Size(483, 308)
