@@ -2,7 +2,9 @@
 
 = Introduction =
 
-A plugin to provide a quicker way to add some of the more common assemblies to your project
+A plugin to provide a quicker way to add some of the more common assemblies to your project. Loads in < 2 seconds.
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_QuickAddReference/Screenshots/QuickAddReference.png
 
 = Download = 
 Primary download is from http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_QuickAddReference/
