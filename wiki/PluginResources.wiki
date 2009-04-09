@@ -5,22 +5,29 @@
 So you'd like to make some cool plugins like the ones here.
 This is intended to be a list of resources for that very task.
 
-This is a process best learned by example. so take a look around... Follow some tutorials .... Download some examples and ask some questions... 
+This is a process best learned by example. 
+
+So take a look around... 
+
+ * ...Follow some tutorials ...
+ * ...[http://code.google.com/p/dxcorecommunityplugins/ Download some examples] 
+ * ...[http://code.google.com/p/dxcorecommunityplugins/source/list Download their source]
+ * ...and ask some questions... 
 
 The best place to ask any questions is in the [http://community.devexpress.com/forums/181.aspx "DXCore plugins" forum hosted by DevExpress]
 
 = Blog Posts =
 Mark Miller - Clipboard History (Source Included with Coderush)
 
- * http://community.devexpress.com/blogs/markmiller/archive/2008/09/08/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-1.aspx
- * http://community.devexpress.com/blogs/markmiller/archive/2008/09/08/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-2.aspx
- * http://community.devexpress.com/blogs/markmiller/archive/2008/09/08/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-3.aspx
- * http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-4.aspx
- * http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-5.aspx
- * http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-6.aspx
- * http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-7.aspx
- * http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-8.aspx
- * http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-9.aspx
- * http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-10.aspx
- * http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-11.aspx
- * http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-12.aspx
+ * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/08/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-1.aspx Clipboard History - Part 1]
+ * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/08/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-2.aspx Clipboard History - Part 2]
+ * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/08/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-3.aspx Clipboard History - Part 3]
+ * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-4.aspx Clipboard History - Part 4]
+ * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-5.aspx Clipboard History - Part 5]
+ * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-6.aspx Clipboard History - Part 6]
+ * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-7.aspx Clipboard History - Part 7]
+ * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-8.aspx Clipboard History - Part 8]
+ * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-9.aspx Clipboard History - Part 9]
+ * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-10.aspx Clipboard History - Part 10]
+ * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-11.aspx Clipboard History - Part 11]
+ * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-12.aspx Clipboard History - Part 12]
