@@ -1,6 +1,6 @@
-#summary Where to start when creating plugins
+#summary Where to start when creating Coderush/Refactor/DXCore plugins
 
-= Introduction =
+== I'd like to write a plugin ==
 
 So you'd like to make some cool plugins like the ones here.
 This is intended to be a list of resources for that very task.
