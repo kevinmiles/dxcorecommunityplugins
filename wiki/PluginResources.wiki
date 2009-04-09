@@ -16,7 +16,8 @@ So take a look around...
 
 The best place to ask any questions is in the [http://community.devexpress.com/forums/181.aspx "DXCore plugins" forum hosted by DevExpress]
 
-= Blog Posts =
+= Plugin Tutorials =
+
 Mark Miller - Clipboard History (Source Included with Coderush)
 
  * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/08/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-1.aspx Clipboard History - Part 1]
@@ -31,3 +32,6 @@ Mark Miller - Clipboard History (Source Included with Coderush)
  * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-10.aspx Clipboard History - Part 10]
  * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-11.aspx Clipboard History - Part 11]
  * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-12.aspx Clipboard History - Part 12]
+
+Rory Becker - FAQ
+ * [http://rorybecker.blogspot.com/2008/03/stringproviders-vs-textcommands.html StringProviders vs TextCommands]
