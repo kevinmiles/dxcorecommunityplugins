@@ -50,7 +50,7 @@ namespace RedGreen
         private ResultParserFactory _parserFactory = new ResultParserFactory();
 
         /// <remarks>Assumes that on entry "line" contains the start of a test result.</remarks>
-        public void ReadNextTextResult(TextReader reader, ref string line, StringBuilder result)
+        public static void ReadNextTextResult(TextReader reader, ref string line, StringBuilder result)
         {
             do
             {
@@ -59,18 +59,18 @@ namespace RedGreen
             } while (line != null && line.StartsWith("[") == false);
         }
 
-        public bool IsTestResult(string rawResult)
+        public static bool IsTestResult(string rawResult)
         {
             return GetResultKind(rawResult) == ResultKind.Test;
         }
 
-        public bool IsRootResult(string rawResult)
+        public static bool IsRootResult(string rawResult)
         {
             return GetResultKind(rawResult) == ResultKind.Root;
         }
 
         /// <remarks>Kind is the first word that follows the status, which is the start of the result and is encased in brackets.</remarks>
-        private string GetResultKind(string rawResult)
+        private static string GetResultKind(string rawResult)
         {
             int statusEnd = rawResult.IndexOf(' ');
             int kindEnd = rawResult.IndexOf(' ', statusEnd + 1);
@@ -125,7 +125,7 @@ namespace RedGreen
             return testResult;
         }
 
-        public SummaryResult ParseSummary(string rawResult)
+        public static SummaryResult ParseSummary(string rawResult)
         {
             const string kDurationStart = "(Total execution time: ";
             int durationStart = rawResult.IndexOf(kDurationStart) + kDurationStart.Length;

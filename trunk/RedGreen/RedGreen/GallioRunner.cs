@@ -33,12 +33,6 @@ namespace RedGreen
     /// </summary>
     class GallioRunner : BaseTestRunner 
     {
-        private ResultParserFactory _parserFactory = new ResultParserFactory();
-
-        public GallioRunner()
-        {
-        }
-
         public override void RunTests(string assemblyPath, string assemblyName)
         {
             RunTestsImpl(assemblyPath,
@@ -105,15 +99,15 @@ namespace RedGreen
             while (line != null)
             {
                 StringBuilder result = new StringBuilder();
-                parser.ReadNextTextResult(sr, ref line, result);
+                ResultParser.ReadNextTextResult(sr, ref line, result);
                 string rawResult = result.ToString();
-                if (parser.IsTestResult(rawResult))
+                if (ResultParser.IsTestResult(rawResult))
                 {// Only raise event for tests completed, not fixtures and the like.
                     RaiseComplete(result.ToString(), parser.ParseTest(rawResult));
                 }
-                else if (parser.IsRootResult(rawResult))
+                else if (ResultParser.IsRootResult(rawResult))
                 {// All done show summary and invalidate
-                    RaiseAllComplete(parser.ParseSummary(rawResult));
+                    RaiseAllComplete(ResultParser.ParseSummary(rawResult));
                 }
             }
         }

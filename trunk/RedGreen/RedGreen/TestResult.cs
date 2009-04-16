@@ -23,9 +23,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using DevExpress.CodeRush.StructuralParser;
 
 namespace RedGreen
 {

@@ -72,10 +72,10 @@ namespace RedGreen
         /// <returns>
         /// returns true if build passed 
         /// </returns>
-        private bool BuildActiveProject()
+        private static bool BuildActiveProject()
         {
             EnvDTE.Solution sol = CodeRush.Solution.Active;
-            EnvDTE.Project project = GetActiveProject();
+            //EnvDTE.Project project = GetActiveProject();
             sol.SolutionBuild.Build(true); // We build the whole solution becuase some projects are not configured to build the projects they depend upon first.
             //sol.SolutionBuild.BuildProject(project.ConfigurationManager.ActiveConfiguration.ConfigurationName, project.UniqueName, true);
             return sol.SolutionBuild.LastBuildInfo == 0;
@@ -189,7 +189,7 @@ namespace RedGreen
         /// <param name="ea">Where to put new menu item</param>
         /// <param name="menuText">What to put into the smartTagItem</param>
         /// <param name="handler">What will respond to the user selecting the smart tag item</param>
-        private void AddSmartTagItem(GetSmartTagItemsEventArgs ea, string menuText, System.EventHandler handler)
+        private static void AddSmartTagItem(GetSmartTagItemsEventArgs ea, string menuText, System.EventHandler handler)
         {
             SmartTagItem menuItem = new SmartTagItem(menuText);
             menuItem.Execute += handler;
@@ -315,16 +315,13 @@ namespace RedGreen
         private void CreateFailedTestList()
         {
             _Failures = _Tests.FindAll(test => test.Result.Status == TestStatus.Failed);
-            _Failures.Sort(delegate(UnitTestDetail lhs, UnitTestDetail rhs)
-                                {
-                                    int locationResult = lhs.Method.Document.FullName.CompareTo(rhs.Method.Document.FullName);
-                                    if (locationResult == 0)
-                                    {
-                                        return lhs.Method.StartLine - rhs.Method.StartLine;
-                                    }
-                                    return locationResult;
-                                }
-                );
+            _Failures.Sort((lhs, rhs) =>
+            {
+                int locationResult = lhs.Method.Document.FullName.CompareTo(rhs.Method.Document.FullName);
+                if (locationResult == 0)
+                    return lhs.Method.StartLine - rhs.Method.StartLine;
+                return locationResult;
+            });
         }
 
         /// <summary>
@@ -354,7 +351,7 @@ namespace RedGreen
         /// Get the VS project object for the current project
         /// </summary>
         /// <remarks>Old code from when I first started could use a review for better practice</remarks>
-        private EnvDTE.Project GetActiveProject()
+        private static EnvDTE.Project GetActiveProject()
         {
             // try to get the current active project
             ProjectElement activeProj = CodeRush.Source.ActiveProject;
@@ -517,7 +514,7 @@ namespace RedGreen
             }
         }
 
-        private bool IsAdHoc(Method method)
+        private static bool IsAdHoc(Method method)
         {
             return method.Parameters.Count == 0
                     && method.IsGeneric == false
@@ -550,7 +547,7 @@ namespace RedGreen
             {
                 if (DxCoreUtil.IsTest(testAttribute))  // probably not needed because we can't get here unless GetFirstTestAttribute already performed the test, but not a bad safeguard.
                 {
-                    testData = new UnitTestDetail(DxCoreUtil.GetMethod(testAttribute.TargetNode), this.testActions);
+                    testData = new UnitTestDetail(DxCoreUtil.GetMethod(testAttribute.TargetNode), testActions);
                     _Tests.Add(testData);
                 };
             }
@@ -646,7 +643,7 @@ namespace RedGreen
             ea.ValidateClipRegionArgs.ValidateRectangle(new Rectangle(start.X, start.Y, attributeWidth, attributeHeight));
         }
 
-        private bool ShouldPaintTestAttribute(BaseEditorPaintEventArgs paintArgs, Attribute testAttribute)
+        private static bool ShouldPaintTestAttribute(BaseEditorPaintEventArgs paintArgs, Attribute testAttribute)
         {
             return (!paintArgs.TextViewIsActive ||
                 ((paintArgs.CaretLine < testAttribute.StartLine ||

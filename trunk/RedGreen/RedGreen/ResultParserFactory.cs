@@ -49,12 +49,8 @@ namespace RedGreen
         /// <returns>A matching parser or the NullGallioParser if none exist in the collection</returns>
         public IGallioResultParser GetParser(string frameworkName)
         {
-            IGallioResultParser parser = _parsers.Find(
-                delegate(IGallioResultParser p)
-                {
-                    return frameworkName.ToLower().StartsWith(p.Framwork.ToLower());
-                });
-            return parser != null ? parser : new NullGallioParser();
+            IGallioResultParser parser = _parsers.Find(p => frameworkName.ToLower().StartsWith(p.Framwork.ToLower()));
+            return parser ?? new NullGallioParser();
         }
     }
 }
