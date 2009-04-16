@@ -30,24 +30,6 @@ namespace RedGreen
 {
     class AdHocRunner : BaseTestRunner
     {
-        public void wildcardMain()
-        {
-            try
-            {
-                // Only get subdirectories that begin with the letter "p."
-                string[] dirs = Directory.GetDirectories(@"c:\", "p*");
-                Console.WriteLine("The number of directories starting with p is {0}.", dirs.Length);
-                foreach (string dir in dirs)
-                {
-                    Console.WriteLine(dir);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The process failed: {0}", e.ToString());
-            }
-        }
-
         public override void RunTests(string assemblyPath, string assembly, string type, string method)
         {
             RaiseTestsStarting(string.Format("Running Ad-Hoc test for Assembly: {0}, Type: {1}, Method: {2}\r\n", Path.GetFileName(assemblyPath), type, method));
@@ -86,30 +68,45 @@ namespace RedGreen
 
         private static string LocateAdHocExe()
         {
-            string adHocExePath = string.Empty;
-            try
+            string adHocExePath = LookForRegistryKeyPath();
+            if (string.IsNullOrEmpty(adHocExePath))
             {
-                foreach (string devExpFolder in System.IO.Directory.GetDirectories(@"C:\Program Files (x86)", "*"))
-                {
-                    if (System.IO.Path.GetFileName(devExpFolder).StartsWith("DevExpress"))
+                try
+                {// Look in the 9.1.1 folder path
+                    Array.ForEach(Directory.GetDirectories(@"C:\Program Files (x86)", "*"), devExpFolder =>
                     {
-                        string potentialPath = System.IO.Path.Combine(devExpFolder, @"IDETools\Community\PlugIns\RedGreen.Adhoc.exe");
-                        if (System.IO.File.Exists(potentialPath))
+                        if (Path.GetFileName(devExpFolder).StartsWith("DevExpress"))
                         {
-                            adHocExePath = potentialPath;
+                            string potentialPath = Path.Combine(devExpFolder, @"IDETools\Community\PlugIns\RedGreen.Adhoc.exe");
+                            if (File.Exists(potentialPath))
+                                adHocExePath = potentialPath;
                         }
+                    });
+                }
+                finally
+                {
+                    if (string.IsNullOrEmpty(adHocExePath))
+                    {// Look in the old path
+                        const string kOldAdHocExe = @"C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\RedGreen.AdHoc.exe";
+                        adHocExePath = kOldAdHocExe;
                     }
                 }
             }
-            finally
-            {
-                if (string.IsNullOrEmpty(adHocExePath))
-                {
-                    const string kOldAdHocExe = @"C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\RedGreen.AdHoc.exe";
-                    adHocExePath = kOldAdHocExe;
-                }
-            }
             return adHocExePath;
+        }
+
+        /// <summary>
+        /// Use the registry key introduced in CodeRush 9.1.2 or 9.1.3 to find where the plug-ins live.
+        /// </summary>
+        private static string LookForRegistryKeyPath()
+        {
+            Microsoft.Win32.RegistryKey communityPathKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Developer Express\\CodeRush for VS\\CommunityPlugIns");
+            if (communityPathKey != null)
+            {
+                string installFolder = communityPathKey.GetValue("InstallFolder").ToString();
+                return Path.Combine(installFolder, "RedGreen.Adhoc.exe");
+            }
+            return String.Empty;
         }
         public override void RunTests(string assemblyPath, string assembly)
         {

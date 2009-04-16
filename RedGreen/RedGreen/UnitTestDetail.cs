@@ -44,14 +44,11 @@ namespace RedGreen
         {
             get
             {
-                if (_method == null)
-                {
-                    _method = DxCoreUtil.GetMethod(Location);
-                }
-                return _method;
+	            if (_method == null)
+			            _method = DxCoreUtil.GetMethod(Location);
+	            return _method;
             }
-            private set { _method = value; }
-        }
+       }
         private Attribute _Attribute;
         /// <summary>
         /// Structural parser data about the test attribute that describes the method as a test.
@@ -91,7 +88,7 @@ namespace RedGreen
         {
             _method = method;
             Location = method.Location;
-            _smartTagSource = tagProvider;
+            SmartTagProvider = tagProvider;
         }
 
         public UnitTestDetail(string location, SmartTagProvider tagProvider)
@@ -100,18 +97,13 @@ namespace RedGreen
             Location = location;
             try
             {
-                Method = DxCoreUtil.GetMethod(location);
+                _method = DxCoreUtil.GetMethod(location);
             }
             catch
             {// fail silently, try to get it later
             }
         }
-
-        SmartTagProvider _smartTagSource;
-        public SmartTagProvider SmartTagProvider
-        {
-            get { return _smartTagSource; }
-        }
+        public SmartTagProvider SmartTagProvider { get; private set; }
 
         public SourcePoint IconCoordinates
         {

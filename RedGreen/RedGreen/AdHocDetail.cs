@@ -35,7 +35,6 @@ namespace RedGreen
     class AdHocDetail : ITestDetail
     {
         private Method _method;
-        SmartTagProvider _smartTagSource;
 
         private AdHocDetail()
         {
@@ -48,16 +47,13 @@ namespace RedGreen
         public AdHocDetail(Method test, SmartTagProvider tagProvider)
         {
             _method = test;
-            _smartTagSource = tagProvider;
+            SmartTagProvider = tagProvider;
         }
 
         /// <summary>
         /// Supplies the smart tag provider. It should be one for ad hoc tests if the object is constructed correctly
         /// </summary>
-        public SmartTagProvider SmartTagProvider
-        {
-            get { return _smartTagSource; }
-        }
+        public SmartTagProvider SmartTagProvider { get; private set; }
 
         /// <summary>
         /// Where the test icon should live, for ad hoc tests the icon is associated with the method signature

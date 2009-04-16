@@ -47,12 +47,5 @@ namespace RedGreen
         /// Where the failure occurred
         /// </summary>
         public LanguageElement FailingStatement { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the FailureData class.
-        /// </summary>
-        public FailureData()
-        {
-        }
     }
 }

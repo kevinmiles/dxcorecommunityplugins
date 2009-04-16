@@ -119,8 +119,7 @@ namespace RedGreen.AdHoc
             string full = string.Format(switchFormat, assemblySwitch);
             foreach (string argument in args)
             {
-                string a = argument.ToLower();
-                if (argument.StartsWith(abreviated) || argument.StartsWith(full))
+                if (argument.ToLower().StartsWith(abreviated) || argument.ToLower().StartsWith(full))
                 {
                     return argument.Substring(argument.IndexOf(":") + 1);
                 }
