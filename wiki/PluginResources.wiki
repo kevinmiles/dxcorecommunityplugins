@@ -27,9 +27,17 @@ The best place to ask any questions is in the [http://community.devexpress.com/f
 Kevin Wolf 
  * [http://new.efficientcoder.net/2008/11/custom-string-to-resource-refactoring.html Custom String to Resource Refactoring with DXCore]
 
+Kim Major
+
+Navigate to Implementation
+ * [http://blogs.microsoft.co.il/blogs/kim/archive/2008/10/19/coderush-plugin-navigate-to-implementation-part-1.aspx Part 1]
+ * [http://blogs.microsoft.co.il/blogs/kim/archive/2008/10/19/coderush-plugin-navigate-to-implementation-part-2.aspx Part 2]
+ * [http://blogs.microsoft.co.il/blogs/kim/archive/2008/10/19/coderush-plugin-navigate-to-implementation-part-3.aspx Part 3]
+ * [http://blogs.microsoft.co.il/blogs/kim/archive/2008/10/19/coderush-plugin-navigate-to-implementation-part-4.aspx Part 4]
+
 Mark Miller
 
-[http://blogs.microsoft.co.il/blogs/kim/archive/2008/10/19/coderush-plugin-navigate-to-implementation-part-1.aspx Navigate to Implementation]
+[http://community.devexpress.com/blogs/markmiller/archive/2008/12/02/new-coderush-plug-in-jump-to-implementer.aspx Jump to Implementer]
 
 Clipboard History (Source Included with CodeRush)
 
