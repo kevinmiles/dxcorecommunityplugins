@@ -45,3 +45,7 @@ Clipboard History (Source Included with CodeRush)
  * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-10.aspx Clipboard History - Part 10]
  * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-11.aspx Clipboard History - Part 11]
  * [http://community.devexpress.com/blogs/markmiller/archive/2008/09/10/clipboard-history-plug-in-for-visual-studio-with-dxcore-part-12.aspx Clipboard History - Part 12]
+
+= Video Tutorials =
+
+[http://www.dnrtv.com/default.aspx?showNum=5 Mark Miller on DNRTV]
