@@ -2,8 +2,8 @@ Imports System
 Imports System.Drawing
 Imports System.ComponentModel
 Imports System.Windows.Forms
-Imports Controls
-Imports Painting
+Imports CR_PaintIt.Controls
+Imports CR_PaintIt.Painting
 Namespace Controls
     Public Class PaintPicker
         Inherits System.Windows.Forms.UserControl

@@ -1,6 +1,6 @@
 Imports System
 Imports System.Drawing
-Imports Painting
+Imports CR_PaintIt.Painting
 
 Public Class CurrentMemberSettings
     Public Enabled As Boolean

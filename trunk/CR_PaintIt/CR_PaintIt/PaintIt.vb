@@ -9,8 +9,8 @@ Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
 Imports SP = DevExpress.CodeRush.StructuralParser
-Imports Controls
-Imports Painting
+Imports CR_PaintIt.Controls
+Imports CR_PaintIt.Painting
 ''' <summary>
 ''' Summary description for PaintIt.
 ''' </summary>

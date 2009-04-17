@@ -22,8 +22,7 @@
     <OptionCompare>Binary</OptionCompare>
     <OptionExplicit>On</OptionExplicit>
     <OptionStrict>On</OptionStrict>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace>CR_PaintIt</RootNamespace>
     <StartupObject>WizardTemplate.Form1</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
