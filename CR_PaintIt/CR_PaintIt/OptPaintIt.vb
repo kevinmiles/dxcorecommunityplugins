@@ -5,9 +5,9 @@ Imports System.Drawing
 Imports System.Windows.Forms
 Imports DevExpress.CodeRush.Core
 Imports System.Diagnostics
-Imports Controls
-Imports Painting
-Imports Painting.Settings
+Imports CR_PaintIt.Controls
+Imports CR_PaintIt.Painting
+Imports CR_PaintIt.Painting.Settings
 
 ''' <summary>
 ''' Summary description for OptPaintIt.

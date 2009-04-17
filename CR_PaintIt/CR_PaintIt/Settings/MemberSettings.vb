@@ -1,5 +1,5 @@
 Imports DevExpress.Coderush.StructuralParser
-Imports Painting
+Imports CR_PaintIt.Painting
 
 Public Class MemberSettings
     Public [Public] As New PaintOptions

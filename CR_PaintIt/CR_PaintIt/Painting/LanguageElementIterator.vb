@@ -1,4 +1,4 @@
-Imports Painting
+Imports CR_PaintIt.Painting
 Imports System.Collections
 Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.PlugInCore
