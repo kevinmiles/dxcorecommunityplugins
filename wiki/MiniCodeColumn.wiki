@@ -12,7 +12,7 @@ Please follow the general [InstallInstructions] on putting the plugin assembly i
 = Usage =
 
 You can toggle the preview column on/off with a button from the DXCore visual tool bar.
-A double click to select a code word will highlight the word in the whole file and highlight the word in the code preview column.
+A double click to select a word will highlight all occurrences in the whole file and highlight it with a red color in the code preview column. You can also click on the code column to jump e.g. to the word or code fragment. Colapsed regions will be fully painted (non collapsed) and splitting the texteditor is still possible (which was not possible with RockScrollV1).
 
 <img src="http://dxpluginminicodecol.googlecode.com/svn/trunk/Documents/ScreenShot.png" />
 
