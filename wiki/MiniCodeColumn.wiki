@@ -37,6 +37,7 @@ In this early stage of coding the options page is still missing.
 Originally I found [http://www.hanselman.com/blog/IntroducingRockScroll.aspx RockScroll] on a !BlogPost from Scott Hanselman, who credited this piece of software to Rocky Downs.
 
 I am R.Warnat and I created this plugin on top of their ideas. 
+
 With some combinations of vista and/or service packs !RockScroll 
 stopped working on my machine and I reinvented _the wheel_. 
 
