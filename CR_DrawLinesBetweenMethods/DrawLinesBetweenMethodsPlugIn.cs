@@ -4,7 +4,6 @@ using System.Drawing.Drawing2D;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
-using System.Diagnostics;
 
 namespace CR_DrawLinesBetweenMethods
 {
@@ -105,7 +104,7 @@ namespace CR_DrawLinesBetweenMethods
             }
         }
 
-        void drawLine(Graphics graphics, Color lineColor, Point startPoint, Point endPoint, int lineWidth, DashStyle lineStyle, bool shadow, int shadowHeight)
+        static void drawLine(Graphics graphics, Color lineColor, Point startPoint, Point endPoint, int lineWidth, DashStyle lineStyle, bool shadow, int shadowHeight)
         {
             if (shadow)
             {
@@ -120,7 +119,7 @@ namespace CR_DrawLinesBetweenMethods
             }
         }
 
-        void drawShadow(Graphics graphics, Color lineColor, Point topLeft, Point bottomRight)
+        static void drawShadow(Graphics graphics, Color lineColor, Point topLeft, Point bottomRight)
         {
             Color shadowColor = Color.FromArgb(0x33, lineColor);
             Rectangle rect = new Rectangle(topLeft.X, topLeft.Y, bottomRight.X - topLeft.X, bottomRight.Y - topLeft.Y);
