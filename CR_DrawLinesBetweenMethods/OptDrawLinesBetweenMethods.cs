@@ -75,7 +75,8 @@ namespace CR_DrawLinesBetweenMethods
                 _enableOnMemberCheckList.SetItemChecked(2, _enableOnMethod);
                 _enableOnMemberCheckList.SetItemChecked(3, _enableOnEnum);
                 _lineSpaceNUD.Value = _lineSpacer;
-                _shadowHeightNUD.Value = _shadowHeight;
+                _shadowHeightNUD.Enabled = _drawShadowChk.Checked;
+                _shadowHeightNUD.Value = _shadowHeightNUD.Enabled ? _shadowHeight : 0;
                 _enabledChk.Checked = _enabled;
 
             }
