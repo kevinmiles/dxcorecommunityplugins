@@ -24,21 +24,11 @@ Public Class PlugIn1
 	End Sub
 #End Region
 
-    Private Sub LocalVarsProvider_GetSmartTagItems(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.GetSmartTagItemsEventArgs) Handles LocalVarsProvider.GetSmartTagItems
+    Private Sub LocalVarsProvider_GetSmartTagItems(ByVal sender As Object, ByVal ea As GetSmartTagItemsEventArgs) Handles LocalVarsProvider.GetSmartTagItems
+        Dim Ordinal As Integer = 0
         For Each Var As Param In CodeRush.Source.ActiveMethod.Parameters
-            ea.Add(New SmartTagLocalVar(Var.Name))
+            Ordinal += 1
+            ea.Add(New SmartTagLocalVar(Var.Name, Ordinal))
         Next
-    End Sub
-End Class
-Public Class SmartTagLocalVar
-    Inherits SmartTagItem
-    Private mVarName As String
-    Public Sub New(ByVal VarName As String)
-        mVarName = VarName
-        Caption = VarName
-    End Sub
-
-    Private Sub SmartTagLocalVar_Execute(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Execute
-        CodeRush.Documents.ActiveTextDocument.InsertText(CodeRush.Caret.SourcePoint, Me.mVarName)
     End Sub
 End Class
