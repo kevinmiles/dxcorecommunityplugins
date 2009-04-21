@@ -1,32 +1,44 @@
-#summary Code preview column - Plugin for DxCore
+#summary Mini Code Column - Plugin for DxCore
 #labels Decorative
 
-
-= Introduction =
+<table><tr valign="top"><td>
+=== Introduction ===
 
 If you know about [http://www.hanselman.com/blog/IntroducingRockScroll.aspx RockScroll], this is for you, implemented as [http://www.devexpress.com/Downloads/NET/IDETools/DXCore/ DxCore] Plugin.
 
-= Installation =
+=== Installation ===
 
 Please follow the general [InstallInstructions] on putting the plugin assembly in the right spot. With the newest !DxCore version you will be asked for a folder to place in community plugins, then this is the place to drop the [http://dxpluginminicodecol.googlecode.com/files/MiniCodeColumn.dll MiniCodeColumn.dll].
 
-= Usage =
+=== Usage ===
 
 You can toggle the preview column on/off with a button from the DXCore visual tool bar.
+A *double click* to select a word will *highlight* all occurrences
+in the whole file and highlight it with a red color in the mini code column.
 
-A *double click* to select a word will *highlight* all occurrences in the whole file and highlight it with a red color in the mini code column. You can also *click* on the mini code column to *jump* to any code line. 
-
-Colapsed regions will be fully painted (non collapsed) and splitting the texteditor is still possible (which was not possible with !RockScrollV1). 
-
+You can also *click* on the mini code column to *jump* to any code line.
+Colapsed regions will be fully painted (non collapsed)
+and splitting the texteditor is still possible (which was not possible with !RockScrollV1).
 If code lines would exeed the available space, lines are compressed (2x, 3x etc.) and become _thicker_.
 
-<img src="http://dxcorecommunityplugins.googlecode.com/svn/trunk/MiniCodeColumn/Documents/ScreenShot.png" />
-
-
-= Options =
+=== Options ===
 
 In this early stage of coding the options page is still missing.
 
-= Credits =
+</td><td>
+[http://dxcorecommunityplugins.googlecode.com/svn/trunk/MiniCodeColumn/Documents/ScreenShot.png]
+</td></tr></table>
 
-Originally I found [http://www.hanselman.com/blog/IntroducingRockScroll.aspx RockScroll] on a BlogPost from Scott Hanselman, who credited this piece of software to Rocky Downs.
+<table><tr valign="top">
+<td>
+
+=== Credits ===
+
+Originally I found [http://www.hanselman.com/blog/IntroducingRockScroll.aspx RockScroll] on a !BlogPost from Scott Hanselman, who credited this piece of software to Rocky Downs.
+
+I am R.Warnat and I created this plugin on top of their ideas. With some combinations of vista and/or service packs !RockScroll stopped working on my machine and I reinvented _the wheel_. 
+
+So this got again my favorite sticker
+</td><td>
+[http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/IntroducingRockScroll_C29C/works-on-my-machine-starburst_3.png]
+</td></tr></table>
