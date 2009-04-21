@@ -7,14 +7,14 @@ If you know about [http://www.hanselman.com/blog/IntroducingRockScroll.aspx Rock
 
 = Installation =
 
-Please follow the general [InstallInstructions] on putting the plugin assembly in the right spot. With the newest DxCore version you will be asked for a folder to place in community plugins, then this is the place to drop the [http://dxpluginminicodecol.googlecode.com/files/MiniCodeColumn.dll MiniCodeColumn.dll].
+Please follow the general [InstallInstructions] on putting the plugin assembly in the right spot. With the newest !DxCore version you will be asked for a folder to place in community plugins, then this is the place to drop the [http://dxpluginminicodecol.googlecode.com/files/MiniCodeColumn.dll MiniCodeColumn.dll].
 
 = Usage =
 
 You can toggle the preview column on/off with a button from the DXCore visual tool bar.
-A double click to select a word will highlight all occurrences in the whole file and highlight it with a red color in the code preview column. You can also click on the code column to jump e.g. to the word or code fragment. Colapsed regions will be fully painted (non collapsed) and splitting the texteditor is still possible (which was not possible with RockScrollV1).
+A double click to select a word will highlight all occurrences in the whole file and highlight it with a red color in the code preview column. You can also click on the code column to jump e.g. to the word or code fragment. Colapsed regions will be fully painted (non collapsed) and splitting the texteditor is still possible (which was not possible with RockScrollV1). If code line would exeed the available space, lines are compressed (2x, 3x etc.) and become _thicker_.
 
-<img src="http://dxpluginminicodecol.googlecode.com/svn/trunk/Documents/ScreenShot.png" />
+<img src="http://dxcorecommunityplugins.googlecode.com/svn/trunk/MiniCodeColumn/Documents/ScreenShot.png" />
 
 
 = Options =
