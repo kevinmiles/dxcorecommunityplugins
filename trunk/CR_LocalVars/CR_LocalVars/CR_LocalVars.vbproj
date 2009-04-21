@@ -96,6 +96,7 @@
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.vb" />
+    <Compile Include="SmartTagLocalVar.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PlugIn1.resx">
