@@ -30,5 +30,9 @@ Public Class PlugIn1
             Ordinal += 1
             ea.Add(New SmartTagLocalVar(Var.Name, Ordinal))
         Next
+        For Each Var As Variable In CodeRush.Source.ActiveMethod.AllVariables
+            Ordinal += 1
+            ea.Add(New SmartTagLocalVar(Var.Name, Ordinal))
+        Next
     End Sub
 End Class
