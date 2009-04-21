@@ -1,15 +1,29 @@
 #summary Code preview column - Plugin for DxCore
 
-== Plugin for code preview ==
+
+= Introduction =
 
 If you know about [http://www.hanselman.com/blog/IntroducingRockScroll.aspx RockScroll], this is for you, implemented as [http://www.devexpress.com/Downloads/NET/IDETools/DXCore/ DxCore] Plugin.
 
-=== Screenshot ===
-<img src="http://dxpluginminicodecol.googlecode.com/svn/trunk/Documents/ScreenShot.png" />
+= Installation =
 
-=== Usage ===
+Please follow the general [InstallInstructions] on putting the plugin assembly in the right spot. With the newest DxCore version you will be asked for a folder to place in community plugins, then this is the place to drop the [http://dxpluginminicodecol.googlecode.com/files/MiniCodeColumn.dll MiniCodeColumn.dll].
+
+= Usage =
+
 You can toggle the preview column on/off with a button from the DXCore visual tool bar.
 A double click to select a code word will highlight the word in the whole file and highlight the word in the code preview column.
+
+<img src="http://dxpluginminicodecol.googlecode.com/svn/trunk/Documents/ScreenShot.png" />
+
+
+= Options =
+
+In this early stage of coding the options page is still missing.
+
+= Credits =
+
+Originally I found [http://www.hanselman.com/blog/IntroducingRockScroll.aspx RockScroll] on a BlogPost from Scott Hanselman, who credited this piece of software to Rocky Downs.
 
 === Updates ===
 in a little while I will transfer code from [http://code.google.com/p/dxpluginminicodecol/ my own project] over here for easier access to the community.
