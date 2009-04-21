@@ -1,24 +1,21 @@
 using System;
 using System.Windows.Forms;
-using System.Drawing;
-using System.ComponentModel;
-using System.Collections;
 using DevExpress.CodeRush.Core;
 
 namespace CR_DrawLinesBetweenMethods
 {
     public partial class OptDrawLinesBetweenMethods
     {
-        private System.Windows.Forms.CheckBox _fullWidthChk;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox _lineStyleLst;
-        private System.Windows.Forms.ComboBox _lineWidthLst;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox _drawLineAtEndChk;
-        private System.Windows.Forms.CheckBox _drawShadowChk;
+        private CheckBox _fullWidthChk;
+        private Label label1;
+        private Label label2;
+        private ComboBox _lineStyleLst;
+        private ComboBox _lineWidthLst;
+        private Label label3;
+        private CheckBox _drawLineAtEndChk;
+        private CheckBox _drawShadowChk;
         private Button _lineColorBtn;
-        private System.ComponentModel.Container components = null;
+        private System.ComponentModel.Container components;
 
         private void InitializeComponent()
         {
