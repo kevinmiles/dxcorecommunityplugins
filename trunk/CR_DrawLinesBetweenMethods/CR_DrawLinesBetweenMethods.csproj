@@ -42,9 +42,13 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <DxCorePluginsFolder>$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\Developer Express\CodeRush for VS\9.1@PluginsFolder)</DxCorePluginsFolder>
+    <DxCoreInstallFolder>$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\Developer Express\CodeRush for VS\9.1@InstallFolder)</DxCoreInstallFolder>
+    <OutputPath>$(DxCorePluginsFolder)</OutputPath>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(DevEnvDir)devenv.exe</StartProgram>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>$(ProgramFiles)\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\PlugIns\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -67,7 +71,6 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>$(ProgramFiles)\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\PlugIns\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -92,27 +95,27 @@
   <ItemGroup>
     <Reference Include="DevExpress.CodeRush.Common">
       <Name>DevExpress.CodeRush.Common</Name>
-      <HintPath>C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\1.1\Bin\DevExpress.CodeRush.Common.dll</HintPath>
+      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.Common.dll</HintPath>
       <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
     </Reference>
     <Reference Include="DevExpress.CodeRush.Core">
       <Name>DevExpress.CodeRush.Core</Name>
-      <HintPath>C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\1.1\Bin\DevExpress.CodeRush.Core.dll</HintPath>
+      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.Core.dll</HintPath>
       <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
     </Reference>
     <Reference Include="DevExpress.CodeRush.PlugInCore">
       <Name>DevExpress.CodeRush.PlugInCore</Name>
-      <HintPath>C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\1.1\Bin\DevExpress.CodeRush.PlugInCore.dll</HintPath>
+      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.PlugInCore.dll</HintPath>
       <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
     </Reference>
     <Reference Include="DevExpress.CodeRush.StructuralParser">
       <Name>DevExpress.CodeRush.StructuralParser</Name>
-      <HintPath>C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\1.1\Bin\DevExpress.CodeRush.StructuralParser.dll</HintPath>
+      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.StructuralParser.dll</HintPath>
       <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
     </Reference>
     <Reference Include="DevExpress.CodeRush.VSCore">
       <Name>DevExpress.CodeRush.VSCore</Name>
-      <HintPath>C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\1.1\Bin\DevExpress.CodeRush.VSCore.dll</HintPath>
+      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.VSCore.dll</HintPath>
       <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
     </Reference>
     <Reference Include="EnvDTE">
