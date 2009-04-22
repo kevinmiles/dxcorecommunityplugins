@@ -41,36 +41,23 @@ namespace MiniCodeColumn
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MiniCodeColPlugIn));
-            this.actionOnOff = new DevExpress.CodeRush.Core.Action(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.actionOnOff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
-            // actionOnOff
-            // 
-            this.actionOnOff.ButtonText = "Toggle Code Column";
-            this.actionOnOff.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.DevExpress;
-            this.actionOnOff.Description = "Toggle Code Column";
-            this.actionOnOff.Image = ((System.Drawing.Bitmap)(resources.GetObject("actionOnOff.Image")));
-            this.actionOnOff.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
-            this.actionOnOff.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actionOnOff_Execute);
-            // 
-            // PlugIn1
+            // MiniCodeColPlugIn
             // 
             this.EditorMouseDown += new DevExpress.CodeRush.Core.EditorMouseEventHandler(this.PlugIn1_EditorMouseDown);
             this.EditorPaintBackground += new DevExpress.CodeRush.Core.EditorPaintEventHandler(this.PlugIn1_EditorPaintBackground);
+            this.TextDocumentDeactivated += new DevExpress.CodeRush.Core.TextDocumentEventHandler(this.MiniCodeColPlugIn_TextDocumentDeactivated);
             this.EditorMouseDoubleClick += new DevExpress.CodeRush.Core.EditorMouseEventHandler(this.PlugIn1_EditorMouseDoubleClick);
+            this.TextDocumentActivated += new DevExpress.CodeRush.Core.TextDocumentEventHandler(this.MiniCodeColPlugIn_TextDocumentActivated);
             this.CaretMoved += new DevExpress.CodeRush.Core.CaretMovedEventHandler(this.PlugIn1_CaretMoved);
             this.EditorPaint += new DevExpress.CodeRush.Core.EditorPaintEventHandler(this.PlugIn1_EditorPaint);
             this.EditorScrolled += new DevExpress.CodeRush.Core.EditorScrolledEventHandler(this.PlugIn1_EditorScrolled);
-            ((System.ComponentModel.ISupportInitialize)(this.actionOnOff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
 
         #endregion
 
-        private DevExpress.CodeRush.Core.Action actionOnOff;
     }
 }
