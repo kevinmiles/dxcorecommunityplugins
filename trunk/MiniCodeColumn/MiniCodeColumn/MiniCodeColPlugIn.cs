@@ -24,9 +24,9 @@ namespace MiniCodeColumn
     {
         int last_top_line = -1;
         IMenuButton _VisualizeButton;
-        public static bool CodeViewOn = true;
-        public static int ColumnWidth = 40;
-        public static int last_height_divisor = 1;
+        public bool CodeViewOn = true;
+        public int ColumnWidth = 40;
+        public int last_height_divisor = 1;
 
         SolidBrush ColumnBackgroundBrush;
         SolidBrush ColumnBrushVisibleLines;
@@ -43,9 +43,10 @@ namespace MiniCodeColumn
         #region InitializePlugIn
         public override void InitializePlugIn()
         {
+            CreateGraphicElements();
+
             base.InitializePlugIn();
             CreateVisualizeButton();
-            CreateGraphicElements();
 
             LoadSettings();
         }
@@ -59,11 +60,37 @@ namespace MiniCodeColumn
 
         void CreateVisualizeButton()
         {
-            _VisualizeButton = CodeRush.Menus.VisualizeToolBar.AddButton(
-                "Mini Code Column",
-                Properties.Resources.Button);
-            _VisualizeButton.Caption = "Mini Code Column";
-            _VisualizeButton.IsDown = CodeViewOn;
+
+            if (_VisualizeButton != null)
+                return;
+
+            CreateGraphicElements();
+
+            try
+            {
+                if (CodeRush.Menus != null && CodeRush.Menus.Bars != null)
+                {
+                    foreach (MenuBar mb in CodeRush.Menus.Bars)
+                    {
+                        if (mb.Name.ToUpperInvariant().IndexOf("DXCORE") >= 0)
+                        {
+                            _VisualizeButton = mb.AddButton();
+
+                            _VisualizeButton.Caption = "Mini Code Column";
+                            _VisualizeButton.Face = Properties.Resources.Button;
+                            _VisualizeButton.TooltipText = "Toggle Mini Code Column on/off";
+                            _VisualizeButton.DescriptionText = "Toggle Mini Code Column on/off";
+                            _VisualizeButton.IsDown = CodeViewOn;
+                            _VisualizeButton.Enabled = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error in CreateVisualizeButton : " + ex.Message);
+            }
 
             if (_VisualizeButton == null)
                 return;
@@ -176,6 +203,8 @@ namespace MiniCodeColumn
             if (!CodeViewOn || textView == null || (selected_double_click.Length <= 2))
                 return;
 
+            CreateGraphicElements();
+
             Graphics graphics = textView.Graphics;
             //SmoothingMode oldMode = graphics.SmoothingMode;
             try
@@ -218,6 +247,8 @@ namespace MiniCodeColumn
             drawing = true;
 
             Graphics graphics = textView.Graphics;
+            CreateGraphicElements();
+
             //SmoothingMode oldMode = graphics.SmoothingMode;
             try
             {
@@ -354,6 +385,19 @@ namespace MiniCodeColumn
 
                 HighlightSelectedText();
             }
+        }
+
+        private void MiniCodeColPlugIn_TextDocumentActivated(TextDocumentEventArgs ea)
+        {
+            if (_VisualizeButton!=null)
+                _VisualizeButton.Enabled = true;
+        }
+
+        private void MiniCodeColPlugIn_TextDocumentDeactivated(TextDocumentEventArgs ea)
+        {
+            if (_VisualizeButton!=null)
+                _VisualizeButton.Enabled = false;
+
         }
     }
 }
