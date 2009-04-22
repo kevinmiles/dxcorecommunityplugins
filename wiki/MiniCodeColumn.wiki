@@ -45,3 +45,7 @@ So this got again my favorite sticker
 </td><td>
 [http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/IntroducingRockScroll_C29C/works-on-my-machine-starburst_3.png]
 </td></tr></table>
+
+=== Beta Download ===
+
+Until my tests with the Community-Version of !DxCore succeeds you could download a copy from [http://code.google.com/p/dxpluginminicodecol/downloads/list this list].
