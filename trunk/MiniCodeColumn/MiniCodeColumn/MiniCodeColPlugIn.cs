@@ -72,12 +72,39 @@ namespace MiniCodeColumn
                 {
                     foreach (MenuBar mb in CodeRush.Menus.Bars)
                     {
+                        bool repeat = false;
+
+                        do
+                        {
+                            repeat = false;
+                            int index = -1;
+                            if (mb.Name.ToUpperInvariant().IndexOf("DXCORE") >= 0)
+                            {
+                                foreach (IMenuControl menu_item in mb)
+                                {
+                                    if (menu_item.Caption == "Mini Code Column")
+                                        index = menu_item.Index;
+                                }
+                            }
+                            if (index >= 0)
+                            {
+                                mb.RemoveAt(index);     // Die Buttons wurden immer mehr !!!
+                                repeat = true;
+                            }
+                        } while (repeat);
+                    }
+                    foreach (MenuBar mb in CodeRush.Menus.Bars)
+                    {
                         if (mb.Name.ToUpperInvariant().IndexOf("DXCORE") >= 0)
                         {
                             _VisualizeButton = mb.AddButton();
 
                             _VisualizeButton.Caption = "Mini Code Column";
-                            _VisualizeButton.Face = Properties.Resources.Button;
+
+                            // .Face = scheint nicht zu funktionieren :-(
+                            //_VisualizeButton.Face = Properties.Resources.Button;
+
+                            _VisualizeButton.SetFace(Properties.Resources.Button);
                             _VisualizeButton.TooltipText = "Toggle Mini Code Column on/off";
                             _VisualizeButton.DescriptionText = "Toggle Mini Code Column on/off";
                             _VisualizeButton.IsDown = CodeViewOn;
@@ -397,6 +424,11 @@ namespace MiniCodeColumn
         {
             if (_VisualizeButton!=null)
                 _VisualizeButton.Enabled = false;
+
+        }
+
+        private void MiniCodeColPlugIn_EditorValidateClipRegion(EditorValidateClipRegionEventArgs ea)
+        {
 
         }
     }
