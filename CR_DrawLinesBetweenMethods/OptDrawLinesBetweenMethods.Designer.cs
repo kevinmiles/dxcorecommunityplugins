@@ -63,6 +63,7 @@ namespace CR_DrawLinesBetweenMethods
             this._lineStyleLst.Name = "_lineStyleLst";
             this._lineStyleLst.Size = new System.Drawing.Size(121, 21);
             this._lineStyleLst.TabIndex = 1;
+            this._lineStyleLst.SelectedIndexChanged += new System.EventHandler(this._lineStyleLst_SelectedIndexChanged);
             // 
             // label1
             // 

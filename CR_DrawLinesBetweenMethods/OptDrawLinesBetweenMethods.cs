@@ -119,6 +119,7 @@ namespace CR_DrawLinesBetweenMethods
                     storage.WriteBoolean("DrawLinesBetweenMethods", "EnableOnClass", _enableOnClass);
                     storage.WriteBoolean("DrawLinesBetweenMethods", "EnableOnProperty", _enableOnProperty);
                     storage.WriteBoolean("DrawLinesBetweenMethods", "EnableOnMethod", _enableOnMethod);
+                    storage.WriteBoolean("DrawLinesBetweenMethods", "EnableOnEnum", _enableOnEnum);
                     storage.WriteBoolean("DrawLinesBetweenMethods", "Enabled", _enabled);
                     storage.WriteInt32("DrawLinesBetweenMethods", "LineSpacer", _lineSpacer);
                     storage.WriteInt32("DrawLinesBetweenMethods", "ShadowHeight", _shadowHeight);
@@ -151,6 +152,5 @@ namespace CR_DrawLinesBetweenMethods
             CheckBox cbx = (CheckBox)sender;
             _shadowHeightNUD.Enabled = cbx.Checked;
         }
-
     }
 }
