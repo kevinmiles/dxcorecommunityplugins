@@ -30,11 +30,13 @@ Partial Class PlugIn1
         Me.components = New System.ComponentModel.Container
         Dim Parameter1 As DevExpress.CodeRush.Core.Parameter = New DevExpress.CodeRush.Core.Parameter(New DevExpress.CodeRush.Core.StringParameterType)
         Dim Parameter2 As DevExpress.CodeRush.Core.Parameter = New DevExpress.CodeRush.Core.Parameter(New DevExpress.CodeRush.Core.StringParameterType)
-        Dim Parameter3 As DevExpress.CodeRush.Core.Parameter = New DevExpress.CodeRush.Core.Parameter(New DevExpress.CodeRush.Core.StringParameterType)
+        Dim Parameter3 As DevExpress.CodeRush.Core.Parameter = New DevExpress.CodeRush.Core.Parameter(New DevExpress.CodeRush.Core.BooleanParameterType)
+        Dim Parameter4 As DevExpress.CodeRush.Core.Parameter = New DevExpress.CodeRush.Core.Parameter(New DevExpress.CodeRush.Core.StringParameterType)
+        Dim Parameter5 As DevExpress.CodeRush.Core.Parameter = New DevExpress.CodeRush.Core.Parameter(New DevExpress.CodeRush.Core.StringParameterType)
         Me.ExpandTemplateToFile = New DevExpress.CodeRush.Core.TextCommand(Me.components)
-        Me.ExpandTemplate = New DevExpress.CodeRush.Extensions.StringProvider(Me.components)
+        Me.UnusedFilename = New DevExpress.CodeRush.Extensions.StringProvider(Me.components)
         CType(Me.ExpandTemplateToFile, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ExpandTemplate, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UnusedFilename, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'ExpandTemplateToFile
@@ -49,26 +51,36 @@ Partial Class PlugIn1
         Parameter2.Description = "Name of File"
         Parameter2.Name = "Filename"
         Parameter2.Optional = False
+        Parameter3.DefaultValue = False
+        Parameter3.Description = "ActivateNewFile"
+        Parameter3.Name = "ActivateNewFile"
+        Parameter3.Optional = True
         Me.ExpandTemplateToFile.Parameters.Add(Parameter1)
         Me.ExpandTemplateToFile.Parameters.Add(Parameter2)
+        Me.ExpandTemplateToFile.Parameters.Add(Parameter3)
         '
-        'ExpandTemplate
+        'UnusedFilename
         '
-        Me.ExpandTemplate.Description = "Expands the passed Template and returns the result"
-        Me.ExpandTemplate.DisplayName = "Expand Template"
-        Parameter3.DefaultValue = ""
-        Parameter3.Description = "Name of Template"
-        Parameter3.Name = "TemplateName"
-        Parameter3.Optional = False
-        Me.ExpandTemplate.Parameters.Add(Parameter3)
-        Me.ExpandTemplate.ProviderName = "ExpandTemplate"
-        Me.ExpandTemplate.Register = True
+        Me.UnusedFilename.Description = ""
+        Me.UnusedFilename.DisplayName = "Unused Filename"
+        Parameter4.DefaultValue = "Class"
+        Parameter4.Description = "FileRoot"
+        Parameter4.Name = "FileRoot"
+        Parameter4.Optional = False
+        Parameter5.DefaultValue = ""
+        Parameter5.Description = "FileExt"
+        Parameter5.Name = "FileExt"
+        Parameter5.Optional = False
+        Me.UnusedFilename.Parameters.Add(Parameter4)
+        Me.UnusedFilename.Parameters.Add(Parameter5)
+        Me.UnusedFilename.ProviderName = "UnusedFilename"
+        Me.UnusedFilename.Register = True
         CType(Me.ExpandTemplateToFile, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ExpandTemplate, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UnusedFilename, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
     Friend WithEvents ExpandTemplateToFile As DevExpress.CodeRush.Core.TextCommand
-    Friend WithEvents ExpandTemplate As DevExpress.CodeRush.Extensions.StringProvider
+    Friend WithEvents UnusedFilename As DevExpress.CodeRush.Extensions.StringProvider
 
 End Class
