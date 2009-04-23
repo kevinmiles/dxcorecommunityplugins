@@ -61,8 +61,4 @@ Public Class PlugIn1
     Private Function FileExists(ByVal BaseFilename As String) As Boolean
         Return System.IO.File.Exists(GetActiveFolder() & "\" & BaseFilename)
     End Function
-
-    Private Sub Replace_GetString(ByVal ea As DevExpress.CodeRush.Core.GetStringEventArgs)
-        ea.Value = ea.Parameters(0).ValueAsStr.Replace(ea.Parameters(1).ValueAsStr, ea.Parameters(2).ValueAsStr)
-    End Sub
 End Class
