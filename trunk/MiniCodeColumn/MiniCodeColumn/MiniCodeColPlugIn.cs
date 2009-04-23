@@ -18,8 +18,9 @@ using System.Drawing.Drawing2D;
 
 namespace MiniCodeColumn
 {
-    public delegate void DrawCodeColumnDelegate(TextView view);
-
+    /// <summary>
+    /// Plugin for visualizing complete codefile as small column left of the scrollbar
+    /// </summary>
     public partial class MiniCodeColPlugIn : StandardPlugIn
     {
         int last_top_line = -1;
@@ -28,7 +29,8 @@ namespace MiniCodeColumn
         public int ColumnWidth = 40;
         public int last_height_divisor = 1;
 
-        SolidBrush ColumnBackgroundBrush;
+        SolidBrush ColumnBackgroundBrushCodeColumn;
+        SolidBrush ColumnBackgroundBrushSelectedWord;
         SolidBrush ColumnBrushVisibleLines;
 
         Pen CodePenNormalLine;
@@ -189,8 +191,10 @@ namespace MiniCodeColumn
 
         private void CreateGraphicElements()
         {
-            if (ColumnBackgroundBrush==null)
-                ColumnBackgroundBrush = new SolidBrush(Color.FromArgb(40, Color.Blue));
+            if (ColumnBackgroundBrushCodeColumn==null)
+                ColumnBackgroundBrushCodeColumn = new SolidBrush(CodeRush.Color.VSLight);
+            if (ColumnBackgroundBrushSelectedWord == null)
+                ColumnBackgroundBrushSelectedWord = new SolidBrush(Color.FromArgb(40, Color.Blue));
             if (ColumnBrushVisibleLines == null)
                 ColumnBrushVisibleLines = new SolidBrush(Color.FromArgb(70, Color.DarkBlue));
 
@@ -248,7 +252,14 @@ namespace MiniCodeColumn
                             int start_index = txt.IndexOf(selected_double_click) + 1;
                             //SourceRange range = new SourceRange(l, txt.IndexOf(selected_double_click) + 1, l, txt.IndexOf(selected_double_click) + selected_double_click.Length + 1);
                             //graphics.FillRectangle(ColumnBrushVisibleLines, textView.GetRectangleFromRange(range));
-                            textView.HighlightCode(l, start_index, l, start_index + selected_double_click.Length, ColumnBrushVisibleLines.Color, ColumnBackgroundBrush.Color, Color.White);
+                            textView.HighlightCode(
+                                l, 
+                                start_index, 
+                                l, 
+                                start_index + selected_double_click.Length,
+                                ColumnBrushVisibleLines.Color, 
+                                ColumnBackgroundBrushSelectedWord.Color, 
+                                Color.White);
                         }
                     }
                 }
@@ -281,13 +292,15 @@ namespace MiniCodeColumn
             {
                 //graphics.SmoothingMode = SmoothingMode.AntiAlias;
                 Rectangle rect = GetCodeColumnRect(textView);
-                graphics.FillRectangle(ColumnBackgroundBrush, rect);
+                //graphics.FillRectangle(ColumnBackgroundBrush, rect);
 
                 if (rect != last_code_rect)
                 {
                     textView.Invalidate(last_code_rect);
                 }
                 last_code_rect = rect;
+
+                graphics.FillRectangle(ColumnBackgroundBrushCodeColumn, rect);
 
                 // alle Zeilen holen
                 TextViewLines items = textView.Lines;
@@ -318,7 +331,7 @@ namespace MiniCodeColumn
                     string ltr = txt.TrimStart();
                     start = (txt.Length - ltr.Length) / width_divisor;
                     if (start > ColumnWidth)
-                        start = ColumnWidth-6;
+                        start = ColumnWidth - 6;
                     end = txt.Length / width_divisor;
                     if (end > ColumnWidth)
                         end = ColumnWidth;
