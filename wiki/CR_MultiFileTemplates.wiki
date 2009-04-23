@@ -1,0 +1,17 @@
+#summary Templates that Generate Multiple Files
+
+= Introduction =
+
+Create a multi-file Winform without going near the file new dialog
+= Details =
+
+Proof of concept....
+
+  * Install Plug-in and import VB templates [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_MultiFileTemplates/ found here]
+  * Create VB Console App
+  * Type {{{cnf<space> }}}
+  * Witness the creation of a new Form without visiting the File new Dialog
+  * Repeat
+  * Notice Form2 used instead of Form1
+
+C# templates can be created just as easily. I may even upload some later.
