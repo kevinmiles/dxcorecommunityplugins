@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{95F6E64F-67A4-4423-B9DA-6061455F8B05}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -149,7 +149,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.vb" />
     <Compile Include="OptionsCreateStubForHandler.Designer.vb">
       <DependentUpon>OptionsCreateStubForHandler.vb</DependentUpon>
     </Compile>
@@ -157,6 +156,9 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="PluginLogic.vb" />
+    <Compile Include="Properties\AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Refactor_CreateStubForHandlerPlugIn.Designer.vb">
       <DependentUpon>Refactor_CreateStubForHandlerPlugIn.vb</DependentUpon>
     </Compile>
