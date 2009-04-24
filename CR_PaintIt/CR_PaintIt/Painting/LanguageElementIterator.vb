@@ -1,7 +1,4 @@
-Imports CR_PaintIt.Painting
 Imports System.Collections
-Imports DevExpress.CodeRush.Core
-Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
 Imports SP = DevExpress.CodeRush.StructuralParser
 Imports System
@@ -39,9 +36,10 @@ Friend Class LanguageElementIterator
 #End Region
     Public Sub New(ByVal StartElement As LanguageElement, Optional ByVal Evaluator As LanguageElementEvaluatorDelegate = Nothing)
         mStartElement = StartElement
-        mEvaluator = Evaluator
         If mEvaluator Is Nothing Then
             mEvaluator = AddressOf AllElements
+        Else
+            mEvaluator = Evaluator
         End If
         Call Reset()
     End Sub
