@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D7690735-F8BD-4447-97CB-A65D61366631}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -135,18 +135,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DrawLinesBetweenMethodsPlugIn.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DrawLinesBetweenMethodsSettings.cs" />
     <Compile Include="OptDrawLinesBetweenMethods.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="OptDrawLinesBetweenMethods.Designer.cs">
       <DependentUpon>OptDrawLinesBetweenMethods.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DrawLinesBetweenMethodsPlugIn.resx">
       <DependentUpon>DrawLinesBetweenMethodsPlugIn.cs</DependentUpon>
       <SubType>Designer</SubType>
