@@ -138,6 +138,9 @@
     <Compile Include="DrawLinesBetweenMethodsPlugIn.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DrawLinesBetweenMethodsSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="OptDrawLinesBetweenMethods.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -170,6 +173,9 @@
       <ProductName>.NET Framework 3.5</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
