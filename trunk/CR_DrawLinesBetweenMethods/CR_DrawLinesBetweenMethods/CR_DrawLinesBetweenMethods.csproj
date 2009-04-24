@@ -138,7 +138,6 @@
     <Compile Include="DrawLinesBetweenMethodsPlugIn.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DrawLinesBetweenMethodsSettings.cs" />
     <Compile Include="OptDrawLinesBetweenMethods.cs">
       <SubType>UserControl</SubType>
     </Compile>
