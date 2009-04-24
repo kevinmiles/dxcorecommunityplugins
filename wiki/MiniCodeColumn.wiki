@@ -48,3 +48,9 @@ So this got again my favorite sticker :
 </td><td>
 [http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/IntroducingRockScroll_C29C/works-on-my-machine-starburst_3.png]
 </td></tr></table>
+
+=== Call for Comments ===
+
+If you like it - or not - please drop a comment :-)
+
+If you find some serious errors , please use the [http://code.google.com/p/dxcorecommunityplugins/issues/list issues tab].
