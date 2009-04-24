@@ -8,7 +8,8 @@ If you know about [http://www.hanselman.com/blog/IntroducingRockScroll.aspx Rock
 
 === Installation ===
 
-Please follow the general [InstallInstructions] on putting the plugin assembly in the right spot. With the newest !DxCore version you will be asked for a folder to place in community plugins, then this is the place to drop the [http://code.google.com/p/dxpluginminicodecol/downloads/list MiniCodeColumn.dll from the download-list].
+Please follow the general [InstallInstructions] on putting the plugin assembly in the right spot. With the newest !DxCore version you will be asked for a folder to place in community plugins, then this is the place to drop the !MiniCodeColumn.dll from the 
+[http://code.google.com/p/dxcorecommunityplugins/wiki/DownloadInstructions?tm=2 download-list].
 
 === Usage ===
 
@@ -41,11 +42,9 @@ I am R.Warnat and I created this plugin on top of their ideas.
 With some combinations of vista and/or service packs !RockScroll 
 stopped working on my machine and _I reinvented the wheel_. 
 
+Thanks to Rory Becker this project came still quick to life.
+
 So this got again my favorite sticker :
 </td><td>
 [http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/IntroducingRockScroll_C29C/works-on-my-machine-starburst_3.png]
 </td></tr></table>
-
-=== Beta Download ===
-
-Until my tests with the Community-Version of !DxCore succeeds you could download a copy from [http://code.google.com/p/dxpluginminicodecol/downloads/list this list].
