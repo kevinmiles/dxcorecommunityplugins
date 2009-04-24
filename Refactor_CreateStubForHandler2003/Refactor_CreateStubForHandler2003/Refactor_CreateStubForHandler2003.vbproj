@@ -1,0 +1,161 @@
+<VisualStudioProject>
+    <VisualBasic
+        ProjectType = "Local"
+        ProductVersion = "7.10.3077"
+        SchemaVersion = "2.0"
+        ProjectGuid = "{95F6E64F-67A4-4423-B9DA-6061455F8B05}"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                AssemblyKeyContainerName = ""
+                AssemblyName = "Refactor_CreateStubForHandler"
+                AssemblyOriginatorKeyFile = ""
+                AssemblyOriginatorKeyMode = "None"
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Grid"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                OutputType = "Library"
+                OptionCompare = "Binary"
+                OptionExplicit = "On"
+                OptionStrict = "Off"
+                RootNamespace = "Refactor_CreateStubForHandler"
+                StartupObject = "WizardTemplate.Form1"
+            >
+                <Config
+                    Name = "Debug"
+                    BaseAddress = "285212672"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = ""
+                    DefineDebug = "true"
+                    DefineTrace = "true"
+                    DebugSymbols = "true"
+                    IncrementalBuild = "true"
+                    Optimize = "false"
+                    OutputPath = "..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\PlugIns\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "1"
+                />
+                <Config
+                    Name = "Release"
+                    BaseAddress = "285212672"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = ""
+                    DefineDebug = "false"
+                    DefineTrace = "true"
+                    DebugSymbols = "false"
+                    IncrementalBuild = "false"
+                    Optimize = "true"
+                    OutputPath = "..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\PlugIns\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "1"
+                />
+            </Settings>
+            <References>
+                <Reference
+                    Name = "DevExpress.CodeRush.Common"
+                    AssemblyName = "DevExpress.CodeRush.Common"
+                    HintPath = "..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.Common.dll"
+                    AssemblyFolderKey = "hklm\dxcore"
+                />
+                <Reference
+                    Name = "DevExpress.CodeRush.Core"
+                    AssemblyName = "DevExpress.CodeRush.Core"
+                    HintPath = "..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.Core.dll"
+                    AssemblyFolderKey = "hklm\dxcore"
+                />
+                <Reference
+                    Name = "DevExpress.CodeRush.VSCore"
+                    AssemblyName = "DevExpress.CodeRush.VSCore"
+                    HintPath = "..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.VSCore.dll"
+                    AssemblyFolderKey = "hklm\dxcore"
+                />
+                <Reference
+                    Name = "DevExpress.CodeRush.PlugInCore"
+                    AssemblyName = "DevExpress.CodeRush.PlugInCore"
+                    HintPath = "..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.PlugInCore.dll"
+                    AssemblyFolderKey = "hklm\dxcore"
+                />
+                <Reference
+                    Name = "DevExpress.CodeRush.StructuralParser"
+                    AssemblyName = "DevExpress.CodeRush.StructuralParser"
+                    HintPath = "..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.StructuralParser.dll"
+                    AssemblyFolderKey = "hklm\dxcore"
+                />
+                <Reference
+                    Name = "EnvDTE"
+                    AssemblyName = "EnvDTE"
+                    HintPath = "..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\EnvDTE.dll"
+                />
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                    HintPath = "..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                    HintPath = "..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "System.Windows.Forms"
+                    AssemblyName = "System.Windows.Forms"
+                    HintPath = "..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.dll"
+                />
+                <Reference
+                    Name = "DevExpress.Refactor.Core"
+                    AssemblyName = "DevExpress.Refactor.Core"
+                    HintPath = "..\..\..\..\..\..\Program Files\Developer Express Inc\Refactor! for Visual Studio .NET\Bin\DevExpress.Refactor.Core.dll"
+                    AssemblyFolderKey = "hklm\refactor!"
+                />
+                <Reference
+                    Name = "DevExpress.CodeRush.Interop"
+                    AssemblyName = "DevExpress.CodeRush.Interop"
+                    HintPath = "..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.Interop.dll"
+                    AssemblyFolderKey = "hklm\dxcore"
+                />
+                <Reference
+                    Name = "DevExpress.CodeRush.UserControls"
+                    AssemblyName = "DevExpress.CodeRush.UserControls"
+                    HintPath = "..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\DevExpress.CodeRush.UserControls.dll"
+                    AssemblyFolderKey = "hklm\dxcore"
+                />
+                <Reference
+                    Name = "Microsoft.VisualBasic.Compatibility"
+                    AssemblyName = "Microsoft.VisualBasic.Compatibility"
+                    HintPath = "..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\Microsoft.VisualBasic.Compatibility.dll"
+                />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "AssemblyInfo.vb"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "PluginLogic.vb"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Refactor_CreateStubForHandlerPlugIn.vb"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Refactor_CreateStubForHandlerPlugIn.resx"
+                    DependentUpon = "Refactor_CreateStubForHandlerPlugIn.vb"
+                    BuildAction = "EmbeddedResource"
+                />
+            </Include>
+        </Files>
+    </VisualBasic>
+</VisualStudioProject>
+
