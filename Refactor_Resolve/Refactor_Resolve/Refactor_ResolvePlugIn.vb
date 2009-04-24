@@ -148,8 +148,11 @@ Namespace Refactor_Resolve
             Me.ResolveProvider.AutoUndo = False
             Me.ResolveProvider.Description = "Try to resove the unknown type and add the namspace"
             Me.ResolveProvider.DisplayName = "Resolve"
+            Me.ResolveProvider.Image = CType(resources.GetObject("ResolveProvider.Image"), System.Drawing.Bitmap)
+            Me.ResolveProvider.NeedsSelection = False
             Me.ResolveProvider.ProviderName = "Refactor_Resolve"
             Me.ResolveProvider.Register = True
+            Me.ResolveProvider.SupportsAsyncMode = False
             '
             'ResolveAction
             '
@@ -164,7 +167,7 @@ Namespace Refactor_Resolve
             Me.QuickResolveAction.ActionName = "QuickResolveAction"
             Me.QuickResolveAction.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None
             Me.QuickResolveAction.Description = "Add the most possible namespace to the using (imports) statements."
-            Me.QuickResolveAction.Image = CType(resources.GetObject("QuickResolveAction.Image"), System.Drawing.Bitmap)
+            Me.QuickResolveAction.Image = Nothing
             Me.QuickResolveAction.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
             '
             'Refactor_ResolvePlugIn
@@ -694,11 +697,7 @@ Namespace Refactor_Resolve
             End If
         End Sub
 
-        Private Sub ResolveProvider_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.Refactor.Core.CheckAvailabilityEventArgs)
-            If IsAvailable() Then
-                ea.Availability = RefactoringAvailability.Available
-            End If
-        End Sub
+        
 
         Private Sub ResolveProvider_Apply(ByVal sender As Object, ByVal ea As DevExpress.Refactor.Core.ApplyRefactoringEventArgs) Handles ResolveProvider.Apply
             Try
@@ -758,5 +757,13 @@ Namespace Refactor_Resolve
                 Enhanced = oldEnhanced
             End Try
         End Sub
+
+
+
+    Private Sub ResolveProvider_CheckAvailability( ByVal sender As System.Object,  ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs) 
+            If IsAvailable() Then
+                ea.Available = RefactoringAvailability.Available
+            End If
+End Sub
     End Class
 End Namespace
