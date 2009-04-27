@@ -19,6 +19,8 @@ The best place to ask any questions is in the [http://community.devexpress.com/f
 = Generic Plugin Tutorials =
  * [http://rorybecker.blogspot.com/2009/04/dxcore-plugin-types.html DXCore Plugin Types]
  * [http://rorybecker.blogspot.com/2009/04/creating-new-dxcore-plugin.html Creating a new DXCore plugin]
+ * [http://rorybecker.blogspot.com/2009/04/what-is-dxcore-action.html What is a DXCore Action?]
+ * [http://rorybecker.blogspot.com/2009/04/crhelloworld-your-first-dxcore-plugin.html CR_HelloWorld - Your first DXCore plugin]
 
  * [http://rorybecker.blogspot.com/2008/03/stringproviders-vs-textcommands.html StringProviders vs TextCommands]
 
