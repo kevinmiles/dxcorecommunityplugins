@@ -29,6 +29,7 @@ Partial Class MsdnBclHelpPlugin
       Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MsdnBclHelpPlugin))
+        Dim Parameter1 As DevExpress.CodeRush.Core.Parameter = New DevExpress.CodeRush.Core.Parameter(New DevExpress.CodeRush.Core.StringParameterType)
         Me.actMsdnBclHelp = New DevExpress.CodeRush.Core.Action(Me.components)
         CType(Me.actMsdnBclHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -41,6 +42,11 @@ Partial Class MsdnBclHelpPlugin
         Me.actMsdnBclHelp.Description = "Launch MSDN BCL Help for the current type"
         Me.actMsdnBclHelp.Image = CType(resources.GetObject("actMsdnBclHelp.Image"), System.Drawing.Bitmap)
         Me.actMsdnBclHelp.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
+        Parameter1.DefaultValue = ""
+        Parameter1.Description = "Device"
+        Parameter1.Name = "device"
+        Parameter1.Optional = True
+        Me.actMsdnBclHelp.Parameters.Add(Parameter1)
         CType(Me.actMsdnBclHelp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
