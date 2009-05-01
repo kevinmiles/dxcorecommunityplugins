@@ -1,0 +1,18 @@
+#summary Plugin designed to ease the process of moving from Resharper
+= Introduction =
+
+This is a simple plugin (and a set of key bindings to go with it) designed to ease the process of moving from resharper
+
+or just testing out Coderush from a Resharper user's point of view
+
+= Download = 
+Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_ReSharperCompatibility/
+
+There you will find the latest plugin, and also the default shortcuts to help you use it.
+
+= Installation =
+The InstallInstructions page for general instructions are good enough to put the plugin in the right directory but you should also install the shortcut files. 
+
+The shortcut ini files should be extracted to your settings\IDE folder. You can find the Settings folder through the use of a button on the DevExpress 'About' dialog. Found on the DevExpress\About menu
+
+This page will be improved over time, but should be enough to get you started.
