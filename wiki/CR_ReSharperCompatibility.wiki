@@ -1,7 +1,7 @@
 #summary Coderush plugin designed to ease the process of moving from Resharper
 = Introduction =
 
-This is a simple plugin (and a set of key bindings to go with it) designed to ease the process of moving from resharper or just testing out Coderush from a Resharper user's point of view.
+This is a simple plugin and a set of key bindings (currently 34 listed below) designed to ease the process of moving from Resharper or just testing out Coderush and RefactorPro from a Resharper user's point of view.
 
 = Download = 
 Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_ReSharperCompatibility/
@@ -13,7 +13,16 @@ The InstallInstructions page for general instructions will help you correctly pl
 
 The shortcut ini files should be extracted to your Settings\IDE folder. You can find the Settings folder through the use of a button on the DevExpress 'About' dialog. Found on the DevExpress\About menu
 
+= Support =
+Several Resharper functions are now supported:
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ReSharperCompatibility/Screenshots/ResharperKeys1.png
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ReSharperCompatibility/Screenshots/ResharperKeys2.png
+
 = Source = 
 Coderush like this plugin is build on top of the [http://devexpress.com/dxcore DXCore] and the source to this plugin as with all [http://code.google.com/p/dxcorecommunityplugins others on this site] is available free to all.
+
+We would also like to encourage others to fill in any gaps that are felt to be missing :)
 
 This page will be improved over time, but should be enough to get you started.
