@@ -47,6 +47,7 @@ namespace MiniCodeColumn
             // 
             this.EditorMouseDown += new DevExpress.CodeRush.Core.EditorMouseEventHandler(this.PlugIn1_EditorMouseDown);
             this.EditorPaintBackground += new DevExpress.CodeRush.Core.EditorPaintEventHandler(this.PlugIn1_EditorPaintBackground);
+            this.OptionsChanged += new DevExpress.CodeRush.Core.OptionsChangedEventHandler(this.MiniCodeColPlugIn_OptionsChanged);
             this.EditorValidateClipRegion += new DevExpress.CodeRush.Core.EditorValidateClipRegionEventHandler(this.MiniCodeColPlugIn_EditorValidateClipRegion);
             this.TextDocumentDeactivated += new DevExpress.CodeRush.Core.TextDocumentEventHandler(this.MiniCodeColPlugIn_TextDocumentDeactivated);
             this.EditorMouseDoubleClick += new DevExpress.CodeRush.Core.EditorMouseEventHandler(this.PlugIn1_EditorMouseDoubleClick);

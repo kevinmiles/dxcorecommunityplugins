@@ -25,8 +25,7 @@ namespace MiniCodeColumn
     {
         int last_top_line = -1;
         IMenuButton _VisualizeButton;
-        public bool CodeViewOn = true;
-        public int ColumnWidth = 40;
+
         public int last_height_divisor = 1;
 
         SolidBrush ColumnBackgroundBrushCodeColumn;
@@ -109,7 +108,7 @@ namespace MiniCodeColumn
                             _VisualizeButton.SetFace(Properties.Resources.Button);
                             _VisualizeButton.TooltipText = "Toggle Mini Code Column on/off";
                             _VisualizeButton.DescriptionText = "Toggle Mini Code Column on/off";
-                            _VisualizeButton.IsDown = CodeViewOn;
+                            _VisualizeButton.IsDown = PluginOptions.MiniCodeColumnEnabled;
                             _VisualizeButton.Enabled = false;
                             break;
                         }
@@ -132,7 +131,7 @@ namespace MiniCodeColumn
             if (_VisualizeButton == null)
                 return;
 
-            _VisualizeButton.IsDown = CodeViewOn;
+            _VisualizeButton.IsDown = PluginOptions.MiniCodeColumnEnabled;
         }
 
         void VisualizeButton_Click(object sender, MenuButtonClickEventArgs e)
@@ -140,7 +139,7 @@ namespace MiniCodeColumn
             if (_VisualizeButton == null)
                 return;
 
-            CodeViewOn = !CodeViewOn;
+            PluginOptions.MiniCodeColumnEnabled = !PluginOptions.MiniCodeColumnEnabled;
             SaveSettings();
             UpdateVisualizeButtonState();
             CodeRush.TextViews.Refresh();
@@ -148,26 +147,16 @@ namespace MiniCodeColumn
 
         private void LoadSettings()
         {
-            DecoupledStorage store = DevExpress.CodeRush.Core.CodeRush.Options.GetStorage(@"Editor\Painting", "Mini Code Column");
-            if (store != null)
-            {
-                CodeViewOn = store.ReadBoolean("Config", "Enabled", true);
-                UpdateVisualizeButtonState();
-            }
+            PluginOptions.LoadSettings();
+
+            DisposeGraphicElements();
+            CreateGraphicElements();
+            UpdateVisualizeButtonState();
         }
 
         private void SaveSettings()
         {
-            DecoupledStorage store = DevExpress.CodeRush.Core.CodeRush.Options.GetStorage(@"Editor\Painting", "Mini Code Column");
-            if (store != null)
-            {
-                store.WriteBoolean("Config", "Enabled", CodeViewOn);
-            }
-        }
-
-        private void actionOnOff_Execute(ExecuteEventArgs ea)
-        {
-            CodeViewOn = !CodeViewOn;
+            PluginOptions.SaveSettings();
         }
 
         private void PlugIn1_EditorScrolled(EditorScrolledEventArgs ea)
@@ -192,27 +181,52 @@ namespace MiniCodeColumn
         private void CreateGraphicElements()
         {
             if (ColumnBackgroundBrushCodeColumn==null)
-                ColumnBackgroundBrushCodeColumn = new SolidBrush(CodeRush.Color.VSLight);
+                ColumnBackgroundBrushCodeColumn = new SolidBrush(PluginOptions.ColumnBackgroundColor);
             if (ColumnBackgroundBrushSelectedWord == null)
-                ColumnBackgroundBrushSelectedWord = new SolidBrush(Color.FromArgb(40, Color.Blue));
+                ColumnBackgroundBrushSelectedWord = new SolidBrush(PluginOptions.ColumnBackgroundColorSelectedWord);
             if (ColumnBrushVisibleLines == null)
-                ColumnBrushVisibleLines = new SolidBrush(Color.FromArgb(70, Color.DarkBlue));
+                ColumnBrushVisibleLines = new SolidBrush(PluginOptions.ColumnVisibleLinesColor);
 
             if (CodePenNormalLine == null)
-                CodePenNormalLine = new Pen(new SolidBrush(Color.FromArgb(70, Color.Black)));
+                CodePenNormalLine = new Pen(new SolidBrush(PluginOptions.CodeColorNormalLine));
             if (CodePenSelectedWord == null)
-                CodePenSelectedWord = new Pen(new SolidBrush(Color.FromArgb(100, Color.Red)), 4.0f);
+                CodePenSelectedWord = new Pen(new SolidBrush(PluginOptions.CodeColorSelectedWord), 4.0f);
             if (CodePenCommentLine == null)
-                CodePenCommentLine = new Pen(new SolidBrush(Color.FromArgb(70, Color.Green)));
+                CodePenCommentLine = new Pen(new SolidBrush(PluginOptions.CodeColorCommentLine));
         }
-        
+
+        private void DisposeGraphicElements()
+        {
+            if (ColumnBackgroundBrushCodeColumn != null)
+                ColumnBackgroundBrushCodeColumn.Dispose();
+            if (ColumnBackgroundBrushSelectedWord != null)
+                ColumnBackgroundBrushSelectedWord.Dispose();
+            if (ColumnBrushVisibleLines != null)
+                ColumnBrushVisibleLines.Dispose();
+
+            if (CodePenNormalLine != null)
+                CodePenNormalLine.Dispose();
+            if (CodePenSelectedWord != null)
+                CodePenSelectedWord.Dispose();
+            if (CodePenCommentLine != null)
+                CodePenCommentLine.Dispose();
+
+
+            ColumnBackgroundBrushCodeColumn = null;
+            ColumnBackgroundBrushSelectedWord = null;
+            ColumnBrushVisibleLines = null;
+            CodePenNormalLine = null;
+            CodePenSelectedWord = null;
+            CodePenCommentLine = null;
+        }
+
         private Rectangle GetCodeColumnRect(TextView textView)
         {
             Rectangle rect = new Rectangle(0, 0, textView.Width, textView.Height); 
             //.GetRectangleFromRange(new SourceRange(textView.TopLine, 0, textView.BottomLine, 0));
 
-            rect.X = rect.Right - ColumnWidth;
-            rect.Width = ColumnWidth;
+            rect.X = rect.Right - PluginOptions.ColumnWidth;
+            rect.Width = PluginOptions.ColumnWidth;
 
             return rect;
         }
@@ -229,9 +243,12 @@ namespace MiniCodeColumn
 
         private void HighlightSelectedText()
         {
+            if (!PluginOptions.WordDoubleClickEnabled)
+                return;
+
             TextView textView = CodeRush.TextViews.Active;
 
-            if (!CodeViewOn || textView == null || (selected_double_click.Length <= 2))
+            if (!PluginOptions.MiniCodeColumnEnabled || textView == null || (selected_double_click.Length <= 2))
                 return;
 
             CreateGraphicElements();
@@ -279,7 +296,7 @@ namespace MiniCodeColumn
         {
             TextView textView = CodeRush.TextViews.Active;
 
-            if (!CodeViewOn || (textView == null) || drawing)
+            if (!PluginOptions.MiniCodeColumnEnabled || (textView == null) || drawing)
                 return;
 
             drawing = true;
@@ -300,10 +317,11 @@ namespace MiniCodeColumn
                 }
                 last_code_rect = rect;
 
-                graphics.FillRectangle(ColumnBackgroundBrushCodeColumn, rect);
-
                 // alle Zeilen holen
                 TextViewLines items = textView.Lines;
+
+                graphics.FillRectangle(ColumnBackgroundBrushCodeColumn, rect);
+
 
                 int width_divisor = 2;
                 // falls die Höhe nicht reicht, Teiler ermitteln
@@ -317,7 +335,7 @@ namespace MiniCodeColumn
                 // den sichtbaren Bereich markieren
                 Rectangle visible_rect = new Rectangle(
                     rect.X, rect.Y + (textView.TopLine / height_divisor), 
-                    ColumnWidth, (textView.BottomLine - textView.TopLine) / height_divisor);
+                    PluginOptions.ColumnWidth, (textView.BottomLine - textView.TopLine) / height_divisor);
                 graphics.FillRectangle(ColumnBrushVisibleLines, visible_rect);
 
 
@@ -330,16 +348,22 @@ namespace MiniCodeColumn
                     string txt = items.GetText(l).TrimEnd().Replace("\t", "    ");
                     string ltr = txt.TrimStart();
                     start = (txt.Length - ltr.Length) / width_divisor;
-                    if (start > ColumnWidth)
-                        start = ColumnWidth - 6;
+                    if (start > PluginOptions.ColumnWidth)
+                        start = PluginOptions.ColumnWidth - 6;
                     end = txt.Length / width_divisor;
-                    if (end > ColumnWidth)
-                        end = ColumnWidth;
+                    if (end > PluginOptions.ColumnWidth)
+                        end = PluginOptions.ColumnWidth;
 
-                    if (ltr.StartsWith("//"))
-                        graphics.DrawLine(CodePenCommentLine, new Point(left + start, y), new Point(left + end, y));
-                    else
+                    int start_of_comment = txt.IndexOf("//") / width_divisor;
+                    int end_of_comment = end;
+                    if (start_of_comment >= 0)
+                        end = start_of_comment - 1;
+
+                    if (start>end)
                         graphics.DrawLine(CodePenNormalLine, new Point(left + start, y), new Point(left + end, y));
+
+                    if (start_of_comment>=0)
+                        graphics.DrawLine(CodePenCommentLine, new Point(left + start_of_comment, y), new Point(left + end_of_comment, y));
                 }
 
                 if (selected_double_click.Length > 2)
@@ -355,11 +379,11 @@ namespace MiniCodeColumn
                         {
                             int start_index = txt.IndexOf(selected_double_click);
                             start = start_index / width_divisor;
-                            if (start > ColumnWidth)
-                                start = ColumnWidth - 2;
+                            if (start > PluginOptions.ColumnWidth)
+                                start = PluginOptions.ColumnWidth - 2;
                             end = (start_index + selected_double_click.Length) / width_divisor;
-                            if (end > ColumnWidth)
-                                end = ColumnWidth;
+                            if (end > PluginOptions.ColumnWidth)
+                                end = PluginOptions.ColumnWidth;
                             graphics.DrawLine(
                                 CodePenSelectedWord, 
                                 new Point(left + start, y - 1), 
@@ -393,6 +417,9 @@ namespace MiniCodeColumn
         /// <param name="ea"></param>
         private void PlugIn1_EditorMouseDoubleClick(EditorMouseEventArgs ea)
         {
+            if (!PluginOptions.WordDoubleClickEnabled)
+                return;
+
             TextView textView = CodeRush.TextViews.Active;
             if (textView != null)
             {
@@ -415,7 +442,10 @@ namespace MiniCodeColumn
 
         private void PlugIn1_EditorMouseDown(EditorMouseEventArgs ea)
         {
-            if ((ea.TextView != null) && (ea.X > ea.TextView.Width - ColumnWidth))
+            if (!PluginOptions.MiniCodeColumnEnabled)
+                return;
+
+            if ((ea.TextView != null) && (ea.X > ea.TextView.Width - PluginOptions.ColumnWidth))
             {
                 int line = ea.Y * last_height_divisor;
                 if (line > 10)
@@ -443,6 +473,16 @@ namespace MiniCodeColumn
         private void MiniCodeColPlugIn_EditorValidateClipRegion(EditorValidateClipRegionEventArgs ea)
         {
 
+        }
+
+        private void MiniCodeColPlugIn_OptionsChanged(OptionsChangedEventArgs ea)
+        {           
+            LoadSettings();
+            TextView textView = CodeRush.TextViews.Active;
+            if (textView != null)
+            {
+                textView.Invalidate();
+            }
         }
     }
 }
