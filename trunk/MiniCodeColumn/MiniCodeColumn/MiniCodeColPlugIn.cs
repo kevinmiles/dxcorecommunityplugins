@@ -28,13 +28,13 @@ namespace MiniCodeColumn
 
         public int last_height_divisor = 1;
 
-        SolidBrush ColumnBackgroundBrushCodeColumn;
-        SolidBrush ColumnBackgroundBrushSelectedWord;
-        SolidBrush ColumnBrushVisibleLines;
+        internal static SolidBrush ColumnBackgroundBrushCodeColumn;
+        internal static SolidBrush ColumnBackgroundBrushSelectedWord;
+        internal static SolidBrush ColumnBrushVisibleLines;
 
-        Pen CodePenNormalLine;
-        Pen CodePenSelectedWord;
-        Pen CodePenCommentLine;
+        internal static Pen CodePenNormalLine;
+        internal static Pen CodePenSelectedWord;
+        internal static Pen CodePenCommentLine;
 
         string selected_double_click = "";
 
@@ -178,7 +178,7 @@ namespace MiniCodeColumn
             }
         }
 
-        private void CreateGraphicElements()
+        internal static void CreateGraphicElements()
         {
             if (ColumnBackgroundBrushCodeColumn==null)
                 ColumnBackgroundBrushCodeColumn = new SolidBrush(PluginOptions.ColumnBackgroundColor);
@@ -195,7 +195,7 @@ namespace MiniCodeColumn
                 CodePenCommentLine = new Pen(new SolidBrush(PluginOptions.CodeColorCommentLine));
         }
 
-        private void DisposeGraphicElements()
+        internal static void DisposeGraphicElements()
         {
             if (ColumnBackgroundBrushCodeColumn != null)
                 ColumnBackgroundBrushCodeColumn.Dispose();

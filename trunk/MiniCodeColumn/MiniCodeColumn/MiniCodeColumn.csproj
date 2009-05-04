@@ -61,6 +61,7 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Line.cs" />
     <Compile Include="MiniCodeColPlugIn.cs">
       <SubType>Component</SubType>
     </Compile>
