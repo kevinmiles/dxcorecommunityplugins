@@ -24,7 +24,7 @@ If code lines would exeed the available space, lines are compressed (2x, 3x etc.
 
 === Options ===
 
-The options page finally arrived. The [http://code.google.com/p/dxcorecommunityplugins/wiki/MiniCodeColumn screenshot] was too big for this page.
+The options page finally arrived. The [http://code.google.com/p/dxcorecommunityplugins/wiki/MiniCodeColumn/Options screenshot] was too big for this page.
 
 </td><td>
 [http://dxcorecommunityplugins.googlecode.com/svn/trunk/MiniCodeColumn/Documents/ScreenShot.png]
