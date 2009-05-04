@@ -39,5 +39,80 @@ namespace MiniCodeColumn
             EndOfComment = end_of_comment;
             StartOfWord = start_of_word;
         }
+
+        public static List<Line> SampleLines
+        {
+            get
+            {
+                List<Line> items = new List<Line>();
+
+                items.Add(new Line(-1, -1, 4, 30));
+                items.Add(new Line(-1, -1, 4, 35));
+                items.Add(new Line());
+                items.Add(new Line(4, 20));
+                items.Add(new Line(4, 5));
+                items.Add(new Line(8, 20));
+                items.Add(new Line());
+                items.Add(new Line(8, 25));
+                items.Add(new Line(8, 20, -1, -1, 10));
+                items.Add(new Line(4, 5));
+                items.Add(new Line());
+                items.Add(new Line(-1, -1, 4, 38));
+                items.Add(new Line(-1, -1, 4, 30));
+                items.Add(new Line());
+                items.Add(new Line(4, 28));
+                items.Add(new Line(4, 5));
+                items.Add(new Line(8, 22, -1, -1, 12));
+                items.Add(new Line(8, 29));
+                items.Add(new Line(8, 17));
+                items.Add(new Line(4, 5));
+                items.Add(new Line());
+                items.Add(new Line(-1, -1, 4, 30));
+                items.Add(new Line(-1, -1, 4, 35));
+                items.Add(new Line());
+                items.Add(new Line(4, 20));
+                items.Add(new Line(4, 5));
+                items.Add(new Line(8, 20));
+                items.Add(new Line(8, 25));
+                items.Add(new Line(8, 20, -1, -1, 10));
+                items.Add(new Line(4, 5));
+                items.Add(new Line());
+                items.Add(new Line(-1, -1, 4, 38));
+                items.Add(new Line(-1, -1, 4, 30));
+                items.Add(new Line());
+                items.Add(new Line(4, 28));
+                items.Add(new Line(4, 5));
+                items.Add(new Line(8, 22, -1, -1, 12));
+                items.Add(new Line(8, 29));
+                items.Add(new Line(8, 17));
+                items.Add(new Line(4, 5));
+                items.Add(new Line());
+                items.Add(new Line(-1, -1, 4, 30));
+                items.Add(new Line(-1, -1, 4, 35));
+                items.Add(new Line());
+                items.Add(new Line(4, 20));
+                items.Add(new Line(4, 5));
+                items.Add(new Line());
+                items.Add(new Line(8, 22));
+                items.Add(new Line(8, 27));
+                items.Add(new Line(8, 20, -1, -1, 10));
+                items.Add(new Line(4, 5));
+                items.Add(new Line());
+                items.Add(new Line(-1, -1, 4, 38));
+                items.Add(new Line(-1, -1, 4, 30));
+                items.Add(new Line());
+                items.Add(new Line(4, 28));
+                items.Add(new Line());
+                items.Add(new Line(4, 5));
+                items.Add(new Line(8, 22, -1, -1, 8));
+                items.Add(new Line(8, 29));
+                items.Add(new Line(4, 5));
+                items.Add(new Line());
+                items.Add(new Line(8, 17));
+                items.Add(new Line(4, 5));
+
+                return items;
+            }
+        }
     }
 }

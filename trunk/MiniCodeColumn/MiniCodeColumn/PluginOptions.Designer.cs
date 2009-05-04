@@ -42,6 +42,23 @@ namespace MiniCodeColumn
             this.chkEnabled = new System.Windows.Forms.CheckBox();
             this.main_options_panel = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.btnResetSettings = new System.Windows.Forms.Button();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.trackCodeColorSelectedWord = new System.Windows.Forms.TrackBar();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.btnCodeColorSelectedWord = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.panel16 = new System.Windows.Forms.Panel();
+            this.trackColumnBackgroundColorSelectedWord = new System.Windows.Forms.TrackBar();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.btnColumnBackgroundColorSelectedWord = new System.Windows.Forms.Button();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
             this.trackCommentColor = new System.Windows.Forms.TrackBar();
             this.label18 = new System.Windows.Forms.Label();
@@ -82,27 +99,16 @@ namespace MiniCodeColumn
             this.lblWidth = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panelSample = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.sampleHeader = new System.Windows.Forms.Label();
             this.chkWordHighlight = new System.Windows.Forms.CheckBox();
-            this.panel13 = new System.Windows.Forms.Panel();
-            this.btnCodeColorSelectedWord = new System.Windows.Forms.Button();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.panel14 = new System.Windows.Forms.Panel();
-            this.trackCodeColorSelectedWord = new System.Windows.Forms.TrackBar();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.panel15 = new System.Windows.Forms.Panel();
-            this.btnColumnBackgroundColorSelectedWord = new System.Windows.Forms.Button();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.panel16 = new System.Windows.Forms.Panel();
-            this.trackColumnBackgroundColorSelectedWord = new System.Windows.Forms.TrackBar();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.btnResetSettings = new System.Windows.Forms.Button();
             this.main_options_panel.SuspendLayout();
             this.panel9.SuspendLayout();
+            this.panel14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackCodeColorSelectedWord)).BeginInit();
+            this.panel13.SuspendLayout();
+            this.panel16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackColumnBackgroundColorSelectedWord)).BeginInit();
+            this.panel15.SuspendLayout();
             this.panel12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackCommentColor)).BeginInit();
             this.panel5.SuspendLayout();
@@ -118,12 +124,6 @@ namespace MiniCodeColumn
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackWidth)).BeginInit();
             this.panelSample.SuspendLayout();
-            this.panel13.SuspendLayout();
-            this.panel14.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackCodeColorSelectedWord)).BeginInit();
-            this.panel15.SuspendLayout();
-            this.panel16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackColumnBackgroundColorSelectedWord)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -173,6 +173,191 @@ namespace MiniCodeColumn
             this.panel9.Size = new System.Drawing.Size(319, 355);
             this.panel9.TabIndex = 17;
             // 
+            // btnResetSettings
+            // 
+            this.btnResetSettings.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnResetSettings.Location = new System.Drawing.Point(0, 334);
+            this.btnResetSettings.Name = "btnResetSettings";
+            this.btnResetSettings.Size = new System.Drawing.Size(319, 21);
+            this.btnResetSettings.TabIndex = 29;
+            this.btnResetSettings.Text = "Reset settings";
+            this.btnResetSettings.UseVisualStyleBackColor = true;
+            this.btnResetSettings.Click += new System.EventHandler(this.btnResetSettings_Click);
+            // 
+            // panel14
+            // 
+            this.panel14.Controls.Add(this.trackCodeColorSelectedWord);
+            this.panel14.Controls.Add(this.label22);
+            this.panel14.Controls.Add(this.label23);
+            this.panel14.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel14.Location = new System.Drawing.Point(0, 293);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(319, 30);
+            this.panel14.TabIndex = 26;
+            // 
+            // trackCodeColorSelectedWord
+            // 
+            this.trackCodeColorSelectedWord.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackCodeColorSelectedWord.LargeChange = 10;
+            this.trackCodeColorSelectedWord.Location = new System.Drawing.Point(118, 0);
+            this.trackCodeColorSelectedWord.Maximum = 100;
+            this.trackCodeColorSelectedWord.Name = "trackCodeColorSelectedWord";
+            this.trackCodeColorSelectedWord.Size = new System.Drawing.Size(133, 30);
+            this.trackCodeColorSelectedWord.TabIndex = 3;
+            this.trackCodeColorSelectedWord.TickFrequency = 10;
+            this.trackCodeColorSelectedWord.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.trackCodeColorSelectedWord.Scroll += new System.EventHandler(this.trackBackColor_Scroll);
+            // 
+            // label22
+            // 
+            this.label22.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label22.Location = new System.Drawing.Point(251, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(68, 30);
+            this.label22.TabIndex = 2;
+            this.label22.Text = "opaque";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label23
+            // 
+            this.label23.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label23.Location = new System.Drawing.Point(0, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(118, 30);
+            this.label23.TabIndex = 1;
+            this.label23.Text = "transparent";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // panel13
+            // 
+            this.panel13.BackColor = System.Drawing.Color.White;
+            this.panel13.Controls.Add(this.btnCodeColorSelectedWord);
+            this.panel13.Controls.Add(this.label20);
+            this.panel13.Controls.Add(this.label21);
+            this.panel13.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel13.Location = new System.Drawing.Point(0, 273);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(319, 20);
+            this.panel13.TabIndex = 25;
+            // 
+            // btnCodeColorSelectedWord
+            // 
+            this.btnCodeColorSelectedWord.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCodeColorSelectedWord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCodeColorSelectedWord.Location = new System.Drawing.Point(118, 0);
+            this.btnCodeColorSelectedWord.Name = "btnCodeColorSelectedWord";
+            this.btnCodeColorSelectedWord.Size = new System.Drawing.Size(130, 20);
+            this.btnCodeColorSelectedWord.TabIndex = 4;
+            this.btnCodeColorSelectedWord.UseVisualStyleBackColor = true;
+            this.btnCodeColorSelectedWord.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // label20
+            // 
+            this.label20.BackColor = System.Drawing.SystemColors.Control;
+            this.label20.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label20.Location = new System.Drawing.Point(248, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(71, 20);
+            this.label20.TabIndex = 5;
+            // 
+            // label21
+            // 
+            this.label21.BackColor = System.Drawing.SystemColors.Control;
+            this.label21.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label21.Location = new System.Drawing.Point(0, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(118, 20);
+            this.label21.TabIndex = 3;
+            this.label21.Text = "Highlighted word";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // panel16
+            // 
+            this.panel16.Controls.Add(this.trackColumnBackgroundColorSelectedWord);
+            this.panel16.Controls.Add(this.label26);
+            this.panel16.Controls.Add(this.label27);
+            this.panel16.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel16.Location = new System.Drawing.Point(0, 243);
+            this.panel16.Name = "panel16";
+            this.panel16.Size = new System.Drawing.Size(319, 30);
+            this.panel16.TabIndex = 28;
+            // 
+            // trackColumnBackgroundColorSelectedWord
+            // 
+            this.trackColumnBackgroundColorSelectedWord.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackColumnBackgroundColorSelectedWord.LargeChange = 10;
+            this.trackColumnBackgroundColorSelectedWord.Location = new System.Drawing.Point(118, 0);
+            this.trackColumnBackgroundColorSelectedWord.Maximum = 100;
+            this.trackColumnBackgroundColorSelectedWord.Name = "trackColumnBackgroundColorSelectedWord";
+            this.trackColumnBackgroundColorSelectedWord.Size = new System.Drawing.Size(133, 30);
+            this.trackColumnBackgroundColorSelectedWord.TabIndex = 3;
+            this.trackColumnBackgroundColorSelectedWord.TickFrequency = 10;
+            this.trackColumnBackgroundColorSelectedWord.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.trackColumnBackgroundColorSelectedWord.Scroll += new System.EventHandler(this.trackBackColor_Scroll);
+            // 
+            // label26
+            // 
+            this.label26.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label26.Location = new System.Drawing.Point(251, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(68, 30);
+            this.label26.TabIndex = 2;
+            this.label26.Text = "opaque";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label27
+            // 
+            this.label27.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label27.Location = new System.Drawing.Point(0, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(118, 30);
+            this.label27.TabIndex = 1;
+            this.label27.Text = "transparent";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // panel15
+            // 
+            this.panel15.BackColor = System.Drawing.Color.White;
+            this.panel15.Controls.Add(this.btnColumnBackgroundColorSelectedWord);
+            this.panel15.Controls.Add(this.label24);
+            this.panel15.Controls.Add(this.label25);
+            this.panel15.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel15.Location = new System.Drawing.Point(0, 223);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(319, 20);
+            this.panel15.TabIndex = 27;
+            // 
+            // btnColumnBackgroundColorSelectedWord
+            // 
+            this.btnColumnBackgroundColorSelectedWord.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnColumnBackgroundColorSelectedWord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnColumnBackgroundColorSelectedWord.Location = new System.Drawing.Point(118, 0);
+            this.btnColumnBackgroundColorSelectedWord.Name = "btnColumnBackgroundColorSelectedWord";
+            this.btnColumnBackgroundColorSelectedWord.Size = new System.Drawing.Size(130, 20);
+            this.btnColumnBackgroundColorSelectedWord.TabIndex = 4;
+            this.btnColumnBackgroundColorSelectedWord.UseVisualStyleBackColor = true;
+            this.btnColumnBackgroundColorSelectedWord.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // label24
+            // 
+            this.label24.BackColor = System.Drawing.SystemColors.Control;
+            this.label24.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label24.Location = new System.Drawing.Point(248, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(71, 20);
+            this.label24.TabIndex = 5;
+            // 
+            // label25
+            // 
+            this.label25.BackColor = System.Drawing.SystemColors.Control;
+            this.label25.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label25.Location = new System.Drawing.Point(0, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(118, 20);
+            this.label25.TabIndex = 3;
+            this.label25.Text = "Double click word";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // panel12
             // 
             this.panel12.Controls.Add(this.trackCommentColor);
@@ -219,6 +404,7 @@ namespace MiniCodeColumn
             // 
             // panel5
             // 
+            this.panel5.BackColor = System.Drawing.Color.White;
             this.panel5.Controls.Add(this.btnCommentColor);
             this.panel5.Controls.Add(this.label16);
             this.panel5.Controls.Add(this.label17);
@@ -241,6 +427,7 @@ namespace MiniCodeColumn
             // 
             // label16
             // 
+            this.label16.BackColor = System.Drawing.SystemColors.Control;
             this.label16.Dock = System.Windows.Forms.DockStyle.Right;
             this.label16.Location = new System.Drawing.Point(248, 0);
             this.label16.Name = "label16";
@@ -249,6 +436,7 @@ namespace MiniCodeColumn
             // 
             // label17
             // 
+            this.label17.BackColor = System.Drawing.SystemColors.Control;
             this.label17.Dock = System.Windows.Forms.DockStyle.Left;
             this.label17.Location = new System.Drawing.Point(0, 0);
             this.label17.Name = "label17";
@@ -303,6 +491,7 @@ namespace MiniCodeColumn
             // 
             // panel3
             // 
+            this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Controls.Add(this.btnLineColor);
             this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.label6);
@@ -325,6 +514,7 @@ namespace MiniCodeColumn
             // 
             // label5
             // 
+            this.label5.BackColor = System.Drawing.SystemColors.Control;
             this.label5.Dock = System.Windows.Forms.DockStyle.Right;
             this.label5.Location = new System.Drawing.Point(248, 0);
             this.label5.Name = "label5";
@@ -333,6 +523,7 @@ namespace MiniCodeColumn
             // 
             // label6
             // 
+            this.label6.BackColor = System.Drawing.SystemColors.Control;
             this.label6.Dock = System.Windows.Forms.DockStyle.Left;
             this.label6.Location = new System.Drawing.Point(0, 0);
             this.label6.Name = "label6";
@@ -387,6 +578,7 @@ namespace MiniCodeColumn
             // 
             // panel10
             // 
+            this.panel10.BackColor = System.Drawing.Color.White;
             this.panel10.Controls.Add(this.btnVisibleRangeColor);
             this.panel10.Controls.Add(this.label11);
             this.panel10.Controls.Add(this.label12);
@@ -409,6 +601,7 @@ namespace MiniCodeColumn
             // 
             // label11
             // 
+            this.label11.BackColor = System.Drawing.SystemColors.Control;
             this.label11.Dock = System.Windows.Forms.DockStyle.Right;
             this.label11.Location = new System.Drawing.Point(248, 0);
             this.label11.Name = "label11";
@@ -417,6 +610,7 @@ namespace MiniCodeColumn
             // 
             // label12
             // 
+            this.label12.BackColor = System.Drawing.SystemColors.Control;
             this.label12.Dock = System.Windows.Forms.DockStyle.Left;
             this.label12.Location = new System.Drawing.Point(0, 0);
             this.label12.Name = "label12";
@@ -471,6 +665,7 @@ namespace MiniCodeColumn
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.Controls.Add(this.btnBackColor);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label3);
@@ -493,6 +688,7 @@ namespace MiniCodeColumn
             // 
             // label2
             // 
+            this.label2.BackColor = System.Drawing.SystemColors.Control;
             this.label2.Dock = System.Windows.Forms.DockStyle.Right;
             this.label2.Location = new System.Drawing.Point(248, 0);
             this.label2.Name = "label2";
@@ -501,6 +697,7 @@ namespace MiniCodeColumn
             // 
             // label3
             // 
+            this.label3.BackColor = System.Drawing.SystemColors.Control;
             this.label3.Dock = System.Windows.Forms.DockStyle.Left;
             this.label3.Location = new System.Drawing.Point(0, 0);
             this.label3.Name = "label3";
@@ -585,7 +782,7 @@ namespace MiniCodeColumn
             // panelSample
             // 
             this.panelSample.BackColor = System.Drawing.Color.White;
-            this.panelSample.Controls.Add(this.label4);
+            this.panelSample.Controls.Add(this.sampleHeader);
             this.panelSample.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelSample.Location = new System.Drawing.Point(344, 0);
             this.panelSample.Name = "panelSample";
@@ -593,15 +790,15 @@ namespace MiniCodeColumn
             this.panelSample.TabIndex = 5;
             this.panelSample.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSample_Paint);
             // 
-            // label4
+            // sampleHeader
             // 
-            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Location = new System.Drawing.Point(0, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(137, 47);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Sample column";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.sampleHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.sampleHeader.Location = new System.Drawing.Point(0, 0);
+            this.sampleHeader.Name = "sampleHeader";
+            this.sampleHeader.Size = new System.Drawing.Size(137, 47);
+            this.sampleHeader.TabIndex = 6;
+            this.sampleHeader.Text = "Sample column";
+            this.sampleHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // chkWordHighlight
             // 
@@ -615,185 +812,6 @@ namespace MiniCodeColumn
             this.chkWordHighlight.Text = "Enable Word Doubleclick Highlighting";
             this.chkWordHighlight.UseVisualStyleBackColor = true;
             // 
-            // panel13
-            // 
-            this.panel13.Controls.Add(this.btnCodeColorSelectedWord);
-            this.panel13.Controls.Add(this.label20);
-            this.panel13.Controls.Add(this.label21);
-            this.panel13.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel13.Location = new System.Drawing.Point(0, 273);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(319, 20);
-            this.panel13.TabIndex = 25;
-            // 
-            // btnCodeColorSelectedWord
-            // 
-            this.btnCodeColorSelectedWord.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCodeColorSelectedWord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCodeColorSelectedWord.Location = new System.Drawing.Point(118, 0);
-            this.btnCodeColorSelectedWord.Name = "btnCodeColorSelectedWord";
-            this.btnCodeColorSelectedWord.Size = new System.Drawing.Size(130, 20);
-            this.btnCodeColorSelectedWord.TabIndex = 4;
-            this.btnCodeColorSelectedWord.UseVisualStyleBackColor = true;
-            this.btnCodeColorSelectedWord.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // label20
-            // 
-            this.label20.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label20.Location = new System.Drawing.Point(248, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(71, 20);
-            this.label20.TabIndex = 5;
-            // 
-            // label21
-            // 
-            this.label21.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label21.Location = new System.Drawing.Point(0, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(118, 20);
-            this.label21.TabIndex = 3;
-            this.label21.Text = "Highlighted word";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // panel14
-            // 
-            this.panel14.Controls.Add(this.trackCodeColorSelectedWord);
-            this.panel14.Controls.Add(this.label22);
-            this.panel14.Controls.Add(this.label23);
-            this.panel14.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel14.Location = new System.Drawing.Point(0, 293);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(319, 30);
-            this.panel14.TabIndex = 26;
-            // 
-            // trackCodeColorSelectedWord
-            // 
-            this.trackCodeColorSelectedWord.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackCodeColorSelectedWord.LargeChange = 10;
-            this.trackCodeColorSelectedWord.Location = new System.Drawing.Point(118, 0);
-            this.trackCodeColorSelectedWord.Maximum = 100;
-            this.trackCodeColorSelectedWord.Name = "trackCodeColorSelectedWord";
-            this.trackCodeColorSelectedWord.Size = new System.Drawing.Size(133, 30);
-            this.trackCodeColorSelectedWord.TabIndex = 3;
-            this.trackCodeColorSelectedWord.TickFrequency = 10;
-            this.trackCodeColorSelectedWord.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
-            this.trackCodeColorSelectedWord.Scroll += new System.EventHandler(this.trackBackColor_Scroll);
-            // 
-            // label22
-            // 
-            this.label22.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label22.Location = new System.Drawing.Point(251, 0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(68, 30);
-            this.label22.TabIndex = 2;
-            this.label22.Text = "opaque";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label23
-            // 
-            this.label23.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label23.Location = new System.Drawing.Point(0, 0);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(118, 30);
-            this.label23.TabIndex = 1;
-            this.label23.Text = "transparent";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // panel15
-            // 
-            this.panel15.Controls.Add(this.btnColumnBackgroundColorSelectedWord);
-            this.panel15.Controls.Add(this.label24);
-            this.panel15.Controls.Add(this.label25);
-            this.panel15.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel15.Location = new System.Drawing.Point(0, 223);
-            this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(319, 20);
-            this.panel15.TabIndex = 27;
-            // 
-            // btnColumnBackgroundColorSelectedWord
-            // 
-            this.btnColumnBackgroundColorSelectedWord.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnColumnBackgroundColorSelectedWord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnColumnBackgroundColorSelectedWord.Location = new System.Drawing.Point(118, 0);
-            this.btnColumnBackgroundColorSelectedWord.Name = "btnColumnBackgroundColorSelectedWord";
-            this.btnColumnBackgroundColorSelectedWord.Size = new System.Drawing.Size(130, 20);
-            this.btnColumnBackgroundColorSelectedWord.TabIndex = 4;
-            this.btnColumnBackgroundColorSelectedWord.UseVisualStyleBackColor = true;
-            this.btnColumnBackgroundColorSelectedWord.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // label24
-            // 
-            this.label24.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label24.Location = new System.Drawing.Point(248, 0);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(71, 20);
-            this.label24.TabIndex = 5;
-            // 
-            // label25
-            // 
-            this.label25.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label25.Location = new System.Drawing.Point(0, 0);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(118, 20);
-            this.label25.TabIndex = 3;
-            this.label25.Text = "Double click word";
-            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // panel16
-            // 
-            this.panel16.Controls.Add(this.trackColumnBackgroundColorSelectedWord);
-            this.panel16.Controls.Add(this.label26);
-            this.panel16.Controls.Add(this.label27);
-            this.panel16.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel16.Location = new System.Drawing.Point(0, 243);
-            this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(319, 30);
-            this.panel16.TabIndex = 28;
-            // 
-            // trackColumnBackgroundColorSelectedWord
-            // 
-            this.trackColumnBackgroundColorSelectedWord.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackColumnBackgroundColorSelectedWord.LargeChange = 10;
-            this.trackColumnBackgroundColorSelectedWord.Location = new System.Drawing.Point(118, 0);
-            this.trackColumnBackgroundColorSelectedWord.Maximum = 100;
-            this.trackColumnBackgroundColorSelectedWord.Name = "trackColumnBackgroundColorSelectedWord";
-            this.trackColumnBackgroundColorSelectedWord.Size = new System.Drawing.Size(133, 30);
-            this.trackColumnBackgroundColorSelectedWord.TabIndex = 3;
-            this.trackColumnBackgroundColorSelectedWord.TickFrequency = 10;
-            this.trackColumnBackgroundColorSelectedWord.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
-            this.trackColumnBackgroundColorSelectedWord.Scroll += new System.EventHandler(this.trackBackColor_Scroll);
-            // 
-            // label26
-            // 
-            this.label26.Dock = System.Windows.Forms.DockStyle.Right;
-            this.label26.Location = new System.Drawing.Point(251, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(68, 30);
-            this.label26.TabIndex = 2;
-            this.label26.Text = "opaque";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label27
-            // 
-            this.label27.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label27.Location = new System.Drawing.Point(0, 0);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(118, 30);
-            this.label27.TabIndex = 1;
-            this.label27.Text = "transparent";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btnResetSettings
-            // 
-            this.btnResetSettings.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnResetSettings.Location = new System.Drawing.Point(0, 329);
-            this.btnResetSettings.Name = "btnResetSettings";
-            this.btnResetSettings.Size = new System.Drawing.Size(319, 26);
-            this.btnResetSettings.TabIndex = 29;
-            this.btnResetSettings.Text = "Reset settings";
-            this.btnResetSettings.UseVisualStyleBackColor = true;
-            this.btnResetSettings.Click += new System.EventHandler(this.btnResetSettings_Click);
-            // 
             // PluginOptions
             // 
             this.Controls.Add(this.chkWordHighlight);
@@ -804,6 +822,14 @@ namespace MiniCodeColumn
             this.CommitChanges += new DevExpress.CodeRush.Core.OptionsPage.CommitChangesEventHandler(this.PluginOptions_CommitChanges);
             this.main_options_panel.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
+            this.panel14.ResumeLayout(false);
+            this.panel14.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackCodeColorSelectedWord)).EndInit();
+            this.panel13.ResumeLayout(false);
+            this.panel16.ResumeLayout(false);
+            this.panel16.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackColumnBackgroundColorSelectedWord)).EndInit();
+            this.panel15.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
             this.panel12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackCommentColor)).EndInit();
@@ -824,14 +850,6 @@ namespace MiniCodeColumn
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackWidth)).EndInit();
             this.panelSample.ResumeLayout(false);
-            this.panel13.ResumeLayout(false);
-            this.panel14.ResumeLayout(false);
-            this.panel14.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackCodeColorSelectedWord)).EndInit();
-            this.panel15.ResumeLayout(false);
-            this.panel16.ResumeLayout(false);
-            this.panel16.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackColumnBackgroundColorSelectedWord)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -895,7 +913,7 @@ namespace MiniCodeColumn
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TrackBar trackWidth;
         private System.Windows.Forms.Label lblWidth;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label sampleHeader;
         private System.Windows.Forms.Panel panelSample;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel6;
