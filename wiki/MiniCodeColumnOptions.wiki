@@ -1,0 +1,7 @@
+#summary MiniCodeColumn options page
+
+=== Sample ===
+[http://dxcorecommunityplugins.googlecode.com/svn/trunk/MiniCodeColumn/Documents/OptionPageScreenShot.png]
+
+=== Plugin ===
+[http://dxcorecommunityplugins.googlecode.com/svn/trunk/MiniCodeColumn back]
