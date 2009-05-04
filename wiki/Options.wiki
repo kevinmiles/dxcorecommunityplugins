@@ -1,2 +1,0 @@
-=== Sample ===
-[http://dxcorecommunityplugins.googlecode.com/svn/trunk/MiniCodeColumn/Documents/OptionPageScreenShot.png]
