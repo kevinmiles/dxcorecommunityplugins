@@ -36,7 +36,7 @@ namespace MiniCodeColumn
 
         protected void UpdateOptionsDialog()
         {
-            trackWidth.Value = ColumnWidth;
+            trackWidth.Value = 110 - ColumnWidth;
 
             btnBackColor.BackColor = ColumnBackgroundColor;
             trackBackColor.Value = ColumnVisibleLinesColor.A;
@@ -129,7 +129,7 @@ namespace MiniCodeColumn
 
         public void ReadOptionsFromDialog()
         {
-            ColumnWidth = trackWidth.Value;
+            ColumnWidth = 110 - trackWidth.Value;
 
             ColumnBackgroundColor = btnBackColor.BackColor;
             ColumnVisibleLinesColor = btnVisibleRangeColor.BackColor;
@@ -139,6 +139,7 @@ namespace MiniCodeColumn
             CodeColorSelectedWord = btnCodeColorSelectedWord.BackColor;
 
             MiniCodeColPlugIn.DisposeGraphicElements();
+            panelSample.Invalidate();
         }
 
         public static void SaveSettings()
@@ -169,8 +170,9 @@ namespace MiniCodeColumn
 
         private void trackWidth_Scroll(object sender, EventArgs e)
         {
-            lblWidth.Text = string.Format("{0} Pixel", trackWidth.Value);
-            ReadOptionsFromDialog();
+            lblWidth.Text = string.Format("{0} Pixel",110 - trackWidth.Value);
+            if (sender!=null)
+                ReadOptionsFromDialog();
         }
 
         private void btnColor_Click(object sender, EventArgs e)
@@ -212,6 +214,8 @@ namespace MiniCodeColumn
             }
             LoadSettings();
             UpdateOptionsDialog();
+            ReadOptionsFromDialog();
+            trackWidth_Scroll(null, null);
         }
 
         private void panelSample_Paint(object sender, PaintEventArgs e)
@@ -219,7 +223,7 @@ namespace MiniCodeColumn
             MiniCodeColPlugIn.CreateGraphicElements();
             Graphics graphics = e.Graphics;
 
-            Rectangle rect = new Rectangle(0, 0, panelSample.Width, panelSample.Height);
+            Rectangle rect = new Rectangle(0, sampleHeader.Height, panelSample.Width, panelSample.Height - sampleHeader.Height);
             rect.X = rect.Right - PluginOptions.ColumnWidth;
             rect.Width = PluginOptions.ColumnWidth;
 
@@ -227,27 +231,7 @@ namespace MiniCodeColumn
             try
             {
                 // alle Zeilen holen
-                List<Line> items = new List<Line>();
-                items.Add(new Line(-1, -1, 4, 30));
-                items.Add(new Line(-1, -1, 4, 35));
-                items.Add(new Line());
-                items.Add(new Line(4, 20));
-                items.Add(new Line(4, 5));
-                items.Add(new Line(8, 20));
-                items.Add(new Line(8, 25));
-                items.Add(new Line(8, 20, -1, -1, 10));
-                items.Add(new Line(4, 5));
-                items.Add(new Line());
-                items.Add(new Line(-1, -1, 4, 38));
-                items.Add(new Line(-1, -1, 4, 30));
-                items.Add(new Line());
-                items.Add(new Line(4, 28));
-                items.Add(new Line(4, 5));
-                items.Add(new Line(8, 22, -1, -1, 12));
-                items.Add(new Line(8, 29));
-                items.Add(new Line(8, 17));
-                items.Add(new Line(4, 5));
-                items.Add(new Line());
+                List<Line> items = Line.SampleLines;
 
                 graphics.FillRectangle(MiniCodeColPlugIn.ColumnBackgroundBrushCodeColumn, rect);
 
@@ -270,7 +254,7 @@ namespace MiniCodeColumn
                 {
                     Line line = items[l];
 
-                    int y = l / height_divisor;
+                    int y = l / height_divisor + rect.Y;
                     start = line.Start / width_divisor;
                     if (start > PluginOptions.ColumnWidth)
                         start = PluginOptions.ColumnWidth - 6;
@@ -278,16 +262,20 @@ namespace MiniCodeColumn
                     if (end > PluginOptions.ColumnWidth)
                         end = PluginOptions.ColumnWidth;
 
-                    int start_of_comment = line.StartOfComment / width_divisor;
-                    int end_of_comment = end;
+                    int start_of_comment = line.StartOfComment;
+                    int end_of_comment = -2;
                     if (start_of_comment >= 0)
+                    {
+                        start_of_comment = start_of_comment / width_divisor;
+                        end_of_comment = line.EndOfComment / width_divisor;
                         end = start_of_comment - 1;
+                    }
 
-                    if (start > end)
-                        graphics.DrawLine(MiniCodeColPlugIn.CodePenNormalLine, new Point(left + start, y), new Point(left + end, y));
-
-                    if (start_of_comment >= 0)
+                    if (start_of_comment < end_of_comment)
                         graphics.DrawLine(MiniCodeColPlugIn.CodePenCommentLine, new Point(left + start_of_comment, y), new Point(left + end_of_comment, y));
+
+                    if (start < end)
+                        graphics.DrawLine(MiniCodeColPlugIn.CodePenNormalLine, new Point(left + start, y), new Point(left + end, y));
                 }
 
                 int selected_double_click_length = 10;
@@ -296,7 +284,7 @@ namespace MiniCodeColumn
                     for (int l = 0; l < items.Count; l++)
                     {
                         Line line = items[l];
-                        int y = l / height_divisor;
+                        int y = l / height_divisor + rect.Y;
                         start = 0;
                         end = 0;
 
@@ -317,7 +305,7 @@ namespace MiniCodeColumn
                     }
                 }
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
                 // System.Diagnostics.Debug.WriteLine(ex.Message);
             }

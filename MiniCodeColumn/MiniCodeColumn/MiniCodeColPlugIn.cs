@@ -354,16 +354,20 @@ namespace MiniCodeColumn
                     if (end > PluginOptions.ColumnWidth)
                         end = PluginOptions.ColumnWidth;
 
-                    int start_of_comment = txt.IndexOf("//") / width_divisor;
-                    int end_of_comment = end;
+                    int start_of_comment = txt.IndexOf("//");
+                    int end_of_comment = -2;
                     if (start_of_comment >= 0)
+                    {
+                        start_of_comment = start_of_comment / width_divisor;
+                        end_of_comment = end;
                         end = start_of_comment - 1;
+                    }
 
-                    if (start>end)
-                        graphics.DrawLine(CodePenNormalLine, new Point(left + start, y), new Point(left + end, y));
-
-                    if (start_of_comment>=0)
+                    if (start_of_comment < end_of_comment)
                         graphics.DrawLine(CodePenCommentLine, new Point(left + start_of_comment, y), new Point(left + end_of_comment, y));
+
+                    if (start < end)
+                        graphics.DrawLine(CodePenNormalLine, new Point(left + start, y), new Point(left + end, y));
                 }
 
                 if (selected_double_click.Length > 2)
@@ -477,7 +481,7 @@ namespace MiniCodeColumn
 
         private void MiniCodeColPlugIn_OptionsChanged(OptionsChangedEventArgs ea)
         {           
-            LoadSettings();
+            // LoadSettings();
             TextView textView = CodeRush.TextViews.Active;
             if (textView != null)
             {
