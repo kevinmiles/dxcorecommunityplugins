@@ -52,11 +52,11 @@ namespace MiniCodeColumn
             if (divisor <= 1)
                 return;
 
-            if (Start > 0) Start /= divisor;
-            if (End > 0) End /= divisor;
-            if (StartOfComment > 0) StartOfComment /= divisor;
-            if (EndOfComment > 0) EndOfComment /= divisor;
-            if (StartOfWord > 0) StartOfWord /= divisor;
+            if (Start > 1) Start /= divisor;
+            if (End > 1) End /= divisor;
+            if (StartOfComment > 1) StartOfComment /= divisor;
+            if (EndOfComment > 1) EndOfComment /= divisor;
+            if (StartOfWord > 1) StartOfWord /= divisor;
         }
 
         public void PressIntoWidth(int max_width)

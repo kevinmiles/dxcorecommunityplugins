@@ -301,6 +301,12 @@ namespace MiniCodeColumn
             int start = 0;
             int end = 0;
             string tabs = new string(' ', textView.TextDocument.TabSize);
+
+            string line_comment_start = "//";
+
+            if (textView.TextDocument.Language == "Basic")
+                line_comment_start = "'";
+
             for (int l = 0; l < textView.TextDocument.LineCount; l++)
             {
                 string txt = textView.TextDocument.GetLine(l).TrimEnd();
@@ -309,9 +315,9 @@ namespace MiniCodeColumn
 
                 string ltr = txt.TrimStart();
                 start = (txt.Length - ltr.Length);
-                end = txt.Length;
+                end = textView.TextDocument.GetLineLength(l);
 
-                int start_of_comment = txt.IndexOf("//");
+                int start_of_comment = txt.IndexOf(line_comment_start);
                 int end_of_comment = -2;
                 if (start_of_comment >= 0)
                 {
