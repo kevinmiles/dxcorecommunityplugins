@@ -299,8 +299,8 @@ namespace MiniCodeColumn
                                 end = PluginOptions.ColumnWidth;
                             graphics.DrawLine(
                                 MiniCodeColPlugIn.CodePenSelectedWord,
-                                new Point(left + start, y - 1),
-                                new Point(left + end, y - 1));
+                                new Point(left + start, y),
+                                new Point(left + end, y));
                         }
                     }
                 }
