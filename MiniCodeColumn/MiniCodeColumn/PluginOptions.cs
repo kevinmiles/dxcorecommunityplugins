@@ -39,26 +39,32 @@ namespace MiniCodeColumn
             trackWidth.Value = 110 - ColumnWidth;
 
             btnBackColor.BackColor = ColumnBackgroundColor;
+            btnBackColor.Tag = trackBackColor;
             trackBackColor.Value = ColumnVisibleLinesColor.A;
             trackBackColor.Tag = btnBackColor;
 
             btnVisibleRangeColor.BackColor = ColumnVisibleLinesColor;
+            btnVisibleRangeColor.Tag = trackVisibleRangeColor;
             trackVisibleRangeColor.Value = ColumnVisibleLinesColor.A;
             trackVisibleRangeColor.Tag = btnVisibleRangeColor;
 
             btnLineColor.BackColor = CodeColorNormalLine;
+            btnLineColor.Tag = trackLineColor;
             trackLineColor.Value = CodeColorNormalLine.A;
             trackLineColor.Tag = btnLineColor;
 
             btnCommentColor.BackColor = CodeColorCommentLine;
+            btnCommentColor.Tag = trackCommentColor;
             trackCommentColor.Value = CodeColorCommentLine.A;
             trackCommentColor.Tag = btnCommentColor;
 
             btnColumnBackgroundColorSelectedWord.BackColor = ColumnBackgroundColorSelectedWord;
+            btnColumnBackgroundColorSelectedWord.Tag = trackColumnBackgroundColorSelectedWord;
             trackColumnBackgroundColorSelectedWord.Value = ColumnBackgroundColorSelectedWord.A;
             trackColumnBackgroundColorSelectedWord.Tag = btnColumnBackgroundColorSelectedWord;
 
             btnCodeColorSelectedWord.BackColor = CodeColorSelectedWord;
+            btnCodeColorSelectedWord.Tag = trackCodeColorSelectedWord;
             trackCodeColorSelectedWord.Value = CodeColorSelectedWord.A;
             trackCodeColorSelectedWord.Tag = btnCodeColorSelectedWord;
         }
@@ -177,11 +183,12 @@ namespace MiniCodeColumn
 
         private void btnColor_Click(object sender, EventArgs e)
         {
+            int A = ((Button)sender).BackColor.A;
             using (ColorDialog dlg = new ColorDialog { AnyColor = true, FullOpen = true, Color = ((Button)sender).BackColor })
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    ((Button)sender).BackColor = dlg.Color;
+                    ((Button)sender).BackColor = Color.FromArgb(A,  dlg.Color);
                     ReadOptionsFromDialog();
                 }
             }
