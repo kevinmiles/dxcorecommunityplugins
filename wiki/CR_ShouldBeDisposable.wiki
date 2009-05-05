@@ -1,0 +1,21 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+This is a DxCore plugin which will examine the currently loaded class and determine if it should implement IDisposable based on the properties and fields defined on the class.  It uses the new Code Issue capabilities in CodeRush v9.
+
+= Installation=
+  # Make sure all instances of Visual Studio are closed
+  # Copy the CR_ShouldBeDisposable.dll file into your Community Plugins directory (this is a user configurable location, but defaults to C:\Program Files\DevExpress 2009.1\IDETools\Community\PlugIns)
+  # Restart Visual Studio
+
+= Details =
+
+With the plugin installed and Code Issues enabled, any class which has a field or property that implements System.IDisposable, and does not itself implement System.IDisposable will have a new code issue added at the class level.  Implementing the IDisposable interface will resolve the issue.
+
+===Future Enhancements===
+  * Verify the members implementing IDisposable are actually disposed.
+  * Implement a code provider which will implement the IDisposable pattern, and link it to the code issue.
+
+= Credits =
+Author: Casey Kramer
