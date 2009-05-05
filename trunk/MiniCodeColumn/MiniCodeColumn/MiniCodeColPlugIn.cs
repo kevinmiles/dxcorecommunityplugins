@@ -40,6 +40,7 @@ namespace MiniCodeColumn
         string selected_double_click = "";
 
         Rectangle last_code_rect = new Rectangle();
+        private bool invalid = false;
 
         // DXCore-generated code...
         #region InitializePlugIn
@@ -163,7 +164,7 @@ namespace MiniCodeColumn
         private void PlugIn1_EditorScrolled(EditorScrolledEventArgs ea)
         {
             InvalidateColumn();
-            HighlightSelectedText();
+            //HighlightSelectedText();
         }
 
         private void PlugIn1_CaretMoved(CaretMovedEventArgs ea)
@@ -293,7 +294,7 @@ namespace MiniCodeColumn
             }
         }
 
-        List<Line> CollectLines(TextView textView)
+        List<Line> CollectLines(TextView textView, int width_divisor)
         {
             List<Line> lines = new List<Line>();
 
@@ -318,15 +319,46 @@ namespace MiniCodeColumn
                     end = start_of_comment - 1;
                 }
                 int word_start = txt.IndexOf(selected_double_click, StringComparison.InvariantCultureIgnoreCase);
+                Line line = new Line(l, start, end, start_of_comment, end_of_comment, word_start);
 
-                lines.Add(new Line(l, start, end, start_of_comment, end_of_comment, word_start));
+                line.DivideWidth(width_divisor);
+                line.PressIntoWidth(PluginOptions.ColumnWidth);
+
+                lines.Add(line);
             }
 
             return lines;
         }
 
+        bool LinesAreEqual(List<Line> l1, List<Line> l2)
+        {
+            if (l1 == null || l2 == null)
+                return false;
+
+            if (l1.Count != l2.Count)
+                return false;
+
+            for (int l=0; l < l1.Count; l++)
+            {
+                Line line1 = l1[l];
+                Line line2 = l2[l];
+
+                if (line1.Start != line2.Start || line1.End != line2.End)
+                    return false;
+
+                if (line1.StartOfComment != line2.StartOfComment || line1.EndOfComment != line2.EndOfComment)
+                    return false;
+
+                if (line1.StartOfWord != line2.StartOfWord)
+                    return false;
+            }
+
+            return true;
+        }
+
         bool drawing = false;
         private Bitmap _backBuffer;
+        private List<Line> last_lines;
         private void DrawCodeColumn()
         {
             TextView textView = CodeRush.TextViews.Active;
@@ -350,6 +382,7 @@ namespace MiniCodeColumn
                     if (_backBuffer != null)
                         _backBuffer.Dispose();
                     _backBuffer = null;
+                    last_lines = null;
                 }
                 last_code_rect = rect;
 
@@ -357,9 +390,8 @@ namespace MiniCodeColumn
 
                 if (_backBuffer==null)
                     _backBuffer = new Bitmap(PluginOptions.ColumnWidth, textView.Height);
+
                 Graphics graphics = Graphics.FromImage(_backBuffer);
-                graphics.SmoothingMode = SmoothingMode.None;
-                graphics.Clear(PluginOptions.ColumnBackgroundColor);
 
 
                 int width_divisor = 2;
@@ -369,54 +401,65 @@ namespace MiniCodeColumn
                 {
                     height_divisor++;
                 }
+                if (last_height_divisor != height_divisor)
+                    last_lines = null;
+
                 last_height_divisor = height_divisor;
 
-                // den sichtbaren Bereich markieren
-                Rectangle visible_rect = new Rectangle(
-                    0, 
-                    (textView.TopLine / height_divisor), 
-                    PluginOptions.ColumnWidth, 
-                    (textView.BottomLine - textView.TopLine) / height_divisor);
-                graphics.FillRectangle(ColumnBrushVisibleLines, visible_rect);
-
-
-                List<Line> lines = CollectLines(textView);
-                foreach (Line line in lines)
+                List<Line> lines = CollectLines(textView, width_divisor);
+                if (!LinesAreEqual(lines, last_lines))
                 {
-                    line.DivideWidth(width_divisor);
-                    line.PressIntoWidth(PluginOptions.ColumnWidth);
+                    last_lines = lines;
 
-                    int y = line.Number / height_divisor;
+                    graphics.SmoothingMode = SmoothingMode.None;
+                    graphics.Clear(PluginOptions.ColumnBackgroundColor);
 
-                    if (line.Start < line.End)
-                        graphics.DrawLine(CodePenNormalLine, new Point(line.Start, y), new Point(line.End, y));
-                    if (line.StartOfComment < line.EndOfComment)
-                        graphics.DrawLine(CodePenCommentLine, new Point(line.StartOfComment, y), new Point(line.EndOfComment, y));
-
-                }
-
-                int length = selected_double_click.Length;
-                if (length > 2)
-                {
-                    length /= width_divisor;
                     foreach (Line line in lines)
                     {
+                        if (height_divisor > 4 && (line.Number % height_divisor) != 0)
+                            continue;
+
                         int y = line.Number / height_divisor;
 
-                        if (line.StartOfWord>=0)
+                        if (line.Start < line.End)
+                            graphics.DrawLine(CodePenNormalLine, new Point(line.Start, y), new Point(line.End, y));
+                        if (line.StartOfComment < line.EndOfComment)
+                            graphics.DrawLine(CodePenCommentLine, new Point(line.StartOfComment, y), new Point(line.EndOfComment, y));
+
+                    }
+
+                    int length = selected_double_click.Length;
+                    if (length > 2)
+                    {
+                        length /= width_divisor;
+                        foreach (Line line in lines)
                         {
-                            int end = line.StartOfWord + length;
-                            if (end > PluginOptions.ColumnWidth)
-                                end = PluginOptions.ColumnWidth;
-                            graphics.DrawLine(
-                                CodePenSelectedWord, 
-                                new Point(line.StartOfWord, y), 
-                                new Point(end, y));
+                            int y = line.Number / height_divisor;
+
+                            if (line.StartOfWord >= 0)
+                            {
+                                int end = line.StartOfWord + length;
+                                if (end > PluginOptions.ColumnWidth)
+                                    end = PluginOptions.ColumnWidth;
+                                graphics.DrawLine(
+                                    CodePenSelectedWord,
+                                    new Point(line.StartOfWord, y),
+                                    new Point(end, y));
+                            }
                         }
                     }
                 }
                 graphics.Dispose();
                 textView.Graphics.DrawImageUnscaled(_backBuffer, textView.Width - PluginOptions.ColumnWidth, 0);
+
+                // den sichtbaren Bereich markieren
+                Rectangle visible_rect = new Rectangle(
+                    textView.Width - PluginOptions.ColumnWidth,
+                    (textView.TopLine / height_divisor),
+                    PluginOptions.ColumnWidth,
+                    (textView.BottomLine - textView.TopLine) / height_divisor);
+                textView.Graphics.FillRectangle(ColumnBrushVisibleLines, visible_rect);
+
             }
             catch (Exception ex)
             {
@@ -427,13 +470,18 @@ namespace MiniCodeColumn
                 //graphics.SmoothingMode = oldMode;
             }
             drawing = false;
+            invalid = false;
         }
         private void InvalidateColumn()
         {
+            if (invalid)
+                return;
+
             TextView textView = CodeRush.TextViews.Active;
             if (textView == null)
                 return;
 
+            invalid = true;
             textView.Invalidate(GetCodeColumnRect(textView));
         }
 
@@ -457,6 +505,7 @@ namespace MiniCodeColumn
                     {
                         selected_double_click = word.Text.Trim().ToUpperInvariant();
                     }
+                    invalid = true;
                     textView.Invalidate();
                     HighlightSelectedText();
                 }
@@ -476,7 +525,7 @@ namespace MiniCodeColumn
                 int line = ea.Y * last_height_divisor;
                 if (line > 10)
                     line -= 10;
-                ea.TextView.SetTopLine(line);
+                ea.TextView.CenterLine(line);
                 ea.Cancel = true;
 
                 HighlightSelectedText();
@@ -507,6 +556,7 @@ namespace MiniCodeColumn
             TextView textView = CodeRush.TextViews.Active;
             if (textView != null)
             {
+                invalid = true;
                 textView.Invalidate();
             }
         }
