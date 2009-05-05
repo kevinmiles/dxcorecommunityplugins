@@ -15,6 +15,7 @@ using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
 using DevExpress.CodeRush.Menus;
 using System.Drawing.Drawing2D;
+using System.Collections.Generic;
 
 namespace MiniCodeColumn
 {
@@ -234,11 +235,12 @@ namespace MiniCodeColumn
         private void PlugIn1_EditorPaint(EditorPaintEventArgs ea)
         {
             DrawCodeColumn();
+            HighlightSelectedText();
         }
 
         private void PlugIn1_EditorPaintBackground(EditorPaintEventArgs ea)
         {
-            HighlightSelectedText();
+            
         }
 
         private void HighlightSelectedText()
@@ -291,7 +293,40 @@ namespace MiniCodeColumn
             }
         }
 
+        List<Line> CollectLines(TextView textView)
+        {
+            List<Line> lines = new List<Line>();
+
+            int start = 0;
+            int end = 0;
+            string tabs = new string(' ', textView.TextDocument.TabSize);
+            for (int l = 0; l < textView.TextDocument.LineCount; l++)
+            {
+                string txt = textView.TextDocument.GetLine(l).TrimEnd();
+                if (txt.IndexOf('\t') >= 0)
+                    txt = txt.Replace("\t", tabs);
+
+                string ltr = txt.TrimStart();
+                start = (txt.Length - ltr.Length);
+                end = txt.Length;
+
+                int start_of_comment = txt.IndexOf("//");
+                int end_of_comment = -2;
+                if (start_of_comment >= 0)
+                {
+                    end_of_comment = end;
+                    end = start_of_comment - 1;
+                }
+                int word_start = txt.IndexOf(selected_double_click, StringComparison.InvariantCultureIgnoreCase);
+
+                lines.Add(new Line(l, start, end, start_of_comment, end_of_comment, word_start));
+            }
+
+            return lines;
+        }
+
         bool drawing = false;
+        private Bitmap _backBuffer;
         private void DrawCodeColumn()
         {
             TextView textView = CodeRush.TextViews.Active;
@@ -301,7 +336,6 @@ namespace MiniCodeColumn
 
             drawing = true;
 
-            Graphics graphics = textView.Graphics;
             CreateGraphicElements();
 
             //SmoothingMode oldMode = graphics.SmoothingMode;
@@ -309,24 +343,29 @@ namespace MiniCodeColumn
             {
                 //graphics.SmoothingMode = SmoothingMode.AntiAlias;
                 Rectangle rect = GetCodeColumnRect(textView);
-                //graphics.FillRectangle(ColumnBackgroundBrush, rect);
 
                 if (rect != last_code_rect)
                 {
                     textView.Invalidate(last_code_rect);
+                    if (_backBuffer != null)
+                        _backBuffer.Dispose();
+                    _backBuffer = null;
                 }
                 last_code_rect = rect;
 
-                // alle Zeilen holen
-                TextViewLines items = textView.Lines;
+                Rectangle bmp_rect = new Rectangle(0, 0, PluginOptions.ColumnWidth, textView.Height); 
 
-                graphics.FillRectangle(ColumnBackgroundBrushCodeColumn, rect);
+                if (_backBuffer==null)
+                    _backBuffer = new Bitmap(PluginOptions.ColumnWidth, textView.Height);
+                Graphics graphics = Graphics.FromImage(_backBuffer);
+                graphics.SmoothingMode = SmoothingMode.None;
+                graphics.Clear(PluginOptions.ColumnBackgroundColor);
 
 
                 int width_divisor = 2;
                 // falls die Höhe nicht reicht, Teiler ermitteln
                 int height_divisor = 1;
-                while ((items.Count / height_divisor) > textView.Height)
+                while ((textView.TextDocument.LineCount / height_divisor) > textView.Height)
                 {
                     height_divisor++;
                 }
@@ -334,67 +373,50 @@ namespace MiniCodeColumn
 
                 // den sichtbaren Bereich markieren
                 Rectangle visible_rect = new Rectangle(
-                    rect.X, rect.Y + (textView.TopLine / height_divisor), 
-                    PluginOptions.ColumnWidth, (textView.BottomLine - textView.TopLine) / height_divisor);
+                    0, 
+                    (textView.TopLine / height_divisor), 
+                    PluginOptions.ColumnWidth, 
+                    (textView.BottomLine - textView.TopLine) / height_divisor);
                 graphics.FillRectangle(ColumnBrushVisibleLines, visible_rect);
 
 
-                int left = rect.X;
-                int start = 0;
-                int end = 0;
-                for (int l = 0; l < items.Count; l++)
+                List<Line> lines = CollectLines(textView);
+                foreach (Line line in lines)
                 {
-                    int y = l / height_divisor;
-                    string txt = items.GetText(l).TrimEnd().Replace("\t", "    ");
-                    string ltr = txt.TrimStart();
-                    start = (txt.Length - ltr.Length) / width_divisor;
-                    if (start > PluginOptions.ColumnWidth)
-                        start = PluginOptions.ColumnWidth - 6;
-                    end = txt.Length / width_divisor;
-                    if (end > PluginOptions.ColumnWidth)
-                        end = PluginOptions.ColumnWidth;
+                    line.DivideWidth(width_divisor);
+                    line.PressIntoWidth(PluginOptions.ColumnWidth);
 
-                    int start_of_comment = txt.IndexOf("//");
-                    int end_of_comment = -2;
-                    if (start_of_comment >= 0)
-                    {
-                        start_of_comment = start_of_comment / width_divisor;
-                        end_of_comment = end;
-                        end = start_of_comment - 1;
-                    }
+                    int y = line.Number / height_divisor;
 
-                    if (start_of_comment < end_of_comment)
-                        graphics.DrawLine(CodePenCommentLine, new Point(left + start_of_comment, y), new Point(left + end_of_comment, y));
+                    if (line.Start < line.End)
+                        graphics.DrawLine(CodePenNormalLine, new Point(line.Start, y), new Point(line.End, y));
+                    if (line.StartOfComment < line.EndOfComment)
+                        graphics.DrawLine(CodePenCommentLine, new Point(line.StartOfComment, y), new Point(line.EndOfComment, y));
 
-                    if (start < end)
-                        graphics.DrawLine(CodePenNormalLine, new Point(left + start, y), new Point(left + end, y));
                 }
 
-                if (selected_double_click.Length > 2)
+                int length = selected_double_click.Length;
+                if (length > 2)
                 {
-                    for (int l = 0; l < items.Count; l++)
+                    length /= width_divisor;
+                    foreach (Line line in lines)
                     {
-                        int y = l / height_divisor;
-                        string txt = items.GetText(l).TrimEnd().ToUpperInvariant();
-                        start = 0;
-                        end = 0;
+                        int y = line.Number / height_divisor;
 
-                        if (txt.IndexOf(selected_double_click) >= 0)
+                        if (line.StartOfWord>=0)
                         {
-                            int start_index = txt.IndexOf(selected_double_click);
-                            start = start_index / width_divisor;
-                            if (start > PluginOptions.ColumnWidth)
-                                start = PluginOptions.ColumnWidth - 2;
-                            end = (start_index + selected_double_click.Length) / width_divisor;
+                            int end = line.StartOfWord + length;
                             if (end > PluginOptions.ColumnWidth)
                                 end = PluginOptions.ColumnWidth;
                             graphics.DrawLine(
                                 CodePenSelectedWord, 
-                                new Point(left + start, y - 1), 
-                                new Point(left + end, y - 1));
+                                new Point(line.StartOfWord, y), 
+                                new Point(end, y));
                         }
                     }
                 }
+                graphics.Dispose();
+                textView.Graphics.DrawImageUnscaled(_backBuffer, textView.Width - PluginOptions.ColumnWidth, 0);
             }
             catch (Exception ex)
             {

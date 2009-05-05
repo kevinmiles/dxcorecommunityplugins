@@ -7,6 +7,7 @@ namespace MiniCodeColumn
 {
     public class Line
     {
+        public int Number;
         public int Start;
         public int End;
         public int StartOfComment;
@@ -32,12 +33,44 @@ namespace MiniCodeColumn
         }
 
         public Line(int start, int end, int start_of_comment, int end_of_comment, int start_of_word)
+            : this(0, start, end, start_of_comment, end_of_comment, start_of_word)
         {
+        }
+
+        public Line(int number, int start, int end, int start_of_comment, int end_of_comment, int start_of_word)
+        {
+            Number = number;
             Start = start;
             End = end;
             StartOfComment = start_of_comment;
             EndOfComment = end_of_comment;
             StartOfWord = start_of_word;
+        }
+
+        public void DivideWidth(int divisor)
+        {
+            if (divisor <= 1)
+                return;
+
+            if (Start > 0) Start /= divisor;
+            if (End > 0) End /= divisor;
+            if (StartOfComment > 0) StartOfComment /= divisor;
+            if (EndOfComment > 0) EndOfComment /= divisor;
+            if (StartOfWord > 0) StartOfWord /= divisor;
+        }
+
+        public void PressIntoWidth(int max_width)
+        {
+            if (Start > max_width)
+                Start = max_width - 2;
+            if (End > max_width)
+                End = max_width;
+            if (StartOfComment > max_width)
+                StartOfComment = max_width - 2;
+            if (EndOfComment > max_width)
+                EndOfComment = max_width;
+            if (StartOfWord > max_width)
+                StartOfWord = max_width - 6;
         }
 
         public static List<Line> SampleLines
