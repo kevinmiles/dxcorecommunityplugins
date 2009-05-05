@@ -21,7 +21,7 @@ http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ReSharperCompatibility
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ReSharperCompatibility/Screenshots/ResharperKeys2.png
 
 = Source = 
-Coderush like this plugin is build on top of the [http://devexpress.com/dxcore DXCore] and the source to this plugin as with all [http://code.google.com/p/dxcorecommunityplugins others on this site] is available free to all.
+Coderush, like this plugin, is build on top of the [http://devexpress.com/dxcore DXCore] and the source to this plugin as with all [http://code.google.com/p/dxcorecommunityplugins others on this site] is available free to all.
 
 We would also like to encourage others to fill in any gaps that are felt to be missing :)
 
