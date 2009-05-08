@@ -315,7 +315,7 @@ namespace MiniCodeColumn
 
                 string ltr = txt.TrimStart();
                 start = (txt.Length - ltr.Length);
-                end = textView.TextDocument.GetLineLength(l);
+                end = txt.Length;
 
                 int start_of_comment = txt.IndexOf(line_comment_start);
                 int end_of_comment = -2;
