@@ -562,6 +562,7 @@ namespace MiniCodeColumn
             TextView textView = CodeRush.TextViews.Active;
             if (textView != null)
             {
+                DisposeGraphicElements();
                 invalid = true;
                 textView.Invalidate();
             }
