@@ -47,7 +47,7 @@ namespace RedGreen
         private List<UnitTestDetail> _Tests = new List<UnitTestDetail>();
         private List<UnitTestDetail> _Failures = new List<UnitTestDetail>();
         private int _currentFailure = kDefaultCurrentFailure;
-        private ITestDetail _hoveredTest = null;
+        private ITestDetail _hoveredTest;
         static readonly TestPopupMenuColors sTestMenuColors = new TestPopupMenuColors();
 
         #region InitializePlugIn
@@ -140,7 +140,7 @@ namespace RedGreen
         /// <summary>
         /// Change the cursor when it enters a tile
         /// </summary>
-        private void PlugIn1_TileSetCursor(object sender, TileSetCursorEventArgs ea)
+        private static void PlugIn1_TileSetCursor(object sender, TileSetCursorEventArgs ea)
         {
             Cursor.Current = Cursors.Hand;
             ea.SetCursorArgs.Cancel = true;
@@ -317,11 +317,19 @@ namespace RedGreen
             _Failures = _Tests.FindAll(test => test.Result.Status == TestStatus.Failed);
             _Failures.Sort((lhs, rhs) =>
             {
-                int locationResult = lhs.Method.Document.FullName.CompareTo(rhs.Method.Document.FullName);
+                int locationResult = GetTestPath(lhs).CompareTo(GetTestPath(rhs));
                 if (locationResult == 0)
                     return lhs.Method.StartLine - rhs.Method.StartLine;
                 return locationResult;
             });
+        }
+
+        /// <summary>
+        /// Fetches the document name or the class name if the document name is not available.
+        /// </summary>
+        static string GetTestPath(UnitTestDetail test)
+        {
+            return test.Method.Document != null ? test.Method.Document.FullName : test.ClassName;
         }
 
         /// <summary>
@@ -464,9 +472,10 @@ namespace RedGreen
                 CodeRush.File.Activate(dxCoreElement.FileNode.Name);
                 CodeRush.Caret.MoveTo(dxCoreElement.StartLine, dxCoreElement.StartOffset);
                 TextView view = (TextView)CodeRush.Source.Active.View;
-                LocatorBeacon beacon = new LocatorBeacon();
-                beacon.Color = FailedColor;
-                beacon.Start(view, dxCoreElement.StartLine, dxCoreElement.StartOffset);
+                using (LocatorBeacon beacon = new LocatorBeacon { Color = FailedColor })
+                {
+                    beacon.Start(view, dxCoreElement.StartLine, dxCoreElement.StartOffset);
+                }
             }
         }
         #endregion
@@ -760,7 +769,7 @@ namespace RedGreen
             _Failures.Clear();
         }
 
-        UnitTestDetail _currentTestData = null;
+        UnitTestDetail _currentTestData;
         private void PlugIn1_LanguageElementActivated(LanguageElementActivatedEventArgs ea)
         {
             if (ea.Element.InsideMethod)
@@ -830,17 +839,27 @@ namespace RedGreen
 
             if (buildPassed)
             {
-                EnvDTE.Project activeProject = GetActiveProject();
-                string assemblyPath = GetAssemblyPath(activeProject);
-                string assemblyName = GetAssemblyName(activeProject);
-                CodeRush.Windows.Active.DTE.StatusBar.Text = kTestingStartedMessage;
-                BaseTestRunner.StandardRunTestBehavior(runner,
-                    runner_TestsStarting,
-                    runner_TestComplete,
-                    runner_AllTestsComplete,
-                    assemblyPath,
-                    assemblyName,
-                    specificTestAction);
+                try
+                {
+                    EnvDTE.Project activeProject = GetActiveProject();
+                    string assemblyPath = GetAssemblyPath(activeProject);
+                    string assemblyName = GetAssemblyName(activeProject);
+                    CodeRush.Windows.Active.DTE.StatusBar.Text = kTestingStartedMessage;
+                    BaseTestRunner.StandardRunTestBehavior(runner,
+                        runner_TestsStarting,
+                        runner_TestComplete,
+                        runner_AllTestsComplete,
+                        assemblyPath,
+                        assemblyName,
+                        specificTestAction);
+                }
+                catch (System.Exception ex)
+                {
+                    WriteToTestPane("-->RedGreen Program Failure<--");
+                    WriteToTestPane(ex.Message);
+                    WriteToTestPane(ex.StackTrace);
+                    throw;
+                }
             }
             else
             {

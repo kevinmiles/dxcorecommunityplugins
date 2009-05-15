@@ -96,20 +96,18 @@ namespace RedGreen
             line = sr.ReadLine();
 
             ResultParser parser = new ResultParser();
+            string rawResult = String.Empty;
             while (line != null)
             {
                 StringBuilder result = new StringBuilder();
                 ResultParser.ReadNextTextResult(sr, ref line, result);
-                string rawResult = result.ToString();
+                rawResult = result.ToString();
                 if (ResultParser.IsTestResult(rawResult))
                 {// Only raise event for tests completed, not fixtures and the like.
                     RaiseComplete(result.ToString(), parser.ParseTest(rawResult));
                 }
-                else if (ResultParser.IsRootResult(rawResult))
-                {// All done show summary and invalidate
-                    RaiseAllComplete(ResultParser.ParseSummary(rawResult));
-                }
             }
+            RaiseAllComplete(ResultParser.ParseSummary(rawResult));
         }
 
         private static string GetGallioInstalledFolder()
