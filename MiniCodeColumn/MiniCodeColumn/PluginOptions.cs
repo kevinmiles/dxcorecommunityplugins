@@ -37,6 +37,7 @@ namespace MiniCodeColumn
         protected void UpdateOptionsDialog()
         {
             trackWidth.Value = 110 - ColumnWidth;
+            lblWidth.Text = string.Format("{0} Pixel", 110 - trackWidth.Value);
 
             btnBackColor.BackColor = ColumnBackgroundColor;
             btnBackColor.Tag = trackBackColor;
@@ -70,13 +71,13 @@ namespace MiniCodeColumn
         }
         #endregion
 
-        #region GetCategory
+        #region GetCategory  "Editor\Painting"
         public static string GetCategory()
         {
             return @"Editor\Painting";
         }
         #endregion
-        #region GetPageName
+        #region GetPageName  "Mini Code Column"
         public static string GetPageName()
         {
             return @"Mini Code Column";
@@ -85,92 +86,113 @@ namespace MiniCodeColumn
 
         public static void LoadSettings()
         {
-            DecoupledStorage store = DevExpress.CodeRush.Core.CodeRush.Options.GetStorage(GetCategory(), GetPageName());
-            if (store != null)
+            try
             {
-                MiniCodeColumnEnabled = store.ReadBoolean("Config", "Enabled", true);
-                WordDoubleClickEnabled = store.ReadBoolean("Config", "WordDoubleClickEnabled", true);
+                DecoupledStorage store = DevExpress.CodeRush.Core.CodeRush.Options.GetStorage(GetCategory(), GetPageName());
+                if (store != null)
+                {
+                    MiniCodeColumnEnabled = store.ReadBoolean("Config", "Enabled", true);
+                    WordDoubleClickEnabled = store.ReadBoolean("Config", "WordDoubleClickEnabled", true);
 
-                ColumnWidth = store.ReadInt32("Config", "ColumnWidth", 40);
+                    ColumnWidth = store.ReadInt32("Config", "ColumnWidth", 40);
 
-                ColumnBackgroundColor = Color.FromArgb(
-                    store.ReadInt32(
-                                    "Config", 
-                                    "ColumnBackgroundColor", 
-                                    CodeRush.Color.VSLight.ToArgb()
-                                   ));
-                ColumnBackgroundColorSelectedWord = Color.FromArgb(
-                    store.ReadInt32(
-                                    "Config",
-                                    "ColumnBackgroundColorSelectedWord",
-                                    Color.FromArgb(40, Color.Blue).ToArgb()
-                                   ));
-                ColumnVisibleLinesColor = Color.FromArgb(
-                    store.ReadInt32(
-                                    "Config",
-                                    "ColumnVisibleLinesColor",
-                                    Color.FromArgb(70, Color.DarkBlue).ToArgb()
-                                   ));
+                    ColumnBackgroundColor = Color.FromArgb(
+                        store.ReadInt32(
+                                        "Config",
+                                        "ColumnBackgroundColor",
+                                        CodeRush.Color.VSLight.ToArgb()
+                                       ));
+                    ColumnBackgroundColorSelectedWord = Color.FromArgb(
+                        store.ReadInt32(
+                                        "Config",
+                                        "ColumnBackgroundColorSelectedWord",
+                                        Color.FromArgb(40, Color.Blue).ToArgb()
+                                       ));
+                    ColumnVisibleLinesColor = Color.FromArgb(
+                        store.ReadInt32(
+                                        "Config",
+                                        "ColumnVisibleLinesColor",
+                                        Color.FromArgb(70, Color.DarkBlue).ToArgb()
+                                       ));
 
-                CodeColorNormalLine = Color.FromArgb(
-                    store.ReadInt32(
-                                    "Config",
-                                    "CodeColorNormalLine",
-                                    Color.FromArgb(70, Color.Black).ToArgb()
-                                   ));
-                CodeColorSelectedWord = Color.FromArgb(
-                    store.ReadInt32(
-                                    "Config",
-                                    "CodeColorPenSelectedWord",
-                                    Color.FromArgb(100, Color.Red).ToArgb()
-                                   ));
-                CodeColorCommentLine = Color.FromArgb(
-                    store.ReadInt32(
-                                    "Config",
-                                    "CodeColorCommentLine",
-                                    Color.FromArgb(70, Color.Green).ToArgb()
-                                   ));
+                    CodeColorNormalLine = Color.FromArgb(
+                        store.ReadInt32(
+                                        "Config",
+                                        "CodeColorNormalLine",
+                                        Color.FromArgb(70, Color.Black).ToArgb()
+                                       ));
+                    CodeColorSelectedWord = Color.FromArgb(
+                        store.ReadInt32(
+                                        "Config",
+                                        "CodeColorPenSelectedWord",
+                                        Color.FromArgb(100, Color.Red).ToArgb()
+                                       ));
+                    CodeColorCommentLine = Color.FromArgb(
+                        store.ReadInt32(
+                                        "Config",
+                                        "CodeColorCommentLine",
+                                        Color.FromArgb(70, Color.Green).ToArgb()
+                                       ));
+                }
+            }
+            catch // (Exception ex)
+            {
+                
             }
         }
 
         public void ReadOptionsFromDialog()
         {
-            ColumnWidth = 110 - trackWidth.Value;
+            try
+            {
+                ColumnWidth = 110 - trackWidth.Value;
 
-            ColumnBackgroundColor = btnBackColor.BackColor;
-            ColumnVisibleLinesColor = btnVisibleRangeColor.BackColor;
-            CodeColorNormalLine = btnLineColor.BackColor;
-            CodeColorCommentLine = btnCommentColor.BackColor;
-            ColumnBackgroundColorSelectedWord = btnColumnBackgroundColorSelectedWord.BackColor;
-            CodeColorSelectedWord = btnCodeColorSelectedWord.BackColor;
+                ColumnBackgroundColor = btnBackColor.BackColor;
+                ColumnVisibleLinesColor = btnVisibleRangeColor.BackColor;
+                CodeColorNormalLine = btnLineColor.BackColor;
+                CodeColorCommentLine = btnCommentColor.BackColor;
+                ColumnBackgroundColorSelectedWord = btnColumnBackgroundColorSelectedWord.BackColor;
+                CodeColorSelectedWord = btnCodeColorSelectedWord.BackColor;
 
-            MiniCodeColPlugIn.DisposeGraphicElements();
-            panelSample.Invalidate();
+                MiniCodeColPlugIn.DisposeGraphicElements();
+                panelSample.Refresh();
+            }
+            catch //(Exception ex)
+            {
+                
+            }
         }
 
         public static void SaveSettings()
         {
-            DecoupledStorage store = DevExpress.CodeRush.Core.CodeRush.Options.GetStorage(GetCategory(), GetPageName());
-            if (store != null)
+            try
             {
-                store.WriteBoolean("Config", "Enabled", MiniCodeColumnEnabled);
-                store.WriteBoolean("Config", "WordDoubleClickEnabled", WordDoubleClickEnabled);
+                DecoupledStorage store = DevExpress.CodeRush.Core.CodeRush.Options.GetStorage(GetCategory(), GetPageName());
+                if (store != null)
+                {
+                    store.WriteBoolean("Config", "Enabled", MiniCodeColumnEnabled);
+                    store.WriteBoolean("Config", "WordDoubleClickEnabled", WordDoubleClickEnabled);
 
-                store.WriteInt32("Config", "ColumnWidth", ColumnWidth);
+                    store.WriteInt32("Config", "ColumnWidth", ColumnWidth);
 
-                store.WriteInt32("Config", "ColumnBackgroundColor", 
-                                    ColumnBackgroundColor.ToArgb());
-                store.WriteInt32("Config", "ColumnBackgroundColorSelectedWord",
-                                    ColumnBackgroundColorSelectedWord.ToArgb());
-                store.WriteInt32("Config", "ColumnVisibleLinesColor",
-                                    ColumnVisibleLinesColor.ToArgb());
+                    store.WriteInt32("Config", "ColumnBackgroundColor",
+                                        ColumnBackgroundColor.ToArgb());
+                    store.WriteInt32("Config", "ColumnBackgroundColorSelectedWord",
+                                        ColumnBackgroundColorSelectedWord.ToArgb());
+                    store.WriteInt32("Config", "ColumnVisibleLinesColor",
+                                        ColumnVisibleLinesColor.ToArgb());
 
-                store.WriteInt32("Config", "CodeColorNormalLine",
-                                    CodeColorNormalLine.ToArgb());
-                store.WriteInt32("Config", "CodeColorPenSelectedWord",
-                                    CodeColorSelectedWord.ToArgb());
-                store.WriteInt32("Config", "CodeColorCommentLine",
-                                    CodeColorCommentLine.ToArgb());
+                    store.WriteInt32("Config", "CodeColorNormalLine",
+                                        CodeColorNormalLine.ToArgb());
+                    store.WriteInt32("Config", "CodeColorPenSelectedWord",
+                                        CodeColorSelectedWord.ToArgb());
+                    store.WriteInt32("Config", "CodeColorCommentLine",
+                                        CodeColorCommentLine.ToArgb());
+                }
+            }
+            catch // (Exception ex)
+            {
+                
             }
         }
 
@@ -217,7 +239,7 @@ namespace MiniCodeColumn
             DecoupledStorage store = DevExpress.CodeRush.Core.CodeRush.Options.GetStorage(GetCategory(), GetPageName());
             if (store != null)
             {
-                store.Clear();
+                store.EraseSection("Config");
             }
             LoadSettings();
             UpdateOptionsDialog();
