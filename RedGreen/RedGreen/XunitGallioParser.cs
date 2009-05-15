@@ -66,8 +66,10 @@ namespace RedGreen
 
         public int GetLineNumber(string source)
         {
-            string trimmed = source.Trim();
-            return int.Parse(trimmed.Substring(trimmed.LastIndexOf(' ')));
+            const string startMarker = ".cs:line ";
+            int lineStart = source.IndexOf(startMarker) + startMarker.Length;
+            string number = source.Substring(lineStart, source.IndexOf('\n', lineStart) - lineStart);
+            return int.Parse(number);
         }
 
         public string ReformatLocation(string source)

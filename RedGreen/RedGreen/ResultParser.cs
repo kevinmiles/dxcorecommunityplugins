@@ -64,11 +64,6 @@ namespace RedGreen
             return GetResultKind(rawResult) == ResultKind.Test;
         }
 
-        public static bool IsRootResult(string rawResult)
-        {
-            return GetResultKind(rawResult) == ResultKind.Root;
-        }
-
         /// <remarks>Kind is the first word that follows the status, which is the start of the result and is encased in brackets.</remarks>
         private static string GetResultKind(string rawResult)
         {

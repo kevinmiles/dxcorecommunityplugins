@@ -93,26 +93,14 @@ namespace RedGreenTests
         [Fact]
         public void ResultIsNotTest()
         {
-            
-
             Assert.False(ResultParser.IsTestResult("[failed] Fixture MbUnit v3.0.5.546/RedGreenPlayground/MbUnitTests\n"));
             Assert.False(ResultParser.IsTestResult("[failed] Assembly MbUnit v3.0.5.546/RedGreenPlayground\n"));
             Assert.False(ResultParser.IsTestResult("[failed] Framework MbUnit v3.0.5.546\n"));
         }
 
         [Fact]
-        public void ResultIsSummary()
-        {
-            string rawResult = "[failed] Root \n";
-            
-
-            Assert.True(ResultParser.IsRootResult(rawResult));
-        }
-
-        [Fact]
         public void DisectSummary()
         {
-            
             string rawResult = "[failed] Root \nUnloading the test package.\n* Host stopped at 1/22/2009 9:31:41 AM.\n* Host process exited with code: 0\nDisposing the test runner.\nStop time: 9:31 AM (Total execution time: 4.118 seconds)\n\n15 run, 3 passed, 12 failed (1 error), 0 inconclusive, 2 skipped (1 ignored)\n";
 
             SummaryResult result = ResultParser.ParseSummary(rawResult);
