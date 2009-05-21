@@ -715,7 +715,7 @@ namespace RedGreen
             {
                 case TestStatus.Unknown:
                 default:
-                    return UnknownColor;
+                    return CodeRush.VSSettings.BackgroundColor;
                 case TestStatus.Skipped:
                     return SkippedColor;
                 case TestStatus.Passed:

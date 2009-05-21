@@ -78,8 +78,15 @@ namespace RedGreen
         /// <param name="element">what to invalidate</param>
         internal static void Invalidate(LanguageElement element)
         {
-            TextView view = element.View as TextView;
-            view.Invalidate(element);//(element.StartLine - 1, 0, element.EndLine + 1, 0);
+            if (element != null)
+            {
+                TextView view = element.View as TextView;
+                view.Invalidate(element);//(element.StartLine - 1, 0, element.EndLine + 1, 0);
+            }
+            else
+            {
+                CodeRush.TextViews.Active.Invalidate();
+            }
         }
 
         /// <summary>
