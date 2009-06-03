@@ -33,6 +33,8 @@ namespace MiniCodeColumn
         internal static SolidBrush ColumnBackgroundBrushSelectedWord;
         internal static SolidBrush ColumnBrushVisibleLines;
 
+        internal static SolidBrush BreakPointBrush;
+
         internal static Pen CodePenNormalLine;
         internal static Pen CodePenSelectedWord;
         internal static Pen CodePenCommentLine;
@@ -195,6 +197,9 @@ namespace MiniCodeColumn
                 CodePenSelectedWord = new Pen(new SolidBrush(PluginOptions.CodeColorSelectedWord), 4.0f);
             if (CodePenCommentLine == null)
                 CodePenCommentLine = new Pen(new SolidBrush(PluginOptions.CodeColorCommentLine));
+
+            if (BreakPointBrush == null)
+                BreakPointBrush = new SolidBrush(PluginOptions.BreakPointColor);
         }
 
         internal static void DisposeGraphicElements()
@@ -330,8 +335,20 @@ namespace MiniCodeColumn
                 line.DivideWidth(width_divisor);
                 line.PressIntoWidth(PluginOptions.ColumnWidth);
 
+                try
+                {
+                    EnvDTE.Breakpoint bp = CodeRush.Breakpoint.Get(textView.TextDocument.FullName, l);
+                    if (bp != null && bp.Enabled)
+                        line.HasBreakpoint = true;
+                }
+                catch (Exception)
+                {
+                }
+
                 lines.Add(line);
             }
+
+            
 
             return lines;
         }
@@ -356,6 +373,9 @@ namespace MiniCodeColumn
                     return false;
 
                 if (line1.StartOfWord != line2.StartOfWord)
+                    return false;
+
+                if (line1.HasBreakpoint != line2.HasBreakpoint)
                     return false;
             }
 
@@ -412,6 +432,8 @@ namespace MiniCodeColumn
 
                 last_height_divisor = height_divisor;
 
+                
+
                 List<Line> lines = CollectLines(textView, width_divisor);
                 if (!LinesAreEqual(lines, last_lines))
                 {
@@ -453,6 +475,11 @@ namespace MiniCodeColumn
                                     new Point(end, y));
                             }
                         }
+                    }
+                    foreach (Line line in lines)
+                    {
+                        if (line.HasBreakpoint)
+                            graphics.FillEllipse(BreakPointBrush, 1f, line.Number / height_divisor - 5f, 10f, 10f);
                     }
                 }
                 graphics.Dispose();

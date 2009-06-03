@@ -23,6 +23,8 @@ namespace MiniCodeColumn
         public static Color ColumnBackgroundColorSelectedWord;
         public static Color CodeColorSelectedWord;
 
+        public static Color BreakPointColor;
+
 
         // DXCore-generated code...
         #region Initialize
@@ -132,6 +134,12 @@ namespace MiniCodeColumn
                                         "Config",
                                         "CodeColorCommentLine",
                                         Color.FromArgb(70, Color.Green).ToArgb()
+                                       ));
+                    BreakPointColor = Color.FromArgb(
+                        store.ReadInt32(
+                                        "Config",
+                                        "BreakPointColor",
+                                        Color.FromArgb(70, Color.Red).ToArgb()
                                        ));
                 }
             }

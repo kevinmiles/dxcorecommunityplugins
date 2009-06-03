@@ -17,6 +17,8 @@ namespace MiniCodeColumn
         public bool IsEmpty { get { return Start > End || (Start < 0 && End < 0); } }
         public bool HasWord { get { return StartOfWord>=0; } }
 
+        public bool HasBreakpoint;
+
         public Line()
             : this(-1, -1, -1, -1, -1)
         {
