@@ -2,7 +2,7 @@
 
 = Introduction =
 
-This plugin provides a single action "Add Exception Handlers" which, when bound to a key and activated, will present you with a list of exceptions which might be thrown by that code. Select the ones you want to handle and hit 'OK'. A try..catch will be generated around your selected code.
+This plugin provides a single action "Add Exception Handlers" which, when bound to a key and activated, will present you with a list of exceptions which might be thrown by the currently selected code. Select the ones you want to handle and hit 'OK'. A try..catch will be generated around your selected code.
 
 = Download = 
 
