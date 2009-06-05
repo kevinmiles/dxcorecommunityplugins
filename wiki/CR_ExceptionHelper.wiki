@@ -1,0 +1,21 @@
+#summary Wraps selected code in a try..catch based on the exceptions it might throw.
+
+= Introduction =
+
+This plugin provides a single action "Add Exception Handlers" which, when bound to a key and activated, will present you with a list of exceptions which might be thrown by that code. Select the ones you want to handle and hit 'OK'. A try..catch will be generated around your selected code.
+
+= Download = 
+
+Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_ExceptionHelper/
+
+= Installation =
+
+Installation instructions can be found on the InstallInstructions page.
+
+= Usage =
+
+Bind the "Add Exception Handlers" to a key and activate whilst code is selected.
+
+= Credits =
+
+Original Author: Bill McCarthy
