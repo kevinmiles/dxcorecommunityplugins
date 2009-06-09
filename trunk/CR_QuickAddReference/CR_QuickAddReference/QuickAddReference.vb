@@ -7,6 +7,8 @@ Imports System.Runtime.CompilerServices
 Imports DevExpress.CodeRush.PlugInCore
 Imports System.Linq
 Imports System.Linq.Expressions
+Imports DevExpress.CodeRush.Diagnostics.Core
+
 Public Class QuickAddReference
 #Region "Constants"
     Private TAB_SOLUTION As Integer = 0
@@ -99,9 +101,13 @@ Public Class QuickAddReference
             mSolutionList.ListView.Items.Clear()
             For Each Reference As Reference In GetSolutionReferences().OrderBy(Function(item) item.FileName)
                 Try
+                    'Throw New ApplicationException("Crap out here")
                     mSolutionList.ListView.Items.Add(ReferenceListItem.Of(Reference))
                 Catch ex As Exception
-                    Debug.WriteLine(String.Format("Failed to Add Solution Reference '{0}', '{1}'", Reference.FullName, Reference.FileName))
+                    Dim FormatVariable As String = String.Format("Failed to Add Solution Reference '{0}', '{1}'", _
+                                                                 Reference.FullName, _
+                                                                 Reference.FileName)
+                    Log.SendMsg(FormatVariable)
                 End Try
             Next
             sLoadedSolutionReferences = True
