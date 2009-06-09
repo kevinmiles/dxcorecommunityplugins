@@ -12,9 +12,18 @@ Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_
 
 Installation instructions can be found on the InstallInstructions page.
 
+= Setup = 
+Bind the "Add Exception Handlers" command to a key. 
+
 = Usage =
 
-Bind the "Add Exception Handlers" to a key and activate whilst code is selected.
+  * Activate whilst code is selected.
+    * http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ExceptionHelper/Screenshots/ExceptionHelperStart.png
+  * Check the exceptions you wish to handle and click Ok.
+    * http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ExceptionHelper/Screenshots/ExceptionHelperFoundExceptions.png
+  * Feel smug not having had to type all that code.
+    * http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ExceptionHelper/Screenshots/ExceptionHelperGenerated.png
+
 
 = Credits =
 
