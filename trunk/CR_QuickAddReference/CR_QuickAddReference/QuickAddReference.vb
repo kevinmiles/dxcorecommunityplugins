@@ -98,7 +98,11 @@ Public Class QuickAddReference
         If Not sLoadedSolutionReferences OrElse ForceRefresh Then
             mSolutionList.ListView.Items.Clear()
             For Each Reference As Reference In GetSolutionReferences().OrderBy(Function(item) item.FileName)
-                mSolutionList.ListView.Items.Add(ReferenceListItem.Of(Reference))
+                Try
+                    mSolutionList.ListView.Items.Add(ReferenceListItem.Of(Reference))
+                Catch ex As Exception
+                    Debug.WriteLine(String.Format("Failed to Add Solution Reference '{0}', '{1}'", Reference.FullName, Reference.FileName))
+                End Try
             Next
             sLoadedSolutionReferences = True
         End If
