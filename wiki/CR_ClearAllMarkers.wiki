@@ -1,0 +1,30 @@
+#summary Provides an action to eliminate all Markers, without moving the caret anywhere.
+
+= Introduction =
+
+A simple plugin which provides a single command for eliminating all current markers in the system.
+
+= Download = 
+
+Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_ClearAllMarkers/
+
+= Installation =
+
+Installation instructions can be found on the InstallInstructions page.
+
+= Setup = 
+Bind the "ClearAllMarkers" command to a key. I chose to bind to 'ESC'
+
+= Usage =
+
+  * Activate any time you like.
+    * All marker should disappear.
+    * Your caret should not move.
+
+= Why did I build this =
+
+Well for that you'll have to visit [http://rorybecker.blogspot.com/2009/06/crclearallmarkers.html my Blogpost] :)
+
+= Credits =
+
+Original Author: Rory Becker
