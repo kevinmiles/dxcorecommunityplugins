@@ -136,10 +136,10 @@ namespace MiniCodeColumn
                                         Color.FromArgb(70, Color.Green).ToArgb()
                                        ));
                     BreakPointColor = Color.FromArgb(
-                        store.ReadInt32(
+                        store.ReadInt32(    
                                         "Config",
                                         "BreakPointColor",
-                                        Color.FromArgb(70, Color.Red).ToArgb()
+                                        Color.FromArgb(90, Color.Red).ToArgb()
                                        ));
                 }
             }

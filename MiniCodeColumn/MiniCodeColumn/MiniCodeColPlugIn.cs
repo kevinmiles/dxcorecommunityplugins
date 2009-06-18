@@ -218,6 +218,8 @@ namespace MiniCodeColumn
             if (CodePenCommentLine != null)
                 CodePenCommentLine.Dispose();
 
+            if (BreakPointBrush != null)
+                BreakPointBrush.Dispose();
 
             ColumnBackgroundBrushCodeColumn = null;
             ColumnBackgroundBrushSelectedWord = null;
@@ -225,6 +227,8 @@ namespace MiniCodeColumn
             CodePenNormalLine = null;
             CodePenSelectedWord = null;
             CodePenCommentLine = null;
+
+            BreakPointBrush = null;
         }
 
         private Rectangle GetCodeColumnRect(TextView textView)
@@ -334,7 +338,7 @@ namespace MiniCodeColumn
 
                 line.DivideWidth(width_divisor);
                 line.PressIntoWidth(PluginOptions.ColumnWidth);
-
+                
                 try
                 {
                     EnvDTE.Breakpoint bp = CodeRush.Breakpoint.Get(textView.TextDocument.FullName, l);
@@ -344,10 +348,17 @@ namespace MiniCodeColumn
                 catch (Exception)
                 {
                 }
-
                 lines.Add(line);
             }
-
+            
+            foreach (IMarker item in CodeRush.Markers)
+            {
+                if (textView.TextDocument.FullName.Equals(item.FileName, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (lines.Count >= item.Line && item.Hidden == false)
+                        lines[item.Line].MarkerPosition = item.Column / width_divisor;
+                }
+            }
             
 
             return lines;
@@ -376,6 +387,9 @@ namespace MiniCodeColumn
                     return false;
 
                 if (line1.HasBreakpoint != line2.HasBreakpoint)
+                    return false;
+
+                if (line1.MarkerPosition != line2.MarkerPosition)
                     return false;
             }
 
@@ -479,7 +493,10 @@ namespace MiniCodeColumn
                     foreach (Line line in lines)
                     {
                         if (line.HasBreakpoint)
-                            graphics.FillEllipse(BreakPointBrush, 1f, line.Number / height_divisor - 5f, 10f, 10f);
+                            graphics.FillEllipse(BreakPointBrush, 0f, line.Number / height_divisor - 5f, 10f, 12f);
+
+                        if (line.MarkerPosition >= 0)
+                            CodeRush.Markers.Draw(graphics, new PointF(line.MarkerPosition, line.Number / height_divisor), PluginOptions.BreakPointColor, 5f, 3f);
                     }
                 }
                 graphics.Dispose();
@@ -556,9 +573,12 @@ namespace MiniCodeColumn
             if ((ea.TextView != null) && (ea.X > ea.TextView.Width - PluginOptions.ColumnWidth))
             {
                 int line = ea.Y * last_height_divisor;
-                if (line > 10)
-                    line -= 10;
-                ea.TextView.CenterLine(line);
+                int center_line = line;
+                if (center_line > 10)
+                    center_line -= 10;
+
+                ea.TextView.MakeVisible(line, 0);
+                ea.TextView.CenterLine(center_line);
                 ea.Cancel = true;
 
                 HighlightSelectedText();
