@@ -18,6 +18,7 @@ namespace MiniCodeColumn
         public bool HasWord { get { return StartOfWord>=0; } }
 
         public bool HasBreakpoint;
+        public int MarkerPosition;
 
         public Line()
             : this(-1, -1, -1, -1, -1)
@@ -47,6 +48,7 @@ namespace MiniCodeColumn
             StartOfComment = start_of_comment;
             EndOfComment = end_of_comment;
             StartOfWord = start_of_word;
+            MarkerPosition = -1;
         }
 
         public void DivideWidth(int divisor)
