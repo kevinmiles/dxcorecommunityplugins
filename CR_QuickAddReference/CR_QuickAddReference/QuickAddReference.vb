@@ -63,7 +63,14 @@ Public Class QuickAddReference
         Dim References As New ReferenceCollection
         For Each Project As ProjectElement In CodeRush.Source.ActiveSolution.AllProjects
             For Each AssemblyReference As AssemblyReference In Project.AssemblyReferences
-                References.Add(New Reference(AssemblyReference))
+                Try
+                    References.Add(New Reference(AssemblyReference))
+                Catch ex As Exception
+                    Dim LogMessage As String = String.Format("Failed to Add Solution Reference '{0}', '{1}'", _
+                                                                 AssemblyReference.FullName, _
+                                                                 AssemblyReference.FilePath)
+                    Log.SendMsg(LogMessage)
+                End Try
             Next
         Next
         Return References
@@ -101,14 +108,14 @@ Public Class QuickAddReference
             mSolutionList.ListView.Items.Clear()
             For Each Reference As Reference In GetSolutionReferences().OrderBy(Function(item) item.FileName)
                 Try
-                    'Throw New ApplicationException("Crap out here")
                     mSolutionList.ListView.Items.Add(ReferenceListItem.Of(Reference))
                 Catch ex As Exception
-                    Dim FormatVariable As String = String.Format("Failed to Add Solution Reference '{0}', '{1}'", _
+                    Dim LogMessage As String = String.Format("Failed to Add Solution Reference '{0}', '{1}'", _
                                                                  Reference.FullName, _
                                                                  Reference.FileName)
-                    Log.SendMsg(FormatVariable)
+                    Log.SendMsg(LogMessage)
                 End Try
+
             Next
             sLoadedSolutionReferences = True
         End If
