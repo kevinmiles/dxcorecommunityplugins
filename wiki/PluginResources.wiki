@@ -21,6 +21,9 @@ The best place to ask any questions is in the [http://community.devexpress.com/f
  * [http://rorybecker.blogspot.com/2009/04/creating-new-dxcore-plugin.html Creating a new DXCore plugin]
  * [http://rorybecker.blogspot.com/2009/04/what-is-dxcore-action.html What is a DXCore Action?]
  * [http://rorybecker.blogspot.com/2009/04/crhelloworld-your-first-dxcore-plugin.html CR_HelloWorld - Your first DXCore plugin]
+ * [http://rorybecker.blogspot.com/2009/06/how-to-build-your-own-coderush-metric.html How to Build your own Coderush Metric]
+ * [http://rorybecker.blogspot.com/2009/06/elementenumerable-class.html The ElementEnumerable class]
+
 
  * [http://rorybecker.blogspot.com/2008/03/stringproviders-vs-textcommands.html StringProviders vs TextCommands]
 
