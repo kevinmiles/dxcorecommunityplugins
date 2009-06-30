@@ -77,12 +77,15 @@ namespace RedGreen
             {
                 string lineStartDelimiter = ":line ";
                 int lineNumberStart = source.LastIndexOf(lineStartDelimiter) + lineStartDelimiter.Length;
-                int endFileData = source.LastIndexOf("\n");
-                if (endFileData > 0)
-                {
-                    return int.Parse(source.Substring(lineNumberStart, endFileData - lineNumberStart));
-                }
-                return int.Parse(source.Substring(lineNumberStart));
+				if (lineNumberStart >= 0)
+				{
+					int lineNumberEnd = source.IndexOf("\n", lineNumberStart);
+					if (lineNumberEnd > 0)
+					{
+						return int.Parse(source.Substring(lineNumberStart, lineNumberEnd - lineNumberStart));
+					}
+					return int.Parse(source.Substring(lineNumberStart));
+				}
             }
             return 0;
         }

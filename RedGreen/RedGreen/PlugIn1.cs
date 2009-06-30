@@ -258,7 +258,10 @@ namespace RedGreen
                 if (testData == null)
                 {
                     testData = new UnitTestDetail(args.Result.Location, testActions);
-                    _Tests.Add(testData);
+                    if (testData.Method != null)
+                    {// Don't lest bad data in
+                        _Tests.Add(testData);
+                    }
                 }
                 testData.Result = args.Result;
             }
