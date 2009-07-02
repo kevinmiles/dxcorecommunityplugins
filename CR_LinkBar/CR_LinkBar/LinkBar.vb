@@ -203,13 +203,13 @@ Public Class LinkBar
         End Get
     End Property
     Private Sub SaveSettings()
-        Dim SolutionName1 As String = CodeRush.Solution.Active.SolutionName()
+        Dim SolutionName As String = CodeRush.Solution.Active.SolutionName()
         Using Storage As DecoupledStorage = MyStorage
-            Call Storage.WriteStrings(SolutionName1, "FileCollections", Split(FileCollections.ToXML.ToString, System.Environment.NewLine))
+            Call Storage.WriteStrings(SolutionName, "FileCollections", Split(FileCollections.ToXML.ToString, System.Environment.NewLine))
         End Using
     End Sub
     Private Sub LoadSettings()
-        Dim SolutionName As String = (New FileInfo(CodeRush.Solution.Active.FullName)).Name.ToLower.Replace(".sln", "")
+        Dim SolutionName As String = CodeRush.Solution.Active.SolutionName()
         Using Storage As DecoupledStorage = MyStorage
             Dim SavedXML = Join(Storage.ReadStrings(SolutionName, "FileCollections"), "")
             FileCollections.LoadFromXML(XElement.Parse(SavedXML))
