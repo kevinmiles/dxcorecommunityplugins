@@ -30,4 +30,4 @@ Groups are saved in normal DXCore Settings, but are specific to the given soluti
   * Groups do not load or save automatically... You need to use the admin menu options for this..
   * You are never asked if you are sure.... Be careful.
 
-Oh yeah and the Download is [http://www.rorybecker.me.uk/DevExpress/Plugins/Community /CR_LinkBar/ here]
+Oh yeah and the Download is [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_LinkBar/ here]
