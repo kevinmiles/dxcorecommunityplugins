@@ -1,6 +1,4 @@
-Imports DevExpress.CodeRush.Menus
 Imports System.Runtime.CompilerServices
-Imports System.IO
 Module ListOfFileCollectionExt
     <Extension()> _
     Function ToXML(ByVal Source As List(Of FileCollection)) As XElement
