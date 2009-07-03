@@ -1,7 +1,7 @@
 Imports System.Runtime.CompilerServices
 Module ListOfFileCollectionExt
     <Extension()> _
-    Function ToXML(ByVal Source As List(Of FileCollection)) As XElement
+    Function ToXML(ByVal Source As List(Of Workspace)) As XElement
         Return <FileCollections>
                    <%= From FileCollection In Source _
                        Select <FileCollection Name=<%= FileCollection.Name %>>
@@ -13,10 +13,10 @@ Module ListOfFileCollectionExt
                </FileCollections>
     End Function
     <Extension()> _
-    Public Sub LoadFromXML(ByVal Source As List(Of FileCollection), ByVal XML As XElement)
+    Public Sub LoadFromXML(ByVal Source As List(Of Workspace), ByVal XML As XElement)
         Source.Clear()
         For Each FileCollectionXML In XML.<FileCollection>
-            Dim FC As New FileCollection(FileCollectionXML.@Name)
+            Dim FC As New Workspace(FileCollectionXML.@Name)
             For Each File In FileCollectionXML.<File>
                 FC.Add(New FileReference(File.@Display, File.@FileWithPath))
             Next
