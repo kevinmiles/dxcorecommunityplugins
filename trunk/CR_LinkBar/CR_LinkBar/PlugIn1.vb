@@ -29,4 +29,11 @@ Public Class PlugIn1
     Private LinkBar As New LinkBar
 #End Region
 
+    Private Sub PlugIn1_BeforeClosingSolution() Handles Me.BeforeClosingSolution
+        LinkBar.SaveWorkspaces()
+    End Sub
+
+    Private Sub PlugIn1_SolutionOpened() Handles Me.SolutionOpened
+        LinkBar.LoadWorkspaces()
+    End Sub
 End Class

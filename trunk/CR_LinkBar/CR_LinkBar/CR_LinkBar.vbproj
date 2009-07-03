@@ -85,19 +85,22 @@
     <Compile Include="Properties\AssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Icons\SaveAndCloseAll.bmp" />
+    <None Include="Icons\Old\SaveAll.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Icons\SaveAll.bmp" />
+    <None Include="Icons\Old\Folder.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Icons\Folder.bmp" />
+    <EmbeddedResource Include="Icons\Workspace.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Icons\Folder.png" />
+    <None Include="Icons\Old\Folder.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Icons\Folder2.png" />
+    <None Include="Icons\Old\background.png" />
+    <None Include="Icons\Old\Combo.png" />
+    <EmbeddedResource Include="Icons\SaveAndCloseAll.png" />
+    <EmbeddedResource Include="Icons\CreateWorkspace.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

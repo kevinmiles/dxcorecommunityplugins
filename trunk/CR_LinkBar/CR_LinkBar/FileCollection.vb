@@ -1,5 +1,5 @@
 
-Public Class FileCollection
+Public Class Workspace
     Inherits List(Of FileReference)
 #Region "Fields"
     Private mName As String

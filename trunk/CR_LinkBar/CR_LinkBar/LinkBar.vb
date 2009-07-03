@@ -6,16 +6,19 @@ Imports System.IO
 Public Class LinkBar
 #Region "Constants"
     Private Const PREFIX_FILECOLLECTION As String = "FILECOLLECTIONPREFIX"
+    Private Const PNG_FOLDER As String = "Workspace.png"
+    Private Const PNG_SAVEANDCLOSEALL As String = "SaveAndCloseAll.png"
+    Private Const PNG_CREATEWORKSPACE As String = "CreateWorkspace.png"
 #End Region
 #Region "Fields"
-    Private mFileCollections As New List(Of FileCollection)
+    Private mWorkspaces As New List(Of Workspace)
     Private mLinkBar As MenuBar
-    Private mMenuGroupDictionary As New Dictionary(Of String, FileCollection)
+    Private mWorkspaceDictionary As New Dictionary(Of String, Workspace)
 #End Region
 #Region "Simple Properties"
-    Public ReadOnly Property FileCollections() As List(Of FileCollection)
+    Public ReadOnly Property FileCollections() As List(Of Workspace)
         Get
-            Return mFileCollections
+            Return mWorkspaces
         End Get
     End Property
 #End Region
@@ -25,22 +28,22 @@ Public Class LinkBar
         Dim stream As Stream = Asm.GetManifestResourceStream(String.Format("CR_LinkBar.{0}", BitmapName))
         Return CType(Bitmap.FromStream(stream), Bitmap)
     End Function
-    Private Function GetGroupName() As String
-        Dim GroupName As String
-        Dim NextUnusedGroup As String = GetNextUnusedGroup("Group")
+    Private Function GetWorkspaceName() As String
+        Dim WorkspaceName As String
+        Dim NextUnusedWorkspace As String = GetNextUnusedWorkspace("Workspace")
         Do
-            GroupName = InputBox("What would you like to call your Group?", "Group Name", NextUnusedGroup)
-        Loop Until Not FileCollections.Exists(Function(c) c.Name = GroupName)
-        Return GroupName
+            WorkspaceName = InputBox("What would you like to call your Workspace?", "Workspace Name", NextUnusedWorkspace)
+        Loop Until Not FileCollections.Exists(Function(c) c.Name = WorkspaceName)
+        Return WorkspaceName
     End Function
-    Private Function GetNextUnusedGroup(ByVal Base As String) As String
-        Dim GroupName As String = String.Empty
+    Private Function GetNextUnusedWorkspace(ByVal Base As String) As String
+        Dim WorkspaceName As String = String.Empty
         Dim Count As Integer = 0
         Do
             Count += 1
-            GroupName = Base & Count
-        Loop Until Not FileCollections.Exists(Function(c) c.Name = GroupName)
-        Return GroupName
+            WorkspaceName = Base & Count
+        Loop Until Not FileCollections.Exists(Function(c) c.Name = WorkspaceName)
+        Return WorkspaceName
     End Function
 #End Region
 
@@ -52,55 +55,66 @@ Public Class LinkBar
         End If
         mLinkBar = CodeRush.Menus.Bars.Add("LinkBar")
         mLinkBar.Position = BarPosition.Top
-        mMenuGroupDictionary = New Dictionary(Of String, FileCollection)()
+        mWorkspaceDictionary = New Dictionary(Of String, Workspace)()
         ' Add SaveAndCloseAll button
         Call CreateAdminMenu()
         Call CreateSaveAllAndCloseButton()
-        Call CreateSimpleGroupButtons()
+        Call CreateCreateNewWorkspaceButton()
+        Call CreateWorkspaceButtons()
         mLinkBar.Visible = True
     End Sub
     Private Sub CreateAdminMenu()
-        Dim AdminMenu = mLinkBar.CreateAndAddDropDownButton("Admin", "Allows you to Create, Rename and Delete File Groups")
-        CreateLoadSaveButtons(AdminMenu)
+        Dim AdminMenu = mLinkBar.CreateAndAddDropDownButton("Manage", "Manage (Create, Rename and Delete) your workspaces.")
+        'CreateLoadButton(AdminMenu)
+        CreateSaveButton(AdminMenu)
         CreateAddFilesMenu(AdminMenu)
         CreateRenameMenu(AdminMenu)
         CreateDeleteMenu(AdminMenu)
     End Sub
     Private Sub CreateSaveAllAndCloseButton()
-        Dim SaveAndCloseAllButton = CreateAndAddButton(mLinkBar, "Save All && Close", "Saves all files and then Closes them.")
-        SaveAndCloseAllButton.Style = ButtonStyle.Caption
-        SaveAndCloseAllButton.SetFace(GetBitmapByName("SaveAndCloseAll.bmp"))
-        SaveAndCloseAllButton.Style = ButtonStyle.IconAndCaption
-        AddHandler SaveAndCloseAllButton.Click, AddressOf OnClickSaveAndCloseAll
+        Dim Button = CreateAndAddButton(mLinkBar, "Clear Workspace", "Saves all files and then Closes them.")
+        Button.Style = ButtonStyle.Icon
+        Button.SetFace(GetBitmapByName(PNG_SAVEANDCLOSEALL))
+        AddHandler Button.Click, AddressOf OnClickSaveAndCloseAll
     End Sub
-    Private Sub CreateSimpleGroupButtons()
+    Private Sub CreateCreateNewWorkspaceButton()
+        Dim Button As IMenuButton
+        Button = mLinkBar.CreateAndAddButton("Create Workspace")
+        Button.Style = ButtonStyle.Icon
+        Button.SetFace(GetBitmapByName(PNG_CREATEWORKSPACE))
+
+        AddHandler Button.Click, AddressOf OnClickCreateNewWorkspace
+    End Sub
+
+    Private Sub CreateWorkspaceButtons()
         For Each FileCollection In FileCollections
-            Dim GroupButton = mLinkBar.CreateAndAddButton(FileCollection.Name)
-            GroupButton.Style = ButtonStyle.Caption
-            GroupButton.SetFace(GetBitmapByName("Folder2.png"))
-            GroupButton.Style = ButtonStyle.IconAndCaption
-            GroupButton.Tag = PREFIX_FILECOLLECTION & FileCollection.Name
-            mMenuGroupDictionary.Add(PREFIX_FILECOLLECTION & FileCollection.Name, FileCollection)
-            AddHandler GroupButton.Click, AddressOf OnClickFolderButton
+            Dim Button = mLinkBar.CreateAndAddButton(FileCollection.Name)
+            Button.SetFace(GetBitmapByName(PNG_FOLDER))
+            Button.Style = ButtonStyle.IconAndCaption
+            Button.Tag = PREFIX_FILECOLLECTION & FileCollection.Name
+            mWorkspaceDictionary.Add(PREFIX_FILECOLLECTION & FileCollection.Name, FileCollection)
+            AddHandler Button.Click, AddressOf OnClickFolderButton
         Next
     End Sub
 
-    Private Sub CreateLoadSaveButtons(ByVal AdminMenu As IMenuPopup)
-        Dim LoadMenu = AdminMenu.CreateAndAddButton("Load Groups")
-        AddHandler LoadMenu.Click, AddressOf OnClickLoadGroups
-        Dim SaveMenu = AdminMenu.CreateAndAddButton("Save Groups")
-        AddHandler SaveMenu.Click, AddressOf OnClickSaveGroups
+    Private Sub CreateLoadButton(ByVal AdminMenu As IMenuPopup)
+        Dim LoadMenu = AdminMenu.CreateAndAddButton("Load Workspaces")
+        AddHandler LoadMenu.Click, AddressOf OnClickLoadWorkspaces
+    End Sub
+    Private Sub CreateSaveButton(ByVal AdminMenu As IMenuPopup)
+        Dim SaveMenu = AdminMenu.CreateAndAddButton("Save Workspaces")
+        AddHandler SaveMenu.Click, AddressOf OnClickSaveWorkspaces
     End Sub
     Private Sub CreateAddFilesMenu(ByVal AdminMenu As IMenuPopup)
         Dim AddFilesMenu = AdminMenu.CreateAndAddDropDownButton("Add Files")
-        Dim AddFilesNewGroupButton = AddFilesMenu.CreateAndAddButton("New Group")
-        AddFilesNewGroupButton.Style = ButtonStyle.Caption
-        AddFilesNewGroupButton.BeginGroup = True
-        AddHandler AddFilesNewGroupButton.Click, AddressOf OnClickAddFilesNewGroup
+        Dim AddFilesNewWorkspaceButton = AddFilesMenu.CreateAndAddButton("New Workspace")
+        AddFilesNewWorkspaceButton.Style = ButtonStyle.Caption
+        AddFilesNewWorkspaceButton.BeginGroup = True
+        AddHandler AddFilesNewWorkspaceButton.Click, AddressOf OnClickCreateNewWorkspace
         For Each FileCollection In FileCollections
             Dim SomeAddFilesButton = AddFilesMenu.CreateAndAddButton(FileCollection.Name)
             SomeAddFilesButton.Tag = PREFIX_FILECOLLECTION & FileCollection.Name
-            AddHandler SomeAddFilesButton.Click, AddressOf OnAddFilesGroupClick
+            AddHandler SomeAddFilesButton.Click, AddressOf OnAddFilesWorkspaceClick
         Next
     End Sub
     Private Sub CreateRenameMenu(ByVal AdminMenu As IMenuPopup)
@@ -108,7 +122,7 @@ Public Class LinkBar
         For Each FileCollection In FileCollections
             Dim SomeRenameButton = RenameMenu.CreateAndAddButton(FileCollection.Name)
             SomeRenameButton.Tag = PREFIX_FILECOLLECTION & FileCollection.Name
-            AddHandler SomeRenameButton.Click, AddressOf OnRenameGroupClick
+            AddHandler SomeRenameButton.Click, AddressOf OnRenameWorkspaceClick
         Next
     End Sub
     Private Sub CreateDeleteMenu(ByVal AdminMenu As IMenuPopup)
@@ -116,53 +130,34 @@ Public Class LinkBar
         For Each FileCollection In FileCollections
             Dim SomeDeleteButton = DeleteMenu.CreateAndAddButton(FileCollection.Name)
             SomeDeleteButton.Tag = PREFIX_FILECOLLECTION & FileCollection.Name
-            AddHandler SomeDeleteButton.Click, AddressOf OnDeleteGroupClick
+            AddHandler SomeDeleteButton.Click, AddressOf OnDeleteWorkspaceClick
         Next
     End Sub
 #Region "AlternateCode - Keep for now"
-    'Private Sub CreateDropdownGroupButtons()
-    '    ' Better version of what we have above if we can get the drop downs to work properly
-    '    For Each FileCollection In FileCollections
-    '        Dim DropDownMenu = mLinkBar.CreateAndAddDropDownButton(FileCollection.Name)
-    '        DropDownMenu.CreateAndAddButton("Load Files")
-    '        DropDownMenu.CreateAndAddButton("View Files")
-    '        DropDownMenu.CreateAndAddButton("Delete Group")
-    '        DropDownMenu.CreateAndAddButton("rename Group")
-    '        'Control.Style = ButtonStyle.Caption
-    '        'mMenuCollectionDictionary.Add(Control, FileCollection)
-    '        'AddHandler DropDownMenu.Click, AddressOf OnClickFolderButton
-    '    Next
-    'End Sub
-    'Private Sub CreateCreateGroupFromFilesButton()
-    '    'Dim CreateGroupFromFilesButton As IMenuButton
-    '    'CreateGroupFromFilesButton = mLinkBar.CreateAndAddButton("Create Group")
-    '    'CreateGroupFromFilesButton.Style = ButtonStyle.Caption
-    '    'AddHandler CreateGroupFromFilesButton.Click, AddressOf OnClickCreateGroupFromFiles
-    'End Sub
 #End Region
 #End Region
 #Region " Button Click Handlers "
-    Private Sub OnClickLoadGroups(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
-        Call LoadSettings()
+    Private Sub OnClickLoadWorkspaces(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
+        Call LoadWorkspaces()
     End Sub
-    Private Sub OnClickSaveGroups(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
-        Call SaveSettings()
+    Private Sub OnClickSaveWorkspaces(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
+        Call SaveWorkspaces()
     End Sub
-    Private Sub OnClickAddFilesNewGroup(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
+    Private Sub OnClickCreateNewWorkspace(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
         Dim AllDocs As ReadOnlyDocumentCollection = CodeRush.Documents.AllDocuments
         If AllDocs.Count = 0 Then
             Exit Sub
         End If
-        Dim GroupName As String = GetGroupName()
-        Dim FileCollection As New FileCollection(GroupName)
+        Dim GroupName As String = GetWorkspaceName()
+        Dim FileCollection As New Workspace(GroupName)
         For Each Document In AllDocs.OfType(Of Document)()
             FileCollection.Add(Document.Name, Document.FullName)
         Next
         FileCollections.Add(FileCollection)
         Call Refresh()
     End Sub
-    Private Sub OnAddFilesGroupClick(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
-        Dim FileCollection = mMenuGroupDictionary.Item(e.Button.Tag)
+    Private Sub OnAddFilesWorkspaceClick(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
+        Dim FileCollection = mWorkspaceDictionary.Item(e.Button.Tag)
         Dim AllDocs As ReadOnlyDocumentCollection = CodeRush.Documents.AllDocuments
         For Each Document In AllDocs.OfType(Of Document)()
             Dim Doc As Document = Document
@@ -172,15 +167,15 @@ Public Class LinkBar
         Next
         Call Refresh()
     End Sub
-    Private Sub OnRenameGroupClick(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
+    Private Sub OnRenameWorkspaceClick(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
         ' Rename Group
-        Dim FileCollection = mMenuGroupDictionary.Item(e.Button.Tag)
-        FileCollection.Name = GetGroupName()
+        Dim FileCollection = mWorkspaceDictionary.Item(e.Button.Tag)
+        FileCollection.Name = GetWorkspaceName()
         Call Refresh()
     End Sub
-    Private Sub OnDeleteGroupClick(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
+    Private Sub OnDeleteWorkspaceClick(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
         ' Delete Group
-        Dim FileCollection = mMenuGroupDictionary.Item(e.Button.Tag)
+        Dim FileCollection = mWorkspaceDictionary.Item(e.Button.Tag)
         Call FileCollections.Remove(FileCollection)
         Call Refresh()
     End Sub
@@ -191,7 +186,7 @@ Public Class LinkBar
         Next
     End Sub
     Private Sub OnClickFolderButton(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
-        For Each FileReference In mMenuGroupDictionary.Item(e.Button.Tag)
+        For Each FileReference In mWorkspaceDictionary.Item(e.Button.Tag)
             If File.Exists(FileReference.FileWithPath) Then
                 Call CodeRush.File.Activate(FileReference.FileWithPath)
             End If
@@ -204,13 +199,13 @@ Public Class LinkBar
             Return CodeRush.Options.GetStorage("CR_LinkBar")
         End Get
     End Property
-    Private Sub SaveSettings()
+    Public Sub SaveWorkspaces()
         Dim SolutionName As String = CodeRush.Solution.Active.SolutionName()
         Using Storage As DecoupledStorage = MyStorage
             Call Storage.WriteStrings(SolutionName, "FileCollections", Split(FileCollections.ToXML.ToString, System.Environment.NewLine))
         End Using
     End Sub
-    Private Sub LoadSettings()
+    Public Sub LoadWorkspaces()
         Dim SolutionName As String = CodeRush.Solution.Active.SolutionName()
         Using Storage As DecoupledStorage = MyStorage
             Dim SavedXML = Join(Storage.ReadStrings(SolutionName, "FileCollections"), "")
