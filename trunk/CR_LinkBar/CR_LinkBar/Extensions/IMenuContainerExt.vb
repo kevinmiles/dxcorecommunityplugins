@@ -1,6 +1,5 @@
 Imports DevExpress.CodeRush.Menus
 Imports System.Runtime.CompilerServices
-Imports System.IO
 
 
 Public Module IMenuContainerExt
