@@ -4,7 +4,7 @@
 
 This plugin is for allowing you to save references to clusters of files so that you can reload a cluster of these files at will at a moments notice.
 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_LinkBar/Screenshots/Screenshot1.bmp
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_LinkBar/Screenshots/Screenshot1.png
 
 = Scenario =
 
