@@ -77,6 +77,8 @@ Public Class LinkBar
         For Each FileCollection In FileCollections
             Dim GroupButton = mLinkBar.CreateAndAddButton(FileCollection.Name)
             GroupButton.Style = ButtonStyle.Caption
+            GroupButton.SetFace(GetBitmapByName("Folder2.png"))
+            GroupButton.Style = ButtonStyle.IconAndCaption
             GroupButton.Tag = PREFIX_FILECOLLECTION & FileCollection.Name
             mMenuGroupDictionary.Add(PREFIX_FILECOLLECTION & FileCollection.Name, FileCollection)
             AddHandler GroupButton.Click, AddressOf OnClickFolderButton

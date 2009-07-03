@@ -90,6 +90,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Icons\SaveAll.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\Folder.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\Folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\Folder2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
