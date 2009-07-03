@@ -1,23 +1,23 @@
 Imports System.Runtime.CompilerServices
-Module ListOfFileCollectionExt
+Module WorkspaceExt
     <Extension()> _
     Function ToXML(ByVal Source As List(Of Workspace)) As XElement
-        Return <FileCollections>
-                   <%= From FileCollection In Source _
-                       Select <FileCollection Name=<%= FileCollection.Name %>>
-                                  <%= From File In FileCollection _
+        Return <Workspaces>
+                   <%= From Workspace In Source _
+                       Select <Workspace Name=<%= Workspace.Name %>>
+                                  <%= From File In Workspace _
                                       Select <File Display=<%= File.Display %> FileWithPath=<%= File.FileWithPath %>/> _
                                   %>
-                              </FileCollection> _
+                              </Workspace> _
                    %>
-               </FileCollections>
+               </Workspaces>
     End Function
     <Extension()> _
     Public Sub LoadFromXML(ByVal Source As List(Of Workspace), ByVal XML As XElement)
         Source.Clear()
-        For Each FileCollectionXML In XML.<FileCollection>
-            Dim FC As New Workspace(FileCollectionXML.@Name)
-            For Each File In FileCollectionXML.<File>
+        For Each WorkspaceXML In XML.<Workspace>
+            Dim FC As New Workspace(WorkspaceXML.@Name)
+            For Each File In WorkspaceXML.<File>
                 FC.Add(New FileReference(File.@Display, File.@FileWithPath))
             Next
             Call Source.Add(FC)

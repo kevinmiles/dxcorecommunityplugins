@@ -72,9 +72,9 @@
   <ItemGroup>
     <Compile Include="Extensions\IMenuContainerExt.vb" />
     <Compile Include="Extensions\SolutionExt.vb" />
-    <Compile Include="FileCollection.vb" />
+    <Compile Include="Workspace.vb" />
     <Compile Include="FileReference.vb" />
-    <Compile Include="Extensions\ListOfFileCollectionExt.vb" />
+    <Compile Include="Extensions\WorkspaceExt.vb" />
     <Compile Include="LinkBar.vb" />
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
