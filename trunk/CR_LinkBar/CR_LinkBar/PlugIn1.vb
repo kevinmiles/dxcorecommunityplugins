@@ -30,6 +30,7 @@ Public Class PlugIn1
 #End Region
 
     Private Sub PlugIn1_SolutionOpened() Handles Me.SolutionOpened
+        'LinkBar.Enabled = True
         LinkBar.LoadWorkspaces()
     End Sub
 
@@ -38,6 +39,8 @@ Public Class PlugIn1
     End Sub
 
     Private Sub PlugIn1_AfterClosingSolution() Handles Me.AfterClosingSolution
+        LinkBar.ClearWorkSpaces()
         LinkBar.Refresh()
+        'LinkBar.Enabled = False
     End Sub
 End Class
