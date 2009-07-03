@@ -4,13 +4,15 @@
 
 This plugin is for allowing you to save references to clusters of files so that you can reload a cluster of these files at will at a moments notice.
 
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_LinkBar/Screenshots/Screenshot1.bmp
+
 = Scenario =
 
 So you're happily working away on some subsystem of "The Solution", when your boss rings up and interrupts you once again.
 
 He want's to know some intricate detail about some other subsystem of "The Solution"
 
-Tou don't have the information to hand... You're going to have to delve deep and open up a few files which are going to corrupt your workspace with their mere presence.
+You don't have the information to hand... You're going to have to delve deep and open up a few files which are going to corrupt your workspace with their mere presence.
 
 Never fear... Use CR_LinkBar to create a new "group button" and call it "MyWork" and then "Save & Close All"
 
