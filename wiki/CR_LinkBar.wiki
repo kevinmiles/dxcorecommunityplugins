@@ -6,6 +6,8 @@ This plugin is for allowing you to save references to clusters of files so that 
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_LinkBar/Screenshots/Screenshot1.png
 
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_LinkBar/Screenshots/Screenshot2.png
+
 = Scenario =
 
 So you're happily working away on some subsystem of "The Solution", when your boss rings up and interrupts you once again.
@@ -29,7 +31,6 @@ Groups are saved in normal DXCore Settings, but are specific to the given soluti
   * CR_LinkBar currently only remembers your files... Not which one was loaded or where you were in each - this is coming
   * Many things are available when they should not be... This is a very early access plugin :P 
   * The UI is not very flexible.
-  * Groups do not load or save automatically... You need to use the admin menu options for this..
   * You are never asked if you are sure.... Be careful.
 
 Oh yeah and the Download is [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_LinkBar/ here]
