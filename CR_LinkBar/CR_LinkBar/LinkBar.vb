@@ -11,6 +11,7 @@ Public Class LinkBar
     Private Const PNG_CREATEWORKSPACE As String = "CreateWorkspace.png"
 #End Region
 #Region "Fields"
+    Private mEnabled As Boolean = False
     Private mWorkspaces As New List(Of Workspace)
     Private mLinkBar As MenuBar
     Private mWorkspaceDictionary As New Dictionary(Of String, Workspace)
@@ -22,7 +23,22 @@ Public Class LinkBar
         End Get
     End Property
 #End Region
+#Region "Complex Properties"
+    Public Property Enabled() As Boolean
+        Get
+            Return mEnabled
+        End Get
+        Set(ByVal Value As Boolean)
+            For i As Integer = 0 To mLinkBar.Count
+                mLinkBar.Item(i).Enabled = Value
+            Next
+            mEnabled = Value
+        End Set
+    End Property
+#End Region
+
 #Region "Utils"
+
     Private Function GetBitmapByName(ByVal BitmapName As String) As Bitmap
         Dim Asm As System.Reflection.Assembly = System.Reflection.Assembly.GetAssembly(Me.GetType)
         Dim stream As Stream = Asm.GetManifestResourceStream(String.Format("CR_LinkBar.{0}", BitmapName))
@@ -49,6 +65,7 @@ Public Class LinkBar
 
 #Region " Toolbar Setup "
     Public Sub Refresh()
+
         If mLinkBar IsNot Nothing Then
             mLinkBar.Delete()
             mLinkBar = Nothing
@@ -199,6 +216,9 @@ Public Class LinkBar
             Return CodeRush.Options.GetStorage("CR_LinkBar")
         End Get
     End Property
+    Public Sub ClearWorkSpaces()
+        Call mWorkspaces.Clear()
+    End Sub
     Public Sub SaveWorkspaces()
         Dim SolutionName As String = CodeRush.Solution.Active.SolutionName()
         Using Storage As DecoupledStorage = MyStorage
@@ -213,11 +233,5 @@ Public Class LinkBar
         End Using
         Refresh()
     End Sub
-
-
-
 #End Region
-
-
-
 End Class
