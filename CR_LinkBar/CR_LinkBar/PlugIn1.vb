@@ -15,6 +15,9 @@ Public Class PlugIn1
 #Region " InitializePlugIn "
     Public Overrides Sub InitializePlugIn()
         MyBase.InitializePlugIn()
+        If DevExpress.CodeRush.Core.CodeRush.Solution.Active.Count > 0 Then
+            LinkBar.LoadWorkspaces()
+        End If
         Call LinkBar.Refresh()
         'TODO: Add your initialization code here.
     End Sub
