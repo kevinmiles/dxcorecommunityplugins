@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="coverage.xsl" type="text/xsl"?>
+<!-- saved from url=(0022)http://www.ncover.org/ -->
+<coverage profilerVersion="1.5.8 Beta" driverVersion="1.5.8.0" startTime="2009-06-15T15:59:48.1394252-07:00" measureTime="2009-06-15T15:59:53.7527462-07:00">
+  <module moduleId="25" name="C:\Users\dangilkerson\Documents\My Dropbox\projects\approvaltests\trunk\projects\ApprovalTests\DotNet Approvals\ApprovalTests.Tests\bin\Debug\ApprovalTests.dll" assembly="ApprovalTests" assemblyIdentity="ApprovalTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null, processorArchitecture=MSIL">
+    <method name=".ctor" excluded="false" instrumented="true" class="ApprovalTests.ApprovalControlWriter">
+      <seqpnt visitcount="1" line="12" column="3" endline="12" endcolumn="54" excluded="false" document="c:\foo-1.cs" />
+      <seqpnt visitcount="1" line="14" column="4" endline="14" endcolumn="28" excluded="false" document="c:\foo-1.cs" />
+      <seqpnt visitcount="1" line="15" column="3" endline="15" endcolumn="4" excluded="false" document="c:\foo-1.cs" />
+    </method>
+    <method name="TestFormApproval" excluded="false" instrumented="true" class="ApprovalTests.Tests.WinForms.ApprovalsTest">
+      <seqpnt visitcount="0" line="20" column="4" endline="20" endcolumn="57" excluded="false" document="c:\foo-1.cs" />
+      <seqpnt visitcount="0" line="21" column="3" endline="21" endcolumn="4" excluded="false" document="c:\foo-1.cs" />
+    </method>
+  </module>
+</coverage>

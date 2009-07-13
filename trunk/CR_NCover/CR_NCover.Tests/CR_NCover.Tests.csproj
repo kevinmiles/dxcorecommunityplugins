@@ -1,0 +1,126 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E0C49CBA-C1B4-45DF-BF66-85A9452303BF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CR_NCover.Tests</RootNamespace>
+    <AssemblyName>CR_NCover.Tests</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ApprovalTests, Version=0.0.4.25, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\3rdParty\ApprovalTests\ApprovalTests.dll</HintPath>
+    </Reference>
+    <Reference Include="CheckPoint, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\3rdParty\CheckPoint\CheckPoint.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.Common, Version=9.2.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.Core, Version=9.2.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.PlugInCore, Version=9.2.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.StructuralParser, Version=9.2.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL" />
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\PublicAssemblies\EnvDTE.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.2.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\3rdParty\nUnit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TypeMock, Version=5.3.1.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
+      <HintPath>..\TypeMock.dll</HintPath>
+    </Reference>
+    <Reference Include="Typemock.ArrangeActAssert, Version=5.3.1.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CoverageOverlaySpecs\CoverageOverlyTests.cs" />
+    <Compile Include="ServiceSpecs\ServiceTests.cs" />
+    <Compile Include="PluginSpecs\PluginTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultParserSpecs\ResultParserTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CoverageOverlaySpecs\CoverageOverlyTests.DisplayOverlayOnShow.approved.txt" />
+    <Content Include="CoverageOverlaySpecs\CoverageOverlyTests.InvalidateOnHide.approved.txt" />
+    <Content Include="PluginSpecs\PluginWithAnOpenSolution.HideOverlayWhenTextHasChanged.approved.txt" />
+    <Content Include="PluginSpecs\PluginWithAnOpenSolution.ShowOverlayWhenResultsUpdated.approved.txt" />
+    <Content Include="PluginSpecs\PluginWithAnOpenSolution.StartTheExplorerWhenInitializingThePlugin.approved.txt" />
+    <Content Include="PluginSpecs\PluginWithAnOpenSolution.UpdateOverlayWhenPaintingBackground.approved.txt" />
+    <Content Include="PluginSpecs\PluginWithNoSolutionOpen.DontStartTheExplorerWhenThePluginIsInitialized.approved.txt" />
+    <Content Include="PluginSpecs\PluginWithNoSolutionOpen.StartTheServiceWhenASolutionIsOpen.approved.txt" />
+    <Content Include="notvalidxml.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Invalid-3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Invalid-1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NCover-1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NCover-3.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ResultParserSpecs\ResultParserTests.InvalidNCover1ResultFileMissing.approved.txt" />
+    <Content Include="ResultParserSpecs\ResultParserTests.InvalidNCover3ResultFileMissing.approved.txt" />
+    <Content Include="ResultParserSpecs\ResultParserTests.InvalidXmlResultFile.approved.txt" />
+    <Content Include="ResultParserSpecs\ResultParserTests.MissingResultFile.approved.txt" />
+    <Content Include="ResultParserSpecs\ResultParserTests.ParseNCover1.approved.txt" />
+    <Content Include="ResultParserSpecs\ResultParserTests.ParseNCover3.approved.txt" />
+    <Content Include="ServiceSpecs\ServiceTests.WatchForResultsShouldConfigureWatcher.approved.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CR_NCover\CR_NCover.csproj">
+      <Project>{690B3006-20C4-4D8C-8C99-9B6329A35BC3}</Project>
+      <Name>CR_NCover</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

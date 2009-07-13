@@ -1,0 +1,6 @@
+(System.IO.FileSystemWatcher) watcher..cctor()
+(System.IO.FileSystemWatcher) watcher..ctor()
+(System.IO.FileSystemWatcher) watcher.set_Path()
+(System.IO.FileSystemWatcher) watcher.set_Filter()
+(System.IO.FileSystemWatcher) watcher.add_Changed()
+(System.IO.FileSystemWatcher) watcher.set_EnableRaisingEvents()
