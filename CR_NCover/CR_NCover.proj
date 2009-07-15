@@ -3,7 +3,7 @@
     <TypeMockLocation>P:\Program Files\Typemock\Isolator\5.3</TypeMockLocation>
   </PropertyGroup>
   <Target Name="build">
-    <MSBuild Projects="CR_NCover.sln" Properties="Configuration=Release;OutputPath=../bin"/>
+    <MSBuild Projects="CR_NCover.sln" Properties="Configuration=Release;OutputPath=$(MSBuildStartupDirectory)/bin"/>
   </Target>
   <UsingTask TaskName="NUnit" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)"/>
   <Import Project ="$(TypeMockLocation)\TypeMock.MSBuild.Tasks"/>
