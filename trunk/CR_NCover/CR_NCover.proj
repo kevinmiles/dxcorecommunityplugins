@@ -9,6 +9,8 @@
   <UsingTask TaskName="NUnit" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)"/>
   <Import Project ="$(TypeMockLocation)\TypeMock.MSBuild.Tasks"/>
   <Target Name="test">
+    <TypeMockStart/>
 	<NUnit Assemblies="bin/CR_NCover.Tests.dll"/>
+	<TypeMockStop/>
   </Target>
 </Project>
