@@ -4,7 +4,7 @@
   </PropertyGroup>
   <Target Name="build">
     <MSBuild Projects="CR_NCover\CR_NCover.csproj" Properties="Configuration=Release; Platform=x86; OutputPath=../bin"/>
-    <MSBuild Projects="CR_NCover.Tests\CR_NCover.Tests.csproj" Properties="Configuration=Release; Platform=x86; OutputPath=../bin"/>
+    <MSBuild Projects="CR_NCover.Tests\CR_NCover.Tests.csproj" Properties="Configuration=Debug; Platform=x86; OutputPath=../bin"/>
   </Target>
   <UsingTask TaskName="NUnit" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)"/>
   <Import Project ="$(TypeMockLocation)\TypeMock.MSBuild.Tasks"/>
