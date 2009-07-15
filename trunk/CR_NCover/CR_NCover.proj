@@ -5,9 +5,9 @@
   <Target Name="build">
     <MSBuild Projects="CR_NCover.sln" Properties="Configuration=Release;OutputPath=../bin"/>
   </Target>
+  <UsingTask TaskName="NUnit" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)"/>
+  <Import Project ="$(TypeMockLocation)\TypeMock.MSBuild.Tasks"/>
   <Target Name="test">
-    <UsingTask TaskName="NUnit" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)"/>
-    <Import Project ="$(TypeMockLocation)\TypeMock.MSBuild.Tasks"/>
     <TypeMockStart/>
 	<NUnit Assemblies="bin/CR_NCover.Tests.dll"/>
 	<TypeMockStop/>
