@@ -4,13 +4,14 @@
   </PropertyGroup>
   <Target Name="build">
     <MSBuild Projects="CR_NCover\CR_NCover.csproj" Properties="Configuration=Release; Platform=x86; OutputPath=../bin"/>
-    <MSBuild Projects="CR_NCover.Tests\CR_NCover.Tests.csproj" Properties="Configuration=Debug; Platform=x86; OutputPath=../bin"/>
+	<MSBuild Projects="CR_NCover\CR_NCover.csproj" Properties="Configuration=Debug; Platform=x86; OutputPath=../test"/>
+    <MSBuild Projects="CR_NCover.Tests\CR_NCover.Tests.csproj" Properties="Configuration=Debug; Platform=x86; OutputPath=../test"/>
   </Target>
   <UsingTask TaskName="NUnit" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)"/>
   <Import Project ="$(TypeMockLocation)\TypeMock.MSBuild.Tasks"/>
   <Target Name="test">
     <TypeMockStart/>
-	<NUnit Assemblies="bin/CR_NCover.Tests.dll"/>
+	<NUnit Assemblies="test/CR_NCover.Tests.dll"/>
 	<TypeMockStop/>
   </Target>
 </Project>
