@@ -9,7 +9,7 @@
   <Import Project ="$(TypeMockLocation)\TypeMock.MSBuild.Tasks"/>
   <Target Name="test">
     <TypeMockStart/>
-	<NUnit Assemblies="bin/CR_NCover.Tests.dll"/>
+	<NUnit Assemblies="$(MSBuildStartupDirectory)/bin/CR_NCover.Tests.dll"/>
 	<TypeMockStop/>
   </Target>
 </Project>
