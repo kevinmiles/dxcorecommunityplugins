@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CR_ClearAllMarkers", "CR_ClearAllMarkers\CR_ClearAllMarkers.vbproj", "{3DC45929-DE86-40E4-B733-6F2112A78632}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0923AD07-5F1F-446A-837F-F1CBB5D4C38F}"
+	ProjectSection(SolutionItems) = preProject
+		CR_ClearAllMarkers.proj = CR_ClearAllMarkers.proj
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
