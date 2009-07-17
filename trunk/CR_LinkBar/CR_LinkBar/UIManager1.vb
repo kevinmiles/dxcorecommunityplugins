@@ -12,25 +12,28 @@ Public Class UIManager1
         MyBase.New(LinkBar)
     End Sub
 #End Region
+
     Public Overrides Sub Refresh()
-        Call ResetToolBar()
+        Call mLinkBar.ResetToolbar()
         Call CreateAdminMenu()
         Call CreateSaveAllAndCloseButton()
         Call CreateCreateNewWorkspaceButton()
         Call CreateWorkspaceButtons()
     End Sub
     Private Sub CreateAdminMenu()
-        Dim AdminMenu = mMenuBar.CreateAndAddDropDownButton("Manage", "Manage (Create, Rename and Delete) your workspaces.")
+        Dim AdminMenu = MenuBar.CreateAndAddDropDownButton("Manage", "Manage (Create, Rename and Delete) your workspaces.")
         'CreateLoadButton(AdminMenu)
-        CreateSaveWorkspacesButton(AdminMenu)
-        CreateAddFilesMenu(AdminMenu)
-        CreateRenameMenu(AdminMenu)
-        CreateDeleteMenu(AdminMenu)
+        Call CreateRefreshButton(AdminMenu)
+        Call CreateSaveWorkspacesButton(AdminMenu)
+        Call CreateAddFilesMenu(AdminMenu)
+        Call CreateRenameMenu(AdminMenu)
+        Call CreateDeleteMenu(AdminMenu)
+        Call CreateUIMenu(AdminMenu)
+
     End Sub
-    
     Private Sub CreateWorkspaceButtons()
         For Each Workspace In mLinkBar.Workspaces
-            Dim Button = mMenuBar.CreateAndAddButton(Workspace.Name)
+            Dim Button = MenuBar.CreateAndAddButton(Workspace.Name)
             Button.SetFace(GetBitmapByName(PNG_FOLDER))
             Button.Style = ButtonStyle.IconAndCaption
             Button.Tag = Workspace.Name
@@ -39,16 +42,16 @@ Public Class UIManager1
         Next
     End Sub
 
-    Private Sub CreateLoadWorkspacesButton(ByVal AdminMenu As IMenuPopup)
-        Dim LoadMenu = AdminMenu.CreateAndAddButton("Load Workspaces")
+    Private Sub CreateLoadWorkspacesButton(ByVal ParentMenu As IMenuPopup)
+        Dim LoadMenu = ParentMenu.CreateAndAddButton("Load Workspaces")
         AddHandler LoadMenu.Click, AddressOf mLinkBar.OnClickLoadWorkspaces
     End Sub
-    Private Sub CreateSaveWorkspacesButton(ByVal AdminMenu As IMenuPopup)
-        Dim SaveMenu = AdminMenu.CreateAndAddButton("Save Workspaces")
+    Private Sub CreateSaveWorkspacesButton(ByVal ParentMenu As IMenuPopup)
+        Dim SaveMenu = ParentMenu.CreateAndAddButton("Save Workspaces")
         AddHandler SaveMenu.Click, AddressOf mLinkBar.OnClickSaveWorkspaces
     End Sub
-    Private Sub CreateAddFilesMenu(ByVal AdminMenu As IMenuPopup)
-        Dim AddFilesMenu = AdminMenu.CreateAndAddDropDownButton("Add Files")
+    Private Sub CreateAddFilesMenu(ByVal ParentMenu As IMenuPopup)
+        Dim AddFilesMenu = ParentMenu.CreateAndAddDropDownButton("Add Files")
         Dim AddFilesNewWorkspaceButton = AddFilesMenu.CreateAndAddButton("New Workspace")
         AddFilesNewWorkspaceButton.Style = ButtonStyle.Caption
         AddFilesNewWorkspaceButton.BeginGroup = True
@@ -59,21 +62,20 @@ Public Class UIManager1
             AddHandler SomeAddFilesButton.Click, AddressOf mLinkBar.OnAddFilesWorkspaceClick
         Next
     End Sub
-    Private Sub CreateRenameMenu(ByVal AdminMenu As IMenuPopup)
-        Dim RenameMenu = AdminMenu.CreateAndAddDropDownButton("Rename")
+    Private Sub CreateRenameMenu(ByVal ParentMenu As IMenuPopup)
+        Dim RenameMenu = ParentMenu.CreateAndAddDropDownButton("Rename")
         For Each Workspace In mLinkBar.Workspaces
             Dim SomeRenameButton = RenameMenu.CreateAndAddButton(Workspace.Name)
             SomeRenameButton.Tag = Workspace.Name
             AddHandler SomeRenameButton.Click, AddressOf mLinkBar.OnRenameWorkspaceClick
         Next
     End Sub
-    Private Sub CreateDeleteMenu(ByVal AdminMenu As IMenuPopup)
-        Dim DeleteMenu = AdminMenu.CreateAndAddDropDownButton("Delete")
+    Private Sub CreateDeleteMenu(ByVal ParentMenu As IMenuPopup)
+        Dim DeleteMenu = ParentMenu.CreateAndAddDropDownButton("Delete")
         For Each Workspace In mLinkBar.Workspaces
             Dim SomeDeleteButton = DeleteMenu.CreateAndAddButton(Workspace.Name)
             SomeDeleteButton.Tag = Workspace.Name
             AddHandler SomeDeleteButton.Click, AddressOf mLinkBar.OnDeleteWorkspaceClick
         Next
     End Sub
-
 End Class

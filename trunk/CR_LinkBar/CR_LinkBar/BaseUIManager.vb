@@ -14,22 +14,7 @@ Public MustInherit Class BaseUIManager
     Protected Const PNG_CREATEWORKSPACE As String = "CreateWorkspace.png"
 #End Region
 #Region "Fields"
-    Protected mEnabled As Boolean = False
-    Protected mMenuBar As MenuBar
     Protected mLinkBar As LinkBar
-#End Region
-#Region "Properties"
-    Public Property Enabled() As Boolean
-        Get
-            Return mEnabled
-        End Get
-        Set(ByVal Value As Boolean)
-            For i As Integer = 0 To mMenuBar.Count
-                mMenuBar.Item(i).Enabled = Value
-            Next
-            mEnabled = Value
-        End Set
-    End Property
 #End Region
 #Region "Constructors"
     Public Sub New(ByVal LinkBar As LinkBar)
@@ -42,32 +27,42 @@ Public MustInherit Class BaseUIManager
 #End Region
 
     Public Function GetBitmapByName(ByVal BitmapName As String) As Bitmap
-        Dim Asm As System.Reflection.Assembly = System.Reflection.Assembly.GetAssembly(Me.GetType)
+        Dim Asm As Assembly = Assembly.GetAssembly(Me.GetType)
         Dim stream As IO.Stream = Asm.GetManifestResourceStream(String.Format("CR_LinkBar.{0}", BitmapName))
         Return CType(Bitmap.FromStream(stream), Bitmap)
     End Function
-    Protected Sub ResetToolBar()
-        If mMenuBar IsNot Nothing Then
-            mMenuBar.Delete()
-            mMenuBar = Nothing
-        End If
-        mMenuBar = CodeRush.Menus.Bars.Add("LinkBar")
-        mMenuBar.Position = BarPosition.Top
-        mMenuBar.Visible = True
-    End Sub
     Protected Sub CreateSaveAllAndCloseButton()
-        Dim Button = CreateAndAddButton(mMenuBar, "Clear Workspace", "Saves all files and then Closes them.")
+        Dim Button = CreateAndAddButton(mLinkBar.MenuBar, "Clear Workspace", "Saves all files and then Closes them.")
         Button.Style = ButtonStyle.Icon
         Button.SetFace(GetBitmapByName(PNG_SAVEANDCLOSEALL))
         AddHandler Button.Click, AddressOf mLinkBar.OnClickSaveAndCloseAll
     End Sub
     Protected Sub CreateCreateNewWorkspaceButton()
-        Dim Button As IMenuButton
-        Button = mMenuBar.CreateAndAddButton("Create Workspace")
+        Dim Button As IMenuButton = mLinkBar.MenuBar.CreateAndAddButton("Create Workspace")
         Button.Style = ButtonStyle.Icon
         Button.SetFace(GetBitmapByName(PNG_CREATEWORKSPACE))
         AddHandler Button.Click, AddressOf mLinkBar.OnClickCreateNewWorkspace
     End Sub
+    Protected Sub CreateRefreshButton(ByVal ParentMenu As IMenuPopup)
+        Dim RefreshMenu = ParentMenu.CreateAndAddButton("Refresh")
+        AddHandler RefreshMenu.Click, AddressOf mLinkBar.OnClickRefreshWorkspaces
+    End Sub
 
+    Protected Sub CreateUIMenu(ByVal ParentMenu As IMenuPopup)
+        Dim RenameMenu = ParentMenu.CreateAndAddDropDownButton("UI")
+        Dim UI1Button = RenameMenu.CreateAndAddButton("UI1")
+        AddHandler UI1Button.Click, AddressOf (New UIManager1(mLinkBar)).AssignUI
+        Dim UI2Button = RenameMenu.CreateAndAddButton("UI2")
+        AddHandler UI2Button.Click, AddressOf (New UIManager2(mLinkBar)).AssignUI
+    End Sub
+    Public Sub AssignUI(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
+        mLinkBar.UIManager = Me
+        mLinkBar.RefreshToolbar()
+    End Sub
+    Protected ReadOnly Property MenuBar() As MenuBar
+        Get
+            Return mLinkBar.MenuBar
+        End Get
+    End Property
 
 End Class
