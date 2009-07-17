@@ -112,6 +112,7 @@
     <Content Include="ResultParserSpecs\ResultParserTests.MissingResultFile.approved.txt" />
     <Content Include="ResultParserSpecs\ResultParserTests.ParseNCover1.approved.txt" />
     <Content Include="ResultParserSpecs\ResultParserTests.ParseNCover3.approved.txt" />
+    <Content Include="ServiceSpecs\ServiceTests.CacheResults.approved.txt" />
     <Content Include="ServiceSpecs\ServiceTests.WatchForResultsShouldConfigureWatcher.approved.txt" />
   </ItemGroup>
   <ItemGroup>

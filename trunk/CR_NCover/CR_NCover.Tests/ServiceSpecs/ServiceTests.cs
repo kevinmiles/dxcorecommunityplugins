@@ -23,7 +23,20 @@ namespace CR_NCover.Tests.ServiceSpecs
 			service.WatchForResults("", () => { });
 
 			Approvals.Approve(serviceSentry.Report);
+		}
 
+		[Test]
+		public void CacheResults()
+		{
+			var serviceSentry = Monitor.Interactions(typeof(Service));
+			
+			Isolate.WhenCalled(() => VisualStudio.ActiveFilePath).WillReturn("foo.cs");
+
+			Service service = new Service();
+			service.GetCoverageResultsForActiveDocument();
+			service.GetCoverageResultsForActiveDocument();
+
+			Approvals.Approve(serviceSentry.Report);
 		}
 	}
 }

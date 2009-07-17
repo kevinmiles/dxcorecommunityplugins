@@ -8,6 +8,7 @@ using Monitor=CheckPoint.Monitor;
 namespace CR_NCover.Tests.PluginSpecs
 {
 	[TestFixture]
+	[Isolated]
 	public class PluginWithNoSolutionOpen
 	{
 		[NUnit.Framework.SetUp]
@@ -49,6 +50,7 @@ namespace CR_NCover.Tests.PluginSpecs
 	}
 
 	[TestFixture]
+	[Isolated]
 	public class PluginWithAnOpenSolution
 	{
 		[NUnit.Framework.SetUp]
@@ -73,7 +75,6 @@ namespace CR_NCover.Tests.PluginSpecs
 		private Sentry pluginSentry;
 
 		[NUnit.Framework.Test]
-		[NUnit.Framework.Ignore("Some issue with typemock on the CI system")]
 		public void HideOverlayWhenTextHasChanged()
 		{
 			plugin.WhenTextChanges(null);
