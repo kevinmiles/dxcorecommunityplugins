@@ -70,11 +70,16 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseUIManager.vb" />
+    <Compile Include="DocumentReference.vb" />
     <Compile Include="Extensions\IMenuContainerExt.vb" />
     <Compile Include="Extensions\SolutionExt.vb" />
+    <Compile Include="IUIManager.vb" />
+    <Compile Include="OrderedDict.vb" />
+    <Compile Include="UIManager1.vb" />
+    <Compile Include="Utils.vb" />
     <Compile Include="Workspace.vb" />
-    <Compile Include="FileReference.vb" />
-    <Compile Include="Extensions\WorkspaceExt.vb" />
+    <Compile Include="Extensions\StringExt.vb" />
     <Compile Include="LinkBar.vb" />
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
@@ -83,6 +88,7 @@
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.vb" />
+    <Compile Include="WorkspaceCollection.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icons\Old\SaveAll.bmp" />
