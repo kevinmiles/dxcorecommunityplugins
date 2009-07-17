@@ -1,6 +1,8 @@
+Imports DevExpress.CodeRush.Core
+Imports DevExpress.CodeRush.StructuralParser
 
 Public Class Workspace
-    Inherits List(Of FileReference)
+    Inherits List(Of DocumentReference)
 #Region "Fields"
     Private mName As String
 #End Region
@@ -17,10 +19,18 @@ Public Class Workspace
 #Region "Constructors"
     Public Sub New(ByVal CollectionName As String)
         mName = CollectionName
-
     End Sub
 #End Region
-    Public Overloads Sub Add(ByVal Name As String, ByVal FileWithPath As String)
-        MyBase.Add(New FileReference(Name, FileWithPath))
+    Public Overloads Sub AddDocument(ByVal TextDocument As TextDocument)
+        Call AddDocument(TextDocument.Name, _
+                 TextDocument.FullName, _
+                 TextDocument.ActiveView.TopLine, _
+                 TextDocument.ActiveView.Caret.SourcePoint)
+    End Sub
+    Public Overloads Sub AddDocument(ByVal Name As String, _
+                              ByVal FullName As String, _
+                              ByVal TopLine As Integer, _
+                              ByVal SourcePoint As SourcePoint)
+        MyBase.Add(New DocumentReference(Name, FullName, TopLine, SourcePoint))
     End Sub
 End Class
