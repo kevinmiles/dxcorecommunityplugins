@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseUIManager.vb" />
+    <Compile Include="UIManager2.vb" />
     <Compile Include="DocumentReference.vb" />
     <Compile Include="Extensions\IMenuContainerExt.vb" />
     <Compile Include="Extensions\SolutionExt.vb" />

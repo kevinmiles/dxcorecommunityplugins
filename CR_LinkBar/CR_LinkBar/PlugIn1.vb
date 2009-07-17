@@ -28,10 +28,12 @@ Public Class PlugIn1
         MyBase.FinalizePlugIn()
     End Sub
 #End Region
+
 #Region " Fields "
     Private LinkBar As New LinkBar
 #End Region
 
+#Region "Solution Events"
     Private Sub PlugIn1_SolutionOpened() Handles Me.SolutionOpened
         'LinkBar.Enabled = True
         LinkBar.LoadWorkspaces()
@@ -46,4 +48,5 @@ Public Class PlugIn1
         LinkBar.Refresh()
         'LinkBar.Enabled = False
     End Sub
+#End Region
 End Class
