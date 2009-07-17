@@ -4,7 +4,7 @@ Imports DevExpress.CodeRush.Menus
 Imports System.IO
 Imports DevExpress.CodeRush.StructuralParser
 
-Public Class UIManager1
+Public Class UIManager2
     Inherits BaseUIManager
 
 #Region "Constructors"
@@ -14,7 +14,7 @@ Public Class UIManager1
 #End Region
     Public Overrides Sub Refresh()
         Call ResetToolBar()
-        Call CreateAdminMenu()
+        'Call CreateAdminMenu()
         Call CreateSaveAllAndCloseButton()
         Call CreateCreateNewWorkspaceButton()
         Call CreateWorkspaceButtons()
@@ -27,15 +27,16 @@ Public Class UIManager1
         CreateRenameMenu(AdminMenu)
         CreateDeleteMenu(AdminMenu)
     End Sub
-    
+
     Private Sub CreateWorkspaceButtons()
         For Each Workspace In mLinkBar.Workspaces
-            Dim Button = mMenuBar.CreateAndAddButton(Workspace.Name)
-            Button.SetFace(GetBitmapByName(PNG_FOLDER))
-            Button.Style = ButtonStyle.IconAndCaption
-            Button.Tag = Workspace.Name
+            Dim WorkspaceMenu = mMenuBar.CreateAndAddDropDownButton(Workspace.Name)
+            Dim JumpButton = WorkspaceMenu.CreateAndAddButton(String.Format("Jump to '{0}'", Workspace.Name))
+            JumpButton.SetFace(GetBitmapByName(PNG_FOLDER))
+            JumpButton.Style = ButtonStyle.IconAndCaption
+            JumpButton.Tag = Workspace.Name
             mLinkBar.Workspaces.Add(Workspace)
-            AddHandler Button.Click, AddressOf mLinkBar.OnClickFolderButton
+            AddHandler JumpButton.Click, AddressOf mLinkBar.OnClickFolderButton
         Next
     End Sub
 

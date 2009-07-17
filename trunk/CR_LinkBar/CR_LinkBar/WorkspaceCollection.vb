@@ -15,8 +15,13 @@ Public Class WorkspaceCollection
         mWorkspaceDict.Clear()
     End Sub
     Public Sub Add(ByVal Workspace As Workspace)
-        mWorkspaceList.Add(Workspace)
-        mWorkspaceDict.Add(Workspace.Name, Workspace)
+        Try
+            mWorkspaceDict.Add(Workspace.Name, Workspace)
+            mWorkspaceList.Add(Workspace)
+
+        Catch ex As Exception
+            
+        End Try
     End Sub
     Public Function Exists(ByVal P As Predicate(Of Workspace)) As Boolean
         Return mWorkspaceList.Exists(P)

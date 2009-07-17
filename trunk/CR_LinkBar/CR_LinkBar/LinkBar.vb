@@ -6,7 +6,7 @@ Imports System.IO
 Imports DevExpress.CodeRush.StructuralParser
 Public Class LinkBar
 #Region "Fields"
-    Private mWorkspaces As WorkspaceCollection = Nothing
+    Private mWorkspaces As New WorkspaceCollection
     Private mUIManager As IUIManager
 #End Region
 #Region "Simple Properties"
@@ -38,7 +38,7 @@ Public Class LinkBar
 #End Region
 
     Public Sub New()
-        mUIManager = New UIManager1(Me)
+        mUIManager = New UIManager2(Me)
     End Sub
     Public Sub Refresh()
         mUIManager.Refresh()
