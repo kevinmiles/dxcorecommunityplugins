@@ -7,13 +7,42 @@ Imports DevExpress.CodeRush.StructuralParser
 Public Class LinkBar
 #Region "Fields"
     Private mWorkspaces As New WorkspaceCollection
+    Private mEnabled As Boolean = False
     Private mUIManager As IUIManager
 #End Region
+    Private mMenuBar As MenuBar
 #Region "Simple Properties"
     Public ReadOnly Property Workspaces() As WorkspaceCollection
         Get
             Return mWorkspaces
         End Get
+    End Property
+    Public ReadOnly Property MenuBar() As MenuBar
+        Get
+            Return mMenuBar
+        End Get
+    End Property
+    Friend Property UIManager() As IUIManager
+        Get
+            Return mUIManager
+        End Get
+        Set(ByVal value As IUIManager)
+            mUIManager = value
+        End Set
+    End Property
+
+#End Region
+#Region "Compile Properties"
+    Public Property Enabled() As Boolean
+        Get
+            Return mEnabled
+        End Get
+        Set(ByVal Value As Boolean)
+            For i As Integer = 0 To mMenuBar.Count
+                mMenuBar.Item(i).Enabled = Value
+            Next
+            mEnabled = Value
+        End Set
     End Property
 #End Region
 
@@ -40,10 +69,23 @@ Public Class LinkBar
     Public Sub New()
         mUIManager = New UIManager2(Me)
     End Sub
-    Public Sub Refresh()
+    Public Sub RefreshToolbar()
         mUIManager.Refresh()
     End Sub
+    Public Sub ResetToolbar()
+        If mMenuBar IsNot Nothing Then
+            mMenuBar.Delete()
+            mMenuBar = Nothing
+        End If
+        mMenuBar = CodeRush.Menus.Bars.Add("LinkBar")
+        mMenuBar.Position = BarPosition.Top
+        mMenuBar.Visible = True
+    End Sub
+
 #Region " Button Click Handlers "
+    Friend Sub OnClickRefreshWorkspaces(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
+        Call RefreshToolbar()
+    End Sub
     Friend Sub OnClickLoadWorkspaces(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
         Call LoadWorkspaces()
     End Sub
@@ -65,7 +107,7 @@ Public Class LinkBar
                           Document.ActiveView.Caret.SourcePoint)
         Next
         Workspaces.Add(Workspace)
-        Call Refresh()
+        Call RefreshToolbar()
     End Sub
     Friend Sub OnAddFilesWorkspaceClick(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
         Dim Workspace = Workspaces.Item(e.Button.Tag)
@@ -76,19 +118,19 @@ Public Class LinkBar
                 Workspace.AddDocument(Document)
             End If
         Next
-        Call Refresh()
+        Call RefreshToolbar()
     End Sub
     Friend Sub OnRenameWorkspaceClick(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
         ' Rename Group
         Dim Workspace = Workspaces.Item(e.Button.Tag)
         Workspace.Name = GetWorkspaceName()
-        Call Refresh()
+        Call RefreshToolbar()
     End Sub
     Friend Sub OnDeleteWorkspaceClick(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
         ' Delete Group
         Dim Workspace = Workspaces.Item(e.Button.Tag)
         Call Workspaces.Remove(Workspace)
-        Call Refresh()
+        Call RefreshToolbar()
     End Sub
     Friend Sub OnClickSaveAndCloseAll(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
         Call SaveAll()
@@ -136,7 +178,7 @@ Public Class LinkBar
             Dim SavedXML = Join(Storage.ReadStrings(SolutionName, "Workspaces"), "")
             Workspaces.LoadFromXML(XElement.Parse(SavedXML))
         End Using
-        Refresh()
+        RefreshToolbar()
     End Sub
 #End Region
 End Class

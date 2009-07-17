@@ -13,68 +13,64 @@ Public Class UIManager2
     End Sub
 #End Region
     Public Overrides Sub Refresh()
-        Call ResetToolBar()
-        'Call CreateAdminMenu()
+        Call mLinkBar.ResetToolbar()
+        Call CreateAdminMenu()
         Call CreateSaveAllAndCloseButton()
         Call CreateCreateNewWorkspaceButton()
         Call CreateWorkspaceButtons()
     End Sub
     Private Sub CreateAdminMenu()
-        Dim AdminMenu = mMenuBar.CreateAndAddDropDownButton("Manage", "Manage (Create, Rename and Delete) your workspaces.")
+        Dim AdminMenu = MenuBar.CreateAndAddDropDownButton("Manage", "Manage (Create, Rename and Delete) your workspaces.")
         'CreateLoadButton(AdminMenu)
-        CreateSaveWorkspacesButton(AdminMenu)
-        CreateAddFilesMenu(AdminMenu)
-        CreateRenameMenu(AdminMenu)
-        CreateDeleteMenu(AdminMenu)
+        Call CreateRefreshButton(AdminMenu)
+        Call CreateSaveWorkspacesButton(AdminMenu)
+        Call CreateUIMenu(AdminMenu)
     End Sub
+    Private Sub CreateSaveWorkspacesButton(ByVal ParentMenu As IMenuPopup)
+        Dim SaveMenu = ParentMenu.CreateAndAddButton("Save Workspaces")
+        AddHandler SaveMenu.Click, AddressOf mLinkBar.OnClickSaveWorkspaces
+    End Sub
+
 
     Private Sub CreateWorkspaceButtons()
         For Each Workspace In mLinkBar.Workspaces
-            Dim WorkspaceMenu = mMenuBar.CreateAndAddDropDownButton(Workspace.Name)
-            Dim JumpButton = WorkspaceMenu.CreateAndAddButton(String.Format("Jump to '{0}'", Workspace.Name))
-            JumpButton.SetFace(GetBitmapByName(PNG_FOLDER))
-            JumpButton.Style = ButtonStyle.IconAndCaption
-            JumpButton.Tag = Workspace.Name
+            Dim WorkspaceMenu = MenuBar.CreateAndAddDropDownButton(Workspace.Name)
+            CreateJumpButton(WorkspaceMenu)
+            'CreateAddFilesButton(WorkspaceMenu)
+            CreateRenameButton(WorkspaceMenu)
+            CreateDeleteButton(WorkspaceMenu)
             mLinkBar.Workspaces.Add(Workspace)
-            AddHandler JumpButton.Click, AddressOf mLinkBar.OnClickFolderButton
         Next
     End Sub
 
-    Private Sub CreateLoadWorkspacesButton(ByVal AdminMenu As IMenuPopup)
-        Dim LoadMenu = AdminMenu.CreateAndAddButton("Load Workspaces")
-        AddHandler LoadMenu.Click, AddressOf mLinkBar.OnClickLoadWorkspaces
+    Private Sub CreateJumpButton(ByVal ParentMenu As IMenuPopup)
+        Dim JumpButton = ParentMenu.CreateAndAddButton("Jump")
+        JumpButton.SetFace(GetBitmapByName(PNG_FOLDER))
+        JumpButton.Style = ButtonStyle.IconAndCaption
+        JumpButton.Tag = ParentMenu.Tag
+        AddHandler JumpButton.Click, AddressOf mLinkBar.OnClickFolderButton
     End Sub
-    Private Sub CreateSaveWorkspacesButton(ByVal AdminMenu As IMenuPopup)
-        Dim SaveMenu = AdminMenu.CreateAndAddButton("Save Workspaces")
-        AddHandler SaveMenu.Click, AddressOf mLinkBar.OnClickSaveWorkspaces
+    Private Sub CreateAddFilesButton(ByVal ParentMenu As IMenuPopup)
+        Dim Button = ParentMenu.CreateAndAddButton("Add Workspace")
+        Button.SetFace(GetBitmapByName(PNG_FOLDER))
+        Button.Style = ButtonStyle.IconAndCaption
+        Button.Tag = ParentMenu.Tag
+        AddHandler Button.Click, AddressOf mLinkBar.OnAddFilesWorkspaceClick
     End Sub
-    Private Sub CreateAddFilesMenu(ByVal AdminMenu As IMenuPopup)
-        Dim AddFilesMenu = AdminMenu.CreateAndAddDropDownButton("Add Files")
-        Dim AddFilesNewWorkspaceButton = AddFilesMenu.CreateAndAddButton("New Workspace")
-        AddFilesNewWorkspaceButton.Style = ButtonStyle.Caption
-        AddFilesNewWorkspaceButton.BeginGroup = True
-        AddHandler AddFilesNewWorkspaceButton.Click, AddressOf mLinkBar.OnClickCreateNewWorkspace
-        For Each Workspace In mLinkBar.Workspaces
-            Dim SomeAddFilesButton = AddFilesMenu.CreateAndAddButton(Workspace.Name)
-            SomeAddFilesButton.Tag = Workspace.Name
-            AddHandler SomeAddFilesButton.Click, AddressOf mLinkBar.OnAddFilesWorkspaceClick
-        Next
+    Private Sub CreateRenameButton(ByVal ParentMenu As IMenuPopup)
+        Dim Button = ParentMenu.CreateAndAddButton("Rename")
+        Button.SetFace(GetBitmapByName(PNG_FOLDER))
+        Button.Style = ButtonStyle.IconAndCaption
+        Button.Tag = ParentMenu.Tag
+        AddHandler Button.Click, AddressOf mLinkBar.OnRenameWorkspaceClick
     End Sub
-    Private Sub CreateRenameMenu(ByVal AdminMenu As IMenuPopup)
-        Dim RenameMenu = AdminMenu.CreateAndAddDropDownButton("Rename")
-        For Each Workspace In mLinkBar.Workspaces
-            Dim SomeRenameButton = RenameMenu.CreateAndAddButton(Workspace.Name)
-            SomeRenameButton.Tag = Workspace.Name
-            AddHandler SomeRenameButton.Click, AddressOf mLinkBar.OnRenameWorkspaceClick
-        Next
+    Private Sub CreateDeleteButton(ByVal ParentMenu As IMenuPopup)
+        Dim Button = ParentMenu.CreateAndAddButton("Delete")
+        Button.SetFace(GetBitmapByName(PNG_FOLDER))
+        Button.Style = ButtonStyle.IconAndCaption
+        Button.Tag = ParentMenu.Tag
+        AddHandler Button.Click, AddressOf mLinkBar.OnDeleteWorkspaceClick
     End Sub
-    Private Sub CreateDeleteMenu(ByVal AdminMenu As IMenuPopup)
-        Dim DeleteMenu = AdminMenu.CreateAndAddDropDownButton("Delete")
-        For Each Workspace In mLinkBar.Workspaces
-            Dim SomeDeleteButton = DeleteMenu.CreateAndAddButton(Workspace.Name)
-            SomeDeleteButton.Tag = Workspace.Name
-            AddHandler SomeDeleteButton.Click, AddressOf mLinkBar.OnDeleteWorkspaceClick
-        Next
-    End Sub
+
 
 End Class

@@ -18,7 +18,7 @@ Public Class PlugIn1
         If DevExpress.CodeRush.Core.CodeRush.Solution.Active.Count > 0 Then
             LinkBar.LoadWorkspaces()
         End If
-        Call LinkBar.Refresh()
+        Call LinkBar.RefreshToolbar()
         'TODO: Add your initialization code here.
     End Sub
 #End Region
@@ -45,7 +45,7 @@ Public Class PlugIn1
 
     Private Sub PlugIn1_AfterClosingSolution() Handles Me.AfterClosingSolution
         LinkBar.ClearWorkSpaces()
-        LinkBar.Refresh()
+        LinkBar.RefreshToolbar()
         'LinkBar.Enabled = False
     End Sub
 #End Region
