@@ -1,0 +1,2 @@
+(System.IO.FileSystemWatcher) watcher..cctor()
+(System.IO.FileSystemWatcher) watcher..ctor()

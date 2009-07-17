@@ -1,9 +1,9 @@
-﻿Imports System
+Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 Imports DevExpress.CodeRush.Common
 
-<Assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "CR_LinkBar", PlugInLoadType.Demand, LoadAbilityType.LoadDisabled)>
+<Assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "CR_LinkBar", PlugInLoadType.Demand, LoadAbilityType.LoadDisabled)> 
 
 ' General Information about an assembly is controlled through the following 
 ' set of attributes. Change these attribute values to modify the information
@@ -15,10 +15,10 @@ Imports DevExpress.CodeRush.Common
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("Microsoft")> 
 <Assembly: AssemblyProduct("CR_LinkBar")> 
-<Assembly: AssemblyCopyright("Copyright © Microsoft 2009")> 
+<Assembly: AssemblyCopyright("Copyright � Microsoft 2009")> 
 <Assembly: AssemblyTrademark("")> 
 
-<Assembly: ComVisible(False)>
+<Assembly: ComVisible(False)> 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
 <Assembly: Guid("52c5b9d7-2b52-44b9-9851-9fda4e054e89")> 

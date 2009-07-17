@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollapseXMLComment", "CollapseXMLComment\CollapseXMLComment.csproj", "{9857458C-0085-4C99-8AFF-0598993F36E9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6138555C-6769-454B-A41E-042B70094EE8}"
+	ProjectSection(SolutionItems) = preProject
+		CollapseXMLComment.proj = CollapseXMLComment.proj
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
