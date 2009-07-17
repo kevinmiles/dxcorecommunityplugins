@@ -6,7 +6,7 @@
       <Output TaskParameter="Include" ItemName="Assembly" />
     </CreateItem>
     
-    <AssemblyInfo CodeLanguage="VB" OutputFile="@(Assembly)" AssemblyVersion="$(build.number).$(build.vcs.lastIncluded.revision)" AssemblyFileVersion="$(build.number).$(build.vcs.lastIncluded.revision)">
+    <AssemblyInfo CodeLanguage="VB" OutputFile="@(Assembly)" AssemblyVersion="$(build_number).$(build_vcs_lastIncluded_revision)" AssemblyFileVersion="$(build_number).$(build_vcs_lastIncluded_revision)">
     </AssemblyInfo>  
 	<MSBuild Projects="CR_QuickAddReference.sln" Properties="Configuration=Release;OutputPath=$(MSBuildStartupDirectory)/bin"/>
   </Target>
