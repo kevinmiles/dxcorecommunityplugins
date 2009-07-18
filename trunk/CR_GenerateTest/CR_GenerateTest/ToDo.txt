@@ -1,0 +1,3 @@
+﻿- Project Naming
+- References to Add
+- Test Format - Nunit/XUnit/Something else
