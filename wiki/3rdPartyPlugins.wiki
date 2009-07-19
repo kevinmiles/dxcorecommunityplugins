@@ -1,0 +1,13 @@
+#summary Plugins by others that are not hosted here
+
+= Introduction =
+
+We are not the be all and end all of DXCore plugins.
+Others have written some and publish them on their own sites
+
+= Details =
+
+[http://www.sturmnet.org/blog/2005/04/24/cr-electric-editing Electric Editing]
+[http://www.sturmnet.org/blog/2008/10/16/instant-gratification-for-developers Instant Gratification]
+
+[http://www.andrewconnell.com/blog/articles/ProductivityToolsForSharePointDevelopers.aspx AC's SharePoint Tools]
