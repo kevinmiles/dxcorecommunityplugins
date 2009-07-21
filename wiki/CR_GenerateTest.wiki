@@ -1,0 +1,31 @@
+#summary Generates a stub test method for the method your caret is residing in.
+
+= Introduction =
+
+Generates a Test Project "{{{<SourceProject>_Test}}}" containing a Test Class "{{{<SourceClass>_Test}}}" containing a Test Method "{{{<SourceMethod>_Test}}}".
+
+= Details =
+
+So if you have 
+
+----
+{{{
+Public Class SomeClass
+    Public Sub SomeMethod()
+    End Sub 
+End Class
+}}}
+----
+... in a Project called "SomeProject"
+
+Then activation will cause the generation of an additional project within the solution called "SomeProject_Test".
+
+This project will contain a class...
+----
+{{{
+Public Class SomeClass_Test
+    Public Sub SomeMethod_Test()
+    End Sub 
+End Class
+}}}
+----
