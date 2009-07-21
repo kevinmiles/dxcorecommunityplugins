@@ -2,6 +2,11 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_JoinLines", "CR_JoinLines\CR_JoinLines.csproj", "{71241F9A-7236-404D-81D5-2460DB95E125}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FDA3360C-2114-4C3C-9BF2-CC0277EED05D}"
+	ProjectSection(SolutionItems) = preProject
+		CR_JoinLines.proj = CR_JoinLines.proj
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

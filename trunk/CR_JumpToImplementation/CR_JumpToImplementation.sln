@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CR_JumpToImplementation", "CR_JumpToImplementation\CR_JumpToImplementation.vbproj", "{9E577402-972E-4BD9-AE22-F1C8DBDDA894}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B90D352D-9055-4705-8E82-338E034A3218}"
+	ProjectSection(SolutionItems) = preProject
+		CR_JumpToImplementation.proj = CR_JumpToImplementation.proj
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
