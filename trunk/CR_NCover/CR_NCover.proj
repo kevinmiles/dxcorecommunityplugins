@@ -1,20 +1,21 @@
 <Project DefaultTargets="build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+	<Import Project ="$(TypeMock)\TypeMock.MSBuild.Tasks"/>
+	
 	<PropertyGroup>
 		<plugin_name>CR_NCover</plugin_name>
 		<build_number Condition=" '$(build_number)' == '' ">0.0.0</build_number>
 		<build_vcs_lastIncluded_revision Condition=" '$(build_vcs_lastIncluded_revision)' == '' ">1</build_vcs_lastIncluded_revision>
-		<TypeMockLocation>$(MSBuildStartupDirectory)/common/typemock</TypeMockLocation>
 	</PropertyGroup>
+	
 	<Target Name="build">
 		<AssemblyInfo CodeLanguage="CS" OutputFile="$(plugin_name)\Properties\AssemblyVersion.cs" AssemblyVersion="$(build_number).$(build_vcs_lastIncluded_revision)" AssemblyFileVersion="$(build_number).$(build_vcs_lastIncluded_revision)"/>
 		<MSBuild Projects="$(plugin_name).sln" Properties="Configuration=Release;OutputPath=$(MSBuildStartupDirectory)/bin"/>
 	</Target>
-	<UsingTask TaskName="NUnit" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)"/>
-	<Import Project ="$(TypeMockLocation)\TypeMock.MSBuild.Tasks"/>
+	
 	<Target Name="test">
 		<TypeMockStart/>
-		<NUnit Assemblies="$(MSBuildStartupDirectory)/bin/$(plugin_name).Tests.dll" Platform="x86"/>
+		<NUnit Assemblies="$(MSBuildStartupDirectory)/bin/$(plugin_name).Tests.dll" Platform="x86"/>	
 		<TypeMockStop/>
 	</Target>
 </Project>

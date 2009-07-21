@@ -54,6 +54,7 @@
     <Reference Include="DevExpress.CodeRush.StructuralParser, Version=9.2.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.CodeRush.VSCore, Version=9.2.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL" />
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\PublicAssemblies\EnvDTE.dll</HintPath>
@@ -85,12 +86,12 @@
   <ItemGroup>
     <Content Include="CoverageOverlaySpecs\CoverageOverlyTests.DisplayOverlayOnShow.approved.txt" />
     <Content Include="CoverageOverlaySpecs\CoverageOverlyTests.InvalidateOnHide.approved.txt" />
-    <Content Include="PluginSpecs\PluginWithAnOpenSolution.HideOverlayWhenTextHasChanged.approved.txt" />
-    <Content Include="PluginSpecs\PluginWithAnOpenSolution.ShowOverlayWhenResultsUpdated.approved.txt" />
-    <Content Include="PluginSpecs\PluginWithAnOpenSolution.StartTheExplorerWhenInitializingThePlugin.approved.txt" />
-    <Content Include="PluginSpecs\PluginWithAnOpenSolution.UpdateOverlayWhenPaintingBackground.approved.txt" />
-    <Content Include="PluginSpecs\PluginWithNoSolutionOpen.DontStartTheExplorerWhenThePluginIsInitialized.approved.txt" />
-    <Content Include="PluginSpecs\PluginWithNoSolutionOpen.StartTheServiceWhenASolutionIsOpen.approved.txt" />
+    <Content Include="PluginSpecs\PluginTests.HideOverlayWhenTextHasChanged.approved.txt" />
+    <Content Include="PluginSpecs\PluginTests.ShowOverlayWhenResultsUpdated.approved.txt" />
+    <Content Include="PluginSpecs\PluginTests.StartTheExplorerWhenInitializingThePlugin.approved.txt" />
+    <Content Include="PluginSpecs\PluginTests.UpdateOverlayWhenPaintingBackground.approved.txt" />
+    <Content Include="PluginSpecs\PluginTests.DontStartTheExplorerWhenThePluginIsInitialized.approved.txt" />
+    <Content Include="PluginSpecs\PluginTests.StartTheServiceWhenASolutionIsOpen.approved.txt" />
     <Content Include="notvalidxml.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
