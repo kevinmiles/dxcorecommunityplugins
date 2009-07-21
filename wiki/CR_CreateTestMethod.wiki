@@ -1,0 +1,40 @@
+#summary Provides an number of small utilities useful for Test Driven Development
+
+= Introduction =
+
+There are a number of things introduced by this plugin which are intended to make Test Drivent Development easier.  These include:
+  * Action (Create Test) which will convert the comment that the cursor is currnetly on to a test method
+  * Smart Paste Provider which will do the same for multiple comments copied to the clipboard
+  * Two Context Providers which allow you to create templates/shortcuts that apply specifically to tests
+    * Inside Test Class
+    * Inside Test Method
+  * The "Move To Setup" Code Provider
+
+Please note that there is a very big possibility that this will only work with NUnit based tests.  MbUnit is similar, so that may work as well.  I would not count on MSTest or xUnit.Net working.
+
+= Installation =
+
+Installation instructions can be found on the InstallInstructions page.
+
+= Setup = 
+Bind the "Create Test" command to a key. I chose to bind to 'CTRL-ALT-T'.  When creating the shortcut it is also advisable to use the context providers to specify that the shortcut is available "Inside Test Class" but not "Inside Test Method" (You can find both of these contexts under Editor/Code)
+
+= Usage =
+
+  * Create Test Method
+    * Activate from within your test class with your cursor on a comment line
+  * Smart Paste Provider
+    * Copy multiple comment lines to the clipboard.  From within the class body, paste the clipboard contents.
+  * Move to Setup
+    * Currently this only works on cases where you are initializing or assigning values to class level variables, and a SetUp method already exists.  
+      * Invoke the Code menu, select "Move To Setup"
+      * Your statement should be moved to the end of your setup method
+
+
+= Why did I build this =
+
+I do TDD daily, and there doesn't seem to be a whole lot of utilies comming directly from DevExpress to address TDD specific issues.  This is the beginning of an effort to fill that gap.
+
+= Credits =
+
+Original Author: Casey Kramer
