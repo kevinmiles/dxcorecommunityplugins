@@ -1,104 +1,96 @@
 ﻿using ApprovalTests;
 using CheckPoint;
-using DevExpress.CodeRush.Core;
 using NUnit.Framework;
 using TypeMock.ArrangeActAssert;
-using Monitor=CheckPoint.Monitor;
+using TypeMock;
 
 namespace CR_NCover.Tests.PluginSpecs
 {
 	[TestFixture]
 	[Isolated]
-	public class PluginWithNoSolutionOpen
+	public class PluginTests
 	{
-		[NUnit.Framework.SetUp]
-		public void Setup()
+		[Test]
+		public void DontStartTheExplorerWhenThePluginIsInitialized()
 		{
-			pluginSentry = Monitor.Interactions(typeof (PlugIn));
+			Sentry pluginSentry = Monitor.Interactions(typeof(PlugIn));
 
 			Isolate.WhenCalled(() => VisualStudio.HasASolutionOpened).WillReturn(false);
 			Isolate.WhenCalled(() => VisualStudio.HasAnActiveTextView).WillReturn(true);
 
+			PlugIn plugin = new PlugIn();
 
-			plugin = new PlugIn();
-		}
-
-		[NUnit.Framework.TearDown]
-		public void TearDown()
-		{
-			Isolate.CleanUp();
-		}
-
-		private PlugIn plugin;
-		private Sentry pluginSentry;
-
-		[NUnit.Framework.Test]
-		public void DontStartTheExplorerWhenThePluginIsInitialized()
-		{
 			Approvals.Approve(pluginSentry.Report);
 		}
 
-		[NUnit.Framework.Test]
+		[Test]
 		public void StartTheServiceWhenASolutionIsOpen()
 		{
+			Sentry pluginSentry = Monitor.Interactions(typeof(PlugIn));
+
+			Isolate.WhenCalled(() => VisualStudio.HasASolutionOpened).WillReturn(false);
+			Isolate.WhenCalled(() => VisualStudio.HasAnActiveTextView).WillReturn(true);
 			Isolate.WhenCalled(() => VisualStudio.Solution).WillReturn("");
-			
+
+			PlugIn plugin = new PlugIn();
+
 			plugin.AfterOpeningSolution();
 
 			Approvals.Approve(pluginSentry.Report);
 		}
-	}
 
-	[TestFixture]
-	[Isolated]
-	public class PluginWithAnOpenSolution
-	{
-		[NUnit.Framework.SetUp]
-		public void Setup()
-		{
-			pluginSentry = Monitor.Interactions(typeof (PlugIn));
-
-			Isolate.WhenCalled(() => VisualStudio.Solution).WillReturn("");
-			Isolate.WhenCalled(() => VisualStudio.HasASolutionOpened).WillReturn(true);
-			Isolate.WhenCalled(() => VisualStudio.HasAnActiveTextView).WillReturn(true);
-
-			plugin = new PlugIn();
-		}
-
-		[NUnit.Framework.TearDown]
-		public void TearDown()
-		{
-			Isolate.CleanUp();
-		}
-
-		private PlugIn plugin;
-		private Sentry pluginSentry;
-
-		[NUnit.Framework.Test]
+		[Test]
 		public void HideOverlayWhenTextHasChanged()
 		{
+			Sentry pluginSentry = Monitor.Interactions(typeof(PlugIn));
+
+			Isolate.WhenCalled(() => VisualStudio.HasASolutionOpened).WillReturn(false);
+
+			PlugIn plugin = new PlugIn();
+
 			plugin.WhenTextChanges(null);
 
 			Approvals.Approve(pluginSentry.Report);
 		}
 
-		[NUnit.Framework.Test]
+		[Test]
 		public void ShowOverlayWhenResultsUpdated()
 		{
+			Sentry pluginSentry = Monitor.Interactions(typeof(PlugIn));
+
+			Isolate.WhenCalled(() => VisualStudio.Solution).WillReturn("");
+			Isolate.WhenCalled(() => VisualStudio.HasASolutionOpened).WillReturn(true);
+			Isolate.WhenCalled(() => VisualStudio.HasAnActiveTextView).WillReturn(true);
+			PlugIn plugin = new PlugIn();
+
 			plugin.WhenResultsUpdated();
 
 			Approvals.Approve(pluginSentry.Report);
 		}
 
-		[NUnit.Framework.Test]
+		[Test]
 		public void StartTheExplorerWhenInitializingThePlugin()
 		{
+			Sentry pluginSentry = Monitor.Interactions(typeof(PlugIn));
+
+			Isolate.WhenCalled(() => VisualStudio.Solution).WillReturn("");
+			Isolate.WhenCalled(() => VisualStudio.HasASolutionOpened).WillReturn(true);
+			Isolate.WhenCalled(() => VisualStudio.HasAnActiveTextView).WillReturn(true);
+			PlugIn plugin = new PlugIn();
+
 			Approvals.Approve(pluginSentry.Report);
 		}
 
-		[NUnit.Framework.Test]
+		[Test]
 		public void UpdateOverlayWhenPaintingBackground()
 		{
+			Sentry pluginSentry = Monitor.Interactions(typeof(PlugIn));
+
+			Isolate.WhenCalled(() => VisualStudio.Solution).WillReturn("");
+			Isolate.WhenCalled(() => VisualStudio.HasASolutionOpened).WillReturn(true);
+			Isolate.WhenCalled(() => VisualStudio.HasAnActiveTextView).WillReturn(true);
+			PlugIn plugin = new PlugIn();
+
 			plugin.WhenPaintingBackground(null);
 
 			Approvals.Approve(pluginSentry.Report);
