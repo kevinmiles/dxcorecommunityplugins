@@ -34,15 +34,15 @@ namespace CR_CCConsole
 
         internal void CreateToolbarItem()
         {
-            var bmp = ccNetAction.Image;
-            bmp.MakeTransparent(ccNetAction.ImageBackColor);
+            var bmp = new TransparentBitmap(ccNetAction.Image);
+            bmp.TransparentColor = ccNetAction.ImageBackColor;
             var menuBar = CodeRush.Menus.Bars.Add("CCNet Bar");
             menuBar.Position = BarPosition.Top;
             var btn = menuBar.AddButton();
             btn.Caption = "Show CCNet";
             btn.Visible = true;
             btn.Enabled = true;
-            btn.SetFace(bmp);
+            btn.SetFace(bmp.Bitmap, bmp.MaskBitmap);
             btn.Click += (s, e) => CCNetStatusWindow.ShowWindow();
             menuBar.Visible = true;
 
