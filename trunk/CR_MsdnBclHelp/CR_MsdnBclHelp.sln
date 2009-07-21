@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CR_MsdnBclHelp", "CR_MsdnBclHelp\CR_MsdnBclHelp.vbproj", "{62C35DDA-81B4-43D0-9CA7-CBD1E1A4785D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7422F6D7-D788-43A3-9ED6-D692879359D7}"
+	ProjectSection(SolutionItems) = preProject
+		CR_MsdnBclHelp.proj = CR_MsdnBclHelp.proj
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
