@@ -25,10 +25,75 @@ Bind the "Create Test" command to a key. I chose to bind to 'CTRL-ALT-T'.  When 
     * Activate from within your test class with your cursor on a comment line
   * Smart Paste Provider
     * Copy multiple comment lines to the clipboard.  From within the class body, paste the clipboard contents.
+So if you have 
+
+----
+{{{
+    // Can create a new class to do the thing with the stuff
+}}}
+----
+... in your test
+
+Then activation will cause the comment to be converted to the following test method stub
+----
+{{{
+    [Test]
+    public void Can_create_a_new_class_to_do_the_thing_with_the_stuff()
+    {
+        Assert.Fail("Not Implemented");
+    }
+}}}
+----
+
   * Move to Setup
     * Currently this only works on cases where you are initializing or assigning values to class level variables, and a SetUp method already exists.  
       * Invoke the Code menu, select "Move To Setup"
       * Your statement should be moved to the end of your setup method
+
+So if you have
+----
+{{{
+    [TestFixture]
+    public class MyTestClass
+    {
+        private MyClass _testingClass;
+        
+        [SetUp]
+        public void SetUp()
+        {
+        }
+
+        [Test]
+        public void TestSomething()
+        {
+            _testingClass = new MyClass();
+        }
+    }
+}}}
+----
+...with the cursor on the first line in TestSomething
+Invoking the "Move To Setup" provider produces the following
+----
+{{{
+    [TestFixture]
+    public class MyTestClass
+    {
+        private MyClass _testingClass;
+        
+        [SetUp]
+        public void SetUp()
+        {
+            _testingClass = new MyClass();
+        }
+
+        [Test]
+        public void TestSomething()
+        {
+        
+        }
+    }
+}}}
+----
 
 
 = Why did I build this =
