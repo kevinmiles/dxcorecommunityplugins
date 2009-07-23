@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CR_ImplementBaseConstructors", "CR_ImplementBaseConstructors\CR_ImplementBaseConstructors.vbproj", "{E559558C-E8C0-4998-BDCB-7FA3B39C4E59}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{93D03532-17F1-47D1-9231-AF26CE49D3A0}"
-	ProjectSection(SolutionItems) = preProject
-		CR_ImplementBaseConstructors.proj = CR_ImplementBaseConstructors.proj
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

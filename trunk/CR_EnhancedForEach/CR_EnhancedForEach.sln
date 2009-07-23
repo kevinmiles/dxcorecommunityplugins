@@ -2,11 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CR_EnhancedForEach", "CR_EnhancedForEach\CR_EnhancedForEach.vbproj", "{85037426-50DA-411C-8244-4F0AB5EBD1F8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{693415E2-9FE1-4171-8FAE-E2C4D5E84619}"
-	ProjectSection(SolutionItems) = preProject
-		CR_EnhancedForEach.proj = CR_EnhancedForEach.proj
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_ReSharperCompatibility", "CR_ReSharperCompatibility\CR_ReSharperCompatibility.csproj", "{A400FA55-9078-44D2-B244-6E225C28FA9A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{94BDF54F-65C5-4010-BA18-D4AF3E7B7D7C}"
-	ProjectSection(SolutionItems) = preProject
-		CR_ReSharperCompatibility.proj = CR_ReSharperCompatibility.proj
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

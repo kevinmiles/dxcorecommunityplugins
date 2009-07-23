@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CR_MultiFileTemplates", "CR_MultiFileTemplates\CR_MultiFileTemplates.vbproj", "{B0393238-87B7-4A6A-AFE4-2B39794EF78E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{91DCCA0D-C565-4962-AD0C-B4D9FDFA72AD}"
-	ProjectSection(SolutionItems) = preProject
-		CR_MultiFileTemplates.proj = CR_MultiFileTemplates.proj
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

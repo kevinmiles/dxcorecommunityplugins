@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_NavigationContrib", "CR_NavigationContrib\CR_NavigationContrib.csproj", "{7D19C4FA-33DC-496C-81BA-C28C642F8F24}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A3CEC0A7-A053-440C-9760-ABFC6BE0D0DC}"
-	ProjectSection(SolutionItems) = preProject
-		CR_NavigationContrib.proj = CR_NavigationContrib.proj
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
