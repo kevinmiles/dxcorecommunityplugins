@@ -13,7 +13,7 @@ Imports DevExpress.CodeRush.Common
 
 <Assembly: AssemblyTitle("CR_GenerateTest")> 
 <Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("Microsoft")> 
+<Assembly: AssemblyCompany("CodeRush Community")> 
 <Assembly: AssemblyProduct("CR_GenerateTest")> 
 <Assembly: AssemblyCopyright("Copyright © Microsoft 2009")> 
 <Assembly: AssemblyTrademark("")> 
