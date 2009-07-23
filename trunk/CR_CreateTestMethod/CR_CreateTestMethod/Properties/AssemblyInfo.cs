@@ -9,7 +9,7 @@ using DevExpress.CodeRush.Common;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CR_CreateTestMethod")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Helps create test methods")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Envisage")]
 [assembly: AssemblyProduct("CR_CreateTestMethod")]
