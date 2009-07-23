@@ -9,7 +9,7 @@ using DevExpress.CodeRush.Common;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CR_CCConsole")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Integration with CruiseControl")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Envisage")]
 [assembly: AssemblyProduct("CR_CCConsole")]
