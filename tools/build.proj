@@ -4,4 +4,7 @@
 		<AssemblyInfo CodeLanguage="VB" OutputFile="$(plugin_name)\Properties\AssemblyVersion.vb" AssemblyVersion="$(build_number).$(build_vcs_lastIncluded_revision)" AssemblyFileVersion="$(build_number).$(build_vcs_lastIncluded_revision)"/>
 		<MSBuild Projects="$(plugin_name).sln" Properties="Configuration=Release;OutputPath=$(MSBuildStartupDirectory)/bin"/>
 	</Target>
+	<Target Name="help">
+		<Message Text="CodeRush Community Plugin Build Script"/>
+	</Target>
 </Project>
