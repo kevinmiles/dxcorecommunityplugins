@@ -3,9 +3,8 @@
 	<ItemGroup>
 		<AssemblyInfoFiles Include="$(MSBuildStartupDirectory)\**\AssemblyInfo.$(code_language)"/>
 	</ItemGroup>
-
 	<Target Name="build">
-		<AssemblyInfo CodeLanguage="$(code_language)" OutputFile="@(AssemblyInfoFiles)" AssemblyVersion="$(build_number).$(build_vcs_lastIncluded_revision_1)" AssemblyFileVersion="$(build_number).$(build_vcs_lastIncluded_revision_1)"/>
+		<AssemblyInfo CodeLanguage="$(code_language)" OutputFile="$(AssemblyInfoFiles)" AssemblyVersion="$(build_number).$(build_vcs_lastIncluded_revision)" AssemblyFileVersion="$(build_number).$(build_vcs_lastIncluded_revision)"/>
 		<MSBuild Projects="$(plugin_name).sln" Properties="Configuration=Release;OutputPath=$(MSBuildStartupDirectory)/bin"/>
 	</Target>
 	<Target Name="help">
