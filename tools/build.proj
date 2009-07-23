@@ -2,7 +2,7 @@
 	<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
 	<Target Name="build">
 		<ItemGroup>
-			<AssemblyInfoFiles Include="$(MSBuildStartupDirectory)\**\AssemblyInfo.$(code_language)"/>
+			<AssemblyInfoFiles Include="$(MSBuildStartupDirectory)\**\AssemblyInfo.*"/>
 		</ItemGroup>
 
 		<Attrib Files="@(AssemblyInfoFiles)" Normal="true"/>
