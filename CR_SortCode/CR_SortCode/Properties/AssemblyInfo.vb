@@ -12,7 +12,7 @@ Imports DevExpress.CodeRush.Common
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("CR_SortCode")> 
-<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyDescription(" ")> 
 <Assembly: AssemblyCompany("Informatica J.Van Breda & C°")> 
 <Assembly: AssemblyProduct("CR_SortCode")> 
 <Assembly: AssemblyCopyright("Copyright © Informatica J.Van Breda & C° 2008")> 

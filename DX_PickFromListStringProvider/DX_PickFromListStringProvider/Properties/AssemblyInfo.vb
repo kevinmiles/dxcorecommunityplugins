@@ -12,7 +12,7 @@ Imports DevExpress.CodeRush.Common
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("DX_PickFromListStringProvider")> 
-<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyDescription(" ")> 
 <Assembly: AssemblyCompany("Microsoft")> 
 <Assembly: AssemblyProduct("DX_PickFromListStringProvider")> 
 <Assembly: AssemblyCopyright("Copyright © Microsoft 2008")> 

@@ -12,7 +12,7 @@ Imports DevExpress.CodeRush.Common
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("CR_SolutionHistory")> 
-<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyDescription(" ")> 
 <Assembly: AssemblyCompany("Microsoft")> 
 <Assembly: AssemblyProduct("CR_SolutionHistory")> 
 <Assembly: AssemblyCopyright("Copyright © Microsoft 2009")> 

@@ -16,7 +16,7 @@ using DevExpress.CodeRush.Common;
 //
 [assembly: AssemblyTitle("CR_SortLines")]
 [assembly: AssemblyDescription("DXCore plug-in providing a command to sort text lines in the editor")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyConfiguration(" ")]
 [assembly: AssemblyCompany("Paraesthesia")]
 [assembly: AssemblyProduct("DXCore for Visual Studio .NET")]
 [assembly: AssemblyCopyright("Copyright (c) 2005 Travis Illig.")]

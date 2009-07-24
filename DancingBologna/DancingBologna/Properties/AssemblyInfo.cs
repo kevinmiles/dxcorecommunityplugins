@@ -9,7 +9,7 @@ using DevExpress.CodeRush.Common;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("DancingBologna")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription(" ")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Envisage")]
 [assembly: AssemblyProduct("DancingBologna")]

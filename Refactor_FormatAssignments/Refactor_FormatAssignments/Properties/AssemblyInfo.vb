@@ -12,7 +12,7 @@ Imports DevExpress.CodeRush.Common
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("Refactor_FormatAssignments")> 
-<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyDescription(" ")> 
 <Assembly: AssemblyCompany("Microsoft")> 
 <Assembly: AssemblyProduct("Refactor_FormatAssignments")> 
 <Assembly: AssemblyCopyright("Copyright © Microsoft 2008")> 

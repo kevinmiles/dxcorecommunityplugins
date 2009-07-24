@@ -10,7 +10,7 @@ using DevExpress.CodeRush.Common;
 // associated with an assembly.
 [assembly: AssemblyTitle("RedGreen")]
 [assembly: AssemblyDescription("A unit test runner that reports test status in the editor")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyConfiguration(" ")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("RedGreen")]
 [assembly: AssemblyCopyright("Copyright ©  2008 Renaissance Learning, Inc. and James Argeropoulos")]

@@ -9,7 +9,7 @@ using DevExpress.CodeRush.Common;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Refactor_Generalize")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription(" ")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("MMI")]
 [assembly: AssemblyProduct("Refactor_Generalize")]
