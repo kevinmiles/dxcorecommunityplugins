@@ -16,7 +16,7 @@ using DevExpress.CodeRush.Common;
 // associated with an assembly.
 [assembly: AssemblyTitle("MiniCodeColumn")]
 [assembly: AssemblyDescription("DxCore - Plugin for displaying as Code-Preview-Column")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyConfiguration(" ")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MiniCodeColumn")]
 [assembly: AssemblyCopyright("Copyright ©  2009 by Ralf Warnat")]

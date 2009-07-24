@@ -12,7 +12,7 @@ Imports DevExpress.CodeRush.Common
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("HighlightCurrentLineInEditor")> 
-<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyDescription(" ")> 
 <Assembly: AssemblyCompany("Microsoft")> 
 <Assembly: AssemblyProduct("HighlightCurrentLineInEditor")> 
 <Assembly: AssemblyCopyright("Copyright © Microsoft 2008")> 

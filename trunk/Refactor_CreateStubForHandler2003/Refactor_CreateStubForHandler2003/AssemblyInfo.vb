@@ -15,7 +15,7 @@ Imports DevExpress.CodeRush.Common
 ' associated with an assembly.
 '
 <Assembly: AssemblyTitle("")>
-<Assembly: AssemblyDescription("")>
+<Assembly: AssemblyDescription(" ")>
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("")>
