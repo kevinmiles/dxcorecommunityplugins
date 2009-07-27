@@ -76,6 +76,7 @@ namespace CR_CCConsole
     internal static class CCStatusConfig
     {
         private const string STR_CurrentView = "CurrentView";
+        private const string STR_FailingProjects = "FailingProjects";
         private static DecoupledStorage _storage;
         private const string STR_SelectedProjects = "SelectedProjects";
         private const string STR_ProjectList = "ProjectList";
@@ -103,6 +104,8 @@ namespace CR_CCConsole
         {
             var server = GetServer();
             var projects = server.GetProjects().Where(p => SelectedProjects.Contains(p.Name)).ToList();
+            var failing = projects.Where(p => p.LastBuildStatus == CCBuildStatus.Failure);
+            FailingProjects = PassingProjects.Where(p => failing.Any(f => f.Name == p)).ToList();
             PassingProjects = projects.Where(p => p.LastBuildStatus == CCBuildStatus.Success).Select(p => p.Name).ToList();
             return projects;
         }
@@ -197,6 +200,24 @@ namespace CR_CCConsole
                 }
             }
 
+        }
+
+        public static List<string> FailingProjects
+        {
+            get
+            {
+                using (var storage = CCStatus_Options.Storage)
+                {
+                    return storage.ReadStrings("Settings", STR_FailingProjects).ToList();
+                }
+            }
+            set
+            {
+            	using (var storage = CCStatus_Options.Storage)
+                {
+                    storage.WriteStrings("Settings", STR_FailingProjects, value.ToArray());
+                }
+            }
         }
 
         public static List<string> PassingProjects
