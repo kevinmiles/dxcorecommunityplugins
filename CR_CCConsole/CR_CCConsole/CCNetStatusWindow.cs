@@ -42,14 +42,16 @@ namespace CR_CCConsole
         }
 
 
-        internal void NotifyFailures(List<CCProject> projects)
+        internal void NotifyFailures()
         {
-            var failing = projects.Where(p => p.LastBuildStatus == CCBuildStatus.Failure);
-            var notifications = CCStatusConfig.PassingProjects.Where(p => failing.Any(f => f.Name == p));
-            foreach (var notify in notifications)
+            var failing = CCStatusConfig.FailingProjects;
+            foreach (var notify in failing)
             {
                 var hint = new BigFeedback() { Text = string.Format("{0} is now FAILING!", notify) };
-                hint.Show();
+                if (InvokeRequired)
+                    Invoke((System.Action)(() => hint.Show()));
+                else
+                    hint.Show();
             }
         }
 
@@ -112,7 +114,7 @@ namespace CR_CCConsole
 
             if (CCStatusConfig.NotifyOnFailure)
             {
-                NotifyFailures(projects);
+                NotifyFailures();
             }
         }
 
