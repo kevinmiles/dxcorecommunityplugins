@@ -8,6 +8,7 @@ Imports DevExpress.CodeRush.PlugInCore
 Imports System.Linq
 Imports System.Linq.Expressions
 Imports DevExpress.CodeRush.Diagnostics.Core
+Imports System.Collections.Generic
 
 Public Class QuickAddReference
 #Region "Constants"
@@ -76,7 +77,8 @@ Public Class QuickAddReference
         Return References
     End Function
     Private Sub AddReference(ByVal Reference As Reference)
-        CodeRush.Project.Active.AddReference(Reference.FullName)
+        Dim Ref = CodeRush.Project.Active.AddReference(Reference.FullName)
+        Ref.CopyLocal = Not Reference.IsGACReference
         MRUList.Add(Reference)
         Call SaveMRU()
     End Sub
