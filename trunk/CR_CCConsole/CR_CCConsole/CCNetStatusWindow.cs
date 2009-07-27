@@ -106,7 +106,7 @@ namespace CR_CCConsole
                 lvi.SubItems.AddRange(new ListViewItem.ListViewSubItem[] 
                 {
                     new ListViewItem.ListViewSubItem(lvi,project.LastBuildStatus.ToString()),
-                    new ListViewItem.ListViewSubItem(lvi,project.LastBuildTime.ToString("MM/dd/yyyy hh:mm tt"))
+                    new ListViewItem.ListViewSubItem(lvi,project.LastBuildTime.ToString("g"))
                 });
                 lvProjectStatus.Invoke((System.Action)(() => lvProjectStatus.Items.Add(lvi)));
             }
