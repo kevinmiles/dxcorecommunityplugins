@@ -27,9 +27,24 @@ Partial Class PlugIn1
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()> _
   	Private Sub InitializeComponent()
-		CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
-		CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.components = New System.ComponentModel.Container
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PlugIn1))
+        Me.actBackupSolution = New DevExpress.CodeRush.Core.Action(Me.components)
+        CType(Me.actBackupSolution, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
+        '
+        'actBackupSolution
+        '
+        Me.actBackupSolution.ActionName = "BackupSolution"
+        Me.actBackupSolution.ButtonText = "Backup Solution"
+        Me.actBackupSolution.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None
+        Me.actBackupSolution.Description = "Beckup Solution"
+        Me.actBackupSolution.Image = CType(resources.GetObject("actBackupSolution.Image"), System.Drawing.Bitmap)
+        Me.actBackupSolution.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
+        CType(Me.actBackupSolution, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
-	End Sub
+    End Sub
+    Friend WithEvents actBackupSolution As DevExpress.CodeRush.Core.Action
 
 End Class
