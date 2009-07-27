@@ -36,5 +36,10 @@ Public Class Reference
     Public Overrides Function Equals(ByVal obj As Object) As Boolean
         Return Me.FullName = CType(obj, Reference).FullName
     End Function
+    Public ReadOnly Property IsGACReference() As Boolean
+        Get
+            Return DefaultReferences.GACFolders.Any(Function(f) FullName.StartsWith(f.FullName))
+        End Get
+    End Property
 
 End Class

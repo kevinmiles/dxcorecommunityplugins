@@ -1,4 +1,6 @@
-﻿Public Class DefaultReferences
+﻿Imports System.IO
+
+Public Class DefaultReferences
     Private Const AssembliesCommon As String = "%ProgramFiles%\Common Files\Microsoft Shared\MSEnv\PublicAssemblies\"
     Private Const AssembliesV35 As String = "%ProgramFiles%\Reference Assemblies\Microsoft\Framework\v3.5\"
     Private Const AssembliesV20 As String = "%WinDir%\Microsoft.Net\Framework\v2.0.50727\"
@@ -18,6 +20,13 @@
         End If
         Return Defaults
     End Function
+    Public Shared Function GACFolders() As List(Of DirectoryInfo)
+        Dim Result As New List(Of DirectoryInfo)
+        Result.Add(New DirectoryInfo(AssembliesV35))
+        Result.Add(New DirectoryInfo(AssembliesV20))
+        Return Result
+    End Function
+
     Public Shared Function DefaultReferencesCommon() As List(Of Reference)
         Dim Result As New List(Of Reference)
         'Result.Add(New Reference(v20 & "System.dll"))
