@@ -5,9 +5,7 @@ Public Class SmartTagLocalVar
     Private mVarName As String
     Public Sub New(ByVal VarName As String, ByVal Ordinal As Integer)
         mVarName = VarName
-        Caption = String.Format("&{0}.> {1}", _
-                                Ordinal, _
-                                VarName)
+        Caption = VarName ' String.Format("&{0}.> {1}", Ordinal, VarName)
     End Sub
 
     Private Sub SmartTagLocalVar_Execute(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Execute

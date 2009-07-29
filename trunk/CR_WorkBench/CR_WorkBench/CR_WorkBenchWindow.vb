@@ -2,13 +2,14 @@ Imports System
 Imports System.Environment
 Imports System.Text
 Imports System.IO
-Imports System.ComponentModel
-Imports System.Drawing
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.PlugInCore
-Imports DevExpress.CodeRush.StructuralParser
+Imports DevExpress.DXCore.PlugInCore
+Imports System.ComponentModel
+Imports EnvDTE
+Imports System.Drawing
 
 Namespace CR_WorkBench
 	''' <summary>
@@ -21,11 +22,11 @@ Namespace CR_WorkBench
 
 #Region "Usual CR Precreated Goodness :)"
 #Region " private fields... "
-        Friend WithEvents events_ As DevExpress.DXCore.PlugInCore.DXCoreEvents
+        Friend WithEvents events_ As DXCoreEvents
         ''' <summary>
         ''' Required designer variable.
         ''' </summary>
-        Private components As System.ComponentModel.IContainer
+        Private components As IContainer
 #End Region
 
         ' constructor...
@@ -61,16 +62,16 @@ Namespace CR_WorkBench
         ''' Opens and displays this tool window. If the tool window is already open,
         ''' it will be focused.
         ''' </summary>
-        Public Shared Function ShowWindow() As EnvDTE.Window
-            Return DevExpress.CodeRush.Core.CodeRush.ToolWindows.Show(GetType(CR_WorkBenchWindow).GUID)
+        Public Shared Function ShowWindow() As Window
+            Return CodeRush.ToolWindows.Show(GetType(CR_WorkBenchWindow).GUID)
         End Function
 #End Region
 #Region " HideWindow "
         ''' <summary>
         ''' Hides this tool window if it is open.
         ''' </summary>
-        Public Shared Function HideWindow() As EnvDTE.Window
-            Return DevExpress.CodeRush.Core.CodeRush.ToolWindows.Hide(GetType(CR_WorkBenchWindow).GUID)
+        Public Shared Function HideWindow() As Window
+            Return CodeRush.ToolWindows.Hide(GetType(CR_WorkBenchWindow).GUID)
         End Function
 #End Region
 
@@ -81,7 +82,7 @@ Namespace CR_WorkBench
         ''' </summary>
         Public Shared ReadOnly Property Instance() As CR_WorkBenchWindow
             Get
-                Return CType(DevExpress.CodeRush.Core.CodeRush.ToolWindows.GetPlugInControl(GetType(CR_WorkBenchWindow)), CR_WorkBenchWindow)
+                Return CType(CodeRush.ToolWindows.GetPlugInControl(GetType(CR_WorkBenchWindow)), CR_WorkBenchWindow)
             End Get
         End Property
 #End Region
@@ -91,40 +92,40 @@ Namespace CR_WorkBench
         ''' Required method for Designer support - do not modify
         ''' the contents of this method with the code editor.
         ''' </summary>
-        Friend WithEvents lstFiles As System.Windows.Forms.ListView
-        Friend WithEvents colFile As System.Windows.Forms.ColumnHeader
-        Friend WithEvents colFolder As System.Windows.Forms.ColumnHeader
-        Friend WithEvents ContextMenu1 As System.Windows.Forms.ContextMenu
-        Friend WithEvents mnuSaveWorkBench As System.Windows.Forms.MenuItem
-        Friend WithEvents mnuLoadWorkBench As System.Windows.Forms.MenuItem
-        Friend WithEvents mnuRemoveItems As System.Windows.Forms.MenuItem
-        Friend WithEvents mnuClearWorkBench As System.Windows.Forms.MenuItem
+        Friend WithEvents lstFiles As ListView
+        Friend WithEvents colFile As ColumnHeader
+        Friend WithEvents colFolder As ColumnHeader
+        Friend WithEvents ContextMenu1 As ContextMenu
+        Friend WithEvents mnuSaveWorkBench As MenuItem
+        Friend WithEvents mnuLoadWorkBench As MenuItem
+        Friend WithEvents mnuRemoveItems As MenuItem
+        Friend WithEvents mnuClearWorkBench As MenuItem
         Private Sub InitializeComponent()
-            Me.components = New System.ComponentModel.Container
-            Me.events_ = New DevExpress.DXCore.PlugInCore.DXCoreEvents(Me.components)
-            Me.lstFiles = New System.Windows.Forms.ListView
-            Me.colFile = New System.Windows.Forms.ColumnHeader
-            Me.colFolder = New System.Windows.Forms.ColumnHeader
-            Me.ContextMenu1 = New System.Windows.Forms.ContextMenu
-            Me.mnuRemoveItems = New System.Windows.Forms.MenuItem
-            Me.mnuClearWorkBench = New System.Windows.Forms.MenuItem
-            Me.mnuSaveWorkBench = New System.Windows.Forms.MenuItem
-            Me.mnuLoadWorkBench = New System.Windows.Forms.MenuItem
-            CType(Me.events_, System.ComponentModel.ISupportInitialize).BeginInit()
-            CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
+            Me.components = New Container
+            Me.events_ = New DXCoreEvents(Me.components)
+            Me.lstFiles = New ListView
+            Me.colFile = New ColumnHeader
+            Me.colFolder = New ColumnHeader
+            Me.ContextMenu1 = New ContextMenu
+            Me.mnuRemoveItems = New MenuItem
+            Me.mnuClearWorkBench = New MenuItem
+            Me.mnuSaveWorkBench = New MenuItem
+            Me.mnuLoadWorkBench = New MenuItem
+            CType(Me.events_, ISupportInitialize).BeginInit()
+            CType(Me, ISupportInitialize).BeginInit()
             Me.SuspendLayout()
             '
             'lstFiles
             '
             Me.lstFiles.AllowDrop = True
-            Me.lstFiles.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colFile, Me.colFolder})
+            Me.lstFiles.Columns.AddRange(New ColumnHeader() {Me.colFile, Me.colFolder})
             Me.lstFiles.ContextMenu = Me.ContextMenu1
-            Me.lstFiles.Dock = System.Windows.Forms.DockStyle.Fill
-            Me.lstFiles.Location = New System.Drawing.Point(0, 0)
+            Me.lstFiles.Dock = DockStyle.Fill
+            Me.lstFiles.Location = New Point(0, 0)
             Me.lstFiles.Name = "lstFiles"
-            Me.lstFiles.Size = New System.Drawing.Size(296, 168)
+            Me.lstFiles.Size = New Size(296, 168)
             Me.lstFiles.TabIndex = 2
-            Me.lstFiles.View = System.Windows.Forms.View.Details
+            Me.lstFiles.View = View.Details
             '
             'colFile
             '
@@ -138,7 +139,7 @@ Namespace CR_WorkBench
             '
             'ContextMenu1
             '
-            Me.ContextMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mnuRemoveItems, Me.mnuClearWorkBench, Me.mnuSaveWorkBench, Me.mnuLoadWorkBench})
+            Me.ContextMenu1.MenuItems.AddRange(New MenuItem() {Me.mnuRemoveItems, Me.mnuClearWorkBench, Me.mnuSaveWorkBench, Me.mnuLoadWorkBench})
             '
             'mnuRemoveItems
             '
@@ -164,9 +165,9 @@ Namespace CR_WorkBench
             '
             Me.Controls.Add(Me.lstFiles)
             Me.Name = "CR_WorkBenchWindow"
-            Me.Size = New System.Drawing.Size(296, 168)
-            CType(Me.events_, System.ComponentModel.ISupportInitialize).EndInit()
-            CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
+            Me.Size = New Size(296, 168)
+            CType(Me.events_, ISupportInitialize).EndInit()
+            CType(Me, ISupportInitialize).EndInit()
             Me.ResumeLayout(False)
 
         End Sub
@@ -193,7 +194,7 @@ Namespace CR_WorkBench
         Private SourceType As String
 #End Region
 #Region "Properties"
-        Private ReadOnly Property GetWorkBenchFileName() As String
+        Private Shared ReadOnly Property GetWorkBenchFileName() As String
             Get
                 Return GetWorkBenchDir() & (New FileInfo(CodeRush.Source.ActiveSolution.Name)).Name & ".wrk"
             End Get
@@ -203,7 +204,7 @@ Namespace CR_WorkBench
         End Function
 #End Region
 #Region "UI Events"
-        Private Sub Files_DragOver(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lstFiles.DragOver
+        Private Sub Files_DragOver(ByVal sender As Object, ByVal e As DragEventArgs) Handles lstFiles.DragOver
             Select Case True
                 Case e.Data.GetDataPresent(DataFormats.FileDrop)
                     e.Effect = DragDropEffects.Copy
@@ -216,7 +217,7 @@ Namespace CR_WorkBench
             End Select
 
         End Sub
-        Private Sub lstFiles_DragDrop(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles lstFiles.DragDrop
+        Private Sub lstFiles_DragDrop(ByVal sender As Object, ByVal e As DragEventArgs) Handles lstFiles.DragDrop
             Dim Filename As String
             Select Case SourceType
                 Case DataFormats.StringFormat
@@ -230,8 +231,7 @@ Namespace CR_WorkBench
             Call AddFileToWorkBench(Filename)
         End Sub
         Private Sub lstFiles_DoubleClick(ByVal sender As Object, ByVal e As EventArgs) Handles lstFiles.DoubleClick
-            Dim FullName As String = CType(lstFiles.SelectedItems(0), FileItem).Fullname
-            CodeRush.File.Activate(FullName)
+            CodeRush.File.Activate(CType(lstFiles.SelectedItems(0), FileItem).Fullname)
         End Sub
         Private Sub mnuSaveWorkBench_Click(ByVal sender As Object, ByVal e As EventArgs) Handles mnuSaveWorkBench.Click
             Call SaveWorkBench()
@@ -248,12 +248,12 @@ Namespace CR_WorkBench
             If Not Directory.Exists(SaveDir) Then
                 Directory.CreateDirectory(SaveDir)
             End If
-            Dim File As New FileInfo(GetWorkBenchFileName)
-            Dim sw As New System.IO.StringWriter
-            For Each FileItem As FileItem In lstFiles.Items
-                sw.WriteLine(FileItem.Fullname)
-            Next
-            SetTextinFile(File, sw.ToString, Encoding.Unicode)
+            Using sw As New System.IO.StringWriter()
+                For Each FileItem As FileItem In lstFiles.Items
+                    sw.WriteLine(FileItem.Fullname)
+                Next
+                SetTextinFile(New FileInfo(GetWorkBenchFileName), sw.ToString, Encoding.Unicode)
+            End Using
         End Sub
         Friend Sub LoadWorkBench()
             lstFiles.Items.Clear()
@@ -268,13 +268,13 @@ Namespace CR_WorkBench
             End If
         End Sub
 
-        Private Sub mnuRemoveItems_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRemoveItems.Click
+        Private Sub mnuRemoveItems_Click(ByVal sender As Object, ByVal e As EventArgs) Handles mnuRemoveItems.Click
             For CurrentItemIndex As Integer = lstFiles.SelectedItems.Count - 1 To 0 Step -1
                 lstFiles.Items.RemoveAt(CurrentItemIndex)
             Next
         End Sub
 
-        Private Sub mnuClearWorkBench_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuClearWorkBench.Click
+        Private Sub mnuClearWorkBench_Click(ByVal sender As Object, ByVal e As EventArgs) Handles mnuClearWorkBench.Click
             lstFiles.Items.Clear()
         End Sub
     End Class

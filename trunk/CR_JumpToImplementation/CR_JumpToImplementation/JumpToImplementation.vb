@@ -30,8 +30,8 @@ Public Class JumpToImplementation
             NavProvider.ProviderName = "First Implementation"
             NavProvider.Description = "First Implementation"
             NavProvider.Register = True
-            AddHandler NavProvider.Navigate, AddressOf NavProvider_Navigate
-            AddHandler NavProvider.CheckAvailability, AddressOf NavProvider_CheckAvailability
+            AddHandler NavProvider.Navigate, AddressOf ImplementorFromInterfaceDeclaration_Navigate
+            AddHandler NavProvider.CheckAvailability, AddressOf ImplementorFromInterfaceDeclaration_CheckAvailability
         Finally
             initialize.EndInit()
         End Try
@@ -40,8 +40,8 @@ Public Class JumpToImplementation
         If NavProvider Is Nothing Then
             Return
         End If
-        RemoveHandler NavProvider.Navigate, AddressOf NavProvider_Navigate
-        RemoveHandler NavProvider.CheckAvailability, AddressOf NavProvider_CheckAvailability
+        RemoveHandler NavProvider.Navigate, AddressOf ImplementorFromInterfaceDeclaration_Navigate
+        RemoveHandler NavProvider.CheckAvailability, AddressOf ImplementorFromInterfaceDeclaration_CheckAvailability
         NavProvider.Dispose()
         NavProvider = Nothing
     End Sub
@@ -139,11 +139,31 @@ Public Class JumpToImplementation
     Private Sub actJumpToImplementation_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles actJumpToImplementation.Execute
         Call JumpToImplementation(CodeRush.Source.Active)
     End Sub
-    Private Sub NavProvider_Navigate(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs)
+#Region "ImplementorFromInterfaceDeclaration"
+    Private Sub ImplementorFromInterfaceDeclaration_Navigate(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs)
         Call JumpToImplementation(ea.Element)
     End Sub
-    Private Sub NavProvider_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs)
+    Private Sub ImplementorFromInterfaceDeclaration_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs)
         ea.Available = TypeOf ea.Element Is [Interface] OrElse TypeOf ea.Element.Parent Is [Interface]
+    End Sub
+#End Region
+    Private Sub ImplementorFromObjectWhoseClassImplementsInterface_Navigate(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs)
+        Call JumpToImplementation(ea.Element)
+    End Sub
+    Private Sub ImplementorFromObjectWhoseClassImplementsInterface_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs)
+        Dim StartElement As LanguageElement = ea.Element
+        If Not StartElement.ElementType = LanguageElementType.MethodCall Then
+            Exit Sub
+        End If
+        Dim MethodCall As MethodCall = CType(StartElement, MethodCall)
+        If MethodCall.Then Then
+
+        End If
+        If Start Then
+
+        End If
+        ea.Available = TypeOf ea.Element Is [Interface] _
+        OrElse TypeOf ea.Element.Parent Is [Interface]
     End Sub
 #End Region
 
