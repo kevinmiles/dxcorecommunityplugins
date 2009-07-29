@@ -1,0 +1,15 @@
+Purpose:
+This Example shows one way of adjusting all .vb files in the active project to ensure they have an explicit "Option Strict On" staement in them.
+
+Method:
+We locate the active project and iterate through the results of the 'AllFiles' method. We then call 'SetOptionStrictOnFile' for any '.vb' files.
+
+'SetOptionStrictOnFile' is pretty dumb. 
+It doesn't try to determine if a file needs changing. Rather it decides to remove any such "Option Strict On" or "Option Strict Off" statrements, before adding "Option Strict On" to the front of the remaining code.
+
+This final code is written back to the file.
+
+Notes:
+
+1. Technically the code is not always written back to the file. If the file was open in the IDE, then the code is altered in the IDE and will need saving before the changes will be available to anything but Studio.
+2. The 'ActiveProject' appears to be determined based on the current file. Therefore the action will not function unless there is a file open in the IDE from the project you wish to affect.

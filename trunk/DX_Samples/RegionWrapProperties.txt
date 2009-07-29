@@ -1,0 +1,14 @@
+Purpose:
+To wrap each property in a region named after it.
+
+Method:
+Use "CodeRush.Source.IterateNodesInRange" to iterate all nodes in the range of the active file. each time a node is found, check to see if it's a property  and call 'WrapElementInRegion' if it is.
+
+'WrapElementInRegion' has 3 steps 
+1. Get the text of the Element passed.
+2. Add region text to the beginning and end of this text
+3. Replace the original text of the element with the new version (complete with region)
+
+Note:
+We use 'QueueReplace' which adds all the replace operations to a single queue of operations. These operations are not applied until we have iterated all nodes and are back in the original 'actRegionWrapProperties_Execute' event. At this point 'CodeRush.Documents.ActiveTextDocument.ApplyQueuedEdits' naturally applies the edits.
+
