@@ -54,6 +54,7 @@ namespace RedGreen
         public override void InitializePlugIn()
         {
             base.InitializePlugIn();
+			LoadSettings();
         }
         #endregion
 
@@ -484,9 +485,9 @@ namespace RedGreen
         #endregion
 
         #region Draw test results
-        private readonly Color PassedColor = Color.FromArgb(157, 254, 133);
-        private readonly Color SkippedColor = Color.FromArgb(255, 255, 70);
-        private readonly Color FailedColor = Color.FromArgb(255, 140, 140);
+        private readonly Color PassedColor = Color.FromArgb(50, 157, 254, 133);
+		private readonly Color SkippedColor = Color.FromArgb(50, 255, 255, 70);
+		private readonly Color FailedColor = Color.FromArgb(50, 255, 140, 140);
         private readonly Color UnknownColor = Color.White;
         private readonly Color TileBackgroundFillColor = Color.FromArgb(255, 253, 75);
         private readonly Color TileBorderColor = Color.FromArgb(233, 210, 33);
@@ -498,32 +499,32 @@ namespace RedGreen
         /// </summary>
         private void PlugIn1_EditorPaintLanguageElement(EditorPaintLanguageElementEventArgs ea)
         {
-            Attribute testAttribute = GetTestAttributeForLanguageElement(ea.LanguageElement);
-            if (testAttribute != null)
-            {
-                UnitTestDetail testData = FindDataForTest(testAttribute);
-                if (testData != null)
-                {
-                    if (ea.LanguageElement.ElementType == LanguageElementType.Attribute)
-                    {
-                        DrawTestRunnerIcon(ea.PaintArgs, testData);
-                        RedrawTestAttribute(ea.PaintArgs, testData);
-                    }
-                    else
-                    {
-                        DrawError(ea, testData.Result);
-                    }
-                }
-            }
-            else if (ea.LanguageElement.ElementType == LanguageElementType.Method)
-            {// Potential adHocTest
-                Method method = (Method)ea.LanguageElement;
-                if ( DxCoreUtil.GetFirstTestAttribute(ea.LanguageElement) == null
-                    && IsAdHoc(method))
-                {
-                    DrawTestRunnerIcon(ea.PaintArgs, new AdHocDetail(method, adHocActions));
-                }
-            }
+			Attribute testAttribute = GetTestAttributeForLanguageElement(ea.LanguageElement);
+			if (testAttribute != null)
+			{
+				UnitTestDetail testData = FindDataForTest(testAttribute);
+				if (testData != null)
+				{
+					if (ea.LanguageElement.ElementType == LanguageElementType.Attribute)
+					{
+						DrawTestRunnerIcon(ea.PaintArgs, testData);
+						RedrawTestAttribute(ea.PaintArgs, testData);
+					}
+					else
+					{
+						DrawError(ea, testData.Result);
+					}
+				}
+			}
+			else if (ea.LanguageElement.ElementType == LanguageElementType.Method)
+			{// Potential adHocTest
+				Method method = (Method)ea.LanguageElement;
+				if (DxCoreUtil.GetFirstTestAttribute(ea.LanguageElement) == null
+					&& IsAdHoc(method))
+				{
+					DrawTestRunnerIcon(ea.PaintArgs, new AdHocDetail(method, adHocActions));
+				}
+			}
         }
 
         private static bool IsAdHoc(Method method)
@@ -609,59 +610,16 @@ namespace RedGreen
         /// </summary>
         private void RedrawTestAttribute(EditorPaintEventArgs paintArgs, UnitTestDetail testData)
         {
-            if (paintArgs.LineInView(testData.Attribute.StartLine) && ShouldPaintTestAttribute(paintArgs, testData.Attribute))
-            {
-                string displayText = GetDisplayText(testData.Attribute, testData.Method);
-                paintArgs.OverlayText(displayText,
-                    testData.Attribute.StartLine,
-                    testData.Attribute.StartOffset - 1,
-                    Color.Black,
-                    GetBackgroundColor(testData.Result.Status));
-            }
-        }
-
-        private void PlugIn1_EditorValidateLanguageElementClipRegion(EditorValidateLanguageElementClipRegionEventArgs ea)
-        {
-            Attribute testAttribute = ea.LanguageElement as Attribute;
-            if (testAttribute == null || false == DxCoreUtil.IsTest(testAttribute))
-            {// Nothing to do
-                return;
-            }
-
-            if(!ShouldPaintTestAttribute(ea.ValidateClipRegionArgs, testAttribute))
-            {
-                return;
-            }
-
-            Point start;
-            if (!ea.ValidateClipRegionArgs.GetPoint(testAttribute.Range.Start, out start))
-            {
-                return;
-            }
-
-            Point stop;
-            int textLength = GetDisplayText(testAttribute, testAttribute.TargetNode).Length - testAttribute.ToString().Length;
-            if (!ea.ValidateClipRegionArgs.GetPoint(new SourcePoint (testAttribute.Range.End.Line, (testAttribute.Range.Start.Offset + textLength)), out stop))
-            {
-                return;
-            }
-
-            if (stop.X < start.X)
-            {
-                stop.X = start.X;
-            }
-            int attributeWidth = stop.X - start.X;
-            int attributeHeight = stop.Y - start.Y + ea.ValidateClipRegionArgs.LineHeight;
-            ea.ValidateClipRegionArgs.ValidateRectangle(new Rectangle(start.X, start.Y, attributeWidth, attributeHeight));
-        }
-
-        private static bool ShouldPaintTestAttribute(BaseEditorPaintEventArgs paintArgs, Attribute testAttribute)
-        {
-            return (!paintArgs.TextViewIsActive ||
-                ((paintArgs.CaretLine < testAttribute.StartLine ||
-                paintArgs.CaretLine > testAttribute.EndLine) ||
-                (paintArgs.CaretLine == testAttribute.StartLine &&
-                paintArgs.CaretOffset < testAttribute.StartOffset)));
+			if (paintArgs.LineInView(testData.Attribute.StartLine) && testData.Result.Status != TestStatus.Unknown)
+			{
+				Point topLeft = paintArgs.TextView.GetPoint(testData.Attribute.StartLine, testData.Attribute.Parent.StartOffset);
+				Point lowerRight = paintArgs.TextView.GetPoint(testData.Attribute.StartLine + 1, paintArgs.TextView.LengthOfLine(testData.Method.StartLine) + 1);
+				Rectangle area = new Rectangle(topLeft.X, topLeft.Y, lowerRight.X - topLeft.X, lowerRight.Y - topLeft.Y);
+				using (Brush b = new SolidBrush(GetBackgroundColor(testData.Result.Status)))
+				{
+					paintArgs.Graphics.FillRectangle(b, area);
+				}
+			}
         }
 
         /// <summary>
@@ -734,15 +692,26 @@ namespace RedGreen
         /// </summary>
         /// <param name="attribute"></param>
         /// <returns>Test plus enough whitespace to make the colored bar extent one char past the end of the closing paren</returns>
-        private static string GetDisplayText(LanguageElement attribute, LanguageElement method)
+        private string GetDisplayText(LanguageElement attribute, LanguageElement method)
         {
             TextView view = CodeRush.Source.Active.View as TextView;
-
-            StringBuilder displayText = new StringBuilder(" Test");
-            int attributeOffset = attribute.StartOffset; // Doesn't include the opening square bracket
-            int lineLength = view.LengthOfLine(method.StartLine);
-            displayText.Append(' ', lineLength - attributeOffset - 3); // -3 to account for addition of " test" and yet cover past the parens too.
-            return displayText.ToString();
+						
+			StringBuilder displayText = new StringBuilder();
+			int lineLength = view.LengthOfLine(method.StartLine);
+			int paddingSize;
+			if (_RedrawTestAtt)
+			{
+				displayText.Append(" Test");
+				int attributeOffset = attribute.StartOffset; // Doesn't include the opening square bracket
+				paddingSize = lineLength - attributeOffset - 3; // -3 to account for addition of " test" and yet cover past the parens too.
+			}
+			else
+			{
+				displayText.Append(attribute.Parent.Name);
+				paddingSize = lineLength - attribute.StartOffset; 
+			}
+			displayText.Append(' ', paddingSize); // -3 to account for addition of " test" and yet cover past the parens too.
+			return displayText.ToString();
         }
         #endregion
 
@@ -937,6 +906,23 @@ namespace RedGreen
                                 });
         }
         #endregion
+
+		private void PlugIn1_OptionsChanged(OptionsChangedEventArgs ea)
+		{
+			if(ea.OptionsPages.Contains(typeof(OptRedGreenPlugIn)))
+			{
+				LoadSettings();
+			}
+		}
+
+		private bool _RedrawTestAtt { get; set; }
+        private void LoadSettings()
+		{
+			using (DecoupledStorage storage = OptRedGreenPlugIn.Storage)
+			{
+				_RedrawTestAtt = OptRedGreenPlugIn.ReadRedrawTestAtt(storage);
+			}
+		}
     }
 
 

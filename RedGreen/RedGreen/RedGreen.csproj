@@ -99,6 +99,12 @@
     <Compile Include="MbUnitGallioParser.cs" />
     <Compile Include="NullGallioParser.cs" />
     <Compile Include="NUnitGallioParser.cs" />
+    <Compile Include="OptRedGreenPlugIn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OptRedGreenPlugIn.Designer.cs">
+      <DependentUpon>OptRedGreenPlugIn.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlugIn1.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -124,6 +130,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="OptRedGreenPlugIn.resx">
+      <DependentUpon>OptRedGreenPlugIn.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TestIndicator.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
