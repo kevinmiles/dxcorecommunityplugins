@@ -34,7 +34,8 @@ Public Class UIManager1
     Private Sub CreateWorkspaceButtons()
         For Each Workspace In mLinkBar.Workspaces
             Dim Button = MenuBar.CreateAndAddButton(Workspace.Name)
-            Button.SetFace(GetBitmapByName(PNG_FOLDER))
+            Dim Transparent As TransparentBitmap = GetBitmapByName(PNG_FOLDER)
+            Button.SetFace(Transparent.Bitmap, Transparent.MaskBitmap)
             Button.Style = ButtonStyle.IconAndCaption
             Button.Tag = Workspace.Name
             mLinkBar.Workspaces.Add(Workspace)

@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.vb" />
     <Compile Include="WorkspaceCollection.vb" />
+    <Compile Include="XElementExt.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icons\Old\SaveAll.bmp" />

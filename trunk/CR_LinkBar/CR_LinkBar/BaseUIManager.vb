@@ -26,21 +26,24 @@ Public MustInherit Class BaseUIManager
     Public MustOverride Sub Refresh() Implements IUIManager.Refresh
 #End Region
 
-    Public Function GetBitmapByName(ByVal BitmapName As String) As Bitmap
+    Public Function GetBitmapByName(ByVal BitmapName As String) As TransparentBitmap
         Dim Asm As Assembly = Assembly.GetAssembly(Me.GetType)
         Dim stream As IO.Stream = Asm.GetManifestResourceStream(String.Format("CR_LinkBar.{0}", BitmapName))
-        Return CType(Bitmap.FromStream(stream), Bitmap)
+        Dim BitmapFromStream As Bitmap = CType(Bitmap.FromStream(stream), Bitmap)
+        Return New TransparentBitmap(BitmapFromStream)
     End Function
     Protected Sub CreateSaveAllAndCloseButton()
         Dim Button = CreateAndAddButton(mLinkBar.MenuBar, "Clear Workspace", "Saves all files and then Closes them.")
         Button.Style = ButtonStyle.Icon
-        Button.SetFace(GetBitmapByName(PNG_SAVEANDCLOSEALL))
+        Dim Image As TransparentBitmap = GetBitmapByName(PNG_SAVEANDCLOSEALL)
+        Button.SetFace(Image.Bitmap, Image.MaskBitmap)
         AddHandler Button.Click, AddressOf mLinkBar.OnClickSaveAndCloseAll
     End Sub
     Protected Sub CreateCreateNewWorkspaceButton()
         Dim Button As IMenuButton = mLinkBar.MenuBar.CreateAndAddButton("Create Workspace")
         Button.Style = ButtonStyle.Icon
-        Button.SetFace(GetBitmapByName(PNG_CREATEWORKSPACE))
+        Dim Image As TransparentBitmap = GetBitmapByName(PNG_CREATEWORKSPACE)
+        Button.SetFace(Image.Bitmap, Image.MaskBitmap)
         AddHandler Button.Click, AddressOf mLinkBar.OnClickCreateNewWorkspace
     End Sub
     Protected Sub CreateRefreshButton(ByVal ParentMenu As IMenuPopup)
