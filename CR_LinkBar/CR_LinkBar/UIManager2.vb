@@ -44,29 +44,33 @@ Public Class UIManager2
     End Sub
 
     Private Sub CreateJumpButton(ByVal ParentMenu As IMenuPopup)
-        Dim JumpButton = ParentMenu.CreateAndAddButton("Jump")
-        JumpButton.SetFace(GetBitmapByName(PNG_FOLDER))
-        JumpButton.Style = ButtonStyle.IconAndCaption
-        JumpButton.Tag = ParentMenu.Tag
-        AddHandler JumpButton.Click, AddressOf mLinkBar.OnClickFolderButton
+        Dim Button = ParentMenu.CreateAndAddButton("Jump")
+        Dim Transparent As TransparentBitmap = GetBitmapByName(PNG_FOLDER)
+        Button.SetFace(Transparent.Bitmap, Transparent.MaskBitmap)
+        Button.Style = ButtonStyle.IconAndCaption
+        Button.Tag = ParentMenu.Tag
+        AddHandler Button.Click, AddressOf mLinkBar.OnClickFolderButton
     End Sub
     Private Sub CreateAddFilesButton(ByVal ParentMenu As IMenuPopup)
         Dim Button = ParentMenu.CreateAndAddButton("Add Workspace")
-        Button.SetFace(GetBitmapByName(PNG_FOLDER))
+        Dim Transparent As TransparentBitmap = GetBitmapByName(PNG_FOLDER)
+        Button.SetFace(Transparent.Bitmap, Transparent.MaskBitmap)
         Button.Style = ButtonStyle.IconAndCaption
         Button.Tag = ParentMenu.Tag
         AddHandler Button.Click, AddressOf mLinkBar.OnAddFilesWorkspaceClick
     End Sub
     Private Sub CreateRenameButton(ByVal ParentMenu As IMenuPopup)
         Dim Button = ParentMenu.CreateAndAddButton("Rename")
-        Button.SetFace(GetBitmapByName(PNG_FOLDER))
+        Dim Transparent As TransparentBitmap = GetBitmapByName(PNG_FOLDER)
+        Button.SetFace(Transparent.Bitmap, Transparent.MaskBitmap)
         Button.Style = ButtonStyle.IconAndCaption
         Button.Tag = ParentMenu.Tag
         AddHandler Button.Click, AddressOf mLinkBar.OnRenameWorkspaceClick
     End Sub
     Private Sub CreateDeleteButton(ByVal ParentMenu As IMenuPopup)
         Dim Button = ParentMenu.CreateAndAddButton("Delete")
-        Button.SetFace(GetBitmapByName(PNG_FOLDER))
+        Dim Transparent As TransparentBitmap = GetBitmapByName(PNG_FOLDER)
+        Button.SetFace(Transparent.Bitmap, Transparent.MaskBitmap)
         Button.Style = ButtonStyle.IconAndCaption
         Button.Tag = ParentMenu.Tag
         AddHandler Button.Click, AddressOf mLinkBar.OnDeleteWorkspaceClick

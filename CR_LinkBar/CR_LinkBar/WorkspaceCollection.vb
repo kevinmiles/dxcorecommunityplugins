@@ -3,6 +3,8 @@ Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.Menus
 Imports System.IO
 Imports DevExpress.CodeRush.StructuralParser
+Imports System.Xml
+Imports System.Runtime.CompilerServices
 
 
 Public Class WorkspaceCollection
@@ -20,7 +22,7 @@ Public Class WorkspaceCollection
             mWorkspaceList.Add(Workspace)
 
         Catch ex As Exception
-            
+
         End Try
     End Sub
     Public Function Exists(ByVal P As Predicate(Of Workspace)) As Boolean

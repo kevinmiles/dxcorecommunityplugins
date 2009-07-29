@@ -160,7 +160,7 @@ Public Class LinkBar
 #Region " Settings "
     Private Shared ReadOnly Property MyStorage() As DecoupledStorage
         Get
-            Return CodeRush.Options.GetStorage("CR_LinkBar")
+            Return CodeRush.Options.GetStorage("Organization", "CR_LinkBar")
         End Get
     End Property
     Public Sub ClearWorkSpaces()
@@ -169,14 +169,14 @@ Public Class LinkBar
     Public Sub SaveWorkspaces()
         Dim SolutionName As String = CodeRush.Solution.Active.SolutionName()
         Using Storage As DecoupledStorage = MyStorage
-            Call Storage.WriteStrings(SolutionName, "Workspaces", Split(Workspaces.ToXML.ToString, System.Environment.NewLine))
+            Call Storage.WriteBoolean("Section", SolutionName, True)
+            Call Storage.WriteXmlNode("Workspaces" & SolutionName, Workspaces.ToXML.ToXMLElement())
         End Using
     End Sub
     Public Sub LoadWorkspaces()
         Dim SolutionName As String = CodeRush.Solution.Active.SolutionName()
         Using Storage As DecoupledStorage = MyStorage
-            Dim SavedXML = Join(Storage.ReadStrings(SolutionName, "Workspaces"), "")
-            Workspaces.LoadFromXML(XElement.Parse(SavedXML))
+            Workspaces.LoadFromXML(Storage.ReadXmlNode("Workspaces" & SolutionName).ToXElement)
         End Using
         RefreshToolbar()
     End Sub
