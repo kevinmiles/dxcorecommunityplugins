@@ -90,6 +90,11 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UndoUnits\AddedProjectFileUndoUnit.vb" />
+    <Compile Include="UndoUnits\CreatedFileUndoUnit.vb" />
+    <Compile Include="UndoUnits\DeletedFileUndoUnit.vb" />
+    <Compile Include="UndoUnits\FileActivateRedoUnit.vb" />
+    <Compile Include="UndoUnits\FileActivateUndoUnit.vb" />
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -97,6 +102,7 @@
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.vb" />
+    <Compile Include="UndoUnits\RemovedProjectFileUndoUnit.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PlugIn1.resx">
