@@ -60,8 +60,8 @@ Public Class PlugIn1
         ' Assemble Method
         Dim NewMethod As Method = GenerateHandlerStubMethod(MethodName, EventDec)
         ' Insert the code at the insertionpoint picked
-        Dim Range2 As SourceRange = ActiveDoc.ExpandText(InsertionPoint, ControlChars.CrLf & NewMethod.GenerateCode & ControlChars.CrLf)
-        Call ActiveDoc.Format(Range2)
+        Dim ExpandedRange As SourceRange = ActiveDoc.ExpandText(InsertionPoint, NewMethod.GenerateCode(True))
+        Call ActiveDoc.Format(ExpandedRange)
     End Sub
     Public Function GenerateHandlerStubMethod(ByVal MethodName As String, ByVal EventDec As IEventElement) As Method
         ' Create Method
@@ -83,8 +83,5 @@ Public Class PlugIn1
     End Function
     Private Function BuildThrow(ByVal ExceptionType As String) As SP.Throw
         Return (New ElementBuilder).BuildThrow(New ObjectCreationExpression(New TypeReferenceExpression(ExceptionType)))
-    End Function
-    Private Function StartOfLine(ByVal Point As SourcePoint, Optional ByVal LineOffset As Integer = 0) As SourcePoint
-        Return New SourcePoint(Point.Line + LineOffset, 1)
     End Function
 End Class
