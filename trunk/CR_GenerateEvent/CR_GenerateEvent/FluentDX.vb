@@ -1,3 +1,4 @@
+Option Infer On
 Imports System.ComponentModel
 Imports System.Drawing
 Imports System.Windows.Forms
@@ -18,7 +19,9 @@ Public Module FluentDX
         Return TryCast(LE, IEventElement)
     End Function
     <Extension()> _
-    Public Function GenerateCode(ByVal LE As LanguageElement) As String
-        Return CodeRush.CodeMod.GenerateCode(LE)
+    Public Function GenerateCode(ByVal LE As LanguageElement, Optional ByVal SurroundWithCRLF As Boolean = False) As String
+        Return String.Format("{0}{1}{0}", _
+                             If(SurroundWithCRLF, System.Environment.NewLine, String.Empty), _
+                             CodeRush.CodeMod.GenerateCode(LE))
     End Function
 End Module
