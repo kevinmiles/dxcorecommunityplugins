@@ -485,10 +485,9 @@ namespace RedGreen
         #endregion
 
         #region Draw test results
-        private readonly Color PassedColor = Color.FromArgb(50, 157, 254, 133);
-		private readonly Color SkippedColor = Color.FromArgb(50, 255, 255, 70);
-		private readonly Color FailedColor = Color.FromArgb(50, 255, 140, 140);
-        private readonly Color UnknownColor = Color.White;
+        private Color PassedColor = Color.FromArgb(50, 157, 254, 133);
+		private Color SkippedColor = Color.FromArgb(50, 255, 255, 70);
+		private Color FailedColor = Color.FromArgb(50, 255, 140, 140);
         private readonly Color TileBackgroundFillColor = Color.FromArgb(255, 253, 75);
         private readonly Color TileBorderColor = Color.FromArgb(233, 210, 33);
 
@@ -516,7 +515,7 @@ namespace RedGreen
 					}
 				}
 			}
-			else if (ea.LanguageElement.ElementType == LanguageElementType.Method)
+			else if (ea.LanguageElement.ElementType == LanguageElementType.Method && DrawAdHocIcon == true)
 			{// Potential adHocTest
 				Method method = (Method)ea.LanguageElement;
 				if (DxCoreUtil.GetFirstTestAttribute(ea.LanguageElement) == null
@@ -699,7 +698,7 @@ namespace RedGreen
 			StringBuilder displayText = new StringBuilder();
 			int lineLength = view.LengthOfLine(method.StartLine);
 			int paddingSize;
-			if (_RedrawTestAtt)
+			if (DrawAdHocIcon)
 			{
 				displayText.Append(" Test");
 				int attributeOffset = attribute.StartOffset; // Doesn't include the opening square bracket
@@ -912,15 +911,19 @@ namespace RedGreen
 			if(ea.OptionsPages.Contains(typeof(OptRedGreenPlugIn)))
 			{
 				LoadSettings();
+				DxCoreUtil.Invalidate(CodeRush.Source.ActiveClass);
 			}
 		}
 
-		private bool _RedrawTestAtt { get; set; }
+		private bool DrawAdHocIcon { get; set; }
         private void LoadSettings()
 		{
 			using (DecoupledStorage storage = OptRedGreenPlugIn.Storage)
 			{
-				_RedrawTestAtt = OptRedGreenPlugIn.ReadRedrawTestAtt(storage);
+				DrawAdHocIcon = OptRedGreenPlugIn.ReadDrawAdHocIcon(storage);
+				PassedColor = OptRedGreenPlugIn.ReadTestPassColor(storage);
+				FailedColor = OptRedGreenPlugIn.ReadTestFailColor(storage);
+				SkippedColor = OptRedGreenPlugIn.ReadTestSkipColor(storage);
 			}
 		}
     }
