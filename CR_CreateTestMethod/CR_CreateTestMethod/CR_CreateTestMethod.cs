@@ -15,6 +15,10 @@ namespace CR_CreateTestMethod
         private Class _currentClass;
         private Method _setupMethod;
         private Assignment _parentAssignment;
+
+        private List<string> _testClassAttributes = new List<string> { "TestFixture", "TestClass" };
+        private List<string> _testMethodAttributes = new List<string> { "Test", "TestMethod" };
+
         // DXCore-generated code...
         #region InitializePlugIn
         public override void InitializePlugIn()
@@ -103,9 +107,7 @@ namespace CR_CreateTestMethod
 
         private bool IsAvailable()
         {
-            return CodeRush.Source.ActiveClass.Attributes.OfType<LanguageElement>().Count(a => a.Name == "TestFixture") > 0
-                && string.IsNullOrEmpty(CodeRush.Source.ActiveMethodName)
-                && CodeRush.Source.Active is Class;            
+            return cpInsideTestClass.IsContextSatisfied(string.Empty) && !(cpInsideTestMethod.IsContextSatisfied(string.Empty));
         }
 
         internal void cpInsideTestClass_ContextSatisfied(ContextSatisfiedEventArgs ea)
@@ -115,11 +117,11 @@ namespace CR_CreateTestMethod
 
         internal void cpInsideTestMethod_ContextSatisfied(ContextSatisfiedEventArgs ea)
         {
-            ea.Satisfied = IsInTestClass() && (CodeRush.Source.ActiveMethod != null && CodeRush.Source.ActiveMethod.Attributes.OfType<LanguageElement>().Count(a => a.Name == "Test") > 0);
+            ea.Satisfied = IsInTestClass() && (CodeRush.Source.ActiveMethod != null && CodeRush.Source.ActiveMethod.Attributes.OfType<LanguageElement>().Count(a => _testMethodAttributes.Contains(a.Name)) > 0);
         }
         internal bool IsInTestClass()
         {
-            return CodeRush.Source.ActiveClass != null && CodeRush.Source.ActiveClass.Attributes.OfType<LanguageElement>().Count(a => a.Name == "TestFixture") > 0;
+            return CodeRush.Source.ActiveClass != null && CodeRush.Source.ActiveClass.Attributes.OfType<LanguageElement>().Count(a => _testClassAttributes.Contains(a.Name)) > 0;
         }
 
         internal bool HasSetUp()
@@ -173,10 +175,11 @@ namespace CR_CreateTestMethod
         }
         private Method GetSetupMethod(Class currentClass)
         {
-            if (currentClass.Nodes.OfType<AttributeSection>().Count() > 0)
+            if (currentClass != null && currentClass.Nodes.Count > 0 && currentClass.Nodes.OfType<AttributeSection>().Count() > 0)
             {
-                var setupAttribute = currentClass.Nodes.OfType<AttributeSection>().First(section => section.FirstDetail.Name == "SetUp");
-                return (setupAttribute.TargetNode as Method);
+                var setupAttribute = currentClass.Nodes.OfType<AttributeSection>().FirstOrDefault(section => section.FirstDetail != null && section.FirstDetail.Name == "SetUp");
+                if(setupAttribute != null)
+                    return (setupAttribute.TargetNode as Method);
             }
             return null;
         }
