@@ -1,0 +1,11 @@
+#summary Shows the code of a method in a tooltip from any call site.
+
+= Introduction =
+
+Provides an action 'ToggleMethodPreview' actionable from any method call whose source is available and provides that source as a preview window.
+
+= Details =
+
+Install as usual.
+Assign the 'ToggleMethodPreview' to a key.
+Use action from any call to a method whose source is available within the project.
