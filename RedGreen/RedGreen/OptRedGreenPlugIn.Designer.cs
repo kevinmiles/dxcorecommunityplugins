@@ -81,11 +81,10 @@ namespace RedGreen
 			this.passColor.Size = new System.Drawing.Size(152, 30);
 			this.passColor.TabIndex = 4;
 			this.passColor.UseVisualStyleBackColor = true;
-			this.passColor.Click += new System.EventHandler(this.passColor_Click);
 			// 
 			// passAlpha
 			// 
-			this.passAlpha.Location = new System.Drawing.Point(141, 71);
+			this.passAlpha.Location = new System.Drawing.Point(141, 70);
 			this.passAlpha.Name = "passAlpha";
 			this.passAlpha.Size = new System.Drawing.Size(166, 56);
 			this.passAlpha.TabIndex = 5;
@@ -95,7 +94,7 @@ namespace RedGreen
 			// 
 			this.label1.AutoSize = true;
 			this.label1.ForeColor = System.Drawing.SystemColors.ControlDark;
-			this.label1.Location = new System.Drawing.Point(150, 109);
+			this.label1.Location = new System.Drawing.Point(150, 108);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(81, 17);
 			this.label1.TabIndex = 6;
@@ -104,7 +103,7 @@ namespace RedGreen
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(237, 109);
+			this.label2.Location = new System.Drawing.Point(237, 108);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(56, 17);
 			this.label2.TabIndex = 7;
@@ -173,7 +172,6 @@ namespace RedGreen
 			this.failColor.Size = new System.Drawing.Size(152, 30);
 			this.failColor.TabIndex = 10;
 			this.failColor.UseVisualStyleBackColor = true;
-			this.failColor.Click += new System.EventHandler(this.failColor_Click);
 			// 
 			// label8
 			// 
@@ -219,10 +217,10 @@ namespace RedGreen
 			this.skipColor.Size = new System.Drawing.Size(152, 30);
 			this.skipColor.TabIndex = 15;
 			this.skipColor.UseVisualStyleBackColor = true;
-			this.skipColor.Click += new System.EventHandler(this.skipColor_Click);
 			// 
 			// OptRedGreenPlugIn
 			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.Controls.Add(this.label8);
 			this.Controls.Add(this.label9);
 			this.Controls.Add(this.label10);
