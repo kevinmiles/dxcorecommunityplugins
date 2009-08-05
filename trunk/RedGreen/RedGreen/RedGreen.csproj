@@ -42,12 +42,7 @@
     <Reference Include="DevExpress.CodeRush.Interop, Version=3.0.8.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.DXCore.Controls, Version=3.0.8.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3, Version=3.0.8.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <Reference Include="DevExpress.CodeRush.UserControls, Version=9.2.2.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.DXCore.Controls.XtraBars.v6.3, Version=3.0.8.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

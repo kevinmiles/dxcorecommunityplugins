@@ -485,9 +485,9 @@ namespace RedGreen
         #endregion
 
         #region Draw test results
-        private Color PassedColor = Color.FromArgb(50, 157, 254, 133);
-		private Color SkippedColor = Color.FromArgb(50, 255, 255, 70);
-		private Color FailedColor = Color.FromArgb(50, 255, 140, 140);
+        private Color PassedColor;
+		private Color SkippedColor;
+		private Color FailedColor;
         private readonly Color TileBackgroundFillColor = Color.FromArgb(255, 253, 75);
         private readonly Color TileBorderColor = Color.FromArgb(233, 210, 33);
 

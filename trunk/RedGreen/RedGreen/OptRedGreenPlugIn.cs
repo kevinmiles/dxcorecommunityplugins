@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
@@ -70,28 +69,28 @@ namespace RedGreen
 
 		public static Color ReadTestPassColor(DecoupledStorage storage)
 		{
-			int alpha = Storage.ReadInt32("Preferences", "PassAlphaComponent", Default.PassColor.Alpha);
-			int red = Storage.ReadInt32("Preferences", "PassRedComponent", Default.PassColor.Red);
-			int blue = Storage.ReadInt32("Preferences", "PassGreenComponent", Default.PassColor.Green);
-			int green = Storage.ReadInt32("Preferences", "PassBlueComponent", Default.PassColor.Blue);
+			int alpha = storage.ReadInt32("Preferences", "PassAlphaComponent", Default.PassColor.Alpha);
+			int red = storage.ReadInt32("Preferences", "PassRedComponent", Default.PassColor.Red);
+			int blue = storage.ReadInt32("Preferences", "PassGreenComponent", Default.PassColor.Green);
+			int green = storage.ReadInt32("Preferences", "PassBlueComponent", Default.PassColor.Blue);
 			return Color.FromArgb(alpha, red, blue, green);
 		}
 
 		public static Color ReadTestFailColor(DecoupledStorage storage)
 		{
-			int alpha = Storage.ReadInt32("Preferences", "FailAlphaComponent", Default.FailColor.Alpha);
-			int red = Storage.ReadInt32("Preferences", "FailRedComponent", Default.FailColor.Red);
-			int blue = Storage.ReadInt32("Preferences", "FailGreenComponent", Default.FailColor.Green);
-			int green = Storage.ReadInt32("Preferences", "FailBlueComponent", Default.FailColor.Blue);
+			int alpha = storage.ReadInt32("Preferences", "FailAlphaComponent", Default.FailColor.Alpha);
+			int red = storage.ReadInt32("Preferences", "FailRedComponent", Default.FailColor.Red);
+			int blue = storage.ReadInt32("Preferences", "FailGreenComponent", Default.FailColor.Green);
+			int green = storage.ReadInt32("Preferences", "FailBlueComponent", Default.FailColor.Blue);
 			return Color.FromArgb(alpha, red, blue, green);
 		}
 
 		public static Color ReadTestSkipColor(DecoupledStorage storage)
 		{
-			int alpha = Storage.ReadInt32("Preferences", "SkipAlphaComponent", Default.SkipColor.Alpha);
-			int red = Storage.ReadInt32("Preferences", "SkipRedComponent", Default.SkipColor.Red);
-			int blue = Storage.ReadInt32("Preferences", "SkipGreenComponent", Default.SkipColor.Green);
-			int green = Storage.ReadInt32("Preferences", "SkipBlueComponent", Default.SkipColor.Blue);
+			int alpha = storage.ReadInt32("Preferences", "SkipAlphaComponent", Default.SkipColor.Alpha);
+			int red = storage.ReadInt32("Preferences", "SkipRedComponent", Default.SkipColor.Red);
+			int blue = storage.ReadInt32("Preferences", "SkipGreenComponent", Default.SkipColor.Green);
+			int green = storage.ReadInt32("Preferences", "SkipBlueComponent", Default.SkipColor.Blue);
 			return Color.FromArgb(alpha, red, blue, green);
 		}
 
@@ -146,39 +145,6 @@ namespace RedGreen
 			skipAlpha.Value = Default.SkipColor.Alpha;
 		}
 
-		private void passColor_Click(object sender, EventArgs e)
-		{
-			//colorDialog1.Color = passColor.BackColor;
-			//colorDialog1.SolidColorOnly = true;
-			//if (colorDialog1.ShowDialog() == DialogResult.OK)
-			//{
-			//    passColor.BackColor = colorDialog1.Color;
-			//    passAlpha.Value = passColor.BackColor.A;
-			//}
-		}
-
-		private void failColor_Click(object sender, EventArgs e)
-		{
-			//colorDialog1.Color = failColor.BackColor;
-			//colorDialog1.SolidColorOnly = true;
-			//if (colorDialog1.ShowDialog() == DialogResult.OK)
-			//{
-			//    failColor.BackColor = colorDialog1.Color;
-			//    failAlpha.Value = failColor.BackColor.A;
-			//}
-		}
-
-		private void skipColor_Click(object sender, EventArgs e)
-		{
-			//colorDialog1.Color = skipColor.BackColor;
-			//colorDialog1.SolidColorOnly = true;
-			//if (colorDialog1.ShowDialog() == DialogResult.OK)
-			//{
-			//    skipColor.BackColor = colorDialog1.Color;
-			//    skipAlpha.Value = skipColor.BackColor.A;
-			//}
-		}
-
 		private void passAlpha_ValueChanged(object sender, EventArgs e)
 		{
 			passColor.BackColor = Color.FromArgb(passAlpha.Value, passColor.BackColor.R, passColor.BackColor.G, passColor.BackColor.B);
@@ -192,6 +158,43 @@ namespace RedGreen
 		private void skipAlpha_ValueChanged(object sender, EventArgs e)
 		{
 			skipColor.BackColor = Color.FromArgb(skipAlpha.Value, skipColor.BackColor.R, skipColor.BackColor.G, skipColor.BackColor.B);
+		}
+
+		private void passRedNumeric_KeyUp(object sender, KeyEventArgs e)
+		{
+			passRed.Value = Convert.ToInt32(passRedNumeric.Text);
+		}
+
+		private void passGreenNumeric_KeyUp(object sender, KeyEventArgs e)
+		{
+			passGreen.Value = Convert.ToInt32(passGreenNumeric.Text);
+		}
+
+		private void passBlueNumeric_KeyUp(object sender, KeyEventArgs e)
+		{
+			passBlue.Value = Convert.ToInt32(passBlueNumeric.Text);
+		}
+
+		private void SetPassDisplayColor()
+		{
+			passColor.BackColor = Color.FromArgb(passAlpha.Value, passRed.Value, passGreen.Value, passBlue.Value);
+		}
+		private void passRed_ValueChanged(object sender, EventArgs e)
+		{
+			passRedNumeric.Text = passRed.Value.ToString();
+			SetPassDisplayColor();
+		}
+
+		private void passGreen_ValueChanged(object sender, EventArgs e)
+		{
+			passGreenNumeric.Text = passGreen.Value.ToString();
+			SetPassDisplayColor();
+		}
+
+		private void passBlue_ValueChanged(object sender, EventArgs e)
+		{
+			passBlueNumeric.Text = passBlue.Value.ToString();
+			SetPassDisplayColor();
 		}
 	}
 }
