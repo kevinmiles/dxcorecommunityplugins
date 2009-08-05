@@ -159,42 +159,5 @@ namespace RedGreen
 		{
 			skipColor.BackColor = Color.FromArgb(skipAlpha.Value, skipColor.BackColor.R, skipColor.BackColor.G, skipColor.BackColor.B);
 		}
-
-		private void passRedNumeric_KeyUp(object sender, KeyEventArgs e)
-		{
-			passRed.Value = Convert.ToInt32(passRedNumeric.Text);
-		}
-
-		private void passGreenNumeric_KeyUp(object sender, KeyEventArgs e)
-		{
-			passGreen.Value = Convert.ToInt32(passGreenNumeric.Text);
-		}
-
-		private void passBlueNumeric_KeyUp(object sender, KeyEventArgs e)
-		{
-			passBlue.Value = Convert.ToInt32(passBlueNumeric.Text);
-		}
-
-		private void SetPassDisplayColor()
-		{
-			passColor.BackColor = Color.FromArgb(passAlpha.Value, passRed.Value, passGreen.Value, passBlue.Value);
-		}
-		private void passRed_ValueChanged(object sender, EventArgs e)
-		{
-			passRedNumeric.Text = passRed.Value.ToString();
-			SetPassDisplayColor();
-		}
-
-		private void passGreen_ValueChanged(object sender, EventArgs e)
-		{
-			passGreenNumeric.Text = passGreen.Value.ToString();
-			SetPassDisplayColor();
-		}
-
-		private void passBlue_ValueChanged(object sender, EventArgs e)
-		{
-			passBlueNumeric.Text = passBlue.Value.ToString();
-			SetPassDisplayColor();
-		}
 	}
 }
