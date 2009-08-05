@@ -6,6 +6,6 @@ Provides an action 'ToggleMethodPreview' actionable from any method call whose s
 
 = Details =
 
-Install as usual.
-Assign the 'ToggleMethodPreview' to a key.
-Use action from any call to a method whose source is available within the project.
+ * Install as usual.
+ * Assign the 'ToggleMethodPreview' to a key.
+ * Use action from any call to a method whose source is available within the project.
