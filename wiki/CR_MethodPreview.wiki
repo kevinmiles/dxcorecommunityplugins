@@ -6,6 +6,7 @@ Provides an action 'ToggleMethodPreview' actionable from any method call whose s
 
 = Installation =
 
+ * [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_MethodPreview/ Download]
  * [InstalationInstructions Install as usual]
  * Assign the 'ToggleMethodPreview' to a key. (see [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Binding a Key])
 
