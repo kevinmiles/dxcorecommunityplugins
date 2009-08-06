@@ -4,8 +4,23 @@
 
 Provides an action 'ToggleMethodPreview' actionable from any method call whose source is available and provides that source as a preview window.
 
-= Details =
+= Installation =
 
- * Install as usual.
- * Assign the 'ToggleMethodPreview' to a key.
- * Use action from any call to a method whose source is available within the project.
+ * [InstalationInstructions Install as usual]
+ * Assign the 'ToggleMethodPreview' to a key. (see [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Binding a Key])
+
+= Usage =
+
+ * Place caret on any Method Call for which the source is available within the solution.
+ * Activate the 'ToggleMethodPreview' action using whichever key you bound to it.
+
+ * Deactivate when done, using the same key.
+
+= Notes =
+
+This plugin currently shows the current.
+
+= Credits =
+
+Original Author: Rory Becker
+Idea by Neal Culiner (@ncsoftware) and Matthew MacSuga (@csharpbydesign)
