@@ -19,7 +19,8 @@ Provides an action 'ToggleMethodPreview' actionable from any method call whose s
 
 = Notes =
 
-This plugin currently shows the current.
+This plugin currently shows the entire method.
+The plan is to limit this to the first n (defaulting to say 30) lines. However the DXCore currently needs the entire method in order to format things correctly.
 
 = Credits =
 
