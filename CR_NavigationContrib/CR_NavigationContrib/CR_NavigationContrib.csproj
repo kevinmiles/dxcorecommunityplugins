@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\PlugIns</OutputPath>
+    <OutputPath>..\..\..\..\RoryData\Documents\DevExpress\IDE Tools\Community\PlugIns\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

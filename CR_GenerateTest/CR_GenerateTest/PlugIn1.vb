@@ -71,7 +71,7 @@ Public Class PlugIn1
     End Function
 #End Region
 
-#Region "EnsureTestClassExists"
+#Region "EnsureTestTypeExists"
     Private Function EnsureTestTypeExists(ByVal TypeToTest As TypeDeclaration, ByVal TestProject As ProjectElement) As TypeDeclaration
         Dim Func As Func(Of TypeDeclaration, Boolean) = Function(x) x.Name = TypeToTest.Name
         Dim TestType = TestProject.FirstTypeWhere(Func)

@@ -36,7 +36,7 @@ Public Class PlugIn1
         Dim XLines As String() = Lines.Take(LineCount).ToArray
         Return Join(XLines, System.Environment.NewLine)
     End Function
-    Private Shared Function GetMethod(ByVal Element As LanguageElement) As Method
+    Private Function GetMethod(ByVal Element As LanguageElement) As Method
         Dim Method As Method = Nothing
         Select Case Element.ElementType
             Case LanguageElementType.MethodCall
