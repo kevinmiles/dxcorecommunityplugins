@@ -7,20 +7,6 @@ Imports DevExpress.CodeRush.StructuralParser
 Imports System.Runtime.CompilerServices
 Imports System.Collections.Generic
 
-Public Enum StyleEnum
-    Hint
-    Warning
-    [Error]
-End Enum
-Public Class VarStartsWith
-    Private mBadToStartWith As String
-    Public Sub New(ByVal BadToStartWith As String)
-        mBadToStartWith = BadToStartWith
-    End Sub
-    Public Function StartsWith(ByVal Element As LanguageElement) As Boolean
-        Return Element.Name.StartsWith(mBadToStartWith)
-    End Function
-End Class
 Public Class PlugIn1
 
     'DXCore-generated code...
@@ -39,9 +25,19 @@ Public Class PlugIn1
     End Sub
 #End Region
 
-
-    Private Sub ImpossibleStringComparison_CheckCodeIssues(ByVal sender As Object, ByVal ea As CheckCodeIssuesEventArgs) Handles ImpossibleStringComparison.CheckCodeIssues
-        Call ea.AddHint(LanguageElementType.RelationalOperation, AddressOf ImpossibleEquality.Qualifies, "Can never equate.")
-        Call ea.AddHint(LanguageElementType.Variable, AddressOf New VarStartsWith("Fred").StartsWith, "Fred is Bad")
+    Private Sub ImpossibleLowercaseEquality_CheckCodeIssues(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckCodeIssuesEventArgs) Handles ImpossibleLowercaseEquality.CheckCodeIssues
+        Call ea.AddHint(LanguageElementType.RelationalOperation, AddressOf WarnEqualityImpossible.Qualifies, "Can never equate.")
+        LowercaseString.CodeIssueMessage = ImpossibleLowercaseEquality.ProviderName
     End Sub
+
+    Private Sub LowercaseString_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs) Handles LowercaseString.CheckAvailability
+        ea.Available = ea.Element.ElementType = LanguageElementType.RelationalOperation
+    End Sub
+
+    Private Sub LowercaseString_Apply(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs) Handles LowercaseString.Apply
+        Dim RO As RelationalOperation = CType(ea.Element, RelationalOperation)
+        Dim StringPrimative = TryCast(RO.RightSide, PrimitiveExpression)
+        ea.TextDocument.Replace(StringPrimative.Range, StringPrimative.Name.ToLower, "Lowercase String")
+    End Sub
+
 End Class
