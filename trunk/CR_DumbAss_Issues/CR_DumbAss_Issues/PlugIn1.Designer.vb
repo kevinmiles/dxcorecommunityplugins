@@ -28,19 +28,38 @@ Partial Class PlugIn1
 	<System.Diagnostics.DebuggerStepThrough()> _
   	Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Me.ImpossibleStringComparison = New DevExpress.CodeRush.Core.IssueProvider(Me.components)
-        CType(Me.ImpossibleStringComparison, System.ComponentModel.ISupportInitialize).BeginInit()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PlugIn1))
+        Me.ImpossibleLowercaseEquality = New DevExpress.CodeRush.Core.IssueProvider(Me.components)
+        Me.LowercaseString = New DevExpress.CodeRush.Core.CodeProvider(Me.components)
+        CType(Me.ImpossibleLowercaseEquality, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.LowercaseString, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
-        'ImpossibleStringComparison
+        'ImpossibleLowercaseEquality
         '
-        Me.ImpossibleStringComparison.Description = "Impossible String Comparison"
-        Me.ImpossibleStringComparison.ProviderName = "ImpossibleStringComparison"
-        Me.ImpossibleStringComparison.Register = True
-        CType(Me.ImpossibleStringComparison, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ImpossibleLowercaseEquality.Description = "Impossible Lowercase Equality"
+        Me.ImpossibleLowercaseEquality.DisplayName = "Impossible Lowercase Equality"
+        Me.ImpossibleLowercaseEquality.ProviderName = "ImpossibleLowercaseEquality"
+        Me.ImpossibleLowercaseEquality.Register = True
+        '
+        'LowercaseString
+        '
+        Me.LowercaseString.ActionHintText = ""
+        Me.LowercaseString.AutoActivate = True
+        Me.LowercaseString.AutoUndo = False
+        Me.LowercaseString.Description = "Lowercase String"
+        Me.LowercaseString.DisplayName = "Lowercase String"
+        Me.LowercaseString.Image = CType(resources.GetObject("LowercaseString.Image"), System.Drawing.Bitmap)
+        Me.LowercaseString.NeedsSelection = False
+        Me.LowercaseString.ProviderName = "LowercaseString"
+        Me.LowercaseString.Register = True
+        Me.LowercaseString.SupportsAsyncMode = False
+        CType(Me.ImpossibleLowercaseEquality, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.LowercaseString, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
-    Friend WithEvents ImpossibleStringComparison As DevExpress.CodeRush.Core.IssueProvider
+    Friend WithEvents ImpossibleLowercaseEquality As DevExpress.CodeRush.Core.IssueProvider
+    Friend WithEvents LowercaseString As DevExpress.CodeRush.Core.CodeProvider
 
 End Class

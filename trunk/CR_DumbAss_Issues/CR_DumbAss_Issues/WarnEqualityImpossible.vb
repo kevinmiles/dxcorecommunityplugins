@@ -8,7 +8,7 @@ Imports System.Runtime.CompilerServices
 Imports System.Collections.Generic
 
 
-Public Module ImpossibleEquality
+Public Module WarnEqualityImpossible
     Public Function Qualifies(ByVal RO As RelationalOperation) As Boolean
         Select Case True
             Case IsToLower(RO.LeftSide) AndAlso IsNonLowercaseString(RO.RightSide)
