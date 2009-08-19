@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>..\..\..\..\RoryData\Documents\DevExpress\IDE Tools\Community\Plugins\</OutputPath>
+    <OutputPath>..\..\..\..\..\RoryData\Documents\DevExpress\IDE Tools\Community\Plugins\</OutputPath>
     <DocumentationFile>CR_DeclareClassInProject.xml</DocumentationFile>
     <NoWarn>
     </NoWarn>
@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="ProjectOperations.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
+    <Compile Include="SolutionExt.vb" />
     <Compile Include="UndoUnits\AddedProjectFileUndoUnit.vb" />
     <Compile Include="UndoUnits\CreatedFileUndoUnit.vb" />
     <Compile Include="UndoUnits\DeletedFileUndoUnit.vb" />

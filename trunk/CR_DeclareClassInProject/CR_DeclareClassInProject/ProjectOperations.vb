@@ -2,6 +2,7 @@
 Imports DevExpress.CodeRush.StructuralParser
 Imports System.IO
 Imports System.Runtime.CompilerServices
+Imports DevExpress.CodeRush.Diagnostics.Core
 
 Public Module ProjectOperations
     Public Function CreateFileInProject(ByVal TheProject As ProjectElement, ByVal FileName As String, Optional ByVal RelativePath As String = "") As String

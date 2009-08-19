@@ -52,8 +52,15 @@ Public Class PlugIn1
         End If
         Dim TheProject = mProjectElements.Where(Function(p) p.Name = ChosenMenu.Name).First
         Dim NewClassName As String = CType(ea.Element, TypeReferenceExpression).Name
-        Dim FileAndPath = CreateFileInProject(TheProject, NewClassName)
-        Call FileOperations.JumpToFileWithUndo(FileAndPath)
-        Call FileOperations.InsertElementWithUndo(New [Class](NewClassName), TheProject.Language)
+        'Dim Unit = CodeRush.UndoStack.OpenParentUnit("Create Class")
+        CodeRush.UndoStack.BeginUpdate("Create Class")
+        Try
+            Dim FileAndPath = CreateFileInProject(TheProject, NewClassName)
+            Call FileOperations.JumpToFileWithUndo(FileAndPath)
+            Call FileOperations.InsertElementWithUndo(New [Class](NewClassName), TheProject.Language)
+        Finally
+            CodeRush.UndoStack.EndUpdate()
+            'CodeRush.UndoStack.CommitParentUnit(Unit)
+        End Try
     End Sub
 End Class
