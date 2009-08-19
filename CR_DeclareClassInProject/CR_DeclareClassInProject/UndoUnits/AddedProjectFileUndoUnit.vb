@@ -20,7 +20,7 @@ Public Class AddedProjectFileUndoUnit
     End Property
 
     Protected Overrides Sub Execute()
-        DXCoreEngine.Solution.RemoveFileFromProject(mProjectName, mFilePath)
+        DXCoreEngine.Solution.ExcludeFileFromProject(mProjectName, mFilePath)
     End Sub
 
     Protected Overrides Function ReverseUnit() As UndoUnit
