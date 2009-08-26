@@ -6,7 +6,8 @@ namespace CR_NCover
 	public partial class PlugIn : StandardPlugIn
 	{
 		private readonly CoverageOverlay overlay = new CoverageOverlay();
-		private readonly Service service = new Service();
+        private bool showingOverlay = false;
+        private readonly Service service = new Service();
 
 		public override void InitializePlugIn()
 		{
@@ -23,18 +24,22 @@ namespace CR_NCover
 
 		public void WhenResultsUpdated()
 		{
+            showingOverlay = true;
+            
 			if (VisualStudio.HasAnActiveTextView)
-				overlay.Show(service.GetCoverageResultsForActiveDocument());
+                overlay.Show(service.GetCoverageResultsForActiveDocument());
 		}
 
 		public void WhenPaintingBackground(EditorPaintEventArgs ea)
 		{
-			overlay.Update(service.GetCoverageResultsForActiveDocument());
+            if (showingOverlay)
+			    overlay.Update(service.GetCoverageResultsForActiveDocument());
 		}
 
 		public void WhenTextChanges(TextChangedEventArgs ea)
 		{
-			overlay.Hide();
+            overlay.Hide();
+            showingOverlay = false;  
 		}
 
 		private void StartResultWatcher()
