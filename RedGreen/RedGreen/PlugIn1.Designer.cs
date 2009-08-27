@@ -125,7 +125,7 @@ namespace RedGreen
 			this.EditorMouseHover += new DevExpress.CodeRush.Core.EditorEventHandler(this.PlugIn1_EditorMouseHover);
 			this.SolutionOpened += new DevExpress.CodeRush.Core.DefaultHandler(this.PlugIn1_SolutionOpened);
 			this.BuildDone += new DevExpress.CodeRush.Core.BuildEventHandler(this.PlugIn1_BuildDone);
-			this.EditorMouseUp += new DevExpress.CodeRush.Core.EditorMouseEventHandler(this.PlugIn1_EditorMouseUp);
+			
 			this.EditorPaintLanguageElement += new DevExpress.CodeRush.Core.EditorPaintLanguageElementEventHandler(this.PlugIn1_EditorPaintLanguageElement);
 			this.TileMouseLeave += new DevExpress.CodeRush.Core.TileEventHandler(this.PlugIn1_TileMouseLeave);
 			this.TextChanged += new DevExpress.CodeRush.Core.TextChangedEventHandler(this.PlugIn1_TextChanged);

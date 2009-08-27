@@ -35,15 +35,15 @@ namespace RedGreen
 
         public string GetExpected(string source)
         {
-            string kExpectedStartDelimiter = "\nExpected: ";
-            string kExpectedEndDelimiter = "\nActual:";
+            const string kExpectedStartDelimiter = "\nExpected: ";
+            const string kExpectedEndDelimiter = "\nActual:";
             return GallioParserUtils.GetSegment(source, String.Empty, kExpectedStartDelimiter, kExpectedEndDelimiter);
         }
 
         public string GetActual(string source)
         {
-            string kActualStartDelimiter = "\nActual:   ";
-            string kActualEndDelimiter = "\n   at ";
+            const string kActualStartDelimiter = "\nActual:   ";
+            const string kActualEndDelimiter = "\n   at ";
             return GallioParserUtils.GetSegment(source, String.Empty, kActualStartDelimiter, kActualEndDelimiter);
         }
 
