@@ -25,7 +25,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
@@ -685,33 +684,6 @@ namespace RedGreen
             }
         }
 
-        /// <summary>
-        /// Use the width of the method the attribute is attached to to determine how much 
-        /// trailing whitespace is needed for the colored bar.
-        /// </summary>
-        /// <param name="attribute"></param>
-        /// <returns>Test plus enough whitespace to make the colored bar extent one char past the end of the closing paren</returns>
-        private string GetDisplayText(LanguageElement attribute, LanguageElement method)
-        {
-            TextView view = CodeRush.Source.Active.View as TextView;
-						
-			StringBuilder displayText = new StringBuilder();
-			int lineLength = view.LengthOfLine(method.StartLine);
-			int paddingSize;
-			if (DrawAdHocIcon)
-			{
-				displayText.Append(" Test");
-				int attributeOffset = attribute.StartOffset; // Doesn't include the opening square bracket
-				paddingSize = lineLength - attributeOffset - 3; // -3 to account for addition of " test" and yet cover past the parens too.
-			}
-			else
-			{
-				displayText.Append(attribute.Parent.Name);
-				paddingSize = lineLength - attribute.StartOffset; 
-			}
-			displayText.Append(' ', paddingSize); // -3 to account for addition of " test" and yet cover past the parens too.
-			return displayText.ToString();
-        }
         #endregion
 
         #region Build Action
@@ -837,13 +809,6 @@ namespace RedGreen
                 ShowBuildOutputWindow();
             }
 
-        }
-
-        private void PlugIn1_EditorMouseUp(EditorMouseEventArgs ea)
-        {
-            //Not working well enough to commit yet.
-            //Tile tile = ea.TextView.ActiveTile;
-            //ShowTestPopupMenu(ea.TextView, tile);
         }
 
         private void attachDebugger_Execute(ExecuteEventArgs ea)

@@ -91,7 +91,7 @@ namespace RedGreen.AdHoc
                     Console.WriteLine(result);
                 }
             }
-            catch (System.Reflection.TargetInvocationException ex)
+            catch (TargetInvocationException ex)
             {
                 Console.WriteLine(ex.InnerException.Message);
             }
