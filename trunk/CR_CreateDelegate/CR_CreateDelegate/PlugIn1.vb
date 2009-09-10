@@ -38,6 +38,7 @@ Public Class PlugIn1
         Dim b = ea.NewElementBuilder
         Dim D As SP.DelegateDefinition = b.BuildDelegateDefinition(M.Name & "Delegate", M.Parameters)
         D.MemberType = M.MemberType
+        D.Visibility = M.Visibility
         ' Insert into Tree
         Dim range = M.GetFullBlockCutRange
         M.Parent.InsertNode(M.Parent.Nodes.IndexOf(M), D)
