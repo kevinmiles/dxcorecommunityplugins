@@ -4,6 +4,14 @@
 
 This plugin provides a new Navigation Item (in the Jump To) menu which lists all test classes that reference either the current class, or the type reference under the cursor (so you can right click on a reference to a class, and see where it is being tested).  Test classes are determined by looking at all of the references for the class being searched for, and returning only those that have appropriate test class attributes.  This should work with NUnit, MbUnit, and MSTest.  Currently, xUnit.Net is not supported, since it does not use a class level attribute to identify tests.
 
+*Invoke Jump-To menu:*
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_NavigateToTest/ScreenShots/NavToTest-ScreenShot%20-%200.jpg
+
+*Select Tests Menu Item:*
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_NavigateToTest/ScreenShots/NavToTest-ScreenShot%20-%201.jpg
+
 = Installation =
 
 Installation instructions can be found on the InstallInstructions page.
@@ -14,7 +22,7 @@ There is no additional setup required.
 
 = Usage =
 
-Once installed, you can navigate to a test class in your solution by right clicking within your class (pretty much anything other than an actual Type name like those used in variable and method declarations), and opening the Jump To menu.  If there are Test classes available, you will see an entry with the format "<Class Name> Test(s) >", so if you are working within a class named MyTestableClass, the menu entry would be "MyTestableClass Tests".  Selecting this option will open a tree which contains all the references to your class within test code.  The first level of the tree contains the test classes, next are the methods within those classes that contain references, and finally the actual reference itself.  You can navigate to any of these points in your test code by selecting the item in the tree and pressing the <ENTER> key.  Alternately you can double-click on an item within the tree to navigate.  
+Once installed, you can navigate to a test class in your solution by right clicking within your class (pretty much anything other than an actual Type name like those used in variable and method declarations), and opening the Jump To menu.  If there are Test classes available, you will see an entry with the format "<Class Name> Test(s) >", so if you are working within a class named MyTestableClass, the menu entry would be "MyTestableClass Tests".  Selecting this option will open a tree which contains all the references to your class within test code.  The first level of the tree contains the test classes, next are the methods within those classes that contain references, and finally the actual reference itself.  You can navigate to any of these points in your test code by selecting the item in the tree and pressing the *ENTER* key.  Alternately you can double-click on an item within the tree to navigate.  To close the window use the *ESC* key.
 
 = Why did I build this =
 
