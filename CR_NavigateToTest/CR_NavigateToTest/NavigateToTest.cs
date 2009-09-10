@@ -13,8 +13,7 @@ namespace CR_NavigateToTest
 {
     public partial class NavigateToTest : StandardPlugIn
     {
-        List<ITypeElement> _classes;
-        private string _searchedElement;
+        List<LanguageElement> _classes;
         // DXCore-generated code...
         #region InitializePlugIn
         public override void InitializePlugIn()
@@ -54,43 +53,74 @@ namespace CR_NavigateToTest
             if (typeElement == null)
                 return;
 
-            _classes = new List<ITypeElement>();
+            _classes = new List<LanguageElement>();
             var elements = typeElement.FindAllReferences().ToLanguageElementCollection();
-            
-            var testClasses = elements.OfType<LanguageElement>().Select(ele => ele.GetClass()).Distinct();
-            testClasses = testClasses.Where(cls => cls != null)
-                                     .Where(cls => cls.AttributeCount > 0)
-                                     .Where(cls => cls.Attributes.OfType<DevExpress.CodeRush.StructuralParser.Attribute>().Count(attr => attr.Name == "TestFixture") > 0);
-            if(testClasses.Count() == 0)
+            var elementsInTests = from element in elements.OfType<LanguageElement>()
+                                  let cls = element.GetClass()
+                                  where cls != null &&
+                                        cls.AttributeCount > 0 &&
+                                        cls.Attributes.OfType<DevExpress.CodeRush.StructuralParser.Attribute>().Count(attr => attr.Name == "TestFixture") > 0
+                                  select element;
+
+            if (elementsInTests.Count() == 0)
             {
                 ea.Available = false;
                 return;
             }
-            ea.Available = true;
-            ea.MenuCaption = String.Format("{0} Test(s)", typeElement.Name);
-            
-            foreach(Class testClass in testClasses)
-            {
-                if (_classes.Count(c => c.FullName == testClass.FullName) != 0)
-                    continue;
 
-                _classes.Add(testClass);
-                ea.AddSubMenuItem(testClass.FullName, testClass.Name, typeElement.Name);
-            }
+            _classes = elementsInTests.ToList();
+            
+            ea.Available = true;
+            ea.MenuCaption = String.Format("{0} Test{1}", typeElement.Name, _classes.MoreThanOne() ? "s":"");
+
         }
 
         private void navigationProvider1_Navigate(object sender, DevExpress.CodeRush.Library.NavigationEventArgs ea)
         {
-            SubMenuItem item = ea.SelectedSubMenuItem;
-            if (item == null)
-                return;
-
-            ITypeElement testClass = _classes.Where(c => c.FullName == item.Name).FirstOrDefault();
-            if (testClass != null)
+            var location = GetCaretPositionScreenPoint(true);
+            
+            var form = new frmPickTarget(_classes);
+            if (form.ShowAt(CodeRush.IDE,location) == DialogResult.OK)
             {
-                CodeRush.Markers.Drop();
-                CodeRush.Navigation.Navigate(testClass.GetDeclaration());
+                var selectedElement = form.SelectedElement;
+                if (selectedElement != null && selectedElement.FileNode != null)
+                {
+                    CodeRush.Markers.Drop(MarkerStyle.System);
+                    CodeRush.File.Activate(selectedElement.FileNode.Name);
+                    var start = selectedElement.Range.Start;
+                    CodeRush.Caret.MoveTo(start);
+                    locatorBeacon1.Start(CodeRush.TextViews.Active,start.Line, start.Offset);
+                }
             }
+        }
+
+        
+        public static Point GetCaretPositionScreenPoint(bool newLine)
+        {
+            SourcePoint point2;
+            SourcePoint active = CodeRush.Caret.SourcePoint; ;
+            if (active == null)
+            {
+                return Point.Empty;
+            }
+            if (newLine)
+            {
+                point2 = new SourcePoint(active.Line + 1, active.Offset);
+            }
+            else
+            {
+                point2 = new SourcePoint(active.Line, active.Offset);
+            }
+            return CodeRush.TextViews.Active.ToScreenPoint(CodeRush.TextViews.Active.GetPoint(point2));
+        }
+
+    }
+
+    public static class Extensions
+    {
+        public static bool MoreThanOne<T>(this IEnumerable<T> items)
+        {
+            return items.Count() > 1;
         }
     }
 }

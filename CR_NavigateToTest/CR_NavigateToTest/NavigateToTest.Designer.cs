@@ -39,7 +39,9 @@ namespace CR_NavigateToTest
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigateToTest));
             this.navigationProvider1 = new DevExpress.CodeRush.Library.NavigationProvider(this.components);
+            this.locatorBeacon1 = new DevExpress.CodeRush.PlugInCore.LocatorBeacon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.navigationProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.locatorBeacon1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // navigationProvider1
@@ -56,7 +58,12 @@ namespace CR_NavigateToTest
             this.navigationProvider1.SupportsAsyncMode = false;
             this.navigationProvider1.Navigate += new DevExpress.CodeRush.Library.NavigationEventHandler(this.navigationProvider1_Navigate);
             this.navigationProvider1.CheckAvailability += new DevExpress.Refactor.Core.CheckAvailabilityEventHandler(this.navigationProvider1_CheckAvailability);
+            // 
+            // locatorBeacon1
+            // 
+            this.locatorBeacon1.Color = System.Drawing.Color.SlateBlue;
             ((System.ComponentModel.ISupportInitialize)(this.navigationProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.locatorBeacon1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -64,5 +71,6 @@ namespace CR_NavigateToTest
         #endregion
 
         private DevExpress.CodeRush.Library.NavigationProvider navigationProvider1;
+        private DevExpress.CodeRush.PlugInCore.LocatorBeacon locatorBeacon1;
     }
 }
