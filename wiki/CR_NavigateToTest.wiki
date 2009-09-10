@@ -14,7 +14,7 @@ There is no additional setup required.
 
 = Usage =
 
-Once installed, you can navigate to a test class in your solution by right clicking within your class (pretty much anything other than an actual Type name like those used in variable and method declarations), and opening the Jump To menu.  If there are Test classes available, you will see an entry with the format "<Class Name> Test(s) >", so if you are working within a class named MyTestableClass, the menu entry would be "MyTestableClass Test(s) >".  The right-pointing arrow indicates that there are sub-menu items, which will include each of the test classes found.  Clicking on one of the menu items will take you to that test class, and drop a marker at the location you navigated from in your initial class.
+Once installed, you can navigate to a test class in your solution by right clicking within your class (pretty much anything other than an actual Type name like those used in variable and method declarations), and opening the Jump To menu.  If there are Test classes available, you will see an entry with the format "<Class Name> Test(s) >", so if you are working within a class named MyTestableClass, the menu entry would be "MyTestableClass Tests".  Selecting this option will open a tree which contains all the references to your class within test code.  The first level of the tree contains the test classes, next are the methods within those classes that contain references, and finally the actual reference itself.  You can navigate to any of these points in your test code by selecting the item in the tree and pressing the <ENTER> key.  Alternately you can double-click on an item within the tree to navigate.  
 
 = Why did I build this =
 
