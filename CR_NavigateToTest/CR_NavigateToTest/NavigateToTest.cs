@@ -57,9 +57,7 @@ namespace CR_NavigateToTest
             var elements = typeElement.FindAllReferences().ToLanguageElementCollection();
             var elementsInTests = from element in elements.OfType<LanguageElement>()
                                   let cls = element.GetClass()
-                                  where cls != null &&
-                                        cls.AttributeCount > 0 &&
-                                        cls.Attributes.OfType<DevExpress.CodeRush.StructuralParser.Attribute>().Count(attr => attr.Name == "TestFixture") > 0
+                                  where ClassIsTestClass(cls)
                                   select element;
 
             if (elementsInTests.Count() == 0)
@@ -94,7 +92,15 @@ namespace CR_NavigateToTest
             }
         }
 
-        
+
+        private static bool ClassIsTestClass(Class cls)
+        {
+            var testClassAttributes = new[] { "TestFixture", "TestClass" };
+
+            return cls != null &&
+                   cls.AttributeCount > 0 &&
+                   cls.Attributes.OfType<DevExpress.CodeRush.StructuralParser.Attribute>().Count(attr => testClassAttributes.Contains(attr.Name)) > 0;
+        }
         public static Point GetCaretPositionScreenPoint(bool newLine)
         {
             SourcePoint point2;
