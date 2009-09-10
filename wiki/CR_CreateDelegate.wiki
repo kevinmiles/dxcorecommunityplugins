@@ -18,7 +18,13 @@ Installation instructions can be found on the InstallInstructions page.
 Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_CreateDelegate/
 
 === Usage ===
-Place your caret on the signature of the method and select "Create Delegate" from the Smart tag menu. This item will be in blue as it is implemented as a CodeProvider.
+Place your caret on the signature of the method and select "Create Delegate" from the Smart tag menu. 
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_CreateDelegate/Screenshots/SmartTagMenu.png
+
+This item will be in blue as it is implemented as a CodeProvider.
+
+
 
 === Credits ===
 
