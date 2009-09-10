@@ -1,0 +1,25 @@
+#summary Creates a delegate froma method signature.
+
+=== Introduction ===
+
+It turns these:
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_CreateDelegate/Screenshots/Before.png
+
+...into these...
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_CreateDelegate/Screenshots/After.png
+
+=== Installation ===
+
+Installation instructions can be found on the InstallInstructions page.
+
+=== Download === 
+Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_CreateDelegate/
+
+=== Usage ===
+Place your caret on the signature of the method and select "Create Delegate" from the Smart tag menu. This item will be in blue as it is implemented as a CodeProvider.
+
+=== Credits ===
+
+Rory Becker [contact me on twitter(@rorybecker) or via email (Rorybecker@gmail.com)]
