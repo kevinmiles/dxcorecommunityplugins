@@ -27,9 +27,27 @@ Partial Class PlugIn1
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()> _
   	Private Sub InitializeComponent()
-		CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
-		CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.components = New System.ComponentModel.Container
+        Me.LineCountDemoMetric = New DevExpress.CodeRush.Extensions.CodeMetricProvider(Me.components)
+        CType(Me.LineCountDemoMetric, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
+        '
+        'LineCountDemoMetric
+        '
+        Me.LineCountDemoMetric.CalculateOption = DevExpress.CodeRush.Core.CalculateOption.AfterParse
+        Me.LineCountDemoMetric.Description = "Line count Where warning level is 15 lines of code"
+        Me.LineCountDemoMetric.DisplayName = "Demo Metric"
+        Me.LineCountDemoMetric.MetricGoal = DevExpress.CodeRush.Core.MetricGoal.[Default]
+        Me.LineCountDemoMetric.ProviderName = "DemoMetric"
+        Me.LineCountDemoMetric.Register = True
+        Me.LineCountDemoMetric.WarningValue = 15
+        '
+        'PlugIn1
+        '
+        CType(Me.LineCountDemoMetric, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
-	End Sub
+    End Sub
+    Friend WithEvents LineCountDemoMetric As DevExpress.CodeRush.Extensions.CodeMetricProvider
 
 End Class
