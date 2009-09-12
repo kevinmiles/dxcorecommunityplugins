@@ -2,6 +2,8 @@
 
 === Introduction ===
 
+Disclaimer: There has been zero performance testing on this plugin :)
+
 This plugin changes the bckground color of your classes members to indicate how well they adhere to a nominated metric.
 
 So good members remain white and the colors escalate Green, Orange, Red as the Metric value goes up.
@@ -14,9 +16,9 @@ Each metric has a numeric value which is said to be the Warning value.
  * 50-75% = Orange.
  * 75%+ = Red.
 
-In the screenshot above I am using a Demo Metric which counts the number of lines in te member and has the Warning value set to 15. this is a useless metric created (within this plugin) purely for the purposes of being able to create this screenshot.
+In the screenshot above I am using a Demo Metric which counts the number of lines in the member and has the Warning value set to 15. This is a useless metric created (within this plugin) purely for the purposes of being able to create this screenshot.
 
-The options screen allows you to pick from any Member Metric within Coderush and displays it's Warning value alongside the dropdown.
+The options screen allows you to pick from any Metric (that does its calcs on members) within CodeRush and displays it's Warning value alongside the dropdown.
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MetricShader/Screenshots/Options.png
 
