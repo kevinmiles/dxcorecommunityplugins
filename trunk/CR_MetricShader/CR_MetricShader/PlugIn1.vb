@@ -38,10 +38,7 @@ Public Class PlugIn1
         For Each Member In CodeRush.Source.ActiveClass.AllMembers.OfType(Of Member)()
             Dim View = CodeRush.Documents.ActiveTextView
             Dim Rect As Rectangle = View.GetRectangleFromRange(Member.GetFullBlockCutRange)
-            View.HighlightCode(Member.GetFullBlockCutRange, _
-                               GetColor(Member), _
-                               GetColor(Member), _
-                                Color.White)
+            View.HighlightCode(Member.GetFullBlockCutRange, GetColor(Member), GetColor(Member), Color.White)
         Next
     End Sub
     Private Function GetColor(ByVal Member As Member) As Color

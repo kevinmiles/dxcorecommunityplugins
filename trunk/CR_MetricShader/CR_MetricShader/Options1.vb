@@ -55,10 +55,3 @@ Public Class Options1
         lblMax.text = Providers(cbxMetric.SelectedIndex).WarningValue
     End Sub
 End Class
-'Module CodeMetricExt
-'<Extension()> _
-'Public Function ToString(ByVal Source As ICodeMetricProvider) As String
-'Return Source.Description
-'End Function
-'End Module
-
