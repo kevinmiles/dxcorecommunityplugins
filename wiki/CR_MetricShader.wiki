@@ -1,0 +1,41 @@
+#summary Alters the background color of members to indicate status according to a nominated Metric.
+
+=== Introduction ===
+
+Disclaimer: There has been zero performance testing on this plugin :)
+
+This plugin changes the background color of your class's members to indicate how well they adhere to a nominated metric.
+
+So members that stack up well remain white, and the colors escalate Green, Orange, Red as the Metric value goes up.
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MetricShader/Screenshots/Example.png
+
+Each metric has a numeric value which is said to be the Warning Value.
+ * 0-25% = White.
+ * 25-50% = Green.
+ * 50-75% = Orange.
+ * 75%+ = Red.
+
+In the screenshot above I am using a Demo Metric which counts the number of lines in the member and has the Warning Value set to 15. This is a useless metric created (within this plugin) purely for the purposes of being able to create this screenshot.
+
+The options screen allows you to pick from any Metric (that does its calcs on members) within CodeRush and displays it's Warning value alongside the dropdown.
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MetricShader/Screenshots/Options.png
+
+
+=== Installation ===
+
+Installation instructions can be found on the InstallInstructions page.
+
+=== Download === 
+Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_MetricShader/
+
+=== Usage ===
+
+ * Devexpress\Options (CTRL+ALT+SHIFT+O) 
+ * Editor\Painting\Metric Shader
+ * Pick your metric and GO.
+
+=== Credits ===
+
+Rory Becker [contact me on twitter(@rorybecker) or via email (Rorybecker@gmail.com)]
