@@ -20,7 +20,6 @@ The options screen allows you to pick from any Metric (that does its calcs on me
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MetricShader/Screenshots/Options.png
 
-
 === Installation ===
 
 Installation instructions can be found on the InstallInstructions page.
@@ -38,6 +37,12 @@ Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_
 Build 546 Improves performance:
  * White is no longer actively painted.
  * No member whose range falls outside the viewable screen will now be painted.
+
+=== Additional Screenshots ===
+
+Apparently CR_MetricShader looks good on a darkj scheme also :)
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MetricShader/Screenshots/DarkExample.png
 
 === Credits ===
 
