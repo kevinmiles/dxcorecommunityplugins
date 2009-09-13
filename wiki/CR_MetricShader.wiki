@@ -2,8 +2,6 @@
 
 === Introduction ===
 
-Disclaimer: There has been zero performance testing on this plugin :)
-
 This plugin changes the background color of your class's members to indicate how well they adhere to a nominated metric.
 
 So members that stack up well remain white, and the colors escalate Green, Orange, Red as the Metric value goes up.
@@ -35,6 +33,11 @@ Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_
  * Devexpress\Options (CTRL+ALT+SHIFT+O) 
  * Editor\Painting\Metric Shader
  * Pick your metric and GO.
+
+=== History ===
+Build 544 Improves performance:
+ * White is no longer actively painted.
+ * No member whose range falls outside the viewable screen will now be painted.
 
 === Credits ===
 
