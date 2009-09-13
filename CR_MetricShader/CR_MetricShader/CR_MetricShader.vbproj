@@ -85,6 +85,7 @@
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.vb" />
+    <Compile Include="SourceRangeExt.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Options1.resx">
