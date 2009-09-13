@@ -40,7 +40,7 @@ Public Class PlugIn1
         Dim View = CodeRush.Documents.ActiveTextView
         Dim Members = CodeRush.Source.ActiveClass.AllMembers.OfType(Of Member)()
         Dim ViewRange As SourceRange = View.GetRangeFromRectangle(View.Bounds)
-        For Each Member In Members.Where(Function(m) ViewRange.Intersects(m.GetFullBlockCutRange))
+        For Each Member In Members.Where(Function(m) ViewRange.Overlaps(m.GetFullBlockCutRange))
             Dim PaintColor = GetColor(Member)
             If PaintColor.HasValue Then
                 View.HighlightCode(Member.GetFullBlockCutRange, PaintColor.Value, PaintColor.Value, Color.White)
