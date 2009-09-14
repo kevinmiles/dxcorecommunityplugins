@@ -28,22 +28,25 @@ Public Class PlugIn1
 #End Region
 
     Private Sub CreateDelegate_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs) Handles CreateDelegate.CheckAvailability
-        ' Only if Caret on a method in ist's signature
+        ' Only if Caret on a method 
         ea.Available = ea.Element.ElementType = LanguageElementType.Method
     End Sub
 
     Private Sub CreateDelegate_Apply(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs) Handles CreateDelegate.Apply
+        ' Get reference to Method
+        Dim Method = CType(ea.Element, Method)
         ' Create new Delegate Object 
-        Dim M As Method = CType(ea.Element, Method)
-        Dim b = ea.NewElementBuilder
-        Dim D As SP.DelegateDefinition = b.BuildDelegateDefinition(M.Name & "Delegate", M.Parameters)
-        D.MemberType = M.MemberType
-        D.Visibility = M.Visibility
+        Dim NewDelegate As SP.DelegateDefinition
+        NewDelegate = ea.NewElementBuilder.BuildDelegateDefinition(Method.Name & "Delegate", Method.Parameters)
+        NewDelegate.MemberType = Method.MemberType
+        NewDelegate.Visibility = Method.Visibility
+        ' Store current location
+        Dim Range = Method.GetFullBlockCutRange
         ' Insert into Tree
-        Dim range = M.GetFullBlockCutRange
-        M.Parent.InsertNode(M.Parent.Nodes.IndexOf(M), D)
+        Method.Parent.InsertNode(Method.Parent.Nodes.IndexOf(Method), NewDelegate)
         ' Render code into TextDocument
-        ea.TextDocument.InsertText(range.Start.Line, range.Start.Offset, D.GenerateCode & System.Environment.NewLine)
+        Dim NewCode As String = NewDelegate.GenerateCode & System.Environment.NewLine
+        ea.TextDocument.InsertText(Range.Start.Line, Range.Start.Offset, NewCode)
     End Sub
 
 End Class
