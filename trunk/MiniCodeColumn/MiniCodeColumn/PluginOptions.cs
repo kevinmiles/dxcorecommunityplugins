@@ -35,42 +35,6 @@ namespace MiniCodeColumn
             LoadSettings();
             UpdateOptionsDialog();
         }
-
-        protected void UpdateOptionsDialog()
-        {
-            trackWidth.Value = 110 - ColumnWidth;
-            lblWidth.Text = string.Format("{0} Pixel", 110 - trackWidth.Value);
-
-            btnBackColor.BackColor = ColumnBackgroundColor;
-            btnBackColor.Tag = trackBackColor;
-            trackBackColor.Value = ColumnVisibleLinesColor.A;
-            trackBackColor.Tag = btnBackColor;
-
-            btnVisibleRangeColor.BackColor = ColumnVisibleLinesColor;
-            btnVisibleRangeColor.Tag = trackVisibleRangeColor;
-            trackVisibleRangeColor.Value = ColumnVisibleLinesColor.A;
-            trackVisibleRangeColor.Tag = btnVisibleRangeColor;
-
-            btnLineColor.BackColor = CodeColorNormalLine;
-            btnLineColor.Tag = trackLineColor;
-            trackLineColor.Value = CodeColorNormalLine.A;
-            trackLineColor.Tag = btnLineColor;
-
-            btnCommentColor.BackColor = CodeColorCommentLine;
-            btnCommentColor.Tag = trackCommentColor;
-            trackCommentColor.Value = CodeColorCommentLine.A;
-            trackCommentColor.Tag = btnCommentColor;
-
-            btnColumnBackgroundColorSelectedWord.BackColor = ColumnBackgroundColorSelectedWord;
-            btnColumnBackgroundColorSelectedWord.Tag = trackColumnBackgroundColorSelectedWord;
-            trackColumnBackgroundColorSelectedWord.Value = ColumnBackgroundColorSelectedWord.A;
-            trackColumnBackgroundColorSelectedWord.Tag = btnColumnBackgroundColorSelectedWord;
-
-            btnCodeColorSelectedWord.BackColor = CodeColorSelectedWord;
-            btnCodeColorSelectedWord.Tag = trackCodeColorSelectedWord;
-            trackCodeColorSelectedWord.Value = CodeColorSelectedWord.A;
-            trackCodeColorSelectedWord.Tag = btnCodeColorSelectedWord;
-        }
         #endregion
 
         #region GetCategory  "Editor\Painting"
@@ -148,13 +112,53 @@ namespace MiniCodeColumn
                 
             }
         }
+        //Moved out of Initialize region as I couldn't find it to start with, if it is in a region
+        //probably should have the Read and Update in the same region
+        protected void UpdateOptionsDialog()
+        {
+            chkEnabled.Checked = MiniCodeColumnEnabled; //AussieALF: Added so it shows the saved state
+            chkWordHighlight.Checked = WordDoubleClickEnabled; //AussieALF: Added so it shows the saved state
+            
+            trackWidth.Value = 110 - ColumnWidth;
+            lblWidth.Text = string.Format("{0} Pixel", 110 - trackWidth.Value);
 
+            btnBackColor.BackColor = ColumnBackgroundColor;
+            btnBackColor.Tag = trackBackColor;
+            trackBackColor.Value = ColumnVisibleLinesColor.A;
+            trackBackColor.Tag = btnBackColor;
+
+            btnVisibleRangeColor.BackColor = ColumnVisibleLinesColor;
+            btnVisibleRangeColor.Tag = trackVisibleRangeColor;
+            trackVisibleRangeColor.Value = ColumnVisibleLinesColor.A;
+            trackVisibleRangeColor.Tag = btnVisibleRangeColor;
+
+            btnLineColor.BackColor = CodeColorNormalLine;
+            btnLineColor.Tag = trackLineColor;
+            trackLineColor.Value = CodeColorNormalLine.A;
+            trackLineColor.Tag = btnLineColor;
+
+            btnCommentColor.BackColor = CodeColorCommentLine;
+            btnCommentColor.Tag = trackCommentColor;
+            trackCommentColor.Value = CodeColorCommentLine.A;
+            trackCommentColor.Tag = btnCommentColor;
+
+            btnColumnBackgroundColorSelectedWord.BackColor = ColumnBackgroundColorSelectedWord;
+            btnColumnBackgroundColorSelectedWord.Tag = trackColumnBackgroundColorSelectedWord;
+            trackColumnBackgroundColorSelectedWord.Value = ColumnBackgroundColorSelectedWord.A;
+            trackColumnBackgroundColorSelectedWord.Tag = btnColumnBackgroundColorSelectedWord;
+
+            btnCodeColorSelectedWord.BackColor = CodeColorSelectedWord;
+            btnCodeColorSelectedWord.Tag = trackCodeColorSelectedWord;
+            trackCodeColorSelectedWord.Value = CodeColorSelectedWord.A;
+            trackCodeColorSelectedWord.Tag = btnCodeColorSelectedWord;
+        }
         public void ReadOptionsFromDialog()
         {
             try
             {
                 ColumnWidth = 110 - trackWidth.Value;
-
+                MiniCodeColumnEnabled = chkEnabled.Checked; //AussieALF: Added so it saves the updated option
+                WordDoubleClickEnabled = chkWordHighlight.Checked; //AussieALF: Added so it saves the updated option
                 ColumnBackgroundColor = btnBackColor.BackColor;
                 ColumnVisibleLinesColor = btnVisibleRangeColor.BackColor;
                 CodeColorNormalLine = btnLineColor.BackColor;
@@ -239,6 +243,7 @@ namespace MiniCodeColumn
 
         private void PluginOptions_CommitChanges(object sender, CommitChangesEventArgs ea)
         {
+            ReadOptionsFromDialog(); //AussieALF: Added this so it gets the up to date settings before saving.
             SaveSettings();
         }
 
