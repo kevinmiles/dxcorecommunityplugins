@@ -29,6 +29,13 @@ Public Class PlugIn1
     End Sub
 #End Region
 
+    'Improvements
+    ' Configure %ages
+    ' Configure Colors
+    ' Configure Opacity
+    ' Configure Widths
+
+
     Private mMetric As ICodeMetricProvider
     Private Sub LoadSettings()
         mMetric = Options1.Providers(Options1.Storage.ReadInt32(Options1.STR_MetricShader, Options1.STR_MetricName, 0))
