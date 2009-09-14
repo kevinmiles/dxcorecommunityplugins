@@ -184,7 +184,7 @@ Partial Class Options1
         '
         'Panel1
         '
-        Me.Panel1.Location = New System.Drawing.Point(19, 144)
+        Me.Panel1.Location = New System.Drawing.Point(34, 144)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(453, 287)
         Me.Panel1.TabIndex = 5
