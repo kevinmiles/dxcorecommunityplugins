@@ -34,13 +34,16 @@ Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_
  * Pick your metric and GO.
 
 === History ===
-Build 546 Improves performance:
- * White is no longer actively painted.
- * No member whose range falls outside the viewable screen will now be painted.
+Build 553
+ * Adds an Enable/Disable option
+Build 546 
+ * Improves performance:
+   * White is no longer actively painted.
+   * No member whose range falls outside the viewable screen will now be painted.
 
 === Additional Screenshots ===
 
-Apparently CR_MetricShader looks good on a darkj scheme also :)
+Apparently CR_MetricShader looks good on a dark scheme also :)
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MetricShader/Screenshots/DarkExample.png
 
