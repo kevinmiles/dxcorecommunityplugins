@@ -49,6 +49,7 @@ Partial Class Options1
         Me.Label9 = New System.Windows.Forms.Label
         Me.Label10 = New System.Windows.Forms.Label
         Me.Label11 = New System.Windows.Forms.Label
+        Me.chkEnabled = New System.Windows.Forms.CheckBox
         CType(Me.numMax, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -57,7 +58,7 @@ Partial Class Options1
         '
         Me.cbxMetric.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbxMetric.FormattingEnabled = True
-        Me.cbxMetric.Location = New System.Drawing.Point(82, 29)
+        Me.cbxMetric.Location = New System.Drawing.Point(74, 44)
         Me.cbxMetric.Name = "cbxMetric"
         Me.cbxMetric.Size = New System.Drawing.Size(260, 21)
         Me.cbxMetric.TabIndex = 0
@@ -87,7 +88,7 @@ Partial Class Options1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(40, 32)
+        Me.Label1.Location = New System.Drawing.Point(32, 47)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(36, 13)
         Me.Label1.TabIndex = 2
@@ -192,7 +193,7 @@ Partial Class Options1
         'lblMax
         '
         Me.lblMax.AutoSize = True
-        Me.lblMax.Location = New System.Drawing.Point(349, 32)
+        Me.lblMax.Location = New System.Drawing.Point(341, 47)
         Me.lblMax.Name = "lblMax"
         Me.lblMax.Size = New System.Drawing.Size(39, 13)
         Me.lblMax.TabIndex = 6
@@ -243,10 +244,23 @@ Partial Class Options1
         Me.Label11.TabIndex = 7
         Me.Label11.Text = "Methods will be Colored:"
         '
+        'chkEnabled
+        '
+        Me.chkEnabled.AutoSize = True
+        Me.chkEnabled.Checked = True
+        Me.chkEnabled.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkEnabled.Location = New System.Drawing.Point(74, 21)
+        Me.chkEnabled.Name = "chkEnabled"
+        Me.chkEnabled.Size = New System.Drawing.Size(65, 17)
+        Me.chkEnabled.TabIndex = 8
+        Me.chkEnabled.Text = "Enabled"
+        Me.chkEnabled.UseVisualStyleBackColor = True
+        '
         'Options1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.chkEnabled)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
@@ -318,6 +332,7 @@ Partial Class Options1
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents chkEnabled As System.Windows.Forms.CheckBox
 
 	Public Shared ReadOnly Property FullPath() As String
 		Get

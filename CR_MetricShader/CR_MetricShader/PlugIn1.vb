@@ -30,18 +30,27 @@ Public Class PlugIn1
 #End Region
 
     'Improvements
+    ' "Enabled" option.
     ' Configure %ages
     ' Configure Colors
     ' Configure Opacity
     ' Configure Widths
 
 
+    Private mEnabled As Boolean = True ' Default to On
     Private mMetric As ICodeMetricProvider
     Private Sub LoadSettings()
         mMetric = Options1.Providers(Options1.Storage.ReadInt32(Options1.STR_MetricShader, Options1.STR_MetricName, 0))
+        mEnabled = Options1.Storage.ReadBoolean(Options1.STR_MetricShader, Options1.STR_ShaderEnabled, True)
+        For Each TextView In CodeRush.TextViews.Cast(Of TextView)()
+            Call TextView.Invalidate()
+        Next
     End Sub
     Private Sub PlugIn1_EditorPaintBackground(ByVal ea As EditorPaintEventArgs) Handles Me.EditorPaintBackground
         If CodeRush.Source.ActiveClass Is Nothing Then
+            Exit Sub
+        End If
+        If Not mEnabled Then
             Exit Sub
         End If
         Dim View = CodeRush.Documents.ActiveTextView
