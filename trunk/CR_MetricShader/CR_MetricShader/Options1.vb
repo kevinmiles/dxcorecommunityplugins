@@ -8,6 +8,7 @@ Imports System.Runtime.CompilerServices
 Public Class Options1
     Friend Const STR_MetricName As String = "MetricName"
     Friend Const STR_MetricShader As String = "MetricShader"
+    Friend Const STR_ShaderEnabled As String = "ShaderEnabled"
 
     'DXCore-generated code...
 #Region " Initialize "
@@ -39,18 +40,21 @@ Public Class Options1
         Next
     End Sub
     Private Sub Options1_RestoreDefaults(ByVal sender As Object, ByVal ea As OptionsPageEventArgs) Handles Me.RestoreDefaults
-        ' Load default values
+        ' Load Default Values
         Call RefreshProviderList()
         cbxMetric.SelectedIndex = 0
+        chkEnabled.Checked = True
     End Sub
 
     Private Sub Options1_PreparePage(ByVal sender As Object, ByVal ea As OptionsPageStorageEventArgs) Handles Me.PreparePage
         Call RefreshProviderList()
         cbxMetric.SelectedIndex = ea.Storage.ReadInt32(STR_MetricShader, STR_MetricName, 0)
+        chkEnabled.Checked = ea.Storage.ReadBoolean(STR_MetricShader, STR_ShaderEnabled, True)
     End Sub
 
     Private Sub Options1_CommitChanges(ByVal sender As Object, ByVal ea As CommitChangesEventArgs) Handles Me.CommitChanges
         ea.Storage.WriteInt32(STR_MetricShader, STR_MetricName, cbxMetric.SelectedIndex)
+        ea.Storage.WriteBoolean(STR_MetricShader, STR_ShaderEnabled, chkEnabled.Checked)
     End Sub
 
     Private Sub cbxMetric_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbxMetric.SelectedIndexChanged
