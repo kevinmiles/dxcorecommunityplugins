@@ -42,9 +42,18 @@ Public Class PlugIn1
     ' Configure Widths
 
 #Region "Fields"
-    Private mEnabled As Boolean = True ' Default to On
+    Private mEnabled As Boolean
     Private mMetric As ICodeMetricProvider
     Private mVisualizeButton As IMenuButton
+    Private mFirstBoundary As Double
+    Private mSecondBoundary As Double
+    Private mThirdBoundary As Double
+    Private mOpacity1 As Integer
+    Private mOpacity2 As Integer
+    Private mOpacity3 As Integer
+    Private mColor1 As Color
+    Private mColor2 As Color
+    Private mColor3 As Color
 #End Region
 #Region "Resources"
     Public Function GetBitmapByName(ByVal BitmapName As String) As Bitmap
@@ -55,8 +64,17 @@ Public Class PlugIn1
 #End Region
 #Region "Settings"
     Private Sub LoadSettings()
-        mMetric = Options1.Providers(Options1.Storage.ReadInt32(Options1.STR_MetricShader, Options1.STR_MetricName, 0))
-        mEnabled = Options1.Storage.ReadBoolean(Options1.STR_MetricShader, Options1.STR_ShaderEnabled, True)
+        mMetric = Options1.Providers(Options1.Storage.ReadInt32(Options1.SETTING_MetricShader, Options1.SETTING_MetricIndex, Options1.DEFAULT_METRIC_INDEX))
+        mEnabled = Options1.Storage.ReadBoolean(Options1.SETTING_MetricShader, Options1.SETTING_ShaderEnabled, Options1.DEFAULT_METRIC_ENABLED)
+        mFirstBoundary = Options1.Storage.ReadDouble(Options1.SETTING_MetricShader, Options1.SETTING_Boundary1, Options1.DEFAULT_BOUNDARY1)
+        mSecondBoundary = Options1.Storage.ReadDouble(Options1.SETTING_MetricShader, Options1.SETTING_Boundary2, Options1.DEFAULT_BOUNDARY2)
+        mThirdBoundary = Options1.Storage.ReadDouble(Options1.SETTING_MetricShader, Options1.SETTING_Boundary3, Options1.DEFAULT_BOUNDARY3)
+        mOpacity1 = Options1.Storage.ReadInt32(Options1.SETTING_MetricShader, Options1.SETTING_Opacity1, Options1.DEFAULT_OPACITY1)
+        mOpacity2 = Options1.Storage.ReadInt32(Options1.SETTING_MetricShader, Options1.SETTING_Opacity2, Options1.DEFAULT_OPACITY2)
+        mOpacity3 = Options1.Storage.ReadInt32(Options1.SETTING_MetricShader, Options1.SETTING_Opacity3, Options1.DEFAULT_OPACITY3)
+        mColor1 = Options1.Storage.ReadColor(Options1.SETTING_MetricShader, Options1.SETTING_Color1, Options1.DEFAULT_Color1)
+        mColor2 = Options1.Storage.ReadColor(Options1.SETTING_MetricShader, Options1.SETTING_Color2, Options1.DEFAULT_COLOR2)
+        mColor3 = Options1.Storage.ReadColor(Options1.SETTING_MetricShader, Options1.SETTING_Color3, Options1.DEFAULT_COLOR3)
         Call CodeRush.TextViews.Refresh()
         If (mVisualizeButton IsNot Nothing) Then
             mVisualizeButton.IsDown = mEnabled
@@ -108,7 +126,7 @@ Public Class PlugIn1
         ' Toggle Feature
         mEnabled = Not mEnabled
         Using Storage = Options1.Storage
-            Storage.WriteBoolean(Options1.STR_MetricShader, Options1.STR_ShaderEnabled, mEnabled)
+            Storage.WriteBoolean(Options1.SETTING_MetricShader, Options1.SETTING_ShaderEnabled, mEnabled)
         End Using
         Call LoadSettings()
     End Sub
@@ -122,14 +140,14 @@ Public Class PlugIn1
 
     Private Function GetColor(ByVal Member As Member) As Nullable(Of Color)
         Select Case mMetric.GetValue(Member)
-            Case Is < CInt(0.25 * mMetric.WarningValue)
+            Case Is < CInt(mFirstBoundary * mMetric.WarningValue)
                 Return Nothing
-            Case Is < CInt(0.5 * mMetric.WarningValue)
-                Return Color.FromArgb(30, Color.Green)
-            Case Is < CInt(0.75 * mMetric.WarningValue)
-                Return Color.FromArgb(50, Color.Orange)
+            Case Is < CInt(mSecondBoundary * mMetric.WarningValue)
+                Return Color.FromArgb(mOpacity1, mColor1)
+            Case Is < CInt(mThirdBoundary * mMetric.WarningValue)
+                Return Color.FromArgb(mOpacity2, mColor2)
             Case Else
-                Return Color.FromArgb(75, Color.Red)
+                Return Color.FromArgb(mOpacity3, mColor3)
         End Select
     End Function
 
