@@ -18,7 +18,7 @@ In the screenshot above I am using a Demo Metric which counts the number of line
 
 The options screen allows you to pick from any Metric (that does its calcs on members) within CodeRush and displays it's Warning value alongside the dropdown.
 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MetricShader/Screenshots/Options.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MetricShader/Screenshots/Options556.png
 
 === Installation ===
 
