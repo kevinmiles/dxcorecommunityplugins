@@ -34,14 +34,13 @@ Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_
  * Pick your metric and GO.
 
 === History ===
-Build 556
- * Color, Opacity and Boundary Percentages now customizable.
-Build 553
- * Adds an Enable/Disable option
-Build 546 
- * Improves performance:
-   * White is no longer actively painted.
-   * No member whose range falls outside the viewable screen will now be painted.
+ * Build 556
+   * Color, Opacity and Boundary Percentages now customizable.
+ * Build 553
+   * Adds an Enable/Disable option
+ * Build 546 
+   * Perf: White is no longer actively painted.
+   * Perf: No member whose range falls outside the viewable screen will now be painted.
 
 === Additional Screenshots ===
 
