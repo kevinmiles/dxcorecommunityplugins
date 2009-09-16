@@ -34,6 +34,8 @@ Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_
  * Pick your metric and GO.
 
 === History ===
+Build 556
+ * Color, Opacity and Boundary Percentages now customizable.
 Build 553
  * Adds an Enable/Disable option
 Build 546 
