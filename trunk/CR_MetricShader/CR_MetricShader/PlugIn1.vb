@@ -44,6 +44,8 @@ Public Class PlugIn1
 #Region "Fields"
     Private mEnabled As Boolean
     Private mMetric As ICodeMetricProvider
+    Private mModeMultiColor As Boolean
+    Private mModeSingleGradientColor As Boolean
     Private mVisualizeButton As IMenuButton
     Private mFirstBoundary As Double
     Private mSecondBoundary As Double
@@ -54,6 +56,10 @@ Public Class PlugIn1
     Private mColor1 As Color
     Private mColor2 As Color
     Private mColor3 As Color
+
+    Private mGradientBoundaryPcent As Double
+    Private mGradientColor As Color
+    Private mGradientMaxOpacity As Integer
 #End Region
 #Region "Resources"
     Public Function GetBitmapByName(ByVal BitmapName As String) As Bitmap
@@ -75,6 +81,13 @@ Public Class PlugIn1
         mColor1 = Options1.Storage.ReadColor(Options1.SETTING_MetricShader, Options1.SETTING_Color1, Options1.DEFAULT_Color1)
         mColor2 = Options1.Storage.ReadColor(Options1.SETTING_MetricShader, Options1.SETTING_Color2, Options1.DEFAULT_COLOR2)
         mColor3 = Options1.Storage.ReadColor(Options1.SETTING_MetricShader, Options1.SETTING_Color3, Options1.DEFAULT_COLOR3)
+
+        mModeMultiColor = Options1.MODE_MULTI_COLOR = Options1.Storage.ReadString(Options1.SETTING_MetricShader, Options1.SETTING_MODE, Options1.DEFAULT_MODE)
+        mModeSingleGradientColor = Options1.MODE_SINGLE_GRADIENT_COLOR = Options1.Storage.ReadString(Options1.SETTING_MetricShader, Options1.SETTING_MODE, Options1.DEFAULT_MODE)
+        mGradientColor = Options1.Storage.ReadColor(Options1.SETTING_MetricShader, Options1.SETTING_GRADIENT_COLOR, Options1.DEFAULT_COLOR_GRADIENT)
+        mGradientMaxOpacity = Options1.Storage.ReadInt32(Options1.SETTING_MetricShader, Options1.SETTING_GRADIENT_MAX_OPACITY, Options1.DEFAULT_GRADIENT_OPACITY)
+        mGradientBoundaryPcent = Options1.Storage.ReadDouble(Options1.SETTING_MetricShader, Options1.SETTING_GRADIENT_LOWER_BOUNDARY, Options1.DEFAULT_GRADIENT_LOWER_BOUNDARY)
+
         Call CodeRush.TextViews.Refresh()
         If (mVisualizeButton IsNot Nothing) Then
             mVisualizeButton.IsDown = mEnabled
@@ -139,16 +152,29 @@ Public Class PlugIn1
 #End Region
 
     Private Function GetColor(ByVal Member As Member) As Nullable(Of Color)
-        Select Case mMetric.GetValue(Member)
-            Case Is < CInt(mFirstBoundary * mMetric.WarningValue)
-                Return Nothing
-            Case Is < CInt(mSecondBoundary * mMetric.WarningValue)
-                Return Color.FromArgb(mOpacity1, mColor1)
-            Case Is < CInt(mThirdBoundary * mMetric.WarningValue)
-                Return Color.FromArgb(mOpacity2, mColor2)
-            Case Else
-                Return Color.FromArgb(mOpacity3, mColor3)
-        End Select
+        If mModeMultiColor Then
+            Select Case mMetric.GetValue(Member)
+                Case Is < CInt(mFirstBoundary * mMetric.WarningValue)
+                    Return Nothing
+                Case Is < CInt(mSecondBoundary * mMetric.WarningValue)
+                    Return Color.FromArgb(mOpacity1, mColor1)
+                Case Is < CInt(mThirdBoundary * mMetric.WarningValue)
+                    Return Color.FromArgb(mOpacity2, mColor2)
+                Case Else
+                    Return Color.FromArgb(mOpacity3, mColor3)
+            End Select
+        ElseIf mModeSingleGradientColor Then
+            Dim CappedMetricValue As Integer = Math.Min(mMetric.WarningValue, mMetric.GetValue(Member))
+            Dim absLowerBoundary As Integer = CInt(mGradientBoundaryPcent * mMetric.WarningValue)
+            Select Case CappedMetricValue
+                Case Is <= CInt(absLowerBoundary)
+                    Return Nothing
+                Case Else
+                    Dim Pcent As Double = (CappedMetricValue - absLowerBoundary) / mMetric.WarningValue
+                    Dim Opacity As Integer = Math.Min(mGradientMaxOpacity, CInt(Pcent * mGradientMaxOpacity))
+                    Return Color.FromArgb(Opacity, mGradientColor)
+            End Select
+        End If
     End Function
 
 End Class
