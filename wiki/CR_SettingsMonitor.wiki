@@ -1,23 +1,27 @@
 #summary Template to reload settings when then are changed, by an external agent.
 
-= Introduction =
+=== Introduction ===
 
 This plugin determines the location of your settings and then watches them using a FileSystemWatcher. If they should be changedby some external force, they will be reloaded.
 
 === Details === 
 
 Thi plugin enables 2 specific scenarios:
- * CodeRush option changes in one instance of visual studio to be immediately reflected in another.
- * CodeRush option changes sync'd to one machine from nother via service like Live Mesh will be immediately loaded into any running copies of Studio on the destination machine.
+ * CodeRush option changes in one instance of visual studio will be immediately reflected in another.
+ * CodeRush option changes sync'd to one machine from another via service like Live Mesh will be immediately loaded into any running copies of Studio on the destination machine.
 
-= Installation =
+=== Download ===
+
+Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_SettingsMonitor
+
+=== Installation ===
 
 Installation instructions can be found on the InstallInstructions page.
 
-= Usage =
+=== Usage ===
 
 This plugin is entirely ambient and requires no interaction.
 
-= Credits =
+=== Credits ===
 
 Rory Becker [contact me on twitter(@rorybecker) or via email (Rorybecker@gmail.com)]
