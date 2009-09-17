@@ -114,17 +114,18 @@ Public Class Options1
         lblMax.Text = Providers(cbxMetric.SelectedIndex).WarningValue
     End Sub
 
-    Private Sub Boundary1_Scroll(ByVal sender As System.Object, ByVal e As ScrollEventArgs) Handles Boundary1.Scroll
+    Private Sub Boundary1_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Boundary1.ValueChanged
         Call UpdateMaxLabels()
     End Sub
 
-    Private Sub Boundary2_Scroll(ByVal sender As System.Object, ByVal e As ScrollEventArgs) Handles Boundary2.Scroll
+    Private Sub Boundary2_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Boundary2.ValueChanged
         Call UpdateMaxLabels()
     End Sub
 
-    Private Sub Boundary3_Scroll(ByVal sender As System.Object, ByVal e As ScrollEventArgs) Handles Boundary3.Scroll
+    Private Sub Boundary3_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Boundary3.ValueChanged
         Call UpdateMaxLabels()
     End Sub
+
     Private Sub UpdateMaxLabels()
         lblPCent1.Text = String.Format("{0:0.00}", Boundary1.Value / 100)
         lblPCent2.Text = String.Format("{0:0.00}", Boundary2.Value / 100)
