@@ -57,7 +57,7 @@ Public Class PlugIn1
                 Return CodeRush.ApplicationObject.Solution.AddFromFile(Project.GetSolutionFolderName() & "\" & ProjectName)
             End If
         End If
-        Dim TemplateName As String = GetTemplatePath("ConsoleApplication.Zip", "VisualBasic")
+        Dim TemplateName As String = GetTemplatePath("ConsoleApplication.Zip", Project.Language)
         Return CodeRush.ApplicationObject.Solution.AddFromTemplate(TemplateName, NewProjectFolder, ProjectName, False)
     End Function
     Private Function GetTemplatePath(ByVal Template As String, ByVal Language As String) As String
