@@ -39,6 +39,10 @@ Public Class Options1
     Friend Const SETTING_Color1 As String = "Color1"
     Friend Const SETTING_Color2 As String = "Color2"
     Friend Const SETTING_Color3 As String = "Color3"
+    Friend Const SETTING_MODE As String = "Mode"
+    Friend Const SETTING_GRADIENT_COLOR As String = "GradientColor"
+    Friend Const SETTING_GRADIENT_MAX_OPACITY As String = "GradientMaxOpacity"
+    Friend Const SETTING_GRADIENT_LOWER_BOUNDARY As String = "GradientLowerBoundary"
 
     Friend Const DEFAULT_BOUNDARY1 As Double = 0.25
     Friend Const DEFAULT_BOUNDARY2 As Double = 0.5
@@ -51,6 +55,13 @@ Public Class Options1
     Friend Shared ReadOnly DEFAULT_COLOR1 As Color = Color.Green
     Friend Shared ReadOnly DEFAULT_COLOR2 As Color = Color.Orange
     Friend Shared ReadOnly DEFAULT_COLOR3 As Color = Color.Red
+    Friend Shared ReadOnly DEFAULT_COLOR_GRADIENT As Color = Color.Red
+
+    Friend Const DEFAULT_MODE As String = "MultiColor"
+    Friend Const DEFAULT_GRADIENT_OPACITY As Integer = 127
+    Friend Const DEFAULT_GRADIENT_LOWER_BOUNDARY As Double = 0.25
+    Friend Const MODE_MULTI_COLOR As String = "MultiColor"
+    Friend Const MODE_SINGLE_GRADIENT_COLOR As String = "SingleGradientColor"
 #End Region
 
     Friend Shared Function Providers() As ICodeMetricProvider()
@@ -76,6 +87,12 @@ Public Class Options1
         ColorPicker1.Opacity = DEFAULT_OPACITY1
         ColorPicker2.Opacity = DEFAULT_OPACITY2
         ColorPicker3.Opacity = DEFAULT_OPACITY3
+
+        optMultiColor.Checked = (DEFAULT_MODE = MODE_MULTI_COLOR)
+        optSingleGradientColor.Checked = (DEFAULT_MODE = MODE_SINGLE_GRADIENT_COLOR)
+        ColorGradient.ColorBase = DEFAULT_COLOR_GRADIENT
+        ColorGradient.Opacity = DEFAULT_GRADIENT_OPACITY
+        GradientLowerBoundary.Value = 100 * DEFAULT_GRADIENT_LOWER_BOUNDARY
     End Sub
 
     Private Sub Options1_PreparePage(ByVal sender As Object, ByVal ea As OptionsPageStorageEventArgs) Handles Me.PreparePage
@@ -91,6 +108,13 @@ Public Class Options1
         ColorPicker1.Opacity = ea.Storage.ReadInt32(Options1.SETTING_MetricShader, Options1.SETTING_Opacity1, DEFAULT_OPACITY1)
         ColorPicker2.Opacity = ea.Storage.ReadInt32(Options1.SETTING_MetricShader, Options1.SETTING_Opacity2, DEFAULT_OPACITY2)
         ColorPicker3.Opacity = ea.Storage.ReadInt32(Options1.SETTING_MetricShader, Options1.SETTING_Opacity3, DEFAULT_OPACITY3)
+
+        optMultiColor.Checked = MODE_MULTI_COLOR = ea.Storage.ReadString(Options1.SETTING_MetricShader, Options1.SETTING_MODE, DEFAULT_MODE)
+        optSingleGradientColor.Checked = MODE_SINGLE_GRADIENT_COLOR = ea.Storage.ReadString(Options1.SETTING_MetricShader, Options1.SETTING_MODE, DEFAULT_MODE)
+        ColorGradient.ColorBase = ea.Storage.ReadColor(Options1.SETTING_MetricShader, Options1.SETTING_GRADIENT_COLOR, DEFAULT_COLOR_GRADIENT)
+        ColorGradient.Opacity = ea.Storage.ReadInt32(Options1.SETTING_MetricShader, Options1.SETTING_GRADIENT_MAX_OPACITY, DEFAULT_GRADIENT_OPACITY)
+        GradientLowerBoundary.Value = 100 * Math.Max(0, ea.Storage.ReadDouble(Options1.SETTING_MetricShader, Options1.SETTING_GRADIENT_LOWER_BOUNDARY, DEFAULT_GRADIENT_LOWER_BOUNDARY))
+
         Call UpdateMaxLabels()
     End Sub
 
@@ -107,6 +131,11 @@ Public Class Options1
             Storage.WriteInt32(Options1.SETTING_MetricShader, Options1.SETTING_Opacity1, ColorPicker1.Opacity)
             Storage.WriteInt32(Options1.SETTING_MetricShader, Options1.SETTING_Opacity2, ColorPicker2.Opacity)
             Storage.WriteInt32(Options1.SETTING_MetricShader, Options1.SETTING_Opacity3, ColorPicker3.Opacity)
+
+            Storage.WriteString(Options1.SETTING_MetricShader, Options1.SETTING_MODE, If(optMultiColor.Checked, MODE_MULTI_COLOR, MODE_SINGLE_GRADIENT_COLOR))
+            Storage.WriteColor(Options1.SETTING_MetricShader, Options1.SETTING_GRADIENT_COLOR, ColorGradient.ColorBase)
+            Storage.WriteInt32(Options1.SETTING_MetricShader, Options1.SETTING_GRADIENT_MAX_OPACITY, ColorGradient.Opacity)
+            Storage.WriteDouble(Options1.SETTING_MetricShader, Options1.SETTING_GRADIENT_LOWER_BOUNDARY, GradientLowerBoundary.Value / 100)
         End Using
     End Sub
 
@@ -122,7 +151,7 @@ Public Class Options1
         Call UpdateMaxLabels()
     End Sub
 
-    Private Sub Boundary3_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Boundary3.ValueChanged
+    Private Sub Boundary3_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Boundary3.ValueChanged, GradientLowerBoundary.ValueChanged
         Call UpdateMaxLabels()
     End Sub
 
