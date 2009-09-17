@@ -1,4 +1,4 @@
-#summary Template to reload settings when then are changed, by an external agent.
+#summary Plugin to reload settings when then are changed, by an external agent.
 
 === Introduction ===
 
