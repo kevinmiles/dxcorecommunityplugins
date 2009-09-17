@@ -16,7 +16,12 @@ Each metric has a numeric value which is said to be the Warning Value.
 
 In the screenshot above I am using a Demo Metric which counts the number of lines in the member and has the Warning Value set to 15. This is a useless metric created (within this plugin) purely for the purposes of being able to create this screenshot.
 
+=== Options === 
 The options screen allows you to pick from any Metric (that does its calcs on members) within CodeRush and displays it's Warning value alongside the dropdown.
+
+Additionally you can change any of the colors, opacities of those colors or the boundaries by which the logic works.
+
+You can also enable/disable the plugin entirely.
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MetricShader/Screenshots/Options556.png
 
