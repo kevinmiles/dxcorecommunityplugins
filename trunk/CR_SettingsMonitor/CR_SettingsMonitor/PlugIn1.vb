@@ -36,5 +36,4 @@ Public Class PlugIn1
         ' Called when settings are changed or created.
         CodeRush.Options.ReloadAll()
     End Sub
-
 End Class

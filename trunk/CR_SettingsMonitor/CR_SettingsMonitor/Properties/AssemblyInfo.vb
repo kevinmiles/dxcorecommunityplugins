@@ -3,7 +3,7 @@ Imports System.Reflection
 Imports System.Runtime.InteropServices
 Imports DevExpress.CodeRush.Common
 
-<Assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "CR_SettingMonitor", PlugInLoadType.Demand, LoadAbilityType.LoadDisabled)>
+<Assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "CR_SettingsMonitor", PlugInLoadType.Demand, LoadAbilityType.LoadDisabled)>
 
 ' General Information about an assembly is controlled through the following 
 ' set of attributes. Change these attribute values to modify the information
@@ -11,17 +11,17 @@ Imports DevExpress.CodeRush.Common
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("CR_SettingMonitor")> 
+<Assembly: AssemblyTitle("CR_SettingsMonitor")> 
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("Microsoft")> 
-<Assembly: AssemblyProduct("CR_SettingMonitor")> 
+<Assembly: AssemblyProduct("CR_SettingsMonitor")> 
 <Assembly: AssemblyCopyright("Copyright © Microsoft 2009")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("cdd1d9e8-610c-40c4-bf8e-9d14069b0a1e")> 
+<Assembly: Guid("96fd5d7b-4930-4a75-ac28-0c358d7437ba")> 
 
 ' Version information for an assembly consists of the following four values:
 '
