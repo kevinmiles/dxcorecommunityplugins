@@ -23,14 +23,18 @@ Public Class PlugIn1
         MyBase.FinalizePlugIn()
     End Sub
 #End Region
+    Private mWatcher As FileSystemWatcher
     Private Sub StartMonitoring()
         Dim Path As String = If(CodeRush.Options.Paths.SettingsOverrideExists, _
                                 CodeRush.Options.Paths.SettingsOverridePath, _
                                 CodeRush.Options.Paths.SettingsPreferredPath)
-        Dim X As New FileSystemWatcher(Path)
-        X.IncludeSubdirectories = True
-        AddHandler X.Created, AddressOf OnSettingsFileChanged
-        AddHandler X.Changed, AddressOf OnSettingsFileChanged
+        mWatcher = New FileSystemWatcher(Path)
+        AddHandler mWatcher.Created, AddressOf OnSettingsFileChanged
+        AddHandler mWatcher.Changed, AddressOf OnSettingsFileChanged
+        AddHandler mWatcher.Deleted, AddressOf OnSettingsFileChanged
+        AddHandler mWatcher.Renamed, AddressOf OnSettingsFileChanged
+        mWatcher.IncludeSubdirectories = True
+        mWatcher.EnableRaisingEvents = True
     End Sub
     Private Sub OnSettingsFileChanged(ByVal sender As Object, ByVal e As FileSystemEventArgs)
         ' Called when settings are changed or created.
