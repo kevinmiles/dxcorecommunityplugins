@@ -5,12 +5,12 @@ Imports System.Runtime.CompilerServices
 Imports DevExpress.CodeRush.Diagnostics.Core
 
 Public Module ProjectOperations
-    Public Function CreateFileInProject(ByVal TheProject As ProjectElement, ByVal FileName As String, Optional ByVal RelativePath As String = "") As String
+    Public Function CreateFileInProject(ByVal TheProject As ProjectElement, ByVal FileName As String, ByVal code As String, Optional ByVal RelativePath As String = "") As String
         ' Setup
         Dim ThePath As String = Path.Combine(New FileInfo(TheProject.FilePath).DirectoryName, RelativePath)
         Dim FileAndPath As String = String.Format("{0}\{1}{2}", ThePath, FileName, CodeRush.Language.SupportedFileExtensions)
 
-        Call FileOperations.CreateEmptyFileWithUndo(FileAndPath)
+        Call FileOperations.CreateFileWithUndo(FileAndPath, code)
         Call ProjectOperations.AddFileToProjectWithUndo(TheProject, FileAndPath)
         Return FileAndPath
     End Function
