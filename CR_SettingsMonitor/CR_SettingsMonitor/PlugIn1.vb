@@ -38,6 +38,8 @@ Public Class PlugIn1
     End Sub
     Private Sub OnSettingsFileChanged(ByVal sender As Object, ByVal e As FileSystemEventArgs)
         ' Called when settings are changed or created.
-        CodeRush.Options.ReloadAll()
+        If CodeRush.Options IsNot Nothing Then
+            CodeRush.Options.ReloadAll()
+        End If
     End Sub
 End Class
