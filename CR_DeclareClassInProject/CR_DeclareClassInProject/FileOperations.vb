@@ -3,13 +3,13 @@ Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.StructuralParser
 
 Public Module FileOperations
-    Public Sub CreateEmptyFileWithUndo(ByVal FileAndPath As String)
+    Public Sub CreateFileWithUndo(ByVal FileAndPath As String, ByVal Code As String)
         If File.Exists(FileAndPath) Then
             Call DeleteFile(FileAndPath)
         End If
         ' Create new file 
-        Call File.WriteAllText(FileAndPath, "")
-        CodeRush.UndoStack.Add(New CreatedFileUndoUnit(FileAndPath, ""))
+        Call File.WriteAllText(FileAndPath, Code)
+        CodeRush.UndoStack.Add(New CreatedFileUndoUnit(FileAndPath, Code))
     End Sub
     Public Sub InsertTextWithUndo(ByVal Code As String)
         CodeRush.Documents.ActiveTextDocument.QueueInsert(New SourcePoint(1, 1), Code)
@@ -28,7 +28,7 @@ Public Module FileOperations
         Call CodeRush.Language.Parse(FileAndPath)
     End Sub
     Public Sub JumpToFileWithUndo(ByVal FileAndPath As String)
-        Dim OriginalFilename As String = CodeRush.File.Active
+        Dim OriginalFilename As String = CodeRush.Documents.ActiveFileName
         Call CodeRush.File.Activate(FileAndPath)
         Call CodeRush.UndoStack.Add(New FileActivateUndoUnit(OriginalFilename))
     End Sub

@@ -10,6 +10,7 @@ Imports DevExpress.CodeRush.StructuralParser
 Imports DevExpress.Refactor.Core
 Imports System.IO
 Imports DevExpress.CodeRush.Interop.OLE.Helpers
+Imports DevExpress.DXCore.TextBuffers
 
 Public Class PlugIn1
 
@@ -25,7 +26,7 @@ Public Class PlugIn1
 	Public Overrides Sub FinalizePlugIn()
 		'TODO: Add your finalization code here.
 
-		MyBase.FinalizePlugIn()
+        MyBase.FinalizePlugIn()
 	End Sub
 #End Region
     Private mProjectElements As List(Of ProjectElement)
@@ -42,7 +43,9 @@ Public Class PlugIn1
         ea.MenuCaption = "Create Class"
         mProjectElements = CodeRush.Source.ActiveSolution.AllProjects.Cast(Of ProjectElement).ToList
         For Each Project In mProjectElements
-            Call ea.AddSubMenuItem(Project.Name, Project.Name, String.Format("Create this class in the '{0}' project", Project.Name))
+            If Not Project.IsMiscProject Then
+                Call ea.AddSubMenuItem(Project.Name, Project.Name, String.Format("Create this class in the '{0}' project", Project.Name))
+            End If
         Next
     End Sub
     Private Sub DeclareClassInProject_Apply(ByVal sender As Object, ByVal ea As ApplyContentEventArgs) Handles DeclareClassInProject.Apply
@@ -52,15 +55,14 @@ Public Class PlugIn1
         End If
         Dim TheProject = mProjectElements.Where(Function(p) p.Name = ChosenMenu.Name).First
         Dim NewClassName As String = CType(ea.Element, TypeReferenceExpression).Name
-        'Dim Unit = CodeRush.UndoStack.OpenParentUnit("Create Class")
-        CodeRush.UndoStack.BeginUpdate("Create Class")
+        Dim FileAndPath As String
+        Dim action As ICompoundAction = CodeRush.TextBuffers.NewMultiFileCompoundAction("Create class")
         Try
-            Dim FileAndPath = CreateFileInProject(TheProject, NewClassName)
-            Call FileOperations.JumpToFileWithUndo(FileAndPath)
-            Call FileOperations.InsertElementWithUndo(New [Class](NewClassName), TheProject.Language)
+            Dim code As String = (New [Class](NewClassName)).GenerateCode(TheProject.Language)
+            FileAndPath = CreateFileInProject(TheProject, NewClassName, code)
         Finally
-            CodeRush.UndoStack.EndUpdate()
-            'CodeRush.UndoStack.CommitParentUnit(Unit)
+            action.Close()
         End Try
+        Call FileOperations.JumpToFileWithUndo(FileAndPath)
     End Sub
 End Class
