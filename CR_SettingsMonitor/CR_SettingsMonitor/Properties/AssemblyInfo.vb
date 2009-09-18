@@ -3,7 +3,7 @@ Imports System.Reflection
 Imports System.Runtime.InteropServices
 Imports DevExpress.CodeRush.Common
 
-<Assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "CR_SettingsMonitor", PlugInLoadType.Demand, LoadAbilityType.LoadDisabled)>
+<Assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "CR_SettingsMonitor", PlugInLoadType.Idle, LoadAbilityType.LoadEnabled)> 
 
 ' General Information about an assembly is controlled through the following 
 ' set of attributes. Change these attribute values to modify the information
