@@ -77,23 +77,23 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileOperations.vb" />
-    <Compile Include="LanguageElementExt.vb" />
+    <Compile Include="Common\FileOperations.vb" />
+    <Compile Include="Common\Extensions.vb" />
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PlugIn1.Designer.vb">
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </Compile>
-    <Compile Include="ProjectOperations.vb" />
+    <Compile Include="Common\ProjectOperations.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
-    <Compile Include="SolutionExt.vb" />
-    <Compile Include="UndoUnits\AddedProjectFileUndoUnit.vb" />
-    <Compile Include="UndoUnits\CreatedFileUndoUnit.vb" />
-    <Compile Include="UndoUnits\DeletedFileUndoUnit.vb" />
-    <Compile Include="UndoUnits\FileActivateRedoUnit.vb" />
-    <Compile Include="UndoUnits\FileActivateUndoUnit.vb" />
-    <Compile Include="UndoUnits\RemovedProjectFileUndoUnit.vb" />
+    <Compile Include="Common\SolutionExt.vb" />
+    <Compile Include="Common\UndoUnits\AddedProjectFileUndoUnit.vb" />
+    <Compile Include="Common\UndoUnits\CreatedFileUndoUnit.vb" />
+    <Compile Include="Common\UndoUnits\DeletedFileUndoUnit.vb" />
+    <Compile Include="Common\UndoUnits\FileActivateRedoUnit.vb" />
+    <Compile Include="Common\UndoUnits\FileActivateUndoUnit.vb" />
+    <Compile Include="Common\UndoUnits\RemovedProjectFileUndoUnit.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PlugIn1.resx">

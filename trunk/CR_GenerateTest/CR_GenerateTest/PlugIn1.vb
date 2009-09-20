@@ -81,7 +81,7 @@ Public Class PlugIn1
             TestType = Builder.BuildClass(TypeToTest.Name)
             ' Create file with code within
             Dim TestClassFilename As String = GetFilePathForClass(TestProject, TestType)
-            Call My.Computer.FileSystem.WriteAllText(TestClassFilename, TestType.GenerateCode, False)
+            Call My.Computer.FileSystem.WriteAllText(TestClassFilename, TestType.GenerateCode(TestProject.Language), False)
             CodeRush.Solution.AddFileToProject(TestProject.Name, TestClassFilename)
             '-----ISSUES--------------------------------------------------
             'CodeRush.File.Activate(TestClassFilename)
@@ -106,7 +106,7 @@ Public Class PlugIn1
             ' Render method
             Dim InsertionPoint = StartOfLine(TestType.BlockCodeRange.Start, 0)
             Dim ActiveDoc As TextDocument = GetTypeTextDocument(TestType)
-            ActiveDoc.Format(ActiveDoc.ExpandText(InsertionPoint, TestMethod.GenerateCode() & System.Environment.NewLine))
+            ActiveDoc.Format(ActiveDoc.ExpandText(InsertionPoint, TestMethod.GenerateCode(TestType.Project.Language) & System.Environment.NewLine))
         End If
         Return TestMethod
     End Function

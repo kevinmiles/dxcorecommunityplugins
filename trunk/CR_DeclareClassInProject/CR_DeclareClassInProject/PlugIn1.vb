@@ -35,7 +35,6 @@ Public Class PlugIn1
             ea.Available = False
             Exit Sub
         End If
-        'Dim X As New Fred()
         Dim TRE As TypeReferenceExpression = TryCast(ea.Element, TypeReferenceExpression)
         If TRE IsNot Nothing AndAlso TRE.Parent.ElementType = LanguageElementType.ObjectCreationExpression Then
             ea.Available = True
@@ -55,13 +54,15 @@ Public Class PlugIn1
         End If
         Dim TheProject = mProjectElements.Where(Function(p) p.Name = ChosenMenu.Name).First
         Dim NewClassName As String = CType(ea.Element, TypeReferenceExpression).Name
+
+
         Dim FileAndPath As String
-        Dim action As ICompoundAction = CodeRush.TextBuffers.NewMultiFileCompoundAction("Create class")
+        Dim Action As ICompoundAction = CodeRush.TextBuffers.NewMultiFileCompoundAction("Create class")
         Try
-            Dim code As String = (New [Class](NewClassName)).GenerateCode(TheProject.Language)
-            FileAndPath = CreateFileInProject(TheProject, NewClassName, code)
+            Dim Code As String = (New [Class](NewClassName)).GenerateCode(TheProject.Language)
+            FileAndPath = CreateFileInProject(TheProject, NewClassName, Code)
         Finally
-            action.Close()
+            Action.Close()
         End Try
         Call FileOperations.JumpToFileWithUndo(FileAndPath)
     End Sub
