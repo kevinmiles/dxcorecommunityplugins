@@ -13,7 +13,7 @@ Imports DevExpress.CodeRush.Interop.OLE.Helpers
 Imports DevExpress.DXCore.TextBuffers
 Imports System.Runtime.CompilerServices
 
-Public Module LanguageElementExt
+Public Module FluentDX
     <Extension()> _
     Public Function GenerateCode(ByVal Source As LanguageElement, ByVal Language As String) As String
         Return CodeRush.Language.GenerateElement(Source, Language)
