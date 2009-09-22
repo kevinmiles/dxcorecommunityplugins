@@ -12,7 +12,7 @@ This plugin adds single option to Refactor Pro. When caret is inside string, you
 string myString = "Some long string that| should be splitted";
 }}}
 
-will be converted to:
+will be converted with enter to:
 
 {{{
 string myString = "Some long string that"
