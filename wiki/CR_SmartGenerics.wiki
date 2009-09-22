@@ -7,14 +7,14 @@ This plugin works only for c#.
 = Description =
 
 This plugin brings auto complete of generics operators in c# to CodeRush. Features are based on auto complete of parens and brackets, which are supported out of the box:
-  * Auto complete of single and double quotes
+  * Auto complete of <> when < was inserted as part of generics
   * Support for text fields
   * Adding spaces inside < and > (< | >)
   * Easy delete of empty <>
   * Ignoring of closing > while typing
 
 
-I did my best to detect whether < was typed as part of generics or as "lower than" operator.
+I did my best to detect whether < was typed as part of generics or as "lower than" operator. Please let me know when both cases are confused resulting in redundant or lacking >.
 
 If you find any troubles using it, post issue and I try to fix it ASAP.
 
