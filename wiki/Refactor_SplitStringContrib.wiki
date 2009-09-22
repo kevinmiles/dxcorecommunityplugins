@@ -30,3 +30,7 @@ Installation instructions can be found on the InstallInstructions page.
 = Options =
 
 SplitStringContrib is fully configurable. Options page can be found in "Editor/Refactoring/Split String" section of DevExpress options window.
+
+= Credits =
+
+Author: Przemysław Włodarczak.
