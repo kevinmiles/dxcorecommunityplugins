@@ -1,0 +1,33 @@
+#summary Enables auto-complete and easy delete of single and double quotes.
+= Introduction =
+
+This plugin brings auto complete of quotes to CodeRush. Features are based on auto complete of parens and brackets, which are supported out of the box:
+  * Auto complete of single and double quotes
+  * Support for text fields
+  * Easy delete of empty single and double quotes
+  * Ignoring of closing single and double quotes while typing
+
+= Details =
+
+Features were implemented in language agnostic way. However, plugin was tested only in c# environment. If you find any troubles using it, post issue and I try to fix it ASAP.
+
+There is some additional logic in "auto complete" feature:
+  * single quote is not completed inside comments or in compiler directive. This is for better support of natural languages, which can use apostrophes.
+  * single and double quotes are not completed if are escaped with \. This is to ease entering quotes as part of string.
+
+= Installation =
+
+Installation instructions can be found on the InstallInstructions page.
+
+= Options =
+
+SmartQuotes is fully configurable. Options page can be found in "Editor/Auto Complete/Quotes & Double Quotes" section of DevExpress options window.
+
+= Future work =
+
+Better support for verbatim strings.
+
+= Known Issues =
+
+There is problem with clearing text fields from local cache. 
+This will be fixed after DevExpress implement http://www.devexpress.com/Support/Center/p/Q218515.aspx?searchtext=&p=T4|P6|0 suggestion
