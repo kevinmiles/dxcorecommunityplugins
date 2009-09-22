@@ -35,3 +35,7 @@ SmartGenerics is fully configurable. Options page can be found in "Editor/Auto C
 
 There is problem (very minor, but still) with clearing text fields from local cache. 
 This will be fixed after DevExpress implement http://www.devexpress.com/Support/Center/p/Q218515.aspx?searchtext=&p=T4|P6|0 suggestion
+
+= Credits =
+
+Author: Przemysław Włodarczak.
