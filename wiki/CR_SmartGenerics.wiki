@@ -1,6 +1,10 @@
-#summary Enables auto-complete and easy delete of generics operators (c# only: <>).
+#summary Enables auto-complete and easy delete of generics operators <> (c# only).
 
-= Introduction =
+= Disclaimer =
+
+This plugin works only for c#.
+
+= Description =
 
 This plugin brings auto complete of generics operators in c# to CodeRush. Features are based on auto complete of parens and brackets, which are supported out of the box:
   * Auto complete of single and double quotes
@@ -9,11 +13,8 @@ This plugin brings auto complete of generics operators in c# to CodeRush. Featur
   * Easy delete of empty single and double quotes
   * Ignoring of closing single and double quotes while typing
 
-= Details =
 
 I did my best to detect whether < was typed as part of generics or as "lower than" operator.
-
-Features were implemented only for c#.
 
 If you find any troubles using it, post issue and I try to fix it ASAP.
 
@@ -27,9 +28,10 @@ SmartGenerics is fully configurable. Options page can be found in "Editor/Auto C
 
 = Future work =
 
-Support for other languages.
+  * Support for other languages.
+  * Integration with CodeRush Feature UI
 
 = Known Issues =
 
-There is problem with clearing text fields from local cache. 
+There is problem (very minor, but still) with clearing text fields from local cache. 
 This will be fixed after DevExpress implement http://www.devexpress.com/Support/Center/p/Q218515.aspx?searchtext=&p=T4|P6|0 suggestion
