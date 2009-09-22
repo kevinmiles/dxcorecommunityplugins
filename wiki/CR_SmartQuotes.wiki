@@ -1,13 +1,11 @@
 #summary Enables auto-complete and easy delete of single and double quotes.
-= Introduction =
+= Description =
 
 This plugin brings auto complete of quotes to CodeRush. Features are based on auto complete of parens and brackets, which are supported out of the box:
   * Auto complete of single and double quotes
   * Support for text fields
   * Easy delete of empty single and double quotes
   * Ignoring of closing single and double quotes while typing
-
-= Details =
 
 Features were implemented in language agnostic way. However, plugin was tested only in c# environment. If you find any troubles using it, post issue and I try to fix it ASAP.
 
