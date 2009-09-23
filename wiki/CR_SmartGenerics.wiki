@@ -4,7 +4,7 @@
 
 This plugin works only for c#.
 
-= Description =
+= Introduction =
 
 This plugin brings auto complete of generics operators in c# to CodeRush. Features are based on auto complete of parens and brackets, which are supported out of the box:
   * Auto complete of <> when < was inserted as part of generics
@@ -21,6 +21,10 @@ If you find any troubles using it, post issue and I try to fix it ASAP.
 = Installation =
 
 Installation instructions can be found on the InstallInstructions page.
+
+= Usage =
+
+This plugin works "as you type". There is no need for additional steps to activate its features.
 
 = Options =
 
