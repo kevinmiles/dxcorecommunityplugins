@@ -1,12 +1,14 @@
 #summary Allows to break string into 2 lines using standard "Split String" refactoring.
 
-= Disclaimer =
+= Introduction =
 
-Implementation of this plugin uses standard "Split String" refactoring available with CodeRush. AFAIK free versions of CodeRush and Refactor don't contain this refactoring, so you will need full version of Refactor Pro in order to use this plugin. Sorry.
+This plugin adds single option to Refactor Pro. When caret is inside string, you can fast and easy split it into two at the caret position. What is more, right string will be moved to the next line, together with concatenation operator.
 
-= Description =
+Features were implemented in language agnostic way. However, plugin was tested only in c# environment. If you find any troubles using it, post issue and I try to fix it ASAP.
 
-This plugin adds single option to Refactor Pro. When caret is inside string, you can hit enter and string will be splitted into two at the caret position. What is more, right string will be moved to the next line, together with concatenation operator:
+= Usage =
+
+This plugin works "as you type". Its single feature is triggered with enter key:
 
 {{{
 string myString = "Some long string that| should be splitted";
@@ -21,9 +23,9 @@ string myString = "Some long string that"
 
 | denotes caret in above listings.
 
-Features were implemented in language agnostic way. However, plugin was tested only in c# environment. If you find any troubles using it, post issue and I try to fix it ASAP.
-
 = Installation =
+
+Implementation of this plugin uses standard "Split String" refactoring available with CodeRush. AFAIK free versions of CodeRush and Refactor don't contain this refactoring, so you will need full version of Refactor Pro in order to use this plugin. Sorry.
 
 Installation instructions can be found on the InstallInstructions page.
 
