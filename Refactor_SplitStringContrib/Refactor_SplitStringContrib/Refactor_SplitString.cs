@@ -40,6 +40,7 @@ namespace Refactor_SplitStringContrib
                         && this.IsRefactoringAvailable(splitString))
                     {
                         splitString.Execute();
+                        CodeRush.Caret.Insert(CodeRush.Language.LineContinuationCharacter, true);
                         return;
                     }
                 }
