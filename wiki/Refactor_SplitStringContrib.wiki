@@ -33,6 +33,10 @@ string myString = "Some long string that"
 
 SplitStringContrib is fully configurable. Options page can be found in "Editor/Refactoring/Split String" section of DevExpress options window.
 
+= Known Issues =
+
+VB developers may prefer "&" instead of "+" as concatenation operator. This is currently not supported, because this is limitation of "Split String" refactoring. Please track http://www.devexpress.com/Support/Center/p/B135602.aspx?searchtext=split+string&p=T4%7CP6%7C0 suggestion to bump this issue up in DevExpress priority queue.
+
 = Credits =
 
 Author: Przemysław Włodarczak.
