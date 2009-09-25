@@ -22,41 +22,127 @@ Partial Class ScriptInput
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.TextBox1 = New System.Windows.Forms.TextBox
-        Me.Button1 = New System.Windows.Forms.Button
+        Me.txtSource = New System.Windows.Forms.TextBox
+        Me.cmdOk = New System.Windows.Forms.Button
+        Me.TabPages = New System.Windows.Forms.TabControl
+        Me.tabSource = New System.Windows.Forms.TabPage
+        Me.tabImports = New System.Windows.Forms.TabPage
+        Me.txtImports = New System.Windows.Forms.TextBox
+        Me.tabReferences = New System.Windows.Forms.TabPage
+        Me.txtReferences = New System.Windows.Forms.TextBox
+        Me.TabPages.SuspendLayout()
+        Me.tabSource.SuspendLayout()
+        Me.tabImports.SuspendLayout()
+        Me.tabReferences.SuspendLayout()
         Me.SuspendLayout()
         '
-        'TextBox1
+        'txtSource
         '
-        Me.TextBox1.Location = New System.Drawing.Point(12, 44)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(548, 244)
-        Me.TextBox1.TabIndex = 0
+        Me.txtSource.Location = New System.Drawing.Point(6, 6)
+        Me.txtSource.Multiline = True
+        Me.txtSource.Name = "txtSource"
+        Me.txtSource.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.txtSource.Size = New System.Drawing.Size(489, 207)
+        Me.txtSource.TabIndex = 0
+        Me.txtSource.Text = "' Action Code"
         '
-        'Button1
+        'cmdOk
         '
-        Me.Button1.Location = New System.Drawing.Point(485, 294)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 1
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.cmdOk.DialogResult = System.Windows.Forms.DialogResult.OK
+        Me.cmdOk.Location = New System.Drawing.Point(485, 294)
+        Me.cmdOk.Name = "cmdOk"
+        Me.cmdOk.Size = New System.Drawing.Size(75, 23)
+        Me.cmdOk.TabIndex = 1
+        Me.cmdOk.Text = "Ok"
+        Me.cmdOk.UseVisualStyleBackColor = True
+        '
+        'TabPages
+        '
+        Me.TabPages.Controls.Add(Me.tabSource)
+        Me.TabPages.Controls.Add(Me.tabImports)
+        Me.TabPages.Controls.Add(Me.tabReferences)
+        Me.TabPages.Location = New System.Drawing.Point(32, 24)
+        Me.TabPages.Name = "TabPages"
+        Me.TabPages.SelectedIndex = 0
+        Me.TabPages.Size = New System.Drawing.Size(509, 245)
+        Me.TabPages.TabIndex = 2
+        '
+        'tabSource
+        '
+        Me.tabSource.Controls.Add(Me.txtSource)
+        Me.tabSource.Location = New System.Drawing.Point(4, 22)
+        Me.tabSource.Name = "tabSource"
+        Me.tabSource.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabSource.Size = New System.Drawing.Size(501, 219)
+        Me.tabSource.TabIndex = 0
+        Me.tabSource.Text = "Source"
+        Me.tabSource.UseVisualStyleBackColor = True
+        '
+        'tabImports
+        '
+        Me.tabImports.Controls.Add(Me.txtImports)
+        Me.tabImports.Location = New System.Drawing.Point(4, 22)
+        Me.tabImports.Name = "tabImports"
+        Me.tabImports.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabImports.Size = New System.Drawing.Size(501, 219)
+        Me.tabImports.TabIndex = 1
+        Me.tabImports.Text = "Imports"
+        Me.tabImports.UseVisualStyleBackColor = True
+        '
+        'txtImports
+        '
+        Me.txtImports.Location = New System.Drawing.Point(6, 6)
+        Me.txtImports.Multiline = True
+        Me.txtImports.Name = "txtImports"
+        Me.txtImports.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.txtImports.Size = New System.Drawing.Size(489, 207)
+        Me.txtImports.TabIndex = 1
+        '
+        'tabReferences
+        '
+        Me.tabReferences.Controls.Add(Me.txtReferences)
+        Me.tabReferences.Location = New System.Drawing.Point(4, 22)
+        Me.tabReferences.Name = "tabReferences"
+        Me.tabReferences.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabReferences.Size = New System.Drawing.Size(501, 219)
+        Me.tabReferences.TabIndex = 2
+        Me.tabReferences.Text = "References"
+        Me.tabReferences.UseVisualStyleBackColor = True
+        '
+        'txtReferences
+        '
+        Me.txtReferences.Location = New System.Drawing.Point(6, 6)
+        Me.txtReferences.Multiline = True
+        Me.txtReferences.Name = "txtReferences"
+        Me.txtReferences.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.txtReferences.Size = New System.Drawing.Size(489, 207)
+        Me.txtReferences.TabIndex = 1
         '
         'ScriptInput
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(572, 329)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.TabPages)
+        Me.Controls.Add(Me.cmdOk)
         Me.Name = "ScriptInput"
         Me.Text = "ScriptInput"
+        Me.TabPages.ResumeLayout(False)
+        Me.tabSource.ResumeLayout(False)
+        Me.tabSource.PerformLayout()
+        Me.tabImports.ResumeLayout(False)
+        Me.tabImports.PerformLayout()
+        Me.tabReferences.ResumeLayout(False)
+        Me.tabReferences.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents txtSource As System.Windows.Forms.TextBox
+    Friend WithEvents cmdOk As System.Windows.Forms.Button
+    Friend WithEvents TabPages As System.Windows.Forms.TabControl
+    Friend WithEvents tabSource As System.Windows.Forms.TabPage
+    Friend WithEvents tabImports As System.Windows.Forms.TabPage
+    Friend WithEvents txtImports As System.Windows.Forms.TextBox
+    Friend WithEvents tabReferences As System.Windows.Forms.TabPage
+    Friend WithEvents txtReferences As System.Windows.Forms.TextBox
 End Class

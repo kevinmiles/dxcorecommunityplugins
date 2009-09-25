@@ -70,6 +70,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeCombo.vb" />
     <Compile Include="Compile.vb" />
     <Compile Include="CODE.vb" />
     <Compile Include="PlugIn1.vb">
@@ -79,6 +80,7 @@
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.vb" />
+    <Compile Include="Result.vb" />
     <Compile Include="ScriptInput.Designer.vb">
       <DependentUpon>ScriptInput.vb</DependentUpon>
     </Compile>
