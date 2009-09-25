@@ -28,16 +28,22 @@ Public Class PlugIn1
 #End Region
 
     Private Sub ExecuteScript_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles ExecuteScript.Execute
-        Dim BaseCode As String = "System.Windows.Forms.MessageBox.Show(""Hello World"")"
-        Dim ClassWithAction = CODE.WrapVBCodeInActionAndClass(BaseCode)
-        Dim Compiler As Compiler = New Compiler()
-        Dim TheClass As Object = Compiler.Compile(New VBCodeProvider, ClassWithAction)
-        Call ExecuteHandleAction(TheClass, ea)
+        Dim Combo = ScriptInput.GetCode()
+        If Not Combo Is Nothing Then
+            Dim Compiler As Compiler = New Compiler()
+            Dim CompilerGen = Compiler.Compile(New VBCodeProvider, Combo)
+            If CompilerGen.Success Then
+                Call ExecuteHandleAction(CompilerGen, ea)
+            Else
+                MsgBox(Microsoft.VisualBasic.Join(CompilerGen.Errors.ToArray, Environment.NewLine))
+            End If
+        End If
     End Sub
     Public Sub ExecuteHandleAction(ByVal Source As Object, ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs)
         Dim type As System.Type = Source.GetType()
-        type.InvokeMember("HandleAction", _
+        type.InvokeMember("ScriptExecute", _
                           Reflection.BindingFlags.InvokeMethod Or Reflection.BindingFlags.Default, _
-                          Nothing, Source, Nothing)
+                          Nothing, Source, New Object() {ea})
     End Sub
+
 End Class

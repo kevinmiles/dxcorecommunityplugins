@@ -32,15 +32,15 @@ Public Module CODE
     </code>.Value
     Public VBActionHandler As String = _
     <code>
-        Private Sub HandleAction(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs)
+        Private Sub ScriptExecute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs)
             {0}
         End Sub
     </code>.Value
     Public Function WrapVBCodeInMethodAndClass(ByVal InternalMethodCode As String) As String
-        Return InternalMethodCode.WrapIn(VBActionHandler).WrapIn(VBMethodWrapper)
+        Return InternalMethodCode.WrapIn(VBMethod).WrapIn(VBMethodWrapper)
     End Function
     Public Function WrapVBCodeInActionAndClass(ByVal InternalMethodCode As String) As String
-        Return InternalMethodCode.WrapIn(VBMethod).WrapIn(VBMethodWrapper)
+        Return InternalMethodCode.WrapIn(VBActionHandler).WrapIn(VBMethodWrapper)
     End Function
     Public Function WriteLineReadLineTest() As String
         Return <code>
