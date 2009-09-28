@@ -57,8 +57,11 @@ Public Class PlugIn1
                 Return CodeRush.ApplicationObject.Solution.AddFromFile(Project.GetSolutionFolderName() & "\" & ProjectName)
             End If
         End If
-        Dim TemplateName As String = GetTemplatePath("ConsoleApplication.Zip", Project.Language)
+        Dim TemplateName As String = GetTemplatePath("ClassLibrary.zip", PreProcess(Project.Language))
         Return CodeRush.ApplicationObject.Solution.AddFromTemplate(TemplateName, NewProjectFolder, ProjectName, False)
+    End Function
+    Private Function PreProcess(ByVal Language As String) As String
+        Return If(Language = "Basic", "VisualBasic", Language)
     End Function
     Private Function GetTemplatePath(ByVal Template As String, ByVal Language As String) As String
         Return TryCast(CodeRush.ApplicationObject.Solution, Solution2).GetProjectTemplate(Template, Language)
@@ -104,9 +107,9 @@ Public Class PlugIn1
             TestMethod.Attributes.Add(eb.BuildAttribute("Test"))
             TestType.AddNode(TestMethod)
             ' Render method
-            Dim InsertionPoint = StartOfLine(TestType.BlockCodeRange.Start, 0)
+            Dim InsertionPoint = TestType.BlockCodeRange.Start
             Dim ActiveDoc As TextDocument = GetTypeTextDocument(TestType)
-            ActiveDoc.Format(ActiveDoc.ExpandText(InsertionPoint, TestMethod.GenerateCode(TestType.Project.Language) & System.Environment.NewLine))
+            ActiveDoc.Format(ActiveDoc.ExpandText(InsertionPoint, TestMethod.GenerateCode(TestType.Project.Language)))
         End If
         Return TestMethod
     End Function
