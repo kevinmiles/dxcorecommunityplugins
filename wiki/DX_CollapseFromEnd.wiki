@@ -2,7 +2,7 @@
 
 === Introduction ===
 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_CollapseFromEnd/Screenshots/CollapseFromEnd.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/DX_CollapseFromEnd/Screenshots/CollapseFromEnd.png
 
 Provides an additional glyph after collapsible items (see image). This is to allow nodes to be collapsed via the mouse when the top of the node is not visiable on screen.
 
