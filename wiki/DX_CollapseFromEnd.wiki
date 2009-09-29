@@ -13,7 +13,7 @@ Note: The glyph appears to the bottom left of the node, because studio appears t
 Installation instructions can be found on the InstallInstructions page.
 
 === Download === 
-Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_CollapseFromEnd/
+Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_CollapseFromEnd/
 
 === Usage ===
 
