@@ -1,0 +1,24 @@
+#summary Provides an additional glyph for collapsing
+
+=== Introduction ===
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_CollapseFromEnd/Screenshots/CollapseFromEnd.png
+
+Provides an additional glyph after collapsible items (see image). This is to allow nodes to be collapsed via the mouse when the top of the node is not visiable on screen.
+
+Note: The glyph appears to the bottom left of the node, because studio appears to overwrite anything placed in the vacinity of the existing outlining.
+
+=== Installation ===
+
+Installation instructions can be found on the InstallInstructions page.
+
+=== Download === 
+Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_CollapseFromEnd/
+
+=== Usage ===
+
+ * Click the glyph that appears on the last line after any collapsible code structure.
+
+=== Credits ===
+
+Rory Becker [contact me on twitter(@rorybecker) or via email (Rorybecker@gmail.com)]
