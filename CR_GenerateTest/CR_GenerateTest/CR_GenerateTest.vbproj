@@ -41,6 +41,7 @@
     <Reference Include="DevExpress.CodeRush.Interop, Version=9.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.CodeRush.UserControls, Version=9.2.5.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
     <Reference Include="DevExpress.DXCore.Controls, Version=9.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -131,6 +132,9 @@
     <Compile Include="Properties\AssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Options1.resx">
+      <DependentUpon>Options1.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PlugIn1.resx">
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </EmbeddedResource>
