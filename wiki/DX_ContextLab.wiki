@@ -1,0 +1,37 @@
+#summary Plugin for debugging contexts within DXCore.
+#labels Phase-Deploy
+
+= Introduction =
+When working with DXCore Actions or other plugins, sometimes you need to enable, disable, or otherwise manipulate something based on whether a given context is satisfied. Unfortunately, it's hard to know what contexts are satisfied at any given time. That's where this plugin helps.
+
+`DX_ContextLab` adds a tool window to the !DevExpress\Diagnostics menu that you can set to poll every second for the complete list of contexts that are satisfied at any given time. It also adds a command ("Update Context Lab") that you can bind to a keyboard shortcut to manually refresh the list of satisfied contexts, should you not want polling to run.
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/DX_ContextLab/screenshots/lab-window.png
+
+= Installation =
+
+  # Make sure all instances of Visual Studio are closed.
+  # Copy the `DX_ContextLab.dll` assembly into your DXCore plug-ins folder.  This is typically something like: C:\Documents and Settings\username\My Documents\!DevExpress\IDE Tools\Community\!PlugIns
+  # Open Visual Studio.
+  # From the !DevExpress menu, select "Options," then "IDE/Shortcuts" from the treeview on the side.
+  # Add a new shortcut.
+  # Bind a key to the shortcut in the "Key 1" field ("Ctrl + Shift + Alt + U" is recommended).
+  # Set the shortcut's command to "Update Context Lab".
+  # Do not set any context for the shortcut. It should be allowed to run always.
+  # Click "OK" to close the options window when you are done adding shortcuts.
+
+= Options =
+
+There are no configuration options available for this plugin beyond your choice of what key to bind the update action to, as described above.
+
+= Usage =
+
+  # Open the !DevExpress\Diagnostics menu and select "Context Lab."
+  # Optionally check the box to enable context polling. Enabling polling will refresh the list of satisfied contexts once every second. If you choose not to enable polling, you can use the shortcut key you defined to manually update the list of satisfied contexts.
+  # Navigate around as usual and do whatever debugging is needed.
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/DX_ContextLab/screenshots/menu-location.png
+
+= Credits =
+
+Author: Travis Illig
