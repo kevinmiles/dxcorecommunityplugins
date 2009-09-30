@@ -40,9 +40,8 @@ Public Class PlugIn1
             ' Add Tile
             Dim EndPoint = ea.LanguageElement.CollapsibleRange.End
             Dim Rect = View.GetRectangleFromRange(New SourceRange(EndPoint, EndPoint.OffsetPoint(0, 1)))
-            '            Rect.X = Rect.X + Rect.Width
-            View.Graphics.DrawImage(GetBitmapByName("Collapse.bmp"), New PointF(Rect.Left + 3, Rect.Top + 4))
-            'View.Graphics.FillRectangle(Brushes.Black, Rect)
+            Call Rect.Offset(3, 4)
+            View.Graphics.DrawImage(GetBitmapByName("Collapse.bmp"), New PointF(Rect.Left, Rect.Top))
             View.AddTile(NewTile(Rect, ea.LanguageElement))
         End If
     End Sub
