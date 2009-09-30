@@ -4,7 +4,7 @@
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/DX_CollapseFromEnd/Screenshots/CollapseFromEnd.png
 
-Provides an additional glyph after collapsible items (see image). This is to allow nodes to be collapsed via the mouse when the top of the node is not visiable on screen.
+Provides an additional glyph after collapsible items (see image). This is to allow nodes to be collapsed via the mouse when the top of the node is not visible on screen.
 
 Note: The glyph appears to the bottom left of the node, because studio appears to overwrite anything placed in the vacinity of the existing outlining.
 
