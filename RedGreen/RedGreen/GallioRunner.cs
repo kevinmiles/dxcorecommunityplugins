@@ -112,18 +112,33 @@ namespace RedGreen
 
         private static string GetGallioInstalledFolder()
         {
-            Microsoft.Win32.RegistryKey gallioKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Gallio.org\\Gallio\\3.0");
+            Microsoft.Win32.RegistryKey gallioKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Gallio.org\\Gallio");
             if (gallioKey == null)
             {
                 System.Windows.Forms.MessageBox.Show(
-                    @"Gallio not installed (registry key HKLM\SOFTWARE\Gallio.org\Gallio\3.0 not found).\r\n"
+                    @"Gallio not installed (registry key HKLM\SOFTWARE\Gallio.org\Gallio not found).\r\n"
                     + "Please download from http://www.gallio.org/",
                     "RedGreen Run Tests",
                     System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Error);
                 return string.Empty;
             }
-            string installFolder = gallioKey.GetValue("InstallationFolder").ToString() ;
+			string[] subKeyNames = gallioKey.GetSubKeyNames();
+			string installFolder = string.Empty;
+			foreach (string keyName in subKeyNames)
+			{
+				Microsoft.Win32.RegistryKey versionKey = gallioKey.OpenSubKey(keyName);
+				object keyValue = versionKey.GetValue("InstallationFolder");
+				if (keyValue != null)
+                {
+					installFolder = keyValue.ToString();
+					break
+                }
+			}
+			if (string.IsNullOrEmpty(installFolder))
+            {
+				return string.Empty;
+            }
             return Path.Combine(installFolder, @"bin\gallio.echo.exe");
         }
     }
