@@ -24,12 +24,6 @@ Public Class PlugIn1
     End Sub
 #End Region
 
-    Public Function GetBitmapByName(ByVal BitmapName As String) As Bitmap
-        Dim Asm As Assembly = Assembly.GetAssembly(Me.GetType)
-        Dim stream As IO.Stream = Asm.GetManifestResourceStream(String.Format("DX_CollapseFromEnd.{0}", BitmapName))
-        Return CType(Bitmap.FromStream(stream), Bitmap)
-    End Function
-
     Private Sub PlugIn1_EditorPaintLanguageElement(ByVal ea As DevExpress.CodeRush.Core.EditorPaintLanguageElementEventArgs) Handles Me.EditorPaintLanguageElement
         Dim View = CodeRush.Documents.ActiveTextView
         If View Is Nothing Then
@@ -54,8 +48,16 @@ Public Class PlugIn1
 
     Private Sub PlugIn1_TileSetCursor(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.TileSetCursorEventArgs) Handles Me.TileSetCursor
         If Me.TileIsOurs(ea.Tile) Then
+            ' Provide visual clue
             Cursor.Current = Cursors.Hand
             ea.SetCursorArgs.Cancel = True
         End If
     End Sub
+
+    Public Function GetBitmapByName(ByVal BitmapName As String) As Bitmap
+        Dim Asm As Assembly = Assembly.GetAssembly(Me.GetType)
+        Dim stream As IO.Stream = Asm.GetManifestResourceStream(String.Format("DX_CollapseFromEnd.{0}", BitmapName))
+        Return CType(Bitmap.FromStream(stream), Bitmap)
+    End Function
+
 End Class
