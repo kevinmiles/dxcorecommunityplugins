@@ -110,19 +110,19 @@ namespace RedGreen
             RaiseAllComplete(ResultParser.ParseSummary(rawResult));
         }
 
-        private static string GetGallioInstalledFolder()
-        {
-            Microsoft.Win32.RegistryKey gallioKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Gallio.org\\Gallio");
-            if (gallioKey == null)
-            {
-                System.Windows.Forms.MessageBox.Show(
-                    @"Gallio not installed (registry key HKLM\SOFTWARE\Gallio.org\Gallio not found).\r\n"
-                    + "Please download from http://www.gallio.org/",
-                    "RedGreen Run Tests",
-                    System.Windows.Forms.MessageBoxButtons.OK,
-                    System.Windows.Forms.MessageBoxIcon.Error);
-                return string.Empty;
-            }
+		private static string GetGallioInstalledFolder()
+		{
+			Microsoft.Win32.RegistryKey gallioKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Gallio.org\\Gallio");
+			if (gallioKey == null)
+			{
+				System.Windows.Forms.MessageBox.Show(
+					@"Gallio not installed (registry key HKLM\SOFTWARE\Gallio.org\Gallio not found).\r\n"
+					+ "Please download from http://www.gallio.org/",
+					"RedGreen Run Tests",
+					System.Windows.Forms.MessageBoxButtons.OK,
+					System.Windows.Forms.MessageBoxIcon.Error);
+				return string.Empty;
+			}
 			string[] subKeyNames = gallioKey.GetSubKeyNames();
 			string installFolder = string.Empty;
 			foreach (string keyName in subKeyNames)
@@ -130,16 +130,20 @@ namespace RedGreen
 				Microsoft.Win32.RegistryKey versionKey = gallioKey.OpenSubKey(keyName);
 				object keyValue = versionKey.GetValue("InstallationFolder");
 				if (keyValue != null)
-                {
+				{
 					installFolder = keyValue.ToString();
-					break
-                }
+					break;
+				}
 			}
-			if (string.IsNullOrEmpty(installFolder))
-            {
-				return string.Empty;
-            }
-            return Path.Combine(installFolder, @"bin\gallio.echo.exe");
-        }
+			if (!string.IsNullOrEmpty(installFolder))
+			{
+				string echoPath = Path.Combine(installFolder, @"bin\gallio.echo.exe");
+				if (File.Exists(echoPath))
+				{
+					return echoPath;
+				}
+			}
+			return string.Empty;
+		}
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
-using DevExpress.CodeRush.StructuralParser;
 using Xunit;
 using RedGreen;
 
@@ -15,9 +13,9 @@ namespace RedGreenTests
             string rawResult = "[failed] Test MbUnit v3.0.5.546/RedGreenPlayground/MbUnitTests/AlwaysFails\nExpected values to be equal.\n\nExpected Value : \"who\'s there\"\nActual Value   : \"who\'s where\"\n\n   at RedGreenPlayground.MbUnitTests.AlwaysFails() in C:\\Users\\jaargero.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\MbUnitTests.cs:line 21\n";
             ResultParser parser = new ResultParser();
 
-            TestResult parsed = parser.ParseTest(rawResult);
-            
-            Assert.Equal(TestStatus.Failed, parsed.Status);
+            RedGreen.TestResult parsed = parser.ParseTest(rawResult);
+
+			Assert.Equal(RedGreen.TestStatus.Failed, parsed.Status);
             Assert.Equal(string.Empty, parsed.Duration);
             Assert.Equal("\"who\'s there\"", parsed.Failure.Expected);
             Assert.Equal("\"who\'s where\"", parsed.Failure.Actual);
@@ -32,9 +30,9 @@ namespace RedGreenTests
             string rawResult = "[passed] Test MbUnit v3.0.5.546/RedGreenPlayground/MbUnitTests/AlwaysPass\n";
             ResultParser parser = new ResultParser();
 
-            TestResult parsed = parser.ParseTest(rawResult);
+			RedGreen.TestResult parsed = parser.ParseTest(rawResult);
 
-            Assert.Equal(TestStatus.Passed, parsed.Status);
+			Assert.Equal(RedGreen.TestStatus.Passed, parsed.Status);
             Assert.Equal("RedGreenPlayground.MbUnitTests.AlwaysPass", parsed.Location);
         }
 
@@ -44,9 +42,9 @@ namespace RedGreenTests
             string rawResult = "[failed] Test NUnit v2.4.7.0/RedGreenPlayground/NUnitTests/IntFail\nMessage\n  Expected: 0\n  But was:  1\n\nStack Trace\n   at NUnit.Framework.Assert.That(Object actual, Constraint constraint, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Int32 expected, Int32 actual, String message, Object[] args)\n   at NUnit.Framework.Assert.AreEqual(Int32 expected, Int32 actual)\n   at RedGreenPlayground.NUnitTests.IntFail() in C:\\Users\\jaargero.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\NUnitTests.cs:line 28\n\n";
             ResultParser parser = new ResultParser();
 
-            TestResult parsed = parser.ParseTest(rawResult);
-            
-            Assert.Equal(TestStatus.Failed, parsed.Status);
+			RedGreen.TestResult parsed = parser.ParseTest(rawResult);
+
+			Assert.Equal(RedGreen.TestStatus.Failed, parsed.Status);
             Assert.Equal(string.Empty, parsed.Duration);
             Assert.Equal("0", parsed.Failure.Expected);
             Assert.Equal("1", parsed.Failure.Actual);
