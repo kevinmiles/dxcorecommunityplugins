@@ -61,7 +61,9 @@ namespace Refactor_UpdateNamespace
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Refactor_UpdateNamespacePlugIn));
             this.refactoringUpdateNamespace = new DevExpress.Refactor.Core.RefactoringProvider(this.components);
+            this.wrongNamespaceIssueProvider = new DevExpress.CodeRush.Core.IssueProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.refactoringUpdateNamespace)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wrongNamespaceIssueProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // refactoringUpdateNamespace
@@ -78,7 +80,18 @@ namespace Refactor_UpdateNamespace
             this.refactoringUpdateNamespace.LanguageSupported += new DevExpress.CodeRush.Core.LanguageSupportedEventHandler(this.refactoringUpdateNamespace_LanguageSupported);
             this.refactoringUpdateNamespace.Apply += new DevExpress.Refactor.Core.ApplyRefactoringEventHandler(this.refactoringUpdateNamespace_Apply);
             this.refactoringUpdateNamespace.CheckAvailability += new DevExpress.Refactor.Core.CheckAvailabilityEventHandler(this.refactoringUpdateNamespace_CheckAvailability);
+            // 
+            // wrongNamespaceIssueProvider
+            // 
+            this.wrongNamespaceIssueProvider.Description = "Namespace should correspond to default namespace of project followed by folder st" +
+                "ructure of file.";
+            this.wrongNamespaceIssueProvider.DisplayName = "Namespace is not default";
+            this.wrongNamespaceIssueProvider.ProviderName = "NamespaceIsNotDefault";
+            this.wrongNamespaceIssueProvider.Register = true;
+            this.wrongNamespaceIssueProvider.LanguageSupported += new DevExpress.CodeRush.Core.LanguageSupportedEventHandler(this.refactoringUpdateNamespace_LanguageSupported);
+            this.wrongNamespaceIssueProvider.CheckCodeIssues += new DevExpress.CodeRush.Core.CheckCodeIssuesEventHandler(this.wrongNamespaceIssueProvider_CheckCodeIssues);
             ((System.ComponentModel.ISupportInitialize)(this.refactoringUpdateNamespace)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wrongNamespaceIssueProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -86,5 +99,6 @@ namespace Refactor_UpdateNamespace
         #endregion
 
         private DevExpress.Refactor.Core.RefactoringProvider refactoringUpdateNamespace;
+        private DevExpress.CodeRush.Core.IssueProvider wrongNamespaceIssueProvider;
     }
 }
