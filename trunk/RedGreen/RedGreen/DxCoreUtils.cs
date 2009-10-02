@@ -120,7 +120,7 @@ namespace RedGreen
         /// </summary>
         public static Attribute GetFirstTestAttribute(LanguageElement element)
         {
-            Method method = GetMethod(element);
+			Method method = GetMethod(element);
             if (method != null && method.AttributeCount > 0)
             {
                 foreach (Attribute attribute in method.Attributes)

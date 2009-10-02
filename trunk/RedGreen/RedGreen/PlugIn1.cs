@@ -221,19 +221,20 @@ namespace RedGreen
         private void PlugIn1_RunTest(object sender, System.EventArgs ea)
         {
             ResetTestResults();
-
+			string testAttributeName = ((UnitTestDetail)_hoveredTest).Attribute.GetDeclaration().FullName;
+			BaseTestRunner runner = RunnerFactory.CreateRunnerFromTestAttribute(testAttributeName);
             switch (((SmartTagItem)sender).Caption)
             {
                 case kRunAssemblyMenuItem:
-                    StandardRunTestBehavior(new GallioRunner(), (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName));
+					StandardRunTestBehavior(runner, (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName));
                     break;
 
                 case kRunClassMenuItem:
-                    StandardRunTestBehavior(new GallioRunner(), (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName, _hoveredTest.ClassName));
+					StandardRunTestBehavior(runner, (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName, _hoveredTest.ClassName));
                     break;
 
                 case kRunTestMenuItem:
-                    StandardRunTestBehavior(new GallioRunner(), (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName, _hoveredTest.ClassName, _hoveredTest.MethodName));
+					StandardRunTestBehavior(runner, (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName, _hoveredTest.ClassName, _hoveredTest.MethodName));
                     break;
             }
         }
@@ -739,9 +740,10 @@ namespace RedGreen
             if (CodeRush.Source.ActiveMethod != null)
             {// Handle trigger in method
                 string methodName = CodeRush.Source.ActiveMethod.Name;
-                if (DxCoreUtil.GetFirstTestAttribute(CodeRush.Source.ActiveMethod) != null)
-                {
-                    StandardRunTestBehavior(new GallioRunner(), 
+				Attribute testAttribute = DxCoreUtil.GetFirstTestAttribute(CodeRush.Source.ActiveMethod);
+				if (testAttribute != null)
+				{
+					StandardRunTestBehavior(RunnerFactory.CreateRunnerFromTestAttribute(testAttribute.GetDeclaration().FullName), 
                         (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName, className, methodName));
                 }
                 else if (IsAdHoc(CodeRush.Source.ActiveMethod))
@@ -756,8 +758,9 @@ namespace RedGreen
             }
             else
             {// Handle trigger in class
-                StandardRunTestBehavior(new GallioRunner(), 
-                    (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName, className));
+				string fixtureAttribute = CodeRush.Source.ActiveClass.AttributeCount > 0 ? ((Attribute)CodeRush.Source.ActiveClass.Attributes[0]).GetDeclaration().FullName : string.Empty;
+				StandardRunTestBehavior(RunnerFactory.CreateRunnerFromFixtureAttribute(fixtureAttribute),
+				(run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName, className));
             }
         }
 
