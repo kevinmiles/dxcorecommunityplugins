@@ -27,7 +27,7 @@ Public Class PlugIn1
     End Sub
 #End Region
 
-    Private Sub ExecuteScript_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles ExecuteScript.Execute
+    Private Sub ExecuteScript_Execute(ByVal ea As ExecuteEventArgs) Handles ExecuteScript.Execute
         Dim Combo = ScriptInput.GetCode()
         If Not Combo Is Nothing Then
             Dim Compiler As Compiler = New Compiler()
@@ -39,7 +39,7 @@ Public Class PlugIn1
             End If
         End If
     End Sub
-    Public Sub ExecuteHandleAction(ByVal Source As Object, ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs)
+    Public Sub ExecuteHandleAction(ByVal Source As Object, ByVal ea As ExecuteEventArgs)
         Dim type As System.Type = Source.GetType()
         type.InvokeMember("ScriptExecute", _
                           Reflection.BindingFlags.InvokeMethod Or Reflection.BindingFlags.Default, _

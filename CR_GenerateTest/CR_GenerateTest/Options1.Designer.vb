@@ -36,7 +36,8 @@ Partial Class Options1
         Me.cmdInsertStringProvider = New System.Windows.Forms.Button
         Me.Label2 = New System.Windows.Forms.Label
         Me.Label3 = New System.Windows.Forms.Label
-        Me.tvTestTemplates = New System.Windows.Forms.TreeView
+        Me.cbxTemplates = New System.Windows.Forms.ComboBox
+        Me.Label4 = New System.Windows.Forms.Label
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -45,17 +46,17 @@ Partial Class Options1
         Me.txtCode.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtCode.Location = New System.Drawing.Point(162, 101)
+        Me.txtCode.Location = New System.Drawing.Point(19, 100)
         Me.txtCode.Multiline = True
         Me.txtCode.Name = "txtCode"
         Me.txtCode.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtCode.Size = New System.Drawing.Size(365, 181)
+        Me.txtCode.Size = New System.Drawing.Size(497, 181)
         Me.txtCode.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(175, 59)
+        Me.Label1.Location = New System.Drawing.Point(32, 58)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(352, 39)
         Me.Label1.TabIndex = 1
@@ -66,14 +67,14 @@ Partial Class Options1
         'ComboBox1
         '
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(283, 288)
+        Me.ComboBox1.Location = New System.Drawing.Point(140, 287)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
+        Me.ComboBox1.Size = New System.Drawing.Size(177, 21)
         Me.ComboBox1.TabIndex = 2
         '
         'cmdInsertTextCommand
         '
-        Me.cmdInsertTextCommand.Location = New System.Drawing.Point(410, 288)
+        Me.cmdInsertTextCommand.Location = New System.Drawing.Point(323, 286)
         Me.cmdInsertTextCommand.Name = "cmdInsertTextCommand"
         Me.cmdInsertTextCommand.Size = New System.Drawing.Size(61, 21)
         Me.cmdInsertTextCommand.TabIndex = 3
@@ -83,14 +84,14 @@ Partial Class Options1
         'ComboBox2
         '
         Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(283, 315)
+        Me.ComboBox2.Location = New System.Drawing.Point(140, 314)
         Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(121, 21)
+        Me.ComboBox2.Size = New System.Drawing.Size(177, 21)
         Me.ComboBox2.TabIndex = 2
         '
         'cmdInsertStringProvider
         '
-        Me.cmdInsertStringProvider.Location = New System.Drawing.Point(410, 315)
+        Me.cmdInsertStringProvider.Location = New System.Drawing.Point(323, 313)
         Me.cmdInsertStringProvider.Name = "cmdInsertStringProvider"
         Me.cmdInsertStringProvider.Size = New System.Drawing.Size(61, 21)
         Me.cmdInsertStringProvider.TabIndex = 3
@@ -100,7 +101,7 @@ Partial Class Options1
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(196, 291)
+        Me.Label2.Location = New System.Drawing.Point(53, 290)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(83, 13)
         Me.Label2.TabIndex = 4
@@ -109,24 +110,37 @@ Partial Class Options1
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(196, 318)
+        Me.Label3.Location = New System.Drawing.Point(53, 317)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(81, 13)
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "String Providers"
         '
-        'tvTestTemplates
+        'cbxTemplates
         '
-        Me.tvTestTemplates.Location = New System.Drawing.Point(3, 85)
-        Me.tvTestTemplates.Name = "tvTestTemplates"
-        Me.tvTestTemplates.Size = New System.Drawing.Size(153, 316)
-        Me.tvTestTemplates.TabIndex = 5
+        Me.cbxTemplates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbxTemplates.FormattingEnabled = True
+        Me.cbxTemplates.Items.AddRange(New Object() {"NUnitClassStub", "NUnitMethodStub"})
+        Me.cbxTemplates.Location = New System.Drawing.Point(60, 31)
+        Me.cbxTemplates.Name = "cbxTemplates"
+        Me.cbxTemplates.Size = New System.Drawing.Size(308, 21)
+        Me.cbxTemplates.TabIndex = 6
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(3, 34)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(51, 13)
+        Me.Label4.TabIndex = 7
+        Me.Label4.Text = "Template"
         '
         'Options1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.tvTestTemplates)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.cbxTemplates)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.cmdInsertStringProvider)
@@ -171,7 +185,8 @@ Partial Class Options1
     Friend WithEvents cmdInsertStringProvider As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents tvTestTemplates As System.Windows.Forms.TreeView
+    Friend WithEvents cbxTemplates As System.Windows.Forms.ComboBox
+    Friend WithEvents Label4 As System.Windows.Forms.Label
 
 	Public Shared ReadOnly Property FullPath() As String
 		Get
