@@ -55,6 +55,7 @@ Partial Class Options1
         Me.optSingleGradientColor = New System.Windows.Forms.RadioButton
         Me.Panel1 = New System.Windows.Forms.Panel
         Me.Panel2 = New System.Windows.Forms.Panel
+        Me.lblPCent4 = New System.Windows.Forms.Label
         CType(Me.Boundary3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Boundary2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Boundary1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -145,7 +146,7 @@ Partial Class Options1
         'lblPCent1
         '
         Me.lblPCent1.AutoSize = True
-        Me.lblPCent1.Location = New System.Drawing.Point(633, 153)
+        Me.lblPCent1.Location = New System.Drawing.Point(420, 45)
         Me.lblPCent1.Name = "lblPCent1"
         Me.lblPCent1.Size = New System.Drawing.Size(13, 13)
         Me.lblPCent1.TabIndex = 10
@@ -154,7 +155,7 @@ Partial Class Options1
         'lblPCent2
         '
         Me.lblPCent2.AutoSize = True
-        Me.lblPCent2.Location = New System.Drawing.Point(633, 190)
+        Me.lblPCent2.Location = New System.Drawing.Point(420, 88)
         Me.lblPCent2.Name = "lblPCent2"
         Me.lblPCent2.Size = New System.Drawing.Size(13, 13)
         Me.lblPCent2.TabIndex = 10
@@ -163,7 +164,7 @@ Partial Class Options1
         'lblPCent3
         '
         Me.lblPCent3.AutoSize = True
-        Me.lblPCent3.Location = New System.Drawing.Point(633, 226)
+        Me.lblPCent3.Location = New System.Drawing.Point(420, 132)
         Me.lblPCent3.Name = "lblPCent3"
         Me.lblPCent3.Size = New System.Drawing.Size(13, 13)
         Me.lblPCent3.TabIndex = 10
@@ -265,10 +266,10 @@ Partial Class Options1
         Me.ColorGradient.AllowOpacity = True
         Me.ColorGradient.ColorBase = System.Drawing.Color.Red
         Me.ColorGradient.LabelWidth = 104
-        Me.ColorGradient.Location = New System.Drawing.Point(1, 38)
+        Me.ColorGradient.Location = New System.Drawing.Point(-27, 38)
         Me.ColorGradient.Name = "ColorGradient"
         Me.ColorGradient.Opacity = 200
-        Me.ColorGradient.Size = New System.Drawing.Size(277, 31)
+        Me.ColorGradient.Size = New System.Drawing.Size(264, 31)
         Me.ColorGradient.TabIndex = 9
         Me.ColorGradient.Text = "Gradient Color"
         '
@@ -293,7 +294,7 @@ Partial Class Options1
         'GradientLowerBoundary
         '
         Me.GradientLowerBoundary.LargeChange = 10
-        Me.GradientLowerBoundary.Location = New System.Drawing.Point(284, 38)
+        Me.GradientLowerBoundary.Location = New System.Drawing.Point(260, 38)
         Me.GradientLowerBoundary.Maximum = 100
         Me.GradientLowerBoundary.Minimum = 1
         Me.GradientLowerBoundary.Name = "GradientLowerBoundary"
@@ -327,33 +328,46 @@ Partial Class Options1
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.lblPCent4)
         Me.Panel1.Controls.Add(Me.lblMaxOpacity)
         Me.Panel1.Controls.Add(Me.GradientLowerBoundary)
         Me.Panel1.Controls.Add(Me.ColorGradient)
         Me.Panel1.Controls.Add(Me.Label8)
-        Me.Panel1.Location = New System.Drawing.Point(48, 362)
+        Me.Panel1.Location = New System.Drawing.Point(58, 362)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(464, 107)
+        Me.Panel1.Size = New System.Drawing.Size(454, 107)
         Me.Panel1.TabIndex = 13
         '
         'Panel2
         '
         Me.Panel2.Controls.Add(Me.Label2)
-        Me.Panel2.Controls.Add(Me.Boundary1)
-        Me.Panel2.Controls.Add(Me.Boundary2)
         Me.Panel2.Controls.Add(Me.Boundary3)
         Me.Panel2.Controls.Add(Me.Label7)
         Me.Panel2.Controls.Add(Me.ColorPicker1)
+        Me.Panel2.Controls.Add(Me.lblPCent3)
         Me.Panel2.Controls.Add(Me.Label6)
+        Me.Panel2.Controls.Add(Me.lblPCent2)
         Me.Panel2.Controls.Add(Me.ColorPicker2)
+        Me.Panel2.Controls.Add(Me.lblPCent1)
         Me.Panel2.Controls.Add(Me.Label5)
         Me.Panel2.Controls.Add(Me.ColorPicker3)
         Me.Panel2.Controls.Add(Me.Label3)
         Me.Panel2.Controls.Add(Me.Label4)
+        Me.Panel2.Controls.Add(Me.Boundary2)
+        Me.Panel2.Controls.Add(Me.Boundary1)
         Me.Panel2.Location = New System.Drawing.Point(58, 97)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(454, 236)
         Me.Panel2.TabIndex = 14
+        '
+        'lblPCent4
+        '
+        Me.lblPCent4.AutoSize = True
+        Me.lblPCent4.Location = New System.Drawing.Point(430, 43)
+        Me.lblPCent4.Name = "lblPCent4"
+        Me.lblPCent4.Size = New System.Drawing.Size(13, 13)
+        Me.lblPCent4.TabIndex = 12
+        Me.lblPCent4.Text = "4"
         '
         'Options1
         '
@@ -363,14 +377,12 @@ Partial Class Options1
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.optMultiColor)
-        Me.Controls.Add(Me.lblPCent3)
-        Me.Controls.Add(Me.lblPCent2)
-        Me.Controls.Add(Me.lblPCent1)
         Me.Controls.Add(Me.chkEnabled)
         Me.Controls.Add(Me.lblMax)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.cbxMetric)
         Me.Name = "Options1"
+        Me.Size = New System.Drawing.Size(765, 480)
         CType(Me.Boundary3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Boundary2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Boundary1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -433,6 +445,7 @@ Partial Class Options1
     Friend WithEvents optSingleGradientColor As System.Windows.Forms.RadioButton
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
+    Friend WithEvents lblPCent4 As System.Windows.Forms.Label
 
 	Public Shared ReadOnly Property FullPath() As String
 		Get

@@ -155,9 +155,15 @@ Public Class Options1
         Call UpdateMaxLabels()
     End Sub
 
+    Private Sub GradientLowerBoundary_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles GradientLowerBoundary.Scroll
+        Call UpdateMaxLabels()
+    End Sub
+
     Private Sub UpdateMaxLabels()
         lblPCent1.Text = String.Format("{0:0.00}", Boundary1.Value / 100)
         lblPCent2.Text = String.Format("{0:0.00}", Boundary2.Value / 100)
         lblPCent3.Text = String.Format("{0:0.00}", Boundary3.Value / 100)
+        lblPCent4.Text = String.Format("{0:0.00}", GradientLowerBoundary.Value / 100)
     End Sub
+
 End Class
