@@ -67,7 +67,7 @@ Public Class LinkBar
 #End Region
 
     Public Sub New()
-        mUIManager = New UIManager2(Me)
+        mUIManager = New UIManager1(Me)
     End Sub
     Public Sub RefreshToolbar()
         mUIManager.Refresh()

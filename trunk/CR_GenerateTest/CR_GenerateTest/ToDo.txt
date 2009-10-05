@@ -13,3 +13,14 @@ Generate Template will Ensure Project and Class files are present and then expan
 Use CodeView (hopefully editable) to Create a Template to edit Template in situe.
 Save Template to known location in Templates Hierarchy for editing from either location.
 
+NUnit - Class Stub
+NUnit - Method Stub
+
+MBUnit - Class Stub
+MBUnit - Method Stub
+
+
+NUnitClassStub
+NUnitMethodStub
+MBUnitClassStub
+MBUnitMethodStub
