@@ -133,7 +133,7 @@ Namespace DX_ContextContrib
 
         Private Sub ctxSelectionHasBalancedParens_ContextSatisfied(ByVal ea As DevExpress.CodeRush.Core.ContextSatisfiedEventArgs) Handles ctxSelectionHasBalancedParens.ContextSatisfied
             Dim LeftCount As Integer = Regex.Matches(CodeRush.Selection.Text, "\(").Count
-            Dim RightCount As Integer = Regex.Matches(CodeRush.Selection.Text, ")").Count
+            Dim RightCount As Integer = Regex.Matches(CodeRush.Selection.Text, "\)").Count
             ea.Satisfied = (LeftCount = RightCount)
         End Sub
     End Class
