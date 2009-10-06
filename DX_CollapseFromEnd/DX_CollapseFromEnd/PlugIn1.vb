@@ -29,20 +29,32 @@ Public Class PlugIn1
         If View Is Nothing Then
             Exit Sub
         End If
+        ' Note this test will not surface a VB.Net collapsed Item <- Need to investigate this.
         If ea.LanguageElement.IsCollapsible _
         AndAlso View.IsOnScreen(ea.LanguageElement.CollapsibleRange.End.Line) Then
             ' Add Tile
             Dim EndPoint = ea.LanguageElement.CollapsibleRange.End
             Dim Rect = View.GetRectangleFromRange(New SourceRange(EndPoint, EndPoint.OffsetPoint(0, 1)))
             Call Rect.Offset(3, 4)
-            View.Graphics.DrawImage(GetBitmapByName("Collapse.bmp"), New PointF(Rect.Left, Rect.Top))
+            View.Graphics.DrawImage(GetBitmap(ea.LanguageElement), New PointF(Rect.Left, Rect.Top))
             View.AddTile(NewTile(Rect, ea.LanguageElement))
         End If
     End Sub
+    Private Function GetBitmap(ByVal LE As LanguageElement) As Bitmap
+        If LE.Collapsed Then
+            Return GetBitmapByName("Expand.bmp")
+        End If
+        Return GetBitmapByName("Collapse.bmp")
+    End Function
 
     Private Sub PlugIn1_TileMouseDown(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.TileMouseEventArgs) Handles Me.TileMouseDown
         If Me.TileIsOurs(ea.Tile) Then
-            Call (CType(ea.Tile.Object, LanguageElement)).Collapse()
+            Dim Element = CType(ea.Tile.Object, LanguageElement)
+            If Element.Collapsed Then
+                Call Element.Expand()
+            Else
+                Call Element.Collapse()
+            End If
         End If
     End Sub
 
