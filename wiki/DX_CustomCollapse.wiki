@@ -21,4 +21,4 @@ Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_
 
 [http://rorybecker.blogspot.com/ Rory Becker] contact me on twitter(@rorybecker) or via email (Rorybecker@gmail.com)
 
-Concept by [http://www.technologies-dotnet.be Christian Ista aka Kris-I of http://www.technologies-dotnet.be]
+Concept and Naming by [http://www.technologies-dotnet.be Christian Ista aka Kris-I of http://www.technologies-dotnet.be]
