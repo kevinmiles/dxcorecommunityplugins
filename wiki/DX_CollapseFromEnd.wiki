@@ -11,6 +11,7 @@ Note: The glyph appears to the bottom left of the node, because studio appears t
 ==== Updates ==== 
 
  * The Glyph is now inverted and used to expand a collapsed when suitable.
+ * * However this functionality is not currently surfaced in VB.net.
 
 === Installation ===
 
