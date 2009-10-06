@@ -14,7 +14,7 @@ Installation instructions can be found on the InstallInstructions page.
 Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_CustomCollapse
 === Usage ===
 
- * [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html bind to a key] to the "Custom Collapse" action
+ * [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Bind to a key] to the "Custom Collapse" action
  * Invoke the action whilst in a codefile.
 
 === Credits ===
