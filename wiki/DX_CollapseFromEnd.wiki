@@ -8,6 +8,10 @@ Provides an additional glyph after collapsible items (see image). This is to all
 
 Note: The glyph appears to the bottom left of the node, because studio appears to overwrite anything placed in the vacinity of the existing outlining.
 
+==== Updates ==== 
+
+ * The Glyph is now inverted and used to expand a collapsed when suitable.
+
 === Installation ===
 
 Installation instructions can be found on the InstallInstructions page.
