@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
+using System.Globalization;
 using DevExpress.CodeRush.Core;
+using DevExpress.CodeRush.Diagnostics.ToolWindows;
 using DevExpress.CodeRush.PlugInCore;
-using DevExpress.CodeRush.StructuralParser;
 
 namespace DX_ContextLab
 {
@@ -146,6 +143,12 @@ namespace DX_ContextLab
 		/// <summary>
 		/// Updates the list of contexts that are currently fulfilled.
 		/// </summary>
+		/// <remarks>
+		/// <para>
+		/// If any exception occurs while evaluating a context, the exception will
+		/// be logged and it will be assumed that context is not fulfilled.
+		/// </para>
+		/// </remarks>
 		public void UpdateContextList()
 		{
 			if (!this.ToolWindowEnabled)
@@ -158,9 +161,19 @@ namespace DX_ContextLab
 			List<string> satisfied = new List<string>();
 			foreach (string context in allContexts)
 			{
-				if (currentContext.Satisfied(context, false))
+				try
 				{
-					satisfied.Add(context);
+					if (currentContext.Satisfied(context, false))
+					{
+						satisfied.Add(context);
+					}
+				}
+				catch (Exception e)
+				{
+					// For now, just log the error. In a future version, it might
+					// be interesting to use a more robust control than a list box
+					// and display contexts with problems in red or something.
+					Log.SendException(String.Format(CultureInfo.InvariantCulture, "Exception while evaluating context '{0}'", context), e);
 				}
 			}
 			this.contextList.Items.AddRange(satisfied.ToArray());
