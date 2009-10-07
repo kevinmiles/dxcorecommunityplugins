@@ -7,6 +7,7 @@ using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
 using System.Drawing;
 using DevExpress.CodeRush.Extensions;
+using CR_CreateTestMethod.LanguageElementChecks;
 
 namespace CR_CreateTestMethod
 {
@@ -117,11 +118,15 @@ namespace CR_CreateTestMethod
 
         internal void cpInsideTestMethod_ContextSatisfied(ContextSatisfiedEventArgs ea)
         {
-            ea.Satisfied = IsInTestClass() && (CodeRush.Source.ActiveMethod != null && CodeRush.Source.ActiveMethod.Attributes.OfType<LanguageElement>().Count(a => _testMethodAttributes.Contains(a.Name)) > 0);
+            ea.Satisfied = IsInTestMethod();
+        }
+        private bool IsInTestMethod()
+        {
+            return IsInTestClass() && (CodeRush.Source.ActiveMethod != null && CodeRush.Source.ActiveMethod.Attributes.OfType<LanguageElement>().Count(a => _testMethodAttributes.Contains(a.Name)) > 0);
         }
         internal bool IsInTestClass()
         {
-            return CodeRush.Source.ActiveClass != null && CodeRush.Source.ActiveClass.Attributes.OfType<LanguageElement>().Count(a => _testClassAttributes.Contains(a.Name)) > 0;
+            return CodeRush.Source.ActiveClass != null && CodeRush.Source.ActiveClass.IsTestClass();
         }
 
         internal bool HasSetUp()
@@ -183,6 +188,52 @@ namespace CR_CreateTestMethod
             }
             return null;
         }
+
+        private void cipNoAssertsInTest_CheckCodeIssues(object sender, CheckCodeIssuesEventArgs ea)
+        {
+            new UnitTestShouldAssertCodeIssueFinder().FindCodeIssues(ea);
+        }
+    }
+
+    public class UnitTestShouldAssertCodeIssueFinder 
+    {
+        private CodeIssueType IssueType = CodeIssueType.CodeSmell;
+        private string IssueMessage = "A Unit Test should have at least one implicit or explicit assertion";
+        private List<string> _expectedExceptionAttributes = new List<string> { "ExpectedException", "ExpectedExceptionAttribute" };
+        
+        public void FindCodeIssues(CheckCodeIssuesEventArgs ea)
+        {
+            var resolveScope = ea.ResolveScope();
+            foreach (IMethodElement element in resolveScope.GetElementEnumerator(ea.Scope,new ElementTypeFilter(LanguageElementType.Method)))
+            {
+                if (MethodHasIssue(element))
+                {
+                    foreach (TextRange range in element.Ranges)
+                    {
+                        ea.AddIssue(IssueType, (SourceRange)range, IssueMessage);
+                    }
+                }
+            }
+        }
+        
+        private bool MethodHasIssue(IMethodElement method)
+        {
+            if (!method.IsTestMethod())
+                return false;
+
+            var assert = GetAssert(method);
+            var exceptionAttribute = GetExpectedExceptionAttribute(method);
+            return assert == null && exceptionAttribute == null;
+        }
+
+        private static IElementReferenceExpression GetAssert(IMethodElement method)
+        {
+            return method.FindChildByName("Assert") as IElementReferenceExpression;
+        }
+        private IAttributeElement GetExpectedExceptionAttribute(IMethodElement method)
+        {
+            return method.Attributes.OfType<IAttributeElement>().FirstOrDefault(attr => _expectedExceptionAttributes.Contains(attr.Name)); 
+        }
     }
 
     public static class LanguageElementExtensions
@@ -200,6 +251,40 @@ namespace CR_CreateTestMethod
                 active = active.Parent;
                 yield return active;
             }
+        }
+    }
+}
+
+namespace CR_CreateTestMethod.LanguageElementChecks
+{
+    
+    public static class LanguageElementCheckExtensions
+    {
+        private static List<string> _testClassAttributes = new List<string> { "TestFixture", "TestClass" };
+        private static List<string> _testMethodAttributes = new List<string> { "Test", "TestMethod" };
+        private static List<string> _setupMethodAttributes = new List<string> { "SetUp", "TestInitialize" };
+
+        public static bool IsTestClass(this IClassElement currentClass)
+        {
+            return currentClass.Attributes.OfType<LanguageElement>().Count(a => _testClassAttributes.Contains(a.Name)) > 0;
+        }
+
+        public static bool HasSetupMethod(this Class currentClass)
+        {
+            return currentClass.Nodes.OfType<LanguageElement>().Count(n => n.ElementType == LanguageElementType.AttributeSection && _setupMethodAttributes.Contains(n.FirstDetail.Name)) > 0;
+        }
+
+        public static Method GetSetupMethod(this IClassElement currentClass)
+        {
+            if (!currentClass.IsTestClass())
+                return null;
+            var attributeSection = (AttributeSection)(((Class)currentClass).Nodes.OfType<LanguageElement>().First(n => n.ElementType == LanguageElementType.AttributeSection && _setupMethodAttributes.Contains(n.FirstDetail.Name)));
+            return attributeSection.TargetNode as Method;
+        }
+
+        public static bool IsTestMethod(this IMethodElement currentMethod)
+        {
+            return currentMethod.Attributes.Cast<IAttributeElement>().Count(a => _testMethodAttributes.Contains(a.Name)) > 0;
         }
     }
 }

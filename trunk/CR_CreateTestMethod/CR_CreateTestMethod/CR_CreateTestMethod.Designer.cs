@@ -43,11 +43,13 @@ namespace CR_CreateTestMethod
             this.cpInsideTestClass = new DevExpress.CodeRush.Extensions.ContextProvider(this.components);
             this.cpInsideTestMethod = new DevExpress.CodeRush.Extensions.ContextProvider(this.components);
             this.cpMoveToSetup = new DevExpress.CodeRush.Core.CodeProvider(this.components);
+            this.cipNoAssertsInTest = new DevExpress.CodeRush.Core.CodeIssueProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.acnCreateTestMethod)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spCreateTestMethods)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cpInsideTestClass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cpInsideTestMethod)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cpMoveToSetup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cipNoAssertsInTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // acnCreateTestMethod
@@ -99,13 +101,20 @@ namespace CR_CreateTestMethod
             this.cpMoveToSetup.CheckAvailability += new DevExpress.Refactor.Core.CheckAvailabilityEventHandler(this.cpMoveToSetup_CheckAvailability);
             this.cpMoveToSetup.PreparePreview += new DevExpress.Refactor.Core.PrepareRefactoringPreviewEventHandler(this.cpMoveToSetup_PreparePreview);
             // 
-            // CR_CreateTestMethod
+            // cipNoAssertsInTest
             // 
+            this.cipNoAssertsInTest.Description = "Checks for Unit Tests which do not contain explicit or implicit assertions";
+            this.cipNoAssertsInTest.DisplayName = "A Unit Test should contain at least one explicit (Assert.X) or implicit (Expected" +
+                "Exception) assertion";
+            this.cipNoAssertsInTest.ProviderName = "Unit Tests should contain at least one assertion";
+            this.cipNoAssertsInTest.Register = true;
+            this.cipNoAssertsInTest.CheckCodeIssues += new DevExpress.CodeRush.Core.CheckCodeIssuesEventHandler(this.cipNoAssertsInTest_CheckCodeIssues);
             ((System.ComponentModel.ISupportInitialize)(this.acnCreateTestMethod)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spCreateTestMethods)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cpInsideTestClass)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cpInsideTestMethod)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cpMoveToSetup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cipNoAssertsInTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -117,6 +126,7 @@ namespace CR_CreateTestMethod
         private DevExpress.CodeRush.Extensions.ContextProvider cpInsideTestClass;
         private DevExpress.CodeRush.Extensions.ContextProvider cpInsideTestMethod;
         private DevExpress.CodeRush.Core.CodeProvider cpMoveToSetup;
+        private DevExpress.CodeRush.Core.CodeIssueProvider cipNoAssertsInTest;
 
     }
 }
