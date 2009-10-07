@@ -58,10 +58,11 @@ Public Class HighlightCurrentLineInEditor
     End Sub
     Private Sub HighlightCurrentLineInEditor_EditorPaint(ByVal ea As DevExpress.CodeRush.Core.EditorPaintEventArgs) Handles Me.EditorPaint
         If mEnabled AndAlso mEaElementRange.ToString <> String.Empty Then
-            TextHighlighter.PaintUnfocused(CodeRush.TextViews.Active, mEaElementRange, mOuterColor.TrueColor, mInnerColor.TrueColor)
+            ea.TextView.HighlightCode(mEaElementRange, mOuterColor.TrueColor, mInnerColor.TrueColor, Color.White)
+            'TextHighlighter.PaintUnfocused(CodeRush.TextViews.Active, mEaElementRange, mOuterColor.TrueColor, mInnerColor.TrueColor)
             ' also write out the text
-            Dim Text As String = CodeRush.Documents.ActiveTextDocument.GetLine(CodeRush.Caret.Line)
-            Call ea.OverlayText(Text, CodeRush.Caret.Line, 1, mTextColor.TrueColor)
+            'Dim Text As String = CodeRush.Documents.ActiveTextDocument.GetLine(CodeRush.Caret.Line)
+            'Call ea.OverlayText(Text, CodeRush.Caret.Line, 1, mTextColor.TrueColor)
         End If
     End Sub
     Private Sub HighlightCurrentLineInEditor_OptionsChanged(ByVal ea As DevExpress.CodeRush.Core.OptionsChangedEventArgs) Handles Me.OptionsChanged
