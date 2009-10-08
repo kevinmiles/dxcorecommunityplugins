@@ -9,8 +9,9 @@ There are a number of things introduced by this plugin which are intended to mak
     * Inside Test Class
     * Inside Test Method
   * The "Move To Setup" Code Provider
+  * Code Issue which indicates Test Methods which do not have Assertions
 
-Please note that there is a very big possibility that this will only work with NUnit based tests.  MbUnit is similar, so that may work as well.  I would not count on MSTest or xUnit.Net working.
+Please note that there is a very big possibility that some of these functions will only work with NUnit based tests.  MbUnit is similar, so that may work as well.  I would not count on MSTest or xUnit.Net working.  
 
 = Installation =
 
@@ -94,11 +95,12 @@ Invoking the "Move To Setup" provider produces the following
     }
 }}}
 ----
-
+  * Code Issue
+    * This should detect Test Methods based on the presence of a "Test", or "TestMethod" attribute, and then check for either an "Assert" statement or an "ExpectedException" attribute.  If neither are found, a Code Smell issue is added.
 
 = Why did I build this =
 
-I do TDD daily, and there doesn't seem to be a whole lot of utilies comming directly from DevExpress to address TDD specific issues.  This is the beginning of an effort to fill that gap.
+I do TDD daily, so this is the beginning of an effort to ease some of the pain points I encounter when working TDD.  As with most things, these are all things that I personally thought would be useful.  Feel free to suggest additional functionality if there is something you would like that is missing from this group of utilities.
 
 = Credits =
 
