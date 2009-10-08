@@ -3,7 +3,8 @@
 
 = Introduction =
 
-TODO
+Detils will be added soon.
+Please have a look at http://community.devexpress.com/forums/t/62991.aspx?PageIndex=1
 
 = Installation =
 
