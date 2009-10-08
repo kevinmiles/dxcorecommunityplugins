@@ -132,6 +132,7 @@
     <Compile Include="PlugIn1.Designer.vb">
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </Compile>
+    <Compile Include="PluginSettings.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup>
