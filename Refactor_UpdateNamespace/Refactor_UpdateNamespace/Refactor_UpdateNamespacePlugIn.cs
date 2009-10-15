@@ -105,9 +105,7 @@ namespace Refactor_UpdateNamespace
 
             string currentNamespace = CurrentNamespace(element);
             bool namespaceIsDefault = expectedNamespace == currentNamespace || (ContainsOnlyNamespacesOrUsings(element) && expectedNamespace.StartsWith(currentNamespace));
-
-            bool parentNamespaceShouldBeUpdated = NamespaceShouldBeUpdated(element.Parent, expectedNamespace);
-            return !parentNamespaceShouldBeUpdated && !namespaceIsDefault;
+            return !namespaceIsDefault;
         }
 
         private bool NamespaceShouldBeUpdated(ISourceFile scope, IElement element, string expectedNamespace)
@@ -117,9 +115,7 @@ namespace Refactor_UpdateNamespace
 
             string currentNamespace = CurrentNamespace(namespaceElement);
             bool namespaceIsDefault = expectedNamespace == currentNamespace || (ContainsOnlyNamespacesOrUsings(scope, namespaceElement) && expectedNamespace.StartsWith(currentNamespace));
-
-            bool parentNamespaceShouldBeUpdated = NamespaceShouldBeUpdated(scope, namespaceElement.Parent, expectedNamespace);
-            return !parentNamespaceShouldBeUpdated && !namespaceIsDefault;
+            return !namespaceIsDefault;
         }
 
         private bool ShouldBeAvailable(SourcePoint caret)
@@ -129,6 +125,7 @@ namespace Refactor_UpdateNamespace
 
         private IEnumerable<TextRange> GetNameSpaceRanges(ISourceFile scope, INamespaceElement namespaceElement)
         {
+            if (namespaceElement == null || scope == null) yield break;
             int filesCount = namespaceElement.Files.Count;
             if (filesCount > 1)
             {
@@ -146,21 +143,31 @@ namespace Refactor_UpdateNamespace
 
         private IEnumerable<TextRange> GetWrongNamespaceNameRanges(ISourceFile scope, INamespaceElement namespaceElement)
         {
-            foreach (var endRange in GetNameSpaceRanges(scope, namespaceElement))
+            foreach (var range in GetNameSpaceRanges(scope, namespaceElement))
             {
+                // Find first namespace part in the same line
                 INamespaceElement rootNamespace = namespaceElement;
-                TextRange startRange = endRange;
+                TextRange startRange = range;
                 while (rootNamespace.ParentNamespace != null)
                 {
                     rootNamespace = rootNamespace.ParentNamespace;
-                    foreach (var range in GetNameSpaceRanges(scope, rootNamespace))
-                    {
-                        if (range.Start.Line == endRange.End.Line)
-                        {
-                            startRange = range;
-                        }
-                    }
+                    startRange = (from tempRange in GetNameSpaceRanges(scope, rootNamespace) where tempRange.Start.Line == range.End.Line select tempRange).DefaultIfEmpty(startRange).First();
                 }
+
+                // Find last namespace part in the same line
+                INamespaceElement childNamespace;
+                INamespaceElement temp = namespaceElement;
+                do
+                {
+                    childNamespace = temp;
+                    temp = (from child in childNamespace.Namespaces.Cast<INamespaceElement>() where
+                        (from tempRange in GetNameSpaceRanges(scope, child) where tempRange.End.Line == range.Start.Line select range).Any()
+                        select child).FirstOrDefault();
+                }
+                while (temp != null);
+
+                TextRange endRange = (from tempRange in GetNameSpaceRanges(scope, childNamespace) where tempRange.End.Line == range.Start.Line select tempRange).FirstOrDefault();
+
                 yield return new TextRange(startRange.Start, endRange.End);
             }
         }
@@ -185,13 +192,17 @@ namespace Refactor_UpdateNamespace
             if (ea.IsSuppressed(ea.Scope))
                 return;
 
-            SourceFile scope = ea.Scope as SourceFile;
+            var scope = ea.Scope as SourceFile;
             if (scope == null)
                 return;
 
-            ProjectElement project = scope.Project as ProjectElement;
+            var project = scope.Project as ProjectElement;
             if (project == null)
                 return;
+
+            string path = scope.FilePath;
+            string expectedNamespace = ExpectedNamespace(project, path);
+            var issueRanges = new HashSet<TextRange>();
 
             foreach (IElement element in ea.GetEnumerable(ea.Scope, ElementFilters.Namespace))
             {
@@ -199,15 +210,17 @@ namespace Refactor_UpdateNamespace
                 if (namespaceElement == null)
                     continue;
 
-                string path = scope.FilePath;
-                string expectedNamespace = ExpectedNamespace(project, path);
                 if (NamespaceShouldBeUpdated(scope, namespaceElement, expectedNamespace))
                 {
                     foreach (var fullNameRange in GetWrongNamespaceNameRanges(scope, namespaceElement))
                     {
-                        ea.AddHint(fullNameRange, "Namespace is not default", 10);
+                        issueRanges.Add(fullNameRange);
                     }
                 }
+            }
+            foreach (TextRange range in issueRanges)
+            {
+                ea.AddHint(range, "Namespace is not default", 10);
             }
         }
     }
