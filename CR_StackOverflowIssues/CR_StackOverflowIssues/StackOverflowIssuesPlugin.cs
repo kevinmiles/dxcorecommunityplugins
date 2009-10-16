@@ -32,15 +32,40 @@ namespace CR_StackOverflowIssues
             base.FinalizePlugIn();
         }
         #endregion
-        
+
         private static bool ExpressionReferencesProperty(ElementReferenceExpression expression, Property property)
         {
-            return expression != null
+            return expression != null 
                 && expression.Name == property.Name
-                && (expression.LastChild == null
+                && (expression.LastChild == null 
                     || (!property.IsStatic && expression.LastChild is ThisReferenceExpression)
-                    || (property.IsStatic && (expression.LastChild.Name == property.GetParentClassInterfaceOrStruct().Name)));
-            // TODO: check aliases to parent class, check class name qualified with namespace or aliased namespace
+                    || (property.IsStatic && expression.LastChild.IsRelatedTo(property.GetParentClassInterfaceOrStruct())));
+        }
+
+        private static void CheckForPropertyReturn(CheckCodeIssuesEventArgs ea, Property property, LanguageElement languageElement)
+        {
+            var ret = languageElement as Return;
+            if (ret != null && ExpressionReferencesProperty(ret.Expression as ElementReferenceExpression, property))
+            {
+                ea.AddError(ret.Range, "StackOverflowException in runtime");
+            }
+            foreach (LanguageElement child in languageElement.Nodes)
+            {
+                CheckForPropertyReturn(ea, property, child);
+            }
+        }
+
+        private static void CheckForPropertyAssignment(CheckCodeIssuesEventArgs ea, Property property, LanguageElement languageElement)
+        {
+            var assignment = languageElement as Assignment;
+            if (assignment != null && ExpressionReferencesProperty(assignment.LeftSide as ElementReferenceExpression, property))
+            {
+                ea.AddError(assignment.Range, "StackOverflowException in runtime");
+            }
+            foreach (LanguageElement child in languageElement.Nodes)
+            {
+                CheckForPropertyAssignment(ea, property, child);
+            }
         }
 
         private void StackOverflowInGetterIssueProvider_CheckCodeIssues(object sender, CheckCodeIssuesEventArgs ea)
@@ -59,22 +84,14 @@ namespace CR_StackOverflowIssues
                 {
                     foreach (LanguageElement getterElement in property.Getter.Nodes)
                     {
-                        var ret = getterElement as Return;
-                        if (ret != null && ExpressionReferencesProperty(ret.Expression as ElementReferenceExpression, property))
-                        {
-                            ea.AddError(ret.Range, "StackOverflowException in runtime");
-                        }
+                        CheckForPropertyReturn(ea, property, getterElement);
                     }
                 }
                 if (property.Setter != null)
                 {
                     foreach (LanguageElement setterElement in property.Setter.Nodes)
                     {
-                        var assignment = setterElement as Assignment;
-                        if (assignment != null && ExpressionReferencesProperty(assignment.LeftSide as ElementReferenceExpression, property))
-                        {
-                            ea.AddError(assignment.Range, "StackOverflowException in runtime");
-                        }
+                        CheckForPropertyAssignment(ea, property, setterElement);
                     }
                 }
             }
