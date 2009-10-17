@@ -37,8 +37,11 @@ namespace CR_StackOverflowIssues
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StackOverflowIssuesPlugin));
             this.StackOverflowInGetterIssueProvider = new DevExpress.CodeRush.Core.IssueProvider(this.components);
+            this.changeToBaseCallRefactoringProvider = new DevExpress.Refactor.Core.RefactoringProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.StackOverflowInGetterIssueProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.changeToBaseCallRefactoringProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // StackOverflowInGetterIssueProvider
@@ -48,7 +51,22 @@ namespace CR_StackOverflowIssues
             this.StackOverflowInGetterIssueProvider.ProviderName = "StackOverflowIssueProvider";
             this.StackOverflowInGetterIssueProvider.Register = true;
             this.StackOverflowInGetterIssueProvider.CheckCodeIssues += new DevExpress.CodeRush.Core.CheckCodeIssuesEventHandler(this.StackOverflowInGetterIssueProvider_CheckCodeIssues);
+            // 
+            // changeToBaseCallRefactoringProvider
+            // 
+            this.changeToBaseCallRefactoringProvider.ActionHintText = "";
+            this.changeToBaseCallRefactoringProvider.AutoActivate = true;
+            this.changeToBaseCallRefactoringProvider.AutoUndo = false;
+            this.changeToBaseCallRefactoringProvider.Description = "Introduces call to base implementation of property";
+            this.changeToBaseCallRefactoringProvider.Image = ((System.Drawing.Bitmap)(resources.GetObject("changeToBaseCallRefactoringProvider.Image")));
+            this.changeToBaseCallRefactoringProvider.NeedsSelection = false;
+            this.changeToBaseCallRefactoringProvider.ProviderName = "Change to \'base\' call";
+            this.changeToBaseCallRefactoringProvider.Register = true;
+            this.changeToBaseCallRefactoringProvider.SupportsAsyncMode = false;
+            this.changeToBaseCallRefactoringProvider.Apply += new DevExpress.Refactor.Core.ApplyRefactoringEventHandler(this.ChangeToBaseCallRefactoringProvider_Apply);
+            this.changeToBaseCallRefactoringProvider.CheckAvailability += new DevExpress.Refactor.Core.CheckAvailabilityEventHandler(this.ChangeToBaseCallRefactoringProvider_CheckAvailability);
             ((System.ComponentModel.ISupportInitialize)(this.StackOverflowInGetterIssueProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.changeToBaseCallRefactoringProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -56,5 +74,6 @@ namespace CR_StackOverflowIssues
         #endregion
 
         private DevExpress.CodeRush.Core.IssueProvider StackOverflowInGetterIssueProvider;
+        private DevExpress.Refactor.Core.RefactoringProvider changeToBaseCallRefactoringProvider;
     }
 }
