@@ -40,8 +40,10 @@ namespace CR_StackOverflowIssues
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StackOverflowIssuesPlugin));
             this.StackOverflowInGetterIssueProvider = new DevExpress.CodeRush.Core.IssueProvider(this.components);
             this.changeToBaseCallRefactoringProvider = new DevExpress.Refactor.Core.RefactoringProvider(this.components);
+            this.changeToFieldCallRefactoringProvider = new DevExpress.Refactor.Core.RefactoringProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.StackOverflowInGetterIssueProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.changeToBaseCallRefactoringProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.changeToFieldCallRefactoringProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // StackOverflowInGetterIssueProvider
@@ -54,7 +56,7 @@ namespace CR_StackOverflowIssues
             // 
             // changeToBaseCallRefactoringProvider
             // 
-            this.changeToBaseCallRefactoringProvider.ActionHintText = "";
+            this.changeToBaseCallRefactoringProvider.ActionHintText = "Introduced base call";
             this.changeToBaseCallRefactoringProvider.AutoActivate = true;
             this.changeToBaseCallRefactoringProvider.AutoUndo = false;
             this.changeToBaseCallRefactoringProvider.Description = "Introduces call to base implementation of property";
@@ -66,8 +68,24 @@ namespace CR_StackOverflowIssues
             this.changeToBaseCallRefactoringProvider.Apply += new DevExpress.Refactor.Core.ApplyRefactoringEventHandler(this.ChangeToBaseCallRefactoringProvider_Apply);
             this.changeToBaseCallRefactoringProvider.CheckAvailability += new DevExpress.Refactor.Core.CheckAvailabilityEventHandler(this.ChangeToBaseCallRefactoringProvider_CheckAvailability);
             this.changeToBaseCallRefactoringProvider.PreparePreview += new DevExpress.Refactor.Core.PrepareRefactoringPreviewEventHandler(this.ChangeToBaseCallRefactoringProvider_PreparePreview);
+            // 
+            // changeToFieldCallRefactoringProvider
+            // 
+            this.changeToFieldCallRefactoringProvider.ActionHintText = "Changed to field call";
+            this.changeToFieldCallRefactoringProvider.AutoActivate = true;
+            this.changeToFieldCallRefactoringProvider.AutoUndo = false;
+            this.changeToFieldCallRefactoringProvider.Description = "Changes property call to field call";
+            this.changeToFieldCallRefactoringProvider.Image = ((System.Drawing.Bitmap)(resources.GetObject("changeToFieldCallRefactoringProvider.Image")));
+            this.changeToFieldCallRefactoringProvider.NeedsSelection = false;
+            this.changeToFieldCallRefactoringProvider.ProviderName = "Change to field call";
+            this.changeToFieldCallRefactoringProvider.Register = true;
+            this.changeToFieldCallRefactoringProvider.SupportsAsyncMode = false;
+            this.changeToFieldCallRefactoringProvider.Apply += new DevExpress.Refactor.Core.ApplyRefactoringEventHandler(this.ChangeToFieldCallRefactoringProvider_Apply);
+            this.changeToFieldCallRefactoringProvider.CheckAvailability += new DevExpress.Refactor.Core.CheckAvailabilityEventHandler(this.ChangeToFieldCallRefactoringProvider_CheckAvailability);
+            this.changeToFieldCallRefactoringProvider.PreparePreview += new DevExpress.Refactor.Core.PrepareRefactoringPreviewEventHandler(this.ChangeToFieldCallRefactoringProvider_PreparePreview);
             ((System.ComponentModel.ISupportInitialize)(this.StackOverflowInGetterIssueProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.changeToBaseCallRefactoringProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.changeToFieldCallRefactoringProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -76,5 +94,6 @@ namespace CR_StackOverflowIssues
 
         private DevExpress.CodeRush.Core.IssueProvider StackOverflowInGetterIssueProvider;
         private DevExpress.Refactor.Core.RefactoringProvider changeToBaseCallRefactoringProvider;
+        private DevExpress.Refactor.Core.RefactoringProvider changeToFieldCallRefactoringProvider;
     }
 }
