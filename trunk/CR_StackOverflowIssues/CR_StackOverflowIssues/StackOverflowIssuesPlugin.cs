@@ -144,58 +144,76 @@ namespace CR_StackOverflowIssues
             }
         }
 
-        private void ChangeToBaseCallRefactoringProvider_Apply(object sender, ApplyContentEventArgs ea)
+        private static LanguageElement GetCodeElementToReplace(LanguageElement element, Property property)
         {
-            ElementBuilder elementBuilder = ea.NewElementBuilder();
-            Property property = ea.Element.GetProperty();
-            LanguageElement toReplace = ea.Element;
-            if (property.HasGetter && ea.Element.Inside(LanguageElementType.PropertyAccessorGet))
+            if (property.HasGetter && element.Inside(LanguageElementType.PropertyAccessorGet))
             {
-                Return oldReturn = GetReturnElement(ea.Element);
-            	Return newReturn = elementBuilder.AddReturn(null, property.Name);
-                newReturn.Expression.AddNode(elementBuilder.BuildBaseReferenceExpression());
-                toReplace = oldReturn;
+                return GetElement<Return>(element);
             }
-            if (property.HasSetter && ea.Element.Inside(LanguageElementType.PropertyAccessorSet))
+            if (property.HasSetter && element.Inside(LanguageElementType.PropertyAccessorSet))
             {
-                Assignment oldAssignment = GetAssignmentElement(ea.Element);
+                return GetElement<Assignment>(element);
+            }
+            return element;
+        }
+
+        private static string GetChangeToBaseCallCode(ElementBuilder elementBuilder, LanguageElement toReplace, Property property)
+        {
+            Return oldReturn = toReplace as Return;
+            if (oldReturn != null)
+            {
+                Return newReturn = elementBuilder.AddReturn(null, property.Name);
+                newReturn.Expression.AddNode(elementBuilder.BuildBaseReferenceExpression());
+            }
+            Assignment oldAssignment = toReplace as Assignment;
+            if (oldAssignment != null)
+            {
                 Assignment newAssignment = elementBuilder.AddAssignment(null, property.Name, oldAssignment.Expression);
                 newAssignment.LeftSide.AddNode(elementBuilder.BuildBaseReferenceExpression());
-                toReplace = oldAssignment;
             }
-            string generatedCode = elementBuilder.GenerateCode();
-            ea.TextDocument.Replace(toReplace.Range, generatedCode, "Change to 'base' call", true);
+            return elementBuilder.GenerateCode().Trim();
         }
 
-        private static Return GetReturnElement(LanguageElement languageElement)
+        private static TElement GetElement<TElement>(LanguageElement languageElement)
+            where TElement : LanguageElement
         {
-            Return @return = languageElement as Return;
-            while (@return == null && languageElement.Parent != null)
+            TElement wantedElement = languageElement as TElement;
+            while (wantedElement == null && languageElement.Parent != null)
             {
                 languageElement = languageElement.Parent;
-                @return = languageElement as Return;
+                wantedElement = languageElement as TElement;
             }
-            return @return;
-        }
-
-        private static Assignment GetAssignmentElement(LanguageElement languageElement)
-        {
-            Assignment assignment = languageElement as Assignment;
-            while (assignment == null && languageElement.Parent != null)
-            {
-                languageElement = languageElement.Parent;
-                assignment = languageElement as Assignment;
-            }
-            return assignment;
+            return wantedElement;
         }
 
         private void ChangeToBaseCallRefactoringProvider_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
         {
-            var @return = GetReturnElement(ea.Element);
+            var @return = GetElement<Return>(ea.Element);
             bool propertyReturn = @return != null && ExpressionReferencesParentPropertyInInstanceContext(@return.Expression as ElementReferenceExpression);
-            var assignment = GetAssignmentElement(ea.Element);
+            var assignment = GetElement<Assignment>(ea.Element);
             bool propertyAssignment = assignment != null && ExpressionReferencesParentPropertyInInstanceContext(assignment.LeftSide as ElementReferenceExpression);
             ea.Available = propertyReturn || propertyAssignment;
+        }
+
+        private void ChangeToBaseCallRefactoringProvider_PreparePreview(object sender, PrepareContentPreviewEventArgs ea)
+        {
+            var property = ea.Element.GetProperty();
+            var toReplace = GetCodeElementToReplace(ea.Element, property);
+            var elementBuilder = ea.NewElementBuilder();
+            string generatedCode = GetChangeToBaseCallCode(elementBuilder, toReplace, property);
+
+            ea.AddCodePreview(toReplace.Range.Start, generatedCode);
+            ea.AddStrikethrough(toReplace.Range);
+        }
+
+        private void ChangeToBaseCallRefactoringProvider_Apply(object sender, ApplyContentEventArgs ea)
+        {
+            var property = ea.Element.GetProperty();
+            var toReplace = GetCodeElementToReplace(ea.Element, property);
+            var elementBuilder = ea.NewElementBuilder();
+            string generatedCode = GetChangeToBaseCallCode(elementBuilder, toReplace, property);
+        
+            ea.TextDocument.Replace(toReplace.Range, generatedCode, "Change to 'base' call", true);
         }
     }
 }
