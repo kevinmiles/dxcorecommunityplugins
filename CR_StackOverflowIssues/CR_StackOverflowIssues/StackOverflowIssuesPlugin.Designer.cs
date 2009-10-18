@@ -65,6 +65,7 @@ namespace CR_StackOverflowIssues
             this.changeToBaseCallRefactoringProvider.SupportsAsyncMode = false;
             this.changeToBaseCallRefactoringProvider.Apply += new DevExpress.Refactor.Core.ApplyRefactoringEventHandler(this.ChangeToBaseCallRefactoringProvider_Apply);
             this.changeToBaseCallRefactoringProvider.CheckAvailability += new DevExpress.Refactor.Core.CheckAvailabilityEventHandler(this.ChangeToBaseCallRefactoringProvider_CheckAvailability);
+            this.changeToBaseCallRefactoringProvider.PreparePreview += new DevExpress.Refactor.Core.PrepareRefactoringPreviewEventHandler(this.ChangeToBaseCallRefactoringProvider_PreparePreview);
             ((System.ComponentModel.ISupportInitialize)(this.StackOverflowInGetterIssueProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.changeToBaseCallRefactoringProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
