@@ -63,4 +63,8 @@ Clipboard History (Source Included with CodeRush)
 
 = Video Tutorials =
 
-[http://www.dnrtv.com/default.aspx?showNum=5 Mark Miller on DNRTV]
+DNR TV - [http://www.dnrtv.com/default.aspx]
+
+ * 10 Feb 2006 - [http://www.dnrtv.com/default.aspx?showNum=5 Mark Miller works the DXCore]
+ * 02 Oct 2009  - [http://www.dnrtv.com/default.aspx?showNum=152 Mark Miller on Intelligent Code Generation in Visual Studio]
+
