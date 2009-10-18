@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using DevExpress.CodeRush.Common;
+using System;
 
 [assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "CR_StackOverflowIssues", PlugInLoadType.StartUp, LoadAbilityType.LoadEnabled)]
 
@@ -34,3 +35,5 @@ using DevExpress.CodeRush.Common;
 //
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+[assembly: CLSCompliant(true)]

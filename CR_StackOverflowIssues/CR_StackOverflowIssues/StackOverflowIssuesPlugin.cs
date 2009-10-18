@@ -73,7 +73,7 @@ namespace CR_StackOverflowIssues
                 && ExpressionReferencesPropertyInStaticContext(expression, expression.GetProperty());
         }
 
-        private bool ExpressionReferencesParentPropertyInInstanceOrStaticContext(ElementReferenceExpression expression)
+        private static bool ExpressionReferencesParentPropertyInInstanceOrStaticContext(ElementReferenceExpression expression)
         {
             return expression != null && expression.InsideProperty
                 && ExpressionReferencesPropertyInInstanceOrStaticContext(expression, expression.GetProperty());
@@ -183,7 +183,7 @@ namespace CR_StackOverflowIssues
             return elementBuilder.GenerateCode().Trim();
         }
 
-        private string GetChangeToFieldCallCode(ElementBuilder elementBuilder, LanguageElement toReplace, Property property)
+        private static string GetChangeToFieldCallCode(ElementBuilder elementBuilder, LanguageElement toReplace, Property property)
         {
             string fieldVariableName = CodeRush.Strings.Get("FormatFieldName", property.Name);
 
