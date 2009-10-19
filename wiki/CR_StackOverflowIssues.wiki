@@ -1,0 +1,35 @@
+#summary Highlights possible stack overflow problems in properties that call themselves recursively.
+
+= Introduction =
+
+This plugin adds 1 code issue together with 2 possible fixes:
+  * 'StackOverflowException in runtime' code issue
+  * 'Change to base call' refactoring - available when code issue is reported for overriden property. Changes recursive call into call to base implementation of property
+  * 'Change to field call' refactoring - available always when code issue is reported. Changes recursive call into field call.
+
+'StackOverflowException in runtime' code issue is reported when property calls itself recusively. Below code will report 2 issues, first for return statement in getter and second for assignment in setter:
+{{{
+public string PropertyName
+{
+    get
+    {
+        return PropertyName;
+    }
+    set
+    {
+        PropertyName = value;
+    }
+}
+}}}
+
+= Installation =
+
+Installation instructions can be found on the InstallInstructions page.
+
+= Usage =
+
+This plugin integrates itself with other code issues and refactorings provided by CodeRush. Features of this plugin are language independent.
+
+= Credits =
+
+Author: Przemysław Włodarczak.
