@@ -39,11 +39,15 @@ Public Class HighlightCurrentLineInEditor
     Public Sub LoadSettings()
         Using lStorage As DecoupledStorage = HighlightCurrentLineOptions.Storage
             mEnabled = lStorage.ReadBoolean(HighlightCurrentLineOptions.SECTION, "Enabled", True)
+
             Dim BackColor As Color = lStorage.ReadColor(HighlightCurrentLineOptions.SECTION, HighlightCurrentLineOptions.KEY_InnerBaseColor, HighlightCurrentLineOptions.DEFAULT_COLOR_INNER.Base)
             Dim BackOpacity As Integer = lStorage.ReadInt32(HighlightCurrentLineOptions.SECTION, HighlightCurrentLineOptions.KEY_InnerOpacity, HighlightCurrentLineOptions.DEFAULT_COLOR_INNER.Opacity)
             mInnerColor = New PaintColor(BackColor, BackOpacity)
+
             Dim ForeColor As Color = lStorage.ReadColor(HighlightCurrentLineOptions.SECTION, HighlightCurrentLineOptions.KEY_OuterBaseColor, HighlightCurrentLineOptions.DEFAULT_COLOR_OUTER.Base)
-            mOuterColor = New PaintColor(ForeColor, 255)
+            Dim ForeOpacity As Integer = lStorage.ReadInt32(HighlightCurrentLineOptions.SECTION, HighlightCurrentLineOptions.KEY_OuterOpacity, HighlightCurrentLineOptions.DEFAULT_COLOR_OUTER.Opacity)
+            mOuterColor = New PaintColor(ForeColor, ForeOpacity)
+
             Dim TextColor As Color = lStorage.ReadColor(HighlightCurrentLineOptions.SECTION, HighlightCurrentLineOptions.KEY_TextBaseColor, HighlightCurrentLineOptions.DEFAULT_COLOR_TEXT.Base)
             mTextColor = New PaintColor(TextColor, 255)
         End Using

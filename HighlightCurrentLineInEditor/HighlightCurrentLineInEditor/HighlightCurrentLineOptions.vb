@@ -16,6 +16,7 @@ Public Class HighlightCurrentLineOptions
     Public Const KEY_InnerBaseColor As String = "InnerBaseColor"
     Public Const KEY_InnerOpacity As String = "InnerOpacity"
     Public Const KEY_OuterBaseColor As String = "OuterBaseColor"
+    Public Const KEY_OuterOpacity As String = "OuterOpacity"
     Public Const KEY_TextBaseColor As String = "TextBaseColor"
     Public Const KEY_Enabled As String = "Enabled"
 #Region " Initialize "
@@ -45,7 +46,7 @@ Public Class HighlightCurrentLineOptions
         InnerColor.ColorBase = DEFAULT_COLOR_INNER.Base
         InnerColor.Opacity = DEFAULT_COLOR_INNER.Opacity
         OuterColor.ColorBase = DEFAULT_COLOR_OUTER.Base
-        OuterColor.Opacity = 255
+        OuterColor.Opacity = DEFAULT_COLOR_OUTER.Opacity
         TextColor.ColorBase = DEFAULT_COLOR_TEXT.Base
         TextColor.Opacity = 255
     End Sub
@@ -56,7 +57,7 @@ Public Class HighlightCurrentLineOptions
         InnerColor.ColorBase = ea.Storage.ReadColor(SECTION, KEY_InnerBaseColor, DEFAULT_COLOR_INNER.Base)
         InnerColor.Opacity = ea.Storage.ReadInt32(SECTION, KEY_InnerOpacity, DEFAULT_COLOR_INNER.Opacity)
         OuterColor.ColorBase = ea.Storage.ReadColor(SECTION, KEY_OuterBaseColor, DEFAULT_COLOR_OUTER.Base)
-        OuterColor.Opacity = 255
+        OuterColor.Opacity = ea.Storage.ReadInt32(SECTION, KEY_OuterOpacity, DEFAULT_COLOR_OUTER.Opacity)
         TextColor.ColorBase = ea.Storage.ReadColor(SECTION, KEY_TextBaseColor, DEFAULT_COLOR_TEXT.Base)
         TextColor.Opacity = 255
     End Sub
@@ -66,6 +67,7 @@ Public Class HighlightCurrentLineOptions
         ea.Storage.WriteColor(SECTION, KEY_InnerBaseColor, InnerColor.ColorBase)
         ea.Storage.WriteInt32(SECTION, KEY_InnerOpacity, InnerColor.Opacity)
         ea.Storage.WriteColor(SECTION, KEY_OuterBaseColor, OuterColor.ColorBase)
+        ea.Storage.WriteInt32(SECTION, KEY_OuterOpacity, OuterColor.Opacity)
         ea.Storage.WriteColor(SECTION, KEY_TextBaseColor, TextColor.ColorBase)
         ea.Storage.WriteBoolean(SECTION, KEY_Enabled, chkEnabled.Checked)
         ea.Storage.UpdateStorage()
