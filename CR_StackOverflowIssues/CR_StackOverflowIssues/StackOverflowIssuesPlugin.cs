@@ -55,6 +55,11 @@ namespace CR_StackOverflowIssues
                 && (expression.LastChild == null || expression.LastChild.IsRelatedTo(property.GetParentClassInterfaceOrStruct()));
         }
 
+        private static bool PropertyIsOverriden(Property property)
+        {
+            return property != null && property.IsOverride;
+        }
+
         private static bool ExpressionReferencesParentProperty(ElementReferenceExpression expression)
         {
             return expression != null && expression.InsideProperty
@@ -136,6 +141,9 @@ namespace CR_StackOverflowIssues
                     continue;
 
                 Property property = (Property)propertyElement.ToLanguageElement();
+                if (property == null)
+                    continue;
+
                 if (property.Getter != null)
                 {
                     foreach (LanguageElement getterElement in property.Getter.Nodes)
@@ -171,14 +179,12 @@ namespace CR_StackOverflowIssues
             Return oldReturn = toReplace as Return;
             if (oldReturn != null)
             {
-                Return newReturn = elementBuilder.AddReturn(null, property.Name);
-                newReturn.Expression.AddNode(elementBuilder.BuildBaseReferenceExpression());
+                Return newReturn = elementBuilder.AddReturn(null, elementBuilder.BuildQualifiedElementReference(elementBuilder.BuildBaseReferenceExpression(), property.Name));
             }
             Assignment oldAssignment = toReplace as Assignment;
             if (oldAssignment != null)
             {
-                Assignment newAssignment = elementBuilder.AddAssignment(null, property.Name, oldAssignment.Expression);
-                newAssignment.LeftSide.AddNode(elementBuilder.BuildBaseReferenceExpression());
+                Assignment newAssignment = elementBuilder.AddAssignment(null, elementBuilder.BuildQualifiedElementReference(elementBuilder.BuildBaseReferenceExpression(), property.Name), oldAssignment.Expression);
             }
             return elementBuilder.GenerateCode().Trim();
         }
@@ -190,20 +196,14 @@ namespace CR_StackOverflowIssues
             Return oldReturn = toReplace as Return;
             if (oldReturn != null)
             {
-                Return newReturn = elementBuilder.AddReturn(null, fieldVariableName);
-                if (oldReturn.Expression.LastChild is ThisReferenceExpression)
-                {
-                    newReturn.Expression.AddNode(elementBuilder.BuildThisReferenceExpression());
-                }
+                object expression = oldReturn.Expression.LastChild != null ? (object)elementBuilder.BuildQualifiedElementReference(oldReturn.Expression.LastChild, fieldVariableName) : fieldVariableName;
+                Return newReturn = elementBuilder.AddReturn(null, expression);
             }
             Assignment oldAssignment = toReplace as Assignment;
             if (oldAssignment != null)
             {
-                Assignment newAssignment = elementBuilder.AddAssignment(null, fieldVariableName, oldAssignment.Expression);
-                if (oldAssignment.LeftSide.LastChild is ThisReferenceExpression)
-                {
-                    newAssignment.LeftSide.AddNode(elementBuilder.BuildThisReferenceExpression());
-                }
+                object leftSide = oldAssignment.LeftSide.LastChild != null ? (object)elementBuilder.BuildQualifiedElementReference(oldAssignment.LeftSide.LastChild, fieldVariableName) : fieldVariableName;
+                Assignment newAssignment = elementBuilder.AddAssignment(null, leftSide, oldAssignment.Expression);
             }
             return elementBuilder.GenerateCode().Trim();
         }
@@ -222,11 +222,22 @@ namespace CR_StackOverflowIssues
 
         private void ChangeToBaseCallRefactoringProvider_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
         {
+            ElementReferenceExpression expression = null;
             var @return = GetElement<Return>(ea.Element);
-            bool propertyReturn = @return != null && ExpressionReferencesParentPropertyInInstanceContext(@return.Expression as ElementReferenceExpression);
+            if (@return != null)
+            {
+                expression = @return.Expression as ElementReferenceExpression;
+            }
             var assignment = GetElement<Assignment>(ea.Element);
-            bool propertyAssignment = assignment != null && ExpressionReferencesParentPropertyInInstanceContext(assignment.LeftSide as ElementReferenceExpression);
-            ea.Available = propertyReturn || propertyAssignment;
+            if (assignment != null)
+            {
+                expression = assignment.LeftSide as ElementReferenceExpression;
+            }
+            if (expression != null && expression.InsideProperty)
+            {
+                Property property = expression.GetProperty();
+                ea.Available = ExpressionReferencesPropertyInInstanceContext(expression, property) && PropertyIsOverriden(property);
+            }
         }
 
         private void ChangeToBaseCallRefactoringProvider_PreparePreview(object sender, PrepareContentPreviewEventArgs ea)
