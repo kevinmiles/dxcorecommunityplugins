@@ -2,6 +2,8 @@
 
 === Introduction ===
 
+NB: I have recently been looking back through some shared Google docs and have found evidence suggesting the original idea for this plugin was that of Dan Gilkerson (<- Great Bloke) 
+
 This plugin changes the background color of your class's members to indicate how well they adhere to a nominated metric.
 
 So members that stack up well remain white, and the colors escalate Green, Orange, Red as the Metric value goes up.
