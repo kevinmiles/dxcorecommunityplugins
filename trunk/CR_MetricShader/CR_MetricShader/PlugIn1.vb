@@ -44,6 +44,7 @@ Public Class PlugIn1
 #Region "Fields"
     Private mEnabled As Boolean
     Private mMetric As ICodeMetricProvider
+    Private mMetricMaxWarning As Integer = 0
     Private mModeMultiColor As Boolean
     Private mModeSingleGradientColor As Boolean
     Private mVisualizeButton As IMenuButton
@@ -71,6 +72,7 @@ Public Class PlugIn1
 #Region "Settings"
     Private Sub LoadSettings()
         mMetric = Options1.Providers(Options1.Storage.ReadInt32(Options1.SETTING_MetricShader, Options1.SETTING_MetricIndex, Options1.DEFAULT_METRIC_INDEX))
+        mMetricMaxWarning = Options1.Storage.ReadInt32(Options1.SETTING_MetricShader, Options1.SETTING_MetricMaxWarn, Options1.DEFAULT_METRIC_MAXWARN)
         mEnabled = Options1.Storage.ReadBoolean(Options1.SETTING_MetricShader, Options1.SETTING_ShaderEnabled, Options1.DEFAULT_METRIC_ENABLED)
         mFirstBoundary = Options1.Storage.ReadDouble(Options1.SETTING_MetricShader, Options1.SETTING_Boundary1, Options1.DEFAULT_BOUNDARY1)
         mSecondBoundary = Options1.Storage.ReadDouble(Options1.SETTING_MetricShader, Options1.SETTING_Boundary2, Options1.DEFAULT_BOUNDARY2)
@@ -108,7 +110,7 @@ Public Class PlugIn1
         For Each Member In Members.Where(Function(m) ViewRange.Overlaps(m.GetFullBlockCutRange))
             Dim PaintColor = GetColor(Member)
             If PaintColor.HasValue Then
-                View.HighlightCode(Member.GetFullBlockCutRange, PaintColor.Value, PaintColor.Value, Color.White)
+                View.HighlightCode(New SourceRange(Member.StartLine, 1, Member.EndLine + 1, 0), PaintColor.Value, PaintColor.Value, Color.White)
             End If
         Next
     End Sub
@@ -154,23 +156,23 @@ Public Class PlugIn1
     Private Function GetColor(ByVal Member As Member) As Nullable(Of Color)
         If mModeMultiColor Then
             Select Case mMetric.GetValue(Member)
-                Case Is < CInt(mFirstBoundary * mMetric.WarningValue)
+                Case Is < CInt(mFirstBoundary * mMetricMaxWarning)
                     Return Nothing
-                Case Is < CInt(mSecondBoundary * mMetric.WarningValue)
+                Case Is < CInt(mSecondBoundary * mMetricMaxWarning)
                     Return Color.FromArgb(mOpacity1, mColor1)
-                Case Is < CInt(mThirdBoundary * mMetric.WarningValue)
+                Case Is < CInt(mThirdBoundary * mMetricMaxWarning)
                     Return Color.FromArgb(mOpacity2, mColor2)
                 Case Else
                     Return Color.FromArgb(mOpacity3, mColor3)
             End Select
         ElseIf mModeSingleGradientColor Then
-            Dim CappedMetricValue As Integer = Math.Min(mMetric.WarningValue, mMetric.GetValue(Member))
-            Dim absLowerBoundary As Integer = CInt(mGradientBoundaryPcent * mMetric.WarningValue)
+            Dim CappedMetricValue As Integer = Math.Min(mMetricMaxWarning, mMetric.GetValue(Member))
+            Dim absLowerBoundary As Integer = CInt(mGradientBoundaryPcent * mMetricMaxWarning)
             Select Case CappedMetricValue
                 Case Is <= CInt(absLowerBoundary)
                     Return Nothing
                 Case Else
-                    Dim Pcent As Double = (CappedMetricValue - absLowerBoundary) / mMetric.WarningValue
+                    Dim Pcent As Double = (CappedMetricValue - absLowerBoundary) / mMetricMaxWarning
                     Dim Opacity As Integer = Math.Min(mGradientMaxOpacity, CInt(Pcent * mGradientMaxOpacity))
                     Return Color.FromArgb(Opacity, mGradientColor)
             End Select

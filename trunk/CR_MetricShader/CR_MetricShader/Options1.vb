@@ -28,6 +28,7 @@ Public Class Options1
 
 #Region "Consts"
     Friend Const SETTING_MetricIndex As String = "MetricIndex"
+    Friend Const SETTING_MetricMaxWarn As String = "MetricMaxWarn"
     Friend Const SETTING_MetricShader As String = "MetricShader"
     Friend Const SETTING_ShaderEnabled As String = "ShaderEnabled"
     Friend Const SETTING_Boundary1 As String = "Boundary1"
@@ -51,6 +52,7 @@ Public Class Options1
     Friend Const DEFAULT_OPACITY2 As Integer = 50
     Friend Const DEFAULT_OPACITY3 As Integer = 75
     Friend Const DEFAULT_METRIC_INDEX As Integer = 0
+    Friend Const DEFAULT_METRIC_MAXWARN As Integer = 200
     Friend Const DEFAULT_METRIC_ENABLED As Boolean = True
     Friend Shared ReadOnly DEFAULT_COLOR1 As Color = Color.Green
     Friend Shared ReadOnly DEFAULT_COLOR2 As Color = Color.Orange
@@ -77,6 +79,7 @@ Public Class Options1
         ' Load Default Values
         Call RefreshProviderList()
         cbxMetric.SelectedIndex = DEFAULT_METRIC_INDEX
+        udMaxWarn.Value = DEFAULT_METRIC_MAXWARN
         chkEnabled.Checked = True
         Boundary1.Value = 100 * DEFAULT_BOUNDARY1
         Boundary2.Value = 100 * DEFAULT_BOUNDARY2
@@ -98,6 +101,7 @@ Public Class Options1
     Private Sub Options1_PreparePage(ByVal sender As Object, ByVal ea As OptionsPageStorageEventArgs) Handles Me.PreparePage
         Call RefreshProviderList()
         cbxMetric.SelectedIndex = ea.Storage.ReadInt32(Options1.SETTING_MetricShader, Options1.SETTING_MetricIndex, DEFAULT_METRIC_INDEX)
+        udMaxWarn.Value = ea.Storage.ReadInt32(Options1.SETTING_MetricShader, Options1.SETTING_MetricMaxWarn, Options1.DEFAULT_METRIC_MAXWARN)
         chkEnabled.Checked = ea.Storage.ReadBoolean(Options1.SETTING_MetricShader, Options1.SETTING_ShaderEnabled, DEFAULT_METRIC_ENABLED)
         Boundary1.Value = 100 * ea.Storage.ReadDouble(Options1.SETTING_MetricShader, Options1.SETTING_Boundary1, DEFAULT_BOUNDARY1)
         Boundary2.Value = 100 * ea.Storage.ReadDouble(Options1.SETTING_MetricShader, Options1.SETTING_Boundary2, DEFAULT_BOUNDARY2)
@@ -121,6 +125,7 @@ Public Class Options1
     Private Sub Options1_CommitChanges(ByVal sender As Object, ByVal ea As CommitChangesEventArgs) Handles Me.CommitChanges
         Using Storage = ea.Storage
             Storage.WriteInt32(SETTING_MetricShader, SETTING_MetricIndex, cbxMetric.SelectedIndex)
+            Storage.WriteInt32(SETTING_MetricShader, SETTING_MetricMaxWarn, udMaxWarn.Value)
             Storage.WriteBoolean(SETTING_MetricShader, SETTING_ShaderEnabled, chkEnabled.Checked)
             Storage.WriteDouble(Options1.SETTING_MetricShader, Options1.SETTING_Boundary1, Boundary1.Value / 100)
             Storage.WriteDouble(Options1.SETTING_MetricShader, Options1.SETTING_Boundary2, Boundary2.Value / 100)
@@ -140,7 +145,7 @@ Public Class Options1
     End Sub
 
     Private Sub cbxMetric_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbxMetric.SelectedIndexChanged
-        lblMax.Text = Providers(cbxMetric.SelectedIndex).WarningValue
+        lblMaxWarn.Text = Providers(cbxMetric.SelectedIndex).WarningValue
     End Sub
 
     Private Sub Boundary1_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Boundary1.ValueChanged
@@ -166,4 +171,7 @@ Public Class Options1
         lblPCent4.Text = String.Format("{0:0.00}", GradientLowerBoundary.Value / 100)
     End Sub
 
+    Private Sub cmdCopyMaxValue_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCopyMaxValue.Click
+        udMaxWarn.Value = lblMaxWarn.Text
+    End Sub
 End Class

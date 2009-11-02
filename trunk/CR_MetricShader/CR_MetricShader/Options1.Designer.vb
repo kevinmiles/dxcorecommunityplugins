@@ -30,7 +30,7 @@ Partial Class Options1
 	Private Sub InitializeComponent()
         Me.cbxMetric = New System.Windows.Forms.ComboBox
         Me.Label1 = New System.Windows.Forms.Label
-        Me.lblMax = New System.Windows.Forms.Label
+        Me.lblMaxWarn = New System.Windows.Forms.Label
         Me.chkEnabled = New System.Windows.Forms.CheckBox
         Me.Boundary3 = New System.Windows.Forms.TrackBar
         Me.Boundary2 = New System.Windows.Forms.TrackBar
@@ -54,14 +54,17 @@ Partial Class Options1
         Me.optMultiColor = New System.Windows.Forms.RadioButton
         Me.optSingleGradientColor = New System.Windows.Forms.RadioButton
         Me.Panel1 = New System.Windows.Forms.Panel
-        Me.Panel2 = New System.Windows.Forms.Panel
         Me.lblPCent4 = New System.Windows.Forms.Label
+        Me.Panel2 = New System.Windows.Forms.Panel
+        Me.udMaxWarn = New System.Windows.Forms.NumericUpDown
+        Me.cmdCopyMaxValue = New System.Windows.Forms.Button
         CType(Me.Boundary3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Boundary2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Boundary1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GradientLowerBoundary, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        CType(Me.udMaxWarn, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -83,14 +86,14 @@ Partial Class Options1
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Metric"
         '
-        'lblMax
+        'lblMaxWarn
         '
-        Me.lblMax.AutoSize = True
-        Me.lblMax.Location = New System.Drawing.Point(341, 47)
-        Me.lblMax.Name = "lblMax"
-        Me.lblMax.Size = New System.Drawing.Size(39, 13)
-        Me.lblMax.TabIndex = 6
-        Me.lblMax.Text = "Label7"
+        Me.lblMaxWarn.AutoSize = True
+        Me.lblMaxWarn.Location = New System.Drawing.Point(341, 47)
+        Me.lblMaxWarn.Name = "lblMaxWarn"
+        Me.lblMaxWarn.Size = New System.Drawing.Size(39, 13)
+        Me.lblMaxWarn.TabIndex = 6
+        Me.lblMaxWarn.Text = "Label7"
         '
         'chkEnabled
         '
@@ -338,6 +341,15 @@ Partial Class Options1
         Me.Panel1.Size = New System.Drawing.Size(454, 107)
         Me.Panel1.TabIndex = 13
         '
+        'lblPCent4
+        '
+        Me.lblPCent4.AutoSize = True
+        Me.lblPCent4.Location = New System.Drawing.Point(430, 43)
+        Me.lblPCent4.Name = "lblPCent4"
+        Me.lblPCent4.Size = New System.Drawing.Size(13, 13)
+        Me.lblPCent4.TabIndex = 12
+        Me.lblPCent4.Text = "4"
+        '
         'Panel2
         '
         Me.Panel2.Controls.Add(Me.Label2)
@@ -360,25 +372,35 @@ Partial Class Options1
         Me.Panel2.Size = New System.Drawing.Size(454, 236)
         Me.Panel2.TabIndex = 14
         '
-        'lblPCent4
+        'udMaxWarn
         '
-        Me.lblPCent4.AutoSize = True
-        Me.lblPCent4.Location = New System.Drawing.Point(430, 43)
-        Me.lblPCent4.Name = "lblPCent4"
-        Me.lblPCent4.Size = New System.Drawing.Size(13, 13)
-        Me.lblPCent4.TabIndex = 12
-        Me.lblPCent4.Text = "4"
+        Me.udMaxWarn.Location = New System.Drawing.Point(435, 45)
+        Me.udMaxWarn.Maximum = New Decimal(New Integer() {2000, 0, 0, 0})
+        Me.udMaxWarn.Name = "udMaxWarn"
+        Me.udMaxWarn.Size = New System.Drawing.Size(77, 20)
+        Me.udMaxWarn.TabIndex = 15
+        '
+        'cmdCopyMaxValue
+        '
+        Me.cmdCopyMaxValue.Location = New System.Drawing.Point(386, 41)
+        Me.cmdCopyMaxValue.Name = "cmdCopyMaxValue"
+        Me.cmdCopyMaxValue.Size = New System.Drawing.Size(32, 25)
+        Me.cmdCopyMaxValue.TabIndex = 16
+        Me.cmdCopyMaxValue.Text = "->"
+        Me.cmdCopyMaxValue.UseVisualStyleBackColor = True
         '
         'Options1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.cmdCopyMaxValue)
+        Me.Controls.Add(Me.udMaxWarn)
         Me.Controls.Add(Me.optSingleGradientColor)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.optMultiColor)
         Me.Controls.Add(Me.chkEnabled)
-        Me.Controls.Add(Me.lblMax)
+        Me.Controls.Add(Me.lblMaxWarn)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.cbxMetric)
         Me.Name = "Options1"
@@ -391,6 +413,7 @@ Partial Class Options1
         Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        CType(Me.udMaxWarn, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -420,7 +443,7 @@ Partial Class Options1
     End Sub
     Friend WithEvents cbxMetric As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents lblMax As System.Windows.Forms.Label
+    Friend WithEvents lblMaxWarn As System.Windows.Forms.Label
     Friend WithEvents chkEnabled As System.Windows.Forms.CheckBox
     Friend WithEvents Boundary3 As System.Windows.Forms.TrackBar
     Friend WithEvents Boundary2 As System.Windows.Forms.TrackBar
@@ -446,6 +469,8 @@ Partial Class Options1
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents lblPCent4 As System.Windows.Forms.Label
+    Friend WithEvents udMaxWarn As System.Windows.Forms.NumericUpDown
+    Friend WithEvents cmdCopyMaxValue As System.Windows.Forms.Button
 
 	Public Shared ReadOnly Property FullPath() As String
 		Get
