@@ -78,7 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\FileOperations.vb" />
-    <Compile Include="Common\Extensions.vb" />
+    <Compile Include="Common\FluentDX.vb" />
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
     </Compile>
