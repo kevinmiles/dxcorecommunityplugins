@@ -1,36 +1,38 @@
-Partial Class PlugIn1
-	Inherits DevExpress.CodeRush.PlugInCore.StandardPlugIn
+Partial Class QuickAddReferencePlugin
+    Inherits DevExpress.CodeRush.PlugInCore.StandardPlugIn
 
-	<System.Diagnostics.DebuggerNonUserCode()> _
-	Public Sub New()
-		MyBase.New()
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Public Sub New()
+        MyBase.New()
 
-		'This call is required by the Component Designer.
-		InitializeComponent()
+        'This call is required by the Component Designer.
+        InitializeComponent()
 
-	End Sub
+    End Sub
 
-	'Component overrides dispose to clean up the component list.
-	<System.Diagnostics.DebuggerNonUserCode()> _
-	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-		If disposing AndAlso components IsNot Nothing Then
-			components.Dispose()
-		End If
-		MyBase.Dispose(disposing)
-	End Sub
+    'Component overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        If disposing AndAlso components IsNot Nothing Then
+            components.Dispose()
+        End If
+        MyBase.Dispose(disposing)
+    End Sub
 
-	'Required by the Component Designer
-	Private components As System.ComponentModel.IContainer
+    'Required by the Component Designer
+    Private components As System.ComponentModel.IContainer
 
-	'NOTE: The following procedure is required by the Component Designer
-	'It can be modified using the Component Designer.
-	'Do not modify it using the code editor.
-	<System.Diagnostics.DebuggerStepThrough()> _
-  	Private Sub InitializeComponent()
+    'NOTE: The following procedure is required by the Component Designer
+    'It can be modified using the Component Designer.
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()> _
+      Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PlugIn1))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(QuickAddReferencePlugin))
         Me.actQuickAddReference = New DevExpress.CodeRush.Core.Action(Me.components)
+        Me.AddReferenceMenu = New DevExpress.CodeRush.Core.SmartTagProvider(Me.components)
         CType(Me.actQuickAddReference, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.AddReferenceMenu, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'actQuickAddReference
@@ -42,10 +44,24 @@ Partial Class PlugIn1
             " Quicker :)"
         Me.actQuickAddReference.Image = CType(resources.GetObject("actQuickAddReference.Image"), System.Drawing.Bitmap)
         Me.actQuickAddReference.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'AddReferenceMenu
+        '
+        Me.AddReferenceMenu.Description = "Quickly Add References"
+        Me.AddReferenceMenu.DisplayName = "References"
+        Me.AddReferenceMenu.Image = CType(resources.GetObject("AddReferenceMenu.Image"), System.Drawing.Bitmap)
+        Me.AddReferenceMenu.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.AddReferenceMenu.MenuOrder = 3
+        Me.AddReferenceMenu.ProviderName = "QuickAddReference"
+        Me.AddReferenceMenu.Register = True
+        Me.AddReferenceMenu.ShowInContextMenu = False
+        Me.AddReferenceMenu.ShowInPopupMenu = True
         CType(Me.actQuickAddReference, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.AddReferenceMenu, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
     Friend WithEvents actQuickAddReference As DevExpress.CodeRush.Core.Action
+    Friend WithEvents AddReferenceMenu As DevExpress.CodeRush.Core.SmartTagProvider
 
 End Class
