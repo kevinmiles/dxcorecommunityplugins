@@ -71,22 +71,27 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyReferenceExt.vb" />
+    <Compile Include="Extensions\AssemblyReferenceExt.vb" />
     <Compile Include="DefaultReferences.vb" />
-    <Compile Include="FilePicker.Designer.vb">
+    <Compile Include="Extensions\GetSmartTagItemsEventArgsExt.vb" />
+    <Compile Include="Extensions\Strings.vb" />
+    <Compile Include="Lists.vb" />
+    <Compile Include="Logging.vb" />
+    <Compile Include="MainUI\Controls\FilePicker.Designer.vb">
       <DependentUpon>FilePicker.vb</DependentUpon>
     </Compile>
-    <Compile Include="FilePicker.vb">
+    <Compile Include="MainUI\Controls\FilePicker.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ListViewExt.vb" />
-    <Compile Include="OptionsQuickAddReference.Designer.vb">
+    <Compile Include="Extensions\ListViewExt.vb" />
+    <Compile Include="MainUI\OptionsQuickAddReference.Designer.vb">
       <DependentUpon>OptionsQuickAddReference.vb</DependentUpon>
     </Compile>
-    <Compile Include="OptionsQuickAddReference.vb">
+    <Compile Include="MainUI\OptionsQuickAddReference.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ReferenceCollection.vb" />
+    <Compile Include="Extensions\ProjectExt.vb" />
+    <Compile Include="PersistableReferenceList.vb" />
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -94,44 +99,49 @@
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.vb" />
-    <Compile Include="QuickAddReference.Designer.vb">
+    <Compile Include="MainUI\QuickAddReference.Designer.vb">
       <DependentUpon>QuickAddReference.vb</DependentUpon>
     </Compile>
-    <Compile Include="QuickAddReference.vb">
+    <Compile Include="MainUI\QuickAddReference.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Reference.vb" />
-    <Compile Include="ReferenceListEditor.Designer.vb">
+    <Compile Include="ReferenceList.vb" />
+    <Compile Include="SmartTagMenu\SmartTagItemEx.vb" />
+    <Compile Include="SmartTagMenu\ReferenceSmartTagItem.vb" />
+    <Compile Include="SmartTagMenu\ReferenceColors.vb" />
+    <Compile Include="MainUI\Controls\ReferenceListEditor.Designer.vb">
       <DependentUpon>ReferenceListEditor.vb</DependentUpon>
     </Compile>
-    <Compile Include="ReferenceListEditor.vb">
+    <Compile Include="MainUI\Controls\ReferenceListEditor.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ReferenceListItem.vb" />
-    <Compile Include="ReferenceListView.Designer.vb">
+    <Compile Include="MainUI\Controls\ReferenceListItem.vb" />
+    <Compile Include="MainUI\Controls\ReferenceListView.Designer.vb">
       <DependentUpon>ReferenceListView.vb</DependentUpon>
     </Compile>
-    <Compile Include="ReferenceListView.vb">
+    <Compile Include="MainUI\Controls\ReferenceListView.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="SmartTagMenu\SmartTagColors.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FilePicker.resx">
+    <EmbeddedResource Include="MainUI\Controls\FilePicker.resx">
       <DependentUpon>FilePicker.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OptionsQuickAddReference.resx">
+    <EmbeddedResource Include="MainUI\OptionsQuickAddReference.resx">
       <DependentUpon>OptionsQuickAddReference.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlugIn1.resx">
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="QuickAddReference.resx">
+    <EmbeddedResource Include="MainUI\QuickAddReference.resx">
       <DependentUpon>QuickAddReference.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReferenceListEditor.resx">
+    <EmbeddedResource Include="MainUI\Controls\ReferenceListEditor.resx">
       <DependentUpon>ReferenceListEditor.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReferenceListView.resx">
+    <EmbeddedResource Include="MainUI\Controls\ReferenceListView.resx">
       <DependentUpon>ReferenceListView.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
