@@ -156,12 +156,12 @@ Public Class JumpToImplementation
             Exit Sub
         End If
         Dim MethodCall As MethodCall = CType(StartElement, MethodCall)
-        If MethodCall.Then Then
+        'If MethodCall.Then Then
 
-        End If
-        If Start Then
+        'End If
+        'If Start Then
 
-        End If
+        'End If
         ea.Available = TypeOf ea.Element Is [Interface] _
         OrElse TypeOf ea.Element.Parent Is [Interface]
     End Sub

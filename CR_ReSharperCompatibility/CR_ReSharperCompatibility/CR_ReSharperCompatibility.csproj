@@ -34,7 +34,9 @@
     <Reference Include="DevExpress.CodeRush.Interop, Version=3.2.2.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.DXCore.Controls, Version=3.2.2.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
+    <Reference Include="DevExpress.DXCore.Controls, Version=3.2.2.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.DXCore.Controls.Data.v6.3, Version=8.2.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

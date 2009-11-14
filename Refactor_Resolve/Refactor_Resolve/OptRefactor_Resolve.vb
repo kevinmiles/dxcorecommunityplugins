@@ -27,9 +27,9 @@ Namespace Refactor_Resolve
 #Region " OptRefactor_Resolve "
         Public Sub New()
             MyBase.New()
-            ''' <summary>
-            ''' Required for Windows.Forms Class Composition Designer support
-            ''' </summary>
+
+            'Required for Windows.Forms Class Composition Designer support
+
             InitializeComponent()
 
             ReadSettings()
