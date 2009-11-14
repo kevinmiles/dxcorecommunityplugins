@@ -14,20 +14,20 @@ Imports DevExpress.DXCore.TextBuffers
 
 Public Class PlugIn1
 
-	'DXCore-generated code...
+    'DXCore-generated code...
 #Region " InitializePlugIn "
-	Public Overrides Sub InitializePlugIn()
-		MyBase.InitializePlugIn()
+    Public Overrides Sub InitializePlugIn()
+        MyBase.InitializePlugIn()
 
-		'TODO: Add your initialization code here.
-	End Sub
+        'TODO: Add your initialization code here.
+    End Sub
 #End Region
 #Region " FinalizePlugIn "
-	Public Overrides Sub FinalizePlugIn()
-		'TODO: Add your finalization code here.
+    Public Overrides Sub FinalizePlugIn()
+        'TODO: Add your finalization code here.
 
         MyBase.FinalizePlugIn()
-	End Sub
+    End Sub
 #End Region
     Private mProjectElements As List(Of ProjectElement)
     Private Sub DeclareClassInProject_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs) Handles DeclareClassInProject.CheckAvailability
@@ -39,8 +39,10 @@ Public Class PlugIn1
         If TRE IsNot Nothing AndAlso TRE.Parent.ElementType = LanguageElementType.ObjectCreationExpression Then
             ea.Available = True
         End If
-        ea.MenuCaption = "Create Class"
+        ea.MenuCaption = "Declare Class in Project..."
         mProjectElements = CodeRush.Source.ActiveSolution.AllProjects.Cast(Of ProjectElement).ToList
+        '.Where(p => p.Name != ea.Element.Project.Name && p.Type != ProjectType.Miscellaneous).OrderBy(p => p.Name)
+
         For Each Project In mProjectElements
             If Not Project.IsMiscProject Then
                 Call ea.AddSubMenuItem(Project.Name, Project.Name, String.Format("Create this class in the '{0}' project", Project.Name))
@@ -57,7 +59,7 @@ Public Class PlugIn1
 
 
         Dim FileAndPath As String
-        Dim Action As ICompoundAction = CodeRush.TextBuffers.NewMultiFileCompoundAction("Create class")
+        Dim Action As ICompoundAction = CodeRush.TextBuffers.NewMultiFileCompoundAction("Declare Class in Project")
         Try
             Dim Code As String = (New [Class](NewClassName)).GenerateCode(TheProject.Language)
             FileAndPath = CreateFileInProject(TheProject, NewClassName, Code)

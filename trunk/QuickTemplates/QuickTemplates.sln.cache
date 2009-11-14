@@ -5,16 +5,16 @@
     <_SolutionProjectCacheVersion>3.5</_SolutionProjectCacheVersion>
   </PropertyGroup>
   <ItemGroup>
-    <_SolutionProjectProjects Include="QuickTemplates.vbproj" />
+    <_SolutionProjectProjects Include="QuickTemplates\QuickTemplates.vbproj" />
   </ItemGroup>
   <ItemGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
-    <BuildLevel0 Include="QuickTemplates.vbproj">
+    <BuildLevel0 Include="QuickTemplates\QuickTemplates.vbproj">
       <Configuration>Debug</Configuration>
       <Platform>AnyCPU</Platform>
     </BuildLevel0>
   </ItemGroup>
   <ItemGroup Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') ">
-    <BuildLevel0 Include="QuickTemplates.vbproj">
+    <BuildLevel0 Include="QuickTemplates\QuickTemplates.vbproj">
       <Configuration>Release</Configuration>
       <Platform>AnyCPU</Platform>
     </BuildLevel0>
@@ -31,11 +31,11 @@
     <AspNetConfiguration>$(Configuration)</AspNetConfiguration>
   </PropertyGroup>
   <PropertyGroup>
-    <SolutionDir>D:\Development\Dev-OpenSource\dxcorecommunityplugins\QuickTemplates\</SolutionDir>
+    <SolutionDir>C:\_oss\DXCoreCommunityPlugIns\QuickTemplates\</SolutionDir>
     <SolutionExt>.sln</SolutionExt>
     <SolutionFileName>QuickTemplates.sln</SolutionFileName>
     <SolutionName>QuickTemplates</SolutionName>
-    <SolutionPath>D:\Development\Dev-OpenSource\dxcorecommunityplugins\QuickTemplates\QuickTemplates.sln</SolutionPath>
+    <SolutionPath>C:\_oss\DXCoreCommunityPlugIns\QuickTemplates\QuickTemplates.sln</SolutionPath>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and '$(MSBuildToolsVersion)' == '2.0'">v2.0</TargetFrameworkVersion>
@@ -64,28 +64,28 @@
     <Error Text="The tools version &quot;$(MSBuildToolsVersion)&quot; of the solution does not support building projects with a different tools version." Code="MSB4149" HelpKeyword="MSBuild.SolutionToolsVersionDoesNotSupportProjectToolsVersion" Condition="'$(MSBuildToolsVersion)' == '2.0' and ('$(ProjectToolsVersion)' != '2.0' and '$(ProjectToolsVersion)' != '')" />
   </Target>
   <Target Name="QuickTemplates" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(QuickTemplatesBuildOutput)">
-    <MSBuild Projects="QuickTemplates.vbproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+    <MSBuild Projects="QuickTemplates\QuickTemplates.vbproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
       <Output TaskParameter="TargetOutputs" ItemName="QuickTemplatesBuildOutput" />
     </MSBuild>
-    <MSBuild Projects="QuickTemplates.vbproj" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') ">
+    <MSBuild Projects="QuickTemplates\QuickTemplates.vbproj" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') ">
       <Output TaskParameter="TargetOutputs" ItemName="QuickTemplatesBuildOutput" />
     </MSBuild>
   </Target>
   <Target Name="QuickTemplates:Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
-    <MSBuild Projects="QuickTemplates.vbproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
-    <MSBuild Projects="QuickTemplates.vbproj" Targets="Clean" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="QuickTemplates\QuickTemplates.vbproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="QuickTemplates\QuickTemplates.vbproj" Targets="Clean" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') " />
   </Target>
   <Target Name="QuickTemplates:Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(QuickTemplatesBuildOutput)">
-    <MSBuild Projects="QuickTemplates.vbproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+    <MSBuild Projects="QuickTemplates\QuickTemplates.vbproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
       <Output TaskParameter="TargetOutputs" ItemName="QuickTemplatesBuildOutput" />
     </MSBuild>
-    <MSBuild Projects="QuickTemplates.vbproj" Targets="Rebuild" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') ">
+    <MSBuild Projects="QuickTemplates\QuickTemplates.vbproj" Targets="Rebuild" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') ">
       <Output TaskParameter="TargetOutputs" ItemName="QuickTemplatesBuildOutput" />
     </MSBuild>
   </Target>
   <Target Name="QuickTemplates:Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
-    <MSBuild Projects="QuickTemplates.vbproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
-    <MSBuild Projects="QuickTemplates.vbproj" Targets="Publish" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="QuickTemplates\QuickTemplates.vbproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="QuickTemplates\QuickTemplates.vbproj" Targets="Publish" Properties="Configuration=Release; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') " />
   </Target>
   <Target Name="Build" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(CollectedBuildOutput)">
     <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">

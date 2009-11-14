@@ -667,6 +667,8 @@ Namespace Refactor_Resolve
             Dim resolver As ISourceTreeResolver = ParserServices.SourceTreeResolver
             If TypeOf active Is IMemberElement Then
                 Return resolver.ResolveElementType(active)
+            Else
+                Return Nothing
             End If
         End Function
 
