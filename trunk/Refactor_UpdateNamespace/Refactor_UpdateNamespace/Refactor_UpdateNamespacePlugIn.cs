@@ -64,7 +64,7 @@ namespace Refactor_UpdateNamespace
         {
             string fullExpectedNamespace = ExpectedNamespace(project, documentPath);
             string parentNamespace = CurrentNamespace(element.Parent);
-            return fullExpectedNamespace.StartsWith(parentNamespace + ".") ? fullExpectedNamespace.Substring(parentNamespace.Length + 1) : fullExpectedNamespace;
+            return fullExpectedNamespace.StartsWith(String.Format("{0}.", parentNamespace)) ? fullExpectedNamespace.Substring(parentNamespace.Length + 1) : fullExpectedNamespace;
         }
 
         private string CurrentNamespace(LanguageElement element)

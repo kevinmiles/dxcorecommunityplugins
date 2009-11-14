@@ -31,7 +31,7 @@ using DevExpress.CodeRush.Common;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Refactor_UpdateNamespace")]
-[assembly: AssemblyDescription("Compatible with DXCore 2009.2.4")]
+[assembly: AssemblyDescription("Compatible with DXCore 2009.2.8")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Stephen A. Bohlen")]
 [assembly: AssemblyProduct("Refactor_UpdateNamespace")]
