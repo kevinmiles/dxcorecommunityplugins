@@ -1,0 +1,122 @@
+#summary Provides 4 actions to enhance your ability to move code around.
+
+= Introduction =
+
+The 4 actions provided by this plugin, allow you to move code around more efficiently than before.
+This plugin does not operate on lines of code, but instead on complete statements.
+
+= Download = 
+Primary download is from http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_MoveCode/
+
+= Installation =
+Please see InstallInstructions page for general instructions on putting the plugin assembly in the right location.
+
+= Configuration =
+Bind a key to each of MoveCodeLeft, MoveCodeRight, MoveCodeUp and MoveCodeDown.
+I tend to use Alt+CursorKeys. (This means I have had to disable the ScopeCycleUp, ScopeCycleDown and CamelCaseLeft, CamelCaseRight Shortcut/Command combos.)
+
+= Usage =
+Place your caret on a line with a statement, and activate any of the commands as required.
+
+= Details =
+
+*Moving Code Up and Down*
+
+The first 2 commands made available by this plugin are MoveCodeUp and MoveCodeDown.
+
+Because this plugin operates on statements rather than lines of code, when you move a statement down, it will skip past an 'if clause' or a 'for loop' rather than move inside it.
+
+For example:
+
+{{{
+//-------------------------------------------------------------
+// Sample 1a
+private void SomeMethod()
+{
+  int SomeInt; // <- Moving this 'down' leads to sample 1b.
+  if (true)
+  {
+  }
+}
+
+//-------------------------------------------------------------
+// Sample 1b
+private void SomeMethod()
+{
+  if (true)
+  {
+  }
+  int SomeInt; // <- Moving this 'up' leads to sample 1a.
+}
+
+}}}
+
+*Move Code Left or Right*
+
+The next 2 commands are 'MoveCodeLeft' and 'MoveCodeRight'. Their purpose is to deal with scenarios where you might want to move code in and out of parent/child Codeblocks like 'If' and 'For'
+
+MoveCodeRight looks for the next sibling statement which posesses it's own Codeblock (Such as a 'For' or 'If') and moves the statement so as to positioinit first inside of said Codeblock.
+
+MoveCodeLeft Looks to move the current statement immediately prior what every codeblock might already be within.
+
+For Example:
+
+{{{
+//-------------------------------------------------------------
+//Sample 2a
+private void SomeMethod()
+{
+  int SomeInt; // <- Moving this 'right' leads to the sample 2b.
+  int int1 = 1;
+  int int2 = 1;
+  int int3 = 1;
+  if (true)
+  {
+    int int4 = 1;
+    int int5 = 1;
+    int int6 = 1;
+  }
+  int int7 = 1;
+  int int8 = 1;
+  int int9 = 1;
+}
+
+//-------------------------------------------------------------
+//Sample 2b
+private void SomeMethod()
+{
+  int int1 = 1;
+  int int2 = 1;
+  int int3 = 1;
+  if (true)
+  {
+    int SomeInt; // <- Moving this 'left' leads to sample 2c.
+    int int4 = 1;
+    int int5 = 1;
+    int int6 = 1;
+  }
+  int int7 = 1;
+  int int8 = 1;
+  int int9 = 1;
+}
+
+//-------------------------------------------------------------
+//Sample 2c
+
+private void SomeMethod()
+{
+  int int1 = 1;
+  int int2 = 1;
+  int int3 = 1;
+  int SomeInt; 
+  if (true)
+  {
+    int int4 = 1;
+    int int5 = 1;
+    int int6 = 1;
+  }
+  int int7 = 1;
+  int int8 = 1;
+  int int9 = 1;
+}
+}}}
