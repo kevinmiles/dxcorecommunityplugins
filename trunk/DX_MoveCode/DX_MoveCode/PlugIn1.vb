@@ -31,7 +31,7 @@ Public Class PlugIn1
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Select Case True
             Case FirstNodeOnLine.GetParentMethodOrProperty IsNot Nothing
-                Call MoveElementUp(FirstNodeOnLine)
+                Call MoveElementUp(FirstNodeOnLine.GetParentStatementOrVariable)
                 'Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule IsNot Nothing
                 '    Call MoveElementUp(FirstNodeOnLine)
         End Select
@@ -41,7 +41,7 @@ Public Class PlugIn1
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Select Case True
             Case FirstNodeOnLine.GetParentMethodOrProperty IsNot Nothing
-                Call MoveElementDown(FirstNodeOnLine)
+                Call MoveElementDown(FirstNodeOnLine.GetParentStatementOrVariable)
                 'Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule IsNot Nothing
                 '    Call MoveElementDown(FirstNodeOnLine)
         End Select
