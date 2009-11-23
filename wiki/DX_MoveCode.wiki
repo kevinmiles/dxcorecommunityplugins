@@ -15,6 +15,8 @@ Please see InstallInstructions page for general instructions on putting the plug
 Bind a key to each of MoveCodeLeft, MoveCodeRight, MoveCodeUp and MoveCodeDown.
 I tend to use Alt+CursorKeys. (This means I have had to disable the ScopeCycleUp, ScopeCycleDown and CamelCaseLeft, CamelCaseRight Shortcut/Command combos.)
 
+_Note: Build 675 has additional experimental 'MoveCaret' versions of these new commands._
+
 = Usage =
 Place your caret on a line with a statement, and activate any of the commands as required.
 
@@ -120,3 +122,10 @@ private void SomeMethod()
   int int9 = 1;
 }
 }}}
+
+= Future Plans = 
+
+ * MoveCaretUp / MoveCaretDown / MoveCaretLeft / MoveCaretRight actions. (Early version in Build 675)
+ * Move Method functionality
+ * Move Selection (With intelligent selection Adjustment) functionality
+ * Option to use TargetPicker for Methods and Selections.
