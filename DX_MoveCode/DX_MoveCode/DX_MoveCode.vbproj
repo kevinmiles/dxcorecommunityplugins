@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.CodeRush.Interop, Version=9.3.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
+    <Reference Include="DevExpress.CodeRush.Library, Version=9.3.0.0, Culture=neutral, PublicKeyToken=e1a72e979dafdca7, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.DXCore.Controls, Version=9.3.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
     <Reference Include="DevExpress.DXCore.Controls.Data.v6.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
     <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3, Version=9.3.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
