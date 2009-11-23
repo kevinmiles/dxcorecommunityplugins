@@ -80,6 +80,7 @@ namespace Refactor_UpdateNamespace
             this.refactoringUpdateNamespace.LanguageSupported += new DevExpress.CodeRush.Core.LanguageSupportedEventHandler(this.refactoringUpdateNamespace_LanguageSupported);
             this.refactoringUpdateNamespace.Apply += new DevExpress.Refactor.Core.ApplyRefactoringEventHandler(this.refactoringUpdateNamespace_Apply);
             this.refactoringUpdateNamespace.CheckAvailability += new DevExpress.Refactor.Core.CheckAvailabilityEventHandler(this.refactoringUpdateNamespace_CheckAvailability);
+            this.refactoringUpdateNamespace.PreparePreview += new DevExpress.Refactor.Core.PrepareRefactoringPreviewEventHandler(this.refactoringUpdateNamespace_PreparePreview);
             // 
             // wrongNamespaceIssueProvider
             // 
