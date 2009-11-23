@@ -56,7 +56,7 @@ namespace Refactor_UpdateNamespace
         {
             var projectpath = Path.GetDirectoryName(project.FilePath);
             var filepath = Path.GetDirectoryName(documentPath);
-            var namespaceSuffix = filepath.Substring(projectpath.Length).Replace("\\", ".");
+            var namespaceSuffix = projectpath.Length < filepath.Length ? filepath.Substring(projectpath.Length).Replace("\\", ".") : String.Empty;
             return GetDefaultNamespace(project) + namespaceSuffix;
         }
 
