@@ -174,7 +174,7 @@ namespace Refactor_UpdateNamespace
 
         private void refactoringUpdateNamespace_Apply(object sender, ApplyContentEventArgs ea)
         {
-            CodeRush.Documents.ActiveTextDocument.Replace(ea.Element.NameRange, ExpectedNamespace(CodeRush.Source.ActiveFileNode.Project, CodeRush.Documents.ActiveTextDocument.Path, ea.Element), "Update To Default Namespace", true);
+            ea.TextDocument.Replace(ea.Element.NameRange, ExpectedNamespace(ea.TextDocument.ProjectElement, ea.TextDocument.Path, ea.Element), "Update To Default Namespace", true);
         }
 
         private void refactoringUpdateNamespace_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
@@ -222,6 +222,12 @@ namespace Refactor_UpdateNamespace
             {
                 ea.AddHint(range, "Namespace is not default", 10);
             }
+        }
+
+        private void refactoringUpdateNamespace_PreparePreview(object sender, PrepareContentPreviewEventArgs ea)
+        {
+            ea.AddCodePreview(ea.Element.NameRange.Start, ExpectedNamespace(ea.TextDocument.ProjectElement, ea.TextDocument.Path, ea.Element));
+            ea.AddStrikethrough(ea.Element.NameRange);
         }
     }
 }
