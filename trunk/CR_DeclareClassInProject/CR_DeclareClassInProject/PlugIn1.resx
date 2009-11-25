@@ -124,6 +124,26 @@
   <data name="DeclareClassInProject.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAAgSURBVDhPY2D4x/CfIkyRZpDlowaMhsFoOoBkwgHPCwAp
+        F/0Q5iDKKwAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <metadata name="DeclareStructInProject.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>176, 17</value>
+  </metadata>
+  <data name="DeclareStructInProject.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAgSURBVDhPY2D4x/CfIkyRZpDlowaMhsFoOoBkwgHPCwAp
+        F/0Q5iDKKwAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <metadata name="DeclareInterfaceInProject.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>339, 17</value>
+  </metadata>
+  <data name="DeclareInterfaceInProject.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAgSURBVDhPY2D4x/CfIkyRZpDlowaMhsFoOoBkwgHPCwAp
         F/0Q5iDKKwAAAABJRU5ErkJggg==
 </value>

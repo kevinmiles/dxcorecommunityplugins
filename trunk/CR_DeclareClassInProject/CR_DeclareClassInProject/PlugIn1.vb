@@ -6,6 +6,7 @@ Imports System.Drawing
 Imports System.Windows.Forms
 Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.PlugInCore
+Imports SP = DevExpress.CodeRush.StructuralParser
 Imports DevExpress.CodeRush.StructuralParser
 Imports DevExpress.Refactor.Core
 Imports System.IO
@@ -30,42 +31,70 @@ Public Class PlugIn1
     End Sub
 #End Region
     Private mProjectElements As List(Of ProjectElement)
-    Private Sub DeclareClassInProject_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs) Handles DeclareClassInProject.CheckAvailability
-        If ea.Element Is Nothing Then
-            ea.Available = False
-            Exit Sub
+#Region "Common"
+    Private Shared Function isReferenceToUndeclared(ByVal Element As LanguageElement) As Boolean
+        If Element Is Nothing Then
+            Return True
         End If
-        Dim TRE As TypeReferenceExpression = TryCast(ea.Element, TypeReferenceExpression)
-        If TRE IsNot Nothing AndAlso TRE.Parent.ElementType = LanguageElementType.ObjectCreationExpression Then
-            ea.Available = True
+        Dim TRE As TypeReferenceExpression = TryCast(Element, TypeReferenceExpression)
+        If TRE IsNot Nothing _
+        AndAlso TRE.Parent.ElementType = LanguageElementType.ObjectCreationExpression Then
+            Return True
         End If
-        ea.MenuCaption = "Declare Class in Project..."
+        Return False
+    End Function
+    Private Sub SetupDeclareXSmartTagMenu(ByVal ea As CheckContentAvailabilityEventArgs, ByVal MissingType As String)
+        ea.Available = isReferenceToUndeclared(ea.Element)
+        Call SetupDeclareXSubMenus(ea, MissingType)
+    End Sub
+    Private Sub SetupDeclareXSubMenus(ByVal ea As CheckContentAvailabilityEventArgs, ByVal MissingType As String)
+        ea.MenuCaption = String.Format("Declare {0} in Project...", MissingType)
         mProjectElements = CodeRush.Source.ActiveSolution.AllProjects.Cast(Of ProjectElement).ToList
-        '.Where(p => p.Name != ea.Element.Project.Name && p.Type != ProjectType.Miscellaneous).OrderBy(p => p.Name)
-
-        For Each Project In mProjectElements
-            If Not Project.IsMiscProject Then
-                Call ea.AddSubMenuItem(Project.Name, Project.Name, String.Format("Create this class in the '{0}' project", Project.Name))
-            End If
+        For Each Project In mProjectElements.Where(Function(p) Not p.IsMiscProject)
+            Call ea.AddSubMenuItem(Project.Name, Project.Name, String.Format("Create this {1} in the '{0}' project", Project.Name, MissingType))
         Next
     End Sub
-    Private Sub DeclareClassInProject_Apply(ByVal sender As Object, ByVal ea As ApplyContentEventArgs) Handles DeclareClassInProject.Apply
+    Private Sub ApplyDeclareXInProject(ByVal ea As ApplyContentEventArgs, ByVal MissingType As String, ByVal FactoryMethod As Func(Of String, LanguageElement))
         Dim ChosenMenu = ea.SelectedSubMenuItem
-        If ChosenMenu Is Nothing Then
-            Exit Sub
+        If ChosenMenu IsNot Nothing Then
+            Dim TheProject = mProjectElements.Where(Function(p) p.Name = ChosenMenu.Name).First
+            Dim NewTypeName As String = CType(ea.Element, TypeReferenceExpression).Name
+            Dim FileAndPath As String
+            Dim Action As ICompoundAction = CodeRush.TextBuffers.NewMultiFileCompoundAction(String.Format("Declare {0} in Project", MissingType))
+            Try
+                Dim Code As String = FactoryMethod.Invoke(NewTypeName).GenerateCode(TheProject.Language)
+                FileAndPath = CreateFileInProject(TheProject, NewTypeName, Code)
+            Finally
+                Action.Close()
+            End Try
+            Call FileOperations.JumpToFileWithUndo(FileAndPath)
         End If
-        Dim TheProject = mProjectElements.Where(Function(p) p.Name = ChosenMenu.Name).First
-        Dim NewClassName As String = CType(ea.Element, TypeReferenceExpression).Name
-
-
-        Dim FileAndPath As String
-        Dim Action As ICompoundAction = CodeRush.TextBuffers.NewMultiFileCompoundAction("Declare Class in Project")
-        Try
-            Dim Code As String = (New [Class](NewClassName)).GenerateCode(TheProject.Language)
-            FileAndPath = CreateFileInProject(TheProject, NewClassName, Code)
-        Finally
-            Action.Close()
-        End Try
-        Call FileOperations.JumpToFileWithUndo(FileAndPath)
     End Sub
+#End Region
+#Region "Declare Class"
+    Private Sub DeclareClassInProject_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs) Handles DeclareClassInProject.CheckAvailability
+        SetupDeclareXSmartTagMenu(ea, "Class")
+    End Sub
+    Private Sub DeclareClassInProject_Apply(ByVal sender As Object, ByVal ea As ApplyContentEventArgs) Handles DeclareClassInProject.Apply
+        Call ApplyDeclareXInProject(ea, "Class", Function(name) New [Class](name))
+    End Sub
+#End Region
+#Region "Declare Struct"
+    Private Sub DeclareStructInProject_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs) Handles DeclareStructInProject.CheckAvailability
+        Call SetupDeclareXSmartTagMenu(ea, "Struct")
+    End Sub
+
+    Private Sub DeclareStructInProject_Apply(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs) Handles DeclareStructInProject.Apply
+        Call ApplyDeclareXInProject(ea, "Struct", Function(name) New Struct(name))
+    End Sub
+#End Region
+#Region "Declare Interface"
+    Private Sub DeclareInterfaceInProject_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs) Handles DeclareInterfaceInProject.CheckAvailability
+        Call SetupDeclareXSmartTagMenu(ea, "Interface")
+    End Sub
+
+    Private Sub DeclareInterfaceInProject_Apply(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs) Handles DeclareInterfaceInProject.Apply
+        Call ApplyDeclareXInProject(ea, "Interface", Function(name) New [Interface](name))
+    End Sub
+#End Region
 End Class
