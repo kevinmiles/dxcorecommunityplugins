@@ -12,7 +12,7 @@ namespace MiniCodeColumn
     {
         public static bool MiniCodeColumnEnabled = true;
         public static bool WordDoubleClickEnabled = true;
-        public static int ColumnWidth = 40;
+        // public static int ColumnWidth = 40;
 
         public static Color ColumnBackgroundColor;
         public static Color ColumnVisibleLinesColor;
@@ -60,7 +60,7 @@ namespace MiniCodeColumn
                     MiniCodeColumnEnabled = store.ReadBoolean("Config", "Enabled", true);
                     WordDoubleClickEnabled = store.ReadBoolean("Config", "WordDoubleClickEnabled", true);
 
-                    ColumnWidth = store.ReadInt32("Config", "ColumnWidth", 40);
+                    //ColumnWidth = store.ReadInt32("Config", "ColumnWidth", 40);
 
                     ColumnBackgroundColor = Color.FromArgb(
                         store.ReadInt32(
@@ -119,7 +119,7 @@ namespace MiniCodeColumn
             chkEnabled.Checked = MiniCodeColumnEnabled; //AussieALF: Added so it shows the saved state
             chkWordHighlight.Checked = WordDoubleClickEnabled; //AussieALF: Added so it shows the saved state
             
-            trackWidth.Value = 110 - ColumnWidth;
+            // trackWidth.Value = 110 - ColumnWidth;
             lblWidth.Text = string.Format("{0} Pixel", 110 - trackWidth.Value);
 
             btnBackColor.BackColor = ColumnBackgroundColor;
@@ -156,7 +156,7 @@ namespace MiniCodeColumn
         {
             try
             {
-                ColumnWidth = 110 - trackWidth.Value;
+                // ColumnWidth = 110 - trackWidth.Value;
                 MiniCodeColumnEnabled = chkEnabled.Checked; //AussieALF: Added so it saves the updated option
                 WordDoubleClickEnabled = chkWordHighlight.Checked; //AussieALF: Added so it saves the updated option
                 ColumnBackgroundColor = btnBackColor.BackColor;
@@ -166,7 +166,7 @@ namespace MiniCodeColumn
                 ColumnBackgroundColorSelectedWord = btnColumnBackgroundColorSelectedWord.BackColor;
                 CodeColorSelectedWord = btnCodeColorSelectedWord.BackColor;
 
-                MiniCodeColPlugIn.DisposeGraphicElements();
+                CodeToolWindow.DisposeGraphicElements();
                 panelSample.Refresh();
             }
             catch //(Exception ex)
@@ -185,7 +185,7 @@ namespace MiniCodeColumn
                     store.WriteBoolean("Config", "Enabled", MiniCodeColumnEnabled);
                     store.WriteBoolean("Config", "WordDoubleClickEnabled", WordDoubleClickEnabled);
 
-                    store.WriteInt32("Config", "ColumnWidth", ColumnWidth);
+                    // store.WriteInt32("Config", "ColumnWidth", ColumnWidth);
 
                     store.WriteInt32("Config", "ColumnBackgroundColor",
                                         ColumnBackgroundColor.ToArgb());
@@ -262,12 +262,12 @@ namespace MiniCodeColumn
 
         private void panelSample_Paint(object sender, PaintEventArgs e)
         {
-            MiniCodeColPlugIn.CreateGraphicElements();
+            CodeToolWindow.CreateGraphicElements();
             Graphics graphics = e.Graphics;
 
             Rectangle rect = new Rectangle(0, sampleHeader.Height, panelSample.Width, panelSample.Height - sampleHeader.Height);
-            rect.X = rect.Right - PluginOptions.ColumnWidth;
-            rect.Width = PluginOptions.ColumnWidth;
+            rect.X = 0;
+            rect.Width = panelSample.Width;
 
             //SmoothingMode oldMode = graphics.SmoothingMode;
             try
@@ -275,7 +275,7 @@ namespace MiniCodeColumn
                 // alle Zeilen holen
                 List<Line> items = Line.SampleLines;
 
-                graphics.FillRectangle(MiniCodeColPlugIn.ColumnBackgroundBrushCodeColumn, rect);
+                graphics.FillRectangle(CodeToolWindow.ColumnBackgroundBrushCodeColumn, rect);
 
 
                 int width_divisor = 2;
@@ -285,8 +285,8 @@ namespace MiniCodeColumn
                 // den sichtbaren Bereich markieren
                 Rectangle visible_rect = new Rectangle(
                     rect.X, rect.Y + (6 / height_divisor),
-                    PluginOptions.ColumnWidth, (26 - 6) / height_divisor);
-                graphics.FillRectangle(MiniCodeColPlugIn.ColumnBrushVisibleLines, visible_rect);
+                    panelSample.Width, (26 - 6) / height_divisor);
+                graphics.FillRectangle(CodeToolWindow.ColumnBrushVisibleLines, visible_rect);
 
 
                 int left = rect.X;
@@ -298,11 +298,11 @@ namespace MiniCodeColumn
 
                     int y = l / height_divisor + rect.Y;
                     start = line.Start / width_divisor;
-                    if (start > PluginOptions.ColumnWidth)
-                        start = PluginOptions.ColumnWidth - 6;
+                    if (start > panelSample.Width)
+                        start = panelSample.Width - 6;
                     end = line.End / width_divisor;
-                    if (end > PluginOptions.ColumnWidth)
-                        end = PluginOptions.ColumnWidth;
+                    if (end > panelSample.Width)
+                        end = panelSample.Width;
 
                     int start_of_comment = line.StartOfComment;
                     int end_of_comment = -2;
@@ -314,10 +314,10 @@ namespace MiniCodeColumn
                     }
 
                     if (start_of_comment < end_of_comment)
-                        graphics.DrawLine(MiniCodeColPlugIn.CodePenCommentLine, new Point(left + start_of_comment, y), new Point(left + end_of_comment, y));
+                        graphics.DrawLine(CodeToolWindow.CodePenCommentLine, new Point(left + start_of_comment, y), new Point(left + end_of_comment, y));
 
                     if (start < end)
-                        graphics.DrawLine(MiniCodeColPlugIn.CodePenNormalLine, new Point(left + start, y), new Point(left + end, y));
+                        graphics.DrawLine(CodeToolWindow.CodePenNormalLine, new Point(left + start, y), new Point(left + end, y));
                 }
 
                 int selected_double_click_length = 10;
@@ -334,13 +334,13 @@ namespace MiniCodeColumn
                         {
                             int start_index = line.StartOfWord;
                             start = start_index / width_divisor;
-                            if (start > PluginOptions.ColumnWidth)
-                                start = PluginOptions.ColumnWidth - 2;
+                            if (start > panelSample.Width)
+                                start = panelSample.Width - 2;
                             end = (start_index + selected_double_click_length) / width_divisor;
-                            if (end > PluginOptions.ColumnWidth)
-                                end = PluginOptions.ColumnWidth;
+                            if (end > panelSample.Width)
+                                end = panelSample.Width;
                             graphics.DrawLine(
-                                MiniCodeColPlugIn.CodePenSelectedWord,
+                                CodeToolWindow.CodePenSelectedWord,
                                 new Point(left + start, y),
                                 new Point(left + end, y));
                         }
