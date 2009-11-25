@@ -49,7 +49,10 @@ Public Class PlugIn1
     End Sub
     Private Sub SetupDeclareXSubMenus(ByVal ea As CheckContentAvailabilityEventArgs, ByVal MissingType As String)
         ea.MenuCaption = String.Format("Declare {0} in Project...", MissingType)
-        mProjectElements = CodeRush.Source.ActiveSolution.AllProjects.Cast(Of ProjectElement).ToList
+        Dim ActiveSolution = CodeRush.Source.ActiveSolution
+        mProjectElements = (From proj In ActiveSolution.AllProjects.Cast(Of ProjectElement)() _
+                            Where proj.Name <> CodeRush.Project.Active.Name _
+                            Order By proj.Name).ToList()
         For Each Project In mProjectElements.Where(Function(p) Not p.IsMiscProject)
             Call ea.AddSubMenuItem(Project.Name, Project.Name, String.Format("Create this {1} in the '{0}' project", Project.Name, MissingType))
         Next
