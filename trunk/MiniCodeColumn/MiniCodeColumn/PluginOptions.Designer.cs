@@ -743,6 +743,7 @@ namespace MiniCodeColumn
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(325, 46);
             this.panel1.TabIndex = 9;
+            this.panel1.Visible = false;
             // 
             // trackWidth
             // 
@@ -823,6 +824,7 @@ namespace MiniCodeColumn
             // 
             // PluginOptions
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.Controls.Add(this.chkWordHighlight);
             this.Controls.Add(this.main_options_panel);
             this.Controls.Add(this.chkEnabled);

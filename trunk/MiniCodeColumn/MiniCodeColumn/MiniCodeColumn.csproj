@@ -61,13 +61,13 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeToolWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CodeToolWindow.Designer.cs">
+      <DependentUpon>CodeToolWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Line.cs" />
-    <Compile Include="MiniCodeColPlugIn.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MiniCodeColPlugIn.Designer.cs">
-      <DependentUpon>MiniCodeColPlugIn.cs</DependentUpon>
-    </Compile>
     <Compile Include="PluginOptions.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -82,8 +82,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MiniCodeColPlugIn.resx">
-      <DependentUpon>MiniCodeColPlugIn.cs</DependentUpon>
+    <EmbeddedResource Include="CodeToolWindow.resx">
+      <DependentUpon>CodeToolWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PluginOptions.resx">
       <DependentUpon>PluginOptions.cs</DependentUpon>

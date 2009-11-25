@@ -16,17 +16,13 @@ using DevExpress.CodeRush.StructuralParser;
 using DevExpress.CodeRush.Menus;
 using System.Drawing.Drawing2D;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace MiniCodeColumn
 {
-    /// <summary>
-    /// Plugin for visualizing complete codefile as small column left of the scrollbar
-    /// </summary>
-    public partial class MiniCodeColPlugIn : StandardPlugIn
+    [Title("MiniCodeColumn")]
+    public partial class CodeToolWindow : ToolWindowPlugIn
     {
-        int last_top_line = -1;
-        IMenuButton _VisualizeButton;
-
         public int last_height_divisor = 1;
 
         internal static SolidBrush ColumnBackgroundBrushCodeColumn;
@@ -40,37 +36,31 @@ namespace MiniCodeColumn
         internal static Pen CodePenCommentLine;
 
         string selected_double_click = "";
-
         Rectangle last_code_rect = new Rectangle();
-        private bool invalid = false;
 
         // DXCore-generated code...
         #region InitializePlugIn
         public override void InitializePlugIn()
         {
-            CreateGraphicElements();
-
+            
             base.InitializePlugIn();
-            CreateVisualizeButton();
-
             LoadSettings();
+            DropVisualizeButton();
         }
         #endregion
         #region FinalizePlugIn
         public override void FinalizePlugIn()
         {
+            //
+            // TODO: Add your finalization code here.
+            //
+            DisposeGraphicElements();
             base.FinalizePlugIn();
         }
         #endregion
 
-        void CreateVisualizeButton()
+        void DropVisualizeButton()
         {
-
-            if (_VisualizeButton != null)
-                return;
-
-            CreateGraphicElements();
-
             try
             {
                 if (CodeRush.Menus != null && CodeRush.Menus.Bars != null)
@@ -78,7 +68,6 @@ namespace MiniCodeColumn
                     foreach (MenuBar mb in CodeRush.Menus.Bars)
                     {
                         bool repeat = false;
-
                         do
                         {
                             repeat = false;
@@ -93,60 +82,18 @@ namespace MiniCodeColumn
                             }
                             if (index >= 0)
                             {
+                                MessageBox.Show("MiniCodeColumn was moved into a Tool-Window\r\nSee Menu DevExpress->Tool Windows->MiniCodeColumn\r\nfor better performance.", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 mb.RemoveAt(index);     // Die Buttons wurden immer mehr !!!
                                 repeat = true;
                             }
                         } while (repeat);
                     }
-                    foreach (MenuBar mb in CodeRush.Menus.Bars)
-                    {
-                        if (mb.Name.ToUpperInvariant().IndexOf("DXCORE") >= 0)
-                        {
-                            _VisualizeButton = mb.AddButton();
-
-                            _VisualizeButton.Caption = "Mini Code Column";
-
-                            // .Face = scheint nicht zu funktionieren :-(
-                            //_VisualizeButton.Face = Properties.Resources.Button;
-
-                            _VisualizeButton.SetFace(Properties.Resources.Button);
-                            _VisualizeButton.TooltipText = "Toggle Mini Code Column on/off";
-                            _VisualizeButton.DescriptionText = "Toggle Mini Code Column on/off";
-                            _VisualizeButton.IsDown = PluginOptions.MiniCodeColumnEnabled;
-                            _VisualizeButton.Enabled = false;
-                            break;
-                        }
-                    }
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Error in CreateVisualizeButton : " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Error in DropVisualizeButton : " + ex.Message);
             }
-
-            if (_VisualizeButton == null)
-                return;
-
-            _VisualizeButton.Click += VisualizeButton_Click;
-        }
-
-        void UpdateVisualizeButtonState()
-        {
-            if (_VisualizeButton == null)
-                return;
-
-            _VisualizeButton.IsDown = PluginOptions.MiniCodeColumnEnabled;
-        }
-
-        void VisualizeButton_Click(object sender, MenuButtonClickEventArgs e)
-        {
-            if (_VisualizeButton == null)
-                return;
-
-            PluginOptions.MiniCodeColumnEnabled = !PluginOptions.MiniCodeColumnEnabled;
-            SaveSettings();
-            UpdateVisualizeButtonState();
-            CodeRush.TextViews.Refresh();
         }
 
         private void LoadSettings()
@@ -155,36 +102,12 @@ namespace MiniCodeColumn
 
             DisposeGraphicElements();
             CreateGraphicElements();
-            UpdateVisualizeButtonState();
-        }
-
-        private void SaveSettings()
-        {
-            PluginOptions.SaveSettings();
-        }
-
-        private void PlugIn1_EditorScrolled(EditorScrolledEventArgs ea)
-        {
-            InvalidateColumn();
-            //HighlightSelectedText();
-        }
-
-        private void PlugIn1_CaretMoved(CaretMovedEventArgs ea)
-        {
-            TextView view = CodeRush.TextViews.Active;
-            if (view != null)
-            {
-                if (view.TopLine != last_top_line)
-                {
-                    last_top_line = view.TopLine;
-                    InvalidateColumn();
-                }
-            }
+            //UpdateVisualizeButtonState();
         }
 
         internal static void CreateGraphicElements()
         {
-            if (ColumnBackgroundBrushCodeColumn==null)
+            if (ColumnBackgroundBrushCodeColumn == null)
                 ColumnBackgroundBrushCodeColumn = new SolidBrush(PluginOptions.ColumnBackgroundColor);
             if (ColumnBackgroundBrushSelectedWord == null)
                 ColumnBackgroundBrushSelectedWord = new SolidBrush(PluginOptions.ColumnBackgroundColorSelectedWord);
@@ -231,78 +154,6 @@ namespace MiniCodeColumn
             BreakPointBrush = null;
         }
 
-        private Rectangle GetCodeColumnRect(TextView textView)
-        {
-            Rectangle rect = new Rectangle(0, 0, textView.Width, textView.Height); 
-            //.GetRectangleFromRange(new SourceRange(textView.TopLine, 0, textView.BottomLine, 0));
-
-            rect.X = rect.Right - PluginOptions.ColumnWidth;
-            rect.Width = PluginOptions.ColumnWidth;
-
-            return rect;
-        }
-
-        private void PlugIn1_EditorPaint(EditorPaintEventArgs ea)
-        {
-            DrawCodeColumn();
-            HighlightSelectedText();
-        }
-
-        private void PlugIn1_EditorPaintBackground(EditorPaintEventArgs ea)
-        {
-            
-        }
-
-        private void HighlightSelectedText()
-        {
-            if (!PluginOptions.WordDoubleClickEnabled)
-                return;
-
-            TextView textView = CodeRush.TextViews.Active;
-
-            if (!PluginOptions.MiniCodeColumnEnabled || textView == null || (selected_double_click.Length <= 2))
-                return;
-
-            CreateGraphicElements();
-
-            Graphics graphics = textView.Graphics;
-            //SmoothingMode oldMode = graphics.SmoothingMode;
-            try
-            {
-                TextViewLines items = textView.Lines;
-                for (int l = 0; l < items.Count; l++)
-                {
-                    string txt = items.GetText(l).TrimEnd().ToUpperInvariant();
-
-                    if (txt.IndexOf(selected_double_click) >= 0)
-                    {
-                        if (items.InView(l))
-                        {
-                            int start_index = txt.IndexOf(selected_double_click) + 1;
-                            //SourceRange range = new SourceRange(l, txt.IndexOf(selected_double_click) + 1, l, txt.IndexOf(selected_double_click) + selected_double_click.Length + 1);
-                            //graphics.FillRectangle(ColumnBrushVisibleLines, textView.GetRectangleFromRange(range));
-                            textView.HighlightCode(
-                                l, 
-                                start_index, 
-                                l, 
-                                start_index + selected_double_click.Length,
-                                ColumnBrushVisibleLines.Color, 
-                                ColumnBackgroundBrushSelectedWord.Color, 
-                                Color.White);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-            }
-            finally
-            {
-                //graphics.SmoothingMode = oldMode;
-            }
-        }
-
         List<Line> CollectLines(TextView textView, int width_divisor)
         {
             List<Line> lines = new List<Line>();
@@ -337,8 +188,8 @@ namespace MiniCodeColumn
                 Line line = new Line(l, start, end, start_of_comment, end_of_comment, word_start);
 
                 line.DivideWidth(width_divisor);
-                line.PressIntoWidth(PluginOptions.ColumnWidth);
-                
+                line.PressIntoWidth(Width);
+
                 try
                 {
                     EnvDTE.Breakpoint bp = CodeRush.Breakpoint.Get(textView.TextDocument.FullName, l);
@@ -350,7 +201,7 @@ namespace MiniCodeColumn
                 }
                 lines.Add(line);
             }
-            
+
             foreach (IMarker item in CodeRush.Markers)
             {
                 if (textView.TextDocument.FullName.Equals(item.FileName, StringComparison.InvariantCultureIgnoreCase))
@@ -359,7 +210,6 @@ namespace MiniCodeColumn
                         lines[item.Line].MarkerPosition = item.Column / width_divisor;
                 }
             }
-            
 
             return lines;
         }
@@ -396,10 +246,11 @@ namespace MiniCodeColumn
             return true;
         }
 
+
         bool drawing = false;
         private Bitmap _backBuffer;
         private List<Line> last_lines;
-        private void DrawCodeColumn()
+        private void DrawCodeColumn(Graphics my_graphics)
         {
             TextView textView = CodeRush.TextViews.Active;
 
@@ -408,17 +259,16 @@ namespace MiniCodeColumn
 
             drawing = true;
 
+            //textView.Graphics
             CreateGraphicElements();
 
             //SmoothingMode oldMode = graphics.SmoothingMode;
             try
             {
                 //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                Rectangle rect = GetCodeColumnRect(textView);
-
+                Rectangle rect = new Rectangle(0, 0, this.Width, this.Height);
                 if (rect != last_code_rect)
                 {
-                    textView.Invalidate(last_code_rect);
                     if (_backBuffer != null)
                         _backBuffer.Dispose();
                     _backBuffer = null;
@@ -426,13 +276,12 @@ namespace MiniCodeColumn
                 }
                 last_code_rect = rect;
 
-                Rectangle bmp_rect = new Rectangle(0, 0, PluginOptions.ColumnWidth, textView.Height); 
+                Rectangle bmp_rect = new Rectangle(0, 0, this.Width, this.Height);
 
-                if (_backBuffer==null)
-                    _backBuffer = new Bitmap(PluginOptions.ColumnWidth, textView.Height);
+                if (_backBuffer == null)
+                    _backBuffer = new Bitmap(this.Width, this.Height);
 
                 Graphics graphics = Graphics.FromImage(_backBuffer);
-
 
                 int width_divisor = 2;
                 // falls die Höhe nicht reicht, Teiler ermitteln
@@ -445,8 +294,6 @@ namespace MiniCodeColumn
                     last_lines = null;
 
                 last_height_divisor = height_divisor;
-
-                
 
                 List<Line> lines = CollectLines(textView, width_divisor);
                 if (!LinesAreEqual(lines, last_lines))
@@ -481,8 +328,8 @@ namespace MiniCodeColumn
                             if (line.StartOfWord >= 0)
                             {
                                 int end = line.StartOfWord + length;
-                                if (end > PluginOptions.ColumnWidth)
-                                    end = PluginOptions.ColumnWidth;
+                                if (end > Width)
+                                    end = Width;
                                 graphics.DrawLine(
                                     CodePenSelectedWord,
                                     new Point(line.StartOfWord, y),
@@ -500,16 +347,15 @@ namespace MiniCodeColumn
                     }
                 }
                 graphics.Dispose();
-                textView.Graphics.DrawImageUnscaled(_backBuffer, textView.Width - PluginOptions.ColumnWidth, 0);
+
+                my_graphics.DrawImageUnscaled(_backBuffer, 0, 0);
 
                 // den sichtbaren Bereich markieren
-                Rectangle visible_rect = new Rectangle(
-                    textView.Width - PluginOptions.ColumnWidth,
+                Rectangle visible_rect = new Rectangle(0,
                     (textView.TopLine / height_divisor),
-                    PluginOptions.ColumnWidth,
+                    Width,
                     (textView.BottomLine - textView.TopLine) / height_divisor);
-                textView.Graphics.FillRectangle(ColumnBrushVisibleLines, visible_rect);
-
+                my_graphics.FillRectangle(ColumnBrushVisibleLines, visible_rect);
             }
             catch (Exception ex)
             {
@@ -520,26 +366,90 @@ namespace MiniCodeColumn
                 //graphics.SmoothingMode = oldMode;
             }
             drawing = false;
-            invalid = false;
         }
-        private void InvalidateColumn()
+
+        protected override void OnPaint(PaintEventArgs e)
         {
-            if (invalid)
+            base.OnPaint(e);
+            DrawCodeColumn(e.Graphics);
+        }
+
+        private void events_TextChanged(TextChangedEventArgs ea)
+        {
+            this.Invalidate();
+            redraw_reqired = true;
+        }
+
+        private void events_TextViewActivated(TextViewEventArgs ea)
+        {
+            redraw_reqired = true; 
+            if (!mouse_is_down)
+                Refresh();
+        }
+
+        private void events_EditorScrolled(EditorScrolledEventArgs ea)
+        {
+            TextView textView = CodeRush.TextViews.Active;
+            if (textView != null || (selected_double_click.Length > 2))
+            {
+                redraw_reqired = true;
+            }
+            if (!mouse_is_down)
+                Refresh();
+        }
+
+        private void HighlightSelectedText()
+        {
+            if (!PluginOptions.WordDoubleClickEnabled)
                 return;
 
             TextView textView = CodeRush.TextViews.Active;
-            if (textView == null)
+
+            if (textView == null || (selected_double_click.Length <= 2))
                 return;
 
-            invalid = true;
-            textView.Invalidate(GetCodeColumnRect(textView));
+            CreateGraphicElements();
+
+            Graphics graphics = textView.Graphics;
+            //SmoothingMode oldMode = graphics.SmoothingMode;
+            try
+            {
+                TextViewLines items = textView.Lines;
+                for (int l = 0; l < items.Count; l++)
+                {
+                    string txt = items.GetText(l).TrimEnd().ToUpperInvariant();
+
+                    if (txt.IndexOf(selected_double_click) >= 0)
+                    {
+                        if (items.InView(l))
+                        {
+                            int start_index = txt.IndexOf(selected_double_click) + 1;
+                            // SourceRange range = new SourceRange(l, txt.IndexOf(selected_double_click) + 1, l, txt.IndexOf(selected_double_click) + selected_double_click.Length + 1);
+                            // graphics.FillRectangle(ColumnBrushVisibleLines, textView.GetRectangleFromRange(range));
+                            
+                            textView.HighlightCode(
+                                l,
+                                start_index,
+                                l,
+                                start_index + selected_double_click.Length,
+                                ColumnBrushVisibleLines.Color,
+                                ColumnBackgroundBrushSelectedWord.Color,
+                                Color.White);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                //graphics.SmoothingMode = oldMode;
+            }
         }
 
-        /// <summary>
-        /// das gedoppeltklickte Wort in selected_double_click merken.
-        /// </summary>
-        /// <param name="ea"></param>
-        private void PlugIn1_EditorMouseDoubleClick(EditorMouseEventArgs ea)
+        private void events_EditorMouseDoubleClick(EditorMouseEventArgs ea)
         {
             if (!PluginOptions.WordDoubleClickEnabled)
                 return;
@@ -555,9 +465,10 @@ namespace MiniCodeColumn
                     {
                         selected_double_click = word.Text.Trim().ToUpperInvariant();
                     }
-                    invalid = true;
+                    // Tool-Window-Refresh
+                    Refresh();
                     textView.Invalidate();
-                    HighlightSelectedText();
+                    redraw_reqired = true;
                 }
                 catch //(Exception ex)
                 {
@@ -565,53 +476,74 @@ namespace MiniCodeColumn
             }
         }
 
-        private void PlugIn1_EditorMouseDown(EditorMouseEventArgs ea)
+        bool mouse_is_down = false;
+        private void CodeToolWindow_MouseDown(object sender, MouseEventArgs e)
         {
-            if (!PluginOptions.MiniCodeColumnEnabled)
+            mouse_is_down = true;
+            CodeToolWindow_MouseMove(sender, e);
+        }
+
+        private void CodeToolWindow_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!mouse_is_down || !PluginOptions.MiniCodeColumnEnabled)
                 return;
 
-            if ((ea.TextView != null) && (ea.X > ea.TextView.Width - PluginOptions.ColumnWidth))
+            TextView textView = CodeRush.TextViews.Active;
+            if (textView != null)
             {
-                int line = ea.Y * last_height_divisor;
+                int line = e.Y * last_height_divisor;
                 int center_line = line;
                 if (center_line > 10)
                     center_line -= 10;
 
-                ea.TextView.MakeVisible(line, 0);
-                ea.TextView.CenterLine(center_line);
-                ea.Cancel = true;
-
-                HighlightSelectedText();
+                textView.MakeVisible(line, 0);
+                textView.CenterLine(center_line);
+                redraw_reqired = true;
+                Refresh();
             }
         }
 
-        private void MiniCodeColPlugIn_TextDocumentActivated(TextDocumentEventArgs ea)
+        private void CodeToolWindow_MouseUp(object sender, MouseEventArgs e)
         {
-            if (_VisualizeButton!=null)
-                _VisualizeButton.Enabled = true;
-        }
-
-        private void MiniCodeColPlugIn_TextDocumentDeactivated(TextDocumentEventArgs ea)
-        {
-            if (_VisualizeButton!=null)
-                _VisualizeButton.Enabled = false;
-
-        }
-
-        private void MiniCodeColPlugIn_EditorValidateClipRegion(EditorValidateClipRegionEventArgs ea)
-        {
-
-        }
-
-        private void MiniCodeColPlugIn_OptionsChanged(OptionsChangedEventArgs ea)
-        {           
-            // LoadSettings();
-            TextView textView = CodeRush.TextViews.Active;
-            if (textView != null)
+            if (mouse_is_down)
             {
-                DisposeGraphicElements();
-                invalid = true;
-                textView.Invalidate();
+                TextView textView = CodeRush.TextViews.Active;
+                if (textView != null)
+                    textView.Invalidate();
+            }
+            mouse_is_down = false;
+            redraw_reqired = true;
+        }
+
+        private void CodeToolWindow_MouseLeave(object sender, EventArgs e)
+        {
+            mouse_is_down = false;
+        }
+
+        private void events_OptionsChanged(OptionsChangedEventArgs ea)
+        {
+            DisposeGraphicElements();
+            Refresh();
+            redraw_reqired = true;
+        }
+
+        private void events_MarkerCollected(MarkerEventArgs ea)
+        {
+            redraw_reqired = true;
+            Refresh();
+        }
+
+        bool redraw_reqired;
+        private void events_EditorIdle(EditorIdleEventArgs ea)
+        {
+            // verschieben
+            if (mouse_is_down)
+                return;
+
+            if (redraw_reqired)
+            {
+                redraw_reqired = false;
+                HighlightSelectedText();
             }
         }
     }
