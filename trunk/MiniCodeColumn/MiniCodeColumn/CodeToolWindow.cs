@@ -20,6 +20,10 @@ using System.Runtime.InteropServices;
 
 namespace MiniCodeColumn
 {
+
+    /// <summary>
+    /// Plugin for visualizing complete codefile as small column left of the scrollbar
+    /// </summary>
     [Title("MiniCodeColumn")]
     public partial class CodeToolWindow : ToolWindowPlugIn
     {
@@ -45,7 +49,7 @@ namespace MiniCodeColumn
             
             base.InitializePlugIn();
             LoadSettings();
-            DropVisualizeButton();
+            SetButtonImage();
         }
         #endregion
         #region FinalizePlugIn
@@ -59,40 +63,26 @@ namespace MiniCodeColumn
         }
         #endregion
 
-        void DropVisualizeButton()
+        private void SetButtonImage()
         {
             try
             {
                 if (CodeRush.Menus != null && CodeRush.Menus.Bars != null)
                 {
-                    foreach (MenuBar mb in CodeRush.Menus.Bars)
+                    foreach (IMenuControl item in CodeRush.Menus.ToolWindows)
                     {
-                        bool repeat = false;
-                        do
+                        if (item.Caption.ToUpperInvariant() == "MINICODECOLUMN")
                         {
-                            repeat = false;
-                            int index = -1;
-                            if (mb.Name.ToUpperInvariant().IndexOf("DXCORE") >= 0)
-                            {
-                                foreach (IMenuControl menu_item in mb)
-                                {
-                                    if (menu_item.Caption == "Mini Code Column")
-                                        index = menu_item.Index;
-                                }
-                            }
-                            if (index >= 0)
-                            {
-                                MessageBox.Show("MiniCodeColumn was moved into a Tool-Window\r\nSee Menu DevExpress->Tool Windows->MiniCodeColumn\r\nfor better performance.", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                mb.RemoveAt(index);     // Die Buttons wurden immer mehr !!!
-                                repeat = true;
-                            }
-                        } while (repeat);
+                            DevExpress.CodeRush.Menus.IMenuButton btn = item as DevExpress.CodeRush.Menus.IMenuButton;
+
+                            btn.Face = this.Image;
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Error in DropVisualizeButton : " + ex.Message);
+                System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
 

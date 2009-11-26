@@ -54,6 +54,7 @@ namespace MiniCodeColumn
             // 
             // CodeToolWindow
             // 
+            this.BackColor = System.Drawing.Color.White;
             this.DoubleBuffered = true;
             this.Image = global::MiniCodeColumn.Properties.Resources.Button;
             this.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
