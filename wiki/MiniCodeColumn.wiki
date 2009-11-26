@@ -13,7 +13,7 @@ Please follow the general [InstallInstructions] on putting the plugin assembly i
 
 === Usage ===
 
-You can toggle the preview column on/off with a button from the DXCore visual tool bar.
+Open the tool-window with the menu DevExpress -> Tool Windows -> MiniCodeColumn.
 A *double click* to select a word will *highlight* all occurrences
 in the whole file and highlight it with a red color in the mini code column.
 
@@ -21,6 +21,9 @@ You can also *click* on the mini code column to *jump* to any code line.
 Colapsed regions will be fully painted (non collapsed)
 and splitting the texteditor is still possible (which was not possible with !RockScrollV1).
 If code lines would exeed the available space, lines are compressed (2x, 3x etc.) and become _thicker_.
+ 
+In this new version you can use this tool window like the scrollbar:
+Click and drag inside the tool window and the code window will follow.
 
 === Options ===
 
