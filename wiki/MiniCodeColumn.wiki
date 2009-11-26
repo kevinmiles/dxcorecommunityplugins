@@ -13,7 +13,7 @@ Please follow the general [InstallInstructions] on putting the plugin assembly i
 
 === Usage ===
 
-Open the tool-window with the menu DevExpress -> Tool Windows -> MiniCodeColumn.
+Open the tool-window with the menu !DevExpress -> Tool Windows -> !MiniCodeColumn.
 A *double click* to select a word will *highlight* all occurrences
 in the whole file and highlight it with a red color in the mini code column.
 
