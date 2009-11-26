@@ -138,6 +138,7 @@ namespace MiniCodeColumn
             this.chkEnabled.TabIndex = 7;
             this.chkEnabled.Text = "Enabled";
             this.chkEnabled.UseVisualStyleBackColor = true;
+            this.chkEnabled.Visible = false;
             // 
             // main_options_panel
             // 
@@ -815,7 +816,7 @@ namespace MiniCodeColumn
             this.chkWordHighlight.AutoSize = true;
             this.chkWordHighlight.Checked = true;
             this.chkWordHighlight.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkWordHighlight.Location = new System.Drawing.Point(233, 13);
+            this.chkWordHighlight.Location = new System.Drawing.Point(143, 13);
             this.chkWordHighlight.Name = "chkWordHighlight";
             this.chkWordHighlight.Size = new System.Drawing.Size(205, 17);
             this.chkWordHighlight.TabIndex = 9;
