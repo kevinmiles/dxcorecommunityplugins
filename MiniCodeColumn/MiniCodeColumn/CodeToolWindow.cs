@@ -92,7 +92,7 @@ namespace MiniCodeColumn
 
             DisposeGraphicElements();
             CreateGraphicElements();
-            //UpdateVisualizeButtonState();
+            PluginOptions.MiniCodeColumnEnabled = true;
         }
 
         internal static void CreateGraphicElements()
@@ -515,6 +515,7 @@ namespace MiniCodeColumn
             DisposeGraphicElements();
             Refresh();
             redraw_reqired = true;
+            PluginOptions.MiniCodeColumnEnabled = true;
         }
 
         private void events_MarkerCollected(MarkerEventArgs ea)
