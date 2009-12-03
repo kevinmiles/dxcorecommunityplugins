@@ -31,7 +31,7 @@ Create a second template 'efec' with the same text for template expansion but re
 
 The difference is the second template finds all variables at Class level, the first at method level.
 
-To test it, create a method with one or more Eumerable variables and type efe<space>. A popup will show a list of all Enumerable variables. Pick one and a new for each loop will be generated.
+To test it, create a method with one or more Eumerable variables and type efe + space. A popup will show a list of all Enumerable variables. Pick one and a new for each loop will be generated.
 
 PS In C# You can replace «Field("«?ForEachVarType»",type)» with var
 
