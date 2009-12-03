@@ -1,4 +1,4 @@
-#summary TODO.
+Find all Enumerable variables, show a list, pick one and creates a for each loop.
 
 = Introduction =
 This plugins finds all Enumerable variables within method or class scope, shows a list in a popup so you can pick one and create a for each loop for the selected variable.
