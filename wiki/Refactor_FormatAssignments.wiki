@@ -5,7 +5,7 @@
 
 Forum thread: http://community.devexpress.com/forums/t/64641.aspx
 
-= Dowmload = 
+= Download = 
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_FormatAssignments/ Primary Download Location]
 
 = Installation =
