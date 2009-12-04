@@ -2,6 +2,9 @@
 #labels Featured,Phase-Deploy
 
 =Installation=
+Note: As Pointed out in the Comments, all plugins require [http://devexpress.com/Products/Visual_Studio_Add-in/DXCore/ The DXCore] to be installed first. 
+
+
 To install any of these plugins, download the relevant binary (DownloadInstructions) and then...
 
   # Shut down all instances of Visual Studio.
