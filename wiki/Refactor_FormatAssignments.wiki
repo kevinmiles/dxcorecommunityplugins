@@ -3,21 +3,17 @@
 
 = Introduction =
 
-TODO
-
 Forum thread: http://community.devexpress.com/forums/t/64641.aspx
 
-= Installation =
+= Dowmload = 
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_FormatAssignments/ Primary Download Location]
 
+= Installation =
 Installation instructions can be found on the InstallInstructions page.
 
 = Usage =
-
-TODO
-
-= Options =
-
-TODO
+ - Highlight multiple lines with an assignement (=) line.
+ - Choose "Format assignments" from the Refactor menu.
 
 = Credits =
 
