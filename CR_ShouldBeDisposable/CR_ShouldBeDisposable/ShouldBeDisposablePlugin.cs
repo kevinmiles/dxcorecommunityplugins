@@ -9,8 +9,7 @@ namespace CR_ShouldBeDisposable
     public partial class ShouldBeDisposablePlugin : StandardPlugIn
     {
         private const string SHOULD_BE_DISPOSABLE_MSG = "A class containing an IDisposable should implement IDisposable to dispose of those items correctly and avoid potential memory leaks";
-        private const int ISSUE_SCORE = 10; // Not sure what this is used for, but it is required by the API
-
+        
         // DXCore-generated code...
 
         public IDisposable TestProperty { get; set; }
@@ -31,41 +30,37 @@ namespace CR_ShouldBeDisposable
 
         void cipClassContainingDisposablesShouldBeDisposable_CheckCodeIssues(object sender, CheckCodeIssuesEventArgs ea)
         {
-            if (ea.IsSuppressed(ea.Scope))
-                return;
-            if (!(ea.Scope is SourceFile))
-                return;
-
-            SourceFile file = ea.Scope as SourceFile;
-            foreach (ITypeElement type in file.AllTypes)
+            var resolveScope = ea.ResolveScope();
+            foreach (IClassElement type in resolveScope.GetElementEnumerator(ea.Scope,new ElementTypeFilter(LanguageElementType.Class)))
             {
-                if (!(type is Class))
-                    continue;
-                var currentClass = type.GetDeclaration() as Class;
-                if (IsDisposable(currentClass))
+                if (IsDisposable(type))
                     return;
-
-                var fields = currentClass.AllFields.OfType<Variable>().Select(f => f.FirstDetail).ToList();
-                fields.AddRange(currentClass.AllProperties.OfType<Property>().Select(f => f.FirstDetail));
-
+                
+                var fields = type.Members.OfType<IMemberElement>().Where(m => m is IFieldElement || m is IPropertyElement);
+                
                 var disposables = fields.Where(f => IsDisposable(f));
                 if (disposables.Count() == 0)
                     return;
 
-                ea.AddSmell(currentClass.NameRange, SHOULD_BE_DISPOSABLE_MSG,ISSUE_SCORE);                
+                ea.AddIssue(CodeIssueType.CodeSmell, type.FirstNameRange,SHOULD_BE_DISPOSABLE_MSG);
             }
 
         }
 
-        internal bool IsDisposable(LanguageElement element)
+        internal bool IsDisposable(IElement element)
         {
-            ITypeElement refElement;
-            if (element.ElementType == LanguageElementType.TypeReferenceExpression)
-                refElement = ((TypeReferenceExpression)element).GetDeclaration().ToLanguageElement() as ITypeElement;
+            ITypeElement typeElement;
+            if (element is IClassElement)
+                typeElement = element as ITypeElement;
             else
-                refElement = element as ITypeElement;
-            // Not sure why I need both "IDisposable" and "System.IDisposable" here
-            return CodeRush.Source.Implements(refElement, "IDisposable") || CodeRush.Source.Implements(refElement, "System.IDisposable");
+                typeElement = GetMemberType(element);
+            
+            return CodeRush.Source.Implements(typeElement, "System.IDisposable");
+        }
+        private static ITypeElement GetMemberType(IElement element)
+        {
+            Member memberElement = element.ToLanguageElement() as Member;
+            return memberElement.MemberTypeReference.GetDeclaration() as ITypeElement;
         }
     }
 }
