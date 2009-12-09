@@ -28,11 +28,11 @@ using System.Reflection;
 
 namespace RedGreen.AdHoc
 {
-    /// <summary>
-    /// Use reflection to and late binding to run parameterless methods
-    /// </summary>
-    class Program
-    {
+	/// <summary>
+	/// Use reflection to and late binding to run parameterless methods
+	/// </summary>
+	class Program
+	{
         static void Main(string[] args)
         {
             string assembly = ParseAssemblyArgument(args);
@@ -68,7 +68,16 @@ namespace RedGreen.AdHoc
                 Console.WriteLine("Unable to load type from assembly");
                 return;
             }
-            object fixture = Activator.CreateInstance(fixtureType);
+			object fixture;
+            try
+			{
+				fixture = Activator.CreateInstance(fixtureType);
+			}
+			catch (MissingMethodException ex)
+			{
+				Console.WriteLine("{0}: {1}", ex.Message, type);
+				return;
+			}
             
             string method = ParseMemberArgument(args);
             if (string.IsNullOrEmpty(type))
