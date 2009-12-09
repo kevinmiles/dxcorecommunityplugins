@@ -134,7 +134,7 @@ namespace RedGreen
             return null;
         }
 
-        static readonly List<string> supportedAttributes = new List<string>(new string[] { "Test", "Fact", "TestMethod" });
+        static readonly List<string> supportedAttributes = new List<string>(new string[] { "Test", "Fact", "Theory", "TestMethod" });
 
         /// <summary>
         /// Determines if the attribute is a known test attribute
