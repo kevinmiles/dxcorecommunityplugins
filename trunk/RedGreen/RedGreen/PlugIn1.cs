@@ -247,7 +247,7 @@ namespace RedGreen
             WriteToTestPane(args.Message);
         }
 
-        /// <summary>
+		/// <summary>
         /// Handle the a test is complete event
         /// </summary>
         private void runner_TestComplete(object sender, TestCompleteEventArgs args)
@@ -255,7 +255,12 @@ namespace RedGreen
             WriteToTestPane(args.RawResult, true);
             if (args.Result != null && args.Result.Location != null)
             {// Only UnitTests have a result.
-                UnitTestDetail testData = _Tests.Find(test => test.Method.RootNamespaceLocation == args.Result.Location);
+				// Trim off the parens if they exist, the will for Theory
+				string location = args.Result.Location.EndsWith(")") == false ? 
+                                      args.Result.Location : 
+                                      args.Result.Location.Substring(0, args.Result.Location.LastIndexOf('(')) ;
+
+                UnitTestDetail testData = _Tests.Find(test => test.Method.RootNamespaceLocation == location);
                 if (testData == null)
                 {
                     testData = new UnitTestDetail(args.Result.Location, testActions);
