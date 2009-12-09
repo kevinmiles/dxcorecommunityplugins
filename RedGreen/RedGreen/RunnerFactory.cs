@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace RedGreen
 {
@@ -9,12 +8,14 @@ namespace RedGreen
 		{
 			switch (testAttributeName)
 			{
+				case "Xunit.Extensions.TheoryAttribute":
 				case "Xunit.FactAttribute":
 					return new XunitRunner();
 				case "NUnit.Framework.TestAttribute":
 					return new NUnitRunner();
-				case "MbUnit.Framework.TestAttribute":
 				case "Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute":
+					return new MsTestRunner();
+				case "MbUnit.Framework.TestAttribute":
 				default:
 					return new GallioRunner();
 			}
@@ -28,8 +29,9 @@ namespace RedGreen
 					return new XunitRunner();
 				case "NUnit.Framework.TestFixtureAttribute":
 					return new NUnitRunner();
-				case "MbUnit.Framework.TestFixtureAttribute":
 				case "Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute":
+					return new MsTestRunner();
+				case "MbUnit.Framework.TestFixtureAttribute":
 				default:
 					return new GallioRunner();
 			}
