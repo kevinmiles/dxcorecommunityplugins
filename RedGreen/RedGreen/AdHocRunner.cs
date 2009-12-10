@@ -28,70 +28,56 @@ using System.Text;
 using System.Diagnostics;
 namespace RedGreen
 {
-    class AdHocRunner : BaseTestRunner
-    {
-        public override void RunTests(string assemblyPath, string assembly, string type, string method)
-        {
-            RaiseTestsStarting(string.Format("Running Ad-Hoc test for Assembly: {0}, Type: {1}, Method: {2}\r\n", Path.GetFileName(assemblyPath), type, method));
+	class AdHocRunner : BaseTestRunner
+	{
+		public override void RunTests(string assemblyPath, string assembly, string type, string method)
+		{
+			RaiseTestsStarting(string.Format("Running Ad-Hoc test for Assembly: {0}, Type: {1}, Method: {2}\r\n", Path.GetFileName(assemblyPath), type, method));
 
-            StringBuilder result = new StringBuilder();
-            StreamReader sr = null;
-            Stopwatch chrono = new Stopwatch();
-            chrono.Start();
-            using (Process p = new Process())
-            {
-                p.StartInfo = new ProcessStartInfo(LocateAdHocExe());
-                p.StartInfo.Arguments = string.Format("/a:\"{0}\" /t:{1} /m:{2}", assemblyPath, type, method);
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.CreateNoWindow = true;
-                p.Start();
-                sr = p.StandardOutput;
-            }
-            string line = sr.ReadLine();
-            while (line != null)
-            {
-                result.AppendFormat("{0}\n", line);
-                line = sr.ReadLine();
-            }
-            chrono.Stop();
-            TimeSpan thelta = chrono.Elapsed;
+			SummaryResult summary = new SummaryResult();
+			StringBuilder result = new StringBuilder();
+			string adhocExePath = LocateAdHocExe();
+			if (string.IsNullOrEmpty(adhocExePath) == false)
+			{
+				StreamReader sr = null;
+				Stopwatch chrono = new Stopwatch();
+				chrono.Start();
+				using (Process p = new Process())
+				{
+					p.StartInfo = new ProcessStartInfo(adhocExePath);
+					p.StartInfo.Arguments = string.Format("/a:\"{0}\" /t:{1} /m:{2}", assemblyPath, type, method);
+					p.StartInfo.UseShellExecute = false;
+					p.StartInfo.RedirectStandardOutput = true;
+					p.StartInfo.CreateNoWindow = true;
+					p.Start();
+					sr = p.StandardOutput;
+				}
+				string line = sr.ReadLine();
+				while (line != null)
+				{
+					result.AppendFormat("{0}\n", line);
+					line = sr.ReadLine();
+				}
+				chrono.Stop();
+				TimeSpan thelta = chrono.Elapsed;
 
-            RaiseComplete(result.ToString(), null);
-            SummaryResult summary = new SummaryResult();
-            summary.PassCount = "1";
-            summary.FailCount = "0";
-            summary.SkipCount = "0";
-            summary.Duration = string.Format("{0}.{1}", thelta.Seconds, thelta.Milliseconds);
-            RaiseAllComplete(summary);
-        }
+				summary.PassCount = "1";
+				summary.FailCount = "0";
+				summary.SkipCount = "0";
+				summary.Duration = string.Format("{0}.{1}", thelta.Seconds, thelta.Milliseconds);
+			}
+			else
+			{
+				result.Append("Unable to locate the AdHoc executable");
+			}
+
+			RaiseComplete(result.ToString(), null);
+			RaiseAllComplete(summary);
+		}
 
         private static string LocateAdHocExe()
         {
             string adHocExePath = LookForRegistryKeyPath();
-            if (string.IsNullOrEmpty(adHocExePath))
-            {
-                try
-                {// Look in the 9.1.1 folder path
-                    Array.ForEach(Directory.GetDirectories(@"C:\Program Files (x86)", "*"), devExpFolder =>
-                    {
-                        if (Path.GetFileName(devExpFolder).StartsWith("DevExpress"))
-                        {
-                            string potentialPath = Path.Combine(devExpFolder, @"IDETools\Community\PlugIns\RedGreen.Adhoc.exe");
-                            if (File.Exists(potentialPath))
-                                adHocExePath = potentialPath;
-                        }
-                    });
-                }
-                finally
-                {
-                    if (string.IsNullOrEmpty(adHocExePath))
-                    {// Look in the old path
-                        const string kOldAdHocExe = @"C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins\RedGreen.AdHoc.exe";
-                        adHocExePath = kOldAdHocExe;
-                    }
-                }
-            }
             return adHocExePath;
         }
 
