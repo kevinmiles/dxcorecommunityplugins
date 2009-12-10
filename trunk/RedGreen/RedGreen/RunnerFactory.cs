@@ -13,8 +13,8 @@ namespace RedGreen
 					return new XunitRunner();
 				case "NUnit.Framework.TestAttribute":
 					return new NUnitRunner();
-				case "Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute":
-					return new MsTestRunner();
+				//case "Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute":
+				//    return new MsTestRunner();
 				case "MbUnit.Framework.TestAttribute":
 				default:
 					return new GallioRunner();
@@ -29,8 +29,8 @@ namespace RedGreen
 					return new XunitRunner();
 				case "NUnit.Framework.TestFixtureAttribute":
 					return new NUnitRunner();
-				case "Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute":
-					return new MsTestRunner();
+				//case "Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute":
+				//    return new MsTestRunner();
 				case "MbUnit.Framework.TestFixtureAttribute":
 				default:
 					return new GallioRunner();
