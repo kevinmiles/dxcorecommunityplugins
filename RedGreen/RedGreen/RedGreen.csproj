@@ -102,6 +102,7 @@
     <Compile Include="IGallioResultParser.cs" />
     <Compile Include="ITestDetail.cs" />
     <Compile Include="MbUnitGallioParser.cs" />
+    <Compile Include="MsTestRunner.cs" />
     <Compile Include="NullGallioParser.cs" />
     <Compile Include="NUnitGallioParser.cs" />
     <Compile Include="NUnitParser.cs" />
