@@ -27,23 +27,29 @@ Public Class PlugIn1
     End Sub
 #End Region
 
+    'TODO: Try to get a version of MoveCodeUp to work with Methods
+
+
 #Region "Move Code Actions"
     Private Sub cmdMoveCodeUp_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles cmdMoveCodeUp.Execute
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Select Case True
-            Case FirstNodeOnLine.GetParentMethodOrProperty IsNot Nothing
+            Case CodeRush.Source.IsStatement(FirstNodeOnLine)
                 Call MoveElementUp(FirstNodeOnLine.GetParentStatementOrVariable)
-                'Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule IsNot Nothing
-                '    Call MoveElementUp(FirstNodeOnLine)
+            Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
+                Call MoveElementUp(FirstNodeOnLine)
         End Select
     End Sub
     Private Sub cmdMoveCodeDown_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles cmdMoveCodeDown.Execute
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Select Case True
-            Case FirstNodeOnLine.GetParentMethodOrProperty IsNot Nothing
+            Case CodeRush.Source.IsStatement(FirstNodeOnLine)
                 Call MoveElementDown(FirstNodeOnLine.GetParentStatementOrVariable)
+            Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
+                Call MoveElementDown(FirstNodeOnLine)
         End Select
     End Sub
+
     Private Sub cmdMoveCodeRight_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles cmdMoveCodeRight.Execute
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Call MoveStatementRight(FirstNodeOnLine.GetParentStatementOrVariable)
@@ -53,7 +59,7 @@ Public Class PlugIn1
         Call MoveStatementLeft(FirstNodeOnLine.GetParentStatementOrVariable)
     End Sub
 #End Region
-#Region " Move Caret Actions"
+#Region "Move Caret Actions"
     Private Sub cmdMoveCaretUp_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles cmdMoveCaretUp.Execute
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Select Case True
@@ -100,7 +106,7 @@ Public Class PlugIn1
 #Region "Statement Movement"
     Private Sub MoveElementUp(ByVal Statement As LanguageElement)
         If Statement IsNot Nothing Then
-            Dim Sibling = Statement.PreviousCodeSibling
+            Dim Sibling = Statement.PreviousCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
             If Sibling IsNot Nothing Then
                 Call SwapStatements(Statement.ToList, Sibling)
             End If
@@ -108,7 +114,7 @@ Public Class PlugIn1
     End Sub
     Private Sub MoveElementDown(ByVal Statement As LanguageElement)
         If Statement IsNot Nothing Then
-            Dim Sibling = Statement.NextCodeSibling
+            Dim Sibling = Statement.NextCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
             If Sibling IsNot Nothing Then
                 Call SwapStatements(Statement.ToList, Sibling)
             End If
@@ -185,8 +191,8 @@ Public Class PlugIn1
 
         For Each Element In Elements
             Dim Doc = CodeRush.Documents.ActiveTextDocument
-            Dim SiblingRange = Sibling.GetFullBlockCutRange
-            Dim ElementRange = Element.GetFullBlockCutRange
+            Dim SiblingRange = Sibling.GetFullBlockCutRange(BlockElements.AllLeadingWhiteSpaces Or BlockElements.TrailingWhiteSpace Or BlockElements.Region Or BlockElements.AllSupportElements Or BlockElements.XmlDocComments Or BlockElements.Attributes)
+            Dim ElementRange = Element.GetFullBlockCutRange(BlockElements.AllLeadingWhiteSpaces Or BlockElements.TrailingWhiteSpace Or BlockElements.Region Or BlockElements.AllSupportElements Or BlockElements.XmlDocComments Or BlockElements.Attributes)
             Dim CombinedRange = AddRanges(SiblingRange, ElementRange)
             SiblingDestination = If(SiblingStartLine > ElementsStartLine, ElementRange.Start, ElementRange.End)
             Doc.Move(SiblingRange, SiblingDestination, "")
