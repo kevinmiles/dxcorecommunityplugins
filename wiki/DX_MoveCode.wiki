@@ -125,9 +125,8 @@ private void SomeMethod()
 
 = Future Plans = 
 
-
- * MoveCaretUp / MoveCaretDown / MoveCaretLeft / MoveCaretRight actions. (Early version in Build 675)
- * Move Method functionality
+ * Done - Build 709 - Move Method functionality
+ * Done - Build 675 - MoveCaretUp / MoveCaretDown / MoveCaretLeft / MoveCaretRight actions.
  * Move Selection (With intelligent selection Adjustment) functionality
  * Option to use TargetPicker for Methods and Selections.
  * Allow MoveCodeLeft, MoveCodeRight to adjust the existence braces on a c# block where the number of statements changes between 1 and 2.
