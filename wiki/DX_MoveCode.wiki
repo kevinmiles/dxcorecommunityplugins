@@ -123,10 +123,12 @@ private void SomeMethod()
 }
 }}}
 
+= History = 
+ * Build 709 - MoveCode[Up|Down] now works with Methods if caret on signature.
+ * Build 675 - MoveCaretUp / MoveCaretDown / MoveCaretLeft / MoveCaretRight actions.
+
 = Future Plans = 
 
- * Done - Build 709 - Move Method functionality
- * Done - Build 675 - MoveCaretUp / MoveCaretDown / MoveCaretLeft / MoveCaretRight actions.
  * Move Selection (With intelligent selection Adjustment) functionality
  * Option to use TargetPicker for Methods and Selections.
  * Allow MoveCodeLeft, MoveCodeRight to adjust the existence braces on a c# block where the number of statements changes between 1 and 2.
