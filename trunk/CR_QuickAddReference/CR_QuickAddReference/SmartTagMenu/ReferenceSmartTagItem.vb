@@ -17,10 +17,9 @@ Public Class ReferenceSmartTagItem
     End Sub
     Protected Overrides Sub OnExecute()
         Try
-            Dim Ref = CodeRush.Project.Active.AddReference(mReference.FullName)
-            Ref.CopyLocal = Not mReference.IsGACReference
+            Call mReference.AddToProjectTestingForGAC(CodeRush.Project.Active)
         Catch ex As Exception
-            
+
         End Try
     End Sub
 

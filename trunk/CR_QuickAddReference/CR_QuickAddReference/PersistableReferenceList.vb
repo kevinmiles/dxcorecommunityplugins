@@ -17,10 +17,11 @@ Public Class PersistableReferenceList
     End Sub
     Public Sub Load()
         Dim mPersistedReferenceStrings = OptionsQuickAddReference.Storage.ReadStrings(OptionsQuickAddReference.SECTION_QUICKADD, mName)
-        mPersistableReferences.AddRange(mPersistedReferenceStrings.Select(Function(R) New Reference(R)))
+        mPersistableReferences.Clear()
+        mPersistableReferences.AddRange(mPersistedReferenceStrings.Select(Function(R) New Reference(R)).Distinct())
     End Sub
     Public Sub Save()
-        Dim ReferenceStrings As String() = References.Select(Function(r) r.FullName).ToArray()
+        Dim ReferenceStrings As String() = References.Select(Function(r) r.FullName).Distinct().ToArray()
         Call OptionsQuickAddReference.Storage.WriteStrings(OptionsQuickAddReference.SECTION_QUICKADD, mName, ReferenceStrings)
     End Sub
 

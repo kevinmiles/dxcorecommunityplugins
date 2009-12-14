@@ -26,7 +26,7 @@ Public Class Reference
     End Property
     Public ReadOnly Property FilenameWithDescription() As String
         Get
-            Return If(mDescription = "", FullName, String.Format("{0}({1})", FileName, Description))
+            Return If(mDescription = "", FileName, String.Format("{0}({1})", FileName, Description))
         End Get
     End Property
 
@@ -57,15 +57,18 @@ Public Class Reference
     Public Function IsReferencedByProject(ByVal Project As Project) As Boolean
         Return Project.GetVSLangProj().References.Find(System.IO.Path.GetFileNameWithoutExtension(Me.FileName)) IsNot Nothing
     End Function
-    Public Sub AddToProjectTestingForGAC(ByVal Project As Project)
+    Public Function AddToProjectTestingForGAC(ByVal Project As Project) As DevExpress.CodeRush.Core.Reference
         Try
+            If Not Lists.Recent.References.Contains(Me) Then
+                Lists.Recent.Add(Me)
+                Lists.Recent.Save()
+            End If
             Dim Ref = Project.AddReference(FullName)
             Ref.CopyLocal = Not IsGACReference
-            Lists.Recent.Add(Me)
-            Lists.Recent.Save()
+            Return Ref
         Catch ex As Exception
-
+            Return Nothing
         End Try
-    End Sub
+    End Function
 
 End Class

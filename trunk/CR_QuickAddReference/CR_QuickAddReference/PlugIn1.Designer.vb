@@ -31,8 +31,10 @@ Partial Class QuickAddReferencePlugin
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(QuickAddReferencePlugin))
         Me.actQuickAddReference = New DevExpress.CodeRush.Core.Action(Me.components)
         Me.AddReferenceMenu = New DevExpress.CodeRush.Core.SmartTagProvider(Me.components)
+        Me.actQuickAddReferenceSolExp = New DevExpress.CodeRush.Core.Action(Me.components)
         CType(Me.actQuickAddReference, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AddReferenceMenu, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.actQuickAddReferenceSolExp, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'actQuickAddReference
@@ -56,12 +58,23 @@ Partial Class QuickAddReferencePlugin
         Me.AddReferenceMenu.Register = True
         Me.AddReferenceMenu.ShowInContextMenu = False
         Me.AddReferenceMenu.ShowInPopupMenu = True
+        '
+        'actQuickAddReferenceSolExp
+        '
+        Me.actQuickAddReferenceSolExp.ActionName = "QuickAddReferenceSolExp"
+        Me.actQuickAddReferenceSolExp.ButtonText = "Quick Add References"
+        Me.actQuickAddReferenceSolExp.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None
+        Me.actQuickAddReferenceSolExp.Image = CType(resources.GetObject("actQuickAddReferenceSolExp.Image"), System.Drawing.Bitmap)
+        Me.actQuickAddReferenceSolExp.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.actQuickAddReferenceSolExp.ParentMenu = "Reference Root"
         CType(Me.actQuickAddReference, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AddReferenceMenu, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.actQuickAddReferenceSolExp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
     Friend WithEvents actQuickAddReference As DevExpress.CodeRush.Core.Action
     Friend WithEvents AddReferenceMenu As DevExpress.CodeRush.Core.SmartTagProvider
+    Friend WithEvents actQuickAddReferenceSolExp As DevExpress.CodeRush.Core.Action
 
 End Class
