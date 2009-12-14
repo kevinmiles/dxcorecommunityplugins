@@ -22,6 +22,7 @@ Public Class QuickAddReference
     Private mSolutionList As ReferenceListView
     Private mRecentList As ReferenceListView
 #End Region
+    Private mTargetProject As Project
 #Region "Properties"
     Public Shared ReadOnly Property Storage() As DecoupledStorage
         Get
@@ -30,10 +31,12 @@ Public Class QuickAddReference
     End Property
 #End Region
 #Region "Constructors"
-    Public Sub New(ByVal Plugin As QuickAddReferencePlugin)
+    Public Sub New(ByVal Plugin As QuickAddReferencePlugin, ByVal TargetProject As Project)
         Me.InitializeComponent()
 
         mPlugin = Plugin
+        mTargetProject = TargetProject
+
         Lists.InitialiseLists()
 
         RecreateReferenceListviews()
@@ -132,7 +135,7 @@ Public Class QuickAddReference
         Call PopulateMRUReferences()
     End Sub
     Private Sub cmdBrowse_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdBrowse.Click
-        Call mPlugin.AddReferenceViaBrowse(Storage)
+        Call mPlugin.AddReferenceViaBrowse(Storage, mTargetProject)
         PopulateMRUReferences(True)
     End Sub
 
@@ -164,8 +167,10 @@ Public Class QuickAddReference
             'For Each Item As ReferenceListItem In TheListview.CheckedItems
             For Each Item As ReferenceListViewItem In TheListview.SelectedItems
                 Try
-                    Call Item.Reference.AddToProjectTestingForGAC(CodeRush.Project.Active)
-                    Added += 1
+                    Dim Ref = Item.Reference.AddToProjectTestingForGAC(mTargetProject)
+                    If Ref IsNot Nothing Then
+                        Added += 1
+                    End If
                 Catch ex As Exception
                     ' swallow exception
                 End Try
