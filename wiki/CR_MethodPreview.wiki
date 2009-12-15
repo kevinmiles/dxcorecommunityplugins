@@ -10,6 +10,8 @@ Provides an action 'ToggleMethodPreview' actionable from any method call whose s
  * [InstallInstructions Install as usual]
  * Assign the 'ToggleMethodPreview' to a key. (see [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Binding a Key])
 
+An instructional screencast about this plugin is available from: http://tv.devexpress.com/CRMethodPreview.movie
+
 = Usage =
 
  * Place caret on any Method Call for which the source is available within the solution.
