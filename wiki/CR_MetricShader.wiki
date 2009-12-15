@@ -34,6 +34,8 @@ Installation instructions can be found on the InstallInstructions page.
 === Download === 
 Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_MetricShader/
 
+An instructional screencast of this plugin is available from http://tv.devexpress.com/CRMetricShader.movie
+
 === Usage ===
 
  * Devexpress\Options (CTRL+ALT+SHIFT+O) 
