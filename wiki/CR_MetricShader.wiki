@@ -1,7 +1,6 @@
 #summary Alters the background color of members to indicate status according to a nominated Metric.
 
-#sidebar TableOfContents
-
+[CR_MetricShader Download Click here to download]
 === Introduction ===
 
 NB: I have recently been looking back through some shared Google docs and have found evidence suggesting the original idea for this plugin was that of Dan Gilkerson (<- Great Bloke) 
