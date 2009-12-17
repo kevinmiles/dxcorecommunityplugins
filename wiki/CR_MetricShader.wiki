@@ -41,7 +41,7 @@ Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_
 
 An instructional screencast of this plugin is available from http://tv.devexpress.com/CRMetricShader.movie
 
-=== Usage ===
+= Usage =
 
  * Devexpress\Options (CTRL+ALT+SHIFT+O) 
  * Editor\Painting\Metric Shader
