@@ -1,15 +1,9 @@
 #summary Provides 4 actions to enhance your ability to move code around.
-
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_MoveCode/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 = Introduction =
 
 The 4 actions provided by this plugin, allow you to move code around more efficiently than before.
 This plugin does not operate on lines of code, but instead on complete statements.
-
-= Download = 
-Primary download is from http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_MoveCode/
-
-= Installation =
-Please see InstallInstructions page for general instructions on putting the plugin assembly in the right location.
 
 = Configuration =
 Bind a key to each of MoveCodeLeft, MoveCodeRight, MoveCodeUp and MoveCodeDown.
