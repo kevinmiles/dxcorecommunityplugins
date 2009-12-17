@@ -1,8 +1,5 @@
 #summary Alters the background color of members to indicate status according to a nominated Metric.
-
 #sidebar TableOfContents
-
-  * [CR_MetricShader#Download Download]
 
 === Introduction ===
 
