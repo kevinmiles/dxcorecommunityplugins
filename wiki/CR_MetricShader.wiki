@@ -1,6 +1,6 @@
 #summary Alters the background color of members to indicate status according to a nominated Metric.
 <wiki:toc max_depth="3" />
-=== Introduction ===
+= Introduction =
 
 NB: I have recently been looking back through some shared Google docs and have found evidence suggesting the original idea for this plugin was that of Dan Gilkerson (<- Great Bloke) 
 
@@ -18,7 +18,7 @@ Each metric has a numeric value which is said to be the Warning Value.
 
 In the screenshot above I am using a Demo Metric which counts the number of lines in the member and has the Warning Value set to 15. This is a useless metric created (within this plugin) purely for the purposes of being able to create this screenshot.
 
-=== Options === 
+== Options ==
 The options screen allows you to pick from any Metric (that does its calcs on members) within CodeRush and displays it's Warning value alongside the dropdown.
 
 Additionally you can change any of the colors, opacities of those colors or the boundaries by which the logic works.
@@ -27,22 +27,22 @@ You can also enable/disable the plugin entirely.
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MetricShader/Screenshots/Options563.png
 
-=== Installation ===
+== Installation ==
 
 Installation instructions can be found on the InstallInstructions page.
 
-=== Download === 
+== Download == 
 Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_MetricShader/
 
 An instructional screencast of this plugin is available from http://tv.devexpress.com/CRMetricShader.movie
 
-= Usage =
+== Usage ==
 
  * Devexpress\Options (CTRL+ALT+SHIFT+O) 
  * Editor\Painting\Metric Shader
  * Pick your metric and GO.
 
-=== History ===
+== History ==
  * Build 563
    * Now allows an alternate mode where a single nominated color is used with different levels of opacity to indicate poorness of metric compliance.
  * Build 556
@@ -53,12 +53,12 @@ An instructional screencast of this plugin is available from http://tv.devexpres
    * Perf: White is no longer actively painted.
    * Perf: No member whose range falls outside the viewable screen will now be painted.
 
-=== Additional Screenshots ===
+== Additional Screenshots ==
 
 Apparently CR_MetricShader looks good on a dark scheme also :)
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MetricShader/Screenshots/DarkExample.png
 
-=== Credits ===
+== Credits ==
 
 Rory Becker [contact me on twitter(@rorybecker) or via email (Rorybecker@gmail.com)]
