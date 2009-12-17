@@ -6,7 +6,7 @@
 
 This plugin changes the background color of your class's members to indicate how well they adhere to a nominated metric.
 
-So members that stack up well remain white, and the colors escalate Green, Orange, Red as the Metric value goes up.
+Members that stack up well, remain white. The colors traffic light inspired colors show  Green, Orange, Red as the Metric value goes up.
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MetricShader/Screenshots/Example.png
 
