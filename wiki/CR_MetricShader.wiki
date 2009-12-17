@@ -1,13 +1,6 @@
 #summary Alters the background color of members to indicate status according to a nominated Metric.
-<wiki:toc max_depth="3" />
-= Download = 
-Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_MetricShader/
 
-An instructional screencast of this plugin is available from http://tv.devexpress.com/CRMetricShader.movie
-
-== Installation ==
-
-Installation instructions can be found on the InstallInstructions page.
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_MetricShader/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png][http://tv.devexpress.com/CRMetricShader.movie http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Screencast.png][http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions/  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Introduction =
 
