@@ -2,8 +2,7 @@
 
 #sidebar TableOfContents
 
-  * [CR_MetricShader#Usage]
-    * [CR_MetricShader#Download]
+  * [CR_MetricShader#Download Download]
 
 === Introduction ===
 
