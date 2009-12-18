@@ -30,7 +30,7 @@ using RedGreen;
 
 namespace RedGreenTests
 {
-    public class MbUnitParseTests
+    public class MbUnit305ParseTests
     {
         [Fact]
         public void StringExpected()
@@ -79,5 +79,7 @@ namespace RedGreenTests
         {
             Assert.Equal("RedGreenPlayground.NUnitTests.AlwaysPass", new MbUnitGallioParser().ReformatLocation("RedGreenPlayground/NUnitTests/AlwaysPass"));
         }
+		const string GallioBuild313StringFailure = "[failed] Test RedGreenPlayground/MbUnitTests/AlwaysFails\nExpected values to be equal.\n\nExpected Value : \"who\\'s there\"\nActual Value   : \"who\\'s where\"\n\n   at RedGreenPlayground.MbUnitTests.AlwaysFails() in C:\\Users\\JAARGERO.WRPWI\\Documents\\Visual Studio 2005\\Projects\\RedGreenPlayground\\RedGreenPlayground\\MbUnitTests.cs:line 21\n\n\nHost stopped at 12/15/2009 12:07:43 PM.\nHost process exited with code: 0\nHost started at 12/15/2009 12:07:43 PM.\nRunning under CLR v2.0.50727 runtime.\nHost stopped at 12/15/2009 12:07:45 PM.\nHost process exited with code: 0\nHost started at 12/15/2009 12:07:45 PM.\nRunning under CLR v2.0.50727 runtime.\nHost stopped at 12/15/2009 12:07:50 PM.\nHost process exited with code: 0\nDisposing the test runner.\nStop time: 12:07 PM (Total execution time: 11.882 seconds)\n\n1 run, 0 passed, 1 failed, 0 inconclusive, 0 skipped\n\n"	;
+
     }
 }

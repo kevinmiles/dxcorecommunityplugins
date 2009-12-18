@@ -53,6 +53,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gallio3_1DataSource.cs" />
+    <Compile Include="Gallio3_1ParserTests.cs" />
     <Compile Include="NunitParserTests.cs" />
     <Compile Include="MbUnitParseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
