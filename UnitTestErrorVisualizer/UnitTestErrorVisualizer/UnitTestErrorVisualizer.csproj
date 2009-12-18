@@ -61,10 +61,19 @@
       <DependentUpon>PlugIn1.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="OptUnitTestVisualizer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OptUnitTestVisualizer.Designer.cs">
+      <DependentUpon>OptUnitTestVisualizer.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PlugIn1.resx">
       <DependentUpon>PlugIn1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptUnitTestVisualizer.resx">
+      <DependentUpon>OptUnitTestVisualizer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
