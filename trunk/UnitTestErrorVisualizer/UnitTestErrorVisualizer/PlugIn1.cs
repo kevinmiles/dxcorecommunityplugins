@@ -8,6 +8,7 @@ using DevExpress.CodeRush.StructuralParser;
 using DevExpress.CodeRush.Core.Testing;
 using System.Collections;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace UnitTestErrorVisualizer
 {
@@ -19,16 +20,38 @@ namespace UnitTestErrorVisualizer
 			public SourceRange StartRange { get; set; }
 			public SourceRange End { get; set; } // converted to a rect later
 		}
-		private ArrowDescription visibleArrow = null;
+        private ArrowDescription visibleArrow = null;
         // DXCore-generated code...
 		#region InitializePlugIn
 		public override void InitializePlugIn()
 		{
 			base.InitializePlugIn();
 
-			//
-			// TODO: Add your initialization code here.
-			//
+			LoadSettings();
+		}
+
+		private void LoadSettings()
+		{
+			using (DecoupledStorage storage = OptUnitTestVisualizer.Storage)
+			{
+				ShadeAttribute = OptUnitTestVisualizer.ReadShadeAttribute(storage);
+				DrawArrowToAssert = OptUnitTestVisualizer.ReadDrawArrow(storage);
+				OverlayError = OptUnitTestVisualizer.ReadOverlayError(storage);
+				PassedColor = OptUnitTestVisualizer.ReadTestPassColor(storage);
+				FailedColor = OptUnitTestVisualizer.ReadTestFailColor(storage);
+				SkippedColor = OptUnitTestVisualizer.ReadTestSkipColor(storage);
+			}
+		}
+		public bool ShadeAttribute { get; set; }
+		public bool DrawArrowToAssert { get; set; }
+		public bool OverlayError { get; set; }
+		public Color PassedColor { get; set; }
+		public Color FailedColor { get; set; }
+		public Color SkippedColor { get; set; }
+
+		private void PlugIn1_OptionsChanged(OptionsChangedEventArgs ea)
+		{
+			LoadSettings();
 		}
 		#endregion
 		#region FinalizePlugIn
@@ -47,27 +70,143 @@ namespace UnitTestErrorVisualizer
 			LanguageElement element = ea.LanguageElement;
 			if (element.ElementType == LanguageElementType.Attribute)
 			{
-				TestMethodCollection tests = CodeRush.UnitTests.Tests;
-				foreach (TestMethod test in tests)
+				DevExpress.CodeRush.StructuralParser.Attribute attribute = (DevExpress.CodeRush.StructuralParser.Attribute)element;
+				if (attribute.TargetNode.ElementType == LanguageElementType.Method)
 				{
-					if (test.Status == TestStatus.Failure)
+					Method target = (Method)attribute.TargetNode;
+					TestMethodCollection tests = CodeRush.UnitTests.Tests;
+					foreach (TestMethod test in tests)
 					{
-						LanguageElement attrib = element.PreviousNode;
-						string[] testAttributes = new string[] { "Test", "TestMethod", "Fact", "Theory" };
-						while (attrib.ElementType != LanguageElementType.AttributeSection && Array.Exists(testAttributes, a => a == attrib.FirstDetail.Name))
+						if (target.Location == test.FullName)
 						{
-							attrib = attrib.PreviousNode;
-							if (attrib.ElementType == LanguageElementType.Method)
-							{
-								break;
-							}
-						}
-						if (Array.Exists(testAttributes, a => a == attrib.FirstDetail.Name))
-						{
-							Point topLeft = ea.PaintArgs.TextView.GetPoint(attrib.Range.Start.Line, attrib.Range.Start.Offset);
-							ea.PaintArgs.TextView.AddTile(NewTile(new Rectangle(topLeft.X - 24, topLeft.Y + 2, 16, 16), test.TestResult));
+							PointToFailedAssert(ea, element, test);
+							ShadeTestAttribute(ea.PaintArgs, attribute, test);
 						}
 					}
+				}
+			}
+		}
+
+		#region ShadeAttribute
+		private void ShadeTestAttribute(EditorPaintEventArgs paintArgs, DevExpress.CodeRush.StructuralParser.Attribute attribute, TestMethod testMethod)
+		{
+			if (paintArgs.LineInView(attribute.Range.Start.Line) && ShadeAttribute == true)
+			{
+				if (testMethod.Status != TestStatus.Pending && testMethod.Status != TestStatus.FailedWithChanges && testMethod.Status != TestStatus.PassedWithChanges)
+				{
+					Point topLeft = paintArgs.TextView.GetPoint(attribute.Parent.Range.Start);
+					int methodStartLine = attribute.TargetNode.Range.Start.Line;
+					Point bottomRight = paintArgs.TextView.GetPoint(methodStartLine, paintArgs.TextView.LengthOfLine(methodStartLine));
+					Rectangle area = new Rectangle(topLeft.X, topLeft.Y, bottomRight.X - topLeft.X, bottomRight.Y - topLeft.Y);
+					using (Brush b = new SolidBrush(GetBackgroundColor(testMethod.Status)))
+					{
+						paintArgs.Graphics.FillRectangle(b, area);
+					}
+				}
+			}
+		}
+		///// <summary>
+		///// Draw all the test attributes the same and put the status color in the background
+		///// </summary>
+		//private void RedrawTestAttribute(EditorPaintEventArgs paintArgs, UnitTestDetail testData)
+		//{
+		//    if (paintArgs.LineInView(testData.Attribute.StartLine) && testData.Result.Status != TestStatus.Unknown)
+		//    {
+		//        Point topLeft = paintArgs.TextView.GetPoint(testData.Attribute.StartLine, testData.Attribute.Parent.StartOffset);
+		//        Point lowerRight = paintArgs.TextView.GetPoint(testData.Attribute.StartLine + 1, paintArgs.TextView.LengthOfLine(testData.Method.StartLine) + 1);
+		//        Rectangle area = new Rectangle(topLeft.X, topLeft.Y, lowerRight.X - topLeft.X, lowerRight.Y - topLeft.Y);
+		//        using (Brush b = new SolidBrush(GetBackgroundColor(testData.Result.Status)))
+		//        {
+		//            paintArgs.Graphics.FillRectangle(b, area);
+		//        }
+		//    }
+		//}
+
+		/// <summary>
+		/// Look up the method location in the test results. If found use the test results to pick the background color
+		/// </summary>
+		/// <param name="location"></param>
+		/// <returns></returns> 
+		private Color GetBackgroundColor(TestStatus status)
+		{
+			switch (status)
+			{
+				//case TestStatus.Pending:
+				default:
+					return CodeRush.VSSettings.BackgroundColor;
+				case TestStatus.Ignored:
+					return SkippedColor;
+				case TestStatus.Passed:
+				//case TestStatus.PassedWithChanges:
+					return PassedColor;
+				case TestStatus.Failure:
+				//case TestStatus.FailedWithChanges:
+					return FailedColor;
+			}
+		}
+
+		///// <summary>
+		///// Draw the parsed error text at the end of the method causing the test failure 
+		///// </summary>
+		//private void DrawError(EditorPaintLanguageElementEventArgs ea, TestResult testResult)
+		//{
+		//    if (testResult.Status == TestStatus.Failed)
+		//    {
+		//        FailureData failure = testResult.Failure;
+		//        if (failure.FailingStatement != null)
+		//        {
+		//            int errorTextStartCol = failure.FailingStatement.EndOffset + 5;
+		//            if (string.IsNullOrEmpty(failure.Expected))
+		//            {// not an equal comparison
+		//                ea.PaintArgs.OverlayText("<------- Test failed here",
+		//                    failure.FailingStatement.StartLine,
+		//                    errorTextStartCol,
+		//                    FailedColor);
+
+		//            }
+		//            else if (failure.ActualDiffersAt < 0)
+		//            {
+		//                ea.PaintArgs.OverlayText(string.Format("Expected: {0} Actual: {1}", failure.Expected, failure.Actual),
+		//                    failure.FailingStatement.StartLine,
+		//                    errorTextStartCol,
+		//                    FailedColor);
+		//            }
+		//            else
+		//            {
+		//                int start = errorTextStartCol;
+		//                string correctPortion = string.Format("Expected: {0} Actual: {1}", failure.Expected, failure.Actual.Substring(0, failure.ActualDiffersAt));
+		//                ea.PaintArgs.OverlayText(correctPortion,
+		//                    failure.FailingStatement.StartLine,
+		//                    start,
+		//                    FailedColor);
+		//                ea.PaintArgs.OverlayText(failure.Actual.Substring(failure.ActualDiffersAt),
+		//                    failure.FailingStatement.StartLine,
+		//                    start + correctPortion.Length,
+		//                    Color.Red);
+		//            }
+		//        }
+		//    }
+		//}
+		#endregion
+		#region Draw Arrow To Assert
+		private void PointToFailedAssert(EditorPaintLanguageElementEventArgs ea, LanguageElement element, TestMethod test)
+		{
+			if (test.Status == TestStatus.Failure && DrawArrowToAssert == true)
+			{
+				LanguageElement attrib = element.PreviousNode;
+				string[] testAttributes = new string[] { "Test", "TestMethod", "Fact", "Theory" };
+				while (attrib.ElementType != LanguageElementType.AttributeSection && Array.Exists(testAttributes, a => a == attrib.FirstDetail.Name))
+				{
+					attrib = attrib.PreviousNode;
+					if (attrib.ElementType == LanguageElementType.Method)
+					{
+						break;
+					}
+				}
+				if (Array.Exists(testAttributes, a => a == attrib.FirstDetail.Name))
+				{
+					Point topLeft = ea.PaintArgs.TextView.GetPoint(attrib.Range.Start.Line, attrib.Range.Start.Offset);
+					ea.PaintArgs.TextView.AddTile(NewTile(new Rectangle(topLeft.X - 24, topLeft.Y + 2, 16, 16), test.TestResult));
 				}
 			}
 		}
@@ -91,7 +230,7 @@ namespace UnitTestErrorVisualizer
 		}
 		private int ParseColumnNumber(string location)
 		{
-			int startColData = location.IndexOf(',')+2;
+			int startColData = location.IndexOf(',') + 2;
 			int endColData = location.LastIndexOf(')');
 			return int.Parse(location.Substring(startColData, endColData - startColData));
 		}
@@ -115,7 +254,7 @@ namespace UnitTestErrorVisualizer
 			arrowToAssert.StartRect = arrowDescription.Start;
 			arrowToAssert.EndRect = textView.GetRectangleFromRange(arrowDescription.End);
 			arrowToAssert.Color = Color.Red;
-			arrowToAssert.Paint(textView.Graphics); 
+			arrowToAssert.Paint(textView.Graphics);
 		}
 
 		private void PlugIn1_EditorPaintForeground(EditorPaintEventArgs ea)
@@ -133,5 +272,6 @@ namespace UnitTestErrorVisualizer
 			//ea.Tile.TextView.Invalidate(arrowRect);
 			ea.Tile.TextView.Invalidate(r);
 		}
+		#endregion
 	}
 }
