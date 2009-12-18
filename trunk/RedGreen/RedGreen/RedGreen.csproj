@@ -22,7 +22,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\debug\</OutputPath>
+    <OutputPath>..\..\..\..\..\Public\Documents\DevExpress\IDE Tools\Community\PlugIns\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -94,13 +94,16 @@
     <Compile Include="AdHocDetail.cs" />
     <Compile Include="AdHocRunner.cs" />
     <Compile Include="AllTestsCompleteEventArgs.cs" />
+    <Compile Include="BaseResultParser.cs" />
     <Compile Include="BaseTestRunner.cs" />
     <Compile Include="FailureData.cs" />
     <Compile Include="DxCoreUtils.cs" />
     <Compile Include="GallioParserUtils.cs" />
     <Compile Include="GallioRunner.cs" />
     <Compile Include="IGallioResultParser.cs" />
+    <Compile Include="IResultParser.cs" />
     <Compile Include="ITestDetail.cs" />
+    <Compile Include="MbUnit3_1ResultParser.cs" />
     <Compile Include="MbUnitGallioParser.cs" />
     <Compile Include="MsTestRunner.cs" />
     <Compile Include="NullGallioParser.cs" />

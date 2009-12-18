@@ -33,6 +33,7 @@ namespace RedGreen
     /// </summary>
     class GallioRunner : BaseTestRunner 
     {
+		private const string kVersionDelimiter = " - version";
         public override void RunTests(string assemblyPath, string assemblyName)
         {
             RunTestsImpl(assemblyPath,
@@ -69,46 +70,67 @@ namespace RedGreen
         /// </summary>
         /// <param name="assemblyPath">Where the class lives physically on the disk</param>
         /// <param name="filters">A set of filters to narrow the tests that should be run</param>
-        private void RunTestsImpl(string assemblyPath, string filter)//params Filter<ITest>[] filters)
-        {
-            string gallioPath = GetGallioInstalledFolder();
-            if (string.IsNullOrEmpty(gallioPath))
-            {
-                return;
-            }
+		private void RunTestsImpl(string assemblyPath, string filter)//params Filter<ITest>[] filters)
+		{
+			string gallioPath = GetGallioInstalledFolder();
+			if (string.IsNullOrEmpty(gallioPath))
+			{
+				return;
+			}
 
-            StreamReader sr = null;
-            using (System.Diagnostics.Process p = new System.Diagnostics.Process())
-            {
-                p.StartInfo = new System.Diagnostics.ProcessStartInfo(gallioPath, string.Format("\"{0}\" /v:verbose {1}", assemblyPath, filter));
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.CreateNoWindow = true;
-                p.Start();
-                sr = p.StandardOutput;
-            }
-            string line = sr.ReadLine();
+			StreamReader sr = null;
+			using (System.Diagnostics.Process p = new System.Diagnostics.Process())
+			{
+				string parameters = string.Format("\"{0}\" /v:verbose {1}", assemblyPath, filter);
+				p.StartInfo = new System.Diagnostics.ProcessStartInfo(gallioPath, parameters);
+				p.StartInfo.UseShellExecute = false;
+				p.StartInfo.RedirectStandardOutput = true;
+				p.StartInfo.CreateNoWindow = true;
+				p.Start();
+				sr = p.StandardOutput;
+			}
+			string line = sr.ReadLine().ToLower();
+			string version = String.Empty;
+			while (line != "running the tests.")
+			{// eat the preamble
+				if (line.Contains(kVersionDelimiter))
+				{
+					version = ParseVersion(line);
+				}
+				line = sr.ReadLine().ToLower();
+			}
+			line = sr.ReadLine();
 
-            while (line != "Running the tests.")
-            {// eat the preamble
-                line = sr.ReadLine();
-            }
-            line = sr.ReadLine();
+			IResultParser parser = ParserFactory(version);
+			string rawResult = String.Empty;
+			while (line != null)
+			{
+				StringBuilder result = new StringBuilder();
+				parser.ReadNextTextResult(sr, ref line, result);
+				rawResult = result.ToString();
+				if (parser.IsTestResult(rawResult))
+				{// Only raise event for tests completed, not fixtures and the like.
+					RaiseComplete(result.ToString(), parser.ParseTest(rawResult));
+				}
+			}
+			RaiseAllComplete(parser.ParseSummary(rawResult));
+		}
+		private static IResultParser ParserFactory(string version)
+		{
+			switch (version)
+			{
+				case "3.1 build 313":
+					return new MbUnit3_1ResultParser();
+				default:
+					return new ResultParser();
+					break;
+			}
+		}
 
-            ResultParser parser = new ResultParser();
-            string rawResult = String.Empty;
-            while (line != null)
-            {
-                StringBuilder result = new StringBuilder();
-                ResultParser.ReadNextTextResult(sr, ref line, result);
-                rawResult = result.ToString();
-                if (ResultParser.IsTestResult(rawResult))
-                {// Only raise event for tests completed, not fixtures and the like.
-                    RaiseComplete(result.ToString(), parser.ParseTest(rawResult));
-                }
-            }
-            RaiseAllComplete(ResultParser.ParseSummary(rawResult));
-        }
+		private string ParseVersion(string line)
+		{
+			return line.Substring(line.IndexOf(kVersionDelimiter)+kVersionDelimiter.Length).Trim();
+		}
 
 		private static string GetGallioInstalledFolder()
 		{
