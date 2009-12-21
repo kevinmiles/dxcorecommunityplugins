@@ -526,8 +526,8 @@ namespace RedGreen
         /// Attempt to locate the Test attribute for the given language element
         /// </summary>                                                              
         private static Attribute GetTestAttributeForLanguageElement(LanguageElement languageElement)
-        {       
-            if (languageElement.ElementType == LanguageElementType.Attribute && DxCoreUtil.IsTest((Attribute)languageElement))
+        {
+			if (languageElement.ElementType == LanguageElementType.Attribute && RunnerFactory.IsTest((Attribute)languageElement))
             {                     
                 return (Attribute)languageElement;
             }        
@@ -546,7 +546,7 @@ namespace RedGreen
             UnitTestDetail testData = _Tests.Find(test => test.Method.RootNamespaceLocation == testAttribute.TargetNode.RootNamespaceLocation);
             if (testData == null)
             {
-                if (DxCoreUtil.IsTest(testAttribute))  // probably not needed because we can't get here unless GetFirstTestAttribute already performed the test, but not a bad safeguard.
+				if (RunnerFactory.IsTest(testAttribute))  // probably not needed because we can't get here unless GetFirstTestAttribute already performed the test, but not a bad safeguard.
                 {
                     testData = new UnitTestDetail(DxCoreUtil.GetMethod(testAttribute.TargetNode), testActions);
                     _Tests.Add(testData);
