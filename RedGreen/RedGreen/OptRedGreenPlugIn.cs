@@ -32,15 +32,8 @@ namespace RedGreen
 		}
 		#endregion
 
-		public static bool ReadDrawAdHocIcon(DecoupledStorage storage)
-		{
-			return storage.ReadBoolean("Preferences", "DrawAdHocIcon", true);
-		}
-
 		private class Default
 		{
-			public const bool DrawAdHoc = true;
-
 			public class PassColor
 			{
 				public static int Alpha = 50;
@@ -95,8 +88,6 @@ namespace RedGreen
 
 		private void OptRedGreenPlugIn_PreparePage(object sender, OptionsPageStorageEventArgs ea)
 		{
-			drawAdHocIcon.Checked = ReadDrawAdHocIcon(ea.Storage);
-			
 			passColor.BackColor = ReadTestPassColor(ea.Storage);
 			passAlpha.Maximum = 100;
 			passAlpha.Value = passColor.BackColor.A;
@@ -112,8 +103,6 @@ namespace RedGreen
 
 		private void OptRedGreenPlugIn_CommitChanges(object sender, CommitChangesEventArgs ea)
 		{
-			ea.Storage.WriteBoolean("Preferences", "DrawAdHocIcon", drawAdHocIcon.Checked);
-
 			ea.Storage.WriteInt32("Preferences", "PassAlphaComponent", passColor.BackColor.A);
 			ea.Storage.WriteInt32("Preferences", "PassRedComponent", passColor.BackColor.R);
 			ea.Storage.WriteInt32("Preferences", "PassGreenComponent", passColor.BackColor.G);
@@ -132,8 +121,6 @@ namespace RedGreen
 
 		private void OptRedGreenPlugIn_RestoreDefaults(object sender, OptionsPageEventArgs ea)
 		{
-			drawAdHocIcon.Checked = true;
-
 			passColor.BackColor = Color.FromArgb(Default.PassColor.Alpha, Default.PassColor.Red, Default.PassColor.Green, Default.PassColor.Blue);
 			passAlpha.Value = Default.PassColor.Alpha;
 

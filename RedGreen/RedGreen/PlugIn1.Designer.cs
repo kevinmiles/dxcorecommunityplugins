@@ -42,13 +42,11 @@ namespace RedGreen
 			this.testActions = new DevExpress.CodeRush.Core.SmartTagProvider(this.components);
 			this.actRunTests = new DevExpress.CodeRush.Core.Action(this.components);
 			this.attachDebugger = new DevExpress.CodeRush.Core.Action(this.components);
-			this.adHocActions = new DevExpress.CodeRush.Core.SmartTagProvider(this.components);
 			this.actRunAllTests = new DevExpress.CodeRush.Core.Action(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.actBuildProject)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.testActions)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.actRunTests)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.attachDebugger)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.adHocActions)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.actRunAllTests)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
 			// 
@@ -95,21 +93,6 @@ namespace RedGreen
 			this.attachDebugger.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
 			this.attachDebugger.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.attachDebugger_Execute);
 			// 
-			// adHocActions
-			// 
-			this.adHocActions.Description = "Actions available for AdHoc tests ";
-			this.adHocActions.DisplayName = "Ad Hoc";
-			this.adHocActions.Image = ((System.Drawing.Bitmap)(resources.GetObject("adHocActions.Image")));
-			this.adHocActions.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
-			this.adHocActions.MenuOrder = 0;
-			this.adHocActions.ProviderName = "AdHocTest";
-			this.adHocActions.Register = true;
-			this.adHocActions.ShowInContextMenu = false;
-			this.adHocActions.ShowInPopupMenu = true;
-			this.adHocActions.GetSmartTagItemColors += new DevExpress.CodeRush.Core.GetSmartTagItemColorsEventHandler(this.adHocActions_GetSmartTagItemColors);
-			this.adHocActions.CheckSmartTagAvailability += new DevExpress.CodeRush.Core.CheckSmartTagAvailabilityEventHandler(this.adHocActions_CheckSmartTagAvailability);
-			this.adHocActions.GetSmartTagItems += new DevExpress.CodeRush.Core.GetSmartTagItemsEventHandler(this.adHocActions_GetSmartTagItems);
-			// 
 			// actRunAllTests
 			// 
 			this.actRunAllTests.ActionName = "Run All Test in Assembly";
@@ -125,7 +108,6 @@ namespace RedGreen
 			this.EditorMouseHover += new DevExpress.CodeRush.Core.EditorEventHandler(this.PlugIn1_EditorMouseHover);
 			this.SolutionOpened += new DevExpress.CodeRush.Core.DefaultHandler(this.PlugIn1_SolutionOpened);
 			this.BuildDone += new DevExpress.CodeRush.Core.BuildEventHandler(this.PlugIn1_BuildDone);
-			
 			this.EditorPaintLanguageElement += new DevExpress.CodeRush.Core.EditorPaintLanguageElementEventHandler(this.PlugIn1_EditorPaintLanguageElement);
 			this.TileMouseLeave += new DevExpress.CodeRush.Core.TileEventHandler(this.PlugIn1_TileMouseLeave);
 			this.TextChanged += new DevExpress.CodeRush.Core.TextChangedEventHandler(this.PlugIn1_TextChanged);
@@ -134,7 +116,6 @@ namespace RedGreen
 			((System.ComponentModel.ISupportInitialize)(this.testActions)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.actRunTests)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.attachDebugger)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.adHocActions)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.actRunAllTests)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
@@ -145,8 +126,7 @@ namespace RedGreen
         private DevExpress.CodeRush.Core.Action actBuildProject;
         private DevExpress.CodeRush.Core.SmartTagProvider testActions;
         private DevExpress.CodeRush.Core.Action actRunTests;
-        private DevExpress.CodeRush.Core.Action attachDebugger;
-        private DevExpress.CodeRush.Core.SmartTagProvider adHocActions;
+		private DevExpress.CodeRush.Core.Action attachDebugger;
         private DevExpress.CodeRush.Core.Action actRunAllTests;
 
     }

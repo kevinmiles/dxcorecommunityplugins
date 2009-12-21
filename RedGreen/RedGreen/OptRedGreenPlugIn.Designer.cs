@@ -39,7 +39,6 @@ namespace RedGreen
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.drawAdHocIcon = new System.Windows.Forms.CheckBox();
 			this.colorDialog1 = new System.Windows.Forms.ColorDialog();
 			this.passColor = new System.Windows.Forms.Button();
 			this.passAlpha = new System.Windows.Forms.TrackBar();
@@ -62,16 +61,6 @@ namespace RedGreen
 			((System.ComponentModel.ISupportInitialize)(this.skipAlpha)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// drawAdHocIcon
-			// 
-			this.drawAdHocIcon.AutoSize = true;
-			this.drawAdHocIcon.Location = new System.Drawing.Point(24, 387);
-			this.drawAdHocIcon.Name = "drawAdHocIcon";
-			this.drawAdHocIcon.Size = new System.Drawing.Size(257, 21);
-			this.drawAdHocIcon.TabIndex = 1;
-			this.drawAdHocIcon.Text = "Show Test Runner for Ad Hoc Tests";
-			this.drawAdHocIcon.UseVisualStyleBackColor = true;
 			// 
 			// passColor
 			// 
@@ -237,7 +226,6 @@ namespace RedGreen
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.passAlpha);
 			this.Controls.Add(this.passColor);
-			this.Controls.Add(this.drawAdHocIcon);
 			this.Name = "OptRedGreenPlugIn";
 			this.PreparePage += new DevExpress.CodeRush.Core.OptionsPage.PreparePageEventHandler(this.OptRedGreenPlugIn_PreparePage);
 			this.RestoreDefaults += new DevExpress.CodeRush.Core.OptionsPage.RestoreDefaultsEventHandler(this.OptRedGreenPlugIn_RestoreDefaults);
@@ -301,7 +289,6 @@ namespace RedGreen
 		{
 			DevExpress.CodeRush.Core.CodeRush.Command.Execute("Options", FullPath);
 		}
-		private System.Windows.Forms.CheckBox drawAdHocIcon;
 		private System.Windows.Forms.ColorDialog colorDialog1;
 		private System.Windows.Forms.Button passColor;
 		private System.Windows.Forms.TrackBar passAlpha;
