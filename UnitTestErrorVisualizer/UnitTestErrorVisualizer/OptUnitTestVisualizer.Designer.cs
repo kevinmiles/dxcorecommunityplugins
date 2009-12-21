@@ -60,6 +60,8 @@ namespace UnitTestErrorVisualizer
 			// arrowToFailed
 			// 
 			this.arrowToFailed.AutoSize = true;
+			this.arrowToFailed.Checked = true;
+			this.arrowToFailed.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.arrowToFailed.Location = new System.Drawing.Point(16, 44);
 			this.arrowToFailed.Name = "arrowToFailed";
 			this.arrowToFailed.Size = new System.Drawing.Size(205, 21);
@@ -79,13 +81,13 @@ namespace UnitTestErrorVisualizer
 			this.overlayMessage.Text = "Parse failed asserts and overlay the details";
 			this.overlayMessage.UseVisualStyleBackColor = true;
 			// 
-			// UnitTestVisualizer
+			// OptUnitTestVisualizer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.Controls.Add(this.overlayMessage);
 			this.Controls.Add(this.arrowToFailed);
 			this.Controls.Add(this.shadeAttribute);
-			this.Name = "UnitTestVisualizer";
+			this.Name = "OptUnitTestVisualizer";
 			this.PreparePage += new DevExpress.CodeRush.Core.OptionsPage.PreparePageEventHandler(this.UnitTestVisualizer_PreparePage);
 			this.RestoreDefaults += new DevExpress.CodeRush.Core.OptionsPage.RestoreDefaultsEventHandler(this.UnitTestVisualizer_RestoreDefaults);
 			this.CommitChanges += new DevExpress.CodeRush.Core.OptionsPage.CommitChangesEventHandler(this.UnitTestVisualizer_CommitChanges);
