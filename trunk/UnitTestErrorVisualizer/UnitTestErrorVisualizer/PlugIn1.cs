@@ -206,7 +206,16 @@ namespace UnitTestErrorVisualizer
 				if (Array.Exists(testAttributes, a => a == attrib.FirstDetail.Name))
 				{
 					Point topLeft = ea.PaintArgs.TextView.GetPoint(attrib.Range.Start.Line, attrib.Range.Start.Offset);
-					ea.PaintArgs.TextView.AddTile(NewTile(new Rectangle(topLeft.X - 24, topLeft.Y + 2, 16, 16), test.TestResult));
+					Rectangle tileLocation = new Rectangle(topLeft.X - 32, topLeft.Y + 2, 16, 16);
+					ea.PaintArgs.TextView.AddTile(NewTile(tileLocation, test.TestResult));
+					try
+					{
+						ea.PaintArgs.TextView.Graphics.DrawIcon(new Icon(GetType(), "Invisible.ico"), tileLocation);
+					}
+					catch
+					{// fail silently if icon is missing from the project.
+					}
+
 				}
 			}
 		}

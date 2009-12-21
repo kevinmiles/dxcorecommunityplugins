@@ -39,7 +39,7 @@ namespace UnitTestErrorVisualizer
 		private class Default
 		{
 			public const bool ShadeAttribute = true;
-			public const bool DrawArrow = false;
+			public const bool DrawArrow = true;
 			public const bool OverlayError = true;
 
 			public class PassColor
