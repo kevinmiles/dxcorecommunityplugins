@@ -520,22 +520,6 @@ namespace RedGreen
 					}
 				}
 			}
-			else if (ea.LanguageElement.ElementType == LanguageElementType.Method && DrawAdHocIcon == true)
-			{// Potential adHocTest
-				Method method = (Method)ea.LanguageElement;
-				if (DxCoreUtil.GetFirstTestAttribute(ea.LanguageElement) == null
-					&& IsAdHoc(method))
-				{
-					DrawTestRunnerIcon(ea.PaintArgs, new AdHocDetail(method, adHocActions));
-				}
-			}
-        }
-
-        private static bool IsAdHoc(Method method)
-        {
-            return method.Parameters.Count == 0
-                    && method.IsGeneric == false
-                    && method.IsConstructor == false;
         }
 
         /// <summary>
@@ -751,15 +735,6 @@ namespace RedGreen
 					StandardRunTestBehavior(RunnerFactory.CreateRunnerFromTestAttribute(testAttribute.GetDeclaration().FullName), 
                         (run, assemblyPath, assemblyName) => run.RunTests(assemblyPath, assemblyName, className, methodName));
                 }
-                else if (IsAdHoc(CodeRush.Source.ActiveMethod))
-                {
-                    StandardRunTestBehavior(new AdHocRunner(),
-                        (run, assemblyPath, assemblyName) =>
-                        {
-                            run.RunTests(assemblyPath, assemblyName, className, methodName);
-                            ShowTestOutputWindow();
-                        });
-                }
             }
             else
             {// Handle trigger in class
@@ -852,33 +827,6 @@ namespace RedGreen
             return false;
         }
 
-        #region AdHoc Smart Menu
-        private bool adHocActions_CheckSmartTagAvailability(object sender, System.EventArgs ea)
-        {
-            return default(bool);
-        }
-
-        private void adHocActions_GetSmartTagItemColors(object sender, GetSmartTagItemColorsEventArgs ea)
-        {
-            ea.PopupMenuColors = sTestMenuColors; 
-        }
-
-        private void adHocActions_GetSmartTagItems(object sender, GetSmartTagItemsEventArgs ea)
-        {
-            AddSmartTagItem(ea, kRunTestMenuItem, PlugIn1_RunAdHocTest);
-        }
-
-        private void PlugIn1_RunAdHocTest(object sender, System.EventArgs ea)
-        {
-            StandardRunTestBehavior(new AdHocRunner(),
-                                (run, assemblyPath, assemblyName) =>
-                                {
-                                    run.RunTests(assemblyPath, assemblyName, _hoveredTest.ClassName, _hoveredTest.MethodName);
-                                    ShowTestOutputWindow();
-                                });
-        }
-        #endregion
-
 		private void PlugIn1_OptionsChanged(OptionsChangedEventArgs ea)
 		{
 			if(ea.OptionsPages.Contains(typeof(OptRedGreenPlugIn)))
@@ -888,12 +836,10 @@ namespace RedGreen
 			}
 		}
 
-		private bool DrawAdHocIcon { get; set; }
         private void LoadSettings()
 		{
 			using (DecoupledStorage storage = OptRedGreenPlugIn.Storage)
 			{
-				DrawAdHocIcon = OptRedGreenPlugIn.ReadDrawAdHocIcon(storage);
 				PassedColor = OptRedGreenPlugIn.ReadTestPassColor(storage);
 				FailedColor = OptRedGreenPlugIn.ReadTestFailColor(storage);
 				SkippedColor = OptRedGreenPlugIn.ReadTestSkipColor(storage);
