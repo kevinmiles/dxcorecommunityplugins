@@ -125,7 +125,7 @@ namespace RedGreen
             {
                 foreach (Attribute attribute in method.Attributes)
                 {
-                    if (IsTest(attribute))
+                    if (RunnerFactory.IsTest(attribute))
                     {
                         return attribute;
                     }
@@ -134,15 +134,15 @@ namespace RedGreen
             return null;
         }
 
-        static readonly List<string> supportedAttributes = new List<string>(new string[] { "Test", "Fact", "Theory", "TestMethod" });
+		//static readonly List<string> supportedAttributes = new List<string>(new string[] { "Test", "Fact", "Theory", "TestMethod" });
 
-        /// <summary>
-        /// Determines if the attribute is a known test attribute
-        /// </summary>
-        public static bool IsTest(Attribute attribute)
-        {
-            return supportedAttributes.Contains(attribute.ToString()) && attribute.TargetNode.ElementType == LanguageElementType.Method;
-        }
+		///// <summary>
+		///// Determines if the attribute is a known test attribute
+		///// </summary>
+		//public static bool IsTest(Attribute attribute)
+		//{
+		//    return supportedAttributes.Contains(attribute.ToString()) && attribute.TargetNode.ElementType == LanguageElementType.Method;
+		//}
 
         /// <summary>
         /// Get the method that contains the given LanguageElement

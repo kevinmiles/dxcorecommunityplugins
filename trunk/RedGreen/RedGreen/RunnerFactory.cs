@@ -1,9 +1,18 @@
-using System;
+//using System;
+using System.Collections.Generic;
+using DevExpress.CodeRush.StructuralParser;
 
 namespace RedGreen
 {
     internal static class RunnerFactory
 	{
+		static readonly List<string> supportedAttributes = new List<string>(new string[] { "Test", "Fact", "Theory", "TestMethod" });
+
+		internal static bool IsTest(Attribute attribute)
+		{
+			return attribute.TargetNode.ElementType == LanguageElementType.Method && supportedAttributes.Contains(attribute.ToString());
+		}
+
 		internal static BaseTestRunner CreateRunnerFromTestAttribute(string testAttributeName)
 		{
 			switch (testAttributeName)
