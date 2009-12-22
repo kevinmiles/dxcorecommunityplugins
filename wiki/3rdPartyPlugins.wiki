@@ -8,6 +8,6 @@ Others have written some and publish them on their own sites
 = Details =
 
  * [http://www.sturmnet.org/blog/2005/04/24/cr-electric-editing Oliver Sturm's Electric Editing] - Based on CodeRush, I created a plugin that lets me use some of the "electric" features I remember from Emacs: hungry delete and backspace and automatic newline insertion for the semicolon and the opening and closing curly braces.
- * [http://www.sturmnet.org/blog/2008/10/16/instant-gratification-for-developers Oliver Sturm's Instant Gratification]
+ * [http://www.sturmnet.org/blog/2008/10/16/instant-gratification-for-developers Oliver Sturm's Instant Gratification] - With this plugin installed, every time you build a project successfully, Visual Studio will sing your praise.
 
  * [http://www.andrewconnell.com/blog/articles/ProductivityToolsForSharePointDevelopers.aspx Andrew Connell's VS CodeRush/Refactor Tools for SharePoint Developers]
