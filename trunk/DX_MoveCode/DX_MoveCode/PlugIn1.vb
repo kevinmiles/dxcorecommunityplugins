@@ -27,58 +27,63 @@ Public Class PlugIn1
     End Sub
 #End Region
 
-    'TODO: Try to get a version of MoveCodeUp to work with Methods
+    'Done: Move Statements Up and down
+    'Done: Move Statements Left and Right
+    'Done: Move Methods Up and Down
+
+    'TODO: Add functions to work with Selections
+    'TODO: Add option to use TargerPicker
 
 
 #Region "Move Code Actions"
-    Private Sub cmdMoveCodeUp_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles cmdMoveCodeUp.Execute
+    Private Sub cmdMoveCodeUp_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeUp.Execute
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Select Case True
-            Case CodeRush.Source.IsStatement(FirstNodeOnLine)
+            Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable)
                 Call MoveElementUp(FirstNodeOnLine.GetParentStatementOrVariable)
             Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
                 Call MoveElementUp(FirstNodeOnLine)
         End Select
     End Sub
-    Private Sub cmdMoveCodeDown_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles cmdMoveCodeDown.Execute
+    Private Sub cmdMoveCodeDown_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeDown.Execute
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Select Case True
-            Case CodeRush.Source.IsStatement(FirstNodeOnLine)
+            Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable)
                 Call MoveElementDown(FirstNodeOnLine.GetParentStatementOrVariable)
             Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
                 Call MoveElementDown(FirstNodeOnLine)
         End Select
     End Sub
 
-    Private Sub cmdMoveCodeRight_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles cmdMoveCodeRight.Execute
+    Private Sub cmdMoveCodeRight_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeRight.Execute
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Call MoveStatementRight(FirstNodeOnLine.GetParentStatementOrVariable)
     End Sub
-    Private Sub cmdMoveCodeLeft_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles cmdMoveCodeLeft.Execute
+    Private Sub cmdMoveCodeLeft_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeLeft.Execute
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Call MoveStatementLeft(FirstNodeOnLine.GetParentStatementOrVariable)
     End Sub
 #End Region
 #Region "Move Caret Actions"
-    Private Sub cmdMoveCaretUp_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles cmdMoveCaretUp.Execute
+    Private Sub cmdMoveCaretUp_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCaretUp.Execute
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Select Case True
             Case FirstNodeOnLine.GetParentMethodOrProperty IsNot Nothing
                 Call MoveCaretUp(FirstNodeOnLine.GetParentStatementOrVariable)
         End Select
     End Sub
-    Private Sub cmdMoveCaretDown_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles cmdMoveCaretDown.Execute
+    Private Sub cmdMoveCaretDown_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCaretDown.Execute
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Select Case True
             Case FirstNodeOnLine.GetParentMethodOrProperty IsNot Nothing
                 Call MoveCaretDown(FirstNodeOnLine.GetParentStatementOrVariable)
         End Select
     End Sub
-    Private Sub cmdMoveCaretLeft_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles cmdMoveCaretLeft.Execute
+    Private Sub cmdMoveCaretLeft_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCaretLeft.Execute
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Call MoveCaretLeft(FirstNodeOnLine.GetParentStatementOrVariable)
     End Sub
-    Private Sub cmdMoveCaretRight_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles cmdMoveCaretRight.Execute
+    Private Sub cmdMoveCaretRight_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCaretRight.Execute
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Call MoveCaretRight(FirstNodeOnLine.GetParentStatementOrVariable)
     End Sub
@@ -103,12 +108,15 @@ Public Class PlugIn1
         End If
     End Sub
 #End Region
-#Region "Statement Movement"
-    Private Sub MoveElementUp(ByVal Statement As LanguageElement)
-        If Statement IsNot Nothing Then
-            Dim Sibling = Statement.PreviousCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
+#Region "Element Movement"
+    Private Sub MoveElementTo(ByVal Element As LanguageElement, ByVal Line As Integer)
+
+    End Sub
+    Private Sub MoveElementUp(ByVal Element As LanguageElement)
+        If Element IsNot Nothing Then
+            Dim Sibling = Element.PreviousCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
             If Sibling IsNot Nothing Then
-                Call SwapStatements(Statement.ToList, Sibling)
+                Call SwapStatements(Element.ToList, Sibling)
             End If
         End If
     End Sub
@@ -132,10 +140,24 @@ Public Class PlugIn1
         If Statement IsNot Nothing Then
             Dim NextBlock = GetNextBlockSibling(Statement)
             If NextBlock IsNot Nothing Then
-                Call MoveElementsToPoint(Statement.ToList, NextBlock.BlockCodeRange.Start.StartOfLine)
+                Call MoveElementsToPoint(Statement.ToList, GetInsertPoint(NextBlock).StartOfLine)
             End If
         End If
     End Sub
+    Private Function GetInsertPoint(ByVal NextBlock As ParentingStatement) As SourcePoint
+        Dim InsertPoint As SourcePoint
+        If NextBlock.BlockType = DelimiterBlockType.Brace Then
+            If NextBlock.BlockRange.Start.Line = NextBlock.BlockRange.End.Line Then
+                'Braces are on same line - Seperate with newline
+                CodeRush.Documents.ActiveTextDocument.InsertText(NextBlock.BlockRange.Start, Environment.NewLine)
+            End If
+            InsertPoint = NextBlock.BlockRange.Start.OffsetPoint(1, 0).StartOfLine
+        Else
+            InsertPoint = NextBlock.BlockRange.Start.StartOfLine
+        End If
+        Return InsertPoint
+    End Function
+
 #End Region
 
 #Region "Utility"
@@ -157,9 +179,12 @@ Public Class PlugIn1
 #End Region
 
     Private Function GetFirstNodeOnLine(ByVal Line As Integer) As LanguageElement
-        Dim Doc = CodeRush.Documents.ActiveTextDocument
-        Dim FirstAlphaChar As Integer = CodeRush.StrUtil.GetLeadingWhiteSpaceCharCount(CodeRush.Documents.ActiveLine) + 1
-        Return Doc.GetNodeAt(Line, FirstAlphaChar)
+        Return CodeRush.Documents.ActiveTextDocument.GetNodeAt(StartOfCode(Line))
+    End Function
+    Private Shared Function StartOfCode(ByVal LineNo As Integer) As SourcePoint
+        Dim Line As String = CodeRush.Documents.GetLineAt(CodeRush.Documents.ActiveTextDocument, LineNo)
+        Dim FirstAlphaChar As Integer = CodeRush.StrUtil.GetLeadingWhiteSpaceCharCount(Line) + 1
+        Return New SourcePoint(LineNo, FirstAlphaChar)
     End Function
     Private Sub MoveCaretToElement(ByVal Destination As LanguageElement)
         If Destination IsNot Nothing Then
@@ -168,25 +193,24 @@ Public Class PlugIn1
     End Sub
     Public Sub MoveElementsToPoint(ByVal Elements As List(Of LanguageElement), ByVal Point As SourcePoint)
         Dim ElementsStartLine = Elements.First.Range.Start.Line
-        Dim DestinationLine = Point.Line
+        Dim LocalPoint = Point.Clone()
+        LocalPoint.RemoveAllBindings()
+        Dim DestinationLine = LocalPoint.Line
         Dim ElementsHeight As Integer = Elements.Sum(Function(le) le.Range.Height)
-        Dim RelativeCaretOffset = CodeRush.Caret.Offset
         Dim Doc = CodeRush.Documents.ActiveTextDocument
         For Each Element In Elements.ToReversedList
-            Doc.Move(Element.GetFullBlockCutRange, Point, "")
-            Doc.Format(Element.Range.MoveABS(Point.StartOfLine))
+            Doc.Move(Element.GetFullBlockCutRange, LocalPoint, "")
+            Doc.Format(New SourceRange(LocalPoint.StartOfLine.OffsetPoint(-1, 0), LocalPoint.StartOfLine.OffsetPoint(ElementsHeight, 0)))
         Next
         If DestinationLine > ElementsStartLine Then
-            Point = Point.OffsetPoint(-1 * ElementsHeight, 0)
+            LocalPoint = LocalPoint.OffsetPoint(-1 * ElementsHeight, 0)
         End If
-        CodeRush.Caret.MoveTo(New SourcePoint(Point.Line, RelativeCaretOffset))
+        Dim Offset As Integer = StartOfCode(LocalPoint.Line).Offset
+        CodeRush.Caret.MoveTo(New SourcePoint(LocalPoint.Line, Offset))
     End Sub
     Public Sub SwapStatements(ByVal Elements As List(Of LanguageElement), ByVal Sibling As LanguageElement)
-        Dim ElementsHeight As Integer = Elements.Sum(Function(le) le.Range.Height)
-        Dim RelativeCaretOffset = CodeRush.Caret.Offset
         Dim ElementsStartLine = Elements.First.Range.Start.Line
         Dim SiblingStartLine = Sibling.Range.Start.Line
-        Dim LastElementLocation As SourcePoint = Nothing
         Dim SiblingDestination As SourcePoint = Nothing
 
         For Each Element In Elements
