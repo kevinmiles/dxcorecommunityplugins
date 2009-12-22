@@ -11,9 +11,6 @@ http://dotsmart.files.wordpress.com/2007/12/draw_lines_between_methods_-_in_acti
 
 (Blog article: http://blog.dotsmart.net/2008/05/02/lines-between-methods-in-the-c-editor-coderushdxcore-plugin/)
 
-= Installation =
-Installation instructions can be found on the InstallInstructions page.
-
 = Options =
 The options page allows you to change the line color, shadow, etc.
 
