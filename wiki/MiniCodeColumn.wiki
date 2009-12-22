@@ -7,11 +7,6 @@
 
 If you know about [http://www.hanselman.com/blog/IntroducingRockScroll.aspx RockScroll], this is for you, implemented as [http://www.devexpress.com/Downloads/NET/IDETools/DXCore/ DxCore] Plugin.
 
-=== Installation ===
-
-Please follow the general [InstallInstructions] on putting the plugin assembly in the right spot. With the newest !DxCore version you will be asked for a folder to place in community plugins, then this is the place to drop the !MiniCodeColumn.dll from the 
-[http://code.google.com/p/dxcorecommunityplugins/wiki/DownloadInstructions?tm=2 download-list].
-
 === Usage ===
 
 Open the tool-window with the menu !DevExpress -> Tool Windows -> !MiniCodeColumn.
