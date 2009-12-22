@@ -1,5 +1,6 @@
 #summary Mini Code Column - Plugin for DxCore
 #labels Decorative
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/MiniCodeColumn/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 <table><tr valign="top"><td>
 === Introduction ===
