@@ -7,7 +7,7 @@ The new Unit Test Runner in CodeRush 9.3.2 is nice. But I wanted more insight on
 = Details =
 
 So far there are three optional visualizations that are applied to the CodeRush Unit Test Runner Results.
-http://img115.yfrog.com/img115/1192/jaa.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/UnitTestErrorVisualizer/Screenshots/UnitTestVisualizer.png
   # The test attribute is shaded with red when a test faile, green when it passes, and yellow if it is skipped. No shading happens for tests that are pending or have been changed after the current result was run.
   # The message is parsed to determine why the test failed and the key reason is displayed as overlay text at the end of the line of the assert which failed.
   # An arrow is drawn from the learn more icon to the failed assert and the why it failed information is placed in a rectangle over the arrow
