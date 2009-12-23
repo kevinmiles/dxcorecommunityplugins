@@ -1,4 +1,4 @@
-Various ways to better interact with failed unit tests.
+This plug-in provides various ways to better interact with the results of the CodeRush Unit Test Runner.
 
 = Introduction =
 
