@@ -1,10 +1,10 @@
 This plug-in provides various ways to better interact with the results of the CodeRush Unit Test Runner.
 
-[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/UnitTestErrorVisualizer/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/UnitTestErrorVisualizer/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]  [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Introduction =
 
-The new Unit Test Runner in CodeRush 9.3.2 is nice. But I wanted more insight on the test results; in particular those that failed. This plug-in provides a few ways to get more information about the results of a test run.
+The new Unit Test Runner in CodeRush 9.3.2 is nice. But I felt the built in on-screen pass/fail information was too sublte or lacking. I wanted more insight on the test results; in particular those that failed. This plug-in provides a few ways to get more information about the results of a test run.
 
 = Details =
 
