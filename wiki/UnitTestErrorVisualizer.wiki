@@ -16,4 +16,7 @@ http://dxcorecommunityplugins.googlecode.com/svn/trunk/UnitTestErrorVisualizer/S
 
 The first two are really just carry over ideas from the RedGreen plug-in. Any one of the visualizations can be turned on/off from an options page.
 
-*Note:* At present there is CodeRush provides no way to know when the status of a unit test result has changed, only a way to get the list. So some of these features don't appear unil a refresh gives the plug-in a chance to check the current status.
+= Limitations =
+At present there is CodeRush provides no way to know when the status of a unit test result has changed, only a way to get the list. So some of these features don't appear unil a refresh gives the plug-in a chance to check the current status.
+
+Plug-in by Jim Argeropoulos
