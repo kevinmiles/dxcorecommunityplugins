@@ -1,0 +1,15 @@
+Various ways to better interact with failed unit tests.
+
+= Introduction =
+
+The new Unit Test Runner in CodeRush 9.3.2 is nice. But I wanted more insight on the test results; in particular those that failed. This plug-in provides a few ways to get more information about the results of a test run.
+
+= Details =
+
+So far there are three optional visualizations that are applied to the CodeRush Unit Test Runner Results.
+http://img115.yfrog.com/img115/1192/jaa.png
+  # The test attribute is shaded with red when a test faile, green when it passes, and yellow if it is skipped. No shading happens for tests that are pending or have been changed after the current result was run.
+  # The message is parsed to determine why the test failed and the key reason is displayed as overlay text at the end of the line of the assert which failed.
+  # An arrow is drawn from the learn more icon to the failed assert and the why it failed information is placed in a rectangle over the arrow
+
+The first two are really just carry over ideas from the RedGreen plug-in. Any one of the visualizations can be turned on/off from an options page.
