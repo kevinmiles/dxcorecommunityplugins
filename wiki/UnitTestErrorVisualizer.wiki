@@ -13,3 +13,5 @@ http://img115.yfrog.com/img115/1192/jaa.png
   # An arrow is drawn from the learn more icon to the failed assert and the why it failed information is placed in a rectangle over the arrow
 
 The first two are really just carry over ideas from the RedGreen plug-in. Any one of the visualizations can be turned on/off from an options page.
+
+*Note:* At present there is CodeRush provides no way to know when the status of a unit test result has changed, only a way to get the list. So some of these features don't appear unil a refresh gives the plug-in a chance to check the current status.
