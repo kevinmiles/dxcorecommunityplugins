@@ -1,4 +1,5 @@
 This plug-in provides various ways to better interact with the results of the CodeRush Unit Test Runner.
+
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/UnitTestErrorVisualizer/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      
 
 = Introduction =
