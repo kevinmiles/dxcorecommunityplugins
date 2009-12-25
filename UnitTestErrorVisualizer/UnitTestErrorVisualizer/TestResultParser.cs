@@ -126,12 +126,15 @@ namespace UnitTestErrorVisualizer
 			string index = header.Substring(header.IndexOf(kXunitDifferAtStartDelimiter));
 			return int.Parse(Regex.Match(index, @"\d+").Value);
 		}
-		private static int GetDifferAtManual(string expected, string actual)
+		public static int GetDifferAtManual(string expected, string actual)
 		{
 			int i = 0;
-			for (;i < Math.Min(expected.Length, actual.Length); i++)
-				if (expected[i] != actual[i])
-					break;
+			if (string.IsNullOrEmpty(expected) == false && string.IsNullOrEmpty(actual) == false)
+			{
+				for (; i < Math.Min(expected.Length, actual.Length); i++)
+					if (expected[i] != actual[i])
+						break;
+			}
 			return i;
 		}
 		private static int GetDifferAtNUnit(string message)

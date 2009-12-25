@@ -54,6 +54,7 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MessageLimiter.cs" />
     <Compile Include="PlugIn1.cs">
       <SubType>Component</SubType>
     </Compile>
