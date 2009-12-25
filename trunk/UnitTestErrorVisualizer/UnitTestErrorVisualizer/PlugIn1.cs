@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace UnitTestErrorVisualizer
 {
-	public partial class PlugIn1 : StandardPlugIn
+    public partial class PlugIn1 : StandardPlugIn
 	{
 		public class ArrowDescription
 		{
@@ -37,12 +37,18 @@ namespace UnitTestErrorVisualizer
 			{
 				ShadeAttribute = OptUnitTestVisualizer.ReadShadeAttribute(storage);
 				DrawArrowToAssert = OptUnitTestVisualizer.ReadDrawArrow(storage);
+				ShortenLongStrings = OptUnitTestVisualizer.ReadShortenLongStrings(storage);
+				MaxContextLength = Convert.ToInt32(OptUnitTestVisualizer.ReadMaxContextLength(storage));
+				ConvertEscapeCharacters = OptUnitTestVisualizer.ReadConvertEscapeCharacters(storage);
 				OverlayError = OptUnitTestVisualizer.ReadOverlayError(storage);
 				PassedColor = OptUnitTestVisualizer.ReadTestPassColor(storage);
 				FailedColor = OptUnitTestVisualizer.ReadTestFailColor(storage);
 				SkippedColor = OptUnitTestVisualizer.ReadTestSkipColor(storage);
 			}
 		}
+		public bool ConvertEscapeCharacters { get; set; }
+		public int MaxContextLength { get; set; }
+		public bool ShortenLongStrings { get; set; }
 		public bool ShadeAttribute { get; set; }
 		public bool DrawArrowToAssert { get; set; }
 		public bool OverlayError { get; set; }
@@ -285,7 +291,7 @@ namespace UnitTestErrorVisualizer
 			return Regex.Match(stackTrace, @"\(\d+, \d+\)").Value;
 		}
 
-		private static void DrawArrow(TextView textView, ArrowDescription arrowDescription)
+		private void DrawArrow(TextView textView, ArrowDescription arrowDescription)
 		{
 			int arrowHeight = PaintArrow(textView, arrowDescription);
 			PaintParsedMessageOverArrow(textView, arrowDescription, arrowHeight);
@@ -294,14 +300,16 @@ namespace UnitTestErrorVisualizer
 		/// <summary>
 		/// Parse the message from the failed test and paint it in a way that empahsizes the important points
 		/// </summary>
-		private static void PaintParsedMessageOverArrow(TextView textView, ArrowDescription arrowDescription, int arrowHeight)
+		private void PaintParsedMessageOverArrow(TextView textView, ArrowDescription arrowDescription, int arrowHeight)
 		{
 			// Parse the message
 			string expected = TestResultParser.Expected(arrowDescription.Message);
 			string actual = TestResultParser.Actual(arrowDescription.Message);
 			int differAt = TestResultParser.DifferAt(arrowDescription.Message, expected, actual);
-			string correct = actual.Substring(0, differAt);
-			string incorrect = actual.Substring(differAt);
+			string correct;
+			string incorrect;
+			MessageLimiter limiter = new MessageLimiter(ShortenLongStrings, MaxContextLength, ConvertEscapeCharacters);
+			limiter.AdjustExpectedActualLengths(ref expected, ref actual, differAt, out correct, out incorrect);
 			const string expectedLabel = "Expected: ";
 			const string actualLabel = "Actual:   ";
 

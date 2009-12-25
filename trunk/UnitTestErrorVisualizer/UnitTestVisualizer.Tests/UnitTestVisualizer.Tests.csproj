@@ -57,6 +57,7 @@
     <Compile Include="DifferAtParser.cs" />
     <Compile Include="ExpectedValueParser.cs" />
     <Compile Include="LineNumberParserTests.cs" />
+    <Compile Include="MessageLimiterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

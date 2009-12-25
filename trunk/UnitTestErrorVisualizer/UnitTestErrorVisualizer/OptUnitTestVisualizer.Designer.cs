@@ -42,6 +42,10 @@ namespace UnitTestErrorVisualizer
 			this.shadeAttribute = new System.Windows.Forms.CheckBox();
 			this.arrowToFailed = new System.Windows.Forms.CheckBox();
 			this.overlayMessage = new System.Windows.Forms.CheckBox();
+			this.shortenLongStrings = new System.Windows.Forms.CheckBox();
+			this.maxContextLength = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.convertEscape = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -68,22 +72,68 @@ namespace UnitTestErrorVisualizer
 			this.arrowToFailed.TabIndex = 1;
 			this.arrowToFailed.Text = "Draw arrow to failed asserts";
 			this.arrowToFailed.UseVisualStyleBackColor = true;
+			this.arrowToFailed.CheckedChanged += new System.EventHandler(this.arrowToFailed_CheckedChanged);
 			// 
 			// overlayMessage
 			// 
 			this.overlayMessage.AutoSize = true;
 			this.overlayMessage.Checked = true;
 			this.overlayMessage.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.overlayMessage.Location = new System.Drawing.Point(16, 72);
+			this.overlayMessage.Location = new System.Drawing.Point(16, 150);
 			this.overlayMessage.Name = "overlayMessage";
 			this.overlayMessage.Size = new System.Drawing.Size(302, 21);
 			this.overlayMessage.TabIndex = 2;
 			this.overlayMessage.Text = "Parse failed asserts and overlay the details";
 			this.overlayMessage.UseVisualStyleBackColor = true;
 			// 
+			// shortenLongStrings
+			// 
+			this.shortenLongStrings.AutoSize = true;
+			this.shortenLongStrings.Checked = true;
+			this.shortenLongStrings.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.shortenLongStrings.Location = new System.Drawing.Point(36, 71);
+			this.shortenLongStrings.Name = "shortenLongStrings";
+			this.shortenLongStrings.Size = new System.Drawing.Size(396, 21);
+			this.shortenLongStrings.TabIndex = 3;
+			this.shortenLongStrings.Text = "Display only characters arround difference for long strings";
+			this.shortenLongStrings.UseVisualStyleBackColor = true;
+			// 
+			// maxContextLength
+			// 
+			this.maxContextLength.Location = new System.Drawing.Point(217, 99);
+			this.maxContextLength.Name = "maxContextLength";
+			this.maxContextLength.Size = new System.Drawing.Size(100, 22);
+			this.maxContextLength.TabIndex = 4;
+			this.maxContextLength.Validating += new System.ComponentModel.CancelEventHandler(this.contextSize_Validating);
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(59, 99);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(152, 17);
+			this.label1.TabIndex = 5;
+			this.label1.Text = "Shortened context size";
+			// 
+			// convertEscape
+			// 
+			this.convertEscape.AutoSize = true;
+			this.convertEscape.Checked = true;
+			this.convertEscape.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.convertEscape.Location = new System.Drawing.Point(36, 123);
+			this.convertEscape.Name = "convertEscape";
+			this.convertEscape.Size = new System.Drawing.Size(266, 21);
+			this.convertEscape.TabIndex = 6;
+			this.convertEscape.Text = "Make non-printable characters visible";
+			this.convertEscape.UseVisualStyleBackColor = true;
+			// 
 			// OptUnitTestVisualizer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+			this.Controls.Add(this.convertEscape);
+			this.Controls.Add(this.label1);
+			this.Controls.Add(this.maxContextLength);
+			this.Controls.Add(this.shortenLongStrings);
 			this.Controls.Add(this.overlayMessage);
 			this.Controls.Add(this.arrowToFailed);
 			this.Controls.Add(this.shadeAttribute);
@@ -151,5 +201,9 @@ namespace UnitTestErrorVisualizer
 		private System.Windows.Forms.CheckBox shadeAttribute;
 		private System.Windows.Forms.CheckBox arrowToFailed;
 		private System.Windows.Forms.CheckBox overlayMessage;
+		private System.Windows.Forms.CheckBox shortenLongStrings;
+		private System.Windows.Forms.TextBox maxContextLength;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.CheckBox convertEscape;
 	}
 }

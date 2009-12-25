@@ -11,6 +11,9 @@ namespace UnitTestErrorVisualizer
 		private const string kDrawArrowKey = "DrawArrow";
 		private const string kOverlayErrorKey = "OverlayError";
 		private const string kPreferencesSection = "Preferences";
+		private const string kMaxContextLength = "MaxContentLength";
+		private const string kShortenLongStrings = "ShortenLongStrings";
+		private const string kConvertEscape = "ConvertEscape";
 		// DXCore-generated code...
 		#region Initialize
 		protected override void Initialize()
@@ -40,6 +43,9 @@ namespace UnitTestErrorVisualizer
 		{
 			public const bool ShadeAttribute = true;
 			public const bool DrawArrow = true;
+			public const bool ShortenLongStrings = true;
+			public const string ContextLength = "40";
+			public const bool ConvertEscapeCharacters = true;
 			public const bool OverlayError = true;
 
 			public class PassColor
@@ -75,6 +81,21 @@ namespace UnitTestErrorVisualizer
 		public static bool ReadDrawArrow(DecoupledStorage storage)
 		{
 			return storage.ReadBoolean(kPreferencesSection, kDrawArrowKey, Default.DrawArrow);
+		}
+
+		public static bool ReadShortenLongStrings(DecoupledStorage storage)
+		{
+			return storage.ReadBoolean(kPreferencesSection, kShortenLongStrings, Default.ShortenLongStrings);
+		}
+
+		public static string ReadMaxContextLength(DecoupledStorage storage)
+		{
+			return storage.ReadString(kPreferencesSection, kMaxContextLength, Default.ContextLength);
+		}
+
+		public static bool ReadConvertEscapeCharacters(DecoupledStorage storage)
+		{
+			return storage.ReadBoolean(kPreferencesSection, kConvertEscape, Default.ConvertEscapeCharacters);
 		}
 
 		public static bool ReadOverlayError(DecoupledStorage storage)
@@ -113,6 +134,9 @@ namespace UnitTestErrorVisualizer
 		{
 			shadeAttribute.Checked = ReadShadeAttribute(ea.Storage);
 			arrowToFailed.Checked = ReadDrawArrow(ea.Storage);
+			shortenLongStrings.Checked = ReadShortenLongStrings(ea.Storage);
+			maxContextLength.Text = ReadMaxContextLength(ea.Storage);
+			convertEscape.Checked = ReadConvertEscapeCharacters(ea.Storage);
 			overlayMessage.Checked = ReadOverlayError(ea.Storage);
 
 			//Not going to put up the color options yet. Later maybe.
@@ -122,6 +146,9 @@ namespace UnitTestErrorVisualizer
 		{
 			ea.Storage.WriteBoolean(kPreferencesSection, kShadeAttributeKey, shadeAttribute.Checked);
 			ea.Storage.WriteBoolean(kPreferencesSection, kDrawArrowKey, arrowToFailed.Checked);
+			ea.Storage.WriteBoolean(kPreferencesSection, kShortenLongStrings, shortenLongStrings.Checked);
+			ea.Storage.WriteInt32(kPreferencesSection, kMaxContextLength, Convert.ToInt32(maxContextLength.Text));
+			ea.Storage.WriteBoolean(kPreferencesSection, kConvertEscape, convertEscape.Checked);
 			ea.Storage.WriteBoolean(kPreferencesSection, kOverlayErrorKey, overlayMessage.Checked);
 		}
 
@@ -129,7 +156,29 @@ namespace UnitTestErrorVisualizer
 		{
 			shadeAttribute.Checked = Default.ShadeAttribute;
 			arrowToFailed.Checked = Default.DrawArrow;
+			shortenLongStrings.Checked = Default.ShortenLongStrings;
+			maxContextLength.Text = Default.ContextLength;
+			convertEscape.Checked = Default.ConvertEscapeCharacters;
 			overlayMessage.Checked = Default.OverlayError;
+		}
+
+		private void arrowToFailed_CheckedChanged(object sender, EventArgs e)
+		{
+			shortenLongStrings.Enabled = arrowToFailed.Checked;
+			maxContextLength.Enabled = arrowToFailed.Checked;
+			convertEscape.Enabled = arrowToFailed.Checked;
+		}
+
+		private void contextSize_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			try
+			{
+				Convert.ToInt32(maxContextLength.Text);
+			}
+			catch (Exception ex)
+			{
+				e.Cancel = true;
+			}
 		}
 
 	}
