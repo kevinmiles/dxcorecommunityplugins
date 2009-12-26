@@ -1,14 +1,10 @@
 using System;
-using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
 using DevExpress.CodeRush.Core.Testing;
-using System.Collections;
 using System.Text.RegularExpressions;
-using System.Collections.Generic;
 
 namespace UnitTestErrorVisualizer
 {
@@ -273,7 +269,7 @@ namespace UnitTestErrorVisualizer
 
 			DrawArrow(ea.Tile.TextView, visibleArrow);
 		}
-		private int ParseColumnNumber(string location)
+		private static int ParseColumnNumber(string location)
 		{
 			int startColData = location.IndexOf(',') + 2;
 			int endColData = location.LastIndexOf(')');
@@ -285,7 +281,7 @@ namespace UnitTestErrorVisualizer
 			return int.Parse(location.Substring(1, location.IndexOf(',') - 1));
 		}
 
-		private string ExtractLineAndColumnData(string stackTrace)
+		private static string ExtractLineAndColumnData(string stackTrace)
 		{
 			//Xunit implementation
 			return Regex.Match(stackTrace, @"\(\d+, \d+\)").Value;
@@ -340,11 +336,13 @@ namespace UnitTestErrorVisualizer
 			Font consolas,
 			int correctWidth)
 		{
-			graphics.DrawString(expectedLabel, consolas, Brushes.Black, textRect.X, textRect.Y);
+			graphics.DrawString(expectedLabel, consolas, Brushes.LightGray, textRect.X, textRect.Y);
 			graphics.DrawString(expected, consolas, Brushes.LightSalmon, textRect.X + expectedLabelWidth, textRect.Y);
-			graphics.DrawString(actualLabel, consolas, Brushes.Black, textRect.X, textRect.Y + lineHeight);
+			graphics.DrawString(actualLabel, consolas, Brushes.DarkGray, textRect.X, textRect.Y + lineHeight);
 			graphics.DrawString(correct, consolas, Brushes.LightSalmon, textRect.X + expectedLabelWidth, textRect.Y + lineHeight);
-			graphics.DrawString(incorrect, consolas, Brushes.Red, textRect.X + expectedLabelWidth + correctWidth, textRect.Y + lineHeight);
+			float incorrectStartX = textRect.X + expectedLabelWidth + correctWidth;
+			graphics.DrawString(incorrect, consolas, Brushes.Red, incorrectStartX - 2, textRect.Y + lineHeight);
+			graphics.DrawLine(Pens.Red, incorrectStartX, textRect.Y + 2, incorrectStartX, textRect.Y + lineHeight + lineHeight - 2);
 		}
 
 		/// <summary>
