@@ -336,7 +336,7 @@ namespace UnitTestErrorVisualizer
 			Font consolas,
 			int correctWidth)
 		{
-			graphics.DrawString(expectedLabel, consolas, Brushes.LightGray, textRect.X, textRect.Y);
+			graphics.DrawString(expectedLabel, consolas, Brushes.DarkGray, textRect.X, textRect.Y);
 			graphics.DrawString(expected, consolas, Brushes.LightSalmon, textRect.X + expectedLabelWidth, textRect.Y);
 			graphics.DrawString(actualLabel, consolas, Brushes.DarkGray, textRect.X, textRect.Y + lineHeight);
 			graphics.DrawString(correct, consolas, Brushes.LightSalmon, textRect.X + expectedLabelWidth, textRect.Y + lineHeight);
