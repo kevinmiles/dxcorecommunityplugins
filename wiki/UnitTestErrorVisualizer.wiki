@@ -34,6 +34,6 @@ There are options to control how these features behave.
 = Limitations =
 At present there is CodeRush provides no way to know when the status of a unit test result has changed, only a way to get the list. So some of these features don't appear unil a refresh gives the plug-in a chance to check the current status.
 
-Initially I attempted to make these features trigger off of the CodeRush "X" failure icon, but as not all that unexpected, it caused issues with the features of the "X". I didn't like that, so I created my own icon. I have requesets in to DeveloperExpress so that I can hook into the tile without killing the built in behaviours. For now you'll have to deal with an extra icon.
+Initially I attempted to make these features trigger off of the CodeRush 'X' failure icon, but as not all that unexpected, it caused issues with the features of the 'X'. I didn't like that, so I created my own icon. I have requesets in to DeveloperExpress so that I can hook into the tile without killing the built in behaviours. For now you'll have to deal with an extra icon.
 
 Plug-in by Jim Argeropoulos
