@@ -9,13 +9,21 @@ The new Unit Test Runner in CodeRush 9.3.2 is nice. But I felt the built in on-s
 = Details =
 
 So far there are three optional visualizations that are applied to the CodeRush Unit Test Runner Results.
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/UnitTestErrorVisualizer/Screenshots/UnitTestVisualizer.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/UnitTestErrorVisualizer/Screenshots/DefaultOptions.png
   # The test attribute is shaded with red when a test faile, green when it passes, and yellow if it is skipped. No shading happens for tests that are pending or have been changed after the current result was run.
-  # The message is parsed to determine why the test failed and the key reason is displayed as overlay text at the end of the line of the assert which failed.
+  # The message is parsed to determine why the test failed and the key reason is displayed as overlay text at the end of the line of the assert which failed. (off by default)
   # An arrow is drawn from the learn more icon to the failed assert and the why it failed information is placed in a rectangle over the arrow
 
 The first two are really just carry over ideas from the RedGreen plug-in. Any one of the visualizations can be turned on/off from an options page.
 
+= Problem Finding Assistance =
+There are a few cases where a failed test is not easy to diagnose. 
+ * The expected and actual strings are long and the strings differ past about position 10-15. 
+ * The expected and/or actual contains non-printable characters
+Both of these cases often lead me to want to use to debug the test so I can use the debugger features to more easily see the problem point.
+
+This screen shot illustrates how the first problem is addressed: http://dxcorecommunityplugins.googlecode.com/svn/trunk/UnitTestErrorVisualizer/Screenshots/TargetErrors.png 
+The expected and actual strings are truncated beyond the context of the error. Next, the error portion of the actual string is colored a darker red. And finially when using the Arrow to Assert feature, a red vertical line is drawn where the actual begins to differ from the expected. 
 = Limitations =
 At present there is CodeRush provides no way to know when the status of a unit test result has changed, only a way to get the list. So some of these features don't appear unil a refresh gives the plug-in a chance to check the current status.
 
