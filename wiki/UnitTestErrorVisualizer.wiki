@@ -18,12 +18,15 @@ The first two are really just carry over ideas from the RedGreen plug-in. Any on
 
 = Problem Finding Assistance =
 There are a few cases where a failed test is not easy to diagnose. 
- * The expected and actual strings are long and the strings differ past about position 10-15. 
- * The expected and/or actual contains non-printable characters
+ * The expected and actual strings are long and the strings differ past about position 10-15. http://dxcorecommunityplugins.googlecode.com/svn/trunk/UnitTestErrorVisualizer/Screenshots/LongStringProblem.png
+ * The expected and/or actual contains non-printable characters http://dxcorecommunityplugins.googlecode.com/svn/trunk/UnitTestErrorVisualizer/Screenshots/NonPrintablesProblem.png
 Both of these cases often lead me to want to use to debug the test so I can use the debugger features to more easily see the problem point.
 
 This screen shot illustrates how the first problem is addressed: http://dxcorecommunityplugins.googlecode.com/svn/trunk/UnitTestErrorVisualizer/Screenshots/TargetErrors.png 
 The expected and actual strings are truncated beyond the context of the error. Next, the error portion of the actual string is colored a darker red. And finially when using the Arrow to Assert feature, a red vertical line is drawn where the actual begins to differ from the expected. 
+This screen shot illustrates how the second problem is addressed: http://dxcorecommunityplugins.googlecode.com/svn/trunk/UnitTestErrorVisualizer/Screenshots/NonPrintablesEscaped.png
+The most common non-printable characters are escaped so that they are visible in the expected and actual text.
+
 = Limitations =
 At present there is CodeRush provides no way to know when the status of a unit test result has changed, only a way to get the list. So some of these features don't appear unil a refresh gives the plug-in a chance to check the current status.
 
