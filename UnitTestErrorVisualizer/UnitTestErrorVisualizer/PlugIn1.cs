@@ -149,6 +149,11 @@ namespace UnitTestErrorVisualizer
 					string actual = TestResultParser.Actual(test.TestResult.Message);
 					int differAt;
 					differAt = TestResultParser.DifferAt(test.TestResult.Message, expected, actual);
+					string correct;
+					string incorrect;
+					MessageLimiter limiter = new MessageLimiter(ShortenLongStrings, MaxContextLength, ConvertEscapeCharacters);
+					limiter.AdjustExpectedActualLengths(ref expected, ref actual, differAt, out correct, out incorrect);
+
 					if (string.IsNullOrEmpty(expected))
 					{
 						ea.PaintArgs.OverlayText("<------- Test failed here",
@@ -167,12 +172,12 @@ namespace UnitTestErrorVisualizer
 					}
 					else
 					{
-						string correctPortion = string.Format("Expected: {0} Actual: {1}", expected, actual.Substring(0, differAt));
+						string correctPortion = string.Format("Expected: {0} Actual: {1}", expected, correct);
 						ea.PaintArgs.OverlayText(correctPortion,
 							line,
 							startColumn,
 							FailedColor);
-						ea.PaintArgs.OverlayText(actual.Substring(differAt),
+						ea.PaintArgs.OverlayText(incorrect,
 							line,
 							startColumn + correctPortion.Length,
 							Color.Red);
