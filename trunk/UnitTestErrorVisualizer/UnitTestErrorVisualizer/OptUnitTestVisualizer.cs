@@ -46,7 +46,7 @@ namespace UnitTestErrorVisualizer
 			public const bool ShortenLongStrings = true;
 			public const string ContextLength = "40";
 			public const bool ConvertEscapeCharacters = true;
-			public const bool OverlayError = true;
+			public const bool OverlayError = false;
 
 			public class PassColor
 			{
