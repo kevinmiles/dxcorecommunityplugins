@@ -46,7 +46,8 @@ namespace UnitTestErrorVisualizer
             {
 				source = source.Replace("\n", "\\n");
 				source = source.Replace("\t", "\\t");
-            }
+				source = source.Replace("\r", "\\r");
+			}
 		}
 
 		private void ShortenString(ref string source, int differAt)
@@ -63,7 +64,7 @@ namespace UnitTestErrorVisualizer
 					else if (differAt >= source.Length - max + 3)
 					{// trim front of string off
 						int start = source.Length - max + 3;
-						if (source[start - 1] == '\\' && (source[start] == 'n' || source[start] == 't'))
+						if (source[start - 1] == '\\' && (source[start] == 'n' || source[start] == 'r' || source[start] == 't'))
 							// If we trimmed off the converted non printable it would be odd.
 							--start;
 						source = string.Format("...{0}", source.Substring(start));
