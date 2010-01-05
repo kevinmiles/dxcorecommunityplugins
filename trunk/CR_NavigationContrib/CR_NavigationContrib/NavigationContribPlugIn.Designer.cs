@@ -47,13 +47,13 @@ namespace CR_NavigationContrib
             this.navigationProvider1.ActionHintText = "";
             this.navigationProvider1.AutoActivate = true;
             this.navigationProvider1.AutoUndo = false;
+            this.navigationProvider1.CodeIssueMessage = null;
             this.navigationProvider1.Description = "Navigate to the implementation of a method when positioned on a call made on an I" +
                 "nterface.";
             this.navigationProvider1.DisplayName = "Navigate to implementation";
             this.navigationProvider1.Image = ((System.Drawing.Bitmap)(resources.GetObject("navigationProvider1.Image")));
-            this.navigationProvider1.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
             this.navigationProvider1.NeedsSelection = false;
-            this.navigationProvider1.ProviderName = "";
+            this.navigationProvider1.ProviderName = "KimNavContrib";
             this.navigationProvider1.Register = true;
             this.navigationProvider1.SupportsAsyncMode = false;
             this.navigationProvider1.Navigate += new DevExpress.CodeRush.Library.NavigationEventHandler(this.navigationProvider1_Navigate);
