@@ -150,7 +150,11 @@ namespace CR_SmartQuotes
             EditPoint endEditPoint = CodeRush.EditPoints.New(document, CodeRush.Caret.SourcePoint);
             endEditPoint.IsPushable = true;
             TextField newField = new TextField(startEditPoint, endEditPoint, "Enter string value", TextFieldType.Normal, false);
+            EditPoint targetPoint = endEditPoint.Clone();
+            targetPoint.MoveRight(1);
+            TextFieldTarget newTarget = new TextFieldTarget(targetPoint, targetPoint);
             document.TextFields.Add(newField);
+            document.TextFieldTarget = newTarget;
             this.textFields.Add(newField);
         }
 
