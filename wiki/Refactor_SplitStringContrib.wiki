@@ -28,7 +28,7 @@ string myString = "Some long string that"
 
 = Options =
 
-SplitStringContrib is fully configurable. Options page can be found in "Editor/Refactoring/Split String" section of DevExpress options window.
+SplitStringContrib is fully configurable. Options page can be found in "Editor/Refactoring/Split String" section of DevExpress options window. Note that you must select "Advanced" or "Expert" user level to see this page.
 
 = Known Issues =
 
