@@ -10,7 +10,7 @@ Features were implemented in language agnostic way. However, plugin was tested o
 
 Implementation of this plugin uses standard "Split String" refactoring available with CodeRush. AFAIK free versions of CodeRush and Refactor don't contain this refactoring, so you will need full version of Refactor Pro in order to use this plugin. Sorry.
 
-Installation instructions can be found on the InstallInstructions page.
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_SplitStringContrib/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Usage =
 
