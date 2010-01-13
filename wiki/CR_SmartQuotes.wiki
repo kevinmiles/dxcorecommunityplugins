@@ -1,4 +1,6 @@
 #summary Enables auto-complete and easy delete of single and double quotes.
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_SmartQuotes/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+
 = Introduction =
 
 This plugin brings auto complete of quotes to CodeRush. Features are based on auto complete of parens and brackets, which are supported out of the box:
@@ -13,17 +15,13 @@ There is some additional logic in "auto complete" feature:
   * single quote is not completed inside comments or in compiler directive. This is for better support of natural languages, which can use apostrophes.
   * single and double quotes are not completed if are escaped with \. This is to ease entering quotes as part of string.
 
-= Installation =
-
-[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_SmartQuotes/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-
 = Usage =
 
 This plugin works "as you type". There is no need for additional steps to activate its features.
 
 = Options =
 
-SmartQuotes is fully configurable. Options page can be found in "Editor/Auto Complete/Quotes & Double Quotes" section of DevExpress options window.
+SmartQuotes is fully configurable. Options page can be found in "Editor/Auto Complete/Quotes & Double Quotes" section of DevExpress options window. Note that you must select "Advanced" or "Expert" user level to see this page.
 
 = Future work =
 
