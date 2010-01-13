@@ -1,4 +1,5 @@
 #summary Enables auto-complete and easy delete of generics operators <> (c# only).
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_SmartGenerics/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Disclaimer =
 
@@ -18,17 +19,13 @@ I did my best to detect whether < was typed as part of generics or as "lower tha
 
 If you find any troubles using it, post issue and I try to fix it ASAP.
 
-= Installation =
-
-[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_SmartGenerics/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-
 = Usage =
 
 This plugin works "as you type". There is no need for additional steps to activate its features.
 
 = Options =
 
-SmartGenerics is fully configurable. Options page can be found in "Editor/Auto Complete/Generics" section of DevExpress options window.
+SmartGenerics is fully configurable. Options page can be found in "Editor/Auto Complete/Generics" section of DevExpress options window. Note that you must select "Advanced" or "Expert" user level to see this page.
 
 = Future work =
 
