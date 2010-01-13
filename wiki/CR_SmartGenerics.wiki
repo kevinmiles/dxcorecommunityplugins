@@ -20,7 +20,7 @@ If you find any troubles using it, post issue and I try to fix it ASAP.
 
 = Installation =
 
-Installation instructions can be found on the InstallInstructions page.
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_SmartGenerics/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Usage =
 
