@@ -1,4 +1,5 @@
 #summary Allows to break string into 2 lines using standard "Split String" refactoring.
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_SplitStringContrib/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Introduction =
 
@@ -6,13 +7,9 @@ This plugin adds single option to Refactor Pro. When caret is inside string, you
 
 Features were implemented in language agnostic way. However, plugin was tested only in c# environment. If you find any troubles using it, post issue and I try to fix it ASAP.
 
-= Installation =
+= Usage =
 
 Implementation of this plugin uses standard "Split String" refactoring available with CodeRush. AFAIK free versions of CodeRush and Refactor don't contain this refactoring, so you will need full version of Refactor Pro in order to use this plugin. Sorry.
-
-[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_SplitStringContrib/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-
-= Usage =
 
 This plugin works "as you type". Its single feature is triggered with enter key:
 
