@@ -1,4 +1,5 @@
 #summary Highlights possible stack overflow problems in properties that call themselves recursively.
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_StackOverflowIssues/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Introduction =
 
@@ -21,10 +22,6 @@ public string PropertyName
     }
 }
 }}}
-
-= Installation =
-
-[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_StackOverflowIssues/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Usage =
 
