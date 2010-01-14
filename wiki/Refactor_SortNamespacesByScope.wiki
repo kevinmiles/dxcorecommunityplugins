@@ -2,7 +2,7 @@
 
 = Introduction =
 
-MS StyleCop has a rule that requires System references to come before all other namespace references in a code file.  
+MS `StyleCop` has a rule that requires System references to come before all other namespace references in a code file.  
 
 This plugin takes that suggestion one step further by sorting your namespace references alphabetically within the following groups:
  * System.`*`
