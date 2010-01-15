@@ -24,6 +24,8 @@ namespace CR_BlockPainterPlus
         public const string FontOpacity = "fontOpacity";
         public const string MinimumLines = "minimumLines";
         public const string MinimumLineCount = "minimumLineCount";
+        public const string ShowDetailOnBlocks = "showDetailOnBlocks";
+
         #region Initialize
         protected override void Initialize()
         {
@@ -98,10 +100,10 @@ namespace CR_BlockPainterPlus
             fontTrackBar.Value = Storage.ReadInt32(SectionName, FontOpacity,DefaultOpacity);
             minimumLinesCheckBox.Checked = Storage.ReadBoolean(SectionName, MinimumLines);
             lineCountSpinner.Value = Storage.ReadInt32(SectionName, MinimumLineCount,10);
-            
+            showDetailOnBlocksCheckBox.Checked = Storage.ReadBoolean(SectionName, ShowDetailOnBlocks);   
         }
 
-        private void BlockPainterOptions_CommitChanges(object sender, OptionsPageStorageEventArgs ea)
+        private void BlockPainterOptions_CommitChanges(object sender, CommitChangesEventArgs ea)
         {
             ea.Storage.WriteColor(SectionName, ArrowColor, (Color)arrowColorPicture.Tag);
             ea.Storage.WriteColor(SectionName, FontColor, (Color)fontColorPicture.Tag);
@@ -109,6 +111,7 @@ namespace CR_BlockPainterPlus
             ea.Storage.WriteInt32(SectionName, FontOpacity, fontTrackBar.Value);
             ea.Storage.WriteBoolean(SectionName, MinimumLines, minimumLinesCheckBox.Checked);
             ea.Storage.WriteInt32(SectionName, MinimumLineCount, Convert.ToInt32(lineCountSpinner.Value));
+            ea.Storage.WriteBoolean(SectionName, ShowDetailOnBlocks, showDetailOnBlocksCheckBox.Checked);
         }
     }
 }
