@@ -40,6 +40,10 @@ namespace Refactor_SplitStringContrib
                         && this.IsRefactoringAvailable(splitString))
                     {
                         splitString.Execute();
+                        if (this.settings.LeaveConcatenationOperatorAtTheEndOfLine)
+                        {
+                            CodeRush.Caret.MoveRight(1);
+                        }
                         CodeRush.Caret.Insert(CodeRush.Language.LineContinuationCharacter, true);
                         return;
                     }
