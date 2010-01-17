@@ -20,6 +20,7 @@ namespace CR_SmartQuotes
             this.settings.Load();
             EventNexus.TextFieldCommitted += this.EventNexus_TextFieldCommitted;
             EventNexus.AllTextFieldsCommitted += this.EventNexus_AllTextFieldsCommitted;
+            EventNexus.IntellisenseDeactivated += this.EventNexus_IntellisenseDeactivated;
         }
 
         #endregion
@@ -30,9 +31,22 @@ namespace CR_SmartQuotes
 
             EventNexus.TextFieldCommitted -= this.EventNexus_TextFieldCommitted;
             EventNexus.AllTextFieldsCommitted -= this.EventNexus_AllTextFieldsCommitted;
+            EventNexus.IntellisenseDeactivated -= this.EventNexus_IntellisenseDeactivated;
         }
         #endregion
 
+        private void EventNexus_IntellisenseDeactivated()
+        {
+            // Deletes auto generated closing " when VS added its own " to close HTML or XML attribute
+            if (CodeRush.Language.IsHtmlOrXml
+                && !CodeRush.Caret.InsideString
+                && CodeRush.Caret.LeftChar == '\"'
+                && CodeRush.Caret.RightChar == '\"')
+            {
+                CodeRush.Caret.DeleteRight(1);
+            }
+        }
+        
         private void CR_SmartQuotes_EditorCharacterTyped(EditorCharacterTypedEventArgs ea)
         {
             if (this.settings.UseSmartDoubleQuotes && this.settings.DoubleQuotesAutoComplete
@@ -69,8 +83,7 @@ namespace CR_SmartQuotes
         {
             if (this.settings.UseSmartDoubleQuotes && this.settings.DoubleQuotesIgnoreClosingQuote
                 && ea.Character == '\"'
-                && CodeRush.Caret.RightChar == '\"' && CodeRush.Caret.InsideString
-                && !this.IsNextCharacterEscaped(CodeRush.Caret.LeftText))
+                && this.CaretBeforeClosingDoubleQuote())
             {
                 ea.Cancel = true;
                 if (this.CaretInsideTextField())
@@ -85,8 +98,7 @@ namespace CR_SmartQuotes
             }
             if (this.settings.UseSmartQuotes && this.settings.QuotesIgnoreClosingQuote
                 && ea.Character == '\''
-                && CodeRush.Caret.RightChar == '\'' && CodeRush.Caret.InsideString
-                && !this.IsNextCharacterEscaped(CodeRush.Caret.LeftText))
+                && this.CaretBeforeClosingQuote())
             {
                 ea.Cancel = true;
                 if (this.CaretInsideTextField())
@@ -191,6 +203,18 @@ namespace CR_SmartQuotes
             }
             string withoutLastChar = text.Substring(0, text.Length - 1);
             return this.IsNextCharacterEscaped(withoutLastChar);
+        }
+
+        private bool CaretBeforeClosingDoubleQuote()
+        {
+            return CodeRush.Caret.RightChar == '\"' && CodeRush.Caret.InsideString
+                && !this.IsNextCharacterEscaped(CodeRush.Caret.LeftText);
+        }
+
+        private bool CaretBeforeClosingQuote()
+        {
+            return CodeRush.Caret.RightChar == '\'' && CodeRush.Caret.InsideString
+                && !this.IsNextCharacterEscaped(CodeRush.Caret.LeftText);
         }
 
         private bool CaretInsideTextField()
