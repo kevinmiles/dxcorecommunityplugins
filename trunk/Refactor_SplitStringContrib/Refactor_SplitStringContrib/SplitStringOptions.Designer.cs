@@ -44,6 +44,7 @@ namespace Refactor_SplitStringContrib
             this.rbMoveOperatorToNextLine = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbUseAmpersand = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -56,7 +57,7 @@ namespace Refactor_SplitStringContrib
             this.cbSmartEnterSplitString.TabIndex = 0;
             this.cbSmartEnterSplitString.Text = "Enter breaks string into two lines with \'Split String\' refactoring";
             this.cbSmartEnterSplitString.UseVisualStyleBackColor = true;
-            this.cbSmartEnterSplitString.CheckedChanged += new System.EventHandler(this.cbSmartEnterSplitString_CheckedChanged);
+            this.cbSmartEnterSplitString.CheckedChanged += new System.EventHandler(this.SmartEnterSplitString_CheckedChanged);
             // 
             // rbLeaveOperator
             // 
@@ -101,9 +102,20 @@ namespace Refactor_SplitStringContrib
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
+            // cbUseAmpersand
+            // 
+            this.cbUseAmpersand.AutoSize = true;
+            this.cbUseAmpersand.Location = new System.Drawing.Point(19, 106);
+            this.cbUseAmpersand.Name = "cbUseAmpersand";
+            this.cbUseAmpersand.Size = new System.Drawing.Size(86, 17);
+            this.cbUseAmpersand.TabIndex = 5;
+            this.cbUseAmpersand.Text = "Use \'&&\' in VB";
+            this.cbUseAmpersand.UseVisualStyleBackColor = true;
+            // 
             // SplitStringOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Controls.Add(this.cbUseAmpersand);
             this.Controls.Add(this.groupBox1);
             this.Name = "SplitStringOptions";
             this.PreparePage += new DevExpress.CodeRush.Core.OptionsPage.PreparePageEventHandler(this.SplitStringOptions_PreparePage);
@@ -113,6 +125,7 @@ namespace Refactor_SplitStringContrib
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -172,5 +185,6 @@ namespace Refactor_SplitStringContrib
         private System.Windows.Forms.RadioButton rbMoveOperatorToNextLine;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox cbUseAmpersand;
     }
 }

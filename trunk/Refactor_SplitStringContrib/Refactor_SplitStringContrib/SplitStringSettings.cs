@@ -6,7 +6,10 @@
     internal class SplitStringSettings
     {
         public bool SmartEnterSplitString { get; set; }
+
         public bool LeaveConcatenationOperatorAtTheEndOfLine { get; set; }
+        
+        public bool UseAmpersandInVb { get; set; }
 
         public void Load()
         {
@@ -14,6 +17,7 @@
             {
                 this.SmartEnterSplitString = storage.ReadBoolean("Settings", "SmartEnterSplitString", true);
                 this.LeaveConcatenationOperatorAtTheEndOfLine = storage.ReadBoolean("Settings", "LeaveConcatenationOperatorAtTheEndOfLine", true);
+                this.UseAmpersandInVb = storage.ReadBoolean("Settings", "UseAmpersandInVb", true);
             }
         }
     }
