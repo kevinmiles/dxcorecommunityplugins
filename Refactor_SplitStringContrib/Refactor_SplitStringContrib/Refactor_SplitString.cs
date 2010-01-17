@@ -16,14 +16,27 @@ namespace Refactor_SplitStringContrib
             base.InitializePlugIn();
             
             this.settings.Load();
+            EventNexus.RefactoringDeactivated += this.EventNexus_RefactoringDeactivated;
         }
         #endregion
         #region FinalizePlugIn
         public override void FinalizePlugIn()
         {
             base.FinalizePlugIn();
+            EventNexus.RefactoringDeactivated -= this.EventNexus_RefactoringDeactivated;
         }
         #endregion
+
+        private void EventNexus_RefactoringDeactivated(RefactoringActivationEventArgs ea)
+        {
+            if (CodeRush.Language.IsBasic
+                && this.settings.UseAmpersandInVb 
+                && ea.Refactoring.FullName == "Refactoring\\Split String")
+            {
+                CodeRush.Caret.DeleteRight(1);
+                CodeRush.Caret.Insert("&", false);
+            }
+        }
 
         private void Refactor_SplitString_KeyPressed(KeyPressedEventArgs ea)
         {
