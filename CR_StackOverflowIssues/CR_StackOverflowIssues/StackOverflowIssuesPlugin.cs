@@ -51,8 +51,17 @@ namespace CR_StackOverflowIssues
 
         private static bool StaticContextIsMet(ElementReferenceExpression expression, Property property)
         {
-            return property.IsStatic
-                && (expression.LastChild == null || expression.LastChild.IsRelatedTo(property.GetParentClassInterfaceOrStruct()));
+            if (!property.IsStatic)
+            {
+                return false;
+            }
+            if (expression.LastChild == null)
+            {
+                return true;
+            }
+            IElement lastChildDeclaration = expression.LastChild.GetDeclaration();
+            IElement parentClassDeclaration = property.GetParentClassInterfaceOrStruct().GetDeclaration();
+            return lastChildDeclaration.RootNamespaceFullName == parentClassDeclaration.RootNamespaceFullName;
         }
 
         private static bool PropertyIsOverriden(Property property)
