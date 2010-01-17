@@ -6,12 +6,14 @@
     internal class SplitStringSettings
     {
         public bool SmartEnterSplitString { get; set; }
+        public bool LeaveConcatenationOperatorAtTheEndOfLine { get; set; }
 
         public void Load()
         {
             using (DecoupledStorage storage = SplitStringOptions.Storage)
             {
                 this.SmartEnterSplitString = storage.ReadBoolean("Settings", "SmartEnterSplitString", true);
+                this.LeaveConcatenationOperatorAtTheEndOfLine = storage.ReadBoolean("Settings", "LeaveConcatenationOperatorAtTheEndOfLine", true);
             }
         }
     }
