@@ -55,7 +55,7 @@ Public Class HighlightCurrentLineInEditor
     Private Sub HighlightCurrentLineInEditor_CaretMoved(ByVal ea As DevExpress.CodeRush.Core.CaretMovedEventArgs) Handles Me.CaretMoved
         Dim Line As Integer = CodeRush.Caret.Line
         If mLastLine <> Line Then
-            mEaElementRange = New SourceRange(Line, 1, Line, 200)
+            mEaElementRange = New SourceRange(Line, 1, Line, CodeRush.TextViews.Active.Width())
             Call CodeRush.TextViews.Active.Invalidate()
             mLastLine = Line
         End If
