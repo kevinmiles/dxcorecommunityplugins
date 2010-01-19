@@ -3,7 +3,7 @@
 
 = Introduction =
 
-TODO
+This plugin assists the developer by painting information at the end of code blocks to identify which block of code just ended. This is particularly useful when there are multiple nested blocks of code or they are unusually long.
 
 = Installation =
 
@@ -11,11 +11,18 @@ Installation instructions can be found on the InstallInstructions page.
 
 = Usage =
 
-TODO
+This plugin automatically paints in the editor per settings defined in the associated DevExpress Options page.
 
 = Options =
 
-TODO
+-only paint blocks longer than n lines.
+
+-show detail on blocks. 
+This is how the editor looks with it disabled:<br>
+http://www.shepherdoaks.com/screenshots/show%20detail%20disabled.png
+
+<br>and this is how it looks when enabled:<br>
+http://www.shepherdoaks.com/screenshots/show%20detail%20enabled.png
 
 = Credits =
 
