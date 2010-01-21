@@ -38,7 +38,11 @@ Public Class PlugIn1
 #Region "Move Code Actions"
     Private Sub cmdMoveCodeUp_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeUp.Execute
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
+        Dim Selection = CodeRush.Documents.ActiveTextView.Selection
         Select Case True
+            Case Selection.Height > 1
+                Call Selection.ExtendToWholeLines()
+
             Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable)
                 Call MoveElementUp(FirstNodeOnLine.GetParentStatementOrVariable)
             Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
@@ -117,6 +121,7 @@ Public Class PlugIn1
             Dim Sibling = Element.PreviousCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
             If Sibling IsNot Nothing Then
                 Call SwapStatements(Element.ToList, Sibling)
+                CodeRush.Documents.ActiveTextView.MakeVisible(Element)
             End If
         End If
     End Sub
@@ -125,6 +130,7 @@ Public Class PlugIn1
             Dim Sibling = Statement.NextCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
             If Sibling IsNot Nothing Then
                 Call SwapStatements(Statement.ToList, Sibling)
+                CodeRush.Documents.ActiveTextView.MakeVisible(Statement)
             End If
         End If
     End Sub
@@ -212,7 +218,6 @@ Public Class PlugIn1
         Dim ElementsStartLine = Elements.First.Range.Start.Line
         Dim SiblingStartLine = Sibling.Range.Start.Line
         Dim SiblingDestination As SourcePoint = Nothing
-
         For Each Element In Elements
             Dim Doc = CodeRush.Documents.ActiveTextDocument
             Dim SiblingRange = Sibling.GetFullBlockCutRange(BlockElements.AllLeadingWhiteSpaces Or BlockElements.TrailingWhiteSpace Or BlockElements.Region Or BlockElements.AllSupportElements Or BlockElements.XmlDocComments Or BlockElements.Attributes)
