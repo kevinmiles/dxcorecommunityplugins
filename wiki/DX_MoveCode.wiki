@@ -118,6 +118,7 @@ private void SomeMethod()
 }}}
 
 = History = 
+ * Build 821 - Small fix to ensure moved code remains visible on screen.
  * Build 709 - MoveCode[Up|Down] now works with Methods if caret on signature.
  * Build 675 - MoveCaretUp / MoveCaretDown / MoveCaretLeft / MoveCaretRight actions.
 
