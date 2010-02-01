@@ -1,5 +1,5 @@
 #summary Adds a refactoring to sort namespaces by scope
-
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_SortNamespacesByScope http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 = Introduction =
 
 MS `StyleCop` has a rule that requires System references to come before all other namespace references in a code file.  
