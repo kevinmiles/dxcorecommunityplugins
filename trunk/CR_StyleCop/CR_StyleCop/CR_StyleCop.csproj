@@ -57,6 +57,26 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeIssues\SA1600CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1601CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1602CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1603CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1604CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1606CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1607CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1608CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1609CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1611CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1612CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1613CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1614CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1615CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1616CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1617CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1618CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1619CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1620CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1626CodeIssue.cs" />
     <Compile Include="CR_StyleCopPlugIn.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -67,7 +87,7 @@
     <Compile Include="CodeIssues\NullCodeIssue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CodeIssueFactory.cs" />
-    <Compile Include="CodeIssues\SA1600ElementsMustBeDocumentedCodeIssue.cs" />
+    <Compile Include="CodeIssues\ElementByNameCodeIssue.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CR_StyleCopPlugIn.resx">

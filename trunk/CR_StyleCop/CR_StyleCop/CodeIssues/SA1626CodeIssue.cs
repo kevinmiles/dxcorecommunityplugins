@@ -1,11 +1,11 @@
-namespace CR_StyleCop.CodeIssues
+﻿namespace CR_StyleCop.CodeIssues
 {
     using System;
     using DevExpress.CodeRush.Core;
     using DevExpress.CodeRush.StructuralParser;
     using Microsoft.StyleCop;
 
-    public class SA1600ElementsMustBeDocumentedCodeIssue : ICodeIssue
+    internal class SA1626CodeIssue : ICodeIssue
     {
         public void AddViolationIssue(CheckCodeIssuesEventArgs ea, IDocument document, Violation violation)
         {
@@ -17,7 +17,7 @@ namespace CR_StyleCop.CodeIssues
             }
             foreach (var token in violation.Element.ElementTokens)
             {
-                if (violation.Element.Name.EndsWith(token.Text))
+                if (token.Text.StartsWith("///") && !token.Text.StartsWith("////"))
                 {
                     SourceRange sourceRange = new SourceRange(token.Location.StartPoint.LineNumber, token.Location.StartPoint.IndexOnLine + 1, token.Location.EndPoint.LineNumber, token.Location.EndPoint.IndexOnLine + 2);
                     ea.AddSmell(sourceRange, message, 10);

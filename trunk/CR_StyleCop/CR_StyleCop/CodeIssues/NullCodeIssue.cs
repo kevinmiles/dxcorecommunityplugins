@@ -5,7 +5,7 @@ namespace CR_StyleCop.CodeIssues
     using DevExpress.CodeRush.StructuralParser;
     using Microsoft.StyleCop;
  
-    public class NullCodeIssue : ICodeIssue
+    internal class NullCodeIssue : ICodeIssue
     {
         public void AddViolationIssue(CheckCodeIssuesEventArgs ea, IDocument document, Violation violation)
         {
