@@ -12,7 +12,7 @@ When you create a method that takes no parameters, Impromptu will place a gear i
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/Impromptu/Screenshots/ImpromptuIcon.png
 If you click on the icon, Impromptu will use reflection to execute your method. The results are put into an output window.
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/Impromptu/Screenshots/ImpromptuIcon.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/Impromptu/Screenshots/ImpromptuResults.png
 The first line displays details about what method was run.
 Any following lines will be the results of your method. Results come from two places: First, anything your method writes to the Console are captured. Second, if your method has a return value, it is written using the default ToString() method.
 Plug-in by Jim Argeropoulos
