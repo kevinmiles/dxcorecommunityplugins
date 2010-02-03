@@ -18,4 +18,5 @@ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Impromptu/Screenshots/Imp
 
 The first line displays details about what method was run.
 Any following lines will be the results of your method. Results come from two places: First, anything your method writes to the Console are captured. Second, if your method has a return value, it is written using the default ToString() method.
+
 Plug-in by Jim Argeropoulos
