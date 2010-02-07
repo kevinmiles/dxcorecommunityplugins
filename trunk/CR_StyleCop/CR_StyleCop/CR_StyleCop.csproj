@@ -57,6 +57,18 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeIssues\OpeningCurlyBracketCodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1500CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1501CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1502CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1504CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1505CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1506CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1507CodeIssue.cs" />
+    <Compile Include="CodeIssues\ClosingCurlyBracketCodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1508CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1509CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1513CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1600CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1601CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1602CodeIssue.cs" />
@@ -76,7 +88,23 @@
     <Compile Include="CodeIssues\SA1618CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1619CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1620CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1621CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1622CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1623CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1624CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1625CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1626CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1628CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1629CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1630CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1631CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1632CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1642CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1643CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1644CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1645CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1646CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1647CodeIssue.cs" />
     <Compile Include="CR_StyleCopPlugIn.cs">
       <SubType>Component</SubType>
     </Compile>
