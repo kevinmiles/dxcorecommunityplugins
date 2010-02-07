@@ -46,21 +46,33 @@
             this.handlers.Add("SA1630", new SA1630CodeIssue()); // OK
             this.handlers.Add("SA1631", new SA1631CodeIssue()); // OK
             this.handlers.Add("SA1632", new SA1632CodeIssue()); // OK
-            this.handlers.Add("SA1633", markElementByItsNameCodeIssue);
-            this.handlers.Add("SA1634", markElementByItsNameCodeIssue);
-            this.handlers.Add("SA1635", markElementByItsNameCodeIssue);
-            this.handlers.Add("SA1636", markElementByItsNameCodeIssue);
-            this.handlers.Add("SA1637", markElementByItsNameCodeIssue);
-            this.handlers.Add("SA1638", markElementByItsNameCodeIssue);
-            this.handlers.Add("SA1639", markElementByItsNameCodeIssue);
-            this.handlers.Add("SA1640", markElementByItsNameCodeIssue);
-            this.handlers.Add("SA1641", markElementByItsNameCodeIssue);
+            this.handlers.Add("SA1633", markElementByItsNameCodeIssue); // TODO
+            this.handlers.Add("SA1634", markElementByItsNameCodeIssue); // TODO
+            this.handlers.Add("SA1635", markElementByItsNameCodeIssue); // TODO
+            this.handlers.Add("SA1636", markElementByItsNameCodeIssue); // TODO
+            this.handlers.Add("SA1637", markElementByItsNameCodeIssue); // TODO
+            this.handlers.Add("SA1638", markElementByItsNameCodeIssue); // TODO
+            this.handlers.Add("SA1639", markElementByItsNameCodeIssue); // TODO
+            this.handlers.Add("SA1640", markElementByItsNameCodeIssue); // TODO
+            this.handlers.Add("SA1641", markElementByItsNameCodeIssue); // TODO
             this.handlers.Add("SA1642", new SA1642CodeIssue()); // OK
             this.handlers.Add("SA1643", new SA1643CodeIssue()); // OK
             this.handlers.Add("SA1644", new SA1644CodeIssue()); // OK
             this.handlers.Add("SA1645", new SA1645CodeIssue()); // OK
             this.handlers.Add("SA1646", new SA1646CodeIssue()); // OK
             this.handlers.Add("SA1647", new SA1647CodeIssue()); // OK
+            this.handlers.Add("SA1500", new SA1500CodeIssue()); // OK
+            this.handlers.Add("SA1501", new SA1501CodeIssue()); // OK
+            this.handlers.Add("SA1502", new SA1502CodeIssue()); // OK
+            this.handlers.Add("SA1503", markElementByItsNameCodeIssue); // TODO
+            this.handlers.Add("SA1504", new SA1504CodeIssue()); // BUG
+            this.handlers.Add("SA1505", new SA1505CodeIssue()); // OK
+            this.handlers.Add("SA1506", new SA1506CodeIssue()); // DxCore bug
+            this.handlers.Add("SA1507", new SA1507CodeIssue()); // OK
+            this.handlers.Add("SA1508", new SA1508CodeIssue()); // OK
+            this.handlers.Add("SA1509", new SA1509CodeIssue()); // OK
+            this.handlers.Add("SA1513", new SA1513CodeIssue()); // Cannot get this violation with stylecop. Sample needed
+
         }
 
         public ICodeIssue GetIssueFor(Violation violation)
