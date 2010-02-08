@@ -6,11 +6,13 @@ This plugin assists developers by scanning all files in a project or solution fo
 
 Files can be included or excluded from analysis based on their file name or content using regular expressions in the options.
 
+*Double click a code issue to jump to it in code.*
+
 http://img21.imageshack.us/img21/3494/windowg.png
 
 = Usage =
 
-Press the solution or project button to begin analysis. This may take some time dependant on the size of your project. Once analyzed a list of code issues will be shown. *Double click a code issue to jump to it in code.* Analysis can be cancelled at any time.
+Press the solution or project button to begin analysis. This may take some time dependant on the size of your project. Once analyzed a list of code issues will be shown. Analysis can be cancelled at any time.
 
 = Installation =
 
