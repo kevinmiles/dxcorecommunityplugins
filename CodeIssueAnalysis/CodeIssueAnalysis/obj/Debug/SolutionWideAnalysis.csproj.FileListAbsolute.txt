@@ -1,0 +1,9 @@
+C:\Users\Pete\Documents\DevExpress\IDE Tools\Community\PlugIns\SolutionWideAnalysis.dll
+C:\Users\Pete\Documents\DevExpress\IDE Tools\Community\PlugIns\SolutionWideAnalysis.pdb
+C:\Visual Studio 2008\Projects\SolutionWideAnalysis\SolutionWideAnalysis\obj\Debug\ResolveAssemblyReference.cache
+C:\Visual Studio 2008\Projects\SolutionWideAnalysis\SolutionWideAnalysis\obj\Debug\SolutionWideAnalysis.Properties.Resources.resources
+C:\Visual Studio 2008\Projects\SolutionWideAnalysis\SolutionWideAnalysis\obj\Debug\SolutionWideAnalysis.ToolWindow1.resources
+C:\Visual Studio 2008\Projects\SolutionWideAnalysis\SolutionWideAnalysis\obj\Debug\SolutionWideAnalysis.csproj.GenerateResource.Cache
+C:\Visual Studio 2008\Projects\SolutionWideAnalysis\SolutionWideAnalysis\obj\Debug\SolutionWideAnalysis.dll.licenses
+C:\Visual Studio 2008\Projects\SolutionWideAnalysis\SolutionWideAnalysis\obj\Debug\SolutionWideAnalysis.dll
+C:\Visual Studio 2008\Projects\SolutionWideAnalysis\SolutionWideAnalysis\obj\Debug\SolutionWideAnalysis.pdb
