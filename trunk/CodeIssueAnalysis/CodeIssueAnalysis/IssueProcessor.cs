@@ -11,14 +11,16 @@ using System.IO;
 
 namespace CodeIssueAnalysis
 {
-    public class IssueProcessor
+    internal class IssueProcessor
     {
         bool fullSolution;
+        public volatile bool shutdown;
 
         public event EventHandler<ResultsArgs> Results;
+        public event EventHandler<ProcessingArgs> ProcessingFile;
         public event EventHandler<ErrorArgs> Error;
 
-        protected void OnResults(ResultsArgs e)
+        internal void OnResults(ResultsArgs e)
         {
             if (Results != null)
             {
@@ -26,7 +28,15 @@ namespace CodeIssueAnalysis
             }
         }
 
-        protected void OnError(ErrorArgs e)
+        internal void OnProcessingFile(ProcessingArgs e)
+        {
+            if (ProcessingFile != null)
+            {
+                ProcessingFile(this, e);
+            }
+        }
+
+        internal void OnError(ErrorArgs e)
         {
             if (Error != null)
             {
@@ -34,7 +44,7 @@ namespace CodeIssueAnalysis
             }
         }
 
-        public class ResultsArgs : EventArgs
+        internal class ResultsArgs : EventArgs
         {
             public DataTable dt { get; private set; }
 
@@ -44,7 +54,19 @@ namespace CodeIssueAnalysis
             }
         }
 
-        public class ErrorArgs : EventArgs
+        internal class ProcessingArgs : EventArgs
+        {
+            public int FileCount { get; private set; }
+            public int CurrentFile { get; private set; }
+
+            public ProcessingArgs(int fileCount, int currentFile)
+            {
+                this.FileCount = fileCount;
+                this.CurrentFile = currentFile;
+            }
+        }
+
+        internal class ErrorArgs : EventArgs
         {
             public Exception Error { get; private set; }
 
@@ -54,26 +76,33 @@ namespace CodeIssueAnalysis
             }
         }
 
-        public IssueProcessor(bool fullSolution)
+        internal IssueProcessor(bool fullSolution)
         {
             this.fullSolution = fullSolution;
         }        
 
-        public void Run()
+        internal void Run()
         {
-            IssueServices issueService = CodeRush.Issues;
             DataTable dt = CreateTable();
+            IssueServices issueService = CodeRush.Issues;            
 
             try
             {
-                foreach (ProjectElement project in CodeRush.Source.SolutionNode.AllProjects)
-                {
+                int fileCount = GetFileCount();
+                int currentFile = 0;
 
+                foreach (ProjectElement project in CodeRush.Source.SolutionNode.AllProjects)
+                {                    
                     if (CodeRush.Source.ActiveProject == project || fullSolution == true)
                     {
                         foreach (SourceFile file in project.AllFiles)
                         {
-                            CheckFile(issueService, dt, file);                         
+                            //early abort still ends with OnResults
+                            if (shutdown)
+                                break;
+                            OnProcessingFile(new ProcessingArgs(fileCount, currentFile));
+                            currentFile++;
+                            CheckFile(issueService, dt, file);
                         }
                     }
                 }
@@ -84,6 +113,22 @@ namespace CodeIssueAnalysis
             }
 
             OnResults(new ResultsArgs(dt));
+        }
+
+        private int GetFileCount()
+        {
+            int fileCount = 0;
+            foreach (ProjectElement project in CodeRush.Source.SolutionNode.AllProjects)
+            {
+                if (CodeRush.Source.ActiveProject == project || fullSolution == true)
+                {
+                    foreach (SourceFile file in project.AllFiles)
+                    {
+                        fileCount++;
+                    }
+                }
+            }
+            return fileCount;
         }
 
         private static void CheckFile(IssueServices issueService, DataTable dt, SourceFile file)
@@ -153,8 +198,7 @@ namespace CodeIssueAnalysis
             return content;            
         }
 
-
-        public static DataTable CreateTable()
+        private static DataTable CreateTable()
         {
             DataTable dt = new DataTable(typeof(CodeIssue).Name);
 
@@ -169,7 +213,7 @@ namespace CodeIssueAnalysis
             return dt;
         }
 
-        public static DataTable AddToDataTable(IEnumerable<CodeIssue> codeIssues, DataTable dt, SourceFile file)
+        private static DataTable AddToDataTable(IEnumerable<CodeIssue> codeIssues, DataTable dt, SourceFile file)
         {
             foreach (var issue in codeIssues)
             {
