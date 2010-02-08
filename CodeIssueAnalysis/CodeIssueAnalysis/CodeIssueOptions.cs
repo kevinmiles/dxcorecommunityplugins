@@ -44,7 +44,6 @@ namespace CodeIssueAnalysis
         }
         #endregion
 
-
         private  void SaveOptions()
         {
           using (DecoupledStorage settings = CodeRush.Options.GetStorage(OptionsCategory, OptionsPageName))
@@ -98,7 +97,7 @@ namespace CodeIssueAnalysis
             }
         }
 
-        public static List<string> GetInclusions()
+        internal static List<string> GetInclusions()
         {
             List<string> list = new List<string>();
 
@@ -123,7 +122,7 @@ namespace CodeIssueAnalysis
             return list;
         }
 
-        public static List<string> GetContentInclusions()
+        internal static List<string> GetContentInclusions()
         {
             List<string> list = new List<string>();
 
@@ -140,7 +139,7 @@ namespace CodeIssueAnalysis
             return list;
         }
 
-        public static List<string> GetExclusions()
+        internal static List<string> GetExclusions()
         {
             List<string> list = new List<string>();
 
@@ -166,7 +165,7 @@ namespace CodeIssueAnalysis
             return list;
         }
 
-        public static List<string> GetContentExclusions()
+        internal static List<string> GetContentExclusions()
         {
             List<string> list = new List<string>();
 

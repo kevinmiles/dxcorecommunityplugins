@@ -9,12 +9,14 @@ using DevExpress.CodeRush.StructuralParser;
 using DevExpress.DXCore.Controls.Data;
 using DevExpress.DXCore.Controls.XtraGrid.Columns;
 using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
+using System.Data;
 
 namespace CodeIssueAnalysis
 {
     [Title("Code Issue Analysis")]
     public partial class ToolWindow1 : ToolWindowPlugIn
     {
+        IssueProcessor worker;
         private bool canRefresh = true;
         int totalCount;
 
@@ -37,16 +39,18 @@ namespace CodeIssueAnalysis
         }
         #endregion
 
-        public void UpdateData(bool wholeSolution)
+        private void UpdateData(bool wholeSolution)
         {
             if (canRefresh)
             {
-                IssueProcessor worker = new IssueProcessor(wholeSolution);
+                worker = new IssueProcessor(wholeSolution);
                 worker.Results += OnResults;
                 worker.Error += OnError;
+                worker.ProcessingFile += OnProcessingFile;
                 Thread workerThread = new Thread(worker.Run);
-                this.Cursor = Cursors.WaitCursor;
                 workerThread.Start();
+                progressBar.Visible = true;
+                btnCancel.Visible = true;
             }
         }
 
@@ -58,7 +62,7 @@ namespace CodeIssueAnalysis
                 this.BeginInvoke((MethodInvoker)delegate { OnResults(sender, e); });
                 return;
             }
-            this.Cursor = Cursors.Default;
+            
             try
             {
                 gridControl1.DataSource = e.dt;
@@ -75,19 +79,33 @@ namespace CodeIssueAnalysis
                 gridView1.Columns["Range"].Visible = false;
 
                 gridControl1.Refresh();
-                canRefresh = true;
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message, "Error Updating Grid");
             }
+
+            EndProcessing();
+        }       
+
+        private void OnProcessingFile(object sender, IssueProcessor.ProcessingArgs e)
+        {
+            //cross thread - so you don't get the cross theading exception
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke((MethodInvoker)delegate { OnProcessingFile(sender, e); });
+                return;
+            }            
+            progressBar.Maximum = e.FileCount;
+            progressBar.Value = e.CurrentFile;
         }
 
         private void OnError(object sender, IssueProcessor.ErrorArgs e)
         {
-            this.Cursor = Cursors.Default;
             MessageBox.Show(e.Error.Message, "Update Error");
             canRefresh = true;
+            progressBar.Value = 0;
+            progressBar.Visible = false;
         }
 
         private void gridView1_DoubleClick(object sender, EventArgs e)
@@ -146,6 +164,18 @@ namespace CodeIssueAnalysis
             UpdateData(false);
         }
 
-    
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            worker.shutdown = true;
+            EndProcessing();
+        }
+
+        private void EndProcessing()
+        {
+            canRefresh = true;
+            progressBar.Value = 0;
+            btnCancel.Visible = false;
+            progressBar.Visible = false;
+        }
     }
 }

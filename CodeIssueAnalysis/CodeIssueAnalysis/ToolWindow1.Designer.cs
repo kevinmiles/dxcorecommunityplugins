@@ -50,6 +50,8 @@ namespace CodeIssueAnalysis
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnSolutionIssues = new System.Windows.Forms.ToolStripButton();
             this.btnProjectIssues = new System.Windows.Forms.ToolStripButton();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -124,8 +126,32 @@ namespace CodeIssueAnalysis
             this.btnProjectIssues.ToolTipText = "Get Project Issues";
             this.btnProjectIssues.Click += new System.EventHandler(this.btnProjectIssues_Click);
             // 
+            // progressBar
+            // 
+            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar.Location = new System.Drawing.Point(3, 0);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(558, 25);
+            this.progressBar.TabIndex = 4;
+            this.progressBar.Visible = false;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Location = new System.Drawing.Point(562, 0);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(63, 25);
+            this.btnCancel.TabIndex = 5;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Visible = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // ToolWindow1
             // 
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.gridControl1);
             this.Image = ((System.Drawing.Bitmap)(resources.GetObject("$this.Image")));
@@ -171,5 +197,7 @@ namespace CodeIssueAnalysis
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnSolutionIssues;
         private System.Windows.Forms.ToolStripButton btnProjectIssues;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Button btnCancel;
     }
 }
