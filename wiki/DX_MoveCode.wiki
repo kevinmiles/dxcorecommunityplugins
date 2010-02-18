@@ -6,7 +6,7 @@ The 4 actions provided by this plugin, allow you to move code around more effici
 This plugin does not operate on lines of code, but instead on complete statements.
 
 = Configuration =
-Bind a key to each of MoveCodeLeft, MoveCodeRight, MoveCodeUp and MoveCodeDown.
+[http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Bind a key] to each of MoveCodeLeft, MoveCodeRight, MoveCodeUp and MoveCodeDown.
 I tend to use Alt+CursorKeys. (This means I have had to disable the ScopeCycleUp, ScopeCycleDown and CamelCaseLeft, CamelCaseRight Shortcut/Command combos.)
 
 _Note: Build 675 has additional experimental 'MoveCaret' versions of these new commands._
