@@ -24,14 +24,15 @@ Public Class MsdnBclHelpPlugin
     End Sub
 #End Region
     Private Sub actMsdnBclHelp_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles actMsdnBclHelp.Execute
-        Dim Declaration As IElement = CodeRush.Source.Active.GetDeclaration
-        If TypeOf Declaration Is ITypeElement Then
+        Dim Active As LanguageElement = CodeRush.Source.Active
+        Dim Declaration As IElement = Active.GetDeclaration
+        If TypeOf Declaration Is ITypeElement OrElse TypeOf Declaration Is IMemberElement Then
             Dim Device = ea.Action.Parameters(0).ValueAsStr
             If ea.Action.Parameters(0).ValueAsStr <> String.Empty Then
                 Device = "(" & Device & ")"
             End If
             Process.Start(String.Format("http://msdn.microsoft.com/en-us/library/{0}{1}.aspx", _
-                                        CType(Declaration, ITypeElement).FullName, _
+                                        Declaration.FullName, _
                                         Device))
         End If
     End Sub
