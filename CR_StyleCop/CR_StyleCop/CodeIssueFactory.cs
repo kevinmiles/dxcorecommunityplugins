@@ -71,7 +71,11 @@
             this.handlers.Add("SA1507", new SA1507CodeIssue()); // OK
             this.handlers.Add("SA1508", new SA1508CodeIssue()); // OK
             this.handlers.Add("SA1509", new SA1509CodeIssue()); // OK
+            this.handlers.Add("SA1510", new SA1510CodeIssue()); // OK
+            this.handlers.Add("SA1511", new SA1511CodeIssue()); // OK
+            this.handlers.Add("SA1512", new SA1512CodeIssue()); // OK
             this.handlers.Add("SA1513", new SA1513CodeIssue()); // Cannot get this violation with stylecop. Sample needed
+            this.handlers.Add("SA1515", new SA1515CodeIssue()); // OK
 
         }
 
