@@ -40,7 +40,7 @@ namespace CR_StyleCop
             ea.Handled = ea.LanguageID.ToLower() == "csharp";
         }
 
-        protected void styleCopIssueProvider_CheckCodeIssues(object sender, CheckCodeIssuesEventArgs ea)
+        private void styleCopIssueProvider_CheckCodeIssues(object sender, CheckCodeIssuesEventArgs ea)
         {
             if (ea.IsSuppressed(ea.Scope))
                 return;
