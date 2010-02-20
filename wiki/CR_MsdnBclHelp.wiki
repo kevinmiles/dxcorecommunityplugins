@@ -1,26 +1,31 @@
 #summary Launches MSDN help in the browser.
 #labels Phase-Support
 
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_MsdnBclHelp/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+
 = Introduction =
 
-CR_MsdnBclHelp is a plugin which supplies a single action called "MSDN BCL Help" which is bindable to a key (I use Alt+F1) 
+CR_MsdnBclHelp is a plugin which supplies a single action called "MSDN BCL Help". 
 
-When this action is invoked, the action constructs a Url which points at the MSDN (en_us) page for the Type on which the caret is currently placed, and then launches it in your browser.
-
-I use this in conjunction with the [http://pluralsight.com/community/blogs/craig/archive/2008/06/26/51219.aspx loband version of MSDN] to provide very quick help for any BCL type.
-
-= Installation =
-
-Installation instructions can be found on the InstallInstructions page.
+This action, when [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html bound to a key] and triggered, will cause the plugin to launch an MSDN web page for the Type or Member located at the caret.
 
 = Usage =
 
-TODO
+Given the source code:
+----
+private void SomeMethod()
+{
+    Console.Writeline();
+}
+----
 
-= Options =
+ * Triggering this action whilst the caret is on 'Console' will launch http://msdn.microsoft.com/en-us/library/system.console.aspx
+ * Triggering this action whilst the caret is on 'Writeline' will launch http://msdn.microsoft.com/en-us/library/system.console.writeline.aspx
 
-TODO
+= Additional Configuration =
+
+If passed a single string as a parameter (ie device or loband), the action will integrate this parameter as a part of the url opened. This switch is an indicator to MSDN of which style of page you would like to see. See [http://www.hanselman.com/blog/LowBandwidthViewAndOtherHiddenAndFutureFeaturesOfMSDN.aspx]
 
 = Credits =
 
-Author: Rory Becker
+Original Author: Rory Becker
