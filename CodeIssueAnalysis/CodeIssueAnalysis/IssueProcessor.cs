@@ -1,26 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
-using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Collections.Generic;
+using System.Windows.Forms;
 using System.IO;
 
 namespace CodeIssueAnalysis
 {
     internal class IssueProcessor
     {
-        bool fullSolution;
-        public volatile bool shutdown;
+        internal volatile bool shutdown;
+        private IssueServices issueService = CodeRush.Issues;
+        internal List<CodeIssueFile> codeIssues = new List<CodeIssueFile>();
 
-        public event EventHandler<ResultsArgs> Results;
-        public event EventHandler<ProcessingArgs> ProcessingFile;
-        public event EventHandler<ErrorArgs> Error;
+        internal event EventHandler<EventArgs> Results;
+        internal event EventHandler<ProcessingArgs> ProcessingFile;
+        internal event EventHandler<ErrorArgs> Error;
 
-        internal void OnResults(ResultsArgs e)
+        private int processedFiles;
+        private int totalFiles;
+
+        RunType runType = RunType.NotRun;
+        ProjectElement activeProject = null;
+
+        internal enum RunType
+        {
+            Solution,
+            Project,
+            NotRun
+        }
+
+        internal void AddCodeIssue(CodeIssue issue, SourceFile file, string message)
+        {
+            lock (this)
+            {
+               codeIssues.Add(new CodeIssueFile(issue, file, message));
+            }
+        }
+
+        private void OnResults(EventArgs e)
         {
             if (Results != null)
             {
@@ -28,7 +50,7 @@ namespace CodeIssueAnalysis
             }
         }
 
-        internal void OnProcessingFile(ProcessingArgs e)
+        private void OnProcessingFile(ProcessingArgs e)
         {
             if (ProcessingFile != null)
             {
@@ -36,7 +58,7 @@ namespace CodeIssueAnalysis
             }
         }
 
-        internal void OnError(ErrorArgs e)
+        private void OnError(ErrorArgs e)
         {
             if (Error != null)
             {
@@ -44,25 +66,27 @@ namespace CodeIssueAnalysis
             }
         }
 
-        internal class ResultsArgs : EventArgs
+        internal void AddProcessedCount()
         {
-            public DataTable dt { get; private set; }
-
-            public ResultsArgs(DataTable dt)
+            lock (this)
             {
-                this.dt = dt;
+                processedFiles++;
+                OnProcessingFile(new ProcessingArgs(processedFiles, totalFiles));
+
+                if (processedFiles >= totalFiles)
+                    OnResults(null);
             }
-        }
+        }       
 
         internal class ProcessingArgs : EventArgs
         {
-            public int FileCount { get; private set; }
-            public int CurrentFile { get; private set; }
+            public int totalFiles { get; private set; }
+            public int processedFiles { get; private set; }
 
-            public ProcessingArgs(int fileCount, int currentFile)
-            {
-                this.FileCount = fileCount;
-                this.CurrentFile = currentFile;
+            public ProcessingArgs(int processedFiles, int totalFiles)
+            {                
+                this.processedFiles = processedFiles;
+                this.totalFiles = totalFiles;
             }
         }
 
@@ -76,169 +100,233 @@ namespace CodeIssueAnalysis
             }
         }
 
-        internal IssueProcessor(bool fullSolution)
+        internal IssueProcessor()
         {
-            this.fullSolution = fullSolution;
-        }        
+            EventNexus.ProjectItemRemoved += ProjectItemRemoved;
+            EventNexus.ProjectItemAdded += ProjectItemAdded;
+            EventNexus.ProjectItemRenamed += ProjectItemRenamed;
+            EventNexus.FileChecked += FileChecked;
+            EventNexus.ProjectAdded += ProjectAdded;
+            EventNexus.ProjectRemoved += ProjectRemoved;
+        }
 
-        internal void Run()
+        private void ProjectAdded(EnvDTE.Project project)
         {
-            DataTable dt = CreateTable();
-            IssueServices issueService = CodeRush.Issues;            
+            if (runType == RunType.Solution)
+            {              
+                try
+                {
+                    processedFiles = 0;
+                    ProjectElement addedProject = CodeRush.Source.ActiveSolution.GetProjectByFullName(project.FullName);
+                    totalFiles = addedProject.AllFiles.Count;
 
+                    foreach (SourceFile file in addedProject.AllFiles)
+                        CheckIssues(file);
+                }
+                catch (Exception err)
+                {
+                    Debug.Assert(false, "Error Scanning Project", err.Message);
+                }
+            }
+        }
+
+        private void ProjectRemoved(EnvDTE.Project project)
+        {
             try
             {
-                int fileCount = GetFileCount();
-                int currentFile = 0;
-
-                foreach (ProjectElement project in CodeRush.Source.SolutionNode.AllProjects)
-                {                    
-                    if (CodeRush.Source.ActiveProject == project || fullSolution == true)
-                    {
-                        foreach (SourceFile file in project.AllFiles)
-                        {
-                            //early abort still ends with OnResults
-                            if (shutdown)
-                                break;
-                            OnProcessingFile(new ProcessingArgs(fileCount, currentFile));
-                            currentFile++;
-                            CheckFile(issueService, dt, file);
-                        }
-                    }
-                }
+                codeIssues.RemoveAll(new CodeIssueMatch(project).ProjectMatch);
             }
             catch (Exception err)
             {
-                OnError(new ErrorArgs(err));
+                Debug.Assert(false, "Error removing code issues", err.Message);
             }
 
-            OnResults(new ResultsArgs(dt));
+            OnResults(null);
         }
 
-        private int GetFileCount()
+        internal void RescanFileIssues(SourceFile file)
         {
-            int fileCount = 0;
-            foreach (ProjectElement project in CodeRush.Source.SolutionNode.AllProjects)
+            try
             {
-                if (CodeRush.Source.ActiveProject == project || fullSolution == true)
+                processedFiles = 0;
+                totalFiles = 1;
+                
+                codeIssues.RemoveAll(new CodeIssueMatch(file.Document.FullName).FilePathMatch);
+                CheckIssues(file);
+            }
+            catch (Exception err)
+            {
+                Debug.Assert(false, "Error Scanning File", err.Message);
+            }
+        }
+
+        internal void AddAllProjectIssues()
+        {
+            if (CodeRush.Source.ActiveProject == null)
+                MessageBox.Show("You must have a file open in the project you wish to scan.");
+            else
+            {
+                try
                 {
-                    foreach (SourceFile file in project.AllFiles)
-                    {
-                        fileCount++;
-                    }
+                    runType = RunType.Project;
+                    processedFiles = 0;
+                    codeIssues.Clear();
+                    activeProject = CodeRush.Source.ActiveProject;
+                    totalFiles = CodeRush.Source.ActiveProject.AllFiles.Count;
+
+                    foreach (SourceFile file in CodeRush.Source.ActiveProject.AllFiles)
+                        CheckIssues(file);
+                }
+                catch (Exception err)
+                {
+                    Debug.Assert(false, "Error Scanning Project", err.Message);
                 }
             }
-            return fileCount;
         }
 
-        private static void CheckFile(IssueServices issueService, DataTable dt, SourceFile file)
+        internal void AddAllSolutionIssues()
         {
-            //test included by content or file name
-            if (FileNamePatternMatch(file, CodeIssueOptions.GetInclusions()) ||
-               ContentPatternMatch(file, CodeIssueOptions.GetContentInclusions()))
+            try
             {
-                //exlusions only need to be tested if file is included
-                if (!FileNamePatternMatch(file, CodeIssueOptions.GetExclusions()) &&
-                    !ContentPatternMatch(file, CodeIssueOptions.GetContentExclusions()))
-                {
-                    try
-                    {
-                        AddToDataTable(issueService.CheckCodeIssues(file), dt, file);
-                    }
-                    catch (Exception err)
-                    {
-                        Debug.Assert(false, "Failed To Check Issues", err.Message);
-                    }
-                }
-            }
-        }
+                runType = RunType.Solution;
+                processedFiles = 0;
+                totalFiles = 0;
+                codeIssues.Clear();
 
-        private static bool FileNamePatternMatch(SourceFile file, List<string> patterns)
-        {
-            foreach (string pattern in patterns)
+                foreach (ProjectElement project in CodeRush.Source.ActiveSolution.AllProjects)
+                    totalFiles = totalFiles + project.AllFiles.Count;
+
+                foreach (SourceFile file in CodeRush.Source.ActiveSolution.AllFiles)
+                        CheckIssues(file);
+            }
+            catch (Exception err)
             {
-                if ((new Regex(pattern)).Match(file.Name).Success)
-                    return true;
+                Debug.Assert(false, "Error Scanning Project", err.Message);
             }
-            return false;
         }
 
-        private static bool ContentPatternMatch(SourceFile file, List<string> patterns)
+        private void CheckIssues(SourceFile file)
         {
-            //test file content avoiding multiple file reads
-            if (patterns.Count > 0)
-            {               
-                string fileText = GetFileText(file);
-                Debug.Assert(fileText.Length != 0, "Empty FileText");
-
-                foreach (string pattern in patterns)
-                {
-                    if ((new Regex(pattern)).Match(fileText).Success)
-                        return true;
-                }
-            }
-            return false;
-        }
-
-        private static string GetFileText(SourceFile file)
-        {
-            //read file without locking
-            string content = "";
-
-            using (FileStream fs = new FileStream(file.Name, FileMode.Open, FileAccess.Read))
-            using (StreamReader sr = new StreamReader(fs))
-            {
-                content = sr.ReadToEnd();
-                if (sr != null)
-                    sr.Close();
-                if (fs != null)
-                    fs.Close();
-            }
-
-            return content;            
-        }
-
-        private static DataTable CreateTable()
-        {
-            DataTable dt = new DataTable(typeof(CodeIssue).Name);
-
-            dt.Columns.Add("Type", typeof(String));
-            dt.Columns.Add("Message", typeof(String));
-            dt.Columns.Add("Line", typeof(Int32));
-            dt.Columns.Add("Solution", typeof(String));
-            dt.Columns.Add("Project", typeof(String));
-            dt.Columns.Add("File", typeof(String));
-            dt.Columns.Add("Source File", typeof(SourceFile));
-            dt.Columns.Add("Range", typeof(SourceRange));
-            return dt;
-        }
-
-        private static DataTable AddToDataTable(IEnumerable<CodeIssue> codeIssues, DataTable dt, SourceFile file)
-        {
-            foreach (var issue in codeIssues)
-            {
-                var values = new object[dt.Columns.Count];
-                values[0] = issue.Type.ToString();
-                values[1] = issue.Message;
-                values[2] = issue.Range.Start.Line;
-                values[3] = System.IO.Path.GetFileName(file.Solution.Name);
-                values[4] = file.Project.Name;
-                values[5] = System.IO.Path.GetFileName(file.Name);
-                values[6] = file;
-                values[7] = issue.Range;
-                dt.Rows.Add(values);
-            }
-
-            return dt;
+            //non threaded way
+            //new CheckFile(issueService, file, this).Check(null);
+            ThreadPool.SetMaxThreads(8, 8);
+            ThreadPool.QueueUserWorkItem(new CheckFile(issueService, file, this).Check);
         }
 
         internal static void GotoCode(SourceFile file, SourceRange range, LocatorBeacon beacon)
         {
-            CodeRush.File.Activate(file.Name);           
-            TextView view = (TextView)CodeRush.Source.Active.View;
-            view.MakeVisible(range.Start);
-            CodeRush.Caret.MoveTo(range.Start);
-            beacon.Start(view, range.Start.Line, range.Start.Offset);
+            try
+            {
+                CodeRush.File.Activate(file.Name);
+                TextView view = (TextView)CodeRush.Source.Active.View;
+                view.MakeVisible(range.Start);
+                CodeRush.Caret.MoveTo(range.Start);
+                beacon.Start(view, range.Start.Line, range.Start.Offset);
+            }
+            catch
+            {
+                MessageBox.Show("Couldn't find file or line", "Can't goto issue");
+            }
+        }
+
+        private void FileChecked(object sender, CodeIssuesCheckedEventArgs e)
+        {                 
+            try
+            {
+                switch (runType)
+                {
+                    case RunType.NotRun:
+                    case RunType.Solution:
+                        processedFiles = 0;
+                        totalFiles = 1;
+                        codeIssues.RemoveAll(new CodeIssueMatch(e.FileNode.Document.FullName).FilePathMatch);
+                        CheckIssues(e.FileNode);
+                        break;
+                    case RunType.Project:
+                        processedFiles = 0;
+                        totalFiles = 1;
+                        if (e.FileNode.Project == activeProject)
+                        {
+                            codeIssues.RemoveAll(new CodeIssueMatch(e.FileNode.Document.FullName).FilePathMatch);
+                            CheckIssues(e.FileNode);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception err)
+            {
+                Debug.Assert(false, "Error adding code issues", err.Message);
+            } 
+        }
+
+        private void ProjectItemRemoved(EnvDTE.ProjectItem projectItem)
+        {
+            try
+            {
+                codeIssues.RemoveAll(new CodeIssueMatch(projectItem.get_FileNames(0)).FilePathMatch);
+            }
+            catch (Exception err)
+            {
+                Debug.Assert(false, "Error removing code issues", err.Message);
+            }
+
+            OnResults(null);
+        }
+
+        private void ProjectItemAdded(EnvDTE.ProjectItem projectItem)
+        {
+            try
+            {
+                switch (runType)
+                {
+                    case RunType.Solution:
+                        processedFiles = 0;
+                        totalFiles = 1;
+                        CheckIssues(GetSourceFile(projectItem));
+                        break;
+                    case RunType.Project:
+                        processedFiles = 0;
+                        totalFiles = 1;
+                        SourceFile file = GetSourceFile(projectItem);
+                        if (file.Project == activeProject)
+                        {
+                            CheckIssues(file);
+                        }                        
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception err)
+            {
+                Debug.Assert(false, "Error adding code issues", err.Message);
+            }       
+        }
+
+        private void ProjectItemRenamed(EnvDTE.ProjectItem projectItem, string oldName)
+        {
+            try
+            {
+                string originalPath = Path.GetDirectoryName(projectItem.get_FileNames(0)) + Path.DirectorySeparatorChar + oldName;
+                foreach (CodeIssueFile codeIssue in codeIssues)
+                {
+                    if (codeIssue.file.Name == originalPath)
+                        codeIssue.file = GetSourceFile(projectItem);
+                }
+            }
+            catch (Exception err)
+            {
+                Debug.Assert(false, "Error renaming code issues", err.Message);
+            }
+
+            OnResults(null);
+        }
+
+        private static SourceFile GetSourceFile(EnvDTE.ProjectItem projectItem)
+        {
+            return CodeRush.Source.ActiveSolution.FindSourceFile(projectItem.get_FileNames(0));
         }
     }
 }

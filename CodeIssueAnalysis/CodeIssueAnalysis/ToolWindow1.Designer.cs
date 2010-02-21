@@ -50,6 +50,7 @@ namespace CodeIssueAnalysis
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnSolutionIssues = new System.Windows.Forms.ToolStripButton();
             this.btnProjectIssues = new System.Windows.Forms.ToolStripButton();
+            this.btnFileIssues = new System.Windows.Forms.ToolStripButton();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
@@ -83,7 +84,7 @@ namespace CodeIssueAnalysis
             gridGroupSummaryItem2});
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.Editable = false;
-            this.gridView1.OptionsFilter.MaxCheckedListItemCount = 200;
+            this.gridView1.OptionsFilter.MaxCheckedListItemCount = 2000;
             this.gridView1.OptionsView.ColumnAutoWidth = false;
             this.gridView1.CustomSummaryCalculate += new DevExpress.DXCore.Controls.Data.CustomSummaryEventHandler(this.gridView1_CustomSummaryCalculate);
             this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
@@ -97,7 +98,8 @@ namespace CodeIssueAnalysis
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnSolutionIssues,
-            this.btnProjectIssues});
+            this.btnProjectIssues,
+            this.btnFileIssues});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(625, 25);
@@ -126,13 +128,24 @@ namespace CodeIssueAnalysis
             this.btnProjectIssues.ToolTipText = "Get Project Issues";
             this.btnProjectIssues.Click += new System.EventHandler(this.btnProjectIssues_Click);
             // 
+            // btnFileIssues
+            // 
+            this.btnFileIssues.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnFileIssues.Image = ((System.Drawing.Image)(resources.GetObject("btnFileIssues.Image")));
+            this.btnFileIssues.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFileIssues.Name = "btnFileIssues";
+            this.btnFileIssues.Size = new System.Drawing.Size(23, 22);
+            this.btnFileIssues.Text = "toolStripButton1";
+            this.btnFileIssues.ToolTipText = "Rescan Current File";
+            this.btnFileIssues.Click += new System.EventHandler(this.btnFileIssues_Click);
+            // 
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(3, 0);
+            this.progressBar.Location = new System.Drawing.Point(0, 0);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(558, 25);
+            this.progressBar.Size = new System.Drawing.Size(562, 25);
             this.progressBar.TabIndex = 4;
             this.progressBar.Visible = false;
             // 
@@ -199,5 +212,6 @@ namespace CodeIssueAnalysis
         private System.Windows.Forms.ToolStripButton btnProjectIssues;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ToolStripButton btnFileIssues;
     }
 }
