@@ -2,12 +2,21 @@ using System;
 using System.Collections.Generic;
 using DevExpress.CodeRush.Core;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace CodeIssueAnalysis
 {
     [UserLevel(UserLevel.NewUser)]
     public partial class CodeIssueOptions : OptionsPage
     {
+        //the methods to get data from decoupled storage are not thread safe
+        //they seem to drop results sometimes
+        //so lists are generated for use on startup or change of options
+        internal static List<string> fileInclusions = CodeIssueOptions.GetInclusions();
+        internal static List<string> fileContentInclusions = CodeIssueOptions.GetContentInclusions();
+        internal static List<string> fileExclusions = CodeIssueOptions.GetExclusions();
+        internal static List<string> fileContentExclusions = CodeIssueOptions.GetContentExclusions();
+
         private const string OptionsCategory = "Editor\\Code Analysis";
         private const string OptionsPageName = "Code Issue Analysis";
 
@@ -20,7 +29,15 @@ namespace CodeIssueAnalysis
         private const string IncludeKey = "Inclusion";
         private const string IncludeContentKey = "IncludeContent"; 
         private const string ExcludeKey = "Exclusion";
-        private const string ExcludeContentKey = "ExcludeContent";               
+        private const string ExcludeContentKey = "ExcludeContent";
+
+        internal static void SetupSettingsLists()
+        {
+            fileInclusions = CodeIssueOptions.GetInclusions();
+            fileContentInclusions = CodeIssueOptions.GetContentInclusions();
+            fileExclusions = CodeIssueOptions.GetExclusions();
+            fileContentExclusions = CodeIssueOptions.GetContentExclusions();
+        }
 
         // DXCore-generated code...
         #region Initialize
@@ -72,6 +89,7 @@ namespace CodeIssueAnalysis
                 settings.WriteString(ExcludeContentKey, ExcludeContentKey + i, listExcludeContent.Items[i].ToString(), true);
             }
           }
+          SetupSettingsLists();
         }
 
         private void LoadSettings()
@@ -178,7 +196,7 @@ namespace CodeIssueAnalysis
                     list.Add(settings.ReadString(ExcludeContentKey, ExcludeContentKey + i, true));
                 }
             }
-
+        
             return list;
         }
 

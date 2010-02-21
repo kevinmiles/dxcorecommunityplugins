@@ -10,23 +10,41 @@ using DevExpress.DXCore.Controls.Data;
 using DevExpress.DXCore.Controls.XtraGrid.Columns;
 using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
 using System.Data;
+using System.Collections.Generic;
+using System.IO;
+using System.Collections;
 
 namespace CodeIssueAnalysis
 {
     [Title("Code Issue Analysis")]
     public partial class ToolWindow1 : ToolWindowPlugIn
-    {
+    {       
+        Stopwatch watch = new Stopwatch();
         IssueProcessor worker;
-        private bool canRefresh = true;
         int totalCount;
+        RefreshHelper helper;
+
+        internal enum UpdateType
+        {
+            Add,
+            Remove
+        }
 
         // DXCore-generated code...
         #region InitializePlugIn
         public override void InitializePlugIn()
         {
-            base.InitializePlugIn();            
+            base.InitializePlugIn();           
+            gridView1.BestFitMaxRowCount = 50;
+            CodeIssueOptions.SetupSettingsLists();
+            worker = new IssueProcessor();
+            worker.Results += OnResults;
+            worker.Error += OnError;
+            worker.ProcessingFile += OnProcessingFile;
+            helper = new RefreshHelper(gridView1, "Hash");
         }
 
+                
         #endregion
         #region FinalizePlugIn
         public override void FinalizePlugIn()
@@ -34,27 +52,11 @@ namespace CodeIssueAnalysis
             //
             // TODO: Add your finalization code here.
             //
-
             base.FinalizePlugIn();
         }
-        #endregion
+        #endregion      
 
-        private void UpdateData(bool wholeSolution)
-        {
-            if (canRefresh)
-            {
-                worker = new IssueProcessor(wholeSolution);
-                worker.Results += OnResults;
-                worker.Error += OnError;
-                worker.ProcessingFile += OnProcessingFile;
-                Thread workerThread = new Thread(worker.Run);
-                workerThread.Start();
-                progressBar.Visible = true;
-                btnCancel.Visible = true;
-            }
-        }
-
-        private void OnResults(object sender, IssueProcessor.ResultsArgs e)
+        private void OnResults(object sender, EventArgs e)
         {
             //cross thread - so you don't get the cross theading exception
             if (this.InvokeRequired)
@@ -62,30 +64,38 @@ namespace CodeIssueAnalysis
                 this.BeginInvoke((MethodInvoker)delegate { OnResults(sender, e); });
                 return;
             }
-            
+
             try
             {
-                gridControl1.DataSource = e.dt;
-                gridControl1.RefreshDataSource();
-                gridView1.BestFitMaxRowCount = 50;
-                gridView1.BestFitColumns();
+                helper.SaveViewInfo();
+                gridControl1.DataSource = GetCodeIssuesDataTable();
+                helper.LoadViewInfo();
 
-                foreach (GridColumn column in gridView1.Columns)
-                {
-                    column.OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;
-                }
+                gridView1.Columns["Type"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;
+                gridView1.Columns["Solution"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;
+                gridView1.Columns["Project"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;
+                gridView1.Columns["Message"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;
 
                 gridView1.Columns["Source File"].Visible = false;
                 gridView1.Columns["Range"].Visible = false;
+                gridView1.Columns["Hash"].Visible = false;
 
+                gridControl1.RefreshDataSource();
+                gridView1.BestFitColumns();
                 gridControl1.Refresh();
+
+                watch.Stop();
+                //MessageBox.Show("Ticks = " + watch.ElapsedTicks.ToString());
+                watch.Reset();
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message, "Error Updating Grid");
             }
-
-            EndProcessing();
+            finally
+            {
+                EndProcessing();
+            }
         }       
 
         private void OnProcessingFile(object sender, IssueProcessor.ProcessingArgs e)
@@ -95,15 +105,22 @@ namespace CodeIssueAnalysis
             {
                 this.BeginInvoke((MethodInvoker)delegate { OnProcessingFile(sender, e); });
                 return;
-            }            
-            progressBar.Maximum = e.FileCount;
-            progressBar.Value = e.CurrentFile;
+            }
+
+            try
+            {
+                progressBar.Maximum = e.totalFiles;
+                progressBar.Value = e.processedFiles;
+            }
+            catch (Exception err)
+            {
+                Debug.Assert(false, "Error Setting Progress Bar");
+            }
         }
 
         private void OnError(object sender, IssueProcessor.ErrorArgs e)
         {
             MessageBox.Show(e.Error.Message, "Update Error");
-            canRefresh = true;
             progressBar.Value = 0;
             progressBar.Visible = false;
         }
@@ -111,8 +128,7 @@ namespace CodeIssueAnalysis
         private void gridView1_DoubleClick(object sender, EventArgs e)
         {
             try
-            {
-                
+            {                
                 Point pt = gridControl1.PointToClient(MousePosition);
                 GridView view = (GridView)sender;
                 if (view.CalcHitInfo(pt).InRow)
@@ -156,12 +172,16 @@ namespace CodeIssueAnalysis
 
         private void btnSolutionIssues_Click(object sender, EventArgs e)
         {
-            UpdateData(true);
+            new Thread(worker.AddAllSolutionIssues).Start();
+            progressBar.Visible = true;
+            btnCancel.Visible = true;  
         }
 
         private void btnProjectIssues_Click(object sender, EventArgs e)
         {
-            UpdateData(false);
+            new Thread(worker.AddAllProjectIssues).Start();
+            progressBar.Visible = true;
+            btnCancel.Visible = true;  
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -172,10 +192,49 @@ namespace CodeIssueAnalysis
 
         private void EndProcessing()
         {
-            canRefresh = true;
             progressBar.Value = 0;
             btnCancel.Visible = false;
             progressBar.Visible = false;
         }
+
+        private DataTable GetCodeIssuesDataTable()
+        {
+            DataTable dt = new DataTable(typeof(CodeIssue).Name);
+            dt.Columns.Add("Type", typeof(String));
+            dt.Columns.Add("Message", typeof(String));
+            dt.Columns.Add("Line", typeof(Int32));
+            dt.Columns.Add("Solution", typeof(String));
+            dt.Columns.Add("Project", typeof(String));
+            dt.Columns.Add("File", typeof(String));
+            dt.Columns.Add("Source File", typeof(SourceFile));
+            dt.Columns.Add("Range", typeof(SourceRange));
+            dt.Columns.Add("Text", typeof(String));
+            dt.Columns.Add("Hash", typeof(int));
+
+            foreach (CodeIssueFile issue in worker.codeIssues)
+            {
+                int tmp = issue.GetHashCode();
+                var values = new object[10];
+                values[0] = issue.codeIssue.Type.ToString();
+                values[1] = issue.codeIssue.Message;
+                values[2] = issue.codeIssue.Range.Start.Line;
+                values[3] = Path.GetFileName(issue.file.Solution.Name);
+                values[4] = issue.file.Project.Name;
+                values[5] = Path.GetFileName(issue.file.Name);
+                values[6] = issue.file;
+                values[7] = issue.codeIssue.Range;
+                values[8] = issue.message;
+                values[9] = issue.GetHashCode();
+                dt.Rows.Add(values);
+            }
+
+            return dt;
+        }
+
+        private void btnFileIssues_Click(object sender, EventArgs e)
+        {
+            worker.RescanFileIssues(CodeRush.Source.ActiveSourceFile);
+        }
+        
     }
 }
