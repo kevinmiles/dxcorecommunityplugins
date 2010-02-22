@@ -60,6 +60,19 @@
   <ItemGroup>
     <Compile Include="CodeIssues\KeywordCodeIssue.cs" />
     <Compile Include="CodeIssues\OpeningCurlyBracketCodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1300CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1301CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1302CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1303CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1304CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1305CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1306CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1307CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1308CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1309CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1310CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1400CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1401CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1500CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1501CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1502CodeIssue.cs" />
@@ -74,7 +87,9 @@
     <Compile Include="CodeIssues\SA1511CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1512CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1513CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1514CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1515CodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1516CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1600CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1601CodeIssue.cs" />
     <Compile Include="CodeIssues\SA1602CodeIssue.cs" />
