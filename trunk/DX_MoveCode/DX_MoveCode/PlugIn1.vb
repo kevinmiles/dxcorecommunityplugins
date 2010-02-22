@@ -45,22 +45,6 @@ Public Class PlugIn1
         mMemberMover = Mover
         mSelectionMover = Mover
     End Sub
-    Private Sub cmdMoveCodeUp_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeUp.Execute
-        Log.SendMsg("MoveCodeUp: Started")
-        Call SetupMovers()
-        Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
-        Dim Selection = CodeRush.Documents.ActiveTextView.Selection
-        Select Case True
-            Case Selection.Height > 1
-                Call Selection.ExtendToWholeLines()
-                mSelectionMover.MoveSelectionUp(Selection.Range)
-            Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable)
-                mStatementMover.MoveStatementUp(FirstNodeOnLine)
-            Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
-                mMemberMover.MoveMemberUp(FirstNodeOnLine)
-        End Select
-        Log.SendMsg("MoveCodeUp: Finished")
-    End Sub
 
     Private Sub cmdMoveCodeDown_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeDown.Execute
         Log.SendMsg("MoveCodeDown: Started")
@@ -68,30 +52,62 @@ Public Class PlugIn1
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Dim Selection = CodeRush.Documents.ActiveTextView.Selection
         Select Case True
-            Case Selection.Height > 1
-                Call Selection.ExtendToWholeLines()
+            Case Selection.Height > 1 'Selection
+                Selection.ExtendToWholeLines()
                 mSelectionMover.MoveSelectionDown(Selection.Range)
-            Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable)
+            Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable) ' Statement 
                 mStatementMover.MoveStatementDown(FirstNodeOnLine)
-            Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
+            Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent ' Member
+                mMemberMover.MoveMemberDown(FirstNodeOnLine)
+            Case FirstNodeOnLine.Parent.ElementType = LanguageElementType.SourceFile ' Type
                 mMemberMover.MoveMemberDown(FirstNodeOnLine)
         End Select
         Log.SendMsg("MoveCodeDown: Finished")
     End Sub
 
+    Private Sub cmdMoveCodeUp_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeUp.Execute
+        Log.SendMsg("MoveCodeUp: Started")
+        Call SetupMovers()
+        Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
+        Dim Selection = CodeRush.Documents.ActiveTextView.Selection
+        Select Case True
+            Case Selection.Height > 1 'Selection
+                Selection.ExtendToWholeLines()
+                mSelectionMover.MoveSelectionUp(Selection.Range)
+            Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable) ' Statement
+                mStatementMover.MoveStatementUp(FirstNodeOnLine)
+            Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent ' Member
+                mMemberMover.MoveMemberUp(FirstNodeOnLine)
+            Case FirstNodeOnLine.Parent.ElementType = LanguageElementType.SourceFile ' Type
+                mMemberMover.MoveMemberUp(FirstNodeOnLine)
+        End Select
+        Log.SendMsg("MoveCodeUp: Finished")
+    End Sub
 
     Private Sub cmdMoveCodeRight_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeRight.Execute
         Log.SendMsg("MoveCodeRight: Started")
         Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
-        Call mStatementMover.MoveStatementRight(FirstNodeOnLine.GetParentStatementOrVariable)
+        Dim Selection = CodeRush.Documents.ActiveTextView.Selection
+        If Selection.Height > 1 Then
+            Selection.ExtendToWholeLines()
+            mSelectionMover.MoveSelectionRight(Selection.Range)
+        Else
+            Call mStatementMover.MoveStatementRight(FirstNodeOnLine.GetParentStatementOrVariable)
+        End If
         Log.SendMsg("MoveCodeRight: Finished")
     End Sub
     Private Sub cmdMoveCodeLeft_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeLeft.Execute
         Log.SendMsg("MoveCodeLeft: Started")
         Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
-        Call mStatementMover.MoveStatementLeft(FirstNodeOnLine.GetParentStatementOrVariable)
+        Dim Selection = CodeRush.Documents.ActiveTextView.Selection
+        If Selection.Height > 1 Then
+            Selection.ExtendToWholeLines()
+            mSelectionMover.MoveSelectionLeft(Selection.Range)
+        Else
+            Call mStatementMover.MoveStatementLeft(FirstNodeOnLine.GetParentStatementOrVariable)
+        End If
         Log.SendMsg("MoveCodeLeft: Finished")
     End Sub
 #End Region
