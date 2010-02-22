@@ -23,19 +23,20 @@ Public Class MoverMoveSource
     End Sub
 #End Region
 #Region "StatementMethods"
-    Public Sub MoveStatementUp(ByVal FirstNodeOnLine As LanguageElement) Implements IStatementMover.MoveStatementUp
+
+    Public Sub MoveStatementDown(ByVal Statement As LanguageElement) Implements IStatementMover.MoveStatementDown
         Try
-            Call MoveElementUp(FirstNodeOnLine.GetParentStatementOrVariable, "")
-        Catch ex As Exception
-            Console.WriteLine(ex)
-        End Try
-    End Sub
-    Public Sub MoveStatementDown(ByVal FirstNodeOnLine As LanguageElement) Implements IStatementMover.MoveStatementDown
-        Try
-            Call MoveElementDown(FirstNodeOnLine.GetParentStatementOrVariable, "")
+            Call MoveElementDown(Statement.GetParentStatementOrVariable, "")
         Catch ex As Exception
             Console.WriteLine(ex)
 
+        End Try
+    End Sub
+    Public Sub MoveStatementUp(ByVal Statement As LanguageElement) Implements IStatementMover.MoveStatementUp
+        Try
+            Call MoveElementUp(Statement.GetParentStatementOrVariable, "")
+        Catch ex As Exception
+            Console.WriteLine(ex)
         End Try
     End Sub
     Public Sub MoveStatementLeft(ByVal Statement As LanguageElement) Implements IStatementMover.MoveStatementLeft
@@ -60,41 +61,50 @@ Public Class MoverMoveSource
     End Sub
 #End Region
 #Region "Selection Methods"
-    Public Sub MoveSelectionUp(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionUp
-        Dim Destination = New SourcePoint(Selection.Start.Line - 1, 1)
-        Call MoveRangeDown(Selection, Destination, "")
-    End Sub
 
     Public Sub MoveSelectionDown(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionDown
-        Dim Destination = New SourcePoint(Selection.End.Line + 1, 1)
-        Call MoveRangeDown(Selection, Destination, "")
-    End Sub
-
-    Public Sub MoveSelectionLeft(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionLeft
-        If Not Selection.IsEmpty Then
-            Dim StartPoint = CodeRush.Documents.ActiveTextDocument.GetNodeAt(Selection.Start)
-            Dim ParentBlock = TryCast(GetParentBlock(StartPoint), Statement)
-            If ParentBlock IsNot Nothing Then
-                Dim Destination As SourcePoint = ParentBlock.GetFullBlockCutRange.Start
-                ' Assumes selection has already expanded to full lines
-                MoveRangeLeft(Selection, Destination, String.Empty)
-            End If
+        ' Locate Next Sibling of first element on last line of selection
+        Dim SourceElement = GetFirstNodeOnLine(Selection.End.Line - 1)
+        Dim Sibling = SourceElement.NextCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
+        If Sibling IsNot Nothing Then
+            Dim Destination = Sibling.Range.End.Down.LineStart
+            MoveRangeDown(Selection, Destination, "")
+            CodeRush.Selection.SelectRange(Selection.OffsetRange(Sibling.Range.Height, 0))
         End If
     End Sub
 
+    Public Sub MoveSelectionUp(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionUp
+        Dim SourceElement = GetFirstNodeOnLine(Selection.Start.Line)
+        Dim Sibling = SourceElement.PreviousCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
+        If Sibling IsNot Nothing Then
+            Dim Destination = Sibling.Range.Start.LineStart
+            MoveRangeUp(Selection, Destination, "")
+            CodeRush.Selection.SelectRange(Selection.OffsetRange(-Sibling.Range.Height, 0))
+        End If
+    End Sub
     Public Sub MoveSelectionRight(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionRight
-        If Not Selection.IsEmpty Then
-            Dim StartNode = GetFirstNodeOnLine(Selection.End.Line + 1)
-            Dim NextBlock = GetNextBlockSibling(StartNode)
-            If NextBlock IsNot Nothing Then
-                Dim Destination As SourcePoint = GetInsertPoint(NextBlock).LineStart
-                ' Assumes selection has already expanded to full lines
-                MoveRangeRight(Selection, Destination, "")
-            End If
+        Dim LastStatementInSelection = GetFirstNodeOnLine(Selection.End.Line - 1)
+        Dim NextBlock = GetNextBlockSibling(LastStatementInSelection)
+        If NextBlock IsNot Nothing Then
+            Dim StartLine = Selection.Top.Line
+            Dim Destination As SourcePoint = GetInsertPoint(NextBlock).LineStart
+            MoveRangeRight(Selection, Destination, "")
+            'CodeRush.Selection.SelectRange(Selection)
+            CodeRush.Selection.SelectRange(Selection.OffsetRange(NextBlock.BlockCodeRange.Start.Line - StartLine, 0))
+        End If
+    End Sub
+    Public Sub MoveSelectionLeft(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionLeft
+        Dim FirstStatementInSelection = GetFirstNodeOnLine(Selection.Start.Line)
+        Dim ParentBlock As Statement = TryCast(GetParentBlock(FirstStatementInSelection), Statement)
+        If ParentBlock IsNot Nothing Then
+            Dim StartLine = Selection.Top.Line
+            Dim Destination As SourcePoint = ParentBlock.GetFullBlockCutRange.Start
+            MoveRangeLeft(Selection, Destination, String.Empty)
+            'CodeRush.Selection.SelectRange(Selection)
+            CodeRush.Selection.SelectRange(Selection.OffsetRange(Destination.Line - StartLine, 0))
         End If
 
     End Sub
-
 #End Region
 
 #Region "ElementMethods"
@@ -158,5 +168,4 @@ Public Class MoverMoveSource
         CodeRush.Caret.MoveTo(Destination.OffsetPoint(Line, Offset + CodeRush.Documents.ActiveTextDocument.IndentSize).Up(MovingRange.Height - 1))
     End Sub
 #End Region
-
 End Class
