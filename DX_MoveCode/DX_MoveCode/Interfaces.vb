@@ -10,3 +10,9 @@ Public Interface IMemberMover
     Sub MoveMemberUp(ByVal Member As LanguageElement)
     Sub MoveMemberDown(ByVal Member As LanguageElement)
 End Interface
+Public Interface ISelectionMover
+    Sub MoveSelectionUp(ByVal Selection As SourceRange)
+    Sub MoveSelectionDown(ByVal Selection As SourceRange)
+    Sub MoveSelectionLeft(ByVal Selection As SourceRange)
+    Sub MoveSelectionRight(ByVal Selection As SourceRange)
+End Interface

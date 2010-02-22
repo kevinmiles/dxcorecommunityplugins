@@ -37,11 +37,13 @@ Public Class PlugIn1
 
     Private mStatementMover As IStatementMover
     Private mMemberMover As IMemberMover
+    Private mSelectionMover As ISelectionMover
 #Region "Move Code Actions"
     Public Sub SetupMovers()
         Dim Mover = New MoverMoveSource
         mStatementMover = Mover
         mMemberMover = Mover
+        mSelectionMover = Mover
     End Sub
     Private Sub cmdMoveCodeUp_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeUp.Execute
         Log.SendMsg("MoveCodeUp: Started")
@@ -51,7 +53,7 @@ Public Class PlugIn1
         Select Case True
             Case Selection.Height > 1
                 Call Selection.ExtendToWholeLines()
-
+                mSelectionMover.MoveSelectionUp(Selection.Range)
             Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable)
                 mStatementMover.MoveStatementUp(FirstNodeOnLine)
             Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
@@ -64,7 +66,11 @@ Public Class PlugIn1
         Log.SendMsg("MoveCodeDown: Started")
         Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
+        Dim Selection = CodeRush.Documents.ActiveTextView.Selection
         Select Case True
+            Case Selection.Height > 1
+                Call Selection.ExtendToWholeLines()
+                mSelectionMover.MoveSelectionDown(Selection.Range)
             Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable)
                 mStatementMover.MoveStatementDown(FirstNodeOnLine)
             Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
