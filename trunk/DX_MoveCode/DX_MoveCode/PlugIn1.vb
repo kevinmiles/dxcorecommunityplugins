@@ -7,7 +7,8 @@ Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
 Imports System.Runtime.CompilerServices
-Imports DX_MoveCode.MoveCodeV2
+Imports DevExpress.CodeRush.Diagnostics.General
+
 Public Class PlugIn1
 
     Private mStatementToMove As Statement = Nothing
@@ -43,6 +44,7 @@ Public Class PlugIn1
         mMemberMover = Mover
     End Sub
     Private Sub cmdMoveCodeUp_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeUp.Execute
+        Log.SendMsg("MoveCodeUp: Started")
         Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Dim Selection = CodeRush.Documents.ActiveTextView.Selection
@@ -55,9 +57,11 @@ Public Class PlugIn1
             Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
                 mMemberMover.MoveMemberUp(FirstNodeOnLine)
         End Select
+        Log.SendMsg("MoveCodeUp: Finished")
     End Sub
 
     Private Sub cmdMoveCodeDown_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeDown.Execute
+        Log.SendMsg("MoveCodeDown: Started")
         Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Select Case True
@@ -66,18 +70,23 @@ Public Class PlugIn1
             Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
                 mMemberMover.MoveMemberDown(FirstNodeOnLine)
         End Select
+        Log.SendMsg("MoveCodeDown: Finished")
     End Sub
 
 
     Private Sub cmdMoveCodeRight_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeRight.Execute
+        Log.SendMsg("MoveCodeRight: Started")
         Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Call mStatementMover.MoveStatementRight(FirstNodeOnLine.GetParentStatementOrVariable)
+        Log.SendMsg("MoveCodeRight: Finished")
     End Sub
     Private Sub cmdMoveCodeLeft_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeLeft.Execute
+        Log.SendMsg("MoveCodeLeft: Started")
         Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Call mStatementMover.MoveStatementLeft(FirstNodeOnLine.GetParentStatementOrVariable)
+        Log.SendMsg("MoveCodeLeft: Finished")
     End Sub
 #End Region
 #Region "Move Caret Actions"
