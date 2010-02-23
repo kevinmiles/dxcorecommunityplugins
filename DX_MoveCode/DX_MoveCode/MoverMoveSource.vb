@@ -64,7 +64,7 @@ Public Class MoverMoveSource
 
     Public Sub MoveSelectionDown(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionDown
         ' Locate Next Sibling of first element on last line of selection
-        Dim SourceElement = GetFirstNodeOnLine(Selection.End.Line - 1)
+        Dim SourceElement = GetFirstNodeOnLine(Selection.Normalise.End.Line - 1)
         Dim Sibling = SourceElement.NextCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
         If Sibling IsNot Nothing Then
             Dim Destination = Sibling.Range.End.Down.LineStart
@@ -74,7 +74,7 @@ Public Class MoverMoveSource
     End Sub
 
     Public Sub MoveSelectionUp(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionUp
-        Dim SourceElement = GetFirstNodeOnLine(Selection.Start.Line)
+        Dim SourceElement = GetFirstNodeOnLine(Selection.Normalise.Start.Line)
         Dim Sibling = SourceElement.PreviousCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
         If Sibling IsNot Nothing Then
             Dim Destination = Sibling.Range.Start.LineStart
@@ -83,7 +83,7 @@ Public Class MoverMoveSource
         End If
     End Sub
     Public Sub MoveSelectionRight(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionRight
-        Dim LastStatementInSelection = GetFirstNodeOnLine(Selection.End.Line - 1)
+        Dim LastStatementInSelection = GetFirstNodeOnLine(Selection.Normalise.End.Line - 1)
         Dim NextBlock = GetNextBlockSibling(LastStatementInSelection)
         If NextBlock IsNot Nothing Then
             Dim StartLine = Selection.Top.Line
@@ -94,7 +94,7 @@ Public Class MoverMoveSource
         End If
     End Sub
     Public Sub MoveSelectionLeft(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionLeft
-        Dim FirstStatementInSelection = GetFirstNodeOnLine(Selection.Start.Line)
+        Dim FirstStatementInSelection = GetFirstNodeOnLine(Selection.Normalise.Start.Line)
         Dim ParentBlock As Statement = TryCast(GetParentBlock(FirstStatementInSelection), Statement)
         If ParentBlock IsNot Nothing Then
             Dim StartLine = Selection.Top.Line

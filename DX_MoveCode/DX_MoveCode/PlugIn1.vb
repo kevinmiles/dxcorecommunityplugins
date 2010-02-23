@@ -78,7 +78,7 @@ Public Class PlugIn1
                 mStatementMover.MoveStatementUp(FirstNodeOnLine)
             Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent ' Member
                 mMemberMover.MoveMemberUp(FirstNodeOnLine)
-            Case FirstNodeOnLine.Parent.ElementType = LanguageElementType.SourceFile ' Type
+            Case CodeRush.Source.IsType(FirstNodeOnLine.Parent) ' Type
                 mMemberMover.MoveMemberUp(FirstNodeOnLine)
         End Select
         Log.SendMsg("MoveCodeUp: Finished")
