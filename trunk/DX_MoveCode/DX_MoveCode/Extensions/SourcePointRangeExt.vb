@@ -107,4 +107,11 @@ Public Module SourcePointRangeExt
         Dim FirstAlphaChar As Integer = CodeRush.StrUtil.GetLeadingWhiteSpaceCharCount(Line) + 1
         Return New SourcePoint(LineNo, FirstAlphaChar)
     End Function
+    <Extension()> _
+    Public Function Normalise(ByVal Source As SourceRange) As SourceRange
+        If Source.StartPrecedesEnd Then
+            Return Source
+        End If
+        Return New SourceRange(Source.End, Source.Start)
+    End Function
 End Module
