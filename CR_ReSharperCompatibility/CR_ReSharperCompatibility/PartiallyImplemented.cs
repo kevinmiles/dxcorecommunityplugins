@@ -85,5 +85,58 @@ namespace CR_ReSharperCompatibility
       if (frmResharperCompatibility.Result == CompatibilityResult.ExecuteCommand)
         CodeRush.Command.Execute(frmResharperCompatibility.Command, frmResharperCompatibility.Parameters);
     }
+
+    #region Move code Up / Down Left / Right
+    private void actReSharperMoveCodeDown_Execute(ExecuteEventArgs ea)
+    {
+        TryCommandElseRedirectToCommunity("Move Code Down", "MoveCodeDown", "DX_MoveCode");
+    }
+
+    private void actReSharperMoveCodeUp_Execute(ExecuteEventArgs ea)
+    {
+        TryCommandElseRedirectToCommunity("Move Code Up", "MoveCodeUp", "DX_MoveCode");
+    }
+
+    private void actReSharperMoveCodeRight_Execute(ExecuteEventArgs ea)
+    {
+        TryCommandElseRedirectToCommunity("Move Code Right", "MoveCodeRight", "DX_MoveCode");
+    }
+
+    private void actReSharperMoveCodeLeft_Execute(ExecuteEventArgs ea)
+    {
+        TryCommandElseRedirectToCommunity("Move Code Left", "MoveCodeLeft", "DX_MoveCode");
+    }
+    #endregion
+
+    public void TryCommandElseRedirectToCommunity(string title, string Action, string WikiPage)
+    {
+        if (ActionExists(Action))
+        {
+            CodeRush.Command.Execute(Action);
+            return;
+        }
+        bool allowPersistResponse = false;
+        string message = "This feature is not supplied by CodeRush directly. However a community plugin exists to provide an equivalent function.";
+        Redirects redirects = new Redirects();
+
+        redirects.AddLink(String.Format("Visit {0} page on the Community plugin site to retrieve this plugin.", WikiPage), GetWikiPage(WikiPage));
+
+        FrmResharperCompatibility frmResharperCompatibility = new FrmResharperCompatibility(title, message, redirects, allowPersistResponse);
+        frmResharperCompatibility.ShowDialog(CodeRush.IDE);
+        if (frmResharperCompatibility.Result == CompatibilityResult.ExecuteCommand && frmResharperCompatibility.Command == "ShowURL")
+            CodeRush.ShowURL(frmResharperCompatibility.Parameters);
+    }
+    private static bool ActionExists(string actionName) 
+    { 
+      foreach (DevExpress.CodeRush.Core.Action action in CodeRush.Actions) 
+        if (action.ActionName == actionName)
+          return true;
+      return false;
+    }
+    public string GetWikiPage(string WikiPage)
+    {
+        return String.Format("http://code.google.com/p/dxcorecommunityplugins/wiki/{0}", WikiPage);
+    }
+
   }
 }

@@ -71,5 +71,10 @@ namespace CR_ReSharperCompatibility
                                     true));
     }
     #endregion
+    
+    public void AddLink(string Message, string Link)
+    {
+        Add(new CompatibilityRedirect(Message, "ShowURL", Link, Message, "", true));
+    }
   }
 }
