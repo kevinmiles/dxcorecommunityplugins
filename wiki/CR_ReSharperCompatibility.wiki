@@ -6,7 +6,9 @@ This is a simple plugin and a set of key bindings (currently 34 listed below) de
 
 = Additional Install Help =
 
-The shortcut ini files should be extracted to your Settings\IDE folder. You can find the Settings folder through the use of a button on the DevExpress 'About' dialog. Found on the DevExpress\About menu
+The shortcut xml files should be extracted to your Settings.xml\IDE folder. You can find the Settings.xml folder through the use of a button on the DevExpress 'About' dialog. Found on the DevExpress\About menu
+
+Also you can type "%AppData%\CodeRush for VS.Net\" into your address bar and hit [Enter] 
 
 = Support =
 Several Resharper functions are now supported:
