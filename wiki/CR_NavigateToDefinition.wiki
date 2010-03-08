@@ -1,5 +1,4 @@
-CR_NavigateToDefinition   
-Navigates to the definition of the type, member or variable, searching in every project loaded into the solution
+#summary Navigates to the definition of the type, member or variable, searching in every project loaded into the solution
 
 = Introduction =
 
