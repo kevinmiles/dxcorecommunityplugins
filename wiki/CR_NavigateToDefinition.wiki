@@ -18,10 +18,10 @@ This plugin could help until DevExpress implements [http://www.devexpress.com/Su
 
 = Screenshots =
 
-http://code.google.com/p/dxcorecommunityplugins/source/browse/trunk/CR_NavigateToDefinition/CR_NavigateToDefinition/images/options_page.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_NavigateToDefinition/CR_NavigateToDefinition/images/options_page.png
 
-http://code.google.com/p/dxcorecommunityplugins/source/browse/trunk/CR_NavigateToDefinition/CR_NavigateToDefinition/images/jump_to.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_NavigateToDefinition/CR_NavigateToDefinition/images/jump_to.png
 
-http://code.google.com/p/dxcorecommunityplugins/source/browse/trunk/CR_NavigateToDefinition/CR_NavigateToDefinition/images/jump_to_navigate.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_NavigateToDefinition/CR_NavigateToDefinition/images/jump_to_navigate.png
 
 Original Author: Jorge Rowies
