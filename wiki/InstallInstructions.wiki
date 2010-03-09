@@ -8,16 +8,18 @@ To install any of these plugins, download the relevant binary (DownloadInstructi
 
   # Shut down all instances of Visual Studio.
   # Place the downloaded plugin(s) into your DXCore plugin folder. 
-    * For DXCore 9.1.3 this path is likely `My docs\DevExpress\IDE Tools\Community\PlugIns`
-    * For DXCore 9.1.1, this path is likely `C:\Program Files\DevExpress 2009.1\IDETools\Community\Plugins\`)
+    * For DXCore 9.1.3 or later this path is likely `My docs\DevExpress\IDE Tools\Community\PlugIns`
+    * For DXCore 9.1.1, this path is likely `C:\Program Files\DevExpress 2009.1\IDETools\Community\Plugins\`
   # Restart Visual Studio. The plugin(s) are now installed.
 
 Note: The latest DXCore provides an option to change the location of your plugin folder.
 Follow these steps to get to the 'Settings' options page:
- # From the DevExpress menu, select "Options...".
+-------------------------------------------------------------
+ # From the DevExpress menu, select "Options...". (If using CodeRush Xpress use Ctrl+Shift+Alt+O.
  # In the tree view on the left, navigate to "Core"
  # Select the "Settings" options page.
    # Note: This page level is Advanced, and will only be visible if the Level combo on the lower-left of the Options dialog is set to Advanced or Expert.
+-------------------------------------------------------------
 
 =Usage=
 Each plugin has its own usage instructions. See the [http://code.google.com/p/dxcorecommunityplugins/w/list wiki] for more on each individual plugin.
