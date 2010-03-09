@@ -1,5 +1,6 @@
 #summary Navigates to the definition of the type, member or variable, searching in every project loaded into the solution
 
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_NavigateToDefinition/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]            [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 = Introduction =
 
 Something I found really annoying is that when you have references to assemblies, the "Go To Definition" command of visual studio, takes you to the metadata instead of the actual code. This plugin tries to solve that problem.
@@ -12,7 +13,9 @@ This plugin could help until DevExpress implements [http://www.devexpress.com/Su
 
     * [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_NavigateToDefinition/ Download]
     * [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions Install as usual]
-    * Assign the 'NavigateToDefinition' action to a key.
+
+= Configuration =
+    * Assign the 'NavigateToDefinition' action to a key. [Rory recommends F12 :D]
     * Change the settings as needed in DevExpress options -> Editor -> Navigation -> Navigate To Definition
 
 = Screenshots =
