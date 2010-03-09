@@ -15,7 +15,7 @@ This plugin could help until DevExpress implements [http://www.devexpress.com/Su
     * [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions Install as usual]
 
 = Configuration =
-    * Assign the 'NavigateToDefinition' action to a key. [Rory recommends F12 :D]
+    * Assign the 'NavigateToDefinition' action to a key. (Rory recommends F12 :D)
     * Change the settings as needed in DevExpress options -> Editor -> Navigation -> Navigate To Definition
 
 = Screenshots =
