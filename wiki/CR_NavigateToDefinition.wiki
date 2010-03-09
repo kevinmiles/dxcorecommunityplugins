@@ -9,11 +9,6 @@ You can bind a key (or just use the Navigate menu) to navigate to the definition
 
 This plugin could help until DevExpress implements [http://www.devexpress.com/Support/Center/p/S131637.aspx this suggestion made by Rory] (that should be the ultimate solution for the "Go To Definition" metadata problem!)
 
-= Installation =
-
-    * [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_NavigateToDefinition/ Download]
-    * [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions Install as usual]
-
 = Configuration =
     * Assign the 'NavigateToDefinition' action to a key. (See [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Bind a Key in CodeRush])
     * Change the settings as needed in DevExpress options -> Editor -> Navigation -> Navigate To Definition
