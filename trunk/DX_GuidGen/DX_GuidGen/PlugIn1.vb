@@ -12,8 +12,7 @@ Public Class PlugIn1
 	Public Overrides Sub InitializePlugIn()
 		MyBase.InitializePlugIn()
         CreateGenerateGuid()
-		'TODO: Add your initialization code here.
-	End Sub
+    End Sub
 #End Region
 #Region " FinalizePlugIn "
 	Public Overrides Sub FinalizePlugIn()
@@ -22,8 +21,6 @@ Public Class PlugIn1
 		MyBase.FinalizePlugIn()
 	End Sub
 #End Region
-    ' Please ensure the following line is not missing from your plugin's InitializeComponent
-    ' components = New System.ComponentModel.Container()
     Public Sub CreateGenerateGuid()
         Dim GenerateGuid As New DevExpress.CodeRush.Extensions.StringProvider(components)
         CType(GenerateGuid, System.ComponentModel.ISupportInitialize).BeginInit()
