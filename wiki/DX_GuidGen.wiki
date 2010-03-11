@@ -15,4 +15,4 @@ For example..
  * Set content of Template to "«?GenerateGuid»" (without quotes) 
  * Click Ok to save everything
 
-Now you can type NewGuid (case insensitive by default) and produce a new guid anywhere in the text editor :D
+Now you can type "NewGuid" (without quotes and case insensitive by default) and produce a new guid anywhere in the text editor :D
