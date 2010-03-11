@@ -8,7 +8,7 @@ These hints/rules will work across languages using user preferences (as stored i
 = Usage =
 These rules will work as long as the !CodeIssues function is turned on. 
 
-Note: The !CodeIssues feature is NOT available in !CodeRush Xpress. However another community plugin ([CodeIssueAnalysis]) does provide access to these issues.
+Note: The !CodeIssues feature is NOT available in !CodeRush Xpress. However another community plugin ([CodeIssueAnalysis]) does provide an alternative Tool windows view of any !CodeIssues (Official CodeRush ones or those provided here) that you might have installed.
 
 = Options =
 This plugin does not provide it's own options screen at the moment. It will however use the preferences set up in !CodeRush's "Editor\Code Style\Identifiers"  options page.
