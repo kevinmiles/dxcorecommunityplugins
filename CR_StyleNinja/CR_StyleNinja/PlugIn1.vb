@@ -65,6 +65,9 @@ Public Class PlugIn1
     End Sub
 #Region "LocalsStartWith..."
     Private Sub LocalsStartWithL_CheckCodeIssues(ByVal sender As Object, ByVal ea As CheckCodeIssuesEventArgs)
+        If CodeRush.CodeStyle.PrefixLocal = String.Empty Then
+            Exit Sub
+        End If
         Dim Scope = TryCast(ea.Scope, LanguageElement)
         If Scope Is Nothing Then
             Exit Sub
@@ -77,6 +80,9 @@ Public Class PlugIn1
 #End Region
 #Region "FieldsStartWith..."
     Public Sub FieldsStartWithFieldPrefix_CheckCodeIssues(ByVal sender As Object, ByVal ea As CheckCodeIssuesEventArgs)
+        If CodeRush.CodeStyle.PrefixField = String.Empty Then
+            Exit Sub
+        End If
         Dim Scope = TryCast(ea.Scope, LanguageElement)
         If Scope Is Nothing Then
             Exit Sub
@@ -87,6 +93,22 @@ Public Class PlugIn1
         Next
     End Sub
 #End Region
+#Region "ParametersStartWithParamPrefix"
+    Public Sub ParametersStartWithParamPrefix_CheckCodeIssues(ByVal sender As Object, ByVal ea As CheckCodeIssuesEventArgs)
+        If CodeRush.CodeStyle.PrefixParam = String.Empty Then
+            Exit Sub
+        End If
+        Dim Scope = TryCast(ea.Scope, LanguageElement)
+        If Scope Is Nothing Then
+            Exit Sub
+        End If
+        Dim Finder = Params(Scope).Where(Function(p) Not p.Name.StartsWith(CodeRush.CodeStyle.PrefixParam))
+        For Each FoundItem As Param In Finder
+            ea.AddHint(FoundItem.NameRange, String.Format("Parameter '{0}' does not start with '{1}'", FoundItem.Name, CodeRush.CodeStyle.PrefixParam))
+        Next
+    End Sub
+#End Region
+
 #Region "InterfacesStartWith..."
     Public Sub InterfacesStartWithI_CheckCodeIssues(ByVal sender As Object, ByVal ea As CheckCodeIssuesEventArgs)
         Dim Scope = TryCast(ea.Scope, LanguageElement)
@@ -109,18 +131,6 @@ Public Class PlugIn1
         For Each FoundItem As Method In Finder
             ea.AddHint(FoundItem.NameRange, String.Format("Element '{0} does not start with an upper case char.", FoundItem.Name))
 
-        Next
-    End Sub
-#End Region
-#Region "ParametersStartWithParamPrefix"
-    Public Sub ParametersStartWithParamPrefix_CheckCodeIssues(ByVal sender As Object, ByVal ea As CheckCodeIssuesEventArgs)
-        Dim Scope = TryCast(ea.Scope, LanguageElement)
-        If Scope Is Nothing Then
-            Exit Sub
-        End If
-        Dim Finder = Params(Scope).Where(Function(p) Not p.Name.StartsWith(CodeRush.CodeStyle.PrefixParam))
-        For Each FoundItem As Param In Finder
-            ea.AddHint(FoundItem.NameRange, String.Format("Parameter '{0}' does not start with '{1}'", FoundItem.Name, CodeRush.CodeStyle.PrefixParam))
         Next
     End Sub
 #End Region
