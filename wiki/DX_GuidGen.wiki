@@ -7,7 +7,7 @@
 Does exactly what it says on the tin.. Generates a guid.
 
 = Configuration =
-So anywhere you can use string providers... Templates, Selection Embedding / Inversion etc... Just use the phrase "«?GenerateGuid»" without quotes and this will cause a new Guid to be generated in that location.
+So anywhere you can use string providers, (Templates, Selection Embedding / Inversion etc) just use the phrase "«?GenerateGuid»" without quotes and this will cause a new Guid to be generated in that location.
 
 For example..
  * Create a new template (in the neutral language category for best effect).
@@ -15,4 +15,4 @@ For example..
  * Set content of Template to "«?GenerateGuid»" (without quotes) 
  * Click Ok to save everything
 
-Now you can type "NewGuid" (without quotes and case insensitive by default) and produce a new guid anywhere in the text editor :D
+Now you can type "NewGuid<space>" (without quotes and case insensitive by default) and produce a new guid anywhere in the text editor :D
