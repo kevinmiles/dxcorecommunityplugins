@@ -11,7 +11,23 @@ These rules will work as long as the !CodeIssues function is turned on.
 Note: The !CodeIssues feature is NOT available in !CodeRush Xpress. However another community plugin ([CodeIssueAnalysis]) does provide access to these issues.
 
 = Options =
-This plugin does not provide it's own options screen at the moment. It will however use the preferences setuip in !CodeRush's "Editor\Code Style\Identifiers"  options page.
+This plugin does not provide it's own options screen at the moment. It will however use the preferences setup in !CodeRush's "Editor\Code Style\Identifiers"  options page.
+
+= Rules = 
+ * Fields start with {{{<YourPreferenceHere>}}}
+ * Locals start with {{{<YourPreferenceHere>}}}
+ * Params start with {{{<YourPreferenceHere>}}}
+ * Interfaces start with 'I'
+ * Elements start with uppercase char: 
+   * Namespaces
+   * Classes
+   * Structs
+   * Enums
+   * Methods
+   * Properties
+   * Delegates
+   * Events
+
 
 = Credits =
 Rory Becker
