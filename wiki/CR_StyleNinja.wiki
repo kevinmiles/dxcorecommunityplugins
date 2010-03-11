@@ -11,7 +11,7 @@ These rules will work as long as the !CodeIssues function is turned on.
 Note: The !CodeIssues feature is NOT available in !CodeRush Xpress. However another community plugin ([CodeIssueAnalysis]) does provide access to these issues.
 
 = Options =
-This plugin does not provide it's own options screen at the moment. It will however use the preferences setup in !CodeRush's "Editor\Code Style\Identifiers"  options page.
+This plugin does not provide it's own options screen at the moment. It will however use the preferences set up in !CodeRush's "Editor\Code Style\Identifiers"  options page.
 
 = Rules = 
 
