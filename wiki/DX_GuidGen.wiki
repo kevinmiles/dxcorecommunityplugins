@@ -1,0 +1,18 @@
+#summary StringProvider to generate a guid
+
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_GuidGen/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+
+= Introduction =
+
+Does exactly what it says on the tin.. Generates a guid.
+
+= Configuration =
+so anywhere you can use string providers... tetmaplates, Selection Embedding / Inversion etc... Just use the phrase "«?GenerateGuid»" without quotes and this will cause a new Guid to be generated in tht location.
+
+for example..
+ * Create a new template ( in the neutral language category for best effec).
+ * Name this template "NewGuid" (without quotes) 
+ * Set content of Template to "«?GenerateGuid»" (without quotes) 
+ * Click Ok to save everything
+
+ Now you can type NewGuid (case insensitive by default) and produce a new guid anywhere in the text editor :D
