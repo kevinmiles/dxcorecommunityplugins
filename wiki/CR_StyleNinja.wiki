@@ -40,5 +40,12 @@ The following rules are implemented at this time:
  * SA1309 - Field names should not begin with {{{_}}}
  * SA1310 - Field names should not contain {{{_}}}
 
+= History = 
+
+ * Build 909 - Added SA1300 series of rules 
+   * SA1301 is missing because it is unused at this time. 
+   * SA1303 is missing because it was unclear how it should work.
+ * Build 895 - Initial test build with 5 rules
+
 = Credits =
 Rory Becker
