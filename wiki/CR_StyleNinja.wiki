@@ -1,0 +1,17 @@
+#summary Provides StyleCop style rules for CodeIssues (as hints)
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_StyleNinja http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+
+= Introduction =
+Provides !StyleCop style hints through the !CodeRush !CodeIssues interface without the need to install !StyleCop. 
+These hints/rules will work across languages using user preferences (as stored in !CodeRush's style settings) rather that actual !StyleCop rules, where applicable.
+
+= Usage =
+These rules will work as long as the !CodeIssues function is turned on. 
+
+Note: The !CodeIssues feature is NOT available in !CodeRush Xpress. However another community plugin ([CodeIssueAnalysis]) does provide access to these issues.
+
+= Options =
+This plugin does not provide it's own options screen at the moment. It will however use the preferences setuip in !CodeRush's "Editor\Code Style\Identifiers"  options page.
+
+= Credits =
+Rory Becker
