@@ -104,6 +104,8 @@ namespace CR_NavigateToDefinition
         (elementType == LanguageElementType.Property) ||
         (elementType == LanguageElementType.Struct) ||
         (elementType == LanguageElementType.Variable) ||
+        (elementType == LanguageElementType.Parameter) ||
+        (elementType == LanguageElementType.Const) ||
         (elementType == LanguageElementType.InitializedVariable);
     }
 
@@ -115,13 +117,38 @@ namespace CR_NavigateToDefinition
         (elementType == LanguageElementType.InitializedVariable);
     }
 
+    private static bool checkIfParametersAreTheSame(IMethodElement methodElement, IMethodElement currMethodElement)
+    {
+      if ((methodElement.Parameters.Count == 0) && (currMethodElement.Parameters.Count == 0))
+        return true;
+
+      bool found = false;
+
+      if (methodElement.Parameters.Count == currMethodElement.Parameters.Count)
+      {
+        for (int i = 0; i < methodElement.Parameters.Count && !found; i++)
+        {
+          if (methodElement.Parameters[i].Name.Equals(currMethodElement.Parameters[i].Name))
+          {
+            found = true;
+          }
+
+        }
+      }
+
+      return found;
+    }
+
     private void navigateToDefinition(LanguageElement element)
     {
       IElement declaration = GetElementDeclaration(element);
 
       IMemberElement memberElement = declaration as IMemberElement;
       if (memberElement == null)
+      {
+        defaultGoToDefinition();
         return;
+      }
 
       IMemberElement nestedElement = null;
       if (elementTypeIsNested(memberElement.ElementType))
@@ -145,12 +172,40 @@ namespace CR_NavigateToDefinition
         {
           SourceFile sourceFile = (e.FirstFile as SourceFile);
           TextPoint point = e.NameRanges[0].Start;
-          //TextRange range = e.NameRanges[0];
 
           if (nestedElement != null)
           {
-            point = e.FindChildByName(nestedElement.Name).NameRanges[0].Start;
-            //range = e.FindChildByName(nestedElement.Name).NameRanges[0];
+            bool found = false;
+
+            foreach (IElement currElement in e.AllChildren)
+            {
+              
+              if ((currElement.ElementType == nestedElement.ElementType) && 
+                (currElement.FullName.Equals(nestedElement.FullName)))
+              {
+                var methodElement = nestedElement as IMethodElement;
+                var currMethodElement = currElement as IMethodElement;
+
+                if ((methodElement != null) && (currMethodElement != null))
+                {
+                  found = checkIfParametersAreTheSame(methodElement, currMethodElement);
+                  if (found)
+                    point = currElement.NameRanges[0].Start;
+                }
+                else
+                {
+                  point = currElement.NameRanges[0].Start;
+                  found = true;
+                }
+
+                if (found)
+                  break;
+              }
+            }
+
+            if (!found)
+              point = e.FindChildByName(nestedElement.Name).NameRanges[0].Start;
+
           }
 
           if (dropMarker)
@@ -162,19 +217,20 @@ namespace CR_NavigateToDefinition
 
           if (showBeacon)
             locatorBeacon1.Start(CodeRush.Documents.ActiveTextView, point.Line, point.Offset);
-
-          //CodeRush.Documents.ActiveTextView.Selection.Set(range);
-          //if (showBeacon)
-          //  locatorBeacon1.Start(CodeRush.Documents.ActiveTextView, range.Start.Line, range.Start.Offset);
         }
         else
         {
-          if (useGoToDef)
-          {
-            //show metadata
-            CodeRush.Command.Execute("Edit.GoToDefinition");
-          }
+          defaultGoToDefinition();
         }
+      }
+    }
+
+    private void defaultGoToDefinition()
+    {
+      if (useGoToDef)
+      {
+        //show metadata
+        CodeRush.Command.Execute("Edit.GoToDefinition");
       }
     }
 
