@@ -14,6 +14,9 @@ Note: The !CodeIssues feature is NOT available in !CodeRush Xpress. However anot
 This plugin does not provide it's own options screen at the moment. It will however use the preferences setup in !CodeRush's "Editor\Code Style\Identifiers"  options page.
 
 = Rules = 
+
+The following rules are implemented at this time:
+
  * Fields start with {{{<YourPreferenceHere>}}}
  * Locals start with {{{<YourPreferenceHere>}}}
  * Params start with {{{<YourPreferenceHere>}}}
