@@ -1,6 +1,5 @@
 #summary Sidebar
 #sidebar DefaultSidebar
-This is a Test Sidebar
 
   * *Compatibility
     * [CR_ReSharperCompatibility] - Provides a compatibility layer for Resharper users.
