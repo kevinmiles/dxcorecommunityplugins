@@ -1,11 +1,11 @@
 #summary Sidebar
 #sidebar DefaultSidebar
 
-  * *Compatibility
+  * Compatibility
     * [CR_ReSharperCompatibility] - Provides a compatibility layer for Resharper users.
-  * *VS Dialog Replacements
+  * VS Dialog Replacements
     * [CR_QuickAddReference Quick Add Reference]
-  * *Refactoring Plugins*
+  * Refactoring Plugins
     * [Refactor_SplitStringContrib]
     * [CR_JoinLines]
     * [CR_SortLines]
@@ -13,17 +13,17 @@
     * [Refactor_FormatAssignments]
     * [Refactor_Generalize]
     * [Refactor_Resolve]
-  * *CodeIssues Plugins
+  * CodeIssues Plugins
     * [CR_StackOverflowIssues]
     * [CR_StyleNinja]
-  * *Code Plugins*
+  * Code Plugins
     * [CR_ImplementBaseConstructors]
     * [DX_MoveCode]
-  * *Navigation Plugins*
+  * Navigation Plugins
     * [CR_JumpToImplementation]
     * [CR_mdMarkerExtensions]
     * [CR_ShowFile CR_ShowFile]
-  * *Decorative Plugins*
+  * Decorative Plugins
     * [DX_CollapseFromEnd]
     * [CR_MetricShader]
     * MiniCodeColumn
@@ -31,9 +31,9 @@
     * DrawLinesBetweenMethods
     * HighlightCurrentLineInEditor
     * HighlightNonDisposedLocals
-  * *Diagnostic/Plugin Developer Plugins*
+  * Developer Plugins
     * [DX_ContextLab]
-  * *Misc Plugins*
+  * Misc Plugins
     * [CR_SmartQuotes]
     * [CR_SmartGenerics]
     * [CollapseXMLComment]
