@@ -3,8 +3,6 @@
 
   * Compatibility Plugins
     * [CR_ReSharperCompatibility] 
-  * VS Dialog Replacements
-    * [CR_QuickAddReference Quick Add Reference]
   * Refactoring Plugins
     * [Refactor_SplitStringContrib]
     * [CR_JoinLines]
@@ -13,24 +11,31 @@
     * [Refactor_FormatAssignments]
     * [Refactor_Generalize]
     * [Refactor_Resolve]
-  * !CodeIssue Plugins
-    * [CR_StackOverflowIssues]
-    * [CR_StyleNinja] 
   * Code Plugins
     * [CR_ImplementBaseConstructors]
     * [DX_MoveCode]
+  * !CodeIssue Plugins
+    * [CR_StackOverflowIssues]
+    * [CR_StyleNinja] 
+  * VS Dialog Replacements
+    * [CR_QuickAddReference]
   * Navigation Plugins
     * [CR_JumpToImplementation]
     * [CR_mdMarkerExtensions]
-    * [CR_ShowFile CR_ShowFile]
+    * [CR_ShowFile]
   * Decorative Plugins
     * [DX_CollapseFromEnd]
     * [CR_MetricShader]
-    * MiniCodeColumn
+    * [MiniCodeColumn]
     * [CR_BlockPainterPlus]
-    * DrawLinesBetweenMethods
-    * HighlightCurrentLineInEditor
-    * HighlightNonDisposedLocals
+    * [DrawLinesBetweenMethods]
+    * [HighlightCurrentLineInEditor]
+    * [HighlightNonDisposedLocals]
+  * Testing Plugins
+    * [CR_CreateTestMethod]
+    * [CR_GenerateTest]
+    * [CR_NavigateToTest]
+    * [UnitTestErrorVisualizer]
   * Developer Plugins
     * [DX_ContextLab]
   * Misc Plugins
@@ -43,10 +48,5 @@
     * [CR_MsdnBclHelp]
     * [DX_PickFromListStringProvider]
     * [CR_Execute]
-  * Test Plugins
-    * [CR_CreateTestMethod]
-    * [CR_GenerateTest]
-    * [CR_NavigateToTest]
-    * [UnitTestErrorVisualizer]
 
 This not a comprehensive list
