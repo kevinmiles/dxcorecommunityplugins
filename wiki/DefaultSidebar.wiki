@@ -43,8 +43,10 @@
     * [CR_MsdnBclHelp]
     * [DX_PickFromListStringProvider]
     * [CR_Execute]
-  * *Test Plugins*
+  * Test Plugins
     * [CR_CreateTestMethod]
     * [CR_GenerateTest]
     * [CR_NavigateToTest]
     * [UnitTestErrorVisualizer]
+
+This not a comprehensive list
