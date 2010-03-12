@@ -30,7 +30,6 @@ Public Class PlugIn1
         Dim NewIssue As New DevExpress.CodeRush.Core.IssueProvider(components)
         CType(NewIssue, System.ComponentModel.ISupportInitialize).BeginInit()
         NewIssue.ProviderName = IssueName ' Should be Unique
-        NewIssue.Co()
         AddHandler NewIssue.CheckCodeIssues, AddressOf New CheckIssuesDelegateCaller(CheckIssues).Invoke
         CType(NewIssue, System.ComponentModel.ISupportInitialize).EndInit()
     End Sub
@@ -63,6 +62,7 @@ Public Class PlugIn1
     Private Sub NamingRules()
         Call CreateIssue("Element start with uppercase char", AddressOf SA1300_ElementsStartWithUpperCase_CheckCodeIssues)
         Call CreateIssue("Interfaces start with I", AddressOf SA1302_InterfacesStartWithI_CheckCodeIssues)
+        'Call CreateCodeProvider("Prefix Var with 'I'",AddressOf PrefixVarWithI,Nothing, "
         'Call CreateIssue("Field Consts start with uppercase char", AddressOf SA1303_ConstantFieldsStartWithUpperCase_CheckCodeIssues)
 
         Call CreateIssue("Non Private Fields start with uppercase char", AddressOf SA1304_NonPrivateReadOnlyFieldsMustStartUppercase_CheckCodeIssues)
