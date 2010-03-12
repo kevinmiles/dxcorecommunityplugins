@@ -1,8 +1,8 @@
 #summary Sidebar
 #sidebar DefaultSidebar
 
-  * Compatibility
-    * [CR_ReSharperCompatibility] - Provides a compatibility layer for Resharper users.
+  * Compatibility Plugins
+    * [CR_ReSharperCompatibility] 
   * VS Dialog Replacements
     * [CR_QuickAddReference Quick Add Reference]
   * Refactoring Plugins
@@ -15,7 +15,7 @@
     * [Refactor_Resolve]
   * CodeIssues Plugins
     * [CR_StackOverflowIssues]
-    * [CR_StyleNinja]
+    * [CR_StyleNinja] 
   * Code Plugins
     * [CR_ImplementBaseConstructors]
     * [DX_MoveCode]
