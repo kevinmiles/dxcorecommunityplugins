@@ -1,5 +1,5 @@
 #summary Sidebar
-#sidebar Sidebar
+#sidebar DefaultSidebar
 This is a Test Sidebar
 
   * *Compatibility
