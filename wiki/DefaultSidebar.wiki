@@ -13,13 +13,13 @@
     * [Refactor_Resolve]
   * Code Plugins
     * [CR_ImplementBaseConstructors]
-    * [DX_MoveCode]
   * !CodeIssue Plugins
     * [CR_StackOverflowIssues]
     * [CR_StyleNinja] 
   * VS Dialog Replacements
     * [CR_QuickAddReference]
   * Navigation Plugins
+    * [DX_MoveCode]
     * [CR_JumpToImplementation]
     * [CR_mdMarkerExtensions]
     * [CR_ShowFile]
