@@ -1,0 +1,51 @@
+#summary Sidebar
+#sidebar Sidebar
+This is a Test Sidebar
+
+  * *Compatibility
+    * [CR_ReSharperCompatibility] - Provides a compatibility layer for Resharper users.
+  * *VS Dialog Replacements
+    * [CR_QuickAddReference Quick Add Reference]
+  * *Refactoring Plugins*
+    * [Refactor_SplitStringContrib]
+    * [CR_JoinLines]
+    * [CR_SortLines]
+    * [Refactor_CreateStubForHandler]
+    * [Refactor_FormatAssignments]
+    * [Refactor_Generalize]
+    * [Refactor_Resolve]
+  * *CodeIssues Plugins
+    * [CR_StackOverflowIssues]
+    * [CR_StyleNinja]
+  * *Code Plugins*
+    * [CR_ImplementBaseConstructors]
+    * [DX_MoveCode]
+  * *Navigation Plugins*
+    * [CR_JumpToImplementation]
+    * [CR_mdMarkerExtensions]
+    * [CR_ShowFile CR_ShowFile]
+  * *Decorative Plugins*
+    * [DX_CollapseFromEnd]
+    * [CR_MetricShader]
+    * MiniCodeColumn
+    * [CR_BlockPainterPlus]
+    * DrawLinesBetweenMethods
+    * HighlightCurrentLineInEditor
+    * HighlightNonDisposedLocals
+  * *Diagnostic/Plugin Developer Plugins*
+    * [DX_ContextLab]
+  * *Misc Plugins*
+    * [CR_SmartQuotes]
+    * [CR_SmartGenerics]
+    * [CollapseXMLComment]
+    * [CR_EnhancedForEach]
+    * [CR_EventHandlerCheckTC]
+    * [CR_Initials]
+    * [CR_MsdnBclHelp]
+    * [DX_PickFromListStringProvider]
+    * [CR_Execute]
+  * *Test Plugins*
+    * [CR_CreateTestMethod]
+    * [CR_GenerateTest]
+    * [CR_NavigateToTest]
+    * [UnitTestErrorVisualizer]
