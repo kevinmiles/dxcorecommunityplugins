@@ -13,7 +13,7 @@
     * [Refactor_FormatAssignments]
     * [Refactor_Generalize]
     * [Refactor_Resolve]
-  * CodeIssues Plugins
+  * !CodeIssue Plugins
     * [CR_StackOverflowIssues]
     * [CR_StyleNinja] 
   * Code Plugins
