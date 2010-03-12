@@ -46,11 +46,12 @@ Public Module Naming
     End Sub
 #End Region
 #Region "SA1300: ElementsStartWithUpperCase"
+    Friend Const Message_SA1300 As String = "SA1300: Element does not start with an uppercase char."
     Friend Sub SA1300_ElementsStartWithUpperCase_CheckCodeIssues(ByVal sender As Object, ByVal ea As CheckCodeIssuesEventArgs)
         If ea.Scope.ToLE IsNot Nothing Then
             Dim Finder = From e In MainElements(ea.Scope.ToLE) Where StartsLower(e)
             For Each FoundItem As Method In Finder
-                ea.AddHint(FoundItem.NameRange, String.Format("SA1300: Element '{0}' does not start with an uppercase char.", FoundItem.Name))
+                ea.AddHint(FoundItem.NameRange, Message_SA1300)
             Next
         End If
     End Sub
