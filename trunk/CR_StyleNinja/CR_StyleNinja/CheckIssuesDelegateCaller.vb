@@ -9,7 +9,7 @@ Imports DevExpress.Refactor.Core
 
 Public Delegate Sub CheckCodeIssuesDelegate(ByVal sender As Object, ByVal ea As CheckCodeIssuesEventArgs)
 Public Delegate Sub ApplyDelegate(ByVal sender As Object, ByVal ea As ApplyContentEventArgs)
-Public Delegate Sub CheckAvailabilityDelegate(ByVal sender As Object, ByVal ea As CheckAvailabilityEventArgs)
+Public Delegate Sub CheckContentAvailabilityDelegate(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
 Public Class CheckIssuesDelegateCaller
     Private mCheckIssues As CheckCodeIssuesDelegate
     Public Sub New(ByVal CheckIssues As CheckCodeIssuesDelegate)
@@ -20,12 +20,12 @@ Public Class CheckIssuesDelegateCaller
         mCheckIssues.Invoke(sender, ea)
     End Sub
 End Class
-Public Class CheckAvailabilityDelegateCaller
-    Private mCheckAvailability As CheckAvailabilityDelegate
-    Public Sub New(ByVal CheckAvailability As CheckAvailabilityDelegate)
+Public Class CheckContentAvailabilityDelegateCaller
+    Private mCheckAvailability As CheckContentAvailabilityDelegate
+    Public Sub New(ByVal CheckAvailability As CheckContentAvailabilityDelegate)
         mCheckAvailability = CheckAvailability
     End Sub
-    Public Sub Invoke(ByVal sender As Object, ByVal ea As CheckAvailabilityEventArgs)
+    Public Sub Invoke(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
         mCheckAvailability.Invoke(sender, ea)
     End Sub
 End Class
