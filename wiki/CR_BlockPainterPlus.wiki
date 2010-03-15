@@ -19,10 +19,10 @@ This plugin automatically paints in the editor per settings defined in the assoc
 
 -show detail on blocks. 
 This is how the editor looks with it disabled:<br>
-http://www.shepherdoaks.com/screenshots/show%20detail%20disabled.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_BlockPainterPlus/Screenshots/detail%20blocks%20off.png
 
 <br>and this is how it looks when enabled:<br>
-http://www.shepherdoaks.com/screenshots/show%20detail%20enabled.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_BlockPainterPlus/Screenshots/detail%20blocks%20on.png
 
 = Credits =
 
