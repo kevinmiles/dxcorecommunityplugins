@@ -4,14 +4,16 @@
 
 = Introduction =
 
-In 99 cases out of 100, when I open the !CodeRush options page, I want to edit either *Shortcuts* or *Templates*.
+In 99 cases out of 100, when I open the !CodeRush options page, I want to edit either *Shortcuts* or *Templates*. 
+
+[http://dxcorecommunityplugins.googlecode.com/svn/trunk/DX_DirectOptions/Screenshots/DX_DirectOptions.png] 
 
 So I built a plugin which provides direct access to those options pages.
 
 = Details =
 
-The plugin provides 2 new actions "!ShowTemplateOptions" and "!ShowShortcutOptions" which you can [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html bind to any key]
+The plugin provides 2 new actions "*!ShowTemplateOptions*" and "*!ShowShortcutOptions*" which you can [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html bind to any key]
 
-Additionally these commands are made available from the !DevExpress menu as "Template Options" and "Shortcut Options" respectively.
+Additionally these commands are made available from the !DevExpress menu as "*Template Options*" and "*Shortcut Options*" respectively.
 
 NOTE: The "!ShowTemplateOptions" and "Template Options" are only available if you have the full !CodeRush installed or are currently running a trial of same.
