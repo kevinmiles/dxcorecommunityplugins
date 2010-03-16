@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_ClassCleanerPlugin", "CR_ClassCleanerPlugin\CR_ClassCleanerPlugin.csproj", "{480F548A-B1B6-4212-969C-C2AE4C2A30D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_ClassCleaner", "CR_ClassCleaner\CR_ClassCleaner.csproj", "{480F548A-B1B6-4212-969C-C2AE4C2A30D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
