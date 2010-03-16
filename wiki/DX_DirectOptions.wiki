@@ -4,7 +4,7 @@
 
 = Introduction =
 
-In 99 cases out of 100, when I open the !CodeRush options page, I want to edit either shortcuts or templates.
+In 99 cases out of 100, when I open the !CodeRush options page, I want to edit either *Shortcuts* or *Templates*.
 
 So I built a plugin which provides direct access to those options pages.
 
