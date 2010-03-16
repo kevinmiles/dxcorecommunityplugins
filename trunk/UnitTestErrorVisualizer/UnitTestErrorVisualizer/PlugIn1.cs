@@ -1,10 +1,12 @@
 using System;
 using System.Drawing;
+using DevExpress.CodeRush.Common;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
 using DevExpress.CodeRush.Core.Testing;
 using System.Text.RegularExpressions;
+using DevExpress.DXCore.Loader;
 
 namespace UnitTestErrorVisualizer
 {
@@ -18,13 +20,14 @@ namespace UnitTestErrorVisualizer
 			public string Message { get; set; }
 		}
         private ArrowDescription visibleArrow = null;
-        // DXCore-generated code...
+		private static bool Attached { get; set; }
+		// DXCore-generated code...
 		#region InitializePlugIn
 		public override void InitializePlugIn()
 		{
 			base.InitializePlugIn();
-
 			LoadSettings();
+			Attached = false;
 		}
 
 		private void LoadSettings()
@@ -56,6 +59,65 @@ namespace UnitTestErrorVisualizer
 		{
 			LoadSettings();
 		}
+
+		//private static void AttachToRedGreenEvents()
+		//{
+		//    if (Attached == false)
+		//    {
+		//        PlugInAssembly pluginAssembly = (PlugInAssembly)GetPluginAssemblyByName("RedGreen");
+		//        pluginAssembly.Assembly.GetType("RedGreen.ITestRunner");
+		//        //ILoaderEngine loader = CodeRush.LoaderEngine;
+		//        //foreach (IPlugInAssembly pa in loader.CommunityPlugIns)
+		//        //{
+		//        //    PlugInAssembly pluginAssembly = pa as PlugInAssembly;
+		//        //    if (!pluginAssembly.Loaded)
+		//        //        return;
+
+		//        //    IPlugIn[] plugIns = pluginAssembly.PlugIns;
+
+		//        //    if (plugIns == null)
+		//        //        return;
+
+		//        //    foreach (IPlugIn item in plugIns)
+		//        //    {
+		//        //        if (item.ToString() == "RedGreen.Plugin1")
+		//        //        {
+		//        //            Attached = true;
+		//        //        }
+		//        //        //StandardPlugIn instance = item as StandardPlugIn; //use your plug-in type here, e.g. MyPlugInType instance = item as MyPlugInType;
+		//        //        //if (instance != null)
+		//        //        //{
+		//        //        //    MessageBox.Show("PlugIn instance is found!");
+		//        //        //    break;
+		//        //        //}
+		//        //    }
+		//        //}
+		//    }
+		//}
+		////static PlugInAssembly GetPluginAssemblyByName(string plugInName)
+		////{
+		////    IPlugInAssembly pluginAssembly = GetPlugInAssemblyByName(plugInName, CodeRush.LoaderEngine.CommunityPlugIns);
+		////    if (pluginAssembly != null)
+		////        return (PlugInAssembly)pluginAssembly;
+		////    pluginAssembly = GetPlugInAssemblyByName(plugInName, CodeRush.LoaderEngine.CommunitySystemAssemblies);
+		////    if (pluginAssembly != null)
+		////        return (PlugInAssembly)pluginAssembly;
+		////    pluginAssembly = GetPlugInAssemblyByName(plugInName, CodeRush.LoaderEngine.SystemPlugIns);
+		////    if (pluginAssembly != null)
+		////        return (PlugInAssembly)pluginAssembly;
+		////    pluginAssembly = GetPlugInAssemblyByName(plugInName, CodeRush.LoaderEngine.PlugIns);
+		////    return (PlugInAssembly)pluginAssembly;
+		////}
+		//static IPlugInAssembly GetPlugInAssemblyByName(string plugInName, IPlugInAssemblyCollection collection)
+		//{
+		//    if (String.IsNullOrEmpty(plugInName))
+		//        return null;
+		//    foreach (IPlugInAssembly item in collection)
+		//        if (plugInName.Equals(item.Name, StringComparison.OrdinalIgnoreCase))//You can use plugIn.FileName to find your PlugIn.
+		//            return item;
+		//    return null;
+		//}
+
 		#endregion
 		#region FinalizePlugIn
 		public override void FinalizePlugIn()
@@ -76,6 +138,8 @@ namespace UnitTestErrorVisualizer
 				DevExpress.CodeRush.StructuralParser.Attribute attribute = (DevExpress.CodeRush.StructuralParser.Attribute)element;
 				if (attribute.TargetNode.ElementType == LanguageElementType.Method)
 				{
+					//AttachToRedGreenEvents();
+
 					Method target = (Method)attribute.TargetNode;
 					TestMethodCollection tests = CodeRush.UnitTests.Tests;
 					foreach (TestMethod test in tests)
@@ -98,16 +162,27 @@ namespace UnitTestErrorVisualizer
 			{
 				if (testMethod.Status != TestStatus.Pending && testMethod.Status != TestStatus.FailedWithChanges && testMethod.Status != TestStatus.PassedWithChanges)
 				{
-					Point topLeft = paintArgs.TextView.GetPoint(attribute.Parent.Range.Start);
-					int methodStartLine = attribute.TargetNode.Range.Start.Line;
-					Point bottomRight = paintArgs.TextView.GetPoint(methodStartLine, paintArgs.TextView.LengthOfLine(methodStartLine));
-					Rectangle area = new Rectangle(topLeft.X, topLeft.Y, bottomRight.X - topLeft.X, bottomRight.Y - topLeft.Y);
-					using (Brush b = new SolidBrush(GetBackgroundColor(testMethod.Status)))
-					{
-						paintArgs.Graphics.FillRectangle(b, area);
+					if (attribute == GetFirstVisible(paintArgs, attribute.Parent.FirstDetail))
+					{// Only paint the background color once 
+						Point topLeft = paintArgs.TextView.GetPoint(attribute.Parent.Range.Start);
+						int methodStartLine = attribute.TargetNode.Range.Start.Line;
+						Point bottomRight = paintArgs.TextView.GetPoint(methodStartLine, paintArgs.TextView.LengthOfLine(methodStartLine));
+						Rectangle area = new Rectangle(topLeft.X, topLeft.Y, bottomRight.X - topLeft.X, bottomRight.Y - topLeft.Y);
+						using (Brush b = new SolidBrush(GetBackgroundColor(testMethod.Status)))
+						{
+							paintArgs.Graphics.FillRectangle(b, area);
+						}
 					}
 				}
 			}
+		}
+		private LanguageElement GetFirstVisible(EditorPaintEventArgs paintArgs, LanguageElement element)
+		{
+			while (paintArgs.LineInView(element.Range.Start.Line) == false)
+			{
+				element = element.NextSibling;
+			}
+			return element;
 		}
 
 		/// <summary>
@@ -230,28 +305,31 @@ namespace UnitTestErrorVisualizer
 			if (test.Status == TestStatus.Failure && DrawArrowToAssert == true)
 			{
 				LanguageElement attrib = element.PreviousNode;
-				string[] testAttributes = new string[] { "Test", "TestMethod", "Fact", "Theory" };
-				while (attrib.ElementType != LanguageElementType.AttributeSection && Array.Exists(testAttributes, a => a == attrib.FirstDetail.Name))
+				if (attrib.FirstDetail != null)
 				{
-					attrib = attrib.PreviousNode;
-					if (attrib.ElementType == LanguageElementType.Method)
+					string[] testAttributes = new string[] { "Test", "TestMethod", "Fact", "Theory" };
+					while (attrib.ElementType != LanguageElementType.AttributeSection && Array.Exists(testAttributes, a => a == attrib.FirstDetail.Name))
 					{
-						break;
+						attrib = attrib.PreviousNode;
+						if (attrib.ElementType == LanguageElementType.Method)
+						{
+							break;
+						}
 					}
-				}
-				if (Array.Exists(testAttributes, a => a == attrib.FirstDetail.Name))
-				{
-					Point topLeft = ea.PaintArgs.TextView.GetPoint(attrib.Range.Start.Line, attrib.Range.Start.Offset);
-					Rectangle tileLocation = new Rectangle(topLeft.X - 32, topLeft.Y + 2, 16, 16);
-					ea.PaintArgs.TextView.AddTile(NewTile(tileLocation, test.TestResult));
-					try
+					if (Array.Exists(testAttributes, a => a == attrib.FirstDetail.Name))
 					{
-						ea.PaintArgs.TextView.Graphics.DrawIcon(new Icon(GetType(), "Invisible.ico"), tileLocation);
-					}
-					catch
-					{// fail silently if icon is missing from the project.
-					}
+						Point topLeft = ea.PaintArgs.TextView.GetPoint(attrib.Range.Start.Line, attrib.Range.Start.Offset);
+						Rectangle tileLocation = new Rectangle(topLeft.X - 32, topLeft.Y + 2, 16, 16);
+						ea.PaintArgs.TextView.AddTile(NewTile(tileLocation, test.TestResult));
+						try
+						{
+							ea.PaintArgs.TextView.Graphics.DrawIcon(new Icon(GetType(), "Invisible.ico"), tileLocation);
+						}
+						catch
+						{// fail silently if icon is missing from the project.
+						}
 
+					}
 				}
 			}
 		}
