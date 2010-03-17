@@ -34,27 +34,22 @@ Public Class PlugIn1
         CType(NewIssue, System.ComponentModel.ISupportInitialize).EndInit()
         Return NewIssue
     End Function
-    Public Function CreateRefactoring(ByVal IssueName As String, ByVal DisplayName As String, ByVal Apply As ApplyDelegate, Optional ByVal CheckContentAvailability As CheckContentAvailabilityDelegate = Nothing, Optional ByVal CodeIssueMessage As String = "") As DevExpress.Refactor.Core.RefactoringProvider
+    Public Function CreateRefactoring(ByVal IssueName As String, ByVal DisplayName As String, ByVal Apply As ApplyDelegate, ByVal CheckContentAvailability As CheckContentAvailabilityDelegate) As DevExpress.Refactor.Core.RefactoringProvider
         Dim NewRefactoring As New DevExpress.Refactor.Core.RefactoringProvider(components)
         CType(NewRefactoring, System.ComponentModel.ISupportInitialize).BeginInit()
         NewRefactoring.ProviderName = IssueName ' Should be Unique
-        NewRefactoring.CodeIssueMessage = CodeIssueMessage
         NewRefactoring.DisplayName = DisplayName
-        NewRefactoring.Register = True
         AddHandler NewRefactoring.CheckAvailability, AddressOf New CheckContentAvailabilityDelegateCaller(CheckContentAvailability).Invoke
         AddHandler NewRefactoring.Apply, AddressOf New ApplyDelegateCaller(Apply).Invoke
 
         CType(NewRefactoring, System.ComponentModel.ISupportInitialize).EndInit()
         Return NewRefactoring
     End Function
-    Public Function CreateCodeProvider(ByVal IssueName As String, ByVal DisplayName As String, ByVal Apply As ApplyDelegate, Optional ByVal CheckContentAvailability As CheckContentAvailabilityDelegate = Nothing, Optional ByVal CodeIssueMessage As String = "") As CodeProvider
+    Public Function CreateCodeProvider(ByVal IssueName As String, ByVal DisplayName As String, ByVal Apply As ApplyDelegate, ByVal CheckContentAvailability As CheckContentAvailabilityDelegate) As CodeProvider
         Dim NewCodeProvider As New CodeProvider(components)
         CType(NewCodeProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         NewCodeProvider.ProviderName = IssueName ' Should be Unique
-        'NewCodeProvider.SolvedIssues.Add(CodeIssueMessage)
-        'NewCodeProvider.CodeIssueMessage = CodeIssueMessage
         NewCodeProvider.DisplayName = DisplayName
-        'NewCodeProvider.Register = True
         AddHandler NewCodeProvider.CheckAvailability, AddressOf New CheckContentAvailabilityDelegateCaller(CheckContentAvailability).Invoke
         AddHandler NewCodeProvider.Apply, AddressOf New ApplyDelegateCaller(Apply).Invoke
         CType(NewCodeProvider, System.ComponentModel.ISupportInitialize).EndInit()
@@ -64,61 +59,56 @@ Public Class PlugIn1
 #Region "Rule Registration"
     Private Sub RegisterRules()
         RegisterNamingRules()
-        RegisterCodeProviders()
+        RegisterRefactorings()
     End Sub
     Friend Sub RegisterNamingRules()
-        Call CreateIssue("SA1302", AddressOf SA1302_InterfacesStartWithI_CheckCodeIssues)
+        Call CreateIssue("SA1302", AddressOf Checker.InterfaceChecker(AddressOf Qualifies_SA1302, Message_SA1302).CheckCodeIssues)
         'Call CreateIssue("SA1303", AddressOf SA1303_ConstantFieldsStartWithUpperCase_CheckCodeIssues)
 
         ' Rules: Require Uppercase 
-        Call CreateIssue("SA1300", AddressOf SA1300_ElementsStartWithUpperCase_CheckCodeIssues)
-        Call CreateIssue("SA1304", AddressOf SA1304_NonPrivateReadOnlyFieldsMustStartUppercase_CheckCodeIssues)
-        Call CreateIssue("SA1307", AddressOf SA1307_PublicAndInternalFieldsMustStartWithUppercase_CheckCodeIssues)
+        Call CreateIssue("SA1300", AddressOf Checker.MainElementChecker(AddressOf Qualifies_SA1300, Message_SA1300).CheckCodeIssues)
+        Call CreateIssue("SA1304", AddressOf Checker.FieldChecker(AddressOf Qualifies_SA1304, Message_SA1304).CheckCodeIssues)
+        Call CreateIssue("SA1307", AddressOf Checker.FieldChecker(AddressOf Qualifies_SA1307, Message_SA1307).CheckCodeIssues)
 
         ' Rules: Require Lowercase
-        Call CreateIssue("SA1306", AddressOf SA1306_FieldsMustStartWithLowercase_CheckCodeIssues)
+        Call CreateIssue("SA1306", AddressOf Checker.FieldChecker(AddressOf Qualifies_SA1306, Message_SA1306).CheckCodeIssues)
 
-        Call CreateIssue("SA1305", AddressOf SA1305_VariablesMustNotUseHungarianNotation_CheckCodeIssues)
-
-        Call CreateIssue("SA1308", AddressOf SA1308_FieldsMustNotBePrefixedMorS_CheckCodeIssues)
-
-        'Rules: Underscores are bad.
-        Call CreateIssue("SA1309", AddressOf SA1309_FieldsMustNotBePrefixedUnderscore_CheckCodeIssues)
-        Call CreateIssue("SA1310", AddressOf SA1310_FieldsMustNotContainUnderscore_CheckCodeIssues)
+        Call CreateIssue("SA1305", AddressOf Checker.VariableChecker(AddressOf Qualifies_SA1305, Message_SA1305).CheckCodeIssues)
 
 
-        Call CreateIssue("Locals start with...", AddressOf LocalsStartWithL_CheckCodeIssues)
-        Call CreateIssue("Fields start with...", AddressOf FieldsStartWithFieldPrefix_CheckCodeIssues)
-        Call CreateIssue("Parameters start with...", AddressOf ParametersStartWithParamPrefix_CheckCodeIssues)
+        'Rules: Prefixes and Underscores.
+        Call CreateIssue("SA1308", AddressOf Checker.FieldChecker(AddressOf Qualifies_SA1308, Message_SA1308).CheckCodeIssues)
+        Call CreateIssue("SA1309", AddressOf Checker.FieldChecker(AddressOf Qualifies_SA1309, Message_SA1309).CheckCodeIssues)
+        Call CreateIssue("SA1310", AddressOf Checker.FieldChecker(AddressOf Qualifies_SA1310, Message_SA1310).CheckCodeIssues)
+
+
+        Call CreateIssue("Locals start with...", AddressOf Checker.LocalChecker(AddressOf Qualifies_LocalWithPoorPrefix, Message_LocalsShouldStart, AddressOf LocalPrefixNotSet).CheckCodeIssues)
+        Call CreateIssue("Fields start with...", AddressOf Checker.FieldChecker(AddressOf Qualifies_FieldWithPoorPrefix, Message_FieldsShouldStart, AddressOf FieldPrefixNotSet).CheckCodeIssues)
+        Call CreateIssue("Parameters start with...", AddressOf Checker.ParamChecker(AddressOf Qualifies_ParamWithPoorPrefix, Message_ParamsShouldStart, AddressOf ParamPrefixNotSet).CheckCodeIssues)
     End Sub
 
-    Public Sub RegisterCodeProviders()
-        Dim UppercaseInitial = CreateCodeProvider("UppercaseFirstChar", "Change First Character to Uppercase", _
-                                                  AddressOf UppercaseFirstChar_Apply, AddressOf ShouldBeUppercased_Check)
+    Public Sub RegisterRefactorings()
+        Dim UppercaseInitial = CreateRefactoring("UppercaseFirstChar", "Change first Character to Uppercase", AddressOf UppercaseFirstChar_Apply, AddressOf ShouldBeUppercased_Check)
         UppercaseInitial.SolvedIssues.Add(Message_SA1300) ' MainElement and InitialLower
         UppercaseInitial.SolvedIssues.Add(Message_SA1304) ' NonPrivateField and InitialLower
         UppercaseInitial.SolvedIssues.Add(Message_SA1307) ' PublicOrInternalField and InitialLower
 
         '-----------------------------------------
-        Dim LowercaseInitial = CreateCodeProvider("LowercaseFirstChar", "Change First Character to Lowercase", _
-                                                  AddressOf LowercaseFirstChar_Apply, AddressOf ShouldBeLowercased_Check)
+        Dim LowercaseInitial = CreateRefactoring("LowercaseFirstChar", "Change first Character to Lowercase", AddressOf LowercaseFirstChar_Apply, AddressOf ShouldBeLowercased_Check)
         LowercaseInitial.SolvedIssues.Add(Message_SA1306) ' Not (NonPrivateField) and InitialUpper
 
         '-----------------------------------------
-        Dim PrefixNameWithI = CreateCodeProvider("PrefixNameWithI", "Prefix name with 'I'", _
-                                          AddressOf PrefixNameWithI_Apply, AddressOf InterfaceNotPrefixedI_Check)
+        Dim PrefixNameWithI = CreateRefactoring("PrefixNameWithI", "Prefix name with 'I'", AddressOf PrefixNameWithI_Apply, AddressOf InterfaceNotPrefixedI_Check)
         PrefixNameWithI.SolvedIssues.Add(Message_SA1302)
 
         '-----------------------------------------
-        Dim RemoveHungarianPrefix = CreateCodeProvider("RemoveHungarianPrefix", "Remove Hungarian Prefix", _
-                                          AddressOf RemoveHungarianPrefix_Apply, AddressOf PrefixedWithHungarian_Check)
+        Dim RemoveHungarianPrefix = CreateRefactoring("RemoveHungarianPrefix", "Remove Hungarian Prefix", AddressOf RemoveHungarianPrefix_Apply, AddressOf PrefixedWithHungarian_Check)
         RemoveHungarianPrefix.SolvedIssues.Add(Message_SA1305)
 
         '-----------------------------------------
-        Dim RemoveUnderscores = CreateCodeProvider("RemoveUnderscores", "Remove Underscores", _
-                                          AddressOf RemoveUnderscores_Apply, AddressOf ContainsUnderscores_Check)
-        RemoveUnderscores.solvedissues.Add(Message_SA1309)
-        RemoveUnderscores.solvedissues.Add(Message_SA1310)
+        Dim RemoveUnderscores = CreateRefactoring("RemoveUnderscores", "Remove Underscores", AddressOf RemoveUnderscores_Apply, AddressOf ContainsUnderscores_Check)
+        RemoveUnderscores.SolvedIssues.Add(Message_SA1309)
+        RemoveUnderscores.SolvedIssues.Add(Message_SA1310)
 
     End Sub
 

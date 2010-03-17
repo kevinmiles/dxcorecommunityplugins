@@ -2,9 +2,6 @@
 Imports DevExpress.CodeRush.Core
 
 Module Renaming
-    Public Function Adjusted(ByVal NewName As String) As String
-        Return New String("x"c, NewName.Length)
-    End Function
     Public Sub RenameElement(ByVal Declaration As LanguageElement, ByVal NewName As String)
         ' Get References
         Dim DocumentDict = GetReferenceRanges(Declaration, True)
@@ -14,11 +11,10 @@ Module Renaming
             CodeRush.File.ChangeFile(Entry.Key, Entry.Value.ToArray, NewName)
         Next
         CodeRush.VSSettings.RestoreVBPrettyListing()
-        'CodeRush.Documents.ActiveTextDocument.RefreshViews()
     End Sub
     Private Function GetReferenceRanges(ByVal Declaration As LanguageElement, ByVal IncludeDeclaration As Boolean) As Dictionary(Of SourceFile, List(Of SourceRange))
         Dim Documents As New Dictionary(Of SourceFile, List(Of SourceRange))
-        Dim Found = CodeRush.Refactoring.FindAllMethodReferences(Declaration.Solution, Declaration)
+        Dim Found = CodeRush.Refactoring.FindAllReferences(Declaration.Solution, Declaration).ToLanguageElementCollection
         Dim FoundLE = Found.OfType(Of LanguageElement)()
         ' Add Declaration NameRange
         If IncludeDeclaration Then
