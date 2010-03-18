@@ -22,4 +22,5 @@ NOTE: The "!ShowTemplateOptions" and "Template Options" are only available if yo
  * Build 945 
    * Altered menu items to include '...' rather than 'options'
    * Added accelerator keys (S and T respectively) to menu items
- * Build 930 - Initial Build
+ * Build 930 
+   * Initial Build
