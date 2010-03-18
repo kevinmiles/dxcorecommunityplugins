@@ -6,6 +6,7 @@ Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
 
 Public Enum SourceTypeEnum
+    Unknown
     Field
     Local
     LocalOrField
@@ -18,32 +19,32 @@ Public Enum SourceTypeEnum
 End Enum
 Public Class Checker
     Private mIssueMessage As String
-    Private mQualifier As Qualifies
+    Private mQualifier As QualifiesDelegate
     Private mSourceType As SourceTypeEnum
     Private mExitStrategy As Func(Of Boolean)
-    Public Delegate Function Qualifies(ByVal Element As IElement) As Boolean
-    Public Sub New(ByVal SourceType As SourceTypeEnum, ByVal Qualifier As Qualifies, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing)
+    Public Delegate Function QualifiesDelegate(ByVal Element As IElement) As Boolean
+    Public Sub New(ByVal SourceType As SourceTypeEnum, ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing)
         mExitStrategy = ExitStrategy
         mSourceType = SourceType
         mIssueMessage = IssueMessage
         mQualifier = Qualifier
     End Sub
-    Public Shared Function ParamChecker(ByVal Qualifier As Qualifies, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
+    Public Shared Function ParamChecker(ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
         Return New Checker(SourceTypeEnum.Param, Qualifier, IssueMessage, ExitStrategy)
     End Function
-    Public Shared Function LocalChecker(ByVal Qualifier As Qualifies, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
+    Public Shared Function LocalChecker(ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
         Return New Checker(SourceTypeEnum.Local, Qualifier, IssueMessage, ExitStrategy)
     End Function
-    Public Shared Function InterfaceChecker(ByVal Qualifier As Qualifies, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
+    Public Shared Function InterfaceChecker(ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
         Return New Checker(SourceTypeEnum.Interface, Qualifier, IssueMessage, ExitStrategy)
     End Function
-    Public Shared Function MainElementChecker(ByVal Qualifier As Qualifies, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
+    Public Shared Function MainElementChecker(ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
         Return New Checker(SourceTypeEnum.MainElement, Qualifier, IssueMessage, ExitStrategy)
     End Function
-    Public Shared Function VariableChecker(ByVal Qualifier As Qualifies, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
+    Public Shared Function VariableChecker(ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
         Return New Checker(SourceTypeEnum.Variable, Qualifier, IssueMessage, ExitStrategy)
     End Function
-    Public Shared Function FieldChecker(ByVal Qualifier As Qualifies, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
+    Public Shared Function FieldChecker(ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
         Return New Checker(SourceTypeEnum.Field, Qualifier, IssueMessage, ExitStrategy)
     End Function
     Public Sub CheckCodeIssues(ByVal sender As Object, ByVal ea As CheckCodeIssuesEventArgs)
