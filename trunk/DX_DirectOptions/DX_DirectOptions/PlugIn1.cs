@@ -41,7 +41,7 @@ namespace DX_DirectOptions
             DevExpress.CodeRush.Core.Action ShowTemplateOptions = new DevExpress.CodeRush.Core.Action(components);
             ((System.ComponentModel.ISupportInitialize)(ShowTemplateOptions)).BeginInit();
             ShowTemplateOptions.ActionName = "ShowTemplateOptions";
-            ShowTemplateOptions.ButtonText = "Template Options"; // Used if button is placed on a menu.
+            ShowTemplateOptions.ButtonText = "&Templates..."; // Used if button is placed on a menu.
             ShowTemplateOptions.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.DevExpress;
             ShowTemplateOptions.Position = LastPosition;
             ShowTemplateOptions.RegisterInCR = true;
@@ -57,7 +57,7 @@ namespace DX_DirectOptions
             DevExpress.CodeRush.Core.Action ShowShortcutOptions = new DevExpress.CodeRush.Core.Action(components);
             ((System.ComponentModel.ISupportInitialize)(ShowShortcutOptions)).BeginInit();
             ShowShortcutOptions.ActionName = "ShowShortcutOptions";
-            ShowShortcutOptions.ButtonText = "Shortcut Options"; // Used if button is placed on a menu.
+            ShowShortcutOptions.ButtonText = "&Shortcuts..."; // Used if button is placed on a menu.
             ShowShortcutOptions.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.DevExpress;
             ShowShortcutOptions.Position = LastPosition;
             ShowShortcutOptions.RegisterInCR = true;
