@@ -48,5 +48,6 @@
     * [CR_MsdnBclHelp]
     * [DX_PickFromListStringProvider]
     * [CR_Execute]
+    * [DX_DirectOptions]
 
 This not a comprehensive list
