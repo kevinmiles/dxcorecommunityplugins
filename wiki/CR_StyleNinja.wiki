@@ -41,7 +41,9 @@ The following rules are implemented at this time:
  * SA1310 - Field names should not contain {{{_}}}
 
 = History = 
- * Build 928 - 
+ * Build 940 
+   * Code reduced through more Refactoring. Less to maintain FTW! 
+ * Build 928  
    * Major Refactoring - Check everything :)
    * Previously Supported rules now have fixes as well.
  * Build 914 - Fixed SA1307 - Previously required an initial lowercase char rather than uppercase.
