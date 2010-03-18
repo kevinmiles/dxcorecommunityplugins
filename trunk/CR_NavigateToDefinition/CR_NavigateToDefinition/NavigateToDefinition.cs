@@ -80,7 +80,7 @@ namespace CR_NavigateToDefinition
 
       if (elementIsReference(element.ElementType))
         declaration = element.GetDeclaration();
-      else  
+      else
         declaration = element;
 
       if (declaration != null && elementTypeIsSupported(declaration.ElementType))
@@ -112,9 +112,7 @@ namespace CR_NavigateToDefinition
     private bool elementTypeIsNested(LanguageElementType elementType)
     {
       return (elementType == LanguageElementType.Property) ||
-        (elementType == LanguageElementType.Method) ||
-        (elementType == LanguageElementType.Variable) ||
-        (elementType == LanguageElementType.InitializedVariable);
+        (elementType == LanguageElementType.Method);
     }
 
     private static bool checkIfParametersAreTheSame(IMethodElement methodElement, IMethodElement currMethodElement)
@@ -161,11 +159,18 @@ namespace CR_NavigateToDefinition
       {
         IElement e = null;
 
-        foreach (ProjectElement p in CodeRush.Source.ActiveSolution.AllProjects)
+        if (elementTypeIsLocal(memberElement.ElementType))
         {
-          e = p.FindElementByFullName(memberElement.FullName, true);
-          if (e != null)
-            break;
+          e = memberElement;
+        }
+        else
+        {
+          foreach (ProjectElement p in CodeRush.Source.ActiveSolution.AllProjects)
+          {
+            e = p.FindElementByFullName(memberElement.FullName, true);
+            if (e != null)
+              break;
+          }
         }
 
         if (e != null)
@@ -179,8 +184,8 @@ namespace CR_NavigateToDefinition
 
             foreach (IElement currElement in e.AllChildren)
             {
-              
-              if ((currElement.ElementType == nestedElement.ElementType) && 
+
+              if ((currElement.ElementType == nestedElement.ElementType) &&
                 (currElement.FullName.Equals(nestedElement.FullName)))
               {
                 var methodElement = nestedElement as IMethodElement;
@@ -223,6 +228,12 @@ namespace CR_NavigateToDefinition
           defaultGoToDefinition();
         }
       }
+    }
+
+    private bool elementTypeIsLocal(LanguageElementType elementType)
+    {
+      return (elementType == LanguageElementType.Variable) ||
+        (elementType == LanguageElementType.InitializedVariable);
     }
 
     private void defaultGoToDefinition()
