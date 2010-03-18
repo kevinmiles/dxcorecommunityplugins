@@ -27,8 +27,8 @@ Partial Class XPOSimplifier
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         components = New System.ComponentModel.Container()
+        CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
