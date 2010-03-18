@@ -13,6 +13,7 @@ Public Class XPOSimplifier
         MyBase.InitializePlugIn()
 
         'TODO: Add your initialization code here.
+        CreateXPOSimplifier()
     End Sub
 #End Region
 #Region " FinalizePlugIn "
@@ -44,22 +45,23 @@ Public Class XPOSimplifier
     Private Sub XPOSimplifier_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
         ' This method is executed when the system executes your Code 
         If CodeRush.Source.ActiveClass IsNot Nothing Then
-            Dim FieldClass As LanguageElement = Nothing
-            Dim FieldProperty As LanguageElement = Nothing
+            Dim FieldsClass As [Class] = Nothing
+            Dim FieldProperty As [Property] = Nothing
             Dim Searcher As ElementEnumerable
-            Dim element As IEnumerator(Of LanguageElement)
+            Dim element As IEnumerator
 
             Searcher = New ElementEnumerable(CodeRush.Source.ActiveClass, GetType([Class]), True)
             element = Searcher.GetEnumerator
             element.Reset()
             While element.MoveNext
-                If element.Current.ClassName = "FieldClass" Then
-                    FieldClass = element.Current
+                Dim FoundClass As [Class] = TryCast(element.Current, [Class])
+                If FoundClass IsNot Nothing AndAlso FoundClass.Name = "FieldsClass" Then
+                    FieldsClass = element.Current
                     Exit While
                 End If
             End While
 
-            If FieldClass Is Nothing Then
+            If FieldsClass Is Nothing Then
                 'TODO: Workout how to create a class ;)
                 'Need to create the Shared Class
                 'then assign it to the FieldClass variable
@@ -69,7 +71,8 @@ Public Class XPOSimplifier
             element = Searcher.GetEnumerator
             element.Reset()
             While element.MoveNext
-                If element.Current.Name = CodeRush.Source.ActiveProperty.Name Then
+                Dim FoundProperty As [Property] = TryCast(element.Current, [Property])
+                If FoundProperty IsNot Nothing AndAlso FoundProperty.Name = CodeRush.Source.ActiveProperty.Name Then
                     FieldProperty = element.Current
                     Exit While
                 End If
