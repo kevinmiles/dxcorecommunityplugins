@@ -79,9 +79,16 @@ Public Class XPOSimplifier
             End While
 
             If FieldProperty IsNot Nothing Then
+                Dim builder As ElementBuilder = ea.NewElementBuilder
+                Dim newPropertyGetter As New [Get]()
+                Dim newProperty As [Property] = builder.AddProperty(Nothing, "OperandProperty", CodeRush.Source.ActiveProperty.Name, newPropertyGetter, Nothing)
+                newProperty.IsReadOnly = True
+                builder.AddReturn(newPropertyGetter, "not sure")
+
                 'TODO: workout how to blow away the property
                 'set the fieldproperty back to nothing 
             End If
+
 
             'TODO: make a new property
 
