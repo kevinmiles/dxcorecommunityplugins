@@ -44,8 +44,28 @@ Public Class PersistentObject1
         End Set
     End Property
 
+    Private _persistentProperty As String
+    <Persistent()> _
+    Public Property PersistentProperty As String
+        Get
+            Return _persistentProperty
+        End Get
+        Set(ByVal Value As String)
+            SetPropertyValue("PersistentProperty", _persistentProperty, Value)
+        End Set
+    End Property
+
+
+    <Association("PersistentObject1-Relations")> _
+    Public ReadOnly Property Relations() As XPCollection(Of RelationType)
+        Get
+            Return GetCollection(Of RelationType)("Relations")
+        End Get
+    End Property
+
     <Persistent("PersistentVariable")> _
     Private _persistentVariable As String
+
     Protected Overridable Sub SetPersistentVariable(ByVal Value As String)
         SetPropertyValue("PersistentVariable", _persistentVariable, Value)
     End Sub
@@ -68,7 +88,7 @@ Public Class PersistentObject1
 
 
 #Region "XPO nested fields class - don't edit manually"
-    'Created/Updated: Fri 19-Mar-2010 13:21:33
+    'Created/Updated: Fri 19-Mar-2010 15:29:23
     Public Shadows Class FieldsClass
         Inherits XPObject.FieldsClass
         Public Sub New()
@@ -80,6 +100,11 @@ Public Class PersistentObject1
         Public ReadOnly Property PersistentTestProperty() As DevExpress.Data.Filtering.OperandProperty
             Get
                 Return New DevExpress.Data.Filtering.OperandProperty(GetNestedName("PersistentTestProperty"))
+            End Get
+        End Property
+        Public ReadOnly Property Relations() As DevExpress.Data.Filtering.OperandProperty
+            Get
+                Return New DevExpress.Data.Filtering.OperandProperty(GetNestedName("Relations"))
             End Get
         End Property
         Public ReadOnly Property PersistentVariable() As DevExpress.Data.Filtering.OperandProperty
