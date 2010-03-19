@@ -108,6 +108,7 @@ Public Class XPOSimplifier
                     If IsPersistentMember(FoundMember) Then
 
                         'TODO: Make this more clever, if the FoundMember type is a reference type that has a FieldsClass defined then return FieldsClass not OperandProperty
+
                         Dim newProperty As [Property] = BobClass.AddProperty(NewFieldsClass, "DevExpress.Data.Filtering.OperandProperty", FoundMember.Name)
                         Dim newPropertyGetter As [Get] = BobClass.AddGetter(newProperty)
                         newProperty.IsReadOnly = True
@@ -165,15 +166,19 @@ Public Class XPOSimplifier
     End Sub
     Private Function IsPersistentMember(ByVal foundProperty As MemberWithParameters) As Boolean
 
-        For Each Attr As IElement In foundProperty.Attributes
-
-            If Attr.Name.ToLower = "nonpersistent" Then
-                Return False
-            ElseIf Attr.Name.ToLower = "persistent" Then
-                Return True
-            ElseIf Attr.Name.ToLower = "persistentalias" Then
-                Return True
+        For Each Attr As Attribute In foundProperty.Attributes
+            'Dammit still can't get a reference properly, need access to the full "Assembly" path of a attribute. bah humbug
+            If TypeOf Attr.NextNode Is QualifiedElementReference Then
+                Dim thetype As Type = GetType(DevExpress.Xpo.PersistentBase).Assembly.GetType(CType(Attr.NextNode, QualifiedElementReference).FullSignature & "." & Attr.Name & If(Attr.Name.ToLower.EndsWith("attribute"), "", "Attribute"))
+                If thetype Is GetType(DevExpress.Xpo.NonPersistentAttribute) Then
+                    Return False
+                ElseIf thetype Is GetType(DevExpress.Xpo.PersistentAttribute) Then
+                    Return True
+                ElseIf thetype Is GetType(DevExpress.Xpo.PersistentAliasAttribute) Then
+                    Return True
+                End If
             End If
+            
         Next
         If foundProperty.Visibility = MemberVisibility.Public Then
             Return True
