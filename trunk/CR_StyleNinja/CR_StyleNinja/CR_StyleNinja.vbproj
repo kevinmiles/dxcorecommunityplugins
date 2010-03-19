@@ -73,13 +73,22 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utility\Components.vb" />
+    <Compile Include="Naming\NamingFixes.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Naming\NamingQualification.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Naming\NamingRegistration.vb" />
+    <Compile Include="Naming\Renaming.vb">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utility\CheckIssuesDelegateCaller.vb" />
     <Compile Include="Utility\Enumerators.vb" />
     <Compile Include="Utility\ExitStrategies.vb" />
     <Compile Include="Utility\IssueChecker.vb" />
     <Compile Include="Utility\LanguageElementExt.vb" />
-    <Compile Include="Naming\NamingQualification.vb" />
-    <Compile Include="Naming\NamingFixes.vb" />
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -87,7 +96,6 @@
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.vb" />
-    <Compile Include="Naming\Renaming.vb" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

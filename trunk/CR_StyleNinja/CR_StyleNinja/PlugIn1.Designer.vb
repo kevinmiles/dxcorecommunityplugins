@@ -20,7 +20,7 @@ Partial Class PlugIn1
 	End Sub
 
 	'Required by the Component Designer
-	Private components As System.ComponentModel.IContainer
+    Private Components As System.ComponentModel.IContainer
 
 	'NOTE: The following procedure is required by the Component Designer
 	'It can be modified using the Component Designer.
