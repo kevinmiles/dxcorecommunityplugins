@@ -45,7 +45,7 @@ Public Class XPOSimplifier
     Private Function FindElement(ByVal elementType As LanguageElementType, ByVal elementName As String) As LanguageElement
         Dim Searcher As ElementEnumerable
         Dim element As IEnumerator
-        Searcher = New ElementEnumerable(CodeRush.Source.ActiveClass, elementType, True)
+        Searcher = New ElementEnumerable(CodeRush.Source.ActiveClass, elementType)
         element = Searcher.GetEnumerator
         element.Reset()
         While element.MoveNext
