@@ -3,27 +3,21 @@
 = Introduction =
 This page designed to allow Rory to quickly navigate between wiki pages that reference plugins that he is directly involved in maintaining. Might even help him get some of them more functional
 
-  * Compatibility Plugins
-    * [CR_ReSharperCompatibility] 
-  * Refactoring Plugins
-    * [Refactor_CreateStubForHandler]
-    * [Refactor_FormatAssignments]
-  * Code Plugins
-    * [CR_ImplementBaseConstructors]
-  * !CodeIssue Plugins
-    * [CR_StyleNinja] 
-  * VS Dialog Replacements
-    * [CR_QuickAddReference]
-  * Navigation Plugins
-    * [DX_MoveCode]
-  * Decorative Plugins
-    * [DX_CollapseFromEnd]
-    * [CR_MetricShader]
-    * [HighlightCurrentLineInEditor]
-  * Misc Plugins
-    * [CR_MsdnBclHelp]
-    * [DX_PickFromListStringProvider]
-    * [CR_Execute]
-    * [DX_DirectOptions]
+ * [CR_StyleNinja] 
+ * [DX_DirectOptions]
+ * [CR_QuickAddReference]
+ * [DX_MoveCode]
+ * [CR_LinkBar]
+
+ * [CR_ReSharperCompatibility] 
+ * [DX_CollapseFromEnd]
+ * [Refactor_CreateStubForHandler]
+ * [Refactor_FormatAssignments]
+ * [CR_ImplementBaseConstructors]
+ * [CR_MetricShader]
+ * [HighlightCurrentLineInEditor]
+ * [CR_MsdnBclHelp]
+ * [DX_PickFromListStringProvider]
+ * [CR_Execute]
 
 This probably not a comprehensive list
