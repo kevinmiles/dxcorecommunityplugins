@@ -26,4 +26,4 @@ Here are some links to some of the plugins I have written:
  * [DX_PickFromListStringProvider]
  * [CR_Execute]
 
-This probably not a comprehensive list
+This is probably not a comprehensive list.
