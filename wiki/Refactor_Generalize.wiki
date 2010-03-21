@@ -4,7 +4,7 @@
 
 = Introduction =
 
-This refactoring moves the member being Refactored, up into the source of it's parent class.
+This refactoring moves the source of the member being Refactored, up into the source of it's parent class.
 
 = Usage =
 
