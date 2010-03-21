@@ -25,30 +25,12 @@ Partial Class PlugIn1
 	'NOTE: The following procedure is required by the Component Designer
 	'It can be modified using the Component Designer.
 	'Do not modify it using the code editor.
-	<System.Diagnostics.DebuggerStepThrough()> _
-  	Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PlugIn1))
-        Me.CreateDelegate = New DevExpress.CodeRush.Core.CodeProvider(Me.components)
-        CType(Me.CreateDelegate, System.ComponentModel.ISupportInitialize).BeginInit()
+    <System.Diagnostics.DebuggerStepThrough()> _
+      Private Sub InitializeComponent()
+        components = New System.ComponentModel.Container()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
-        '
-        'CreateDelegate
-        '
-        Me.CreateDelegate.ActionHintText = ""
-        Me.CreateDelegate.AutoActivate = True
-        Me.CreateDelegate.AutoUndo = False
-        Me.CreateDelegate.Description = "Creates A Delegate declaration from aMethod Signature"
-        Me.CreateDelegate.DisplayName = "Create Delegate"
-        Me.CreateDelegate.Image = CType(resources.GetObject("CreateDelegate.Image"), System.Drawing.Bitmap)
-        Me.CreateDelegate.NeedsSelection = False
-        Me.CreateDelegate.ProviderName = "CreateDelegate"
-        Me.CreateDelegate.Register = True
-        Me.CreateDelegate.SupportsAsyncMode = False
-        CType(Me.CreateDelegate, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
-    Friend WithEvents CreateDelegate As DevExpress.CodeRush.Core.CodeProvider
 
 End Class
