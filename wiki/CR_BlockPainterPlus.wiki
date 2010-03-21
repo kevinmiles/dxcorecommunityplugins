@@ -7,10 +7,6 @@
 
 This plugin assists the developer by painting information at the end of code blocks to identify which block of code just ended. This is particularly useful when there are multiple nested blocks of code or they are unusually long.
 
-= Installation =
-
-Installation instructions can be found on the InstallInstructions page.
-
 = Usage =
 
 This plugin automatically paints in the editor per settings defined in the associated DevExpress Options page.
