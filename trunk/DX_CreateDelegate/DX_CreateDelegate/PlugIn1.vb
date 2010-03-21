@@ -55,7 +55,8 @@ Public Class PlugIn1
         ' Generate Code
         Dim DelegateCode As String = CodeRush.CodeMod.GenerateCode(D, False)
         ' Insert Delegate Code
-        ea.TextDocument.InsertText(SourceMethod.Range.Start, DelegateCode)
+        Dim InsertRange = ea.TextDocument.InsertText(New SourcePoint(SourceMethod.Range.Start.Line, 1), DelegateCode)
+        ea.TextDocument.Format(InsertRange)
     End Sub
 
 End Class
