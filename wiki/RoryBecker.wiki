@@ -1,7 +1,13 @@
-#summary Page to list of plugins written or maintained by Rory Becker :)
+#summary Author page for Rory Becker :)
+
+= Who am I = 
+My name is Rory Becker. I am the original founder of this site and I am responsible, for better or worse, for several (but most definitely *not* all) of the plugins on this site. 
+
+= How to contact me = 
+You can contact me [via http://twitter.com/RoryBecker twitter(@rorybecker)] or [RoryBecker@gmail.com via email (Rorybecker@gmail.com)]
 
 = Introduction =
-This page designed to allow Rory to quickly navigate between wiki pages that reference plugins that he is directly involved in maintaining. Might even help him get some of them more functional
+Here are some links to some of the plugins I have written:
 
  * [CR_StyleNinja] 
  * [DX_DirectOptions]
