@@ -1,21 +1,14 @@
-#summary TODO.
+#summary Pushes a member up into it's immediate parent.
 #labels Phase-Support
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_Generalize/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Introduction =
 
-TODO
-
-= Installation =
-
-Installation instructions can be found on the InstallInstructions page.
+This refactoring moves the member being Refactored, up into the source of it's parent class.
 
 = Usage =
 
-TODO
-
-= Options =
-
-TODO
+Choose Generalize from the Refactor menu.
 
 = Credits =
 
