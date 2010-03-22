@@ -14,6 +14,7 @@ Public Class XPO_EasyFields
 
         'TODO: Add your initialization code here.
         CreateXPO_EasyFields()
+        CreateXPO_EasyFields_Shortcut()
     End Sub
 #End Region
 #Region " FinalizePlugIn "
@@ -41,7 +42,7 @@ Public Class XPO_EasyFields
     End Sub
     Private Sub XPO_EasyFields_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
         ' This method is executed when the system checks the availability of your Code.
-        If TypeOf ea.CodeActive Is ITypeElement AndAlso DXCoreXPOHelper.XPOElement.Check("DevExpress.Xpo.PersistentBase", ea.CodeActive) Then
+        If CodeRush.Source.ActiveClass IsNot Nothing AndAlso DXCoreXPOHelper.XPOElement.Check("DevExpress.Xpo.PersistentBase", CodeRush.Source.ActiveClass.GetDeclaration) Then
             ea.Available = True
             Return
         End If
@@ -49,12 +50,35 @@ Public Class XPO_EasyFields
         ' Change this to return true, only when your Code should be available.
     End Sub
 
+    ' Please ensure the following line is not missing from your plugin's InitializeComponent
+    ' components = New System.ComponentModel.Container()
+    Public Sub CreateXPO_EasyFields_Shortcut()
+        Dim XPO_EasyFields_Shortcut As New DevExpress.CodeRush.Core.Action(components)
+        CType(XPO_EasyFields_Shortcut, System.ComponentModel.ISupportInitialize).BeginInit()
+        XPO_EasyFields_Shortcut.ActionName = "XPO Update FieldsClass"
+        XPO_EasyFields_Shortcut.ButtonText = "XPO Update FieldsClass" ' Used if button is placed on a menu.
+        XPO_EasyFields_Shortcut.RegisterInCR = True
+        AddHandler XPO_EasyFields_Shortcut.Execute, AddressOf XPO_EasyFields_Shortcut_Execute
+        CType(XPO_EasyFields_Shortcut, System.ComponentModel.ISupportInitialize).EndInit()
+    End Sub
+    Private Sub XPO_EasyFields_Shortcut_Execute(ByVal ea As ExecuteEventArgs)
+        ' This method is executed when your action is called.
+        ' Remember you must bind your action to a shortcut in order to use it.
+        ' Shortcuts are created\altered using the IDE\Shortcuts option page 
+        PerformUpdateFieldsClass()
+    End Sub
+
     Private Sub XPO_EasyFields_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
 
         ' This method is executed when the system executes your Code 
 
+        PerformUpdateFieldsClass()
+
+    End Sub
+
+    Private Sub PerformUpdateFieldsClass()
         Try
-            If CodeRush.Source.ActiveClass IsNot Nothing Then
+            If CodeRush.Source.ActiveClass IsNot Nothing AndAlso DXCoreXPOHelper.XPOElement.Check("DevExpress.Xpo.PersistentBase", CodeRush.Source.ActiveClass.GetDeclaration) Then
                 'Bob the CodeRush Builder ;)
                 Dim BobClass As ElementBuilder = New ElementBuilder
                 Dim BobProperty As ElementBuilder = New ElementBuilder
@@ -190,10 +214,7 @@ Public Class XPO_EasyFields
         Finally
 
         End Try
-
     End Sub
-
-
     Private Function FindElement(ByVal elementType As LanguageElementType, ByVal elementName As String) As LanguageElement
         Dim Searcher As ElementEnumerable
         Dim element As IEnumerator
@@ -209,4 +230,16 @@ Public Class XPO_EasyFields
         End While
         Return Nothing
     End Function
+
+    Private Sub LoadSettings()
+        Using optionStorage As DecoupledStorage = XPO_EasyFields_Options.Storage
+    End Sub
+{
+  using (DecoupledStorage lStorage = OptMySuperPlugIn.Storage)
+  {
+    _MySuperFeatureIsEnabled = lStorage.ReadBoolean("Preferences",
+"Enabled", true);
+    ...
+  }
+}
 End Class
