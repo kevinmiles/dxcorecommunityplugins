@@ -28,7 +28,8 @@ Public Class XPO_EasyFields
     ' components = New System.ComponentModel.Container()
     Dim NormalFeedbackColor As Color = CodeRush.Hints.Settings.FeedbackFillColor
     Dim NormalFeedbackBorderColor As Color = CodeRush.Hints.Settings.FeedbackBorderColor
-
+    ' Please ensure the following line is not missing from your plugin's InitializeComponent
+    ' components = New System.ComponentModel.Container()
     Public Sub CreateXPO_EasyFields()
         Dim XPOSimplifier As New DevExpress.CodeRush.Core.CodeProvider(components)
         CType(XPOSimplifier, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -47,21 +48,7 @@ Public Class XPO_EasyFields
         ea.Available = False
         ' Change this to return true, only when your Code should be available.
     End Sub
-    Private Function FindElement(ByVal elementType As LanguageElementType, ByVal elementName As String) As LanguageElement
-        Dim Searcher As ElementEnumerable
-        Dim element As IEnumerator
-        Searcher = New ElementEnumerable(CodeRush.Source.ActiveClass, elementType)
-        element = Searcher.GetEnumerator
-        element.Reset()
-        While element.MoveNext
-            Dim FoundElement As LanguageElement = TryCast(element.Current, LanguageElement)
-            If FoundElement IsNot Nothing AndAlso FoundElement.Name.ToLower = elementName.ToLower Then
-                Return element.Current() 'Found it, keep a reference so we can "override" it later
-                Exit While
-            End If
-        End While
-        Return Nothing
-    End Function
+
     Private Sub XPOSimplifier_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
         ' This method is executed when the system executes your Code 
 
@@ -200,5 +187,19 @@ Public Class XPO_EasyFields
     End Sub
 
 
-
+    Private Function FindElement(ByVal elementType As LanguageElementType, ByVal elementName As String) As LanguageElement
+        Dim Searcher As ElementEnumerable
+        Dim element As IEnumerator
+        Searcher = New ElementEnumerable(CodeRush.Source.ActiveClass, elementType)
+        element = Searcher.GetEnumerator
+        element.Reset()
+        While element.MoveNext
+            Dim FoundElement As LanguageElement = TryCast(element.Current, LanguageElement)
+            If FoundElement IsNot Nothing AndAlso FoundElement.Name.ToLower = elementName.ToLower Then
+                Return element.Current() 'Found it, keep a reference so we can "override" it later
+                Exit While
+            End If
+        End While
+        Return Nothing
+    End Function
 End Class
