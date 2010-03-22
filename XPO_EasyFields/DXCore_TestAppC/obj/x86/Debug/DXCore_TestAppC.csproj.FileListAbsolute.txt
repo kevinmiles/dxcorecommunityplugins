@@ -1,0 +1,5 @@
+D:\My Dropbox\DX_XPOSimplifier\DXCore_TestAppC\bin\Debug\DXCore_TestAppC.exe
+D:\My Dropbox\DX_XPOSimplifier\DXCore_TestAppC\bin\Debug\DXCore_TestAppC.pdb
+D:\My Dropbox\DX_XPOSimplifier\DXCore_TestAppC\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\My Dropbox\DX_XPOSimplifier\DXCore_TestAppC\obj\x86\Debug\DXCore_TestAppC.exe
+D:\My Dropbox\DX_XPOSimplifier\DXCore_TestAppC\obj\x86\Debug\DXCore_TestAppC.pdb
