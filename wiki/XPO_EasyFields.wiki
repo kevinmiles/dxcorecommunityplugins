@@ -25,8 +25,8 @@ Place the caret on the Class name of your persistent object, bring up the Refact
 
 = History =
 
-  Build 997 - Corrected some minor typos
-  Build 991 - Initial Release
+  * Build 997 Corrected some minor typos
+  * Build 991 Initial Release
 
 = Future Plans =
 
