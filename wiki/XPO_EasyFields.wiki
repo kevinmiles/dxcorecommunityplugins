@@ -1,4 +1,5 @@
 #summary Allows for use of XPO Simplied Criteria Syntax (creates/updates the PersistentBase.FieldsClass of your object, for easy field reference)
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_MoveCode/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]           [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Introduction =
 
@@ -14,18 +15,23 @@ Dim MyCustomersStartingWithB as XPCollection(Of Customer)(New !BinaryOperator(Cu
 
 This not only easier to identify fields and relations via Intellisense, but is Strongly Typed, meaning if you wanted to Refactor your object and change the !CompanyTradingName property to say !TradingName, you will end up with Compile Errors highlighting where you have used that field, unlike the string representation which is perfectly valid code until it executes at Runtime and collapes in a heap ;)
 
-= Installation =
+= Configuration =
 
-Installation instructions can be found on the InstallInstructions page.
+There are currently no options top configure, do you have a suggestion? Please don't hesitate to submit one.
 
 = Usage =
 
-I will update this with more informationa on Simplied Criteria Syntax.
+Place the caret on the Class name of your persistent object, bring up the Refactor menu and select Update XPO FieldsClass
 
-= Options =
+= History =
 
-There are currently no options, do you have a suggestion? Please don't hesitate to submit a suggestion.
+Build 991 - Initial Release
+
+= Future Plans =
+
+* Shortcut key to allow easy execution
+* Possibly make it you have a XPCollection to return a "custom" class that would give options of AggregateOperands such as Count, Sum, Max, Min etc.
 
 = Credits =
 
-Author: Michael Proctor (AussieALF) with help from Mentor Rory Becker ;)
+Author: Michael Proctor (AussieALF) with help from mentor Rory Becker ;)
