@@ -1,4 +1,4 @@
-Allows for use of XPO Simplied Criteria Syntax (creates/updates the !PersistentBase.!FieldsClass of your object, for easy field reference)
+#summary Allows for use of XPO Simplied Criteria Syntax (creates/updates the !PersistentBase.!FieldsClass of your object, for easy field reference)
 
 = Introduction =
 
@@ -14,7 +14,18 @@ Dim MyCustomersStartingWithB as XPCollection(Of Customer)(New !BinaryOperator(Cu
 
 This not only easier to identify fields and relations via Intellisense, but is Strongly Typed, meaning if you wanted to Refactor your object and change the !CompanyTradingName property to say !TradingName, you will end up with Compile Errors highlighting where you have used that field, unlike the string representation which is perfectly valid code until it executes at Runtime and collapes in a heap ;)
 
+= Installation =
 
-= Details =
+Installation instructions can be found on the InstallInstructions page.
+
+= Usage =
 
 I will update this with more informationa on Simplied Criteria Syntax.
+
+= Options =
+
+There are currently no options, do you have a suggestion? Please don't hesitate to submit a suggestion.
+
+= Credits =
+
+Author: Rory Becker
