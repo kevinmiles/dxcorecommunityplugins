@@ -1,0 +1,20 @@
+Allows for use of XPO Simplied Criteria Syntax (creates/updates the PersistentBase.FieldsClass of your object, for easy field reference)
+
+= Introduction =
+
+XPO Simplified Criteria Syntax allows you to obtain your persistent objects properties via Object Orientated method.
+
+Instead of:
+
+Dim MyCustomersStartingWithB as XPCollection(Of Customer)(New BinaryOperator("CompanyTradingName", "B%", Like)) 
+
+After running XPOFieldsClassHelper you can now do:
+
+Dim MyCustomersStartingWithB as XPCollection(Of Customer)(New BinaryOperator(Customer.Fields.CompanyTradingName, "B%", Like))
+
+This not only reads better but is Strongly Typed, meaning if you wanted to Refactor your object and change the CompanyTradingName property to say TradingName, you will end up with Compile Errors highlighting where you have used that field, unlike the string representation which is perfectly valid code until it executes at Runtime and collapes in a heap ;)
+
+
+= Details =
+
+I will update this with more informationa on Simplied Criteria Syntax.
