@@ -6,7 +6,7 @@ XPO Simplified Criteria Syntax allows you to obtain your persistent objects prop
 
 Instead of:
 
-Dim MyCustomersStartingWithB as XPCollection(Of Customer)(New !BinaryOperator("CompanyTradingName", "B%", Like)) 
+Dim MyCustomersStartingWithB as XPCollection(Of Customer)(New !BinaryOperator("!CompanyTradingName", "B%", Like)) 
 
 After running XPOFieldsClassHelper you can now do:
 
