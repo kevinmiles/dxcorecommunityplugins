@@ -17,7 +17,7 @@ This not only easier to identify fields and relations via Intellisense, but is S
 
 = Configuration =
 
-There are currently no options top configure, do you have a suggestion? Please don't hesitate to submit one.
+There are currently no options to configure, do you have a suggestion? Please don't hesitate to submit one.
 
 = Usage =
 
