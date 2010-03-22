@@ -49,15 +49,17 @@ Public Class XPO_EasyFields
         ' Change this to return true, only when your Code should be available.
     End Sub
 
-    Private Sub XPOSimplifier_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
+    'Private Sub XPOSimplifier_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
+    Private Sub XPOSimplifier_Execute(ByVal Sender As Object)
+
         ' This method is executed when the system executes your Code 
 
         Try
             If CodeRush.Source.ActiveClass IsNot Nothing Then
                 'Bob the CodeRush Builder ;)
-                Dim BobClass As ElementBuilder = ea.NewElementBuilder
-                Dim BobProperty As ElementBuilder = ea.NewElementBuilder
-                Dim BobVariable As ElementBuilder = ea.NewElementBuilder
+                Dim BobClass As ElementBuilder = New ElementBuilder
+                Dim BobProperty As ElementBuilder = New ElementBuilder
+                Dim BobVariable As ElementBuilder = New ElementBuilder
 
                 Dim nameClass As String = "FieldsClass"
                 Dim nameVariable As String = "_fields"
@@ -163,6 +165,12 @@ Public Class XPO_EasyFields
                     CodeRush.Documents.ActiveTextDocument.QueueReplace(ExistingFieldsClassVariable.Range, BobVariable.GenerateCode.TrimEnd)
                 Else
                     CodeRush.Documents.ActiveTextDocument.InsertText(CodeRush.Source.ActiveClass.EndLine, 1, BobVariable.GenerateCode)
+                    CodeRush.Documents.ActiveTextDocument.ApplyQueuedEdits("XPO Update FieldsClass")
+                    CodeRush.Hints.Settings.FeedbackFillColor = NormalFeedbackColor
+                    CodeRush.Hints.Settings.FeedbackBorderColor = NormalFeedbackBorderColor
+                    BigFeedback1.Text = "XPO FieldsClass Updated"
+                    BigFeedback1.Show()
+                    Return
                 End If
 
                 If CodeRush.Documents.ActiveTextDocument.QueuedEdits.Count > 0 Then
