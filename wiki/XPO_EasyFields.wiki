@@ -1,5 +1,5 @@
 #summary Allows for use of XPO Simplied Criteria Syntax (creates/updates the PersistentBase.FieldsClass of your object, for easy field reference)
-[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_MoveCode/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]           [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/XPO_EasyFields/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]           [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Introduction =
 
