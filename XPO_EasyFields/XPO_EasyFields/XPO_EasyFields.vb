@@ -233,13 +233,15 @@ Public Class XPO_EasyFields
 
     Private Sub LoadSettings()
         Using optionStorage As DecoupledStorage = XPO_EasyFields_Options.Storage
+
+        End Using
     End Sub
-{
-  using (DecoupledStorage lStorage = OptMySuperPlugIn.Storage)
-  {
-    _MySuperFeatureIsEnabled = lStorage.ReadBoolean("Preferences",
-"Enabled", true);
-    ...
-  }
-}
+    '{
+    '  using (DecoupledStorage lStorage = OptMySuperPlugIn.Storage)
+    '  {
+    '    _MySuperFeatureIsEnabled = lStorage.ReadBoolean("Preferences",
+    '"Enabled", true);
+    '    ...
+    '  }
+    '}
 End Class

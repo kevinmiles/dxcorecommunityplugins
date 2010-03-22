@@ -27,6 +27,7 @@ Public Class XPO_EasyFields_Options
 #End Region
 
     Private Sub XPO_EasyFields_Options_CommitChanges(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CommitChangesEventArgs) Handles Me.CommitChanges
+        'ea.Storage.WriteString("Setting","RegionName",
         '          ea.Storage.WriteBoolean("Preferences", "Enabled",
         'chkMySuperFeatureEnabled.Checked);
     End Sub
