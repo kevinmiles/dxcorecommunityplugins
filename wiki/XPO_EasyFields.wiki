@@ -1,4 +1,4 @@
-#summary Allows for use of XPO Simplied Criteria Syntax (creates/updates the !PersistentBase.!FieldsClass of your object, for easy field reference)
+#summary Allows for use of XPO Simplied Criteria Syntax (creates/updates the PersistentBase.FieldsClass of your object, for easy field reference)
 
 = Introduction =
 
