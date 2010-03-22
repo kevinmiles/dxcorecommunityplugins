@@ -31,15 +31,15 @@ Public Class XPO_EasyFields
     ' Please ensure the following line is not missing from your plugin's InitializeComponent
     ' components = New System.ComponentModel.Container()
     Public Sub CreateXPO_EasyFields()
-        Dim XPOSimplifier As New DevExpress.CodeRush.Core.CodeProvider(components)
-        CType(XPOSimplifier, System.ComponentModel.ISupportInitialize).BeginInit()
-        XPOSimplifier.ProviderName = "XPO_EasyFields" ' Should be Unique
-        XPOSimplifier.DisplayName = "Update XPO FieldsClass"
-        AddHandler XPOSimplifier.CheckAvailability, AddressOf XPOSimplifier_CheckAvailability
-        AddHandler XPOSimplifier.Apply, AddressOf XPOSimplifier_Execute
-        CType(XPOSimplifier, System.ComponentModel.ISupportInitialize).EndInit()
+        Dim XPO_EasyFields As New DevExpress.CodeRush.Core.CodeProvider(components)
+        CType(XPO_EasyFields, System.ComponentModel.ISupportInitialize).BeginInit()
+        XPO_EasyFields.ProviderName = "XPO_EasyFields" ' Should be Unique
+        XPO_EasyFields.DisplayName = "Update XPO FieldsClass"
+        AddHandler XPO_EasyFields.CheckAvailability, AddressOf XPO_EasyFields_CheckAvailability
+        AddHandler XPO_EasyFields.Apply, AddressOf XPOSimplifier_Execute
+        CType(XPO_EasyFields, System.ComponentModel.ISupportInitialize).EndInit()
     End Sub
-    Private Sub XPOSimplifier_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
+    Private Sub XPO_EasyFields_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
         ' This method is executed when the system checks the availability of your Code.
         If TypeOf ea.CodeActive Is ITypeElement AndAlso DXCoreXPOHelper.XPOElement.Check("DevExpress.Xpo.PersistentBase", ea.CodeActive) Then
             ea.Available = True
@@ -49,8 +49,7 @@ Public Class XPO_EasyFields
         ' Change this to return true, only when your Code should be available.
     End Sub
 
-    'Private Sub XPOSimplifier_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
-    Private Sub XPOSimplifier_Execute(ByVal Sender As Object)
+    Private Sub XPOSimplifier_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
 
         ' This method is executed when the system executes your Code 
 
