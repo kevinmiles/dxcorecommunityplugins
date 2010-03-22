@@ -113,9 +113,9 @@ Public Class XPO_EasyFields
                 constructorwithproperty.Visibility = MemberVisibility.Public
                 Dim constructorArgument As String = "propertyName"
                 Dim inParam As Param = BobClass.AddInParam(constructorwithproperty, CodeRush.Language.GetBaseTypeName("System.String"), constructorArgument)
-                Dim rah = New ExpressionCollection
-                rah.Add(BobClass.BuildElementReference(constructorArgument))
-                BobClass.AddBaseConstructorInitializer(constructorwithproperty, rah) 'Need to work out how to make this language agnostic
+                Dim ConstructorWithPropertyArguments = New ExpressionCollection
+                ConstructorWithPropertyArguments.Add(BobClass.BuildElementReference(constructorArgument))
+                BobClass.AddBaseConstructorInitializer(constructorwithproperty, ConstructorWithPropertyArguments)
 
 
 
@@ -174,6 +174,7 @@ Public Class XPO_EasyFields
                 Dim NewFieldsClassPropertyGetIf As [If] = BobProperty.AddIf(NewFieldsClassPropertyGet, "ReferenceEquals(" & nameVariable & "," & CodeRush.Language.GenerateExpressionCode(CodeRush.Language.GetNullReferenceExpression) & ")")
                 BobProperty.AddAssignment(NewFieldsClassPropertyGetIf, nameVariable, BobProperty.BuildObjectCreationExpression(nameClass, New ExpressionCollection))
                 BobProperty.AddReturn(NewFieldsClassPropertyGet, nameVariable)
+
                 If ExistingFieldsClassProperty IsNot Nothing Then
                     CodeRush.Documents.ActiveTextDocument.QueueReplace(ExistingFieldsClassProperty.Range, BobProperty.GenerateCode.TrimEnd)
                 Else
@@ -231,9 +232,12 @@ Public Class XPO_EasyFields
         Return Nothing
     End Function
 
+    Private UseRegion As Boolean = False
+    Private RegionName As String = ""
     Private Sub LoadSettings()
         Using optionStorage As DecoupledStorage = XPO_EasyFields_Options.Storage
-
+            UseRegion = optionStorage.ReadBoolean(XPO_EasyFields_Options.STR_Setting, XPO_EasyFields_Options.STR_UseRegion)
+            RegionName = optionStorage.ReadString(XPO_EasyFields_Options.STR_Setting, XPO_EasyFields_Options.STR_RegionName)
         End Using
     End Sub
     '{
