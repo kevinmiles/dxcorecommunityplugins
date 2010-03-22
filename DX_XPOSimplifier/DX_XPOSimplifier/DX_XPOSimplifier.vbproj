@@ -92,11 +92,12 @@
     <Import Include="System.Diagnostics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="XPOSimplifier.vb">
+    <Compile Include="DXCoreXPOHelper.vb" />
+    <Compile Include="XPOFieldsClassHelper.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XPOSimplifier.Designer.vb">
-      <DependentUpon>XPOSimplifier.vb</DependentUpon>
+    <Compile Include="XPOFieldsClassHelper.Designer.vb">
+      <DependentUpon>XPOFieldsClassHelper.vb</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.vb" />
   </ItemGroup>
@@ -121,6 +122,11 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="XPOFieldsClassHelper.resx">
+      <DependentUpon>XPOFieldsClassHelper.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,4 @@
-Partial Class XPOSimplifier
+Partial Class XPOFieldsClassHelper
     Inherits DevExpress.CodeRush.PlugInCore.StandardPlugIn
 
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -27,10 +27,16 @@ Partial Class XPOSimplifier
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container()
+        Me.components = New System.ComponentModel.Container()
+        Me.BigFeedback1 = New DevExpress.CodeRush.Core.BigFeedback(Me.components)
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
+        '
+        'BigFeedback1
+        '
+        Me.BigFeedback1.Text = Nothing
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
+    Friend WithEvents BigFeedback1 As DevExpress.CodeRush.Core.BigFeedback
 
 End Class
