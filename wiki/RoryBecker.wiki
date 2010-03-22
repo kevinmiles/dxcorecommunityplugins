@@ -4,7 +4,7 @@
 My name is Rory Becker. I am the original founder of this site and I am responsible, for better or worse, for several (but most definitely *not* all) of the plugins on this site. 
 
 = How to contact me = 
-You can contact me [via http://twitter.com/RoryBecker twitter(@rorybecker)] or [RoryBecker@gmail.com via email (Rorybecker@gmail.com)]
+You can contact me [http://twitter.com/RoryBecker via twitter(@rorybecker)] or [RoryBecker@gmail.com via email (Rorybecker@gmail.com)]
 
 = Introduction =
 Here are some links to some of the plugins I have written:
