@@ -3,6 +3,20 @@ Imports DevExpress.Xpo
 Imports DevExpress.Data.Filtering
 Imports DevExpress.Xpo.Helpers
 
+Public Class MyAttribute
+    Inherits Attribute
+    Public Sub New()
+
+    End Sub
+End Class
+
+
+
+Public Class RelationType
+    Public Sub New()
+
+    End Sub
+End Class
 Public Class PersistentObject1
 	Inherits XPObject
 
@@ -24,6 +38,7 @@ Public Class PersistentObject1
     End Sub
 
     Private _persistentTestProperty As String
+    <MyAttribute()> _
     Public Property PersistentTestProperty As String
         Get
             Return _persistentTestProperty
@@ -43,6 +58,18 @@ Public Class PersistentObject1
             _nonPersistentTestProperty = Value
         End Set
     End Property
+
+    Private _persistentReferenceProperty As PersistentObject1
+    Public Property PersistentReferenceProperty As PersistentObject1
+        Get
+            Return _persistentReferenceProperty
+        End Get
+        Set(ByVal Value As PersistentObject1)
+            SetPropertyValue("PersistentReferenceProperty", _persistentReferenceProperty, Value)
+        End Set
+    End Property
+
+
 
     Private _persistentProperty As String
     <Persistent()> _
@@ -88,7 +115,7 @@ Public Class PersistentObject1
 
 
 #Region "XPO nested fields class - don't edit manually"
-    'Created/Updated: Fri 19-Mar-2010 15:29:23
+    'Created/Updated: Mon 22-Mar-2010 13:27:14
     Public Shadows Class FieldsClass
         Inherits XPObject.FieldsClass
         Public Sub New()
@@ -100,6 +127,21 @@ Public Class PersistentObject1
         Public ReadOnly Property PersistentTestProperty() As DevExpress.Data.Filtering.OperandProperty
             Get
                 Return New DevExpress.Data.Filtering.OperandProperty(GetNestedName("PersistentTestProperty"))
+            End Get
+        End Property
+        Public ReadOnly Property NonPersistentTestProperty() As DevExpress.Data.Filtering.OperandProperty
+            Get
+                Return New DevExpress.Data.Filtering.OperandProperty(GetNestedName("NonPersistentTestProperty"))
+            End Get
+        End Property
+        Public ReadOnly Property PersistentReferenceProperty() As DXCore_TestApp.PersistentObject1.FieldsClass
+            Get
+                Return New DXCore_TestApp.PersistentObject1.FieldsClass(GetNestedName("PersistentReferenceProperty"))
+            End Get
+        End Property
+        Public ReadOnly Property PersistentProperty() As DevExpress.Data.Filtering.OperandProperty
+            Get
+                Return New DevExpress.Data.Filtering.OperandProperty(GetNestedName("PersistentProperty"))
             End Get
         End Property
         Public ReadOnly Property Relations() As DevExpress.Data.Filtering.OperandProperty
