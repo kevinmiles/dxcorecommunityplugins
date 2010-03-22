@@ -30,8 +30,8 @@ Build 991 - Initial Release
 
 = Future Plans =
 
-* Shortcut key to allow easy execution
-* Possibly make it you have a XPCollection to return a "custom" class that would give options of AggregateOperands such as Count, Sum, Max, Min etc.
+  * Shortcut key to allow easy execution
+  * Possibly make it you have a XPCollection to return a "custom" class that would give options of AggregateOperands such as Count, Sum, Max, Min etc.
 
 = Credits =
 
