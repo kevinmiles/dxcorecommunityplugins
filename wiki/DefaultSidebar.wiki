@@ -38,6 +38,8 @@
     * [UnitTestErrorVisualizer]
   * Developer Plugins
     * [DX_ContextLab]
+  * XPO Plugins
+    * [XPO_EasyFields]
   * Misc Plugins
     * [CR_SmartQuotes]
     * [CR_SmartGenerics]
