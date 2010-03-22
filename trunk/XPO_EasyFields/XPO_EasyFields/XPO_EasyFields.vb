@@ -36,7 +36,7 @@ Public Class XPO_EasyFields
         XPO_EasyFields.ProviderName = "XPO_EasyFields" ' Should be Unique
         XPO_EasyFields.DisplayName = "Update XPO FieldsClass"
         AddHandler XPO_EasyFields.CheckAvailability, AddressOf XPO_EasyFields_CheckAvailability
-        AddHandler XPO_EasyFields.Apply, AddressOf XPOSimplifier_Execute
+        AddHandler XPO_EasyFields.Apply, AddressOf XPO_EasyFields_Execute
         CType(XPO_EasyFields, System.ComponentModel.ISupportInitialize).EndInit()
     End Sub
     Private Sub XPO_EasyFields_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
@@ -49,7 +49,7 @@ Public Class XPO_EasyFields
         ' Change this to return true, only when your Code should be available.
     End Sub
 
-    Private Sub XPOSimplifier_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
+    Private Sub XPO_EasyFields_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
 
         ' This method is executed when the system executes your Code 
 
