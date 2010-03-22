@@ -1,9 +1,11 @@
 #summary Allows for use of XPO Simplied Criteria Syntax (creates/updates the PersistentBase.FieldsClass of your object, for easy field reference)
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/XPO_EasyFields/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]           [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
+<wiki:toc max_depth="1" />
+
 = Introduction =
 
-XPO Simplified Criteria Syntax allows you to obtain your persistent objects properties via Object Orientated method.
+XPO Simplified Criteria Syntax allows you to obtain your persistent objects properties via Object Orientated method. This is plugin is meant to replicate Oliver Sturms XPOFieldSync, and hopefully in time improve from the excellent idea of Olivers.
 
 Instead of:
 
@@ -15,13 +17,21 @@ After running XPO_!EasyFields you can now do:
 
 This not only easier to identify fields and relations via Intellisense, but is Strongly Typed, meaning if you wanted to Refactor your object and change the !CompanyTradingName property to say !TradingName, you will end up with Compile Errors highlighting where you have used that field, unlike the string representation which is perfectly valid code until it executes at Runtime and collapes in a heap ;)
 
+There are some differences between XPO_EasyFields and XPOFieldSync
+
+  * XPOFieldSync would create a region with a static name and replace this region everytime. This was an issue if you would “organise” your class to have your nested classes at different positions to your variable and property declarations, XPOFieldSync would see that there wasn’t a region create a new one and duplicate the class. XPO_EasyFields replaces the 3 sections (FieldsClass, Fields Property, _Fields Variable) all in place so it doesn’t matter if you have organised your code, it will update anyways ;)
+  * XPOFieldSync offered an automatic way to update the class, basically each time you changed a property XPOFieldSync would update the definition, XPO_EasyFields doesn’t include this functionality as I found the automatic syncing slowed down the IDE too much for me with constant text being replaced.
+  * XPOFieldSync still has an issue (as of March 2010) with XPCollections (that was introduced by a new version of DXCore in 2009) whereby it will skip them when generating the shadowed FieldsClass. XPO_EasyFields seems to capture all fields within your class and being in the Open Source community should mean any issues identified can be fixed by any number of people.
+
 = Configuration =
 
 There are currently no options to configure, do you have a suggestion? Please don't hesitate to submit one.
 
 = Usage =
 
-Place the caret on the Class name of your persistent object, bring up the Refactor menu and select Update XPO FieldsClass
+Place the caret on the Class name of your persistent object, bring up the Refactor menu and select Update XPO !FieldsClass
+
+
 
 = History =
 
