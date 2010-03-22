@@ -50,4 +50,4 @@ Place the caret on the Class name of your persistent object, bring up the Refact
 
 = Credits =
 
-Author: Michael Proctor (AussieALF) with help from mentor RoryBecker ;)
+Author: [AussieALF Michael Proctor (AussieALF)] with help from mentor RoryBecker ;)
