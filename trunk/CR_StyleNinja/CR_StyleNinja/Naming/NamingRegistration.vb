@@ -1,6 +1,10 @@
 ﻿Imports System.ComponentModel
 
 Module NamingRegistration
+    Public Sub RegisterNamingRulesAndFixes(ByVal c As IContainer)
+        RegisterNamingRules(c)
+        RegisterRefactorings(c)
+    End Sub
     Friend Sub RegisterNamingRules(ByVal c As IContainer)
         c.CreateIssue("SA1302", AddressOf Qualifies_SA1302, Message_SA1302, SourceTypeEnum.Interface)
         'Call CreateIssue("SA1303", AddressOf SA1303_ConstantFieldsStartWithUpperCase_CheckCodeIssues)

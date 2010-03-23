@@ -73,6 +73,9 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utility\HiddenDX.vb" />
+    <Compile Include="Maintainability\SA14XX_Registration.vb" />
+    <Compile Include="Maintainability\SA14XX_Rules.vb" />
     <Compile Include="Utility\Components.vb" />
     <Compile Include="Naming\NamingFixes.vb">
       <SubType>Code</SubType>

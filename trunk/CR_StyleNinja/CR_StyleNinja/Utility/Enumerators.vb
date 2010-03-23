@@ -40,13 +40,18 @@ Friend Module Enumerators
     End Function
 #End Region
 #Region "Members"
-    Public Function Members(ByVal Scope As LanguageElement) As IEnumerable(Of LanguageElement)
+    Friend Function Members(ByVal Scope As LanguageElement) As IEnumerable(Of LanguageElement)
         Return New ElementEnumerable(Scope, GetType(Member), True).OfType(Of LanguageElement)()
     End Function
 #End Region
 #Region "Methods"
     Public Function Methods(ByVal Scope As LanguageElement) As IEnumerable(Of LanguageElement)
         Return New ElementEnumerable(Scope, GetType(Method), True).OfType(Of LanguageElement)()
+    End Function
+#End Region
+#Region "VisibleItems"
+    Friend Function AccessSpecifiedItems(ByVal Scope As LanguageElement) As IEnumerable(Of LanguageElement)
+        Return New ElementEnumerable(Scope, GetType(AccessSpecifiedElement), True).OfType(Of LanguageElement)()
     End Function
 #End Region
 
@@ -71,10 +76,19 @@ Friend Module Enumerators
     End Function
 #End Region
 #Region "FieldsAndLocals"
-    Friend Function FieldsAndLocals(ByVal Scope As LanguageElement) As IEnumerable(Of LanguageElement)
+    Friend Function FieldsOrLocals(ByVal Scope As LanguageElement) As IEnumerable(Of LanguageElement)
         Return Fields(Scope).Concat(Locals(Scope))
     End Function
 #End Region
+    Public Function Attributes(ByVal Scope As LanguageElement) As IEnumerable(Of LanguageElement)
+        Return New ElementEnumerable(Scope, GetType(Attribute), True).OfType(Of LanguageElement)()
+    End Function
+    Public Function MethodCall(ByVal Scope As LanguageElement) As IEnumerable(Of LanguageElement)
+        Return New ElementEnumerable(Scope, GetType(MethodCall), True).OfType(Of LanguageElement)()
+    End Function
+    Public Function [Try](ByVal Scope As LanguageElement) As IEnumerable(Of LanguageElement)
+        Return New ElementEnumerable(Scope, GetType([Try]), True).OfType(Of LanguageElement)()
+    End Function
     '#Region "ConstantFields"
     '    'Friend Function ConstantFields(ByVal Scope As LanguageElement) As IEnumerable(Of [Const])
     '    '    Return Fields(Scope).Where(Function(v) v.IsConst).OfType(Of [Const])()
