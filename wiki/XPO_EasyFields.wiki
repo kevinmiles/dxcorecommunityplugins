@@ -34,7 +34,8 @@ Place the caret on the Class name of your persistent object, bring up the Refact
 
 
 = History =
-
+  * Build 1024
+    * Fixed C# code having ReadOnly in front of properties
   * Build 1007
     * Ability to perform the update anywhere within the class
     * Shortcut included, you can now assign a shortcut to XPO Update !FieldsClass
