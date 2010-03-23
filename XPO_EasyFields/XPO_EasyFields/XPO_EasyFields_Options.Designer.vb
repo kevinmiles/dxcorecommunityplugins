@@ -29,10 +29,9 @@ Partial Class XPO_EasyFields_Options
 	<System.Diagnostics.DebuggerStepThrough()> _
 	Private Sub InitializeComponent()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel
-        Me.lblRegion = New System.Windows.Forms.Label
-        Me.txtRegionName = New System.Windows.Forms.TextBox
-        Me.chkRegion = New System.Windows.Forms.CheckBox
-        Me.lblRegionName = New System.Windows.Forms.Label
+        Me.lblClassNameOnly = New System.Windows.Forms.Label
+        Me.chkClassNameOnly = New System.Windows.Forms.CheckBox
+        Me.TextBox1 = New System.Windows.Forms.TextBox
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -42,62 +41,57 @@ Partial Class XPO_EasyFields_Options
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblRegionName, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblRegion, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.txtRegionName, 1, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.chkRegion, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblClassNameOnly, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkClassNameOnly, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.TextBox1, 1, 1)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 4
+        Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle)
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle)
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(530, 480)
         Me.TableLayoutPanel1.TabIndex = 0
         '
-        'lblRegion
+        'lblClassNameOnly
         '
-        Me.lblRegion.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.lblClassNameOnly.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblRegion.Location = New System.Drawing.Point(3, 0)
-        Me.lblRegion.Name = "lblRegion"
-        Me.lblRegion.Size = New System.Drawing.Size(145, 23)
-        Me.lblRegion.TabIndex = 0
-        Me.lblRegion.Text = "Embed Class within Region:"
-        Me.lblRegion.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblClassNameOnly.Location = New System.Drawing.Point(3, 0)
+        Me.lblClassNameOnly.Name = "lblClassNameOnly"
+        Me.lblClassNameOnly.Size = New System.Drawing.Size(166, 23)
+        Me.lblClassNameOnly.TabIndex = 0
+        Me.lblClassNameOnly.Text = "Update from Class Name Only?"
+        Me.lblClassNameOnly.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'txtRegionName
+        'chkClassNameOnly
         '
-        Me.txtRegionName.Location = New System.Drawing.Point(154, 26)
-        Me.txtRegionName.Name = "txtRegionName"
-        Me.txtRegionName.Size = New System.Drawing.Size(196, 20)
-        Me.txtRegionName.TabIndex = 1
-        '
-        'chkRegion
-        '
-        Me.chkRegion.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.chkClassNameOnly.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.chkRegion.AutoSize = True
-        Me.chkRegion.Location = New System.Drawing.Point(154, 3)
-        Me.chkRegion.Name = "chkRegion"
-        Me.chkRegion.Size = New System.Drawing.Size(15, 17)
-        Me.chkRegion.TabIndex = 2
-        Me.chkRegion.UseVisualStyleBackColor = True
+        Me.chkClassNameOnly.AutoSize = True
+        Me.chkClassNameOnly.Location = New System.Drawing.Point(175, 3)
+        Me.chkClassNameOnly.Name = "chkClassNameOnly"
+        Me.chkClassNameOnly.Size = New System.Drawing.Size(15, 17)
+        Me.chkClassNameOnly.TabIndex = 2
+        Me.chkClassNameOnly.UseVisualStyleBackColor = True
         '
-        'lblRegionName
+        'TextBox1
         '
-        Me.lblRegionName.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.TextBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblRegionName.Location = New System.Drawing.Point(3, 23)
-        Me.lblRegionName.Name = "lblRegionName"
-        Me.lblRegionName.Size = New System.Drawing.Size(145, 26)
-        Me.lblRegionName.TabIndex = 3
-        Me.lblRegionName.Text = "Region Name:"
-        Me.lblRegionName.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox1.Enabled = False
+        Me.TextBox1.Location = New System.Drawing.Point(175, 26)
+        Me.TextBox1.Multiline = True
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ReadOnly = True
+        Me.TextBox1.Size = New System.Drawing.Size(352, 451)
+        Me.TextBox1.TabIndex = 3
+        Me.TextBox1.Text = "By default if you popup the Refactor window within the PersistentClass the Update" & _
+            " XPO FieldsClass will be available, use this feature to make it only available w" & _
+            "hen the caret is on the Class name"
         '
         'XPO_EasyFields_Options
         '
@@ -134,10 +128,9 @@ Partial Class XPO_EasyFields_Options
         DevExpress.CodeRush.Core.CodeRush.Command.Execute("Options", FullPath)
     End Sub
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents lblRegion As System.Windows.Forms.Label
-    Friend WithEvents txtRegionName As System.Windows.Forms.TextBox
-    Friend WithEvents chkRegion As System.Windows.Forms.CheckBox
-    Friend WithEvents lblRegionName As System.Windows.Forms.Label
+    Friend WithEvents lblClassNameOnly As System.Windows.Forms.Label
+    Friend WithEvents chkClassNameOnly As System.Windows.Forms.CheckBox
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
 
 	Public Shared ReadOnly Property FullPath() As String
 		Get

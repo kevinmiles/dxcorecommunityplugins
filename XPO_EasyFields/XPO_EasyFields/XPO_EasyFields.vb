@@ -43,8 +43,10 @@ Public Class XPO_EasyFields
     Private Sub XPO_EasyFields_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
         ' This method is executed when the system checks the availability of your Code.
         If CodeRush.Source.ActiveClass IsNot Nothing AndAlso DXCoreXPOHelper.XPOElement.Check("DevExpress.Xpo.PersistentBase", CodeRush.Source.ActiveClass.GetDeclaration) Then
-            ea.Available = True
-            Return
+            If Not UseClassNameOnly Or (UseClassNameOnly And TypeOf ea.CodeActive Is [Class]) Then
+                ea.Available = True
+                Return
+            End If
         End If
         ea.Available = False
         ' Change this to return true, only when your Code should be available.
@@ -216,6 +218,7 @@ Public Class XPO_EasyFields
 
         End Try
     End Sub
+
     Private Function FindElement(ByVal elementType As LanguageElementType, ByVal elementName As String) As LanguageElement
         Dim Searcher As ElementEnumerable
         Dim element As IEnumerator
@@ -232,12 +235,10 @@ Public Class XPO_EasyFields
         Return Nothing
     End Function
 
-    Private UseRegion As Boolean = False
-    Private RegionName As String = ""
+    Private UseClassNameOnly As Boolean = False
     Private Sub LoadSettings()
         Using optionStorage As DecoupledStorage = XPO_EasyFields_Options.Storage
-            UseRegion = optionStorage.ReadBoolean(XPO_EasyFields_Options.STR_Setting, XPO_EasyFields_Options.STR_UseRegion)
-            RegionName = optionStorage.ReadString(XPO_EasyFields_Options.STR_Setting, XPO_EasyFields_Options.STR_RegionName)
+            UseClassNameOnly = optionStorage.ReadBoolean(XPO_EasyFields_Options.STR_Setting, XPO_EasyFields_Options.STR_ClassNameOnly)
         End Using
     End Sub
     '{
@@ -248,4 +249,11 @@ Public Class XPO_EasyFields
     '    ...
     '  }
     '}
+
+    Private Sub XPO_EasyFields_OptionsChanged(ByVal ea As DevExpress.CodeRush.Core.OptionsChangedEventArgs) Handles Me.OptionsChanged
+        If ea.OptionsPages.Contains(GetType(XPO_EasyFields_Options)) Then
+            LoadSettings()
+        End If
+
+    End Sub
 End Class
