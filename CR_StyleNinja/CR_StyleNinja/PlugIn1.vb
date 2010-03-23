@@ -1,13 +1,4 @@
 Imports System.ComponentModel
-Imports System.Drawing
-Imports System.Windows.Forms
-Imports DevExpress.CodeRush.Core
-Imports DevExpress.CodeRush.PlugInCore
-Imports DevExpress.CodeRush.StructuralParser
-Imports System.Runtime.CompilerServices
-Imports CR_StyleNinja.Checker
-
-
 Public Class PlugIn1
 
     'DXCore-generated code...
@@ -28,9 +19,10 @@ Public Class PlugIn1
 
 #Region "Rule Registration"
     Private Sub RegisterRules()
-        RegisterNamingRules(Components)
-        RegisterRefactorings(Components)
+        'RegisterNamingRulesAndFixes(Components)
+        RegisterMaintainRulesAndFixes(Components)
     End Sub
+
 
 #End Region
 
