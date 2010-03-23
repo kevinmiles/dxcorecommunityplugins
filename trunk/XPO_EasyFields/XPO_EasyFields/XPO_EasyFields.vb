@@ -143,7 +143,7 @@ Public Class XPO_EasyFields
 
                             Dim newProperty As [Property] = BobClass.AddProperty(NewFieldsClass, newPropertyType, FoundMember.Name)
                             Dim newPropertyGetter As [Get] = BobClass.AddGetter(newProperty)
-                            newProperty.IsReadOnly = True
+                            'newProperty.IsReadOnly = True
                             newProperty.Visibility = MemberVisibility.Public
                             Dim ReturnArguments As New ExpressionCollection
                             Dim GetNestedNameArguments As New ExpressionCollection
@@ -171,7 +171,7 @@ Public Class XPO_EasyFields
                 Dim NewFieldsClassPropertyGet As [Get] = BobProperty.AddGetter(NewFieldsClassProperty)
                 NewFieldsClassProperty.IsNew = True
                 NewFieldsClassProperty.IsStatic = True
-                NewFieldsClassProperty.IsReadOnly = True
+                'NewFieldsClassProperty.IsReadOnly = True
                 NewFieldsClassProperty.Visibility = MemberVisibility.Public
                 Dim NewFieldsClassPropertyGetIf As [If] = BobProperty.AddIf(NewFieldsClassPropertyGet, "ReferenceEquals(" & nameVariable & "," & CodeRush.Language.GenerateExpressionCode(CodeRush.Language.GetNullReferenceExpression) & ")")
                 BobProperty.AddAssignment(NewFieldsClassPropertyGetIf, nameVariable, BobProperty.BuildObjectCreationExpression(nameClass, New ExpressionCollection))
