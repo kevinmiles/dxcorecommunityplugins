@@ -113,9 +113,7 @@ Public Class PersistentObject1
         End Set
     End Property
 
-
-#Region "XPO nested fields class - don't edit manually"
-    'Created/Updated: Mon 22-Mar-2010 13:27:14
+    'Created/Updated: Wed 24-Mar-2010 09:20:14
     Public Shadows Class FieldsClass
         Inherits XPObject.FieldsClass
         Public Sub New()
@@ -159,13 +157,7 @@ Public Class PersistentObject1
                 Return New DevExpress.Data.Filtering.OperandProperty(GetNestedName("Test"))
             End Get
         End Property
-        Public ReadOnly Property Fields() As DevExpress.Data.Filtering.OperandProperty
-            Get
-                Return New DevExpress.Data.Filtering.OperandProperty(GetNestedName("Fields"))
-            End Get
-        End Property
     End Class
-    Private Shared _fields As FieldsClass
     Public Shared Shadows ReadOnly Property Fields() As FieldsClass
         Get
             If ReferenceEquals(_fields, Nothing) Then
@@ -174,5 +166,5 @@ Public Class PersistentObject1
             Return _fields
         End Get
     End Property
-#End Region
+    Private Shared _fields As FieldsClass
 End Class

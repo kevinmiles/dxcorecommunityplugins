@@ -64,7 +64,7 @@ namespace DXCore_TestAppC
                 SetPropertyValue("PersistentReferenceProperty", ref _PersistentReferenceProperty, value);
             }
         }
-//Created/Updated: Mon 22-Mar-2010 17:44:20
+//Created/Updated: Wed 24-Mar-2010 09:21:18
 public new class FieldsClass : XPObject.FieldsClass
 {
 		public FieldsClass()
@@ -75,28 +75,28 @@ public new class FieldsClass : XPObject.FieldsClass
 						: base(propertyName)
 						{
 						}
-						public readonly DevExpress.Data.Filtering.OperandProperty PersistentProperty
+						public DevExpress.Data.Filtering.OperandProperty PersistentProperty
 						{
 								get
 								{
 										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("PersistentProperty"));
 								}
 						}
-						public readonly DevExpress.Data.Filtering.OperandProperty NonPersistentProperty
+						public DevExpress.Data.Filtering.OperandProperty NonPersistentProperty
 						{
 								get
 								{
 										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("NonPersistentProperty"));
 								}
 						}
-						public readonly DXCore_TestAppC.PersistentObject1.FieldsClass PersistentReferenceProperty
+						public DXCore_TestAppC.PersistentObject1.FieldsClass PersistentReferenceProperty
 						{
 								get
 								{
 										return new DXCore_TestAppC.PersistentObject1.FieldsClass(GetNestedName("PersistentReferenceProperty"));
 								}
 						}
-						public readonly DevExpress.Data.Filtering.OperandProperty Fields
+						public DevExpress.Data.Filtering.OperandProperty Fields
 						{
 								get
 								{
@@ -104,7 +104,7 @@ public new class FieldsClass : XPObject.FieldsClass
 								}
 						}
 				}
-public new readonly static FieldsClass Fields
+public new static FieldsClass Fields
 {
 		get
 		{
