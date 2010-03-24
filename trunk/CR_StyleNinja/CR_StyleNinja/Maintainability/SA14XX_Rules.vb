@@ -138,8 +138,7 @@ Friend Module SA14XX_Rules
         Return TheTry.NodeCount = 0 AndAlso TheTry.NextSibling.NodeCount = 0
     End Function
     Public Sub Fix_SA1409(ByVal sender As Object, ByVal ea As ApplyContentEventArgs)
-        Dim Element = CType(ea.CodeActive, Variable)
-        ea.TextDocument.DeleteText(Element.GetFullBlockCutRange())
+        ea.TextDocument.DeleteText(ea.CodeActive.GetFullBlockCutRange())
     End Sub
 #End Region
 End Module
