@@ -109,7 +109,9 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>if "%25USERDOMAIN%25"=="RalfNB" (
+copy /Y "$(TargetPath)" "D:\DevExpress.PlugIns\PlugIns\"
+copy /Y "$(TargetDir)$(TargetName).pdb" "D:\DevExpress.PlugIns\PlugIns\"
+)</PostBuildEvent>
   </PropertyGroup>
 </Project>
