@@ -42,14 +42,51 @@ namespace MiniCodeColumn
         string selected_double_click = "";
         Rectangle last_code_rect = new Rectangle();
 
+        System.Timers.Timer repaint_tool_window_timer;
+        System.Timers.Timer repaint_text_window_timer;
+
         // DXCore-generated code...
         #region InitializePlugIn
         public override void InitializePlugIn()
         {
-            
+            repaint_tool_window_timer = new System.Timers.Timer(250);
+            repaint_tool_window_timer.Enabled = false;
+            repaint_tool_window_timer.AutoReset = false;
+            repaint_tool_window_timer.Elapsed += new System.Timers.ElapsedEventHandler(repaint_timer_Elapsed);
+
+            //repaint_text_window_timer = new System.Timers.Timer(500);
+            //repaint_text_window_timer.Enabled = false;
+            //repaint_text_window_timer.AutoReset = false;
+            //repaint_text_window_timer.Elapsed += new System.Timers.ElapsedEventHandler(repaint_text_window_timer_Elapsed);
+
             base.InitializePlugIn();
             LoadSettings();
             SetButtonImage();
+        }
+
+        void RestartTextTimer()
+        {
+            //repaint_text_window_timer.Stop();
+            //repaint_text_window_timer.Start();
+        }
+
+        void repaint_text_window_timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            repaint_text_window_timer.Stop();
+            HighlightSelectedText();
+        }
+
+        void RestartTimer()
+        {
+            repaint_tool_window_timer.Stop();
+            repaint_tool_window_timer.Start();
+        }
+
+        void repaint_timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            repaint_tool_window_timer.Stop();
+            this.Invalidate();
+            HighlightSelectedText();
         }
         #endregion
         #region FinalizePlugIn
@@ -360,82 +397,73 @@ namespace MiniCodeColumn
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            base.OnPaint(e);
+            // base.OnPaint(e);
             DrawCodeColumn(e.Graphics);
         }
 
         private void events_TextChanged(TextChangedEventArgs ea)
         {
-            this.Invalidate();
-            redraw_reqired = true;
+            RestartTimer();
         }
 
         private void events_TextViewActivated(TextViewEventArgs ea)
         {
-            redraw_reqired = true; 
-            if (!mouse_is_down)
-                Refresh();
+            HighlightSelectedText();
+            RestartTimer();
         }
 
         private void events_EditorScrolled(EditorScrolledEventArgs ea)
         {
-            TextView textView = CodeRush.TextViews.Active;
-            if (textView != null || (selected_double_click.Length > 2))
-            {
-                redraw_reqired = true;
-            }
-            if (!mouse_is_down)
-                Refresh();
+            HighlightSelectedText();
+            RestartTimer();
         }
 
+        private bool highlighting;
         private void HighlightSelectedText()
         {
-            if (!PluginOptions.WordDoubleClickEnabled)
+            if (!PluginOptions.WordDoubleClickEnabled || highlighting || last_lines == null || last_lines.Count<=0)
                 return;
 
-            TextView textView = CodeRush.TextViews.Active;
 
+            TextView textView = CodeRush.TextViews.Active;
             if (textView == null || (selected_double_click.Length <= 2))
                 return;
 
+            highlighting = true;
             CreateGraphicElements();
 
             Graphics graphics = textView.Graphics;
             //SmoothingMode oldMode = graphics.SmoothingMode;
             try
-            {
-                TextViewLines items = textView.Lines;
-                for (int l = 0; l < items.Count; l++)
+            {                
+                //TextViewLines items = textView.Lines;
+                for (int l = textView.TopLine; l < textView.BottomLine; l++)
                 {
-                    string txt = items.GetText(l).TrimEnd().ToUpperInvariant();
+                    if (last_lines[l].StartOfWordIndex < 0) continue;
 
-                    if (txt.IndexOf(selected_double_click) >= 0)
-                    {
-                        if (items.InView(l))
-                        {
-                            int start_index = txt.IndexOf(selected_double_click) + 1;
-                            // SourceRange range = new SourceRange(l, txt.IndexOf(selected_double_click) + 1, l, txt.IndexOf(selected_double_click) + selected_double_click.Length + 1);
-                            // graphics.FillRectangle(ColumnBrushVisibleLines, textView.GetRectangleFromRange(range));
-                            
-                            textView.HighlightCode(
-                                l,
-                                start_index,
-                                l,
-                                start_index + selected_double_click.Length,
-                                ColumnBrushVisibleLines.Color,
-                                ColumnBackgroundBrushSelectedWord.Color,
-                                Color.White);
-                        }
-                    }
+                    Rectangle rect;
+                    textView.GetTextRectangle(selected_double_click, l, last_lines[l].StartOfWordIndex + 1, out rect);
+                    textView.Repaint(rect);
+                    graphics.FillRectangle(ColumnBackgroundBrushSelectedWord, rect);
+                    //textView.OverlayText(selected_double_click, l, last_lines[l].StartOfWordIndex + 1, ColumnBackgroundBrushSelectedWord.Color, false);
+                    //textView.HighlightCode(
+                    //        l,
+                    //        last_lines[l].StartOfWordIndex + 1,
+                    //        l,
+                    //        last_lines[l].StartOfWordIndex + selected_double_click.Length,
+                    //        ColumnBrushVisibleLines.Color,
+                    //        ColumnBackgroundBrushSelectedWord.Color,
+                    //        Color.White);
+                    
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+                // System.Diagnostics.Debug.WriteLine(ex.Message);
             }
             finally
             {
-                //graphics.SmoothingMode = oldMode;
+                highlighting = false;
             }
         }
 
@@ -455,10 +483,9 @@ namespace MiniCodeColumn
                     {
                         selected_double_click = word.Text.Trim().ToUpperInvariant();
                     }
-                    // Tool-Window-Refresh
-                    Refresh();
-                    textView.Invalidate();
-                    redraw_reqired = true;
+                    last_lines = CollectLines(textView, 1);
+                    textView.Repaint();
+                    HighlightSelectedText();
                 }
                 catch //(Exception ex)
                 {
@@ -488,21 +515,14 @@ namespace MiniCodeColumn
 
                 textView.MakeVisible(line, 0);
                 textView.CenterLine(center_line);
-                redraw_reqired = true;
-                Refresh();
+                this.Invalidate();
             }
         }
 
         private void CodeToolWindow_MouseUp(object sender, MouseEventArgs e)
         {
-            if (mouse_is_down)
-            {
-                TextView textView = CodeRush.TextViews.Active;
-                if (textView != null)
-                    textView.Invalidate();
-            }
+            RestartTimer();
             mouse_is_down = false;
-            redraw_reqired = true;
         }
 
         private void CodeToolWindow_MouseLeave(object sender, EventArgs e)
@@ -513,29 +533,26 @@ namespace MiniCodeColumn
         private void events_OptionsChanged(OptionsChangedEventArgs ea)
         {
             DisposeGraphicElements();
-            Refresh();
-            redraw_reqired = true;
+            RestartTimer();
             PluginOptions.MiniCodeColumnEnabled = true;
         }
 
         private void events_MarkerCollected(MarkerEventArgs ea)
         {
-            redraw_reqired = true;
-            Refresh();
+            RestartTimer();
         }
 
-        bool redraw_reqired;
         private void events_EditorIdle(EditorIdleEventArgs ea)
         {
             // verschieben
-            if (mouse_is_down)
-                return;
+            //if (mouse_is_down)
+            //    return;
 
-            if (redraw_reqired)
-            {
-                redraw_reqired = false;
-                HighlightSelectedText();
-            }
+            //if (redraw_reqired)
+            //{
+            //    redraw_reqired = false;
+            //    HighlightSelectedText();
+            //}
         }
     }
 }
