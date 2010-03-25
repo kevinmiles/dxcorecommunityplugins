@@ -9,7 +9,7 @@ This plugin assists the developer by painting information at the end of code blo
 
 = Usage =
 
-This plugin automatically paints in the editor per settings defined in the associated DevExpress Options page.
+This plugin automatically paints in the editor per settings defined in the associated [http://sites.google.com/site/coderushdocs/screens/options DevExpress Options page].
 
 = Options =
 
