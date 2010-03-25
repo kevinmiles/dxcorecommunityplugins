@@ -11,9 +11,10 @@ using System.Xml.Linq;
 using System.Xml;
 using DevExpress.CodeRush.Core.Replacement;
 using DevExpress.Refactor.Core;
+using System.Collections.Generic;
 
 using DXXmlElement = DevExpress.CodeRush.StructuralParser.XmlElement;
-using System.Collections.Generic;
+using DXHtmlElement = DevExpress.CodeRush.StructuralParser.HtmlElement;
 
 namespace CR_ExtractHqlNamedQuery
 {
@@ -77,24 +78,27 @@ namespace CR_ExtractHqlNamedQuery
     private void refactoringProvider1_Apply(object sender, ApplyContentEventArgs ea)
     {
       if (enabled)
-      {
-        try
-        {
-          if (actionIsAvailable(ea.Element))
-          {
-            FileSourceRangeCollection collection = extractHqlNamedQuery(ea.Element);
+        executeRefactoring(ea);
+    }
 
-            if (collection != null)
-            {
-              RefactoringContext context = new RefactoringContext(ea);
-              LinkedTextHelper.ApplyRename(context, collection);
-            }
+    private void executeRefactoring(ApplyContentEventArgs ea)
+    {
+      try
+      {
+        if (actionIsAvailable(ea.Element))
+        {
+          FileSourceRangeCollection collection = extractHqlNamedQuery(ea.Element);
+
+          if (collection != null)
+          {
+            RefactoringContext context = new RefactoringContext(ea);
+            LinkedTextHelper.ApplyRename(context, collection);
           }
         }
-        catch (Exception ex)
-        {
-          ShowException(ex);
-        }
+      }
+      catch (Exception ex)
+      {
+        ShowException(ex);
       }
     }
 
@@ -107,8 +111,13 @@ namespace CR_ExtractHqlNamedQuery
     {
       TextDocument namedQueriesXmlDocument = namedQueriesXmlFile.Document as TextDocument;
 
-      DXXmlElement a = (namedQueriesXmlFile.FindChildByName("hibernate-mapping") as DXXmlElement);
-      int insertLine = a.LastChild.Range.End.Line + 1;
+      DXXmlElement hibernateMappingTag = (namedQueriesXmlFile.FindChildByName("hibernate-mapping") as DXXmlElement);
+
+      if (hibernateMappingTag == null)
+        throw new Exception("<hibernate-mapping> tag not found in " + namedQueriesXmlFile.FilePath);
+
+      int insertLine = (hibernateMappingTag as DXHtmlElement).CloseTagNameRange.End.Line;
+
       namedQueriesXmlDocument.InsertLines(insertLine, new string[1] { xmlContent });
       namedQueriesXmlDocument.FormatLine(insertLine);
     }
@@ -243,6 +252,12 @@ namespace CR_ExtractHqlNamedQuery
     private void ExtractHqlNamedQuery_OptionsChanged(OptionsChangedEventArgs ea)
     {
       loadSettings();
+    }
+
+    private void action1_Execute(ExecuteEventArgs ea)
+    {
+      if (enabled)
+        refactoringProvider1.Execute();
     }
 
   }
