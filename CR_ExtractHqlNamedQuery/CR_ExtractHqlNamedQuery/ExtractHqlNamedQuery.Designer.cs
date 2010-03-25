@@ -39,7 +39,9 @@ namespace CR_ExtractHqlNamedQuery
       this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExtractHqlNamedQuery));
       this.refactoringProvider1 = new DevExpress.Refactor.Core.RefactoringProvider(this.components);
+      this.action1 = new DevExpress.CodeRush.Core.Action(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.refactoringProvider1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.action1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
       // 
       // refactoringProvider1
@@ -58,10 +60,20 @@ namespace CR_ExtractHqlNamedQuery
       this.refactoringProvider1.Apply += new DevExpress.Refactor.Core.ApplyRefactoringEventHandler(this.refactoringProvider1_Apply);
       this.refactoringProvider1.CheckAvailability += new DevExpress.Refactor.Core.CheckAvailabilityEventHandler(this.refactoringProvider1_CheckAvailability);
       // 
+      // action1
+      // 
+      this.action1.ActionName = "ExtractHqlNamedQuery";
+      this.action1.ButtonText = "Extract Hql Named Query";
+      this.action1.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+      this.action1.Image = ((System.Drawing.Bitmap)(resources.GetObject("action1.Image")));
+      this.action1.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.action1.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.action1_Execute);
+      // 
       // ExtractHqlNamedQuery
       // 
       this.OptionsChanged += new DevExpress.CodeRush.Core.OptionsChangedEventHandler(this.ExtractHqlNamedQuery_OptionsChanged);
       ((System.ComponentModel.ISupportInitialize)(this.refactoringProvider1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.action1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
     }
@@ -69,5 +81,6 @@ namespace CR_ExtractHqlNamedQuery
     #endregion
 
     private DevExpress.Refactor.Core.RefactoringProvider refactoringProvider1;
+    private DevExpress.CodeRush.Core.Action action1;
   }
 }
