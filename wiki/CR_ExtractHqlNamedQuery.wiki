@@ -32,7 +32,7 @@ Basically, to use this class you can do something like this:
 
 This will result in the following two pieces of code synchronized
 
-http://code.google.com/p/dxcorecommunityplugins/source/browse/trunk/CR_ExtractHqlNamedQuery/CR_ExtractHqlNamedQuery/images/screenshot6.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ExtractHqlNamedQuery/CR_ExtractHqlNamedQuery/images/screenshot6.png
 
 = Configuration =
     * Assign the 'ExtractHqlNamedQuery' action to a key. (See [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Bind a Key in CodeRush])
