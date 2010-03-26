@@ -3,7 +3,7 @@
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_ExtractHqlNamedQuery/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]            [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 = Introduction =
 
-Details about the features of this plugin can be found here.
+Details about the features of this plugin can be found [http://jorgerowies.blogspot.com/2010/03/coderush-plugin-to-extract-nhibernates.html here].
 
 Note for CodeRush plugin developers:
 
