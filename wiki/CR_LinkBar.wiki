@@ -33,3 +33,6 @@ Workspaces are saved in normal DXCore Settings, but are specific to the given so
   * Many things are available when they should not be... This is a very early access plugin :P 
   * The UI is not very flexible.
   * You are never asked if you are sure.... Be careful.
+
+= Credits =
+RoryBecker
