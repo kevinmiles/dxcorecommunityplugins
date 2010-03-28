@@ -14,6 +14,7 @@ Here are some links to some of the plugins I have written:
  * [CR_QuickAddReference]
  * [DX_MoveCode]
  * [CR_LinkBar]
+ * [CR_RemoveRegions]
 
  * [CR_ReSharperCompatibility] 
  * [DX_CollapseFromEnd]
