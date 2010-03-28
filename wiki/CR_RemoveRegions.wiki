@@ -5,7 +5,7 @@
 Provides a refactoring that removes all region directives in a file.
 
 = Usage =
-place the caret on a region directive and invoke the "Remove Regions" refactoring.
+Place the caret on a region directive and invoke the "Remove Regions" refactoring.
 
 = Credits =
-Rory Becker
+RoryBecker
