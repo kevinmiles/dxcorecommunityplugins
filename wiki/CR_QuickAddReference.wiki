@@ -50,5 +50,4 @@ More tabs will follow.
  * Project references cannot be added.
 
 = Credits =
-
-Plugin by Rory Becker
+RoryBecker
