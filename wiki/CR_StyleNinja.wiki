@@ -53,4 +53,4 @@ The following rules are implemented at this time:
  * Build 895 - Initial test build with 5 rules
 
 = Credits =
-Rory Becker
+RoryBecker
