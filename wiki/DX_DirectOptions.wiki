@@ -24,3 +24,6 @@ NOTE: The "!ShowTemplateOptions" and "Template Options" are only available if yo
    * Added accelerator keys (S and T respectively) to menu items
  * Build 930 
    * Initial Build
+
+= Credit =
+RoryBecker
