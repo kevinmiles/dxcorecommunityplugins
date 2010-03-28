@@ -6,7 +6,7 @@
 Forum thread: http://community.devexpress.com/forums/t/64641.aspx
 
 = Usage =
- - Highlight multiple lines with an assignement (=) line.
+ - Highlight multiple lines with an assignment (=) line.
  - Choose "Format assignments" from the Refactor menu.
 
 = Credits =
