@@ -1,15 +1,9 @@
 #summary Formats sequential assignment statements so the equals sign aligns.
 #labels Phase-Support
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_FormatAssignments/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Introduction =
-
 Forum thread: http://community.devexpress.com/forums/t/64641.aspx
-
-= Download = 
-[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_FormatAssignments/ Primary Download Location]
-
-= Installation =
-Installation instructions can be found on the InstallInstructions page.
 
 = Usage =
  - Highlight multiple lines with an assignement (=) line.
