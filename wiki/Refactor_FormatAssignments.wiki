@@ -16,5 +16,4 @@ Installation instructions can be found on the InstallInstructions page.
  - Choose "Format assignments" from the Refactor menu.
 
 = Credits =
-
-Author: Rory Becker
+RoryBecker
