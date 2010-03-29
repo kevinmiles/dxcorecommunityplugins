@@ -15,6 +15,8 @@ Here are some links to some of the plugins I have written:
  * [DX_MoveCode]
  * [CR_MetricShader]
  * [CR_RemoveRegions]
+ * [CR_CreateDelegate]
+ * [CR_ClearAllMarkers]
  * [CR_LinkBar]
 </td><td>
  * [CR_ReSharperCompatibility] 
@@ -25,6 +27,7 @@ Here are some links to some of the plugins I have written:
  * [CR_MsdnBclHelp]
  * [DX_PickFromListStringProvider]
  * [CR_Execute]
+ * [CR_GenerateTest]
 </td></tr>
 </table>
 
