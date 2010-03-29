@@ -1,12 +1,15 @@
 #summary Author page for Rory Becker :)
 
-= Who am I = 
+== Who am I == 
 My name is Rory Becker. I am the original founder of this site and I am responsible, for better or worse, for several (but most definitely *not* all) of the plugins on this site. 
 
-= How to contact me = 
-You can contact me [http://twitter.com/RoryBecker via twitter(@rorybecker)] or via email (RoryBecker@gmail.com)
+== Contact me ==
+Feel free to contact me about these plugins 
+ * Twitter: http://twitter.com/RoryBecker
+ * Email: RoryBecker@gmail.com
+ * Blog: http://rorybecker.blogspot.com
 
-= Introduction =
+== Plugins ==
 Here are some links to some of the plugins I have written:
 
  * [CR_StyleNinja] 
@@ -17,10 +20,10 @@ Here are some links to some of the plugins I have written:
  * [CR_RemoveRegions]
 
  * [CR_ReSharperCompatibility] 
+ * [CR_MetricShader]
  * [DX_CollapseFromEnd]
  * [Refactor_FormatAssignments]
  * [CR_ImplementBaseConstructors]
- * [CR_MetricShader]
  * [HighlightCurrentLineInEditor]
  * [CR_MsdnBclHelp]
  * [DX_PickFromListStringProvider]
