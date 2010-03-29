@@ -2,7 +2,7 @@
 
 = About Me =
 
-I'm a developer from Buenos Aires, Argentina. I'm using CodeRush for about a couple of years now and I recently discovered the amazing power that the CodeRush plugin API has, so I decided to make some plugins that could make my every-day job a little easier ;)
+I'm a developer from Buenos Aires, Argentina. I've been using CodeRush for about a couple of years now and I recently discovered the amazing power that the CodeRush plugin API has, so I decided to make some plugins that could make my every-day job a little easier ;)
 You can find more about me in my [http://www.google.com/profiles/112793085536273063424 google profile]
 
 = Plugins =
@@ -11,8 +11,8 @@ This is the list of plugins I've made so far, please feel free to report me any 
 <table border="0">
 <tr>
 <td valign="Top">
-* [CR_NavigateToDefinition]
-* [CR_ExtractHqlNamedQuery]
+ * [CR_NavigateToDefinition]
+ * [CR_ExtractHqlNamedQuery]
 </td>
 </tr>
 </table>
