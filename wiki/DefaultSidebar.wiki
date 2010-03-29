@@ -26,6 +26,7 @@
     * [CR_JumpToImplementation]
     * [CR_mdMarkerExtensions]
     * [CR_ShowFile]
+    * [CR_NavigateToDefinition]
   * Decorative Plugins
     * [CR_MethodPreview]
     * [CR_MetricShader]
@@ -56,6 +57,7 @@
     * [CR_Paste]
     * [CR_SettingsMonitor]
     * [DX_BackupSettings]
+    * [CR_ExtractHqlNamedQuery]
   * Specialist Plugins
     * [CR_MultiFileTemplates]
     * [DX_PickFromListStringProvider]
