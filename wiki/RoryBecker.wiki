@@ -23,10 +23,8 @@ Here are some links to some of the plugins I have written:
  * [DX_CollapseFromEnd]
  * [Refactor_FormatAssignments]
  * [CR_ImplementBaseConstructors]
- * [HighlightCurrentLineInEditor]
  * [CR_MsdnBclHelp]
  * [DX_PickFromListStringProvider]
- * [CR_Execute]
  * [CR_GenerateTest]
  * [CR_ImplementBaseConstructors]
  * [CR_JumpToImplementation]
@@ -38,6 +36,8 @@ Here are some links to some of the plugins I have written:
  * [DX_CustomCollapse]
  * [DX_BackupSettings]
 
+ * [HighlightCurrentLineInEditor]
+ * [CR_Execute]
 
 </td></tr>
 </table>
