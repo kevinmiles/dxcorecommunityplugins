@@ -25,7 +25,17 @@ There are some differences between XPO_EasyFields and XPOFieldSync
 
 = Configuration =
 
-There are currently no options to configure, do you have a suggestion? Please don't hesitate to submit one.
+[http://www.alfware.com.au/XPOEasyFieldsOptions.PNG]
+
+There are currently 3 options (as per 1053)
+==Update from Class Name Only==
+By default in the Refactor! menu that appears when you press your Refactor! key you can have the Command to perform the Update XPO FieldsClass anywhere within your persistent class, if you only want it available while the caret is within the Class Name you can tick this option.
+
+==Perform Update on Save==
+This is pretty self-explanitory, when the document is saved, the Update XPO FieldsClass will be performed on any Persistent classes within the document
+
+==Don't replace Property/Variable==
+By default XPO_EasyFields will replace all code (ie. Fields property, _Fields variable and FieldsClass nested class) if you wish to make a slight change to your Fields property or _Fields variable (such as reordering the keywords of the property to comply with StyleCop) you can enable this option and if the Property or Variable are found it won't replace them.
 
 = Usage =
 
