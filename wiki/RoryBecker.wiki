@@ -6,7 +6,7 @@ My name is Rory Becker. I am the original founder of this site and I am responsi
 == Contact me ==
 Feel free to contact me about these plugins 
  * Twitter: http://twitter.com/RoryBecker
- * Email: RoryBecker@gmail.com
+ * Email: !RoryBecker@gmail.com
  * Blog: http://rorybecker.blogspot.com
 
 == Plugins ==
