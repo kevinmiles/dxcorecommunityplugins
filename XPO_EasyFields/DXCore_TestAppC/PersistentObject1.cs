@@ -33,7 +33,7 @@ namespace DXCore_TestAppC
         {
             get
             {
-                return _PersistentProperty;
+                return _PersistentProperty;  
             }
             set
             {
@@ -41,7 +41,7 @@ namespace DXCore_TestAppC
             }
         }
 
-        private string _NonPersistentProperty;
+        private string _NonPersistentProperty; 
         [DevExpress.Xpo.NonPersistent()]
         public string NonPersistentProperty
         {
@@ -50,7 +50,7 @@ namespace DXCore_TestAppC
             {
                 _NonPersistentProperty = value;
             }
-        }
+        } 
 
         private PersistentObject1 _PersistentReferenceProperty;
         public PersistentObject1 PersistentReferenceProperty
@@ -64,55 +64,48 @@ namespace DXCore_TestAppC
                 SetPropertyValue("PersistentReferenceProperty", ref _PersistentReferenceProperty, value);
             }
         }
-//Created/Updated: Wed 24-Mar-2010 09:21:18
-public new class FieldsClass : XPObject.FieldsClass
-{
-		public FieldsClass()
-				: base()
-				{
-				}
-				public FieldsClass(string propertyName)
-						: base(propertyName)
-						{
-						}
-						public DevExpress.Data.Filtering.OperandProperty PersistentProperty
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("PersistentProperty"));
-								}
-						}
-						public DevExpress.Data.Filtering.OperandProperty NonPersistentProperty
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("NonPersistentProperty"));
-								}
-						}
-						public DXCore_TestAppC.PersistentObject1.FieldsClass PersistentReferenceProperty
-						{
-								get
-								{
-										return new DXCore_TestAppC.PersistentObject1.FieldsClass(GetNestedName("PersistentReferenceProperty"));
-								}
-						}
-						public DevExpress.Data.Filtering.OperandProperty Fields
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Fields"));
-								}
-						}
-				}
-public new static FieldsClass Fields
-{
-		get
-		{
-				if (ReferenceEquals(_fields,null))
-						_fields = new FieldsClass();
-				return _fields;
-		}
-}
-private static FieldsClass _fields;
-    }
+        private static FieldsClass _fields;
+        public new static FieldsClass Fields
+        {
+            get
+            {
+                if (ReferenceEquals(_fields, null))
+                    _fields = new FieldsClass();
+                return _fields;
+            }
+        }
+        //Created/Updated: Mon 29-Mar-2010 21:42:49
+        public new class FieldsClass : XPObject.FieldsClass
+        {
+            public FieldsClass()
+                : base()
+            {
+            }
+            public FieldsClass(string propertyName)
+                : base(propertyName)
+            {
+            }
+            public DevExpress.Data.Filtering.OperandProperty PersistentProperty
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("PersistentProperty"));
+                }
+            }
+            public DevExpress.Data.Filtering.OperandProperty NonPersistentProperty
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("NonPersistentProperty"));
+                }
+            }
+            public DXCore_TestAppC.PersistentObject1.FieldsClass PersistentReferenceProperty
+            {
+                get
+                {
+                    return new DXCore_TestAppC.PersistentObject1.FieldsClass(GetNestedName("PersistentReferenceProperty"));
+                }
+            }
+        }
+    } 
 }

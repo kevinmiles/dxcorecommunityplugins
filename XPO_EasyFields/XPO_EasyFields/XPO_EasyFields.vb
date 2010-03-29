@@ -67,20 +67,21 @@ Public Class XPO_EasyFields
         ' This method is executed when your action is called.
         ' Remember you must bind your action to a shortcut in order to use it.
         ' Shortcuts are created\altered using the IDE\Shortcuts option page 
-        PerformUpdateFieldsClass()
+        PerformUpdateFieldsClass(CodeRush.Source.ActiveClass, CodeRush.Documents.ActiveTextDocument)
+        ApplyChanges(CodeRush.Documents.ActiveTextDocument)
     End Sub
 
     Private Sub XPO_EasyFields_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
 
         ' This method is executed when the system executes your Code 
 
-        PerformUpdateFieldsClass()
-
+        PerformUpdateFieldsClass(CodeRush.Source.ActiveClass, CodeRush.Documents.ActiveTextDocument)
+        ApplyChanges(CodeRush.Documents.ActiveTextDocument)
     End Sub
 
-    Private Sub PerformUpdateFieldsClass()
+    Private Sub PerformUpdateFieldsClass(ByVal clsXPO As [Class], ByVal docXPO As TextDocument)
         Try
-            If CodeRush.Source.ActiveClass IsNot Nothing AndAlso DXCoreXPOHelper.XPOElement.Check("DevExpress.Xpo.PersistentBase", CodeRush.Source.ActiveClass.GetDeclaration) Then
+            If clsXPO IsNot Nothing AndAlso DXCoreXPOHelper.XPOElement.Check("DevExpress.Xpo.PersistentBase", clsXPO.GetDeclaration) Then
                 'Bob the CodeRush Builder ;)
                 Dim BobClass As ElementBuilder = New ElementBuilder
                 Dim BobProperty As ElementBuilder = New ElementBuilder
@@ -94,7 +95,7 @@ Public Class XPO_EasyFields
 
 
 
-                Dim ExistingFieldsClass As [Class] = FindElement(LanguageElementType.Class, nameClass)
+                Dim ExistingFieldsClass As [Class] = FindElement(clsXPO, LanguageElementType.Class, nameClass)
 
                 'Check whether we already have the FieldsClass declared
 
@@ -103,7 +104,7 @@ Public Class XPO_EasyFields
                 Dim NewFieldsClass As [Class] = BobClass.AddClass(Nothing, nameClass)
                 NewFieldsClass.Visibility = MemberVisibility.Public
                 NewFieldsClass.IsNew = True 'This seems to do the "Shadows" keyword
-                NewFieldsClass.PrimaryAncestorType = New TypeReferenceExpression(CodeRush.Source.ActiveClass.PrimaryAncestorType.Name & "." & nameClass) 'Couldn't find easier way, needs to "shadow" the persistentbase FieldsClass
+                NewFieldsClass.PrimaryAncestorType = New TypeReferenceExpression(clsXPO.PrimaryAncestorType.Name & "." & nameClass) 'Couldn't find easier way, needs to "shadow" the persistentbase FieldsClass
                 Dim CommentStart As String = "Created/Updated:"
                 BobClass.AddComment(NewFieldsClass, CommentStart & " " & Now.ToString("ddd dd-MMM-yyyy HH:mm:ss"), CommentType.SingleLine) 'date format should use local culture, but then again Aussie way is best
 
@@ -125,7 +126,7 @@ Public Class XPO_EasyFields
                 'Go through all the possible persistent members of the class (Variables and Properties)
                 Dim Searcher As ElementEnumerable
                 Dim element As IEnumerator
-                Searcher = New ElementEnumerable(CodeRush.Source.ActiveClass, New LanguageElementType() {LanguageElementType.Property, LanguageElementType.Variable})
+                Searcher = New ElementEnumerable(clsXPO, New LanguageElementType() {LanguageElementType.Property, LanguageElementType.Variable})
                 element = Searcher.GetEnumerator
                 element.Reset()
                 While element.MoveNext
@@ -137,6 +138,8 @@ Public Class XPO_EasyFields
                             Dim newPropertyType As String
                             If XPOType.IsPersistentClass And Not XPOType.IsXPCollection Then
                                 newPropertyType = XPOType.Element.FullName & ".FieldsClass"
+                            ElseIf XPOType.IsXPCollection Then
+                                newPropertyType = "DevExpress.Data.Filtering.OperandProperty"
                             Else
                                 newPropertyType = "DevExpress.Data.Filtering.OperandProperty"
                             End If
@@ -156,73 +159,87 @@ Public Class XPO_EasyFields
                         End If
                     End If
                 End While
+
                 If ExistingFieldsClass IsNot Nothing Then
                     Dim ClassRange As SourceRange = ExistingFieldsClass.Range
-                    If CodeRush.Documents.ActiveTextDocument.GetLine(ExistingFieldsClass.StartLine - 1).TrimStart(" ").StartsWith(CodeRush.Language.GetComment(CommentStart).TrimEnd) Then
+                    If docXPO.GetLine(ExistingFieldsClass.StartLine - 1).TrimStart(" ").StartsWith(CodeRush.Language.GetComment(CommentStart).TrimEnd) Then
                         ClassRange.Set(New SourcePoint(ClassRange.Start.Line - 1, ClassRange.Start.Offset), ClassRange.End)
                     End If
-                    CodeRush.Documents.ActiveTextDocument.QueueReplace(ClassRange, BobClass.GenerateCode.TrimEnd())
+                    docXPO.QueueReplace(ClassRange, BobClass.GenerateCode(docXPO.Language).TrimEnd)
                 Else
-                    CodeRush.Documents.ActiveTextDocument.InsertText(CodeRush.Source.ActiveClass.EndLine, 1, BobClass.GenerateCode)
+                    docXPO.QueueInsert(New SourcePoint(clsXPO.EndLine, 1), BobClass.GenerateCode(docXPO.Language))
                 End If
 
-                Dim ExistingFieldsClassProperty As [Property] = FindElement(LanguageElementType.Property, nameProperty)
-                Dim NewFieldsClassProperty As [Property] = BobProperty.AddProperty(Nothing, nameClass, nameProperty)
-                Dim NewFieldsClassPropertyGet As [Get] = BobProperty.AddGetter(NewFieldsClassProperty)
-                NewFieldsClassProperty.IsNew = True
-                NewFieldsClassProperty.IsStatic = True
-                'NewFieldsClassProperty.IsReadOnly = True
-                NewFieldsClassProperty.Visibility = MemberVisibility.Public
-                Dim NewFieldsClassPropertyGetIf As [If] = BobProperty.AddIf(NewFieldsClassPropertyGet, "ReferenceEquals(" & nameVariable & "," & CodeRush.Language.GenerateExpressionCode(CodeRush.Language.GetNullReferenceExpression) & ")")
-                BobProperty.AddAssignment(NewFieldsClassPropertyGetIf, nameVariable, BobProperty.BuildObjectCreationExpression(nameClass, New ExpressionCollection))
-                BobProperty.AddReturn(NewFieldsClassPropertyGet, nameVariable)
 
-                If ExistingFieldsClassProperty IsNot Nothing Then
-                    CodeRush.Documents.ActiveTextDocument.QueueReplace(ExistingFieldsClassProperty.Range, BobProperty.GenerateCode.TrimEnd)
-                Else
-                    CodeRush.Documents.ActiveTextDocument.InsertText(CodeRush.Source.ActiveClass.EndLine, 1, BobProperty.GenerateCode)
+                Dim ExistingFieldsClassProperty As [Property] = FindElement(clsXPO, LanguageElementType.Property, nameProperty)
+                If ExistingFieldsClass Is Nothing Or Not ReplaceClassOnly Then
+                    Dim NewFieldsClassProperty As [Property] = BobProperty.AddProperty(Nothing, nameClass, nameProperty)
+                    Dim NewFieldsClassPropertyGet As [Get] = BobProperty.AddGetter(NewFieldsClassProperty)
+                    NewFieldsClassProperty.IsNew = True
+                    NewFieldsClassProperty.IsStatic = True
+                    'NewFieldsClassProperty.IsReadOnly = True
+                    NewFieldsClassProperty.Visibility = MemberVisibility.Public
+                    Dim NewFieldsClassPropertyGetIf As [If] = BobProperty.AddIf(NewFieldsClassPropertyGet, "ReferenceEquals(" & nameVariable & "," & CodeRush.Language.GenerateExpressionCode(CodeRush.Language.GetNullReferenceExpression) & ")")
+                    BobProperty.AddAssignment(NewFieldsClassPropertyGetIf, nameVariable, BobProperty.BuildObjectCreationExpression(nameClass, New ExpressionCollection))
+                    BobProperty.AddReturn(NewFieldsClassPropertyGet, nameVariable)
+
+                    If ExistingFieldsClassProperty IsNot Nothing Then
+                        docXPO.QueueReplace(ExistingFieldsClassProperty.Range, BobProperty.GenerateCode(docXPO.Language).TrimEnd)
+                    Else
+                        docXPO.QueueInsert(New SourcePoint(clsXPO.EndLine, 1), BobProperty.GenerateCode(docXPO.Language))
+                    End If
                 End If
+                
 
-                Dim ExistingFieldsClassVariable As Variable = FindElement(LanguageElementType.Variable, nameVariable)
-                Dim NewFieldsClassVariable As Variable = BobVariable.AddVariable(Nothing, nameClass, nameVariable)
-                NewFieldsClassVariable.IsStatic = True
-                NewFieldsClassVariable.Visibility = MemberVisibility.Private
-                If ExistingFieldsClassVariable IsNot Nothing Then
-                    CodeRush.Documents.ActiveTextDocument.QueueReplace(ExistingFieldsClassVariable.Range, BobVariable.GenerateCode.TrimEnd)
-                Else
-                    CodeRush.Documents.ActiveTextDocument.InsertText(CodeRush.Source.ActiveClass.EndLine, 1, BobVariable.GenerateCode)
-                    CodeRush.Documents.ActiveTextDocument.ApplyQueuedEdits("XPO Update FieldsClass")
-                    CodeRush.Hints.Settings.FeedbackFillColor = NormalFeedbackColor
-                    CodeRush.Hints.Settings.FeedbackBorderColor = NormalFeedbackBorderColor
-                    BigFeedback1.Text = "XPO FieldsClass Updated"
-                    BigFeedback1.Show()
-                    Return
-                End If
-
-                If CodeRush.Documents.ActiveTextDocument.QueuedEdits.Count > 0 Then
-                    CodeRush.Documents.ActiveTextDocument.ApplyQueuedEdits("XPO Update FieldsClass")
-                    CodeRush.Hints.Settings.FeedbackFillColor = NormalFeedbackColor
-                    CodeRush.Hints.Settings.FeedbackBorderColor = NormalFeedbackBorderColor
-                    BigFeedback1.Text = "XPO FieldsClass Updated"
-                    BigFeedback1.Show()
-                    Return
+                Dim ExistingFieldsClassVariable As Variable = FindElement(clsXPO, LanguageElementType.Variable, nameVariable)
+                If ExistingFieldsClassVariable Is Nothing Or Not ReplaceClassOnly Then
+                    Dim NewFieldsClassVariable As Variable = BobVariable.AddVariable(Nothing, nameClass, nameVariable)
+                    NewFieldsClassVariable.IsStatic = True
+                    NewFieldsClassVariable.Visibility = MemberVisibility.Private
+                    If ExistingFieldsClassVariable IsNot Nothing Then
+                        docXPO.QueueReplace(ExistingFieldsClassVariable.Range, BobVariable.GenerateCode(docXPO.Language).TrimEnd)
+                    Else
+                        docXPO.QueueInsert(New SourcePoint(clsXPO.EndLine, 1), BobVariable.GenerateCode(docXPO.Language))
+                    End If
                 End If
             End If
-            BigFeedback1.Text = "Nothing to do"
-            BigFeedback1.Show()
+
         Catch ex As Exception
             CodeRush.Hints.Settings.FeedbackFillColor = Color.Red
             CodeRush.Hints.Settings.FeedbackBorderColor = Color.DarkRed
             BigFeedback1.Text = "XPO FieldsClass Failed"
-        Finally
-
         End Try
     End Sub
 
-    Private Function FindElement(ByVal elementType As LanguageElementType, ByVal elementName As String) As LanguageElement
+    Private Sub ApplyChanges(ByVal docXPO As TextDocument)
+        If docXPO.QueuedEdits.Count > 0 Then
+            'Dim EditedAreas As New List(Of SourceRange)
+            'For Each edit As LanguageElement In docXPO.QueuedEdits
+            '    EditedAreas.Add(edit.Range.Clone)
+            'Next
+            docXPO.ApplyQueuedEdits("XPO Update FieldsClass", True)
+            'For Each EditedArea As SourceRange In EditedAreas
+            '    docXPO.Format(EditedArea)
+            'Next
+
+            docXPO.RefreshViews()
+
+            CodeRush.Hints.Settings.FeedbackFillColor = NormalFeedbackColor
+            CodeRush.Hints.Settings.FeedbackBorderColor = NormalFeedbackBorderColor
+            BigFeedback1.Text = "XPO FieldsClass Updated"
+            BigFeedback1.Show()
+        Else
+            CodeRush.Hints.Settings.FeedbackFillColor = NormalFeedbackColor
+            CodeRush.Hints.Settings.FeedbackBorderColor = NormalFeedbackBorderColor
+            BigFeedback1.Text = "Nothing to do"
+            BigFeedback1.Show()
+        End If
+    End Sub
+
+    Private Function FindElement(ByVal clsSearch As [Class], ByVal elementType As LanguageElementType, ByVal elementName As String) As LanguageElement
         Dim Searcher As ElementEnumerable
         Dim element As IEnumerator
-        Searcher = New ElementEnumerable(CodeRush.Source.ActiveClass, elementType)
+        Searcher = New ElementEnumerable(clsSearch, elementType)
         element = Searcher.GetEnumerator
         element.Reset()
         While element.MoveNext
@@ -236,10 +253,44 @@ Public Class XPO_EasyFields
     End Function
 
     Private UseClassNameOnly As Boolean = False
+    Private ReplaceClassOnly As Boolean = False
+    Private UpdateOnSave As Boolean = False
     Private Sub LoadSettings()
         Using optionStorage As DecoupledStorage = XPO_EasyFields_Options.Storage
-            UseClassNameOnly = optionStorage.ReadBoolean(XPO_EasyFields_Options.STR_Setting, XPO_EasyFields_Options.STR_ClassNameOnly)
+            UseClassNameOnly = optionStorage.ReadBoolean(XPO_EasyFields_Options.STR_Setting, XPO_EasyFields_Options.STR_AvailableClassNameOnly)
+            ReplaceClassOnly = optionStorage.ReadBoolean(XPO_EasyFields_Options.STR_Setting, XPO_EasyFields_Options.STR_ReplaceClassOnly)
+            UpdateOnSave = optionStorage.ReadBoolean(XPO_EasyFields_Options.STR_Setting, XPO_EasyFields_Options.STR_UpdateOnSave)
         End Using
+    End Sub
+
+    Public Shared XPOSyncSaveInProgress As New Dictionary(Of TextDocument, Boolean)
+    Private Sub XPO_EasyFields_DocumentSaved(ByVal ea As DevExpress.CodeRush.Core.DocumentEventArgs) Handles Me.DocumentSaved
+        If Not UpdateOnSave Then
+            Return
+        End If
+        If TypeOf ea.Document Is TextDocument Then
+            Dim doc As TextDocument = ea.Document
+            If XPOSyncSaveInProgress.ContainsKey(doc) Then
+                XPOSyncSaveInProgress.Remove(doc)
+            Else
+                Dim Searcher As ElementEnumerable
+                Dim element As IEnumerator
+                Searcher = New ElementEnumerable(doc.FileNode, LanguageElementType.Class, True)
+                element = Searcher.GetEnumerator
+                element.Reset()
+                While element.MoveNext
+                    Dim FoundElement As LanguageElement = TryCast(element.Current, LanguageElement)
+                    If FoundElement IsNot Nothing Then
+                        PerformUpdateFieldsClass(element.Current, doc)
+                    End If
+                End While
+
+                ApplyChanges(doc)
+
+                XPOSyncSaveInProgress.Add(doc, True)
+                doc.Save()
+            End If
+        End If
     End Sub
     '{
     '  using (DecoupledStorage lStorage = OptMySuperPlugIn.Storage)
