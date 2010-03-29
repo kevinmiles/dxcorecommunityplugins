@@ -54,8 +54,8 @@
     * [CR_MsdnBclHelp]
     * [DX_DirectOptions]
     * [CR_Paste]
-    * CR_SettingsMonitor
-    * DX_BackupSettings 
+    * [CR_SettingsMonitor]
+    * [DX_BackupSettings]
   * Specialist Plugins
     * [CR_MultiFileTemplates]
     * [DX_PickFromListStringProvider]
