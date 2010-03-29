@@ -52,13 +52,13 @@
     * [CR_EventHandlerCheckTC]
     * [CR_Initials]
     * [CR_MsdnBclHelp]
-    * [DX_PickFromListStringProvider]
     * [DX_DirectOptions]
     * CR_Paste
     * CR_SettingsMonitor
     * DX_BackupSettings 
  * Specialist Plugins
     * CR_MultiFileTemplates
+    * [DX_PickFromListStringProvider]
  * Obsolete Plugins
     * [CR_Execute]
 
