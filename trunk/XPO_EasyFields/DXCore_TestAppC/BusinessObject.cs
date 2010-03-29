@@ -72,7 +72,7 @@ namespace ShepherdOaks.Persistency
         }
         #endregion
 
-        private Guid _oid;
+        private Guid _oid; 
         [Key(true)]
         public Guid Oid
         {
@@ -105,7 +105,7 @@ namespace ShepherdOaks.Persistency
         {
             get { return Accessability.Private; }
             set { SetPropertyValue("Accessability", ref _accessability, value); }
-
+             
         }
 
 
@@ -161,122 +161,111 @@ namespace ShepherdOaks.Persistency
         }
 
         #endregion
-
-        
-
-        
-//Created/Updated: Wed 24-Mar-2010 09:14:32
-public new class FieldsClass : XPCustomObject.FieldsClass
-{
-		public FieldsClass()
-				: base()
-				{
-				}
-				public FieldsClass(string propertyName)
-						: base(propertyName)
-						{
-						}
-						public readonly DevExpress.Data.Filtering.OperandProperty OwnerUser
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("OwnerUser"));
-								}
-						}
-						public readonly DevExpress.Data.Filtering.OperandProperty CreatedBy
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("CreatedBy"));
-								}
-						}
-						public readonly DevExpress.Data.Filtering.OperandProperty LastModifiedBy
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("LastModifiedBy"));
-								}
-						}
-						public readonly DevExpress.Data.Filtering.OperandProperty Documents
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Documents"));
-								}
-						}
-						public readonly DevExpress.Data.Filtering.OperandProperty Pictures
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Pictures"));
-								}
-						}
-						public readonly DevExpress.Data.Filtering.OperandProperty Groups
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Groups"));
-								}
-						}
-						public readonly DevExpress.Data.Filtering.OperandProperty Notes
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Notes"));
-								}
-						}
-						public readonly DevExpress.Data.Filtering.OperandProperty Oid
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Oid"));
-								}
-						}
-						public readonly DevExpress.Data.Filtering.OperandProperty CreatedDate
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("CreatedDate"));
-								}
-						}
-						public readonly DevExpress.Data.Filtering.OperandProperty LastModifiedDate
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("LastModifiedDate"));
-								}
-						}
-						public readonly DevExpress.Data.Filtering.OperandProperty IsSystem
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("IsSystem"));
-								}
-						}
-						public readonly DevExpress.Data.Filtering.OperandProperty Accessability
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Accessability"));
-								}
-						}
-						public readonly DevExpress.Data.Filtering.OperandProperty Fields
-						{
-								get
-								{
-										return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Fields"));
-								}
-						}
-				}
-public new readonly static FieldsClass Fields
-{
-		get
-		{
-				if (ReferenceEquals(_fields,null))
-						_fields = new FieldsClass();
-				return _fields;
-		}
-}
-private static FieldsClass _fields;
-    }
+        private static FieldsClass _fields;
+        public new static FieldsClass Fields
+        {
+            get
+            {
+                if (ReferenceEquals(_fields, null))
+                    _fields = new FieldsClass();
+                return _fields;
+            }
+        }
+        //Created/Updated: Mon 29-Mar-2010 20:57:39
+        public new class FieldsClass : XPCustomObject.FieldsClass
+        {
+            public FieldsClass()
+                : base()
+            {
+            }
+            public FieldsClass(string propertyName)
+                : base(propertyName)
+            {
+            }
+            public DevExpress.Data.Filtering.OperandProperty OwnerUser
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("OwnerUser"));
+                }
+            }
+            public DevExpress.Data.Filtering.OperandProperty CreatedBy
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("CreatedBy"));
+                }
+            }
+            public DevExpress.Data.Filtering.OperandProperty LastModifiedBy
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("LastModifiedBy"));
+                }
+            }
+            public DevExpress.Data.Filtering.OperandProperty Documents
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Documents"));
+                }
+            }
+            public DevExpress.Data.Filtering.OperandProperty Pictures
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Pictures"));
+                }
+            }
+            public DevExpress.Data.Filtering.OperandProperty Groups
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Groups"));
+                }
+            }
+            public DevExpress.Data.Filtering.OperandProperty Notes
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Notes"));
+                }
+            }
+            public DevExpress.Data.Filtering.OperandProperty Oid
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Oid"));
+                }
+            }
+            public DevExpress.Data.Filtering.OperandProperty CreatedDate
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("CreatedDate"));
+                }
+            }
+            public DevExpress.Data.Filtering.OperandProperty LastModifiedDate
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("LastModifiedDate"));
+                }
+            }
+            public DevExpress.Data.Filtering.OperandProperty IsSystem
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("IsSystem"));
+                }
+            }
+            public DevExpress.Data.Filtering.OperandProperty Accessability
+            {
+                get
+                {
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Accessability"));
+                }
+            }
+        }
+	}
 }

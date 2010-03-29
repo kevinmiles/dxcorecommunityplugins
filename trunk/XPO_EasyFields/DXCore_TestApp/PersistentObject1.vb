@@ -112,8 +112,16 @@ Public Class PersistentObject1
             SetPropertyValue("Test", _test, Value)
         End Set
     End Property
-
-    'Created/Updated: Wed 24-Mar-2010 09:20:14
+    Private Shared _fields As FieldsClass
+    Public Shared Shadows ReadOnly Property Fields() As FieldsClass
+        Get
+            If ReferenceEquals(_fields, null) Then
+                _fields = New FieldsClass()
+            End If
+            Return _fields
+        End Get
+    End Property
+    'Created/Updated: Mon 29-Mar-2010 20:57:41
     Public Shadows Class FieldsClass
         Inherits XPObject.FieldsClass
         Public Sub New()
@@ -158,13 +166,4 @@ Public Class PersistentObject1
             End Get
         End Property
     End Class
-    Public Shared Shadows ReadOnly Property Fields() As FieldsClass
-        Get
-            If ReferenceEquals(_fields, Nothing) Then
-                _fields = New FieldsClass()
-            End If
-            Return _fields
-        End Get
-    End Property
-    Private Shared _fields As FieldsClass
 End Class
