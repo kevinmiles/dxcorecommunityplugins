@@ -28,6 +28,17 @@ Here are some links to some of the plugins I have written:
  * [DX_PickFromListStringProvider]
  * [CR_Execute]
  * [CR_GenerateTest]
+ * [CR_ImplementBaseConstructors]
+ * [CR_JumpToImplementation]
+ * [CR_MethodPreview]
+ * [CR_MultiFileTemplates]
+ * [CR_Paste]
+ * [CR_SettingsMonitor]
+ * [DX_GuidGen]
+ * [DX_CustomCollapse]
+ * [DX_BackupSettings]
+
+
 </td></tr>
 </table>
 
