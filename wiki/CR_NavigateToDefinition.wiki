@@ -21,4 +21,4 @@ http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_NavigateToDefinition/C
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_NavigateToDefinition/CR_NavigateToDefinition/images/jump_to_navigate.png
 
-Original Author: Jorge Rowies
+Original Author: *[http://code.google.com/p/dxcorecommunityplugins/wiki/JorgeRowies Jorge Rowies]*
