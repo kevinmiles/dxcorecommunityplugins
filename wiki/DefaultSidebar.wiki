@@ -49,7 +49,8 @@
     * [CR_Initials]
     * [CR_MsdnBclHelp]
     * [DX_PickFromListStringProvider]
-    * [CR_Execute]
     * [DX_DirectOptions]
+ * Obsolete Plugins
+    * [CR_Execute]
 
 This not a comprehensive list
