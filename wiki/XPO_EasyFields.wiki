@@ -34,6 +34,10 @@ Place the caret on the Class name of your persistent object, bring up the Refact
 
 
 = History =
+  * Build 1053
+    * Implemented feature request by Robert to Update on Document Save (look under DevExpress > Options > Editor > XPO > EasyFields)
+    * Made replacing Fields Property and _Fields variable optional (to assist with StyleCop non-compliant ordering of Keywords on property, can change it once and XPO_EasyFields won't replace it)
+    * Fixed formatting issue in C#, now the code should format correctly
   * Build 1024
     * Fixed C# code having ReadOnly in front of properties
   * Build 1007
