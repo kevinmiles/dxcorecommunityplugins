@@ -18,13 +18,16 @@
     * [CR_StyleNinja] 
   * VS Dialog Replacements
     * [CR_QuickAddReference]
+  * Organizational Plugins
+    * [DX_CollapseFromEnd]
+    * DX_CustomCollapse
   * Navigation Plugins
     * [DX_MoveCode]
     * [CR_JumpToImplementation]
     * [CR_mdMarkerExtensions]
     * [CR_ShowFile]
   * Decorative Plugins
-    * [DX_CollapseFromEnd]
+    * [CR_MethodPreview]
     * [CR_MetricShader]
     * [MiniCodeColumn]
     * [CR_BlockPainterPlus]
@@ -41,6 +44,7 @@
   * XPO Plugins
     * [XPO_EasyFields]
   * Misc Plugins
+    * DX_GuidGen
     * [CR_SmartQuotes]
     * [CR_SmartGenerics]
     * [CollapseXMLComment]
@@ -50,6 +54,11 @@
     * [CR_MsdnBclHelp]
     * [DX_PickFromListStringProvider]
     * [DX_DirectOptions]
+    * CR_Paste
+    * CR_SettingsMonitor
+    * DX_BackupSettings 
+ * Specialist Plugins
+    * CR_MultiFileTemplates
  * Obsolete Plugins
     * [CR_Execute]
 
