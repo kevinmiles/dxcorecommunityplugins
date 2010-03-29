@@ -38,4 +38,4 @@ http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ExtractHqlNamedQuery/C
     * Assign the 'ExtractHqlNamedQuery' action to a key. (See [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Bind a Key in CodeRush])
     * Change the settings as needed in DevExpress options -> Editor -> Refactoring -> Extract Hql Named Query
 
-Original Author: Jorge Rowies
+Original Author: *[http://code.google.com/p/dxcorecommunityplugins/wiki/JorgeRowies Jorge Rowies]*
