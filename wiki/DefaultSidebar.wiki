@@ -33,8 +33,6 @@
     * [MiniCodeColumn]
     * [CR_BlockPainterPlus]
     * [DrawLinesBetweenMethods]
-    * [HighlightCurrentLineInEditor]
-    * [HighlightNonDisposedLocals]
   * Testing Plugins
     * [CR_CreateTestMethod]
     * [CR_GenerateTest]
@@ -62,6 +60,8 @@
     * [CR_MultiFileTemplates]
     * [DX_PickFromListStringProvider]
   * Obsolete Plugins
+    * [HighlightCurrentLineInEditor]
+    * [HighlightNonDisposedLocals]
     * [CR_Execute]
 
 This not a comprehensive list
