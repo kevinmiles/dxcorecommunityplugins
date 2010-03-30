@@ -49,9 +49,6 @@ namespace CR_Initials
             this.actInitials.Description = "Insert initials + date";
             this.actInitials.Image = ((System.Drawing.Bitmap)(resources.GetObject("actInitials.Image")));
             this.actInitials.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
-            this.actInitials.ToolbarItem.ButtonIsPressed = false;
-            this.actInitials.ToolbarItem.Caption = null;
-            this.actInitials.ToolbarItem.Image = null;
             this.actInitials.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actInitials_Execute);
             this.actInitials.CheckAvailability += new DevExpress.CodeRush.Core.CheckActionAvailabilityEventHandler(this.actInitials_CheckAvailability);
             // 
