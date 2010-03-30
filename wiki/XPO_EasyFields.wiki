@@ -44,6 +44,8 @@ Place the caret on the Class name of your persistent object, bring up the Refact
 
 
 = History =
+  * Build 1076
+    * Removed the "Nothing to do" feedback, got annoying when using the Update on Save feature
   * Build 1053
     * Implemented feature request by Robert to Update on Document Save (look under DevExpress > Options > Editor > XPO > EasyFields)
     * Made replacing Fields Property and _Fields variable optional (to assist with StyleCop non-compliant ordering of Keywords on property, can change it once and XPO_EasyFields won't replace it)
