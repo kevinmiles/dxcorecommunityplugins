@@ -228,11 +228,6 @@ Public Class XPO_EasyFields
             CodeRush.Hints.Settings.FeedbackBorderColor = NormalFeedbackBorderColor
             BigFeedback1.Text = "XPO FieldsClass Updated"
             BigFeedback1.Show()
-        Else
-            CodeRush.Hints.Settings.FeedbackFillColor = NormalFeedbackColor
-            CodeRush.Hints.Settings.FeedbackBorderColor = NormalFeedbackBorderColor
-            BigFeedback1.Text = "Nothing to do"
-            BigFeedback1.Show()
         End If
     End Sub
 
