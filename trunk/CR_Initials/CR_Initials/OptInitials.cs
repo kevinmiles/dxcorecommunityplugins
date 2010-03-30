@@ -12,11 +12,7 @@ using DevExpress.CodeRush.Core;
 namespace CR_Initials
 {
     public partial class OptInitials : DevExpress.CodeRush.Core.OptionsPage
-    {
-        const string STR_Preferences = "Preferences";
-        const string STR_DevInitials = "DevInitials";
-        const string STR_DevName = "DevName";
-        const string STR_FullNameComment = "Disabled";
+    {     
 
         public static string GetCategory()
         {
@@ -78,11 +74,12 @@ namespace CR_Initials
         /// <param name="ea"></param>
         /// <developer>Paul Mrozowski</developer>
         /// <created>08/07/2006</created>
-        private void OptInitials_CommitChanges(object sender, DevExpress.CodeRush.Core.OptionsPageStorageEventArgs ea)
+        private void OptInitials_CommitChanges(object sender, CommitChangesEventArgs ea)
         {
-            ea.Storage.WriteString(STR_Preferences, STR_DevName, this.txtDevName.Text);
-            ea.Storage.WriteString(STR_Preferences, STR_DevInitials, this.txtDevInitials.Text);
-            ea.Storage.WriteBoolean(STR_Preferences, STR_FullNameComment, this.chkFullname.Checked);
+            ea.Storage.WriteString(CR_Initials.STR_Preferences, CR_Initials.STR_DevName, this.txtDevName.Text);
+            ea.Storage.WriteString(CR_Initials.STR_Preferences, CR_Initials.STR_DevInitials, this.txtDevInitials.Text);
+            ea.Storage.WriteBoolean(CR_Initials.STR_Preferences, CR_Initials.STR_FullNameComment, this.chkFullname.Checked);
+            ea.Storage.WriteString(CR_Initials.STR_Preferences, CR_Initials.STR_DateFormat, this.txtDateFormat.Text);
         }
 
         /// <summary>
@@ -94,9 +91,11 @@ namespace CR_Initials
         /// <created>08/07/2006</created>
         private void OptInitials_PreparePage(object sender, OptionsPageStorageEventArgs ea)
         {
-            this.txtDevName.Text = ea.Storage.ReadString(STR_Preferences, STR_DevName);
-            this.txtDevInitials.Text = ea.Storage.ReadString(STR_Preferences, STR_DevInitials);
-            this.chkFullname.Checked = ea.Storage.ReadBoolean(STR_Preferences, STR_FullNameComment);
+            this.txtDevName.Text = ea.Storage.ReadString(CR_Initials.STR_Preferences, CR_Initials.STR_DevName);
+            this.txtDevInitials.Text = ea.Storage.ReadString(CR_Initials.STR_Preferences, CR_Initials.STR_DevInitials);
+            this.chkFullname.Checked = ea.Storage.ReadBoolean(CR_Initials.STR_Preferences, CR_Initials.STR_FullNameComment);
+            this.txtDateFormat.Text = ea.Storage.ReadString(CR_Initials.STR_Preferences, CR_Initials.STR_DateFormat);
+
         }
     }
 }

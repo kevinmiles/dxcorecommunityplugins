@@ -33,6 +33,8 @@ namespace CR_Initials
             this.chkFullname = new System.Windows.Forms.CheckBox();
             this.txtDevName = new System.Windows.Forms.TextBox();
             this.txtDevInitials = new System.Windows.Forms.TextBox();
+            this.txtDateFormat = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +59,7 @@ namespace CR_Initials
             // chkFullname
             // 
             this.chkFullname.AutoSize = true;
-            this.chkFullname.Location = new System.Drawing.Point(38, 97);
+            this.chkFullname.Location = new System.Drawing.Point(205, 64);
             this.chkFullname.Name = "chkFullname";
             this.chkFullname.Size = new System.Drawing.Size(173, 17);
             this.chkFullname.TabIndex = 2;
@@ -78,8 +80,27 @@ namespace CR_Initials
             this.txtDevInitials.Size = new System.Drawing.Size(67, 20);
             this.txtDevInitials.TabIndex = 4;
             // 
+            // txtDateFormat
+            // 
+            this.txtDateFormat.Location = new System.Drawing.Point(132, 97);
+            this.txtDateFormat.Name = "txtDateFormat";
+            this.txtDateFormat.Size = new System.Drawing.Size(100, 20);
+            this.txtDateFormat.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(57, 100);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Date Format:";
+            // 
             // OptInitials
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtDateFormat);
             this.Controls.Add(this.txtDevInitials);
             this.Controls.Add(this.txtDevName);
             this.Controls.Add(this.chkFullname);
@@ -101,5 +122,7 @@ namespace CR_Initials
         private System.Windows.Forms.CheckBox chkFullname;
         private System.Windows.Forms.TextBox txtDevName;
         private System.Windows.Forms.TextBox txtDevInitials;
+        private System.Windows.Forms.TextBox txtDateFormat;
+        private System.Windows.Forms.Label label1;
     }
 }
