@@ -1,27 +1,23 @@
 #summary Ways to provide feedback on the community plugins
 
 === Closed Comments === 
-
 We have decided to disable the comments in the community plugin wiki, as it is felt that they require too much maintenance, and are near useless once the number of comments goes beyond the first 4 or 5 entries. 
 
 Instead we would like to offer you some alternative means of communication with us:
 
 ==== Plugin Issues ==== 
+Please note that in most cases, the !DevExpress Support Center is not the correct location for submitting your issues regarding the community plugins. The authors of these plugins have no more access to the support center that you do. 
 
-Please note that in most cases, the DevExpress Support Center is not the correct location for submitting your issues regarding the community plugins. The authors of these plugins have no more access to the support center that you do. 
+Instead, if you have a particular issue with one of the plugins provided, then please consider checking through [http://code.google.com/p/dxcorecommunityplugins/issues/list this list of current issues] and if suitable [http://code.google.com/p/dxcorecommunityplugins/issues/entry adding a new one]
 
-Instead, if you have a particular issue with one of the plugins provided, then please consider opening up an issue on *this* site. 
-
-The Issues link at the top of the page should allow you to submit them so that we can track their progress. It's not as sophisticated as the DevExpress support center, but we'll do what we can :)
+This site is not as sophisticated as the !DevExpress Support Center, but we'll do what we can :)
 
 ==== DXCore Plugin Forum ==== 
-
 Additionally we have asked, and been granted, the kind permission of Developer Express, to use their [http://community.devexpress.com/forums/181.aspx 'DXCore Plugins' forum] for any discussions pertaining to the plugins on this site.
 
 So if you'd like to discuss bugs, existing features, suggestions for new plugins or just shoot the breeze and maybe talk about how various plugins achieve what they do... then please feel free to make yourself known in the forum, and we'll see what we can do to help you. 
 
 ==== Author Pages ====
-
 Finally in some cases, some authors may be willing to accept some form of direct communication. 
 
 In some cases the authors have put up pages on the wiki to let the world know a little more about themselves. These pages might serve as a place to list the plugins they have been involved in, or provide some contact information such as email address or links to their blogs or twitter account.
