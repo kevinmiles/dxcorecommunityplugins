@@ -12,7 +12,6 @@
     * [Refactor_Generalize]
     * [Refactor_Resolve]
   * Code Plugins
-    * [CR_ImplementBaseConstructors]
   * !CodeIssue Plugins
     * [CR_StackOverflowIssues]
     * [CR_StyleNinja] 
@@ -33,6 +32,7 @@
     * [MiniCodeColumn]
     * [CR_BlockPainterPlus]
     * [DrawLinesBetweenMethods]
+    * [HighlightCurrentLineInEditor]
   * Testing Plugins
     * [CR_CreateTestMethod]
     * [CR_GenerateTest]
@@ -60,8 +60,9 @@
     * [CR_MultiFileTemplates]
     * [DX_PickFromListStringProvider]
   * Obsolete Plugins
-    * [HighlightCurrentLineInEditor]
     * [HighlightNonDisposedLocals]
+    * [CR_ImplementBaseConstructors]
     * [CR_Execute]
+
 
 This not a comprehensive list
