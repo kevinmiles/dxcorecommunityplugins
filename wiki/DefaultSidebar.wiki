@@ -12,6 +12,7 @@
     * [Refactor_Generalize]
     * [Refactor_Resolve]
   * Code Plugins
+    * [DX_MoveCode]
   * !CodeIssue Plugins
     * [CR_StackOverflowIssues]
     * [CR_StyleNinja] 
@@ -21,7 +22,6 @@
     * [DX_CollapseFromEnd]
     * [DX_CustomCollapse]
   * Navigation Plugins
-    * [DX_MoveCode]
     * [CR_JumpToImplementation]
     * [CR_mdMarkerExtensions]
     * [CR_ShowFile]
