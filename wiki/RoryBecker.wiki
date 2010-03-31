@@ -58,3 +58,12 @@ Feel free to contact me about these plugins
  * Twitter: http://twitter.com/RoryBecker
  * Email: !RoryBecker@gmail.com
  * Blog: http://rorybecker.blogspot.com
+
+
+=== Stuff I want to fix on this site ===
+ * Rewrite InstallInstructions
+ * Rewrite DownloadInstructions
+ * Find slightly smaller graphics for buttons on plugin pages
+ * Write a better Front page
+   * Remove plugin lists
+   * Add graphical buttons for things like *Get Plugins*, *Get Source Code*, *Contribute Plugin* etc
