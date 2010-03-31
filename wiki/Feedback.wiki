@@ -1,4 +1,4 @@
-#summary Ways to provide feedback on the plugins
+#summary Ways to provide feedback on the community plugins
 
 === Closed Comments === 
 
@@ -6,13 +6,28 @@ We have decided to disable the comments in the community plugin wiki, as it is f
 
 Instead we would like to offer you some alternative means of communication with us:
 
-==== Author Pages ====
-In some cases the authors have put up pages on the wiki to let the world know a little more about themselves. These pages might serve as a place to list the plugins they have been involved in, or provide some contact information such as email address or links to their blogs or twitter account.
+==== Plugin Issues ==== 
 
-If such a page is available, it will usually be linked to, in the credits section of plugin wiki pages written by the relevant author.
+Please note that in most cases, the DevExpress Support Center is not the correct location for submitting your issues regarding the community plugins. The authors of these plugins have no more access to the support center that you do. 
+
+Instead, if you have a particular issue with one of the plugins provided, then please consider opening up an issue on *this* site. 
+
+The Issues link at the top of the page should allow you to submit them so that we can track their progress. It's not as sophisticated as the DevExpress support center, but we'll do what we can :)
 
 ==== DXCore Plugin Forum ==== 
 
 Additionally we have asked, and been granted, the kind permission of Developer Express, to use their [http://community.devexpress.com/forums/181.aspx 'DXCore Plugins' forum] for any discussions pertaining to the plugins on this site.
 
 So if you'd like to discuss bugs, existing features, suggestions for new plugins or just shoot the breeze and maybe talk about how various plugins achieve what they do... then please feel free to make yourself known in the forum, and we'll see what we can do to help you. 
+
+==== Author Pages ====
+
+Finally in some cases, some authors may be willing to accept some form of direct communication. 
+
+In some cases the authors have put up pages on the wiki to let the world know a little more about themselves. These pages might serve as a place to list the plugins they have been involved in, or provide some contact information such as email address or links to their blogs or twitter account.
+
+If such a page is available, it will usually be linked to, in the credits section of plugin wiki pages written by the relevant author.
+
+==== If all else fails ==== 
+
+Well if all else fails then you should probably contact me directly. My name is Rory Becker, I am the founder of this site, and my [RoryBecker author page (including various contact details) is here]
