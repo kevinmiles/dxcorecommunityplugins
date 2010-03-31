@@ -1,6 +1,8 @@
 #summary Sidebar
 #sidebar DefaultSidebar
 
+FAQ
+
   * Compatibility Plugins
     * [CR_ReSharperCompatibility] 
   * Refactoring Plugins
