@@ -67,3 +67,4 @@ Feel free to contact me about these plugins
  * Write a better Front page
    * Remove plugin lists
    * Add graphical buttons for things like *Get Plugins*, *Get Source Code*, *Contribute Plugin* etc
+   * Add page for [CR_ClassCleaner] plugin.
