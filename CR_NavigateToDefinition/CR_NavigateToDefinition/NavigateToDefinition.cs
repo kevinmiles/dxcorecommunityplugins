@@ -74,7 +74,7 @@ namespace CR_NavigateToDefinition
         navigateToDefinition(ea.Element);
     }
 
-    private IElement GetElementDeclaration(LanguageElement element)
+    private static IElement GetElementDeclaration(LanguageElement element)
     {
       IElement declaration;
 
@@ -89,14 +89,14 @@ namespace CR_NavigateToDefinition
       return null;
     }
 
-    private bool elementIsReference(LanguageElementType elementType)
+    private static bool elementIsReference(LanguageElementType elementType)
     {
       return (elementType == LanguageElementType.TypeReferenceExpression) ||
         (elementType == LanguageElementType.ElementReferenceExpression) ||
         (elementType == LanguageElementType.MethodReferenceExpression);
     }
 
-    private bool elementTypeIsSupported(LanguageElementType elementType)
+    private static bool elementTypeIsSupported(LanguageElementType elementType)
     {
       return (elementType == LanguageElementType.Class) ||
         (elementType == LanguageElementType.Interface) ||
@@ -106,10 +106,12 @@ namespace CR_NavigateToDefinition
         (elementType == LanguageElementType.Variable) ||
         (elementType == LanguageElementType.Parameter) ||
         (elementType == LanguageElementType.Const) ||
-        (elementType == LanguageElementType.InitializedVariable);
+        (elementType == LanguageElementType.InitializedVariable) ||
+        (elementType == LanguageElementType.ObjectCreationExpression) ||
+        (elementType == LanguageElementType.ImplicitVariable);
     }
 
-    private bool elementTypeIsNested(LanguageElementType elementType)
+    private static bool elementTypeIsNested(LanguageElementType elementType)
     {
       return (elementType == LanguageElementType.Property) ||
         (elementType == LanguageElementType.Method);
@@ -126,114 +128,186 @@ namespace CR_NavigateToDefinition
       {
         for (int i = 0; i < methodElement.Parameters.Count && !found; i++)
         {
-          if (methodElement.Parameters[i].Name.Equals(currMethodElement.Parameters[i].Name))
+          if (methodElement.Parameters[i].Type.IsIdenticalTo(currMethodElement.Parameters[i].Type))
           {
             found = true;
           }
-
         }
       }
 
       return found;
     }
 
+    private static IMemberElement getObjectCreationExpression_MemberElement(IObjectCreationExpression creationExp)
+    {
+      foreach (var child in creationExp.ObjectType.GetDeclaration().AllChildren)
+      {
+        IMethodElement childMethod = (child as IMethodElement);
+        if ((childMethod != null) && (childMethod.IsConstructor))
+        {
+          if (creationExp.Arguments.Count == childMethod.Parameters.Count)
+          {
+            if (creationExp.Arguments.Count == 0)
+              return childMethod;
+
+            for (int i = 0; i < childMethod.Parameters.Count; i++)
+            {
+              if (creationExp.Arguments[i].Is(childMethod.Parameters[i].Type.GetDeclaration() as ITypeElement))
+                return childMethod;
+            }
+          }
+        }
+      }
+
+      return null;
+    }
+
     private void navigateToDefinition(LanguageElement element)
     {
-      IElement declaration = GetElementDeclaration(element);
-
-      IMemberElement memberElement = declaration as IMemberElement;
-      if (memberElement == null)
+      try
       {
-        defaultGoToDefinition();
-        return;
-      }
+        IElement declaration = GetElementDeclaration(element);
 
-      IMemberElement nestedElement = null;
-      if (elementTypeIsNested(memberElement.ElementType))
-      {
-        nestedElement = memberElement;
-        memberElement = nestedElement.ParentType;
-      }
+        IMemberElement memberElement = null;
 
-      if (memberElement != null)
-      {
-        IElement e = null;
-
-        if (elementTypeIsLocal(memberElement.ElementType))
+        if (declaration != null)
         {
-          e = memberElement;
-        }
-        else
-        {
-          foreach (ProjectElement p in CodeRush.Source.ActiveSolution.AllProjects)
+          if (isImplicitVariableDeclarationType(declaration))
           {
-            e = p.FindElementByFullName(memberElement.FullName, true);
-            if (e != null)
-              break;
+            memberElement = ((ObjectCreationExpression)((ImplicitVariable)declaration).Expression).ObjectType.GetDeclaration() as IMemberElement;
           }
-        }
-
-        if (e != null)
-        {
-          SourceFile sourceFile = (e.FirstFile as SourceFile);
-          TextPoint point = e.NameRanges[0].Start;
-
-          if (nestedElement != null)
+          else if (declaration.ElementType == LanguageElementType.ObjectCreationExpression) //new SomeClass(...)
           {
-            bool found = false;
-
-            foreach (IElement currElement in e.AllChildren)
-            {
-
-              if ((currElement.ElementType == nestedElement.ElementType) &&
-                (currElement.FullName.Equals(nestedElement.FullName)))
-              {
-                var methodElement = nestedElement as IMethodElement;
-                var currMethodElement = currElement as IMethodElement;
-
-                if ((methodElement != null) && (currMethodElement != null))
-                {
-                  found = checkIfParametersAreTheSame(methodElement, currMethodElement);
-                  if (found)
-                    point = currElement.NameRanges[0].Start;
-                }
-                else
-                {
-                  point = currElement.NameRanges[0].Start;
-                  found = true;
-                }
-
-                if (found)
-                  break;
-              }
-            }
-
-            if (!found)
-              point = e.FindChildByName(nestedElement.Name).NameRanges[0].Start;
-
+            IObjectCreationExpression creationExp = declaration as IObjectCreationExpression;
+            memberElement = getObjectCreationExpression_MemberElement(creationExp);
+            if (memberElement == null)
+              memberElement = creationExp.ObjectType.GetDeclaration() as IMemberElement; //if can't find ctor, try at least to find the class
           }
-
-          if (dropMarker)
-            CodeRush.Markers.Drop(MarkerStyle.System);
-
-          CodeRush.File.Activate(sourceFile.FilePath);
-          
-          CodeRush.Caret.MoveTo(point);
-
-          if (showBeacon)
-            locatorBeacon1.Start(CodeRush.Documents.ActiveTextView, point.Line, point.Offset);
+          else
+            memberElement = declaration as IMemberElement;
         }
-        else
+
+        if (memberElement == null)
         {
           defaultGoToDefinition();
+          return;
         }
+
+        IMemberElement nestedElement = null;
+        if (elementTypeIsNested(memberElement.ElementType))
+        {
+          nestedElement = memberElement;
+          memberElement = nestedElement.ParentType;
+        }
+
+        if (memberElement != null)
+        {
+          IElement e = null;
+
+          if (elementTypeIsLocal(memberElement.ElementType))
+          {
+            e = memberElement;
+          }
+          else
+          {
+            foreach (ProjectElement p in CodeRush.Source.ActiveSolution.AllProjects)
+            {
+              e = p.FindElementByFullName(memberElement.FullName, true);
+              if (e != null)
+                break;
+            }
+          }
+
+          if (e != null)
+          {
+            SourceFile sourceFile = (e.FirstFile as SourceFile);
+            TextPoint point = e.NameRanges[0].Start;
+
+            if (nestedElement != null)
+            {
+              bool found = false;
+
+              var methodElement = nestedElement as IMethodElement;
+
+              foreach (IElement currElement in e.AllChildren)
+              {
+
+                if ((currElement.ElementType == nestedElement.ElementType) &&
+                  (currElement.FullName.Equals(nestedElement.FullName)))
+                {
+                  var currMethodElement = currElement as IMethodElement;
+
+                  if ((methodElement != null) && (currMethodElement != null))
+                  {
+                    found = checkIfParametersAreTheSame(methodElement, currMethodElement);
+                    if (found)
+                      point = currElement.NameRanges[0].Start;
+                  }
+                  else
+                  {
+                    point = currElement.NameRanges[0].Start;
+                    found = true;
+                  }
+
+                  if (found)
+                    break;
+                }
+              }
+
+              if (!found)
+              {
+                if ((methodElement != null) && (methodElement.IsConstructor))
+                {
+                  //must be default constructor (with no args), so jump to class instead
+                  point = e.NameRanges[0].Start;
+                }
+                else
+                  point = e.FindChildByName(nestedElement.Name).NameRanges[0].Start;
+              }
+
+            }
+
+            if (dropMarker)
+              CodeRush.Markers.Drop(MarkerStyle.System);
+
+            CodeRush.File.Activate(sourceFile.FilePath);
+
+            CodeRush.Caret.MoveTo(point);
+
+            if (showBeacon)
+              locatorBeacon1.Start(CodeRush.Documents.ActiveTextView, point.Line, point.Offset);
+          }
+          else
+          {
+            defaultGoToDefinition();
+          }
+        }
+      }
+      catch (Exception ex)
+      {
+        ShowException(ex);
       }
     }
 
-    private bool elementTypeIsLocal(LanguageElementType elementType)
+    private static bool isImplicitVariableDeclarationType(IElement element)
+    {
+      //if this is true, caret should be positioned over var keyword
+      return (element.ElementType == LanguageElementType.ImplicitVariable) &&
+        (((ImplicitVariable)element).Expression.ElementType == LanguageElementType.ObjectCreationExpression) &&
+        (DevExpress.CodeRush.Core.CodeRush.Caret.OnDeclarationType);
+    }
+
+    public static void ShowException(Exception ex)
+    {
+      MessageBox.Show(ex.ToString(), "Error in CR_NavigateToDefinition plugin", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
+
+    private static bool elementTypeIsLocal(LanguageElementType elementType)
     {
       return (elementType == LanguageElementType.Variable) ||
-        (elementType == LanguageElementType.InitializedVariable);
+        (elementType == LanguageElementType.InitializedVariable) ||
+        (elementType == LanguageElementType.ImplicitVariable) ||
+        (elementType == LanguageElementType.Parameter);
     }
 
     private void defaultGoToDefinition()
