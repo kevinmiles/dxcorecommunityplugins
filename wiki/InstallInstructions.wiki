@@ -1,28 +1,28 @@
 #summary Explains how to install the community plugins.
 #labels Featured,Phase-Deploy
 
-=Installation=
-Note: As pointed out in the comments, all plugins require [http://devexpress.com/Products/Visual_Studio_Add-in/DXCore/ The DXCore] to be installed first. 
+==== Prerequisites ====
+Plugins on this site all require:
+ * A non-express version of either VS2005 or VS2008
+ * A [http://devexpress.com/Products/Visual_Studio_Add-in/DXCore/ DXCore] based product (DXCore, [http://devexpress.com/coderush CodeRush], [http://devexpress.com/crx CodeRush Xpress] or [http://devexpress.com/refactor RefactorPro])
+   * The required version of these products varies. We generally recommend trying to stay as current as possible
 
-To install any of these plugins, download the relevant binary (DownloadInstructions) and then...
+=== Install ===
+*Note: These instructions that the above products are already installed on your machine and that your DXCore version is 9.3.4 or higher.*
 
-  # Shut down all instances of Visual Studio.
-  # Place the downloaded plugin(s) into your DXCore plugin folder. 
-    * For DXCore 9.1.3 or later this path is likely `My docs\DevExpress\IDE Tools\Community\PlugIns`
-    * For DXCore 9.1.1, this path is likely `C:\Program Files\DevExpress 2009.1\IDETools\Community\Plugins\`
-  # Restart Visual Studio. The plugin(s) are now installed.
 
-Note: The latest DXCore provides an option to change the location of your plugin folder.
-Follow these steps to get to the 'Settings' options page:
--------------------------------------------------------------
- # From the DevExpress menu, select "Options...". (If using CodeRush Xpress use Ctrl+Shift+Alt+O.
- # In the tree view on the left, navigate to "Core"
- # Select the "Settings" options page.
-   # Note: This page level is Advanced, and will only be visible if the Level combo on the lower-left of the Options dialog is set to Advanced or Expert.
--------------------------------------------------------------
+ # Download the latest zip of the plugin that you wish to install.
+   * Download links, on each plugin's wikipage are to a folder containing the latest Zip file and an archive folder which contains previous version.
+ # Determine the location of your community plugin folder
+   * Your community plugin folder defaults to `My docs\DevExpress\IDE Tools\Community\PlugIns`
+   * Your community plugin folder may have been reconfigured to be elsewhere. 
+   * It's current location can be determined from the Core\Settings [http://sites.google.com/site/coderushdocs/screens/options options page].  
+ # If updating a plugin already installed, please exit Visual Studio to ensure no files are locked.
+ # Extract the plugin dll from the Zip file into your community plugins folder
+ # Restart Visual Studio.
 
-=Usage=
+=== Usage ===
 Each plugin has its own usage instructions. See the [http://code.google.com/p/dxcorecommunityplugins/w/list wiki] for more on each individual plugin.
 
-=Frequently Asked Questions=
+=== FAQ ===
 For answers to some questions and some workarounds/info on known issues, check out the FrequentlyAskedQuestions page.
