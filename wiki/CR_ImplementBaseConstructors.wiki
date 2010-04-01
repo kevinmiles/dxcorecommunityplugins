@@ -1,22 +1,19 @@
 #summary Creates constructors for a class that call base constructors.
 #labels Phase-Support
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_ImplementBaseConstructors/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+
+*This plugin is considered obsolete since this functionality has since been added to CodeRush*
 
 = Introduction =
 
-TODO
+This plugin generates constructors in the current class for each constructor in the base class and populates these with code to call into the base constructors.
 
-= Installation =
-
-Installation instructions can be found on the InstallInstructions page.
 
 = Usage =
 
-TODO
-
-= Options =
-
-TODO
+This plugin is initiated as from the Code (SmartTag) menu 
 
 = Credits =
 
-Author: Rory Becker
+Author: RoryBecker
