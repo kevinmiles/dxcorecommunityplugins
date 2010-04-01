@@ -1,16 +1,16 @@
 #summary Shows the code of a method in a tooltip from any call site.
 
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_MethodPreview/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]    
+[http://tv.devexpress.com/CRMethodPreview.movie 
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Screencast.png]  [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+
 = Introduction =
 
 Provides an action 'ToggleMethodPreview' actionable from any method call whose source is available and provides that source as a preview window.
 
-= Installation =
-
- * [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_MethodPreview/ Download]
- * [InstallInstructions Install as usual]
+= Configuration =
  * Assign the 'ToggleMethodPreview' to a key. (see [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Binding a Key])
-
-An instructional screencast about this plugin is available from: http://tv.devexpress.com/CRMethodPreview.movie
 
 = Usage =
 
@@ -26,6 +26,6 @@ The plan is to limit this to the first n (defaulting to say 30) lines. However t
 
 = Credits =
 
-Original Author: Rory Becker
+Original Author: RoryBecker
 
 Idea by Neal Culiner (@ncsoftware) and Matthew MacSuga (@csharpbydesign)
