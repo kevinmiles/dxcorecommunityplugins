@@ -1,7 +1,4 @@
-#summary Ways to provide feedback on the community plugins
-
-There are a couple of ways to provide feedback on the plugins:
-
+#summary A couple of ways to provide feedback on the plugins:
 === Issues ===
 In most cases, the !DevExpress Support Center is *not* the correct location issues about our plugins. The authors of these plugins have no access to that site. 
 
