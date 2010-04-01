@@ -17,4 +17,4 @@ In order to avoid as much version confusion as possible, the version of each plu
 
 Because of the nature of the zip filenames, the download links point at the folder which contains the downloads, rather than at the zip file itself. This helps considerably when posting new versions.Prior versions of plugins are held in an archive folder beneath this folder.
 
-We do not currently support a single download containing all plugins. 
+We do not currently provide a download containing all plugins. 
