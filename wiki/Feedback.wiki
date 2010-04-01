@@ -2,15 +2,18 @@
 
 There are a couple of ways to provide feedback on the plugins:
 
-*Issues:* In most cases, the !DevExpress Support Center is *not* the correct location issues about our plugins. The authors of these plugins have no access to that site. 
+=== Issues ===
+In most cases, the !DevExpress Support Center is *not* the correct location issues about our plugins. The authors of these plugins have no access to that site. 
 
 If you have an issue with a community plugin, please check our [http://code.google.com/p/dxcorecommunityplugins/issues/list list of current issues] and if yours is not detailed then perhaps [http://code.google.com/p/dxcorecommunityplugins/issues/entry add a new one]
 
-*Forum:* Developer Express have been kind enough to allow us to use their [http://community.devexpress.com/forums/181.aspx 'DXCore Plugins' forum] for any discussions pertaining to the plugins on this site.
+=== Forum ===
+Developer Express have been kind enough to allow us to use their [http://community.devexpress.com/forums/181.aspx 'DXCore Plugins' forum] for any discussions pertaining to the plugins on this site.
 
 If you'd like to discuss bugs, existing features, suggestions or just shoot the breeze and talk about how various plugins achieve what they do... then please feel free to make yourself known in the forum, and we'll see what we can do to help you. 
 
-*Author Pages:* Some authors are happy to engage in some form of direct communication, and have created an author page (linked to from the credits section of relevant plugins). This page might contain contact information, such as email address or links to their blogs or twitter account. 
+=== Author Pages ===
+Some authors are happy to engage in some form of direct communication, and have created an author page (linked to from the credits section of relevant plugins). This page might contain contact information, such as email address or links to their blogs or twitter account. 
 
 === If all else fails ===
 Well if all else fails then you should probably contact me directly. My name is Rory Becker, I am the founder of this site, and [RoryBecker my author page is here]
