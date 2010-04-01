@@ -1,6 +1,0 @@
-#summary How to download the community plugins.
-#labels Phase-Deploy,Featured
-
-  * [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/ Download individual plugins from the suite.]
-  * [http://www.rorybecker.me.uk/DevExpress/Plugins/CommunitySuite/ Download the entire suite.]
-  * [http://www.rorybecker.me.uk/DevExpress/Plugins/3rdParty/BinaryOnlyPlugins/ Download additional plugins not in the suite.]
