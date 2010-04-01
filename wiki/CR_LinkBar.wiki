@@ -1,4 +1,6 @@
 #summary Favorites bar for different arrangements of files (workspaces) in your solution.
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_LinkBar/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
 = Introduction =
 
