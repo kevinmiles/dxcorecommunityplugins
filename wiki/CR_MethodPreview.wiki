@@ -1,8 +1,7 @@
 #summary Shows the code of a method in a tooltip from any call site.
 
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_MethodPreview/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]    
-[http://tv.devexpress.com/CRMethodPreview.movie 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Screencast.png]  [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://tv.devexpress.com/CRMethodPreview.movie http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Screencast.png]  [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
 = Introduction =
