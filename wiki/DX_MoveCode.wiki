@@ -1,5 +1,6 @@
 #summary Provides 4 actions to enhance your ability to move code around.
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_MoveCode/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://tv.devexpress.com/CRMoveCode.movie http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Screencast.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 = Introduction =
 
 The 4 actions provided by this plugin, allow you to move code around more efficiently than before.
