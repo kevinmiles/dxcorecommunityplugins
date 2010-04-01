@@ -8,7 +8,7 @@ Plugins on this site all require:
    * The required version of these products varies. We generally recommend trying to stay as current as possible
 
 === Install ===
-*Note: These instructions that the above products are already installed on your machine and that your DXCore version is 9.3.4 or higher.*
+*Note: These instructions assume that the above products are already installed on your machine, and that your DXCore version is 9.3.4 or higher.*
 
 
  # Download the latest zip of the plugin that you wish to install.
