@@ -1,6 +1,7 @@
 #summary Highlights the currently active line in the editor.
 #labels Phase-Support
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/HighlightCurrentLineInEditor/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 = Introduction =
 
 This plugin (as it's name suggests) highlights the current line using 3 user configurable colors.
@@ -21,4 +22,4 @@ You can...
 
 = Credits =
 
-Author: Rory Becker
+Author: RoryBecker
