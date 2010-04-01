@@ -19,9 +19,6 @@ Here are some links to some of the plugins I have written:
  * [CR_ClearAllMarkers]
  * [CR_LinkBar]
 
- * [CR_GenerateTest]
- * [CR_JumpToImplementation]
-
 </td><td>
  * [CR_ReSharperCompatibility] 
  * [DX_CollapseFromEnd]
@@ -34,7 +31,6 @@ Here are some links to some of the plugins I have written:
  * [DX_GuidGen]
  * [DX_BackupSettings]
  * [HighlightCurrentLineInEditor]
- * [CR_Execute]
 
 </td></tr>
 </table>
@@ -46,10 +42,20 @@ These plugins are more experimental that the others.
  * [CR_Paste]
  * [DX_PickFromListStringProvider]
  * [CR_MultiFileTemplates]
+ * [CR_GenerateTest]
 </td>
 </tr>
 </table>
 
+These next plugins are considered obsolete, but their code remains as an example to others.
+<table border="0">
+<tr>
+<td valign="Top">
+ * [CR_JumpToImplementation]
+ * [CR_Execute]
+</td>
+</tr>
+</table>
 
 This is probably not a comprehensive list.
 
