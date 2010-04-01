@@ -1,29 +1,16 @@
 #summary Ways to provide feedback on the community plugins
 
-=== Closed Comments === 
-We have decided to disable the comments in the community plugin wiki, as it is felt that they require too much maintenance, and are near useless once the number of comments goes beyond the first 4 or 5 entries. 
+There are a couple of ways to provide feedback on the plugins:
 
-Instead we would like to offer you some alternative means of communication with us:
+*Issues:* In most cases, the !DevExpress Support Center is *not* the correct location issues about our plugins. The authors of these plugins have no access to that site. 
 
-==== Plugin Issues ==== 
-Please note that in most cases, the !DevExpress Support Center is not the correct location for submitting your issues regarding the community plugins. The authors of these plugins have no more access to the support center that you do. 
+If you have an issue with a community plugin, please check our [http://code.google.com/p/dxcorecommunityplugins/issues/list list of current issues] and if yours is not detailed then perhaps [http://code.google.com/p/dxcorecommunityplugins/issues/entry add a new one]
 
-Instead, if you have a particular issue with one of the plugins provided, then please consider checking through [http://code.google.com/p/dxcorecommunityplugins/issues/list this list of current issues] and if suitable [http://code.google.com/p/dxcorecommunityplugins/issues/entry adding a new one]
+*Forum:* Developer Express have been kind enough to allow us to use their [http://community.devexpress.com/forums/181.aspx 'DXCore Plugins' forum] for any discussions pertaining to the plugins on this site.
 
-This site is not as sophisticated as the !DevExpress Support Center, but we'll do what we can :)
+If you'd like to discuss bugs, existing features, suggestions or just shoot the breeze and talk about how various plugins achieve what they do... then please feel free to make yourself known in the forum, and we'll see what we can do to help you. 
 
-==== DXCore Plugin Forum ==== 
-Additionally we have asked, and been granted, the kind permission of Developer Express, to use their [http://community.devexpress.com/forums/181.aspx 'DXCore Plugins' forum] for any discussions pertaining to the plugins on this site.
+*Author Pages:* Some authors are happy to engage in some form of direct communication, and have created an author page (linked to from the credits section of relevant plugins). This page might contain contact information, such as email address or links to their blogs or twitter account. 
 
-So if you'd like to discuss bugs, existing features, suggestions for new plugins or just shoot the breeze and maybe talk about how various plugins achieve what they do... then please feel free to make yourself known in the forum, and we'll see what we can do to help you. 
-
-==== Author Pages ====
-Finally in some cases, some authors may be willing to accept some form of direct communication. 
-
-In some cases the authors have put up pages on the wiki to let the world know a little more about themselves. These pages might serve as a place to list the plugins they have been involved in, or provide some contact information such as email address or links to their blogs or twitter account.
-
-If such a page is available, it will usually be linked to, in the credits section of plugin wiki pages written by the relevant author.
-
-==== If all else fails ==== 
-
-Well if all else fails then you should probably contact me directly. My name is Rory Becker, I am the founder of this site, and my [RoryBecker author page (including various contact details) is here]
+=== If all else fails ===
+Well if all else fails then you should probably contact me directly. My name is Rory Becker, I am the founder of this site, and [RoryBecker my author page is here]
