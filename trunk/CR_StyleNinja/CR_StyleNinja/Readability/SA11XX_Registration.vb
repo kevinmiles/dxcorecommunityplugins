@@ -2,7 +2,7 @@
 Imports DevExpress.CodeRush.StructuralParser
 Imports DevExpress.CodeRush.Core
 
-Module SA14XX_Registration
+Module SA11XX_Registration
     Public Sub RegisterMaintainRulesAndFixes(ByVal C As IContainer)
         RegisterMaintainabilityRules(C)
         RegisterMaintainabilityFixes(C)
@@ -16,7 +16,6 @@ Module SA14XX_Registration
         C.CreateIssue("SA1405 - Must Provide Descriptive Message.", AddressOf Qualifies_SA1405, Message_SA1405, SourceTypeEnum.MethodCall)
         C.CreateIssue("SA1409 - Unnecessary Try..X Construct", AddressOf Qualifies_SA1409, Message_SA1409, SourceTypeEnum.Try)
     End Sub
-
     Private Sub RegisterMaintainabilityFixes(ByVal C As IContainer)
         ' SA1400
         C.CreateRefactoring("MakeVisibilityExplicit", "Make Visibility Explicit", AddressOf Fix_SA1400, AddressOf SA1400_Available).SolvedIssues.Add(Message_SA1400)
