@@ -1,5 +1,4 @@
-#summary One-sentence summary of this page.
-=!CodeRush and DXCore Community Plugins=
+===!CodeRush and DXCore Community Plugins===
 Welcome to our site. 
 This site is all about [http://www.devexpress.com/Downloads/NET/IDETools/DXCore/ DXCore] plugins.
 Plugins are assemblies designed to improve your visual studio experience. 
