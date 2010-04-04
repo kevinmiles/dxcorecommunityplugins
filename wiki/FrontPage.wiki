@@ -2,7 +2,7 @@
 Welcome to our site. 
 This site is all about [http://www.devexpress.com/Downloads/NET/IDETools/DXCore/ DXCore] plugins.
 Plugins are assemblies designed to improve your visual studio experience. 
-If you have a copy of [http://devexpress.com/Products/Visual_Studio_Add-in/Coding_Assistance/ CodeRush], [http://devexpress.com/Products/Visual_Studio_Add-in/Refactoring/ RefactorPro] or [http://www.devexpress.com/Products/Visual_Studio_Add-in/CodeRushX/ !CodeRush Xpress (FREE)] then you already have everything you need.
+If you have a copy of [http://devexpress.com/Products/Visual_Studio_Add-in/Coding_Assistance/ CodeRush], [http://devexpress.com/Products/Visual_Studio_Add-in/Refactoring/ RefactorPro] or [http://www.devexpress.com/Products/Visual_Studio_Add-in/CodeRushX/ CodeRush Xpress (FREE)] then you already have everything you need.
 
 You have a few options available:
 
