@@ -1,0 +1,37 @@
+#summary One-sentence summary of this page.
+=!CodeRush and DXCore Community Plugins=
+Welcome to our site. 
+This site is all about [http://www.devexpress.com/Downloads/NET/IDETools/DXCore/ DXCore] plugins.
+Plugins are assemblies designed to improve your visual studio experience. 
+If you have a copy of [http://devexpress.com/Products/Visual_Studio_Add-in/Coding_Assistance/ CodeRush], [http://devexpress.com/Products/Visual_Studio_Add-in/Refactoring/ RefactorPro] or [http://www.devexpress.com/Products/Visual_Studio_Add-in/CodeRushX/ !CodeRush Xpress (FREE)] then you already have everything you need.
+
+You have a few options available:
+
+<table border="0">
+<tr>
+<td valign="Top">
+ [GetPlugins http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/GetPlugins.png]
+</td>
+<td valign="Top">
+ [GetSource http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/GetSource.png]
+</td>
+</tr>
+<tr>
+<td valign="Top">
+</td>
+<td valign="Top">
+</td>
+</tr>
+</table>
+
+Important Note: The plugins on this front page are not the only ones on this site. we have more... Just [http://code.google.com/p/dxcorecommunityplugins/w/list peruse the wiki]. Most (but not all) plugin pages are prefixed DX_ or CR_ and if you're feeling really brave you can even skip past the wiki and just go [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/ peruse the binary downloads] :) 
+
+
+We have some [http://code.google.com/p/dxcorecommunityplugins/wiki/PluginResources info on how to get started in creating a plugin]...
+
+...OR if you want to dive straight in, we have several existing plugins for the DXCore that add various functions to Visual Studio - from highlighting key elements on screen to refactoring help.
+
+It's also worth noting that we are not the only source of DXCore plugins. 
+There are [3rdPartyPlugins some others out there].
+
+
