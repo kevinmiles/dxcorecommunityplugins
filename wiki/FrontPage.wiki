@@ -10,10 +10,10 @@ You have a few options available:
 <table border="0">
 <tr>
 <td valign="Top">
- [GetPlugins http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/GetPlugins.png]
+ [http://code.google.com/p/dxcorecommunityplugins/wiki/GetPlugins http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/GetPlugins.png]
 </td>
 <td valign="Top">
- [GetSource http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/GetSource.png]
+ [http://code.google.com/p/dxcorecommunityplugins/wiki/GetSource http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/GetSource.png]
 </td>
 </tr>
 <tr>
@@ -33,5 +33,3 @@ We have some [http://code.google.com/p/dxcorecommunityplugins/wiki/PluginResourc
 
 It's also worth noting that we are not the only source of DXCore plugins. 
 There are [3rdPartyPlugins some others out there].
-
-
