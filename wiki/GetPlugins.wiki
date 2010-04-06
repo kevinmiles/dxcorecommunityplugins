@@ -18,3 +18,5 @@ In order to avoid as much version confusion as possible, the version of each plu
 Because of the nature of the zip filenames, the download links point at the folder which contains the downloads, rather than at the zip file itself. This helps considerably when posting new versions.Prior versions of plugins are held in an archive folder beneath this folder.
 
 We do not currently provide a download containing all plugins. 
+
+Important Note: The plugins listed on the left are not the only ones on this site. We have more... Just [http://code.google.com/p/dxcorecommunityplugins/w/list peruse the wiki]. Most (but not all) plugin pages are prefixed DX_ or CR_ and if you're feeling really brave you can even skip past the wiki and just go [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/ peruse the binary downloads] :) 
