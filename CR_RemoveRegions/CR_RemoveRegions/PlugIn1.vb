@@ -26,8 +26,8 @@ Public Class PlugIn1
     Public Sub CreateRemoveRegions()
         Dim RemoveRegions As New DevExpress.Refactor.Core.RefactoringProvider(components)
         CType(RemoveRegions, System.ComponentModel.ISupportInitialize).BeginInit()
-        RemoveRegions.ProviderName = "RemoveAllRegions" ' Should be Unique
-        RemoveRegions.DisplayName = "Remove Regions"
+        RemoveRegions.ProviderName = "RemoveFileRegions" ' Should be Unique
+        RemoveRegions.DisplayName = "Remove File Regions"
         AddHandler RemoveRegions.CheckAvailability, AddressOf RemoveRegions_CheckAvailability
         AddHandler RemoveRegions.Apply, AddressOf RemoveRegions_Execute
         CType(RemoveRegions, System.ComponentModel.ISupportInitialize).EndInit()
