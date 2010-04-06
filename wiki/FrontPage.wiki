@@ -9,16 +9,18 @@ You have a few options available:
 <table border="0">
 <tr>
 <td valign="Top">
- [http://code.google.com/p/dxcorecommunityplugins/wiki/GetPlugins http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/GetPlugins.png]
+ [http://code.google.com/p/dxcorecommunityplugins/wiki/Prerequisites http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Prerequisites.png]
 </td>
 <td valign="Top">
- [http://code.google.com/p/dxcorecommunityplugins/wiki/GetSource http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/GetSource.png]
+ [http://code.google.com/p/dxcorecommunityplugins/wiki/GetPlugins http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/GetPlugins.png]
 </td>
 </tr>
 <tr>
 <td valign="Top">
+ [http://code.google.com/p/dxcorecommunityplugins/wiki/GetSource http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/GetSource.png]
 </td>
 <td valign="Top">
+ [http://code.google.com/p/dxcorecommunityplugins/wiki/WritePlugin http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/WritePlugin.png]
 </td>
 </tr>
 </table>
