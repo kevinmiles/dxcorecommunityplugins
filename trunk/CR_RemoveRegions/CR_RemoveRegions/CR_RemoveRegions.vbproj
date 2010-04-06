@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>..\..\..\..\RoryData\Documents\DevExpress\IDE Tools\Community\PlugIns</OutputPath>
+    <OutputPath>..\..\..\..\..\RoryData\Documents\DevExpress\IDE Tools\Community\PlugIns\</OutputPath>
     <DocumentationFile>CR_RemoveRegions.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
@@ -37,7 +37,9 @@
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Refactor.core, Version=9.3.4.0, Culture=neutral, PublicKeyToken=3f8e338797a7a380, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Refactor.core, Version=9.3.4.0, Culture=neutral, PublicKeyToken=3f8e338797a7a380, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
