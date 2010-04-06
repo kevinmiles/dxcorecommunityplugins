@@ -9,18 +9,18 @@ You have a few options available:
 <table border="0">
 <tr>
 <td valign="Top">
- <a href="http://code.google.com/p/dxcorecommunityplugins/wiki/Prerequisites" title="Find out about the prerequisites for using the plugins on this site">http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Prerequisites.png</a>
+ <a href="http://code.google.com/p/dxcorecommunityplugins/wiki/Prerequisites" title="Find out about the prerequisites for using the plugins on this site">http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/ButtonsSlim/Prerequisites.png</a>
 </td>
 <td valign="Top">
- [http://code.google.com/p/dxcorecommunityplugins/wiki/GetPlugins http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/GetPlugins.png]
+ [http://code.google.com/p/dxcorecommunityplugins/wiki/GetPlugins http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/ButtonsSlim/GetPlugins.png]
 </td>
 </tr>
 <tr>
 <td valign="Top">
- [http://code.google.com/p/dxcorecommunityplugins/wiki/GetSource http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/GetSource.png]
+ [http://code.google.com/p/dxcorecommunityplugins/wiki/GetSource http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/ButtonsSlim/GetSource.png]
 </td>
 <td valign="Top">
- <a href="http://code.google.com/p/dxcorecommunityplugins/wiki/WritePlugin" title="Find out about resources to help you write your own plugin"> http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/WritePlugin.png</a>
+ <a href="http://code.google.com/p/dxcorecommunityplugins/wiki/WritePlugin" title="Find out about resources to help you write your own plugin"> http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/ButtonsSlim/WritePlugin.png</a>
 </td>
 </tr>
 </table>
