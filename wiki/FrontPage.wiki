@@ -9,7 +9,7 @@ You have a few options available:
 <table border="0">
 <tr>
 <td valign="Top">
- [http://code.google.com/p/dxcorecommunityplugins/wiki/Prerequisites http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Prerequisites.png]
+ <a href="http://code.google.com/p/dxcorecommunityplugins/wiki/Prerequisites" Title="TestTitle"> http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Prerequisites.png</a>
 </td>
 <td valign="Top">
  [http://code.google.com/p/dxcorecommunityplugins/wiki/GetPlugins http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/GetPlugins.png]
