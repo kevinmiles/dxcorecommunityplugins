@@ -1,0 +1,5 @@
+#summary Resources for Plugin authors
+
+= Placeholder info  =
+
+We have some [http://code.google.com/p/dxcorecommunityplugins/wiki/PluginResources info on how to get started in creating a plugin]...
