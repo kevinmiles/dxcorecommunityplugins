@@ -20,7 +20,7 @@ You have a few options available:
  [http://code.google.com/p/dxcorecommunityplugins/wiki/GetSource http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/ButtonsSlim/GetSource.png]
 </td>
 <td valign="Top">
- <a href="http://code.google.com/p/dxcorecommunityplugins/wiki/WritePlugin" title="Find out about resources to help you write your own plugin"> http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/ButtonsSlim/WritePlugin.png</a>
+ <a href="http://code.google.com/p/dxcorecommunityplugins/wiki/WritePlugins" title="Find out about resources to help you write your own plugin"> http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/ButtonsSlim/WritePlugins.png</a>
 </td>
 </tr>
 </table>
