@@ -26,15 +26,19 @@ Public Class PlugIn1
     Public Sub CreateRemoveRegions()
         Dim RemoveRegions As New DevExpress.Refactor.Core.RefactoringProvider(components)
         CType(RemoveRegions, System.ComponentModel.ISupportInitialize).BeginInit()
-        RemoveRegions.ProviderName = "RemoveRegions" ' Should be Unique
+        RemoveRegions.ProviderName = "RemoveAllRegions" ' Should be Unique
         RemoveRegions.DisplayName = "Remove Regions"
         AddHandler RemoveRegions.CheckAvailability, AddressOf RemoveRegions_CheckAvailability
         AddHandler RemoveRegions.Apply, AddressOf RemoveRegions_Execute
         CType(RemoveRegions, System.ComponentModel.ISupportInitialize).EndInit()
     End Sub
     Private Sub RemoveRegions_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
-        ea.Available = ea.Element.ElementType = LanguageElementType.Region
+        ea.Available = OnARegionDirective(ea)
     End Sub
+    Private Function OnARegionDirective(ByVal ea As CheckContentAvailabilityEventArgs) As Boolean
+        Dim CaretLine As String = ea.TextDocument.GetLine(ea.Caret.Line).Trim.ToLower
+        Return CaretLine.StartsWith("#region") OrElse CaretLine.StartsWith("#end region")
+    End Function
     Private Sub RemoveRegions_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
         Dim FileNode As SourceFile = If(ea.CodeActive.ElementType = LanguageElementType.SourceFile, ea.CodeActive, ea.CodeActive.FileNode)
         Dim RegionsInfile = FileNode.Regions
