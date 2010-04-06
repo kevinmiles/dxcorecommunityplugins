@@ -25,5 +25,21 @@ You have a few options available:
 </tr>
 </table>
 
+
 It's also worth noting that we are not the only source of DXCore plugins. 
 There are [3rdPartyPlugins some others out there].
+
+.... and now some pretty pictures :) I wonder why they're here.
+<table border="0">
+<tr>
+<td valign="Top">
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/EggHunt/TheGuIsA.jpg
+</td>
+<td valign="Top">
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/EggHunt/DesOeufs.jpg
+</td>
+<td valign="Top">
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/EggHunt/NotPointBut.jpg
+</td>
+</tr>
+</table>
