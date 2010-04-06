@@ -1,0 +1,9 @@
+#summary One-sentence summary of this page.
+
+==== Prerequisites ====
+Plugins on this site all require:
+ * A non-express version of either VS2005 or VS2008
+ * A [http://devexpress.com/Products/Visual_Studio_Add-in/DXCore/ DXCore] based product (DXCore, [http://devexpress.com/coderush CodeRush], [http://devexpress.com/crx CodeRush Xpress] or [http://devexpress.com/refactor RefactorPro])
+   * The required version of these products varies. We generally recommend trying to stay as current as possible.
+
+There are also several plugins that rely on version 3.5 SP1 of the .Net framework. This does not mean that you are required to have VS2008. You may instead choose to use VS2005 and simply install the .Net 3.5 runtime separately.
