@@ -1,14 +1,8 @@
 #summary Explains how to install the community plugins.
 #labels Featured,Phase-Deploy
 
-==== Prerequisites ====
-Plugins on this site all require:
- * A non-express version of either VS2005 or VS2008
- * A [http://devexpress.com/Products/Visual_Studio_Add-in/DXCore/ DXCore] based product (DXCore, [http://devexpress.com/coderush CodeRush], [http://devexpress.com/crx CodeRush Xpress] or [http://devexpress.com/refactor RefactorPro])
-   * The required version of these products varies. We generally recommend trying to stay as current as possible
-
 === Install ===
-*Note: These instructions assume that the above products are already installed on your machine, and that your DXCore version is 9.3.4 or higher.*
+*Note: These instructions assume that you have already installed the [Prerequisites] and that your DXCore version is 9.3.4 or higher.*
 
 
  # Download the latest zip of the plugin that you wish to install.
