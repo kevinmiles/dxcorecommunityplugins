@@ -12,6 +12,9 @@ Friend Module Enumerators
     Friend Function Elements(ByVal Scope As LanguageElement) As IEnumerable(Of LanguageElement)
         Return New ElementEnumerable(Scope, True).OfType(Of LanguageElement)()
     End Function
+    Friend Function Elements(Of T)(ByVal Scope As LanguageElement) As IEnumerable(Of LanguageElement)
+        Return New ElementEnumerable(Scope, GetType(T), True).OfType(Of LanguageElement)()
+    End Function
 
 
 #Region "Classes"
