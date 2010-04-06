@@ -2,7 +2,7 @@
 #labels Featured,Phase-Deploy
 
 === Install ===
-*Note: These instructions assume that you have already installed the [Prerequisites] and that your DXCore version is 9.3.4 or higher.*
+*Note: These instructions assume that you have already installed the* [Prerequisites] *and that your DXCore version is 9.3.4 or higher.*
 
 
  # Download the latest zip of the plugin that you wish to install.
