@@ -24,3 +24,6 @@ You have a few options available:
 </td>
 </tr>
 </table>
+
+It's also worth noting that we are not the only source of DXCore plugins. 
+There are [3rdPartyPlugins some others out there].
