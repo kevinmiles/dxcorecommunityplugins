@@ -9,7 +9,7 @@ You have a few options available:
 <table border="0">
 <tr>
 <td valign="Top">
- <a href="http://code.google.com/p/dxcorecommunityplugins/wiki/Prerequisites" title="Find out about the prerequisites for using the plugins on this site">http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/ButtonsSlim/Prerequisites.png</a>
+ <a href="http://code.google.com/p/dxcorecommunityplugins/wiki/Prerequisites" title="The prerequisites for using the plugins on this site">http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/ButtonsSlim/Prerequisites.png</a>
 </td>
 <td valign="Top">
  [http://code.google.com/p/dxcorecommunityplugins/wiki/GetPlugins http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/ButtonsSlim/GetPlugins.png]
@@ -20,17 +20,7 @@ You have a few options available:
  [http://code.google.com/p/dxcorecommunityplugins/wiki/GetSource http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/ButtonsSlim/GetSource.png]
 </td>
 <td valign="Top">
- <a href="http://code.google.com/p/dxcorecommunityplugins/wiki/WritePlugins" title="Find out about resources to help you write your own plugin"> http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/ButtonsSlim/WritePlugins.png</a>
+ <a href="http://code.google.com/p/dxcorecommunityplugins/wiki/WritePlugins" title="Resources to help you write your own plugin"> http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/ButtonsSlim/WritePlugins.png</a>
 </td>
 </tr>
 </table>
-
-Important Note: The plugins on this front page are not the only ones on this site. we have more... Just [http://code.google.com/p/dxcorecommunityplugins/w/list peruse the wiki]. Most (but not all) plugin pages are prefixed DX_ or CR_ and if you're feeling really brave you can even skip past the wiki and just go [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/ peruse the binary downloads] :) 
-
-
-We have some [http://code.google.com/p/dxcorecommunityplugins/wiki/PluginResources info on how to get started in creating a plugin]...
-
-...OR if you want to dive straight in, we have several existing plugins for the DXCore that add various functions to Visual Studio - from highlighting key elements on screen to refactoring help.
-
-It's also worth noting that we are not the only source of DXCore plugins. 
-There are [3rdPartyPlugins some others out there].
