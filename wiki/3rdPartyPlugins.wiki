@@ -1,4 +1,5 @@
 #summary Plugins by others that are not hosted here
+#labels Phase-Support
 
 = Introduction =
 
@@ -7,7 +8,8 @@ Others have written some and publish them on their own sites
 
 = Details =
 
- * [http://www.sturmnet.org/blog/2005/04/24/cr-electric-editing Oliver Sturm's Electric Editing] - Based on CodeRush, I created a plugin that lets me use some of the "electric" features I remember from Emacs: hungry delete and backspace and automatic newline insertion for the semicolon and the opening and closing curly braces.
- * [http://www.sturmnet.org/blog/2008/10/16/instant-gratification-for-developers Oliver Sturm's Instant Gratification] - With this plugin installed, every time you build a project successfully, Visual Studio will sing your praise.
-
- * [http://www.andrewconnell.com/blog/articles/ProductivityToolsForSharePointDevelopers.aspx Andrew Connell's VS CodeRush/Refactor Tools for SharePoint Developers]
+  * [http://www.sturmnet.org/blog/2005/04/24/cr-electric-editing Oliver Sturm's Electric Editing] - Based on !CodeRush, I created a plugin that lets me use some of the "electric" features I remember from Emacs: hungry delete and backspace and automatic newline insertion for the semicolon and the opening and closing curly braces.
+  * [http://www.sturmnet.org/blog/2008/10/16/instant-gratification-for-developers Oliver Sturm's Instant Gratification] - With this plugin installed, every time you build a project successfully Visual Studio will sing your praise.
+  * [http://www.andrewconnell.com/blog/articles/ProductivityToolsForSharePointDevelopers.aspx Andrew Connell's VS CodeRush/Refactor Tools for SharePoint Developers]
+  * [http://cr-documentor.googlecode.com CR_Documentor] - Allows you to preview your XML documentation comments as they'll be rendered in compiled help.
+  * [http://cr-codetweet.googlecode.com CR_CodeTweet] - Select some code in VS, right click, and send a link to that snippet on Twitter.
