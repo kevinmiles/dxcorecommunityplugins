@@ -44,4 +44,4 @@ Sorting with expressions may take some experimentation to get used to, but it ca
 
 = Credits =
 
-Author: Travis Illig
+Author: [http://code.google.com/u/travis.illig/ Travis Illig]
