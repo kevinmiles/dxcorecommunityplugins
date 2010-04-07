@@ -34,4 +34,4 @@ http://dxcorecommunityplugins.googlecode.com/svn/trunk/DX_ContextLab/screenshots
 
 = Credits =
 
-Author: Travis Illig
+Author: [http://code.google.com/u/travis.illig/ Travis Illig]
