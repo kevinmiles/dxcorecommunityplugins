@@ -44,4 +44,4 @@ Once installed and bound to a keyboard shortcut (as noted above):
 
 = Credits =
 
-Author: Travis Illig
+Author: [http://code.google.com/u/travis.illig/ Travis Illig]
