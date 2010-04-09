@@ -1,25 +1,22 @@
 #summary Provides an action to eliminate all Markers, without moving the caret anywhere.
 
-
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_ClearAllMarkers/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-= Introduction =
 
+=== Introduction ===
 A simple plugin which provides a single command for eliminating all current markers in the system.
 
-= Setup = 
+=== Setup ===
 Bind the "ClearAllMarkers" command to a key. I chose to bind to 'ESC'
 
-= Usage =
-
+=== Usage ===
   * Activate any time you like.
     * All markers should disappear.
     * Your caret should not move.
 
-= Why did I build this =
-
+=== Why did I build this ===
 Well for that you'll have to visit [http://rorybecker.blogspot.com/2009/06/crclearallmarkers.html my Blogpost] :)
 
 = Credits =
 
-Original Author: Rory Becker
+Original Author: RoryBecker
