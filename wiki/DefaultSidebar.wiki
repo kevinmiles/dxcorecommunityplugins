@@ -29,6 +29,8 @@
     * [CR_mdMarkerExtensions]
     * [CR_ShowFile]
     * [CR_NavigateToDefinition]
+    * [CR_ClearAllMarkers]
+    * [CR_MarkerCloseOnCollect]
   * Decorative Plugins
     * [CR_MethodPreview]
     * [CR_MetricShader]
