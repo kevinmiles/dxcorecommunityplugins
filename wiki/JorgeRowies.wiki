@@ -14,6 +14,7 @@ This is the list of plugins I've made so far, please feel free to report me any 
 <td valign="Top">
  * [CR_NavigateToDefinition]
  * [CR_ExtractHqlNamedQuery]
+ * [CR_MarkerCloseOnCollect]
 </td>
 </tr>
 </table>
