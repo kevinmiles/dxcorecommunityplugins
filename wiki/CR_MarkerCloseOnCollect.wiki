@@ -13,12 +13,15 @@ This can become very handy for those times when you hit F12 to navigate to the d
 = Screenshots =
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MarkerCloseOnCollect/CR_MarkerCloseOnCollect/images/screenshot1.png
+
 Current file is ExtractHqlNamedQuery.cs
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MarkerCloseOnCollect/CR_MarkerCloseOnCollect/images/screenshot2.png
+
 When we hit F12 over LinkedTextHelper class, the file LinkedTextHelper.cs becomes active and a marker is dropped in the previous file
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MarkerCloseOnCollect/CR_MarkerCloseOnCollect/images/screenshot3.png
+
 Launching the action 'MarkerCloseOnCollect' (I had it binded to Shift+ESC), the file LinkedTextHelper.cs is closed and the caret is positioned on the previously dropped marker
 
 Original Author: *[http://code.google.com/p/dxcorecommunityplugins/wiki/JorgeRowies Jorge Rowies]*
