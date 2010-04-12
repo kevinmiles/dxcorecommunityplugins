@@ -7,10 +7,10 @@ Friend Module Components
 #Region "Create Components"
     <Extension()> _
     Public Function CreateIssue(ByVal Components As IContainer, _
-                                ByVal IssueName As String, _
-                                ByVal Qualifies As QualifiesDelegate, ByVal Message As String, _
+                                ByVal IssueMessage As String, _
+                                ByVal Qualifies As QualifiesDelegate, _
                                 Optional ByVal SourceType As SourceTypeEnum = SourceTypeEnum.Unknown) As IssueProvider
-        Return CreateIssue(Components, IssueName, AddressOf New Checker(SourceType, Qualifies, Message).CheckCodeIssues)
+        Return CreateIssue(Components, IssueMessage, AddressOf New Checker(SourceType, Qualifies, IssueMessage).CheckCodeIssues)
     End Function
     <Extension()> _
     Public Function CreateIssue(ByVal Components As IContainer, ByVal IssueName As String, ByVal CheckIssues As CheckCodeIssuesDelegate) As IssueProvider
