@@ -9,7 +9,4 @@ Module HiddenDX
         End If
         Return str
     End Function
-
-
-
 End Module

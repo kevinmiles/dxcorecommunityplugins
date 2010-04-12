@@ -8,13 +8,13 @@ Namespace SA14XX
             RegisterFixes(C)
         End Sub
         Private Sub RegisterRules(ByVal C As IContainer)
-            C.CreateIssue("SA1400 - Must Declare Access Modifier.", AddressOf Qualifies_SA1400, Message_SA1400, SourceTypeEnum.VisibleItems)
-            C.CreateIssue("SA1401 - Field Must be Private.", AddressOf Qualifies_SA1401, Message_SA1401, SourceTypeEnum.Field)
-            C.CreateIssue("SA1402 - One Class to a File.", AddressOf Qualifies_SA1402, Message_SA1402, SourceTypeEnum.Class)
-            C.CreateIssue("SA1403 - One Namespace to a File.", AddressOf Qualifies_SA1403, Message_SA1403, SourceTypeEnum.Attribute)
-            C.CreateIssue("SA1404 - Must Justify Suppression.", AddressOf Qualifies_SA1404, Message_SA1404, SourceTypeEnum.Attribute)
-            C.CreateIssue("SA1405 - Must Provide Descriptive Message.", AddressOf Qualifies_SA1405, Message_SA1405, SourceTypeEnum.MethodCall)
-            C.CreateIssue("SA1409 - Unnecessary Try..X Construct", AddressOf Qualifies_SA1409, Message_SA1409, SourceTypeEnum.Try)
+            C.CreateIssue(Message_SA1400, AddressOf Qualifies_SA1400, SourceTypeEnum.VisibleItems)
+            C.CreateIssue(Message_SA1401, AddressOf Qualifies_SA1401, SourceTypeEnum.Field)
+            C.CreateIssue(Message_SA1402, AddressOf Qualifies_SA1402, SourceTypeEnum.Class)
+            C.CreateIssue(Message_SA1403, AddressOf Qualifies_SA1403, SourceTypeEnum.Attribute)
+            C.CreateIssue(Message_SA1404, AddressOf Qualifies_SA1404, SourceTypeEnum.Attribute)
+            C.CreateIssue(Message_SA1405, AddressOf Qualifies_SA1405, SourceTypeEnum.MethodCall)
+            C.CreateIssue(Message_SA1409, AddressOf Qualifies_SA1409, SourceTypeEnum.Try)
         End Sub
 
         Private Sub RegisterFixes(ByVal C As IContainer)

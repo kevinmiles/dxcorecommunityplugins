@@ -8,7 +8,7 @@ Namespace SA11XX
             RegisterFixes(C)
         End Sub
         Private Sub RegisterRules(ByVal C As IContainer)
-            '    C.CreateIssue("SA1400 - Must Declare Access Modifier.", AddressOf Qualifies_SA1400, Message_SA1400, SourceTypeEnum.VisibleItems)
+            C.CreateIssue(Message_SA1100, AddressOf Qualifies_SA1100, SourceTypeEnum.VisibleItems)
         End Sub
         Private Sub RegisterFixes(ByVal C As IContainer)
             '    ' SA1400
