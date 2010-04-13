@@ -5,15 +5,21 @@
 *Note: These instructions assume that you have already installed the* [Prerequisites] *and that your DXCore version is 9.3.4 or higher.*
 
 
- # Download the latest zip of the plugin that you wish to install.
-   * Download links, on each plugin's wikipage are to a folder containing the latest Zip file and an archive folder which contains previous version.
- # Determine the location of your community plugin folder
-   * Your community plugin folder defaults to `My docs\DevExpress\IDE Tools\Community\PlugIns`
-   * Your community plugin folder may have been reconfigured to be elsewhere. 
-   * It's current location can be determined from the Core\Settings [http://sites.google.com/site/coderushdocs/screens/options options page].  
- # If updating a plugin already installed, please exit Visual Studio to ensure no files are locked.
- # Extract the plugin dll from the Zip file into your community plugins folder
- # Restart Visual Studio.
+ # Download the latest zip containing the plugin that you wish to install. Each plugin's wiki page has a download link that takes you to a folder containing...
+   * The latest version of the plugin.
+   * An archive folder with previous versions of the plugin.
+ # Exit Visual Studio to ensure no files are locked.
+ # Determine the location of your DXCore community plugin folder.
+    * In versions before DXCore 9.1, this is typically something like: `C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins`
+    * In 9.1 and later, it's like:
+      * `C:\Documents and Settings\YOURUSERNAME\My Documents\DevExpress\IDE Tools\Community\PlugIns` *OR*
+      * `C:\Users\YOURUSERNAME\Documents\DevExpress\IDE Tools\Community\PlugIns` *OR*
+      * `C:\Program Files\DevExpress 2009.1\IDETools\Community\PlugIns` 
+   * Your community plugin folder *may have been reconfigured to be elsewhere*.
+   * Its current location can be determined from the Core\Settings [http://sites.google.com/site/coderushdocs/screens/options options page].  
+ # Extract the plugin DLL from the zip file you downloaded and save it in your community plugins folder.
+ # Right-click the plugin DLL, select "Properties," and on the "General" tab, click the "Unblock" button. This is required to enable DXCore to properly execute the code in the plugin.
+ # Restart Visual Studio. The new plugin should be available.
 
 === Usage ===
 Each plugin has its own usage instructions. See the [http://code.google.com/p/dxcorecommunityplugins/w/list wiki] for more on each individual plugin.
