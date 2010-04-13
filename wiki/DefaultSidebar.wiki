@@ -24,6 +24,7 @@
   * Organizational Plugins
     * [DX_CollapseFromEnd]
     * [DX_CustomCollapse]
+    * [DX_FormatOnSave]
   * Navigation Plugins
     * [CR_JumpToImplementation]
     * [CR_mdMarkerExtensions]
