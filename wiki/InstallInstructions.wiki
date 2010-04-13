@@ -10,8 +10,7 @@
    * An archive folder with previous versions of the plugin.
  # Exit Visual Studio to ensure no files are locked.
  # Determine the location of your DXCore community plugin folder.
-    * In versions before DXCore 9.1, this is typically something like: `C:\Program Files\Developer Express Inc\DXCore for Visual Studio .NET\2.0\Bin\Plugins`
-    * In 9.1 and later, it's like:
+    * This folder will most likely be a path like:
       * `C:\Documents and Settings\YOURUSERNAME\My Documents\DevExpress\IDE Tools\Community\PlugIns` *OR*
       * `C:\Users\YOURUSERNAME\Documents\DevExpress\IDE Tools\Community\PlugIns` *OR*
       * `C:\Program Files\DevExpress 2009.1\IDETools\Community\PlugIns` 
