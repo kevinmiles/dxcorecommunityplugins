@@ -111,8 +111,15 @@ namespace CR_NavigateToDefinition
         (elementType == LanguageElementType.ImplicitVariable);
     }
 
-    private static bool elementTypeIsNested(LanguageElementType elementType)
+    private static bool elementIsNested(IMemberElement element)
     {
+      LanguageElementType elementType = element.ElementType;
+
+      //if we are on a static field (or a constant that is not local), the element type is Variable, so we have to check if its a local variable 
+      //or not (if it's not, we have to treat the element as a nested element)
+      if ((elementType == LanguageElementType.Variable) && (element is IFieldElement) && !(element as IFieldElement).IsLocal)
+        return true;
+
       return (elementType == LanguageElementType.Property) ||
         (elementType == LanguageElementType.Method);
     }
@@ -166,6 +173,9 @@ namespace CR_NavigateToDefinition
     {
       try
       {
+        if (elementParentIsObjectCreationExpression(element))
+          element = element.Parent;
+
         IElement declaration = GetElementDeclaration(element);
 
         IMemberElement memberElement = null;
@@ -194,7 +204,7 @@ namespace CR_NavigateToDefinition
         }
 
         IMemberElement nestedElement = null;
-        if (elementTypeIsNested(memberElement.ElementType))
+        if (elementIsNested(memberElement))
         {
           nestedElement = memberElement;
           memberElement = nestedElement.ParentType;
@@ -204,7 +214,7 @@ namespace CR_NavigateToDefinition
         {
           IElement e = null;
 
-          if (elementTypeIsLocal(memberElement.ElementType))
+          if (elementIsLocal(memberElement))
           {
             e = memberElement;
           }
@@ -289,6 +299,14 @@ namespace CR_NavigateToDefinition
       }
     }
 
+    private bool elementParentIsObjectCreationExpression(LanguageElement element)
+    {
+      //the caret is over something like this "Class1 c1 = new Cla|ss1()"
+      return ((element.ElementType == LanguageElementType.TypeReferenceExpression) &&
+         (element.Parent != null) &&
+         (element.Parent.ElementType == LanguageElementType.ObjectCreationExpression));
+    }
+
     private static bool isImplicitVariableDeclarationType(IElement element)
     {
       //if this is true, caret should be positioned over var keyword
@@ -302,12 +320,15 @@ namespace CR_NavigateToDefinition
       MessageBox.Show(ex.ToString(), "Error in CR_NavigateToDefinition plugin", MessageBoxButtons.OK, MessageBoxIcon.Error);
     }
 
-    private static bool elementTypeIsLocal(LanguageElementType elementType)
+    private static bool elementIsLocal(IMemberElement element)
     {
+      LanguageElementType elementType = element.ElementType;
+
       return (elementType == LanguageElementType.Variable) ||
         (elementType == LanguageElementType.InitializedVariable) ||
         (elementType == LanguageElementType.ImplicitVariable) ||
-        (elementType == LanguageElementType.Parameter);
+        (elementType == LanguageElementType.Parameter) ||
+        (elementType == LanguageElementType.Const);
     }
 
     private void defaultGoToDefinition()

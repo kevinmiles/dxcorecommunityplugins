@@ -2,7 +2,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\devenv.exe</StartProgram>
-    <StartArguments>c:\VSProjects\Prueba1\ClassLibrary1\ClassLibrary1.sln</StartArguments>
+    <StartArguments>c:\VSProjects\dxcorecommunityplugins\CR_NavigateToDefinition\TestStuff\Solution1.sln</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <StartAction>Program</StartAction>
