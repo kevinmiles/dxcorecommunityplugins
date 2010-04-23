@@ -1,6 +1,8 @@
 #summary Plugin for sorting selected lines, optionally by regular expression.
 #labels Phase-Support
 
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_SortLines/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+
 = Introduction =
 
 I sort lines a lot in text editing. That's another feature Visual Studio didn't have that I wanted - the ability to sort lines. `CR_SortLines` adds a command ("Sort Lines") that you can bind to a keyboard shortcut (Ctrl+F9 is what I use) and will sort lines in the code editor.
