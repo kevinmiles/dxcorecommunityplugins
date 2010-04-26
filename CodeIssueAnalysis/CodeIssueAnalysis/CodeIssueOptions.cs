@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using DevExpress.CodeRush.Core;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
+using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
+using DevExpress.DXCore.Controls;
 
 namespace CodeIssueAnalysis
 {
@@ -31,12 +34,71 @@ namespace CodeIssueAnalysis
         private const string ExcludeKey = "Exclusion";
         private const string ExcludeContentKey = "ExcludeContent";
 
+        internal const string AllString = "All";
+        internal const string Separator = "----------------------------------------";
+        internal const string SaveString = "Save Layout And Filtering";
+        internal const string RemoveString = "Remove Layout And Filtering";
+
+        internal static string GetLayoutPath()
+        {
+            return new DevExpress.CodeRush.Common.DXCorePaths().CommunityPlugInsPath + Path.DirectorySeparatorChar + "CodeIssueAnalysisLayouts";
+        }
+
         internal static void SetupSettingsLists()
         {
             fileInclusions = CodeIssueOptions.GetInclusions();
             fileContentInclusions = CodeIssueOptions.GetContentInclusions();
             fileExclusions = CodeIssueOptions.GetExclusions();
             fileContentExclusions = CodeIssueOptions.GetContentExclusions();
+        }
+
+        internal static void UpdateLayoutsList(ComboBox layoutList, bool includeDefaultStrings, string layoutName)
+        {
+            UpdateLayoutsList(layoutList, includeDefaultStrings);
+            layoutList.SelectedItem = layoutName;
+        }
+
+        internal static void UpdateLayoutsList(ComboBox layoutList, bool includeDefaultStrings)
+        {
+            try
+            {
+                layoutList.Items.Clear();
+
+                if (Directory.Exists(GetLayoutPath()) == false)
+                    Directory.CreateDirectory(GetLayoutPath());
+
+                if (includeDefaultStrings)
+                    layoutList.Items.Add(AllString);
+
+                foreach (string file in Directory.GetFiles(GetLayoutPath(), "*.xml"))
+                {
+                    layoutList.Items.Add(Path.GetFileName(file));
+                }
+
+                if (includeDefaultStrings)
+                {
+                    layoutList.Items.Add(Separator);
+                    layoutList.Items.Add(SaveString);
+                    layoutList.Items.Add(RemoveString);
+                    layoutList.SelectedItem = AllString;
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Update Layout List Failed", "Failed to update the layout list");
+            }
+        }
+
+        internal static void LoadLayout(GridView view, string name)
+        {
+            try
+            {
+                view.RestoreLayoutFromXml(GetLayoutPath() + Path.DirectorySeparatorChar + name);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Load Layout Failed", "Failed to load the layout");
+            }
         }
 
         // DXCore-generated code...

@@ -13,6 +13,7 @@ using System.Data;
 using System.Collections.Generic;
 using System.IO;
 using System.Collections;
+using System.Reflection;
 
 namespace CodeIssueAnalysis
 {
@@ -37,6 +38,7 @@ namespace CodeIssueAnalysis
             base.InitializePlugIn();           
             gridView1.BestFitMaxRowCount = 50;
             CodeIssueOptions.SetupSettingsLists();
+            CodeIssueOptions.UpdateLayoutsList(cmbLayouts, true);
             worker = new IssueProcessor();
             worker.Results += OnResults;
             worker.Error += OnError;
@@ -70,12 +72,10 @@ namespace CodeIssueAnalysis
                 helper.SaveViewInfo();
                 gridControl1.DataSource = GetCodeIssuesDataTable();
                 helper.LoadViewInfo();
-
                 gridView1.Columns["Type"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;
                 gridView1.Columns["Solution"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;
                 gridView1.Columns["Project"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;
-                gridView1.Columns["Message"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;
-
+                gridView1.Columns["Message"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;                
                 gridView1.Columns["Source File"].Visible = false;
                 gridView1.Columns["Range"].Visible = false;
                 gridView1.Columns["Hash"].Visible = false;
@@ -235,6 +235,46 @@ namespace CodeIssueAnalysis
         {
             worker.RescanFileIssues(CodeRush.Source.ActiveSourceFile);
         }
+
+        private void cmbLayouts_SelectedValueChanged(object sender, EventArgs e)
+        {
+            
+            switch (cmbLayouts.SelectedItem.ToString())
+            {
+                case CodeIssueOptions.AllString:
+                    gridView1.RestoreLayoutFromStream(GetEmbeddedFile("All.xml"));
+                    break;
+                case CodeIssueOptions.SaveString:
+                    using (SaveLayout saveLayout = new SaveLayout(gridView1))
+                    {
+                        saveLayout.ShowDialog();
+
+                        if (saveLayout.DialogResult == DialogResult.OK)
+                            CodeIssueOptions.UpdateLayoutsList(cmbLayouts, true, saveLayout.saveName);
+                    }                    
+                    break;
+                case CodeIssueOptions.RemoveString:
+                    using (RemoveLayout removeLayout = new RemoveLayout())
+                    {
+                        removeLayout.ShowDialog();
+
+                        if (removeLayout.DialogResult == DialogResult.OK)
+                            CodeIssueOptions.UpdateLayoutsList(cmbLayouts, true);
+                    }                    
+                    break;
+                case CodeIssueOptions.Separator:
+                    break;
+                default:
+                    CodeIssueOptions.LoadLayout(gridView1, cmbLayouts.SelectedItem.ToString());
+                    break;
+            }
+        }
+
+        public static Stream GetEmbeddedFile(string fileName)
+        {
+            return Assembly.GetExecutingAssembly().GetManifestResourceStream(Assembly.GetExecutingAssembly().GetName().Name + "." + fileName);
+        }
+
         
     }
 }

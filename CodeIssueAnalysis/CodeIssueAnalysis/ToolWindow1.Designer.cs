@@ -41,7 +41,7 @@ namespace CodeIssueAnalysis
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.DXCore.Controls.XtraGrid.GridGroupSummaryItem gridGroupSummaryItem2 = new DevExpress.DXCore.Controls.XtraGrid.GridGroupSummaryItem();
+            DevExpress.DXCore.Controls.XtraGrid.GridGroupSummaryItem gridGroupSummaryItem1 = new DevExpress.DXCore.Controls.XtraGrid.GridGroupSummaryItem();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolWindow1));
             this.events = new DevExpress.DXCore.PlugInCore.DXCoreEvents(this.components);
             this.gridControl1 = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
@@ -53,6 +53,7 @@ namespace CodeIssueAnalysis
             this.btnFileIssues = new System.Windows.Forms.ToolStripButton();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.cmbLayouts = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -66,6 +67,10 @@ namespace CodeIssueAnalysis
             this.gridControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            // 
+            // 
+            // 
+            this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.Location = new System.Drawing.Point(0, 25);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
@@ -77,11 +82,11 @@ namespace CodeIssueAnalysis
             // gridView1
             // 
             this.gridView1.GridControl = this.gridControl1;
-            gridGroupSummaryItem2.DisplayFormat = "(Count = {0})";
-            gridGroupSummaryItem2.FieldName = "Type";
-            gridGroupSummaryItem2.SummaryType = DevExpress.DXCore.Controls.Data.SummaryItemType.Custom;
+            gridGroupSummaryItem1.DisplayFormat = "(Count = {0})";
+            gridGroupSummaryItem1.FieldName = "Type";
+            gridGroupSummaryItem1.SummaryType = DevExpress.DXCore.Controls.Data.SummaryItemType.Custom;
             this.gridView1.GroupSummary.AddRange(new DevExpress.DXCore.Controls.XtraGrid.GridSummaryItem[] {
-            gridGroupSummaryItem2});
+            gridGroupSummaryItem1});
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsFilter.MaxCheckedListItemCount = 2000;
@@ -91,7 +96,7 @@ namespace CodeIssueAnalysis
             // 
             // locatorBeacon1
             // 
-            this.locatorBeacon1.Color = System.Drawing.Color.SlateBlue;
+            this.locatorBeacon1.StepFactor = -1;
             // 
             // toolStrip1
             // 
@@ -161,10 +166,21 @@ namespace CodeIssueAnalysis
             this.btnCancel.Visible = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // cmbLayouts
+            // 
+            this.cmbLayouts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbLayouts.FormattingEnabled = true;
+            this.cmbLayouts.Location = new System.Drawing.Point(443, 2);
+            this.cmbLayouts.Name = "cmbLayouts";
+            this.cmbLayouts.Size = new System.Drawing.Size(177, 21);
+            this.cmbLayouts.TabIndex = 6;
+            this.cmbLayouts.SelectedValueChanged += new System.EventHandler(this.cmbLayouts_SelectedValueChanged);
+            // 
             // ToolWindow1
             // 
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.progressBar);
+            this.Controls.Add(this.cmbLayouts);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.gridControl1);
             this.Image = ((System.Drawing.Bitmap)(resources.GetObject("$this.Image")));
@@ -213,5 +229,6 @@ namespace CodeIssueAnalysis
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ToolStripButton btnFileIssues;
+        private System.Windows.Forms.ComboBox cmbLayouts;
     }
 }

@@ -11,9 +11,9 @@ using DevExpress.CodeRush.Common;
 [assembly: AssemblyTitle("CodeIssueAnalysis")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("NNC")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CodeIssueAnalysis")]
-[assembly: AssemblyCopyright("Copyright © NNC 2010")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using DevExpress.CodeRush.Common;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.1.1.1")]
-[assembly: AssemblyFileVersion("1.1.1.1")]
+[assembly: AssemblyVersion("1.0.1.1")]
+[assembly: AssemblyFileVersion("1.0.1.1")]
