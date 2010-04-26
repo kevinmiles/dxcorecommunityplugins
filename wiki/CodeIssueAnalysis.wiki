@@ -1,7 +1,7 @@
 #summary Summarises all code issues in a project or solution.
 
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CodeIssueAnalysis/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]            [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-===== Requires DXCore 10.1 =====
+===== Requires DXCore 10.1 since build 1195 =====
 = Introduction =
 
 This plugin assists developers by scanning all files in a project or solution for code issues. The code issues are listed in a grid within a tool window. The grid allows grouping, filtering and sorting of code issues by type, message, solution, project and file name.
