@@ -8,11 +8,22 @@ Namespace SA11XX
             RegisterFixes(C)
         End Sub
         Private Sub RegisterRules(ByVal C As IContainer)
-            C.CreateIssue(Message_SA1100, AddressOf Qualifies_SA1100, SourceTypeEnum.VisibleItems)
+            C.CreateIssue(Message_SA1100, AddressOf Qualifies_SA1100, GetType(BaseReferenceExpression))
+            C.CreateIssue(Message_SA1101, AddressOf Qualifies_SA1101, SourceTypeEnum.MethodCall)
         End Sub
         Private Sub RegisterFixes(ByVal C As IContainer)
-            '    ' SA1400
-            '    C.CreateRefactoring("MakeVisibilityExplicit", "Make Visibility Explicit", AddressOf Fix_SA1400, AddressOf SA1400_Available).SolvedIssues.Add(Message_SA1400)
+            ' SA1100
+            C.CreateRefactoring("Remove Base Reference",
+                                "Remove Base Reference",
+                                AddressOf Fix_SA1100,
+                                AddressOf Available_SA1100).SolvedIssues.Add(Message_SA1100)
+
+            ' SA1100
+            C.CreateRefactoring("Add self Reference",
+                                "Add self Reference",
+                                AddressOf Fix_SA1100,
+                                AddressOf Available_SA1100).SolvedIssues.Add(Message_SA1100)
+
         End Sub
     End Module
 End Namespace
