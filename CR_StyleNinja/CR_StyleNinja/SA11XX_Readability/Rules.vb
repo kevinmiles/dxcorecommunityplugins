@@ -17,22 +17,87 @@ Namespace SA11XX
         End Function
 #End Region
 
-        '#Region "SA1424"
-        '        Public Const Message_SA1124 As String = "SA1124 - Regions are bad"
-        '        Public Sub Available_SA1124(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
-        '            ea.Available = Qualifies_SA1124(ea.CodeActive)
-        '        End Sub
-        '        Public Function Qualifies_SA1124(ByVal Element As IElement) As Boolean
-        '            Dim TheTry = TryCast(Region, [Try])
-        '            If TheTry Is Nothing Then
-        '                Return False
-        '            End If
-        '            Return TheTry.NodeCount = 0 AndAlso TheTry.NextSibling.NodeCount = 0
-        '        End Function
-        '        Public Sub Fix_SA1124(ByVal sender As Object, ByVal ea As ApplyContentEventArgs)
-        '            ea.TextDocument.DeleteText(ea.CodeActive.GetFullBlockCutRange())
-        '        End Sub
-        '#End Region
+#Region "SA1100"
+        Public Const Message_SA1100 As String = "SA1100 - Do not prefix calls with Base or MyBase unless a local implementation exists."
+        Public Sub Available_SA1100(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
+            ea.Available = Qualifies_SA1100(ea.CodeActive)
+        End Sub
+        Public Function Qualifies_SA1100(ByVal Element As IElement) As Boolean
+            Dim Expression = TryCast(Element, BaseReferenceExpression)
+            If Expression Is Nothing Then
+                Return False
+            End If
+            Dim MethodReference = TryCast(Expression.Parent, MethodReferenceExpression)
+            Dim BaseMethod = MethodReference.GetMethod()
+            Dim LocalMethods = MethodReference.GetClass.AllMethods().Cast(Of Method)()
+            Dim LocalMethod = LocalMethods.Where(Function(m) m.IsOverride _
+                                                 AndAlso XOverridesY(m, BaseMethod)).FirstOrDefault
+            Return LocalMethod Is Nothing
+        End Function
+        Private Function XOverridesY(ByVal MethodX As Method, ByVal MethodY As Method) As Boolean
+            ' X IsOverride
+            If Not MethodX.IsOverride Then
+                Return False
+            End If
+            ' Name of X = Name of Y
+            If Not MethodX.Name = MethodY.Name Then
+                Return False
+            End If
+            ' Class Prep
+            Dim ClassX As [Class] = MethodX.GetClass
+            Dim ClassY As [Class] = MethodY.GetClass
+            ' ClassOf X descends from Class of Y
+            If Not ClassX.DescendsFrom(ClassY) Then
+                Return False
+            End If
+            ' Return Value of X = Return Value of Y
+            If Not MethodX.MemberType = MethodY.MemberType Then
+                Return False
+            End If
+            ' X Param Types = Y Param Types
+            If Not ParamStringOf(MethodX) = ParamStringOf(MethodY) Then
+                Return False
+            End If
+            Return True
+        End Function
+        Private Function ParamStringOf(ByVal Method As Method) As String
+            Dim Result As String = String.Empty
+            For Each Param As Parameter In Method.Parameters
+                Result &= Param.Type.Name & "|"
+            Next
+            Return Result
+        End Function
+
+        Public Sub Fix_SA1100(ByVal sender As Object, ByVal ea As ApplyContentEventArgs)
+            ea.TextDocument.DeleteText(ea.CodeActive.Range())
+        End Sub
+#End Region
+#Region "SA1101"
+        Public Const Message_SA1101 As String = "SA1101 - Prefix local calls this or Me."
+        Public Sub Available_SA1101(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
+            ea.Available = Qualifies_SA1101(ea.CodeActive)
+        End Sub
+        Public Function Qualifies_SA1101(ByVal Element As IElement) As Boolean
+            Dim MethodCall = TryCast(Element, MethodCall)
+            If MethodCall Is Nothing Then
+                Return False
+            End If
+            Dim Method = MethodCall.GetMethod()
+            ' Is Methodcall Local
+            If Not Method.GetClass Is MethodCall.GetClass Then
+                Return False
+            End If
+            ' Is MethodCall Prefixed with ThisReference
+            If Not MethodCall.Qualifier.IsIdenticalTo(New ThisReferenceExpression) Then
+                Return False
+            End If
+            Return True
+        End Function
+        Public Sub Fix_SA1101(ByVal sender As Object, ByVal ea As ApplyContentEventArgs)
+            Dim NewCode As String = CodeRush.CodeMod.GenerateCode((New ThisReferenceExpression)) + "."
+            ea.TextDocument.InsertText(ea.CodeActive.Range.Start, NewCode)
+        End Sub
+#End Region
         '        Private Function GetRegionsInRange(ByVal sourceFile As SourceFile, ByVal parent As LanguageElement, ByVal memberRange As SourceRange, ByRef newRegionsToAdd As StringCollection) As RegionDirectiveCollection
         '            Dim parentRange As SourceRange = parent.Range
         '            Dim result As RegionDirectiveCollection = New RegionDirectiveCollection()
@@ -67,3 +132,21 @@ Namespace SA11XX
     End Module
 End Namespace
 
+Public Class testbaseclass
+    Public Sub New()
+        
+    End Sub
+    Public Overridable Sub Method1()
+        Throw New System.NotImplementedException()
+    End Sub
+End Class
+Class TestClass
+    Inherits testbaseclass
+    Private Sub X()
+        Call MyBase.Method1()
+        Call Method1()
+    End Sub
+    Public Overrides Sub Method1()
+        Throw New System.NotImplementedException()
+    End Sub
+End Class

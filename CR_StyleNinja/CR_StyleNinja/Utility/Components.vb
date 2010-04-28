@@ -13,7 +13,16 @@ Friend Module Components
         Return CreateIssue(Components, IssueMessage, AddressOf New Checker(SourceType, Qualifies, IssueMessage).CheckCodeIssues)
     End Function
     <Extension()> _
-    Public Function CreateIssue(ByVal Components As IContainer, ByVal IssueName As String, ByVal CheckIssues As CheckCodeIssuesDelegate) As IssueProvider
+    Public Function CreateIssue(ByVal Components As IContainer, _
+                                ByVal IssueMessage As String, _
+                                ByVal Qualifies As QualifiesDelegate, _
+                                ByVal Type As Type) As IssueProvider
+        Return CreateIssue(Components, IssueMessage, AddressOf New Checker(Type, Qualifies, IssueMessage).CheckCodeIssues)
+    End Function
+    <Extension()> _
+    Public Function CreateIssue(ByVal Components As IContainer,
+                                ByVal IssueName As String,
+                                ByVal CheckIssues As CheckCodeIssuesDelegate) As IssueProvider
         Dim NewIssue As New IssueProvider(Components)
         CType(NewIssue, System.ComponentModel.ISupportInitialize).BeginInit()
         NewIssue.ProviderName = IssueName ' Should be Unique

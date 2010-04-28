@@ -27,7 +27,16 @@ Public Class Checker
     Private mQualifier As QualifiesDelegate
     Private mSourceType As SourceTypeEnum
     Private mExitStrategy As Func(Of Boolean)
+    Private mType As Type
+
     Public Delegate Function QualifiesDelegate(ByVal Element As IElement) As Boolean
+    Public Sub New(ByVal Type As Type, ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing)
+        mType = Type
+        mSourceType = SourceTypeEnum.Unknown
+        mIssueMessage = IssueMessage
+        mQualifier = Qualifier
+        mExitStrategy = ExitStrategy
+    End Sub
     Public Sub New(ByVal SourceType As SourceTypeEnum, ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing)
         mExitStrategy = ExitStrategy
         mSourceType = SourceType
@@ -72,6 +81,9 @@ Public Class Checker
         End If
         Return FoundItem.NameRange
     End Function
+    Private Function GetFinder(ByVal Scope As IElement, ByVal ElementType As IElement) As IEnumerable(Of LanguageElement)
+        Return Elements(Scope.ToLE, ElementType.GetType)
+    End Function
     Private Function GetFinder(ByVal Scope As IElement) As IEnumerable(Of LanguageElement)
         Select Case mSourceType
             Case SourceTypeEnum.Field
@@ -105,6 +117,8 @@ Public Class Checker
             Case Else
                 Return Elements(Scope.ToLE)
         End Select
+        'Dim X = Me.GetFinder(Scope)
+        'Dim Y = GetFinder(Scope)
 
     End Function
 
