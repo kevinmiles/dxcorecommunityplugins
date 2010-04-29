@@ -18,9 +18,9 @@ Namespace SA11XX
                                 AddressOf Fix_SA1100,
                                 AddressOf Available_SA1100).SolvedIssues.Add(Message_SA1100)
 
-            ' SA1100
-            C.CreateRefactoring("Add self Reference",
-                                "Add self Reference",
+            ' SA1101
+            C.CreateRefactoring("Add Instance Keyword",
+                                "Add Instance Keyword",
                                 AddressOf Fix_SA1100,
                                 AddressOf Available_SA1100).SolvedIssues.Add(Message_SA1100)
 
