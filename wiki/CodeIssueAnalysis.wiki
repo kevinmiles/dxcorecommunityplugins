@@ -37,7 +37,7 @@ http://img4.imageshack.us/img4/2633/settingsaa.png
 
 = Save Layout and Filtering =
 
-You can now save grid grouping and filtering however you like and save it for re-use using the drop down in the top right.
+You can now save grid grouping and filtering for re-use using the drop down in the top right.
 
 = Credits =
 Author: Peter Thorpe
