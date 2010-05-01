@@ -10,7 +10,7 @@ Files can be included or excluded from analysis based on their file name or cont
 
 *Double click a code issue to jump to it in code.*
 
-http://img21.imageshack.us/img21/3494/windowg.png
+http://img707.imageshack.us/img707/4308/codeissue.png
 
 = Usage =
 
@@ -19,6 +19,10 @@ Press the solution or project button to begin analysis. This may take some time 
 = Installation =
 
 Install by copying the CodeIssueAnalysis.dll to your dxcore plugins directory.
+
+= CodeRush Xpress Users/Keyboard Shortcut =
+
+Code Rush Xpress does not have the DevExpress menu to access the tool window. To work around this you can assign a keyboard shortcut to launch it. Follow the guide [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html here] on how to do this, the command is OpenCodeIssueAnalysis.
 
 = Options =
 
@@ -30,6 +34,10 @@ These options can be modified on the options page at:
 
 *Editor -> Code Analysis -> Code Issues Analysis*<br>
 http://img4.imageshack.us/img4/2633/settingsaa.png
+
+= Save Layout and Filtering =
+
+You can now save grid grouping and filtering however you like and save it for re-use using the drop down in the top right.
 
 = Credits =
 Author: Peter Thorpe
