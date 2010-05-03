@@ -25,7 +25,7 @@ There are some differences between XPO_EasyFields and XPOFieldSync
 
 = Configuration =
 
-[http://www.alfware.com.au/XPO_EasyFields_Options.PNG]
+[http://www.alfware.com.au/XPO_EasyFields_Options.png]
 
 There are currently 6 options (as per 1205)
 ==Update from Class Name Only==
