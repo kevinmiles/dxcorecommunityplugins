@@ -44,6 +44,14 @@ Place the caret on the Class name of your persistent object, bring up the Refact
 
 
 = History =
+  * Build 1205
+    * New option to Sync Non-Persistent properties (default: False)
+    * New option to include Inherited Members (default: True)
+    * New option to customise/disable Comment (default: True)
+    * Changed options screen to include new options
+    * Fixed issue with "Shadowed" Fields property
+    * Fixed issue with Structures not syncing
+    * Started implementing CollectionFieldsClass (still in progress)
   * Build 1076
     * Removed the "Nothing to do" feedback, got annoying when using the Update on Save feature
   * Build 1053
