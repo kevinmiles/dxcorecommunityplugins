@@ -3,7 +3,7 @@ Imports System.Reflection
 Imports System.Runtime.InteropServices
 Imports DevExpress.CodeRush.Common
 
-<Assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "DX_XPOSimplifier", PlugInLoadType.Demand, LoadAbilityType.LoadEnabled)>
+<Assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "XPO_EasyFields", PlugInLoadType.Demand, LoadAbilityType.LoadEnabled)> 
 
 ' General Information about an assembly is controlled through the following 
 ' set of attributes. Change these attribute values to modify the information
@@ -11,11 +11,11 @@ Imports DevExpress.CodeRush.Common
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("DX_XPOSimplifier")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("Microsoft")> 
-<Assembly: AssemblyProduct("DX_XPOSimplifier")> 
-<Assembly: AssemblyCopyright("Copyright © Microsoft 2010")> 
+<Assembly: AssemblyTitle("XPO_EasyFields")> 
+<Assembly: AssemblyDescription("DXCore plugin to performs updates on DevExpress XPO FieldsClass")> 
+<Assembly: AssemblyCompany("Michael Proctor")> 
+<Assembly: AssemblyProduct("XPO_EasyFields")> 
+<Assembly: AssemblyCopyright("Open Source")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>

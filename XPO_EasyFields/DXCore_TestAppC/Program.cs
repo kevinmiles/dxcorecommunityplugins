@@ -8,6 +8,8 @@ namespace DXCore_TestAppC
     {
         static void Main(string[] args)
         {
+            var something = Capture.Fields.Sessions.Sum(Capture.Fields.sTest, null);
+
         }
     }
 }

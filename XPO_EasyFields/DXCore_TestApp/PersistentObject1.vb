@@ -17,8 +17,54 @@ Public Class RelationType
 
     End Sub
 End Class
+
+Public Class BaseObject
+    Inherits XPObject
+
+    Private _createdOn As Date
+    Public Property CreatedOn() As Date
+        Get
+            Return _createdOn
+        End Get
+        Set(ByVal Value As Date)
+            SetPropertyValue("CreatedOn", _createdOn, Value)
+        End Set
+    End Property
+
+    Private _createdBy As Integer
+    Public Property CreatedBy() As Integer
+        Get
+            Return _createdBy
+        End Get
+        Set(ByVal Value As Integer)
+            SetPropertyValue("CreatedBy", _createdBy, Value)
+        End Set
+    End Property
+
+    'Created/Updated: PC-ALF\PC-ALF\Michael 3/05/2010 11:55 PM
+    Public Shadows Class FieldsClass
+        Inherits DevExpress.Xpo.XPObject.FieldsClass
+        Public Sub New()
+            MyBase.New()
+        End Sub
+        Public Sub New(ByVal propertyName As String)
+            MyBase.New(propertyName)
+        End Sub
+        Public ReadOnly Property CreatedOn() As DevExpress.Data.Filtering.OperandProperty
+            Get
+                Return New DevExpress.Data.Filtering.OperandProperty(GetNestedName("CreatedOn"))
+            End Get
+        End Property
+        Public ReadOnly Property CreatedBy() As DevExpress.Data.Filtering.OperandProperty
+            Get
+                Return New DevExpress.Data.Filtering.OperandProperty(GetNestedName("CreatedBy"))
+            End Get
+        End Property
+    End Class
+    Private Shared _fields As FieldsClass
+End Class
 Public Class PersistentObject1
-	Inherits XPObject
+    Inherits BaseObject
 
 	Public Sub New()
 		MyBase.New()
@@ -26,11 +72,6 @@ Public Class PersistentObject1
 		' Do not place any code here.			
 	End Sub
 
-	Public Sub New(ByVal session As Session)
-		MyBase.New(session)
-		' This constructor is used when an object is loaded from a persistent storage.
-		' Do not place any code here.			
-	End Sub
 
 	Public Overrides Sub AfterConstruction()
 		MyBase.AfterConstruction()
@@ -42,7 +83,7 @@ Public Class PersistentObject1
     Public Property PersistentTestProperty As String
         Get
             Return _persistentTestProperty
-        End Get
+        End Get 
         Set(ByVal Value As String)
             SetPropertyValue("PersistentTestProperty", _persistentTestProperty, Value)
         End Set
@@ -115,15 +156,15 @@ Public Class PersistentObject1
     Private Shared _fields As FieldsClass
     Public Shared Shadows ReadOnly Property Fields() As FieldsClass
         Get
-            If ReferenceEquals(_fields, null) Then
+            If ReferenceEquals(_fields, Nothing) Then
                 _fields = New FieldsClass()
             End If
             Return _fields
         End Get
     End Property
-    'Created/Updated: Mon 29-Mar-2010 20:57:41
+    'Created/Updated: PC-ALF\PC-ALF\Michael 3/05/2010 11:55 PM
     Public Shadows Class FieldsClass
-        Inherits XPObject.FieldsClass
+        Inherits DXCore_TestApp.BaseObject.FieldsClass
         Public Sub New()
             MyBase.New()
         End Sub
@@ -153,6 +194,11 @@ Public Class PersistentObject1
         Public ReadOnly Property Relations() As DevExpress.Data.Filtering.OperandProperty
             Get
                 Return New DevExpress.Data.Filtering.OperandProperty(GetNestedName("Relations"))
+            End Get
+        End Property
+        Public ReadOnly Property _persistentVariable() As DevExpress.Data.Filtering.OperandProperty
+            Get
+                Return New DevExpress.Data.Filtering.OperandProperty(GetNestedName("_persistentVariable"))
             End Get
         End Property
         Public ReadOnly Property PersistentVariable() As DevExpress.Data.Filtering.OperandProperty

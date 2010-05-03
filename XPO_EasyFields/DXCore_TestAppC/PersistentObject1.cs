@@ -33,6 +33,7 @@ namespace DXCore_TestAppC
         {
             get
             {
+                var myvar = new FieldsClass();
                 return _PersistentProperty;  
             }
             set
@@ -72,39 +73,6 @@ namespace DXCore_TestAppC
                 if (ReferenceEquals(_fields, null))
                     _fields = new FieldsClass();
                 return _fields;
-            }
-        }
-        //Created/Updated: Mon 29-Mar-2010 21:42:49
-        public new class FieldsClass : XPObject.FieldsClass
-        {
-            public FieldsClass()
-                : base()
-            {
-            }
-            public FieldsClass(string propertyName)
-                : base(propertyName)
-            {
-            }
-            public DevExpress.Data.Filtering.OperandProperty PersistentProperty
-            {
-                get
-                {
-                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("PersistentProperty"));
-                }
-            }
-            public DevExpress.Data.Filtering.OperandProperty NonPersistentProperty
-            {
-                get
-                {
-                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("NonPersistentProperty"));
-                }
-            }
-            public DXCore_TestAppC.PersistentObject1.FieldsClass PersistentReferenceProperty
-            {
-                get
-                {
-                    return new DXCore_TestAppC.PersistentObject1.FieldsClass(GetNestedName("PersistentReferenceProperty"));
-                }
             }
         }
     } 

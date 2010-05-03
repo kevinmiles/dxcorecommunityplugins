@@ -9,7 +9,7 @@ using ShepherdOaks.Business.Interfaces;
 namespace ShepherdOaks.Persistency
 {
     [Persistent("BusinessObjects")]
-    public class BusinessObject : XPCustomObject, IBusinessObject, IDXDataErrorInfo
+    public class BusinessObject : XPCustomObject
     {
         public BusinessObject() : base() { }
         public BusinessObject(Session session) : base(session) { }
@@ -87,6 +87,7 @@ namespace ShepherdOaks.Persistency
         }
 
         private DateTime _lastModifiedDate;
+        [NonPersistentAttribute]
         public DateTime LastModifiedDate
         {
             get { return _lastModifiedDate; }
@@ -108,7 +109,18 @@ namespace ShepherdOaks.Persistency
              
         }
 
-
+        private string _TestProperty;
+        public string TestProperty
+        {
+            get
+            {
+                return _TestProperty;
+            }
+            set
+            {
+                SetPropertyValue("TestProperty", ref _TestProperty, value);
+            }
+        }
         #region IBusinessObject Members
 
         IUser IBusinessObject.OwnerUser
@@ -171,8 +183,8 @@ namespace ShepherdOaks.Persistency
                 return _fields;
             }
         }
-        //Created/Updated: Mon 29-Mar-2010 20:57:39
-        public new class FieldsClass : XPCustomObject.FieldsClass
+        //Created/Updated: PC-ALF\PC-ALF\Michael 3/05/2010 11:47 PM
+        public new class FieldsClass : DevExpress.Xpo.XPCustomObject.FieldsClass
         {
             public FieldsClass()
                 : base()
@@ -181,27 +193,6 @@ namespace ShepherdOaks.Persistency
             public FieldsClass(string propertyName)
                 : base(propertyName)
             {
-            }
-            public DevExpress.Data.Filtering.OperandProperty OwnerUser
-            {
-                get
-                {
-                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("OwnerUser"));
-                }
-            }
-            public DevExpress.Data.Filtering.OperandProperty CreatedBy
-            {
-                get
-                {
-                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("CreatedBy"));
-                }
-            }
-            public DevExpress.Data.Filtering.OperandProperty LastModifiedBy
-            {
-                get
-                {
-                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("LastModifiedBy"));
-                }
             }
             public DevExpress.Data.Filtering.OperandProperty Documents
             {
@@ -259,11 +250,11 @@ namespace ShepherdOaks.Persistency
                     return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("IsSystem"));
                 }
             }
-            public DevExpress.Data.Filtering.OperandProperty Accessability
+            public DevExpress.Data.Filtering.OperandProperty TestProperty
             {
                 get
                 {
-                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Accessability"));
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("TestProperty"));
                 }
             }
         }
