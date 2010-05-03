@@ -37,7 +37,9 @@ Public Class PlugIn1
     End Sub
     Private Function OnARegionDirective(ByVal ea As CheckContentAvailabilityEventArgs) As Boolean
         Dim CaretLine As String = ea.TextDocument.GetLine(ea.Caret.Line).Trim.ToLower
-        Return CaretLine.StartsWith("#region") OrElse CaretLine.StartsWith("#end region")
+        Return CaretLine.StartsWith("#region") _
+            OrElse CaretLine.StartsWith("#end region") _
+            OrElse CaretLine.StartsWith("#endregion")
     End Function
     Private Sub RemoveRegions_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
         Dim FileNode As SourceFile = If(ea.CodeActive.ElementType = LanguageElementType.SourceFile, ea.CodeActive, ea.CodeActive.FileNode)
