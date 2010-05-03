@@ -25,9 +25,9 @@ There are some differences between XPO_EasyFields and XPOFieldSync
 
 = Configuration =
 
-[http://www.alfware.com.au/XPOEasyFieldsOptions.PNG]
+[http://www.alfware.com.au/XPO_EasyFields_Options.PNG]
 
-There are currently 3 options (as per 1053)
+There are currently 6 options (as per 1205)
 ==Update from Class Name Only==
 By default in the Refactor! menu that appears when you press your Refactor! key you can have the Command to perform the Update XPO FieldsClass anywhere within your persistent class, if you only want it available while the caret is within the Class Name you can tick this option.
 
@@ -36,6 +36,15 @@ This is pretty self-explanitory, when the document is saved, the Update XPO Fiel
 
 ==Don't replace Property/Variable==
 By default XPO_EasyFields will replace all code (ie. Fields property, _Fields variable and FieldsClass nested class) if you wish to make a slight change to your Fields property or _Fields variable (such as reordering the keywords of the property to comply with StyleCop) you can enable this option and if the Property or Variable are found it won't replace them.
+
+==Include Non-Persistent Properties==
+You can specifically ask XPO_EasyFields to include members that are marked Non-Persistent, this can be useful if you are using the Field references for other purposes such as databinding whereby you still need access to the field regardless if it is in the database or not.
+
+==Include Inherited Members==
+By default everything remains the same, however this allows you to have EasyFields generate the FieldsClass using the PersistentBase.FieldsClass as it's ancestor instead of it's inherited class. This might be handy if you want to have complete seperation of your objects. (Such as if you have CreatedBy, CreatedOn in a BusinessBaseObject which MySaleDataObject inherits from, you can either have CreatedBy exposed in the Fields property through MySaleDataObject, or have to explicitly use the BusinessBaseObject to obtain that fields.
+
+==Place a comment and custom format==
+This allow you to have your generated FieldsClass tagged when generated, allow you to easily identify when or possibly even who generated the class.
 
 = Usage =
 
