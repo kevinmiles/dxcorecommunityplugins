@@ -12,7 +12,7 @@
     <AssemblyName>XPO_EasyFields</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -68,6 +68,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -87,20 +90,33 @@
     <Import Include="System.Collections.Generic" />
     <Import Include="System.Data" />
     <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DXCoreXPOHelper.vb" />
-    <Compile Include="Properties\AssemblyInfo.vb" />
-    <Compile Include="XPO_EasyFields.Designer.vb">
-      <DependentUpon>XPO_EasyFields.vb</DependentUpon>
-    </Compile>
-    <Compile Include="XPO_EasyFields.vb">
+    <Compile Include="GrowLabel.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XPO_EasyFields_Options.Designer.vb">
-      <DependentUpon>XPO_EasyFields_Options.vb</DependentUpon>
+    <Compile Include="Helpers\Common.vb" />
+    <Compile Include="Helpers\Helper.vb" />
+    <Compile Include="Helpers\Settings.vb" />
+    <Compile Include="Helpers\XPO.vb">
     </Compile>
-    <Compile Include="XPO_EasyFields_Options.vb">
+    <Compile Include="Properties\AssemblyInfo.vb" />
+    <Compile Include="Properties\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="EasyFields.Designer.vb">
+      <DependentUpon>EasyFields.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EasyFields.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EasyFields_Options.Designer.vb">
+      <DependentUpon>EasyFields_Options.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EasyFields_Options.vb">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
@@ -130,8 +146,13 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="XPO_EasyFields_Options.resx">
-      <DependentUpon>XPO_EasyFields_Options.vb</DependentUpon>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EasyFields_Options.resx">
+      <DependentUpon>EasyFields_Options.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
