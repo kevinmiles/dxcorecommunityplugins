@@ -1,0 +1,11 @@
+#summary Some Text Here
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_ClassCleaner http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+
+=== Introduction ===
+
+=== Usage ===
+
+=== Options ===
+
+=== Credits ===
