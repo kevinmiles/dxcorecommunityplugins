@@ -9,7 +9,7 @@ Imports System.Runtime.CompilerServices
 
 Public Class PlugIn1
 #Region "Constants"
-    Private Const STR_VALIDCHARS As String = "1234567890ABCDEFGHIJKLMNOPRSTUVWXYZabcdefghijklmnopqrstuvwxyz>*+#"
+    Private Const STR_VALIDCHARS As String = ":>*+#1234567890ABCDEFGHIJKLMNOPRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 #End Region
 #Region "Usual DXCore magic"
 
@@ -59,12 +59,55 @@ Public Class PlugIn1
     End Sub
 #End Region
 
-    ' Break off first piece 
-    ' Analyse piece Count
-    ' For count from 1 to X
-    '     Expand piece
-    '     ProcessExpression(Remainder)
-
+#Region "Utils"
+#Region "ExpressionBreaking"
+    Private Function GetLeftPiece(ByVal Expression As String, ByVal Delimiter As Char) As String
+        Dim Pos As Integer = Expression.IndexOf(Delimiter)
+        Return If(Pos = -1, Expression, Expression.Substring(0, Pos))
+    End Function
+    Private Function GetRightPiece(ByVal Expression As String, ByVal Delimiter As Char) As String
+        Dim Pos As Integer = Expression.IndexOf(Delimiter)
+        Return If(Pos = -1, "", Expression.Substring(Pos + 1))
+    End Function
+#End Region
+#Region "SourcePointOps"
+    Private Function RestorePoint(ByVal SavedPoint As SourcePoint) As SourcePoint
+        CodeRush.Caret.MoveTo(SavedPoint)
+        Return SavedPoint
+    End Function
+    Private Function SavePoint(ByVal Point As SourcePoint, ByVal Document As TextDocument) As SourcePoint
+        Dim NewPoint As SourcePoint = New SourcePoint(Point)
+        NewPoint.BindToCode(Document, True)
+        Return NewPoint
+    End Function
+#End Region
+#Region "Zen Locations"
+    ''' <summary>Full range of the Zen Expression</summary>
+    Public Function ZenRange() As SourceRange
+        Dim StartLine As Integer = CodeRush.Caret.Line
+        Dim TheLine As String = CodeRush.Documents.ActiveTextDocument.GetLine(StartLine)
+        Dim LeftRight As Integer = LocateZenStart(TheLine)
+        Dim StartPoint As SourcePoint = New SourcePoint(StartLine, LeftRight)
+        Return New SourceRange(StartPoint, CodeRush.Caret.SourcePoint)
+    End Function
+    ''' <summary>Locates the Start of the Zen Expression</summary> 
+    Private Function LocateZenStart(ByVal Line As String) As Integer
+        For Position = Line.Count - 1 To 1 Step -1
+            If Not STR_VALIDCHARS.Contains(Line.Substring(Position, 1)) Then
+                'Position is the 0 based location of the first character with is illegal Zen
+                Return Position + 2 'The 1-based position of the last Zen Legal character.
+            End If
+        Next
+        Return 1
+    End Function
+#End Region
+#Region "TemplateOps"
+    ''' <summary>Locates First Template with given Name</summary>
+    Private Function GetFirstTemplateWithName(ByVal Part As String) As Template
+        Return CodeRush.Templates.Find(Part, False)(0)
+    End Function
+#End Region
+#End Region
 
     ''' <summary>Processes a single (sibling) expression</summary>
     Private Function ProcessExpression(ByVal Expression As String) As SourcePoint
@@ -74,13 +117,13 @@ Public Class PlugIn1
         Dim Count As Integer
         Dim Parent As String
         If Expression.Contains(">"c) Then
-            Dim ParentPiece = GetParentPiece(Expression)
-            'Dim Range = ProcessPiece(ParentPiece)
+            ' Break off leftmost piece 
+            Dim ParentPiece = GetLeftPiece(Expression, ">"c)
             Count = GetCount(ParentPiece, Parent)
             ' Split Expression
             For x = 1 To Count
                 Dim ParentRange = ExpandPiece(Parent)
-                Dim ChildExpression = GetChildPiece(Expression)
+                Dim ChildExpression = GetRightPiece(Expression, ">"c)
                 CaretPoint = ProcessChildExpression(ChildExpression, ParentRange, Count > 1)
             Next
         Else
@@ -117,6 +160,23 @@ Public Class PlugIn1
         Return Count
     End Function
     Private Function ExpandPiece(ByVal Piece As String) As SourceRange
+        Dim Attribute As String
+        If Piece.Contains("#"c) Then
+            Dim LeftPiece = GetLeftPiece(Piece, "#"c)
+            Dim RightPiece = GetRightPiece(Piece, "#"c)
+            If RightPiece = String.Empty Then
+                ' somehow allocate an Id to expanded item
+                Attribute = String.Format("id='{0}'", RightPiece)
+            End If
+        ElseIf Piece.Contains("."c) Then
+            Dim LeftPiece = GetLeftPiece(Piece, "."c)
+            Dim RightPiece = GetRightPiece(Piece, "."c)
+            If RightPiece = String.Empty Then
+                ' Generated a list of classes from Right
+                Attribute = String.Format("class='{0}'", RightPiece.Replace(".", " "))
+            End If
+        End If
+
         Dim Found As Template = GetFirstTemplateWithName(Piece)
         Dim ExpansionRange As SourceRange
         If Found IsNot Nothing Then
@@ -124,26 +184,7 @@ Public Class PlugIn1
         End If
         Return ExpansionRange
     End Function
-    Private Function GetParentPiece(ByVal Expression As String) As String
-        Dim Pos As Integer = Expression.IndexOf(">"c)
-        Return If(Pos = -1, Expression, Expression.Substring(0, Pos))
-    End Function
-    Private Function GetChildPiece(ByVal Expression As String) As String
-        Dim Pos As Integer = Expression.IndexOf(">"c)
-        Return If(Pos = -1, "", Expression.Substring(Pos + 1))
-    End Function
-
-
-    Private Function RestorePoint(ByVal SavedPoint As SourcePoint) As SourcePoint
-        CodeRush.Caret.MoveTo(SavedPoint)
-        Return SavedPoint
-    End Function
-    Private Function SavePoint(ByVal Point As SourcePoint, ByVal Document As TextDocument) As SourcePoint
-        Dim NewPoint As SourcePoint = New SourcePoint(Point)
-        NewPoint.BindToCode(Document, True)
-        Return NewPoint
-    End Function
-    Public Function ProcessPiece(ByVal Expression As String) As SourceRange
+    Private Function ProcessPiece(ByVal Expression As String) As SourceRange
         ' Piece defined for now as either div or div*5
         ' if Div then just expand and then call
         Dim LastRange As SourceRange = Nothing
@@ -159,29 +200,6 @@ Public Class PlugIn1
             End If
         Next
         Return LastRange
-    End Function
-#Region "Zen Locations"
-    ''' <summary>Full range of the Zen Expression</summary>
-    Public Function ZenRange() As SourceRange
-        Dim StartLine As Integer = CodeRush.Caret.Line
-        Dim TheLine As String = CodeRush.Documents.ActiveTextDocument.GetLine(StartLine)
-        Dim LeftRight As Integer = LocateZenStart(TheLine)
-        Dim StartPoint As SourcePoint = New SourcePoint(StartLine, LeftRight)
-        Return New SourceRange(StartPoint, CodeRush.Caret.SourcePoint)
-    End Function
-    ''' <summary>Locates the Start of the Zen Expression</summary> 
-    Private Function LocateZenStart(ByVal Line As String) As Integer
-        For Position = Line.Count - 1 To 1 Step -1
-            If Not STR_VALIDCHARS.Contains(Line.Substring(Position, 1)) Then
-                'Position is the 0 based location of the first character with is illegal Zen
-                Return Position + 2 'The 1-based position of the last Zen Legal character.
-            End If
-        Next
-    End Function
-#End Region
-    ''' <summary>Locates First Template with given Name</summary>
-    Private Function GetFirstTemplateWithName(ByVal Part As String) As Template
-        Return CodeRush.Templates.Find(Part, False)(0)
     End Function
 End Class
 Public Module ViewExt
