@@ -4,13 +4,13 @@
 
 = Introduction =
 
-This is a simple plugin and a set of key bindings (currently 34 listed below) designed to ease the process of moving from Resharper or just testing out Coderush and RefactorPro from a Resharper user's point of view.
+This is a simple plugin and a set of key bindings (listed below) designed to ease the process of moving from Resharper or just testing out !CodeRush and !RefactorPro from a Resharper user's point of view.
 
 = Additional Install Help =
 
-The shortcut xml files should be extracted to your Settings.xml\IDE folder. You can find the Settings.xml folder through the use of a button on the DevExpress 'About' dialog. Found on the DevExpress\About menu
+The shortcut xml files should be extracted to your Settings.xml\IDE folder. You can find the Settings.xml folder through the use of a button on the !DevExpress 'About' dialog. Found on the !DevExpress\About menu
 
-Also you can type "%AppData%\CodeRush for VS.Net\" into your address bar and hit [Enter] 
+Also you can type "%!AppData%\!CodeRush for VS.Net\" into your address bar and hit Enter
 
 = Support =
 Several Resharper functions are now supported:
