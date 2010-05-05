@@ -175,6 +175,8 @@ Public Class PlugIn1
                 ' Generated a list of classes from Right
                 Attribute = String.Format("class='{0}'", RightPiece.Replace(".", " "))
             End If
+        ElseIf Piece.Contains("["c) Then
+            Attribute = Piece.Contents("["c, "]"c)
         End If
 
         Dim Found As Template = GetFirstTemplateWithName(Piece)
@@ -208,5 +210,13 @@ Public Module ViewExt
     Public Function Expand(ByVal Source As Template) As SourceRange
         Dim View = CodeRush.TextViews.Active
         Return View.TextDocument.ExpandText(View.Caret.SourcePoint, Source.FirstItemInContext.Expansion)
+    End Function
+End Module
+Public Module StringExt
+    <Extension()> _
+    Public Function Contents(ByVal Source As String, ByVal StartChar As String, ByVal EndChar As String) As String
+        Dim StartPoint As Integer = Source.IndexOf(StartChar) + 1
+        Dim EndPoint As Integer = Source.IndexOf(EndChar) - 1
+        Return Source.Substring(StartPoint, EndPoint - StartPoint)
     End Function
 End Module
