@@ -18,8 +18,8 @@ Valid parameters include (but are not limited to): *Method*, *Namespace*, *Regio
  * Invoke the action whilst in a code file.
 
 === Notes ===
- - It is perfectly possible to create multiple bindings to different combinations.
- - a future version will allow an option to expand everything first, allowing you to switch between different schemes.
+ * It is perfectly possible to create multiple bindings to different combinations.
+ * a future version will allow an option to expand everything first, allowing you to switch between different schemes.
 
 === Credits ===
 
