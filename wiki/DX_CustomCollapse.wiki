@@ -6,14 +6,8 @@
 
 Provides an action "Custom Collapse", which you can [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html bind to a key]. This currently collapses everything in your file which is not a namespace, class, structure or region.
 
-Future plans include an options page to let you specify exactly wchi types of element are collapsed.
+Future plans include an options page to let you specify exactly which types of element are collapsed.
 
-=== Installation ===
-
-Installation instructions can be found on the InstallInstructions page.
-
-=== Download === 
-Primary download is http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_CustomCollapse
 === Usage ===
 
  * [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Bind to a key] to the "Custom Collapse" action
