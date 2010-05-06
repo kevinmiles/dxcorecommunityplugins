@@ -6,16 +6,20 @@
 
 Provides the "Custom Collapse" action, which allows you to [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html bind a key] which will then collapse a configured list of element Types in your file. 
 
-All collapsible DXCore LanguageElementTypes are supported. 
+All collapsible DXCore !LanguageElementTypes are supported. 
 Any parameters which do not match types considered collapsible by the DXCore, will be ignored.
 
-Valid parameters include (but are not limited to): Method, Namespace, Region, Property, Class, Struct and Interface
+Valid parameters include (but are not limited to): *Method*, *Namespace*, *Region*, *Property*, *Class*, *Struct* and *Interface*.
 
 === Usage ===
 
  * [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Bind to a key] to the "Custom Collapse" action
  * Configure the elements that you wish to collapse as a comma separated list in the parameters box.
  * Invoke the action whilst in a code file.
+
+=== Notes ===
+ - It is perfectly possible to create multiple bindings to different combinations.
+ - a future version will allow an option to expand everything first, allowing you to switch between different schemes.
 
 === Credits ===
 
