@@ -23,6 +23,6 @@ Valid parameters include (but are not limited to): *Method*, *Namespace*, *Regio
 
 === Credits ===
 
-[http://rorybecker.blogspot.com/ Rory Becker] contact me on twitter(@rorybecker) or via email (Rorybecker@gmail.com)
+Author: RoryBecker
 
 Concept and Naming by [http://www.technologies-dotnet.be Christian Ista aka Kris-I of http://www.technologies-dotnet.be]
