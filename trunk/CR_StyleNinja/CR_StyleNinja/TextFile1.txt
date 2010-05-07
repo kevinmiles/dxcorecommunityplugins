@@ -1,0 +1,44 @@
+﻿RP  = RefactoringProvider
+CP  = CodeProvider
+CIP = CodeIssueProvider
+AST = Abstract Syntax Tree
+
+-------------------------------------------------------------
+Refactoring Logic
+Availability
+ - RP.CheckAvailability is passed a CheckContentAvailabilityEventArgs(ea)
+ - ea.CodeActive is examined and assumed to be the element at which the caret is poistioned.
+ - Routine uses ea.CodeActive to determine if RP should be available and sets ea.Available accordingly
+
+Execute
+ - RP.Execute is passed an ApplyContentEventArgs(ea)
+ - ea.CodeActive is used as a reference point
+ - RP.Execute performs operations against the AST and emits / replaces code in one or more Textdocuments.
+-------------------------------------------------------------
+CodeIssueProvider Logic
+ - Code is altered
+ - CIP.CheckCodeIssues is fired and passed a CheckCodeIssuesEventArgs(ea)
+ - CIP.CheckCodeIssues uses ea.Scope as the scope in which to search for something to mark as an Issue
+ - ea.Addhint is used to mark SourceRanges witha message. This comprises the Issue
+
+ - A RP can be linked to an issue.
+ - This is done by adding the same message to RP.SolvedIssues as used for an Issue's ea.AddHint methodcall.
+ - Once linked, the RP is suggested as a potential fix for the Issue
+
+ - However in order to be available, the RP.CheckAvailability must determine ea.Available to be true.
+
+Questions
+
+I can see how the CheckContentAvailabilityEventArgs is filled when a caret is moved around the screen via mouse clicks or cursor keys.
+Hwo is it filled when 
+How is the CheckContentAvailabilityEventArgs filled when it is an Issue that trips it rather than a mouse clicking around a document
+
+
+I have had success by...
+...Creating a "function Test(Element as LanguageElement) as Boolean" 
+.......This Tester, Tests a LanguageElement against an Issue.
+...Assigning ea.Available = Tester(ea.CodeActive) inside CheckAvailability
+...Adding Hints to the ranges of any elements in EA.Scope which pass the Tester.
+
+When the issue indicates a range, 
+-------------------------------------------------------------
