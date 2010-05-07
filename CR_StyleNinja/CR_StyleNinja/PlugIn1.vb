@@ -22,6 +22,7 @@ Public Class PlugIn1
         SA11XX.RegisterRulesAndFixes(Components)
         SA13XX.RegisterRulesAndFixes(Components)
         SA14XX.RegisterRulesAndFixes(Components)
+        SA15XX.RegisterRulesAndFixes(Components)
     End Sub
 
 

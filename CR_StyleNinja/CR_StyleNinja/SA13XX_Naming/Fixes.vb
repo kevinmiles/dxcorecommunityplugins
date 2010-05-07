@@ -27,25 +27,25 @@ Namespace SA13XX
 #End Region
 #Region "RegisterRefactorings"
         Public Sub RegisterRefactorings(ByVal c As IContainer)
-            Dim UppercaseInitial = c.CreateRefactoring("UppercaseFirstChar", "Change first Character to Uppercase", AddressOf UppercaseFirstChar_Apply, AddressOf ShouldBeUppercased_Check)
+            Dim UppercaseInitial = c.CreateRefactoring("UppercaseFirstChar", "Change first Character to Uppercase", AddressOf ShouldBeUppercased_Check, AddressOf UppercaseFirstChar_Apply)
             UppercaseInitial.SolvedIssues.Add(Message_SA1300) ' MainElement and InitialLower
             UppercaseInitial.SolvedIssues.Add(Message_SA1304) ' NonPrivateField and InitialLower
             UppercaseInitial.SolvedIssues.Add(Message_SA1307) ' PublicOrInternalField and InitialLower
 
             '-----------------------------------------
-            Dim LowercaseInitial = c.CreateRefactoring("LowercaseFirstChar", "Change first Character to Lowercase", AddressOf LowercaseFirstChar_Apply, AddressOf ShouldBeLowercased_Check)
+            Dim LowercaseInitial = c.CreateRefactoring("LowercaseFirstChar", "Change first Character to Lowercase", AddressOf ShouldBeLowercased_Check, AddressOf LowercaseFirstChar_Apply)
             LowercaseInitial.SolvedIssues.Add(Message_SA1306) ' Not (NonPrivateField) and InitialUpper
 
             '-----------------------------------------
-            Dim PrefixNameWithI = c.CreateRefactoring("PrefixNameWithI", "Prefix name with 'I'", AddressOf PrefixNameWithI_Apply, AddressOf InterfaceNotPrefixedI_Check)
+            Dim PrefixNameWithI = c.CreateRefactoring("PrefixNameWithI", "Prefix name with 'I'", AddressOf InterfaceNotPrefixedI_Check, AddressOf PrefixNameWithI_Apply)
             PrefixNameWithI.SolvedIssues.Add(Message_SA1302)
 
             '-----------------------------------------
-            Dim RemoveHungarianPrefix = c.CreateRefactoring("RemoveHungarianPrefix", "Remove Hungarian Prefix", AddressOf RemoveHungarianPrefix_Apply, AddressOf PrefixedWithHungarian_Check)
+            Dim RemoveHungarianPrefix = c.CreateRefactoring("RemoveHungarianPrefix", "Remove Hungarian Prefix", AddressOf PrefixedWithHungarian_Check, AddressOf RemoveHungarianPrefix_Apply)
             RemoveHungarianPrefix.SolvedIssues.Add(Message_SA1305)
 
             '-----------------------------------------
-            Dim RemoveUnderscores = c.CreateRefactoring("RemoveUnderscores", "Remove Underscores", AddressOf RemoveUnderscores_Apply, AddressOf ContainsUnderscores_Check)
+            Dim RemoveUnderscores = c.CreateRefactoring("RemoveUnderscores", "Remove Underscores", AddressOf ContainsUnderscores_Check, AddressOf RemoveUnderscores_Apply)
             RemoveUnderscores.SolvedIssues.Add(Message_SA1309)
             RemoveUnderscores.SolvedIssues.Add(Message_SA1310)
 

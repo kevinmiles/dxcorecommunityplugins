@@ -19,11 +19,11 @@ Namespace SA14XX
 
         Private Sub RegisterFixes(ByVal C As IContainer)
             ' SA1400
-            C.CreateRefactoring("MakeVisibilityExplicit", "Make Visibility Explicit", AddressOf Fix_SA1400, AddressOf SA1400_Available).SolvedIssues.Add(Message_SA1400)
+            C.CreateRefactoring("MakeVisibilityExplicit", "Make Visibility Explicit", AddressOf SA1400_Available, AddressOf Fix_SA1400).SolvedIssues.Add(Message_SA1400)
             ' SA1401
-            C.CreateCodeProvider("MakeFieldPrivate", "Make Field Private", AddressOf Fix_SA1401, AddressOf Available_SA1401).SolvedIssues.Add(Message_SA1401)
+            C.CreateCodeProvider("MakeFieldPrivate", "Make Field Private", AddressOf Available_SA1401, AddressOf Fix_SA1401).SolvedIssues.Add(Message_SA1401)
             ' SA1409
-            C.CreateCodeProvider("RemoveTryX", "Remove Try..X", AddressOf Fix_SA1409, AddressOf Available_SA1409).SolvedIssues.Add(Message_SA1409)
+            C.CreateCodeProvider("RemoveTryX", "Remove Try..X", AddressOf Available_SA1409, AddressOf Fix_SA1409).SolvedIssues.Add(Message_SA1409)
         End Sub
     End Module
 End Namespace
