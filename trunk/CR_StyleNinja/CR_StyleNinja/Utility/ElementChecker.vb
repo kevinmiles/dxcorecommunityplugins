@@ -22,48 +22,29 @@ Public Enum SourceTypeEnum
     MethodCall
     [Try]
 End Enum
-Public Class Checker
+
+Public Class ElementChecker
     Private mIssueMessage As String
-    Private mQualifier As QualifiesDelegate
+    Private mQualifier As ElementQualifiesDelegate
     Private mSourceType As SourceTypeEnum
     Private mExitStrategy As Func(Of Boolean)
     Private mType As Type
 
-    Public Delegate Function QualifiesDelegate(ByVal Element As IElement) As Boolean
-    Public Sub New(ByVal Type As Type, ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing)
+    Public Delegate Function ElementQualifiesDelegate(ByVal Element As IElement) As Boolean
+    Public Sub New(ByVal Type As Type, ByVal Qualifier As ElementQualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing)
         mType = Type
         mSourceType = SourceTypeEnum.Unknown
         mIssueMessage = IssueMessage
         mQualifier = Qualifier
         mExitStrategy = ExitStrategy
     End Sub
-    Public Sub New(ByVal SourceType As SourceTypeEnum, ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing)
+    Public Sub New(ByVal SourceType As SourceTypeEnum, ByVal Qualifier As ElementQualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing)
         mExitStrategy = ExitStrategy
         mSourceType = SourceType
         mIssueMessage = IssueMessage
         mQualifier = Qualifier
     End Sub
-    'Public Shared Function AccessSpecifiedChecker(ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
-    '    Return New Checker(SourceTypeEnum.VisibleItems, Qualifier, IssueMessage, ExitStrategy)
-    'End Function
-    'Public Shared Function ParamChecker(ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
-    '    Return New Checker(SourceTypeEnum.Param, Qualifier, IssueMessage, ExitStrategy)
-    'End Function
-    'Public Shared Function LocalChecker(ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
-    '    Return New Checker(SourceTypeEnum.Local, Qualifier, IssueMessage, ExitStrategy)
-    'End Function
-    'Public Shared Function InterfaceChecker(ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
-    '    Return New Checker(SourceTypeEnum.Interface, Qualifier, IssueMessage, ExitStrategy)
-    'End Function
-    'Public Shared Function MainElementChecker(ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
-    '    Return New Checker(SourceTypeEnum.MainElement, Qualifier, IssueMessage, ExitStrategy)
-    'End Function
-    'Public Shared Function VariableChecker(ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
-    '    Return New Checker(SourceTypeEnum.Variable, Qualifier, IssueMessage, ExitStrategy)
-    'End Function
-    'Public Shared Function FieldChecker(ByVal Qualifier As QualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing) As Checker
-    '    Return New Checker(SourceTypeEnum.Field, Qualifier, IssueMessage, ExitStrategy)
-    'End Function
+
     Public Sub CheckCodeIssues(ByVal sender As Object, ByVal ea As CheckCodeIssuesEventArgs)
         If mExitStrategy IsNot Nothing AndAlso mExitStrategy.Invoke() Then
             Exit Sub
