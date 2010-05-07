@@ -4,10 +4,6 @@ Imports System.Windows.Forms
 Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
-
-Public Class Fred
-    Inherits Checker
-End Class
 Public Class LineChecker
     Private mIssueMessage As String
     Private mQualifier As LineQualifiesDelegate
@@ -31,7 +27,6 @@ Public Class LineChecker
                     End If
                 Next
             Next
-
         End If
     End Sub
 End Class
