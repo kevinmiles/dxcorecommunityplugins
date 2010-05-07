@@ -88,6 +88,10 @@
     <Import Include="System.Diagnostics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Copy of PlugIn1.Designer.vb">
+      <DependentUpon>Copy of PlugIn1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Copy of PlugIn1.vb" />
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
     </Compile>
