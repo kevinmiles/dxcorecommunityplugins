@@ -49,7 +49,7 @@ Public Class PlugIn1
         Using Action = CodeRush.Documents.ActiveTextDocument.NewCompoundAction("Expand Zen Expression")
             Dim Line As String = CodeRush.Documents.ActiveLine.Trim
             CodeRush.Documents.ActiveTextDocument.DeleteText(ZenRange)
-            Call ProcessFirstLevel(Line)
+            Call ProcessExpression(Line)
         End Using
     End Sub
 #End Region
@@ -106,30 +106,17 @@ Public Class PlugIn1
     End Sub
 #End Region
 
-    ' Start with Expression
-    ' Process From Parent To child
-
-
-    ''' <summary>Expands a zen expression at the caret</summary>
-    Private Sub ProcessSiblings(ByVal Source As String)
-        Dim Parts = Source.Split(CHAR_SiblingExpression)
-        For Each Part In Parts
-            Dim ExpressionPoint = ProcessFirstLevel(Part)
-            If Parts.Count > 1 Then
-                CodeRush.Caret.MoveTo(ExpressionPoint)
-            End If
-        Next
-    End Sub
     ''' <summary>Processes a single (sibling) expression</summary>
-    Private Function ProcessFirstLevel(ByVal Expression As String) As SourcePoint
+    Private Function ProcessExpression(ByVal Expression As String) As SourcePoint
         ' div>div+div>div*2+div*4 <-these are levels
         ' Break out first Level
         Dim TopLevel = GetTopmostLevel(Expression, CHAR_LevelIndicator)
         Dim RemainingLevels = GetRightPiece(Expression, CHAR_LevelIndicator)
         Dim Siblings = TopLevel.Split("+"c)
         Dim SiblingEndPoint As SourcePoint
-        For Each Sibling In Siblings
-            SiblingEndPoint = ExpandMultiplicity(Sibling, RemainingLevels)
+        For S As Integer = 0 To Siblings.Length - 1 Step 1
+            Dim Remainder = If(S < Siblings.Length - 1, "", RemainingLevels)
+            SiblingEndPoint = ExpandMultiplicity(Siblings(S), Remainder)
             If Siblings.Count > 1 Then
                 CodeRush.Caret.MoveTo(SiblingEndPoint)
             End If
@@ -142,11 +129,11 @@ Public Class PlugIn1
         Dim IsMultiplicity As Boolean = RepeatCount > 1
         Dim LastPoint As SourcePoint
         For x = 1 To RepeatCount
-            LastPoint = ExpandBasePiece(BasePiece).End
+            LastPoint = ExpandBasePiece(BasePiece, x).End
             Dim SavedPoint As SourcePoint = LastPoint
             If RemainingLevels.Length > 0 Then
                 SavedPoint = SavePoint(LastPoint, CodeRush.Documents.ActiveTextDocument)
-                ProcessFirstLevel(RemainingLevels)
+                ProcessExpression(RemainingLevels)
                 LastPoint = SavedPoint
             End If
             If IsMultiplicity Then
@@ -154,57 +141,6 @@ Public Class PlugIn1
             End If
         Next
         Return LastPoint
-    End Function
-    Private Sub PositionCaret(ByVal RangeEnd As SourcePoint, ByVal IsSequence As Boolean)
-        If IsSequence Then
-            ' Position for next element
-            CodeRush.Caret.MoveTo(RangeEnd)
-        Else
-            'Leave caret in current location
-        End If
-    End Sub
-    'Private Function OldProcessExpression(ByVal Expression As String) As SourcePoint
-    '    Dim CaretPoint As SourcePoint
-    '    Dim Count As Integer
-    '    Dim Parent As String
-    '    If Expression.Contains(CHAR_LevelIndicator) Then
-    '        ' Break off leftmost piece 
-    '        Dim TopLevel = GetTopmostLevel(Expression, CHAR_LevelIndicator)
-    '        Parent = ExtractBase(TopLevel, Count)
-    '        ' Split Expression
-    '        For x = 1 To Count
-    '            Dim ParentRange = ExpandBasePiece(Parent)
-    '            Dim ChildExpression = GetRightPiece(Expression, CHAR_LevelIndicator)
-    '            CaretPoint = ProcessChildExpression(ChildExpression, ParentRange, Count > 1)
-    '        Next
-    '    Else
-    '        Parent = ExtractBase(Expression, Count)
-    '        For x = 1 To Count
-    '            Dim ExpansionRange = ExpandBasePiece(Parent)
-    '            CaretPoint = ExpansionRange.End
-    '            If Count > 1 Then
-    '                CodeRush.Caret.MoveTo(CaretPoint)
-    '            End If
-    '        Next
-    '    End If
-    '    Return CaretPoint
-    'End Function
-    Private Function ProcessRemainingLevels(ByVal Expression As String, ByVal ParentRange As SourceRange, ByVal RestoreToEnd As Boolean) As SourcePoint
-        ' ok so this function is used to save our location prior to recursing a level further.
-        ' If our parentblock had a multiplier, then it will have been repeated.
-        ' Note the end of the parent block.
-        Dim CaretPoint As SourcePoint
-        Dim SavedPoint = SavePoint(ParentRange.End, CodeRush.Documents.ActiveTextDocument)
-        ' Recurse back into ProcessFirstLevel to process next level.
-        Call ProcessFirstLevel(Expression)
-        ' Recursion is finished. 
-        ' Restore to the end of the parent block.
-        RestoreToEnd = True
-        If RestoreToEnd Then
-            CodeRush.Caret.MoveTo(ParentRange.End)
-        End If
-        CaretPoint = RestorePoint(SavedPoint)
-        Return CaretPoint
     End Function
     Private Function ExtractBase(ByVal Source As String, ByRef Count As Integer) As String
         Dim Piece As String
@@ -217,7 +153,8 @@ Public Class PlugIn1
         End If
         Return Piece
     End Function
-    Private Function ExpandBasePiece(ByVal Piece As String) As SourceRange
+    Private Function ExpandBasePiece(ByVal Piece As String, ByVal Iteration As Integer) As SourceRange
+        SetTemplateVariable("ZenCount", If(Iteration > 0, CStr(Iteration), ""))
         Dim Attribute As String = String.Empty
         If Piece.Contains(CHAR_ID) Then
             Dim LeftPiece = GetTopmostLevel(Piece, CHAR_ID)
@@ -245,24 +182,8 @@ Public Class PlugIn1
             ExpansionRange = Found.Expand()
         End If
         SetTemplateVariable("ZenAttribute", "")
+        SetTemplateVariable("ZenCount", "")
         Return ExpansionRange
-    End Function
-    Private Function ProcessPiece(ByVal Expression As String) As SourceRange
-        ' Piece defined for now as either div or div*5
-        ' if Div then just expand and then call
-        Dim LastRange As SourceRange = Nothing
-        Dim Parts = Expression.Split("*"c)
-        Dim Count As Integer = If(Parts.Count = 1, 1, CInt(Parts(1)))
-        Dim Found As Template = GetFirstTemplateWithName(Parts(0))
-        For x = 1 To Count
-            If Found IsNot Nothing Then
-                LastRange = Found.Expand()
-                If Count > 1 Then
-                    CodeRush.Caret.MoveTo(LastRange.End)
-                End If
-            End If
-        Next
-        Return LastRange
     End Function
 End Class
 Public Module ViewExt
