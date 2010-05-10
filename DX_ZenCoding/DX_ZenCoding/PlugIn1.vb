@@ -125,11 +125,11 @@ Public Class PlugIn1
         ' div>div+div>div*2+div*4 <-these are levels
         ' Break out first Level
         Dim TopLevel = GetTopmostLevel(Expression, CHAR_LevelIndicator)
-        Dim Siblings = TopLevel.Split("+"c)
         Dim RemainingLevels = GetRightPiece(Expression, CHAR_LevelIndicator)
+        Dim Siblings = TopLevel.Split("+"c)
         Dim SiblingEndPoint As SourcePoint
         For Each Sibling In Siblings
-            SiblingEndPoint = ExpandMultiplicity(TopLevel, RemainingLevels)
+            SiblingEndPoint = ExpandMultiplicity(Sibling, RemainingLevels)
             If Siblings.Count > 1 Then
                 CodeRush.Caret.MoveTo(SiblingEndPoint)
             End If
@@ -147,6 +147,7 @@ Public Class PlugIn1
             If RemainingLevels.Length > 0 Then
                 SavedPoint = SavePoint(LastPoint, CodeRush.Documents.ActiveTextDocument)
                 ProcessFirstLevel(RemainingLevels)
+                LastPoint = SavedPoint
             End If
             If IsMultiplicity Then
                 CodeRush.Caret.MoveTo(SavedPoint)
