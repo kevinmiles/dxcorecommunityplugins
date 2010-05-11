@@ -9,19 +9,19 @@ Imports System.Runtime.CompilerServices
 
 Public Class PlugIn1
 #Region "Constants"
-    Private Const STR_VALIDCHARS As String = ".:>*+#1234567890ABCDEFGHIJKLMNOPRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    Private Const STR_VALIDCHARS As String = "$.:>*+#1234567890ABCDEFGHIJKLMNOPRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     Private Const CHAR_ID As Char = "#"c
     Private Const CHAR_Class As Char = "."c
     Private Const CHAR_LevelIndicator As Char = ">"c
     Private Const CHAR_SiblingExpression As Char = "+"c
 #End Region
 #Region "Usual DXCore magic"
-
     'DXCore-generated code...
 #Region " InitializePlugIn "
     Public Overrides Sub InitializePlugIn()
         MyBase.InitializePlugIn()
         CreateZenExpand()
+        CreateZenExpressionContext()
         'TODO: Add your initialization code here.
     End Sub
 #End Region
@@ -33,7 +33,27 @@ Public Class PlugIn1
     End Sub
 #End Region
 #End Region
-#Region "Initialize"
+#Region "ZenExpandContext"
+    Private Sub CreateZenExpressionContext()
+        Dim ZenContext As New DevExpress.CodeRush.Extensions.ContextProvider(components)
+        CType(ZenContext, System.ComponentModel.ISupportInitialize).BeginInit()
+        'ZenContext.Categor "Zen"
+        ZenContext.ProviderName = "ZenContext"
+        ZenContext.DisplayName = "Is Zen Expression"
+        ZenContext.Description = "Returns true if the caret is to the right of a Zen Expression"
+        ZenContext.ProviderName = "IsZenExpression"
+        ZenContext.Register = True
+
+        AddHandler ZenContext.ContextSatisfied, AddressOf ZenExpand_ContextSatisfied
+
+        CType(ZenContext, System.ComponentModel.ISupportInitialize).EndInit()
+    End Sub
+    Private Sub ZenExpand_ContextSatisfied(ByVal ea As ContextSatisfiedEventArgs)
+        Dim Line = CodeRush.Documents.ActiveLine.Trim
+        ea.Satisfied = Not Line.Contains(" "c) AndAlso (Line.Contains(">") OrElse Line.Contains("+"))
+    End Sub
+#End Region
+#Region "ZenExpandAction"
     ''' <summary>Create the ZenExpand action and add it to this plugin's components</summary>
     Public Sub CreateZenExpand()
         Dim ZenExpand As New DevExpress.CodeRush.Core.Action(components)
@@ -43,8 +63,6 @@ Public Class PlugIn1
         AddHandler ZenExpand.Execute, AddressOf ZenExpand_Execute
         CType(ZenExpand, System.ComponentModel.ISupportInitialize).EndInit()
     End Sub
-#End Region
-#Region "High level ZenExecute"
     Private Sub ZenExpand_Execute(ByVal ea As ExecuteEventArgs)
         Using Action = CodeRush.Documents.ActiveTextDocument.NewCompoundAction("Expand Zen Expression")
             Dim Line As String = CodeRush.Documents.ActiveLine.Trim
@@ -52,60 +70,6 @@ Public Class PlugIn1
             Call ProcessExpression(Line)
         End Using
     End Sub
-#End Region
-#Region "Utils"
-#Region "ExpressionBreaking"
-    Private Function GetTopmostLevel(ByVal Expression As String, ByVal Delimiter As Char) As String
-        Dim Pos As Integer = Expression.IndexOf(Delimiter)
-        Return If(Pos = -1, Expression, Expression.Substring(0, Pos))
-    End Function
-    Private Function GetRightPiece(ByVal Expression As String, ByVal Delimiter As Char) As String
-        Dim Pos As Integer = Expression.IndexOf(Delimiter)
-        Return If(Pos = -1, "", Expression.Substring(Pos + 1))
-    End Function
-#End Region
-#Region "SourcePointOps"
-    Private Function RestorePoint(ByVal SavedPoint As SourcePoint) As SourcePoint
-        CodeRush.Caret.MoveTo(SavedPoint)
-        Return SavedPoint
-    End Function
-    Private Function SavePoint(ByVal Point As SourcePoint, ByVal Document As TextDocument) As SourcePoint
-        Dim NewPoint As SourcePoint = New SourcePoint(Point)
-        NewPoint.BindToCode(Document, True)
-        Return NewPoint
-    End Function
-#End Region
-#Region "Zen Locations"
-    ''' <summary>Full range of the Zen Expression</summary>
-    Public Function ZenRange() As SourceRange
-        Dim StartLine As Integer = CodeRush.Caret.Line
-        Dim TheLine As String = CodeRush.Documents.ActiveTextDocument.GetLine(StartLine)
-        Dim LeftRight As Integer = LocateZenStart(TheLine)
-        Dim StartPoint As SourcePoint = New SourcePoint(StartLine, LeftRight)
-        Return New SourceRange(StartPoint, CodeRush.Caret.SourcePoint)
-    End Function
-    ''' <summary>Locates the Start of the Zen Expression</summary> 
-    Private Function LocateZenStart(ByVal Line As String) As Integer
-        For Position = Line.Count - 1 To 1 Step -1
-            If Not STR_VALIDCHARS.Contains(Line.Substring(Position, 1)) Then
-                'Position is the 0 based location of the first character with is illegal Zen
-                Return Position + 2 'The 1-based position of the last Zen Legal character.
-            End If
-        Next
-        Return 1
-    End Function
-#End Region
-#Region "TemplateOps"
-    ''' <summary>Locates First Template with given Name</summary>
-    Private Function GetFirstTemplateWithName(ByVal Part As String) As Template
-        Return CodeRush.Templates.Find(Part, False)(0)
-    End Function
-#End Region
-    Private Sub SetTemplateVariable(ByVal VarName As String, ByVal VarValue As String)
-        DevExpress.CodeRush.Core.CodeRush.Strings.Get("Set", String.Format("{0}, {1}", VarName, VarValue))
-    End Sub
-#End Region
-
     ''' <summary>Processes a single (sibling) expression</summary>
     Private Function ProcessExpression(ByVal Expression As String) As SourcePoint
         ' div>div+div>div*2+div*4 <-these are levels
@@ -175,6 +139,9 @@ Public Class PlugIn1
         ElseIf Piece.Contains("["c) Then
             Attribute = Piece.Contents("["c, "]"c)
         End If
+        For Count = 5 To 1 Step -1
+            Attribute = Attribute.Replace(New String("$", Count), Iteration.ToString("D" & Count))
+        Next
         SetTemplateVariable("ZenAttribute", Attribute)
         Dim Found As Template = GetFirstTemplateWithName(Piece)
         Dim ExpansionRange As SourceRange
@@ -185,20 +152,61 @@ Public Class PlugIn1
         SetTemplateVariable("ZenCount", "")
         Return ExpansionRange
     End Function
+#End Region
+#Region "Utils"
+#Region "ExpressionBreaking"
+    Private Function GetTopmostLevel(ByVal Expression As String, ByVal Delimiter As Char) As String
+        Dim Pos As Integer = Expression.IndexOf(Delimiter)
+        Return If(Pos = -1, Expression, Expression.Substring(0, Pos))
+    End Function
+    Private Function GetRightPiece(ByVal Expression As String, ByVal Delimiter As Char) As String
+        Dim Pos As Integer = Expression.IndexOf(Delimiter)
+        Return If(Pos = -1, "", Expression.Substring(Pos + 1))
+    End Function
+#End Region
+#Region "SourcePointOps"
+    Private Function RestorePoint(ByVal SavedPoint As SourcePoint) As SourcePoint
+        CodeRush.Caret.MoveTo(SavedPoint)
+        Return SavedPoint
+    End Function
+    Private Function SavePoint(ByVal Point As SourcePoint, ByVal Document As TextDocument) As SourcePoint
+        Dim NewPoint As SourcePoint = New SourcePoint(Point)
+        NewPoint.BindToCode(Document, True)
+        Return NewPoint
+    End Function
+#End Region
+#Region "Zen Locations"
+    ''' <summary>Full range of the Zen Expression</summary>
+    Public Function ZenRange() As SourceRange
+        Dim StartLine As Integer = CodeRush.Caret.Line
+        Dim TheLine As String = CodeRush.Documents.ActiveTextDocument.GetLine(StartLine)
+        Dim LeftRight As Integer = LocateZenStart(TheLine)
+        Dim StartPoint As SourcePoint = New SourcePoint(StartLine, LeftRight)
+        Return New SourceRange(StartPoint, CodeRush.Caret.SourcePoint)
+    End Function
+    ''' <summary>Locates the Start of the Zen Expression</summary> 
+    Private Function LocateZenStart(ByVal Line As String) As Integer
+        For Position = Line.Count - 1 To 1 Step -1
+            If Not STR_VALIDCHARS.Contains(Line.Substring(Position, 1)) Then
+                'Position is the 0 based location of the first character with is illegal Zen
+                Return Position + 2 'The 1-based position of the last Zen Legal character.
+            End If
+        Next
+        Return 1
+    End Function
+#End Region
+#Region "TemplateOps"
+    ''' <summary>Locates First Template with given Name</summary>
+    Private Function GetFirstTemplateWithName(ByVal Part As String) As Template
+        Dim TemplateList = CodeRush.Templates.Find(Part, False)
+        If TemplateList.Count = 0 Then
+            Return Nothing
+        End If
+        Return TemplateList(0)
+    End Function
+#End Region
+    Private Sub SetTemplateVariable(ByVal VarName As String, ByVal VarValue As String)
+        DevExpress.CodeRush.Core.CodeRush.Strings.Get("Set", String.Format("{0}, {1}", VarName, VarValue))
+    End Sub
+#End Region
 End Class
-Public Module ViewExt
-    ''' <summary>Treat Source as a Template name and expand it into the active view</summary>
-    <Extension()> _
-    Public Function Expand(ByVal Source As Template) As SourceRange
-        Dim View = CodeRush.TextViews.Active
-        Return View.TextDocument.ExpandText(View.Caret.SourcePoint, Source.FirstItemInContext.Expansion)
-    End Function
-End Module
-Public Module StringExt
-    <Extension()> _
-    Public Function Contents(ByVal Source As String, ByVal StartChar As String, ByVal EndChar As String) As String
-        Dim StartPoint As Integer = Source.IndexOf(StartChar) + 1
-        Dim EndPoint As Integer = Source.IndexOf(EndChar) - 1
-        Return Source.Substring(StartPoint, EndPoint - StartPoint)
-    End Function
-End Module
