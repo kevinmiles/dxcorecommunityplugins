@@ -27,20 +27,9 @@ Partial Class PlugIn1
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()> _
   	Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Me.ContextProvider1 = New DevExpress.CodeRush.Extensions.ContextProvider(Me.components)
-        CType(Me.ContextProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
-        '
-        'ContextProvider1
-        '
-        Me.ContextProvider1.Description = ""
-        Me.ContextProvider1.ProviderName = ""
-        Me.ContextProvider1.Register = True
-        CType(Me.ContextProvider1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
-    Friend WithEvents ContextProvider1 As DevExpress.CodeRush.Extensions.ContextProvider
 
 End Class
