@@ -3,18 +3,18 @@
     Private mPath As String
     Private mFilename As String
     Private mLine As Integer
-    Private mDescription As String
+    Private mMethod As String
 #End Region
 #Region "Constructors"
-    Public Sub New(ByVal PathAndFile As String, ByVal Line As Integer, ByVal Description As String)
+    Public Sub New(ByVal PathAndFile As String, ByVal Line As Integer, ByVal Method As String)
         MyClass.New(PathAndFile.Substring(0, PathAndFile.LastIndexOf("\"c)), _
-                    PathAndFile.Substring(PathAndFile.LastIndexOf("\"c) + 1), Line, Description)
+                    PathAndFile.Substring(PathAndFile.LastIndexOf("\"c) + 1), Line, Method)
     End Sub
-    Public Sub New(ByVal Path As String, ByVal Filename As String, ByVal Line As Integer, ByVal Description As String)
+    Public Sub New(ByVal Path As String, ByVal Filename As String, ByVal Line As Integer, ByVal Method As String)
         Me.mPath = Path
         Me.mFilename = Filename
         Me.mLine = Line
-        Me.mDescription = Description
+        Me.mMethod = Method
     End Sub
 #End Region
 #Region "Simple properties"
@@ -33,9 +33,9 @@
             Return mLine
         End Get
     End Property
-    Private ReadOnly Property Description() As String
+    Public ReadOnly Property Method() As String
         Get
-            Return mDescription
+            Return mMethod
         End Get
     End Property
 #End Region
