@@ -25,6 +25,7 @@
     * [DX_CollapseFromEnd]
     * [DX_CustomCollapse]
     * [DX_FormatOnSave]
+    * [DX_StackNav]
   * Navigation Plugins
     * [CR_JumpToImplementation]
     * [CR_mdMarkerExtensions]
