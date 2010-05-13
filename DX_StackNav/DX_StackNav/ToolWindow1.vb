@@ -12,7 +12,6 @@ Public Class ToolWindow1
 #Region " InitializePlugIn "
     Public Overrides Sub InitializePlugIn()
         MyBase.InitializePlugIn()
-
         'TODO: Add your initialization code here.
     End Sub
 #End Region

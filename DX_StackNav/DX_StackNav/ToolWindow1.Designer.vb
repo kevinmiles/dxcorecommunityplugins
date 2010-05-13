@@ -30,7 +30,6 @@ Partial Class ToolWindow1
 	<System.Diagnostics.DebuggerStepThrough()> _
 	Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ToolWindow1))
         Me.MyEvents = New DevExpress.DXCore.PlugInCore.DXCoreEvents(Me.components)
         Me.Grid = New System.Windows.Forms.DataGridView()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
@@ -54,7 +53,7 @@ Partial Class ToolWindow1
         Me.Grid.Location = New System.Drawing.Point(0, 0)
         Me.Grid.Name = "Grid"
         Me.Grid.ReadOnly = True
-        Me.Grid.Size = New System.Drawing.Size(583, 243)
+        Me.Grid.Size = New System.Drawing.Size(531, 243)
         Me.Grid.TabIndex = 0
         '
         'TextBox1
@@ -65,9 +64,11 @@ Partial Class ToolWindow1
         Me.TextBox1.Location = New System.Drawing.Point(3, 35)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(287, 205)
+        Me.TextBox1.Size = New System.Drawing.Size(339, 205)
         Me.TextBox1.TabIndex = 1
-        Me.TextBox1.Text = resources.GetString("TextBox1.Text")
+        Me.TextBox1.Text = " - Paste a stack trace here." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " - Such as one produced by ""System.Environment.Stac" & _
+            "kTrace""" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " - Double-click entries in the grid to the right, to jump to those loca" & _
+            "tions."
         Me.TextBox1.WordWrap = False
         '
         'cmdRefresh
@@ -94,7 +95,7 @@ Partial Class ToolWindow1
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.Grid)
         Me.SplitContainer1.Size = New System.Drawing.Size(880, 243)
-        Me.SplitContainer1.SplitterDistance = 293
+        Me.SplitContainer1.SplitterDistance = 345
         Me.SplitContainer1.TabIndex = 3
         '
         'ToolWindow1

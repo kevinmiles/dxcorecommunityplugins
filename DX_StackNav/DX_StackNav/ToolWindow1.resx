@@ -120,20 +120,4 @@
   <metadata name="MyEvents.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="TextBox1.Text" xml:space="preserve">
-    <value>   at System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
-   at System.Environment.get_StackTrace()
-   at ConsoleApplication1.Class1.method4() in D:\Development\Community\ConsoleApplication1\ConsoleApplication1\Class1.vb:line 20
-   at ConsoleApplication1.Class1.method3() in D:\Development\Community\ConsoleApplication1\ConsoleApplication1\Class1.vb:line 13
-   at ConsoleApplication1.Class1.Method2() in D:\Development\Community\ConsoleApplication1\ConsoleApplication1\Class1.vb:line 8
-   at ConsoleApplication1.Class1.method1() in D:\Development\Community\ConsoleApplication1\ConsoleApplication1\Class1.vb:line 4
-   at ConsoleApplication1.Module1.Main() in D:\Development\Community\ConsoleApplication1\ConsoleApplication1\Module1.vb:line 5
-   at System.AppDomain._nExecuteAssembly(RuntimeAssembly assembly, String[] args)
-   at System.AppDomain.ExecuteAssembly(String assemblyFile, Evidence assemblySecurity, String[] args)
-   at Microsoft.VisualStudio.HostingProcess.HostProc.RunUsersAssembly()
-   at System.Threading.ThreadHelper.ThreadStart_Context(Object state)
-   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean ignoreSyncCtx)
-   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
-   at System.Threading.ThreadHelper.ThreadStart()</value>
-  </data>
 </root>
