@@ -11,6 +11,6 @@ It parses a stack trace into a navigable grid.
 ==== Usage ====
  * Launch the tool window via the !DevExpress\Tool Windows\!StackNav menu item
  * Paste a Stack Trace into the !TextBox
- * Double click any rows to jump to the specified location.
+ * Double click any row to jump to the specified location.
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/DX_StackNav/Screenshots/StackNav.png
