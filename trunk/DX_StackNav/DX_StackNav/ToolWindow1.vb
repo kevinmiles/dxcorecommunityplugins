@@ -28,7 +28,7 @@ Public Class ToolWindow1
     Public Function GetStackFrames(ByVal StackText As String) As List(Of StackNavEntry)
         Dim Frames As New List(Of StackNavEntry)
         For Each Match As Match In Regex.Matches(StackText)
-            Frames.Add(New StackNavEntry(Match.Groups("File").Value, Match.Groups("LineNumber").Value, StackText))
+            Frames.Add(New StackNavEntry(Match.Groups("File").Value, Match.Groups("LineNumber").Value, Match.Groups("Method").Value))
         Next
         Return Frames
     End Function
@@ -40,8 +40,12 @@ Public Class ToolWindow1
     End Sub
     Private Sub Refresh()
         Dim Frames = GetStackFrames(TextBox1.Text)
+        Grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         Grid.DataSource = Frames
         Grid.Refresh()
+        If Frames.Count > 0 Then
+            Grid.Columns(Grid.Columns.Count - 1).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        End If
     End Sub
 #End Region
 #Region "UI Events "
