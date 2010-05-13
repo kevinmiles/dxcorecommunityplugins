@@ -6,6 +6,8 @@
 
 This plugin was originally requested by Paul Allington in this thread in the DX forums: http://community.devexpress.com/forums/p/89138/305114.aspx#305114
 
+It parses a stack trace into a navigable grid.
+
 ==== Usage ====
  * Launch the tool window via the !DevExpress\Tool Windows\!StackNav menu item
  * Paste a Stack Trace into the !TextBox
