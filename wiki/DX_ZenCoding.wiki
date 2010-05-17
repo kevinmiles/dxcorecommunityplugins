@@ -6,8 +6,8 @@ This plugin is an addition to the Template expansion engine within !CodeRush. It
 
 ==== Configuration ====
  * Install plugin as usual.
- * Import the HTML templates found in Html_Zen.xml (in the zip file)
- * Shortcut Options (DevExpress\Options IDE\Shortcuts)
+ * Import the HTML templates found in !Html_Zen.xml (in the zip file)
+ * Shortcut Options (!DevExpress\Options IDE\Shortcuts)
    * Update the existing '!TemplateExpand' shortcut (Code\Expansion)
       * Place an x (not a tick) in the !IsZenExpression context.
    * Create a new shortcut.
