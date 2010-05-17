@@ -1,8 +1,8 @@
-#summary Provides 4 actions to enhance your ability to move code around.
+#summary Emulates some of the features of !ZenCoding
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_ZenCoding/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ==== Introduction ====
-This plugin is an addition to the Template expansion engine within CodeRush. It will not work with CodeRush Xpress.
+This plugin is an addition to the Template expansion engine within CodeRush. It will not work with CodeRush Xpress. It emulates some of the features found in the !ZenCoding project. (http://code.google.com/p/zen-coding/) These features allow one to enter up html code more quickly.
 
 ==== Configuration ====
  * Install plugin as usual.
@@ -11,7 +11,7 @@ This plugin is an addition to the Template expansion engine within CodeRush. It 
    * Update the existing '!TemplateExpand' shortcut (Code\Expansion)
       * Place an x (not a tick) in the !IsZenExpression context.
    * Create a new shortcut.
-     * Assign 'Space' to ZenExpand. 
+     * Assign 'Space' to !ZenExpand. 
      * Tick the !IsZenExpression context.
 
 ==== Usage ====
