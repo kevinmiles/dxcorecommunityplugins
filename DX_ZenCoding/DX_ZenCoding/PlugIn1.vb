@@ -76,7 +76,7 @@ Public Class PlugIn1
         ' Break out first Level
         Dim TopLevel = GetTopmostLevel(Expression, CHAR_LevelIndicator)
         Dim RemainingLevels = GetRightPiece(Expression, CHAR_LevelIndicator)
-        Dim Siblings = TopLevel.Split("+"c)
+        Dim Siblings As String() = TopLevel.Split("+"c)
         Dim SiblingEndPoint As SourcePoint
         For S As Integer = 0 To Siblings.Length - 1 Step 1
             Dim Remainder = If(S < Siblings.Length - 1, "", RemainingLevels)
