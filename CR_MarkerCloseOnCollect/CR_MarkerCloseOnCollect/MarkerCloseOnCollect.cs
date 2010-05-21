@@ -41,9 +41,15 @@ namespace CR_MarkerCloseOnCollect
 
       IMarker marker = CodeRush.Markers.Collect();
 
-      if ((marker != null) && (currentDocument != null) && 
+      if ((marker != null) && (currentDocument != null) &&
         !marker.FileName.Equals(currentDocument.FullName, StringComparison.OrdinalIgnoreCase))
+      {
+        //var bh = new BigHint();
+        //bh.Text = "test";
+        //bh.ShowUnderCaret();
+
         currentDocument.Close(EnvDTE.vsSaveChanges.vsSaveChangesPrompt);
+      }
     }
   }
 }
