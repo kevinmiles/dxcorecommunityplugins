@@ -6,6 +6,8 @@ I'm a developer from Buenos Aires, Argentina. I've been using CodeRush for about
 
 You can find more about me in my [http://www.google.com/profiles/jorge.rowies google profile] or in my [http://jorgerowies.blogspot.com/ blog]
 
+Open source projects that I'm involved in, so far... [http://www.ohloh.net/accounts/jorgerowies Ohloh profile]
+
 = Plugins =
 This is the list of plugins I've made so far, please feel free to report me any problem you may encounter
 
