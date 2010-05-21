@@ -17,17 +17,13 @@ This plugin is almost the same as the built-in functionality in VS, but the buil
 regex.IsMatch(...
 }}}
 
-= Installation =
-
-Installation instructions can be found on the InstallInstructions page.
-
 = Usage =
 
-TODO
+Once the plugin is installed, a extra settings page is added to the settings screen of coderush.
 
-= Options =
+The plugins tries to resolve all classes, everything that can not be resolved, you can invoke the refactor menu. There will be a extra menu item "Resolve" that tries to find the unresolved class in the referenced assemblies and all projects in the solution. 
 
-TODO
+When nothing is found the user will be asked the plugins needs to search the GAC also. For performance reasons not the complete GAC is searched, only the Microsoft assemblies are searched.
 
 = Credits =
 
