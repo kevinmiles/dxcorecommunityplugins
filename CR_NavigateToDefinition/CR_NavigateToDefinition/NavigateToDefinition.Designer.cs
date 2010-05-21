@@ -69,12 +69,14 @@ namespace CR_NavigateToDefinition
       this.action1.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
       this.action1.Image = ((System.Drawing.Bitmap)(resources.GetObject("action1.Image")));
       this.action1.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.action1.ToolbarItem.ButtonIsPressed = false;
+      this.action1.ToolbarItem.Caption = null;
+      this.action1.ToolbarItem.Image = null;
       this.action1.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.action1_Execute);
       // 
       // locatorBeacon1
       // 
-      this.locatorBeacon1.Color = System.Drawing.Color.Lime;
-      this.locatorBeacon1.Duration = 500;
+      this.locatorBeacon1.StepFactor = -1;
       // 
       // NavigateToDefinition
       // 

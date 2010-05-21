@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
+using DevExpress.CodeRush.Library;
 using DevExpress.CodeRush.StructuralParser;
 
 namespace CR_NavigateToDefinition
@@ -68,7 +69,7 @@ namespace CR_NavigateToDefinition
       }
     }
 
-    private void navigationProvider1_Navigate(object sender, DevExpress.CodeRush.Library.NavigationEventArgs ea)
+    private void navigationProvider1_Navigate(object sender, NavigationEventArgs ea)
     {
       if (enabled)
         navigateToDefinition(ea.Element);
