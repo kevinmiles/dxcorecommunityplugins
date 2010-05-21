@@ -3,7 +3,7 @@
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_Resolve/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
-= Introduction =
+==== Introduction ====
 
 Sometimes you know the name of the object you need, but you don't know the correct namespace.
 This plugin tries to find the namespace you need and adds it to the imports (using) section.
@@ -17,14 +17,14 @@ This plugin is almost the same as the built-in functionality in VS, but the buil
 regex.IsMatch(...
 }}}
 
-= Usage =
+==== Usage ====
 
-Once the plugin is installed, a extra settings page is added to the settings screen of coderush.
+Once the plugin is installed, a extra settings page is added to the settings screen of !CodeRush.
 
-The plugins tries to resolve all classes, everything that can not be resolved, you can invoke the refactor menu. There will be a extra menu item "Resolve" that tries to find the unresolved class in the referenced assemblies and all projects in the solution. 
+The plugins tries to resolve all classes, everything that can not be resolved, you can invoke the Refactor menu. There will be a extra menu item "Resolve" that tries to find the unresolved class in the referenced assemblies and all projects in the solution. 
 
 When nothing is found the user will be asked the plugins needs to search the GAC also. For performance reasons not the complete GAC is searched, only the Microsoft assemblies are searched.
 
-= Credits =
+==== Credits ====
 
 Author: Koen Hoefkens
