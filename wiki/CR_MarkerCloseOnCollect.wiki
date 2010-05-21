@@ -2,6 +2,8 @@
 
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_MarkerCloseOnCollect/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]            [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
+==== Requires DXCore 10.1 since build 1255 ====
+
 = Introduction =
 
 This is a very simple plugin (actually there are only 5 lines of code), whose purpose is to close the current file when a marker is collected, but with one single exception, when the marker that's being collected belongs to the same active file.
