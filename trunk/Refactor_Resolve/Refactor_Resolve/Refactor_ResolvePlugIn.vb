@@ -9,6 +9,7 @@ Imports System.Collections
 Imports System.IO
 Imports System.Reflection
 Imports System.GACManagedAccess
+Imports DevExpress.DXCore.Platform.Drawing
 
 
 Namespace Refactor_Resolve
@@ -182,10 +183,15 @@ Namespace Refactor_Resolve
 
 #Region "Private functions"
 
-        Private Shared Function GetTheElement() As LanguageElement
+        Private Shared Function GetElementAtCaret() As LanguageElement
+            Dim ActiveDoc As TextDocument = CodeRush.Documents.ActiveTextDocument
+            Dim CaretPoint As SourcePoint = CodeRush.Caret.SourcePoint
             Dim le As LanguageElement
-            If CodeRush.Documents.ActiveTextDocument.GetText(CodeRush.Caret.SourcePoint.Line, CodeRush.Caret.SourcePoint.Offset - 1, CodeRush.Caret.SourcePoint.Line, CodeRush.Caret.SourcePoint.Offset) = " " Then
-                le = CodeRush.Documents.ActiveTextDocument.GetNodeBefore(CodeRush.Caret.SourcePoint) 'CodeRush.Source.Active
+            If ActiveDoc.GetText(CaretPoint.Line, _
+                                             CaretPoint.Offset - 1, _
+                                             CaretPoint.Line, _
+                                             CaretPoint.Offset) = " " Then
+                le = ActiveDoc.GetNodeBefore(CaretPoint) 'CodeRush.Source.Active
             Else
                 le = CodeRush.Source.Active
             End If
@@ -195,7 +201,7 @@ Namespace Refactor_Resolve
             CodeRush.Source.ParseIfTextChanged(CodeRush.Documents.ActiveTextDocument)
 
             Dim le As LanguageElement
-            le = GetTheElement()
+            le = GetElementAtCaret()
 
             If le Is Nothing OrElse (Not TypeOf le Is TypeReferenceExpression AndAlso Not TypeOf le Is ElementReferenceExpression AndAlso Not TypeOf le Is Statement) Then
                 Return False
@@ -424,7 +430,10 @@ Namespace Refactor_Resolve
                     AddMenuItem(le, nameSpaceItem, False)
                 Next
 
-                CodeRush.TextViews.Active.ShowMenu(_usingMenu, CodeRush.TextViews.Active.GetRectangleFromLanguageElement(le).X, CodeRush.TextViews.Active.GetRectangleFromLanguageElement(le).Y + CodeRush.TextViews.Active.LineHeight)
+                Dim Point As Rect = CodeRush.TextViews.Active.GetRectangleFromSourceRange(le.Range)
+                CodeRush.TextViews.Active.ShowMenu(_usingMenu, _
+                                                   Point.X, _
+                                                   Point.Y + CodeRush.TextViews.Active.LineHeight)
             End If
         End Sub
 
@@ -656,7 +665,11 @@ Namespace Refactor_Resolve
 
                 Dim theElement As LanguageElement = ea.LanguageElement
                 If HasProblem(theElement) Then
-                    ea.PaintArgs.DrawLine(theElement.NameRange.Start.Line, theElement.NameRange.Start.Offset, theElement.NameRange.End.Offset - theElement.NameRange.Start.Offset, Color.BlueViolet, LineStyle.SolidUnderline)
+                    ea.PaintArgs.DrawLine(theElement.NameRange.Start.Line, _
+                                          theElement.NameRange.Start.Offset, _
+                                          theElement.NameRange.End.Offset - theElement.NameRange.Start.Offset, _
+                                          Drawing.Color.BlueViolet, _
+                                          LineStyle.SolidUnderline)
                 End If
             Catch ex As Exception
 
@@ -699,7 +712,7 @@ Namespace Refactor_Resolve
             End If
         End Sub
 
-        
+
 
         Private Sub ResolveProvider_Apply(ByVal sender As Object, ByVal ea As DevExpress.Refactor.Core.ApplyRefactoringEventArgs) Handles ResolveProvider.Apply
             Try
@@ -712,7 +725,7 @@ Namespace Refactor_Resolve
         End Sub
 
         Private Sub QuickResolveAction_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles QuickResolveAction.Execute
-            Dim theElement As LanguageElement = GetTheElement() 'CodeRush.Source.Active
+            Dim theElement As LanguageElement = GetElementAtCaret() 'CodeRush.Source.Active
             Dim oldEnhanced As Boolean = Enhanced
             Try
                 Enhanced = False
@@ -759,13 +772,10 @@ Namespace Refactor_Resolve
                 Enhanced = oldEnhanced
             End Try
         End Sub
-
-
-
-    Private Sub ResolveProvider_CheckAvailability( ByVal sender As System.Object,  ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs) 
+        Private Sub ResolveProvider_CheckAvailability(ByVal sender As System.Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs)
             If IsAvailable() Then
                 ea.Available = RefactoringAvailability.Available
             End If
-End Sub
+        End Sub
     End Class
 End Namespace
