@@ -163,7 +163,9 @@ namespace CodeIssueAnalysis
         internal void AddAllProjectIssues()
         {
             if (CodeRush.Source.ActiveProject == null)
-                MessageBox.Show("You must have a file open in the project you wish to scan.");
+            {
+                Error(null, new ErrorArgs(new Exception("You must have a file open in the project you wish to scan.")));
+            }
             else
             {
                 try

@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeIssueAnalysis", "CodeIssueAnalysis\CodeIssueAnalysis.csproj", "{3A9B66C9-7C1C-4E0A-A15C-D9F1CE087A16}"
 EndProject
 Global
