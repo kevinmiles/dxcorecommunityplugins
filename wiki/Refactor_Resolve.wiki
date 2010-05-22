@@ -3,7 +3,7 @@
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_Resolve/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
-==== Requires DXCore 10.1 since build 1255 ====
+==== Requires DXCore 10.1 since build 1264 ====
 
 ==== Introduction ====
 
