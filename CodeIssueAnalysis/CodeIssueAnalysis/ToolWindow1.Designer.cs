@@ -51,6 +51,7 @@ namespace CodeIssueAnalysis
             this.btnSolutionIssues = new System.Windows.Forms.ToolStripButton();
             this.btnProjectIssues = new System.Windows.Forms.ToolStripButton();
             this.btnFileIssues = new System.Windows.Forms.ToolStripButton();
+            this.btnExportHTMLTable = new System.Windows.Forms.ToolStripButton();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.btnCancel = new System.Windows.Forms.Button();
             this.cmbLayouts = new System.Windows.Forms.ComboBox();
@@ -96,7 +97,7 @@ namespace CodeIssueAnalysis
             // 
             // locatorBeacon1
             // 
-            this.locatorBeacon1.StepFactor = -1;
+            this.locatorBeacon1.StepFactor = -1D;
             // 
             // toolStrip1
             // 
@@ -104,7 +105,8 @@ namespace CodeIssueAnalysis
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnSolutionIssues,
             this.btnProjectIssues,
-            this.btnFileIssues});
+            this.btnFileIssues,
+            this.btnExportHTMLTable});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(625, 25);
@@ -143,6 +145,16 @@ namespace CodeIssueAnalysis
             this.btnFileIssues.Text = "toolStripButton1";
             this.btnFileIssues.ToolTipText = "Rescan Current File";
             this.btnFileIssues.Click += new System.EventHandler(this.btnFileIssues_Click);
+            // 
+            // btnExportHTMLTable
+            // 
+            this.btnExportHTMLTable.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnExportHTMLTable.Image = ((System.Drawing.Image)(resources.GetObject("btnExportHTMLTable.Image")));
+            this.btnExportHTMLTable.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnExportHTMLTable.Name = "btnExportHTMLTable";
+            this.btnExportHTMLTable.Size = new System.Drawing.Size(23, 22);
+            this.btnExportHTMLTable.Text = "Export To HTML Table";
+            this.btnExportHTMLTable.Click += new System.EventHandler(this.btnExportHTMLTable_Click);
             // 
             // progressBar
             // 
@@ -230,5 +242,6 @@ namespace CodeIssueAnalysis
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ToolStripButton btnFileIssues;
         private System.Windows.Forms.ComboBox cmbLayouts;
+        private System.Windows.Forms.ToolStripButton btnExportHTMLTable;
     }
 }

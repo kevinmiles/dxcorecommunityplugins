@@ -120,6 +120,13 @@ namespace CodeIssueAnalysis
 
         private void OnError(object sender, IssueProcessor.ErrorArgs e)
         {
+            //cross thread - so you don't get the cross theading exception
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke((MethodInvoker)delegate { OnError(sender, e); });
+                return;
+            }
+
             MessageBox.Show(e.Error.Message, "Update Error");
             progressBar.Value = 0;
             progressBar.Visible = false;
@@ -273,6 +280,36 @@ namespace CodeIssueAnalysis
         public static Stream GetEmbeddedFile(string fileName)
         {
             return Assembly.GetExecutingAssembly().GetManifestResourceStream(Assembly.GetExecutingAssembly().GetName().Name + "." + fileName);
+        }
+
+        private void btnExportHTMLTable_Click(object sender, EventArgs e)
+        {
+           DialogResult expand = MessageBox.Show(
+                           "The export will only show what is visible in the grid. Do you wish to expand all groups to receive all the content?",
+                           "Expand Groups",
+                           MessageBoxButtons.YesNo);
+
+           if (expand == DialogResult.Yes)
+               gridView1.ExpandAllGroups();
+            
+            using (SaveFileDialog dlg = new SaveFileDialog())
+            {
+                dlg.Filter = "HTML (*.html)|*.html";
+                dlg.CheckFileExists = false;
+                dlg.InitialDirectory = CodeIssueOptions.GetLayoutPath();
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        File.WriteAllText(dlg.FileName, new HTMLTableBuilder(gridView1).BuildHTMLTable("#E3EEFB"));
+                    }
+                    catch (Exception err)
+                    {
+                        Debug.Assert(false, "Export Failed");
+                    }
+                }
+            }
         }
 
         
