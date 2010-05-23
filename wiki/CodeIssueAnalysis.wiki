@@ -39,7 +39,7 @@ http://img4.imageshack.us/img4/2633/settingsaa.png
 
 You can now save grid grouping and filtering for re-use using the drop down in the top right.
 
-= Export Code Issues =
+= Export Code Issues To HTML =
 
 The filtered results in your grid can be exported to an HTML table including any grouping you have set for printing and editing outside of visual studio. The table will also open nicely in Excel for additional editing.
 
