@@ -10,7 +10,7 @@ Files can be included or excluded from analysis based on their file name or cont
 
 *Double click a code issue to jump to it in code.*
 
-http://img707.imageshack.us/img707/4308/codeissue.png
+http://img341.imageshack.us/img341/9384/codeissueanalysis.png
 
 = Usage =
 
@@ -38,6 +38,12 @@ http://img4.imageshack.us/img4/2633/settingsaa.png
 = Save Layout and Filtering =
 
 You can now save grid grouping and filtering for re-use using the drop down in the top right.
+
+= Export Code Issues =
+
+The filtered results in your grid can be exported to an HTML table including any grouping you have set for printing and editing outside of visual studio. The table will also open nicely in Excel for additional editing.
+
+Simply press the HTML export button it will ask if you wish to expand any groupings you have in the grid as it only exports what is visible in your grid. Then select a location and file name to save the code issues.
 
 = Credits =
 Author: Peter Thorpe
