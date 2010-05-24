@@ -24,7 +24,7 @@ You get the Idea :)
 ==== Initial Setup ====
 This plugin does require a minimum amount of setup.
 
- # Extract the 'Dynamic !Lists_Templates' File to the correct settings folder.
+ # Extract the 'Dynamic !Lists_Templates.xml' file from the plugin zipfile to the correct settings folder.
    * Correct Default Location is '*%!AppData%\!CodeRush For VS.Net\1.1\Settings.XML\Core\*' (without quotes)
  # Create a single !CodeRush Template
 Call it...
