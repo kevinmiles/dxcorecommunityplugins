@@ -7,7 +7,7 @@
 
 This plugin is designed to prevent you needing to visit the "Add New Dialog" in order to use the Item templates found within it.
 
-*Note: This plugin currently requires the full version of CodeRush. This may change in the future.*
+*Note: This plugin currently requires the full version of !CodeRush. This may change in the future.*
 
 ==== Usage ====
 
@@ -24,9 +24,9 @@ You get the Idea :)
 ==== Initial Setup ====
 This plugin does require a minimum amount of setup.
 
- # Extract the 'Dynamic Lists_Templates' File to the correct settings folder.
-   * Correct Default Location is '*%AppData%\!CodeRush For VS.Net\1.1\Settings.XML\Core\*' (without quotes)
- # Create a single CodeRush Template
+ # Extract the 'Dynamic !Lists_Templates' File to the correct settings folder.
+   * Correct Default Location is '*%!AppData%\!CodeRush For VS.Net\1.1\Settings.XML\Core\*' (without quotes)
+ # Create a single !CodeRush Template
 Call it...
 {{{
 an?Templates?
@@ -45,7 +45,7 @@ Add a new item to the list of those recognised, by adjusting the Neutral Dynamic
 
 All you need is the name of the Item Template without it's '.zip' extension. 
 
-Item Templates are (By Default) found under '*C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\ItemTemplates\*'
+Item Templates are (By Default) found under '*C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\!ItemTemplates\*'
 
 Simply add a new item to the dynamic list with a suitable mnemonic as it's name and the Item Template name (sans .zip) as it's Value.
 
