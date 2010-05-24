@@ -1,0 +1,54 @@
+#summary Allows you to create new project items without using the "Add new item" dialog
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_NewItem/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+
+===== Build against DXCore 10.1 =====
+==== Introduction ====
+
+This plugin is designed to prevent you needing to visit the "Add New Dialog" in order to use the Item templates found within it.
+
+*Note: This plugin currently requires the full version of CodeRush. This may change in the future.*
+
+==== Usage ====
+
+Instead simply type the corresponding phrase and hit space.
+
+ * *anwf* - (Winform) adds a new Windows.
+ * *anc* - (Class) adds a new Class.
+ * *anmd* - (Module) adds a new Module (VB.Net only) 
+ * *anxf* - (XMLFile) adds a new XML file
+ * *anxs* - (XMLSchema) adds a new XML Schema
+
+You get the Idea :)
+
+==== Initial Setup ====
+This plugin does require a minimum amount of setup.
+
+ # Extract the 'Dynamic Lists_Templates' File to the correct settings folder.
+   * Correct Default Location is '*%AppData%\!CodeRush For VS.Net\1.1\Settings.XML\Core\*' (without quotes)
+ # Create a single CodeRush Template
+Call it...
+{{{
+an?Templates?
+}}}
+
+and change it's content to ...
+{{{
+«NewItem(«?Get(Template)»)»
+}}}
+
+==== Further Configuration ====
+
+I have only added a few templates to the default list. Feel free to add any of your own.
+
+Add a new item to the list of those recognised, by adjusting the Neutral Dynamic List called Templates.
+
+All you need is the name of the Item Template without it's '.zip' extension. 
+
+Item Templates are (By Default) found under '*C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\ItemTemplates\*'
+
+Simply add a new item to the dynamic list with a suitable mnemonic as it's name and the Item Template name (sans .zip) as it's Value.
+
+
+==== Credit ==== 
+Author: RoryBecker
