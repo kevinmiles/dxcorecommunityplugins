@@ -3,13 +3,13 @@
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
 ===== Build against DXCore 10.1 =====
-==== Introduction ====
+=== Introduction ===
 
 This plugin is designed to prevent you needing to visit the "Add New Dialog" in order to use the Item templates found within it.
 
 *Note: This plugin currently requires the full version of !CodeRush. This may change in the future.*
 
-==== Usage ====
+=== Usage ===
 
 Instead simply type the corresponding phrase and hit space.
 
@@ -21,7 +21,7 @@ Instead simply type the corresponding phrase and hit space.
 
 You get the Idea :)
 
-==== Initial Setup ====
+=== Initial Setup ===
 This plugin does require a minimum amount of setup.
 
  # Extract the 'Dynamic !Lists_Templates.xml' file from the plugin zipfile to the correct settings folder.
@@ -37,7 +37,7 @@ and change it's content to ...
 «NewItem(«?Get(Template)»)»
 }}}
 
-==== Further Configuration ====
+=== Further Configuration (Adding support for more Item Templates) ===
 
 I have only added a few templates to the default list. Feel free to add any of your own.
 
