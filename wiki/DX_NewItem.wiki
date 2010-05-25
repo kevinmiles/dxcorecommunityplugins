@@ -42,19 +42,19 @@ I have only added a few templates to the default list. Feel free to add any of y
 
 Add a new item to the list of those recognized, by adjusting one of the *Neutral* Dynamic List which starts with 'Templates'.
 
-There are currently 3 such lists, (Templates, TemplatesWeb and TemplatesWin) which have different contexts in order to support some mnemonic overloading.
+There are currently 3 such lists, (Templates, !TemplatesWeb and !TemplatesWin) which have different contexts in order to support some mnemonic overloading.
 
 Item Templates are (By Default) found under '*C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\!ItemTemplates\*'
 
-The value of a list item should be set to 'TemplatePath/TemplateName[|PreferredFilename.ext]' (sans quotes)
+The value of a list item should be set to '!TemplatePath/!TemplateName[|!PreferredFilename.ext]' (sans quotes)
 
-So for example the WebForm list item has a value of 'Web/WebForm|Webform.aspx'
+So for example the !WebForm list item has a value of 'Web/!WebForm|!Webform.aspx'
 
 If in doubt check out the examples, or ping me RoryBecker for some help :)
 
 === History ===
  * Build 1280
-   * List Syntax altered to '[Folder/]TemplatePath|ExampleFilename.Ext'
+   * List Syntax altered to '[!Folder/]!TemplatePath|!ExampleFilename.Ext'
    * Additional lists added for different contexts. Includes example items.
  * Build 1272 - Initial Release
 ==== Credit ==== 
