@@ -1,0 +1,21 @@
+﻿<!--This is a DXCore settings file-->
+<Page Name="Dynamic Lists_TemplatesWin">
+ <Language Name="*Neutral*">
+  <Section Name="Header">
+   <Option Name="TemplateVariable" Value="Template" />
+   <Option Name="DisplayName" Value="TemplatesWin" />
+   <Option Name="CustomData" Value="" />
+   <Option Name="Comment" Value="" />
+   <Option Name="HoldsTypes" Value="False" />
+   <Option Name="EntriesCount" Value="1" />
+   <Option Name="ContextSelected_Count" Value="0" />
+   <Option Name="ContextExcluded_Count" Value="1" />
+   <Option Name="ContextExcluded_0" Value="Project\References(System.Web)" />
+  </Section>
+  <Section Name="Entry0">
+   <Option Name="EntryName" Value="wf" />
+   <Option Name="EntryExpansionText" Value="Form" />
+   <Option Name="EntryCustomData" Value="" />
+  </Section>
+ </Language>
+</Page>

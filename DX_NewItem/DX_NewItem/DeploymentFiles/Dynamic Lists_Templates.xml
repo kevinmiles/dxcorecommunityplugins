@@ -13,7 +13,7 @@
   </Section>
   <Section Name="Entry0">
    <Option Name="EntryName" Value="ds" />
-   <Option Name="EntryExpansionText" Value="Dataset" />
+   <Option Name="EntryExpansionText" Value="Dataset|Dataset.xsd" />
    <Option Name="EntryCustomData" Value="" />
   </Section>
   <Section Name="Entry1">
@@ -28,7 +28,7 @@
   </Section>
   <Section Name="Entry3">
    <Option Name="EntryName" Value="xs" />
-   <Option Name="EntryExpansionText" Value="XMLSchema" />
+   <Option Name="EntryExpansionText" Value="XMLSchema|Schema.xsd" />
    <Option Name="EntryCustomData" Value="" />
   </Section>
   <Section Name="Entry4">
@@ -43,7 +43,7 @@
   </Section>
   <Section Name="Entry6">
    <Option Name="EntryName" Value="xf" />
-   <Option Name="EntryExpansionText" Value="XMLFile" />
+   <Option Name="EntryExpansionText" Value="XMLFile|XMLFile.xml" />
    <Option Name="EntryCustomData" Value="" />
   </Section>
   <Section Name="Entry7">
