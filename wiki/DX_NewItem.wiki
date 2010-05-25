@@ -29,7 +29,7 @@ This plugin does require a minimum amount of setup.
  # Create a single !CodeRush Template
 Call it...
 {{{
-an?Templates?
+an?Template?
 }}}
 
 and change it's content to ...
