@@ -24,7 +24,7 @@ You get the Idea :)
 === Initial Setup ===
 This plugin does require a minimum amount of setup.
 
- # Extract the 'Dynamic Lists_*.xml' files from the plugin zipfile to the correct settings folder.
+ # Extract the 'Dynamic Lists`_*`.xml' files from the plugin zipfile to the correct settings folder.
    * Correct Default Location is '*%!AppData%\!CodeRush For VS.Net\1.1\Settings.XML\Core\*' (without quotes)
  # Create a single !CodeRush Template
 Call it...
@@ -41,14 +41,17 @@ and change it's content to ...
 
 I have only added a few templates to the default list. Feel free to add any of your own.
 
-Add a new item to the list of those recognised, by adjusting the Neutral Dynamic List called Templates.
+Add a new item to the list of those recognized, by adjusting one of the *Neutral* Dynamic List which starts with 'Templates'.
 
-All you need is the name of the Item Template without it's '.zip' extension. 
+There are currently 3 such lists, (Templates, TemplatesWeb and TemplatesWin) which have different contexts in order to support some mnemonic overloading.
 
 Item Templates are (By Default) found under '*C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\!ItemTemplates\*'
 
-Simply add a new item to the dynamic list with a suitable mnemonic as it's name and the Item Template name (sans .zip) as it's Value.
+The value of a list item should be set to 'TemplatePath/TemplateName[|PreferredFilename.ext]' (sans quotes)
 
+So for example the WebForm list item has a value of 'Web/WebForm|Webform.aspx'
+
+If in doubt check out the examples, or ping me RoryBecker for some help :)
 
 === History ===
  * Build 1280
