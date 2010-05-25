@@ -11,8 +11,8 @@ This plugin is designed to prevent you needing to visit the "Add New Dialog" in 
 
 Instead simply type the corresponding phrase and hit space.
 
- * *anwf* - Adds a new Windows Form (in a WinForms project).
- * *anwf* - Adds a new WebForm (in a Web project).
+ * *anwf* - Adds a new Windows Form (in a !WinForms project).
+ * *anwf* - Adds a new !WebForm (in a Web project).
  * *anc* - Adds a new Class.
  * *anmd* - Adds a new Module (VB.Net only) 
  * *anxf* - Adds a new XML file
