@@ -54,7 +54,7 @@ If in doubt check out the examples, or ping me RoryBecker for some help :)
 
 === History ===
  * Build 1280
-   * List syntax altered to '[Folder/]!TemplatePath|!ExampleFilename.Ext'
+   * List syntax altered to '[Folder/]TemplatePath|!ExampleFilename.Ext'
    * Additional lists added for different contexts. Includes example items.
  * Build 1272 - Initial Release
 ==== Credit ==== 
