@@ -2,12 +2,10 @@
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_NewItem/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
-===== Build against DXCore 10.1 =====
+===== Build against DXCore 10.1. Requires the full version of !CodeRush =====
 === Introduction ===
 
 This plugin is designed to prevent you needing to visit the "Add New Dialog" in order to use the Item templates found within it.
-
-*Note: This plugin currently requires the full version of !CodeRush. This may change in the future.*
 
 === Usage ===
 
