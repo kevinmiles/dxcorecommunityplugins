@@ -11,11 +11,12 @@ This plugin is designed to prevent you needing to visit the "Add New Dialog" in 
 
 Instead simply type the corresponding phrase and hit space.
 
- * *anwf* - (Winform) adds a new Windows.
- * *anc* - (Class) adds a new Class.
- * *anmd* - (Module) adds a new Module (VB.Net only) 
- * *anxf* - (XMLFile) adds a new XML file
- * *anxs* - (XMLSchema) adds a new XML Schema
+ * *anwf* - Adds a new Windows Form (in a WinForms project).
+ * *anwf* - Adds a new WebForm (in a Web project).
+ * *anc* - Adds a new Class.
+ * *anmd* - Adds a new Module (VB.Net only) 
+ * *anxf* - Adds a new XML file
+ * *anxs* - Adds a new XML Schema
 
 You get the Idea :)
 
