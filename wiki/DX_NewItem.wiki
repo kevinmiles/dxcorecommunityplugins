@@ -48,13 +48,13 @@ Item Templates are (By Default) found under '*C:\Program Files (x86)\Microsoft V
 
 The value of a list item should be set to '!TemplatePath/!TemplateName[|!PreferredFilename.ext]' (sans quotes)
 
-So for example the !WebForm list item has a value of 'Web/!WebForm|!Webform.aspx'
+So for example the !WebForm list item has a value of 'Web/!WebForm|!WebForm.aspx'
 
 If in doubt check out the examples, or ping me RoryBecker for some help :)
 
 === History ===
  * Build 1280
-   * List Syntax altered to '[!Folder/]!TemplatePath|!ExampleFilename.Ext'
+   * List syntax altered to '[Folder/]!TemplatePath|!ExampleFilename.Ext'
    * Additional lists added for different contexts. Includes example items.
  * Build 1272 - Initial Release
 ==== Credit ==== 
