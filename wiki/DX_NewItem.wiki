@@ -50,5 +50,10 @@ Item Templates are (By Default) found under '*C:\Program Files (x86)\Microsoft V
 Simply add a new item to the dynamic list with a suitable mnemonic as it's name and the Item Template name (sans .zip) as it's Value.
 
 
+=== History ===
+ * Build 1280
+   * List Syntax altered to '[Folder/]TemplatePath|ExampleFilename.Ext'
+   * Additional lists added for different contexts. Includes example items.
+ * Build 1272 - Initial Release
 ==== Credit ==== 
 Author: RoryBecker
