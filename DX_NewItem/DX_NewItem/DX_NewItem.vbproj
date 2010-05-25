@@ -122,6 +122,11 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="DeploymentFiles\Dynamic Lists_Templates.xml" />
+    <Content Include="DeploymentFiles\Dynamic Lists_TemplatesWeb.xml" />
+    <Content Include="DeploymentFiles\Dynamic Lists_TemplatesWin.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
