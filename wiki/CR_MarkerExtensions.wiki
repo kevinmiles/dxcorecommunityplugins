@@ -22,7 +22,7 @@ The following CodeRush commands are available with this plug-in:
   * MarkerStackTop, MarkerStackBottom - Navigate to the marker on the top/bottom of the marker stack but do not collect it.
   * MarkerCollectAtCaret - Collects the marker under the caret. This is useful when you want to remove an arbitrary marker from the marker stack.
 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MarkerCloseOnCollect/CR_MarkerCloseOnCollect/images/screenshot1.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MarkerExtensions/Screenshots/CR_MarkerExtensions.png
 
 == Credits ==
 
