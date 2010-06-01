@@ -1,7 +1,4 @@
-#summary CR_MarkerExtensions
-=CR_MarkerExtensions=
-
-_Alternate navigation commands for CodeRush markers_
+#summary CR_MarkerExtensions Alternate navigation commands for CodeRush markers
 
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_QuickAddReference/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
