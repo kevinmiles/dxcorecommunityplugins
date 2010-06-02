@@ -1,6 +1,6 @@
 #summary CR_MarkerExtensions Alternate navigation commands for CodeRush markers
 
-[http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MarkerExtensions/bin/CR_MarkerExtensions.zip http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MarkerExtensions/CR_MarkerExtensions/bin/CR_MarkerExtensions.zip http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
 == Introduction ==
@@ -22,7 +22,7 @@ The following CodeRush commands are available with this plug-in:
   * MarkerStackTop, MarkerStackBottom - Navigate to the marker on the top/bottom of the marker stack but do not collect it.
   * MarkerCollectAtCaret - Collects the marker under the caret. This is useful when you want to remove an arbitrary marker from the marker stack.
 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MarkerExtensions/Screenshots/CR_MarkerExtensions.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MarkerExtensions/CR_MarkerExtensions/Screenshots/CR_MarkerExtensions.png
 
 == Credits ==
 
