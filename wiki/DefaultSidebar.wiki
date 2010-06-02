@@ -28,7 +28,7 @@
     * [DX_StackNav]
   * Navigation Plugins
     * [CR_JumpToImplementation]
-    * [CR_mdMarkerExtensions]
+    * [CR_MarkerExtensions]
     * [CR_ShowFile]
     * [CR_NavigateToDefinition]
     * [CR_ClearAllMarkers]
