@@ -1,5 +1,5 @@
 #summary CR_mdMarkerExtensions - Alternate navigation commands for CodeRush markers
 
-= This plug-in has moved! =
+= This plug-in has been renamed and moved! =
 
-Look here [CR_MarkerExtensions]
+Look here [CR_MarkerExtensions] for the latest version.
