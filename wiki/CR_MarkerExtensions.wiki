@@ -7,7 +7,7 @@
 
 == Introduction ==
 
-!*CR_MarkerExtensions* is a !CodeRush plug-in that supports an alternate set of navigation commands for !CodeRush "Markers". The out-of-the-box Marker navigation scheme works like a popcorn-trail of lightweight bookmarks in your code. It is "stack based" so the last marker dropped will be the first marker collected (LIFO). The alternate set of navigation commands supported by this plug-in work in "document" order (from top to bottom). There are a couple of other commands in this plug-in that you may find useful so check it out.
+*CR_MarkerExtensions* is a !CodeRush plug-in that supports an alternate set of navigation commands for !CodeRush "Markers". The out-of-the-box Marker navigation scheme works like a popcorn-trail of lightweight bookmarks in your code. It is "stack based" so the last marker dropped will be the first marker collected (LIFO). The alternate set of navigation commands supported by this plug-in work in "document" order (from top to bottom). There are a couple of other commands in this plug-in that you may find useful so check it out.
 
 The latest version of this plug-in was built with Visual Studio 2008 and !CodeRush 9.3.4.
 
