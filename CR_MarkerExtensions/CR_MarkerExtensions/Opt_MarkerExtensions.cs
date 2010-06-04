@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
+using DxDwg = DevExpress.DXCore.Platform.Drawing;
 
 namespace CR_MarkerExtensions
 {
@@ -76,6 +77,9 @@ namespace CR_MarkerExtensions
     {
       _settings.Load(ea.Storage);
       SettingsToControls();
+      // todo!!
+      testBeaconButton.Text = "(testing does not work with 10.1 yet)";
+      testBeaconButton.Enabled = false;
     }
     private void Opt_MarkerExtensions_RestoreDefaults(object sender, OptionsPageEventArgs ea)
     {
@@ -101,14 +105,14 @@ namespace CR_MarkerExtensions
     }
     private void testBeaconButton_Click(object sender, EventArgs e)
     {
-      testBeacon.Color = beaconColorSelectButton.BackColor;
+      testBeacon.Color = DxDwg.Color.ConvertFrom(beaconColorSelectButton.BackColor);
       testBeacon.Duration = beaconDurationTrackBar.Value;
       Rectangle beaconRect = new Rectangle();
       beaconRect.Width = Math.Min(testBeaconButton.Width, testBeaconButton.Height);
       beaconRect.Height = beaconRect.Width;
       beaconRect.X = (testBeaconButton.Width - beaconRect.Width) / 2;
       beaconRect.Y = (testBeaconButton.Height - beaconRect.Height) / 2;
-      testBeacon.Start(testBeaconButton.Handle, beaconRect);
+      //testBeacon.Start(testBeaconButton.Handle, beaconRect);
     }
   }
 }
