@@ -3,7 +3,8 @@
 [http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MarkerExtensions/bin/CR_MarkerExtensions.zip http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
-==== Requires DXCore/!CodeRush 9.3 (does not work with 10.1+) ====
+==== Updated to work with DXCore/!CodeRush 10.1+ (and hoping it still works with 9.3) ====
+Caveat: The plug-in's Options page has the ability to test the animation of the marker's locator beacon. Unfortunately, the latest version of DXCore removed the API I used to show the animation. I have disabled the ability to test the animation for now.
 
 == Introduction ==
 
