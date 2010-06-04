@@ -128,7 +128,6 @@ namespace CR_MarkerExtensions
       // 
       // testBeacon
       // 
-      this.testBeacon.Color = System.Drawing.Color.SlateBlue;
       // 
       // beaconColorDialog
       // 

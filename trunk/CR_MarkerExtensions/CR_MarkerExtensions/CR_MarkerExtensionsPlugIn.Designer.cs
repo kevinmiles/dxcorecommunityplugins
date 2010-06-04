@@ -70,6 +70,9 @@ namespace CR_MarkerExtensions
       this.MarkerFirstAction.Description = "Navigates to the \"first\" marker in the current document but doesn\'t collect it.";
       this.MarkerFirstAction.Image = null;
       this.MarkerFirstAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.MarkerFirstAction.ToolbarItem.ButtonIsPressed = false;
+      this.MarkerFirstAction.ToolbarItem.Caption = null;
+      this.MarkerFirstAction.ToolbarItem.Image = null;
       this.MarkerFirstAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerAction_Execute);
       // 
       // MarkerPrevAction
@@ -80,6 +83,9 @@ namespace CR_MarkerExtensions
     "ing it.";
       this.MarkerPrevAction.Image = null;
       this.MarkerPrevAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.MarkerPrevAction.ToolbarItem.ButtonIsPressed = false;
+      this.MarkerPrevAction.ToolbarItem.Caption = null;
+      this.MarkerPrevAction.ToolbarItem.Image = null;
       this.MarkerPrevAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerAction_Execute);
       // 
       // MarkerNextAction
@@ -90,6 +96,9 @@ namespace CR_MarkerExtensions
     "t.";
       this.MarkerNextAction.Image = null;
       this.MarkerNextAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.MarkerNextAction.ToolbarItem.ButtonIsPressed = false;
+      this.MarkerNextAction.ToolbarItem.Caption = null;
+      this.MarkerNextAction.ToolbarItem.Image = null;
       this.MarkerNextAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerAction_Execute);
       // 
       // MarkerLastAction
@@ -99,12 +108,15 @@ namespace CR_MarkerExtensions
       this.MarkerLastAction.Description = "Navigates to the \"last\" marker in the current document but doesn\'t collect it.";
       this.MarkerLastAction.Image = null;
       this.MarkerLastAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.MarkerLastAction.ToolbarItem.ButtonIsPressed = false;
+      this.MarkerLastAction.ToolbarItem.Caption = null;
+      this.MarkerLastAction.ToolbarItem.Image = null;
       this.MarkerLastAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerAction_Execute);
       // 
       // locatorBeacon
       // 
-      this.locatorBeacon.Color = System.Drawing.Color.SlateBlue;
       this.locatorBeacon.Duration = 200;
+      this.locatorBeacon.StepFactor = -1;
       // 
       // MarkerCollectFirstAction
       // 
@@ -113,6 +125,9 @@ namespace CR_MarkerExtensions
       this.MarkerCollectFirstAction.Description = "Navigates to the \"first\" marker in the current document and collects it.";
       this.MarkerCollectFirstAction.Image = null;
       this.MarkerCollectFirstAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.MarkerCollectFirstAction.ToolbarItem.ButtonIsPressed = false;
+      this.MarkerCollectFirstAction.ToolbarItem.Caption = null;
+      this.MarkerCollectFirstAction.ToolbarItem.Image = null;
       this.MarkerCollectFirstAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerAction_Execute);
       // 
       // MarkerCollectLastAction
@@ -122,6 +137,9 @@ namespace CR_MarkerExtensions
       this.MarkerCollectLastAction.Description = "Navigates to the \"last\" marker in the current document and collects it.";
       this.MarkerCollectLastAction.Image = null;
       this.MarkerCollectLastAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.MarkerCollectLastAction.ToolbarItem.ButtonIsPressed = false;
+      this.MarkerCollectLastAction.ToolbarItem.Caption = null;
+      this.MarkerCollectLastAction.ToolbarItem.Image = null;
       this.MarkerCollectLastAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerAction_Execute);
       // 
       // MarkerCollectPrevAction
@@ -131,6 +149,9 @@ namespace CR_MarkerExtensions
       this.MarkerCollectPrevAction.Description = "Navigates \"up\" to the previous marker in the current document and collects it.";
       this.MarkerCollectPrevAction.Image = null;
       this.MarkerCollectPrevAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.MarkerCollectPrevAction.ToolbarItem.ButtonIsPressed = false;
+      this.MarkerCollectPrevAction.ToolbarItem.Caption = null;
+      this.MarkerCollectPrevAction.ToolbarItem.Image = null;
       this.MarkerCollectPrevAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerAction_Execute);
       // 
       // MarkerCollectNextAction
@@ -140,6 +161,9 @@ namespace CR_MarkerExtensions
       this.MarkerCollectNextAction.Description = "Navigates \"down\" to the next marker in the current document and collects it.";
       this.MarkerCollectNextAction.Image = null;
       this.MarkerCollectNextAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.MarkerCollectNextAction.ToolbarItem.ButtonIsPressed = false;
+      this.MarkerCollectNextAction.ToolbarItem.Caption = null;
+      this.MarkerCollectNextAction.ToolbarItem.Image = null;
       this.MarkerCollectNextAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerAction_Execute);
       // 
       // MarkerStackTopAction
@@ -149,6 +173,9 @@ namespace CR_MarkerExtensions
       this.MarkerStackTopAction.Description = "Navigates to the top-most marker in the marker stack but doesn\'t collect it.";
       this.MarkerStackTopAction.Image = null;
       this.MarkerStackTopAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.MarkerStackTopAction.ToolbarItem.ButtonIsPressed = false;
+      this.MarkerStackTopAction.ToolbarItem.Caption = null;
+      this.MarkerStackTopAction.ToolbarItem.Image = null;
       this.MarkerStackTopAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerAction_Execute);
       // 
       // MarkerCollectAtCaretAction
@@ -158,6 +185,9 @@ namespace CR_MarkerExtensions
       this.MarkerCollectAtCaretAction.Description = "Collects the marker at the current caret location.";
       this.MarkerCollectAtCaretAction.Image = null;
       this.MarkerCollectAtCaretAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.MarkerCollectAtCaretAction.ToolbarItem.ButtonIsPressed = false;
+      this.MarkerCollectAtCaretAction.ToolbarItem.Caption = null;
+      this.MarkerCollectAtCaretAction.ToolbarItem.Image = null;
       this.MarkerCollectAtCaretAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerAction_Execute);
       // 
       // MarkerStackBottomAction
@@ -167,6 +197,9 @@ namespace CR_MarkerExtensions
       this.MarkerStackBottomAction.Description = "Navigates to the bottom-most marker in the marker stack but doesn\'t collect it.";
       this.MarkerStackBottomAction.Image = null;
       this.MarkerStackBottomAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.MarkerStackBottomAction.ToolbarItem.ButtonIsPressed = false;
+      this.MarkerStackBottomAction.ToolbarItem.Caption = null;
+      this.MarkerStackBottomAction.ToolbarItem.Image = null;
       this.MarkerStackBottomAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerAction_Execute);
       // 
       // CR_MarkerExtensionsPlugIn

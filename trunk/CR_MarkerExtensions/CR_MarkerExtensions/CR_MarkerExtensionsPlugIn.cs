@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
+using DxDwg=DevExpress.DXCore.Platform.Drawing;
 
 namespace CR_MarkerExtensions
 {
@@ -140,7 +141,7 @@ namespace CR_MarkerExtensions
 
       if ( _settings.ShowBeacon )
       {
-        locatorBeacon.Color = _settings.BeaconColor;
+        locatorBeacon.Color = DxDwg.Color.ConvertFrom(_settings.BeaconColor);
         locatorBeacon.Duration = _settings.BeaconDuration;
         locatorBeacon.Start(marker.TextDocument.ActiveView, marker.Line, marker.Column);
       }
