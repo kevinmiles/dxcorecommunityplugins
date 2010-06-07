@@ -19,4 +19,4 @@ With the plugin installed and Code Issues enabled, any class which has a field o
   * Implement a code provider which will implement the IDisposable pattern, and link it to the code issue.
 
 = Credits =
-Author: Casey Kramer
+Author: [CaseyKramer Casey Kramer]
