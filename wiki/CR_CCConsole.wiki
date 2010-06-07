@@ -1,5 +1,8 @@
 #summary Provides an in-IDE window for viewing status of selected CruiseControl.Net projects
 
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_CCConsole/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+
 = Introduction =
 
 This plugin provides a dockable window which will display the status of selected CruiseControl.Net projects, and update them on a periodic basis.  There is also a feature which will display an alert if a project moves from a Successful (green) status, to a Failed (red) status.
@@ -26,4 +29,4 @@ The company where I work uses CCNet as our CI tool, so it seemed like a good ide
 
 = Credits =
 
-Original Author: Casey Kramer
+Original Author: [CaseyKramer Casey Kramer]
