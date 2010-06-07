@@ -1,5 +1,8 @@
 #summary Moves a file to a different directory in the Solution (including moving between projects)
 
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_CreateTestMethod/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+
 = Introduction =
 
 This plug-in is pretty self-explanatory.  It moves a file from one location within the solution to another, adding project references as needed. 
@@ -22,4 +25,4 @@ This is primarily a way to re-structure projects without needing to use the mous
 
 = Credits =
 
-Original Author: Casey Kramer
+Original Author: [CaseyKramer Casey Kramer]
