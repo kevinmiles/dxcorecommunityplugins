@@ -108,4 +108,4 @@ I do TDD daily, so this is the beginning of an effort to ease some of the pain p
 
 = Credits =
 
-Original Author: Casey Kramer
+Original Author: [CaseyKramer Casey Kramer]
