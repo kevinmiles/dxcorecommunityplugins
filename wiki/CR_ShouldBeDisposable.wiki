@@ -2,6 +2,9 @@
 
 This is a DxCore plugin which will examine the currently loaded class and determine if it should implement IDisposable based on the properties and fields defined on the class.  It uses the new Code Issue capabilities in CodeRush v9.
 
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_ShouldBeDisposable/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+
 = Installation=
   # Make sure all instances of Visual Studio are closed
   # Copy the CR_ShouldBeDisposable.dll file into your Community Plugins directory (this is a user configurable location, but defaults to C:\Program Files\DevExpress 2009.1\IDETools\Community\PlugIns)
