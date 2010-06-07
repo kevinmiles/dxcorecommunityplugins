@@ -1,0 +1,26 @@
+#summary Author page for casey.kramer
+
+== Who am I == 
+My name is Casey Kramer. I am a .Net developer, agile enthusiast, and CodeRush fan since 2007.  Currently my list of plugins seems to be rather skewed towards working TDD, not sure if this will change or not :) 
+
+
+== Plugins ==
+Here are some links to some of the plugins I have written:
+<table border="0">
+<tr>
+<td valign="Top">
+ * [CR_MoveFile]
+ * [CR_NavigateToTest]
+ * [CR_ShouldBeDisposable]
+ * [CR_CCConsole]
+</td></tr>
+</table>
+
+It's worth noting that [CR_CCConsole] has not been touched for about a year now, since I'm not using CruiseControl.Net on a daily basis any longer.  I recall that it was working fairly well at one point though :)
+
+
+== Contact me ==
+Feel free to contact me about these plugins 
+ * Twitter: http://twitter.com/drrandom
+ * Email: casey dot kramer at-symbol gee-mail dot com
+ * Blog: http://www.drrandom.org
