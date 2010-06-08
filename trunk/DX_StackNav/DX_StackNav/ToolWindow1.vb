@@ -6,6 +6,7 @@ Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
 Imports System.Text.RegularExpressions
+Imports System.Runtime.CompilerServices
 
 <Title("Stack Nav")> _
 Public Class ToolWindow1
@@ -24,11 +25,14 @@ Public Class ToolWindow1
 #End Region
 
 #Region "Guts"
-    Private Regex = New Regex("\s+at\s(?<Method>.+)\(\)\sin\s(?<File>.+)\:line\s(?<LineNumber>\d+)")
+    Private Regex = New Regex("\s+at\s(?<Method>.+)\(.*\)\sin\s(?<File>.+)\:line\s(?<LineNumber>\d+)")
     Public Function GetStackFrames(ByVal StackText As String) As List(Of StackNavEntry)
         Dim Frames As New List(Of StackNavEntry)
         For Each Match As Match In Regex.Matches(StackText)
-            Frames.Add(New StackNavEntry(Match.Groups("File").Value, Match.Groups("LineNumber").Value, Match.Groups("Method").Value))
+            Dim FileValue As String = Match.Groups("File").DefaultTo("")
+            Dim FileNumberValue As String = Match.Groups("LineNumber").DefaultTo("")
+            Dim MethodValue As String = Match.Groups("Method").DefaultTo("")
+            Frames.Add(New StackNavEntry(FileValue, FileNumberValue, MethodValue))
         Next
         Return Frames
     End Function
@@ -61,7 +65,10 @@ Public Class ToolWindow1
         Call JumpToFile(Frame.PathAndFile, Frame.Line)
     End Sub
 #End Region
-
-
-
 End Class
+Public Module Groupext
+    <Extension()> _
+    Public Function DefaultTo(ByVal Source As Group, ByVal DefaultValue As String) As String
+        Return If(Source Is Nothing, DefaultValue, Source.Value)
+    End Function
+End Module
