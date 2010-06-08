@@ -25,8 +25,8 @@ Public Class ToolWindow1
 #End Region
 
 #Region "Guts"
-    Private Regex = New Regex("\s+at\s(?<Method>.+)\(.*\)\sin\s(?<File>.+)\:line\s(?<LineNumber>\d+)")
     Public Function GetStackFrames(ByVal StackText As String) As List(Of StackNavEntry)
+        Dim Regex = New Regex("\s*at\s(?<Method>.+)\(.*\)\sin\s(?<File>.+)\:line\s(?<LineNumber>\d+)")
         Dim Frames As New List(Of StackNavEntry)
         For Each Match As Match In Regex.Matches(StackText)
             Dim FileValue As String = Match.Groups("File").DefaultTo("")
