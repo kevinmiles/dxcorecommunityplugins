@@ -1,4 +1,5 @@
-﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -24,9 +25,16 @@
     </StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <OldToolsVersion>0.0</OldToolsVersion>
+    <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <DxCorePluginsFolder>$(registry:HKEY_CURRENT_USER\Software\Developer Express\CodeRush for VS\Community@InstallFolder)\Plugins</DxCorePluginsFolder>
+    <DxCoreInstallFolder>$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\Developer Express\CodeRush for VS\10.1@InstallFolder)</DxCoreInstallFolder>
+    <OutputPath>$(DxCorePluginsFolder)</OutputPath>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(DevEnvDir)devenv.exe</StartProgram>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -39,14 +47,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <DxCorePluginsFolder>$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\Developer Express\CodeRush for VS\9.1@PluginsFolder)</DxCorePluginsFolder>
-    <DxCoreInstallFolder>$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\Developer Express\CodeRush for VS\9.1@InstallFolder)</DxCoreInstallFolder>
-    <OutputPath>$(DxCorePluginsFolder)</OutputPath>
-    <StartAction>Program</StartAction>
-    <StartProgram>$(DevEnvDir)devenv.exe</StartProgram>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -69,6 +71,7 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -91,6 +94,7 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.CodeRush.Common">
@@ -118,6 +122,7 @@
       <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.VSCore.dll</HintPath>
       <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
     </Reference>
+    <Reference Include="DevExpress.DXCore.Platform, Version=10.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL" />
     <Reference Include="EnvDTE">
       <Name>EnvDTE</Name>
     </Reference>
@@ -135,6 +140,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrawLinesBetweenMethodsAdornment.cs" />
     <Compile Include="DrawLinesBetweenMethodsPlugIn.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -158,6 +164,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
       <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
@@ -171,6 +182,11 @@
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
