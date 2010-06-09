@@ -28,14 +28,17 @@ Public Class PlugIn1
 
     Private Sub actCustomCollapse_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteEventArgs) Handles actCustomCollapse.Execute
         Dim InclusionStrings = CStr(ea.VarIn).Split(","c).Select(Function(s) Normalise(s)).ToList
-        Dim Exclusions As LanguageElementType() = {LanguageElementType.Namespace, LanguageElementType.Class, LanguageElementType.Struct, LanguageElementType.Region}
-
         For Each Node In GetElements(CR.Source.ActiveFileNode, _
                                      Function(e) e.IsCollapsible _
                                      AndAlso InclusionStrings.Contains(Normalise(e.ElementType.ToString)))
 
-            Node.Collapse()
+            Node.CollapseInView(CodeRush.TextViews.Active)
         Next
+        If InclusionStrings.Contains("region") OrElse InclusionStrings.Contains("regiondirective") Then
+            For Each Region As RegionDirective In CodeRush.Source.ActiveSourceFile.Regions()
+                Region.CollapseInView(CodeRush.TextViews.Active)
+            Next
+        End If
     End Sub
     Private Function Normalise(ByVal S As String) As String
         Return S.LastPart("."c).Trim.ToLower
