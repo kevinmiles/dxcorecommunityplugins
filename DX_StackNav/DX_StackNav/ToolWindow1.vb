@@ -60,11 +60,12 @@ Public Class ToolWindow1
     Private Sub cmdRefresh_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRefresh.Click
         Refresh()
     End Sub
-    Private Sub Grid_CellContentDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles Grid.CellContentDoubleClick
+    Private Sub Grid_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles Grid.CellDoubleClick
         Dim Frame = TryCast(Grid.Rows(e.RowIndex).DataBoundItem, StackNavEntry)
         Call JumpToFile(Frame.PathAndFile, Frame.Line)
     End Sub
 #End Region
+
 End Class
 Public Module Groupext
     <Extension()> _
