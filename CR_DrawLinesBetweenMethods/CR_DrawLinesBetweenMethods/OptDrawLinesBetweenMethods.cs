@@ -27,7 +27,6 @@ namespace CR_DrawLinesBetweenMethods
         }
 
         bool _fullWidth;
-        DashStyle _lineDashStyle = DashStyle.Solid;
         int _lineWidth = 1;
         Color _lineColor = Color.Silver;
         bool _drawLineAtStartOfMethod = true;
@@ -48,7 +47,6 @@ namespace CR_DrawLinesBetweenMethods
                 using (DecoupledStorage storage = OptDrawLinesBetweenMethods.Storage)
                 {
                     _fullWidth = storage.ReadBoolean("DrawLinesBetweenMethods", "FullWidth", _fullWidth);
-                    _lineDashStyle = (DashStyle)storage.ReadEnum("DrawLinesBetweenMethods", "LineDashStyle", typeof(DashStyle), _lineDashStyle);
                     _lineWidth = storage.ReadInt32("DrawLinesBetweenMethods", "LineWidth", _lineWidth);
                     _lineColor = storage.ReadColor("DrawLinesBetweenMethods", "LineColor", _lineColor);
                     _drawLineAtStartOfMethod = storage.ReadBoolean("DrawLinesBetweenMethods", "DrawLineAtStartOfMethod", _drawLineAtStartOfMethod);
@@ -64,7 +62,6 @@ namespace CR_DrawLinesBetweenMethods
                 }
 
                 _fullWidthChk.Checked = _fullWidth;
-                _lineStyleLst.Text = _lineDashStyle.ToString();
                 _lineWidthLst.Text = _lineWidth.ToString();
                 _lineColorBtn.BackColor = _lineColor;
                 _drawLineAtStartChk.Checked = _drawLineAtStartOfMethod;
@@ -93,7 +90,6 @@ namespace CR_DrawLinesBetweenMethods
             {
 
                 _fullWidth = _fullWidthChk.Checked;
-                _lineDashStyle = (DashStyle)Enum.Parse(typeof(DashStyle), _lineStyleLst.Text);
                 _lineWidth = int.Parse(_lineWidthLst.Text);
                 _lineColor = _lineColorBtn.BackColor;
                 _drawLineAtStartOfMethod = _drawLineAtStartChk.Checked;
@@ -110,7 +106,6 @@ namespace CR_DrawLinesBetweenMethods
                 using (DecoupledStorage storage = OptDrawLinesBetweenMethods.Storage)
                 {
                     storage.WriteBoolean("DrawLinesBetweenMethods", "FullWidth", _fullWidth);
-                    storage.WriteEnum("DrawLinesBetweenMethods", "LineDashStyle", _lineDashStyle);
                     storage.WriteInt32("DrawLinesBetweenMethods", "LineWidth", _lineWidth);
                     storage.WriteColor("DrawLinesBetweenMethods", "LineColor", _lineColor);
                     storage.WriteBoolean("DrawLinesBetweenMethods", "DrawLineAtStartOfMethod", _drawLineAtStartOfMethod);

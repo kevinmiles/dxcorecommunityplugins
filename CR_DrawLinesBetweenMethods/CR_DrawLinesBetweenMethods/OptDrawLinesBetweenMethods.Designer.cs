@@ -7,9 +7,7 @@ namespace CR_DrawLinesBetweenMethods
     public partial class OptDrawLinesBetweenMethods
     {
         private CheckBox _fullWidthChk;
-        private Label label1;
         private Label label2;
-        private ComboBox _lineStyleLst;
         private ComboBox _lineWidthLst;
         private Label label3;
         private CheckBox _drawLineAtEndChk;
@@ -20,8 +18,6 @@ namespace CR_DrawLinesBetweenMethods
         private void InitializeComponent()
         {
             this._fullWidthChk = new System.Windows.Forms.CheckBox();
-            this._lineStyleLst = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this._lineWidthLst = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,27 +47,7 @@ namespace CR_DrawLinesBetweenMethods
             this._fullWidthChk.Size = new System.Drawing.Size(184, 24);
             this._fullWidthChk.TabIndex = 0;
             this._fullWidthChk.Text = "Draw line across full width of page";
-            // 
-            // _lineStyleLst
-            // 
-            this._lineStyleLst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._lineStyleLst.Items.AddRange(new object[] {
-            "Solid",
-            "Dash",
-            "Dot"});
-            this._lineStyleLst.Location = new System.Drawing.Point(81, 34);
-            this._lineStyleLst.Name = "_lineStyleLst";
-            this._lineStyleLst.Size = new System.Drawing.Size(121, 21);
-            this._lineStyleLst.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label1.Location = new System.Drawing.Point(3, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 14);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Line style:";
+            this._fullWidthChk.Visible = false;
             // 
             // _lineWidthLst
             // 
@@ -82,7 +58,7 @@ namespace CR_DrawLinesBetweenMethods
             "3",
             "4",
             "5"});
-            this._lineWidthLst.Location = new System.Drawing.Point(81, 61);
+            this._lineWidthLst.Location = new System.Drawing.Point(81, 30);
             this._lineWidthLst.Name = "_lineWidthLst";
             this._lineWidthLst.Size = new System.Drawing.Size(121, 21);
             this._lineWidthLst.TabIndex = 1;
@@ -90,7 +66,7 @@ namespace CR_DrawLinesBetweenMethods
             // label2
             // 
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label2.Location = new System.Drawing.Point(3, 64);
+            this.label2.Location = new System.Drawing.Point(3, 33);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 14);
             this.label2.TabIndex = 2;
@@ -99,7 +75,7 @@ namespace CR_DrawLinesBetweenMethods
             // label3
             // 
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label3.Location = new System.Drawing.Point(3, 120);
+            this.label3.Location = new System.Drawing.Point(3, 89);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 14);
             this.label3.TabIndex = 2;
@@ -107,7 +83,7 @@ namespace CR_DrawLinesBetweenMethods
             // 
             // _drawLineAtEndChk
             // 
-            this._drawLineAtEndChk.Location = new System.Drawing.Point(3, 217);
+            this._drawLineAtEndChk.Location = new System.Drawing.Point(3, 186);
             this._drawLineAtEndChk.Name = "_drawLineAtEndChk";
             this._drawLineAtEndChk.Size = new System.Drawing.Size(193, 24);
             this._drawLineAtEndChk.TabIndex = 3;
@@ -115,17 +91,18 @@ namespace CR_DrawLinesBetweenMethods
             // 
             // _drawShadowChk
             // 
-            this._drawShadowChk.Location = new System.Drawing.Point(3, 144);
+            this._drawShadowChk.Location = new System.Drawing.Point(3, 113);
             this._drawShadowChk.Name = "_drawShadowChk";
             this._drawShadowChk.Size = new System.Drawing.Size(104, 24);
             this._drawShadowChk.TabIndex = 3;
             this._drawShadowChk.Text = "Shadow";
+            this._drawShadowChk.Visible = false;
             this._drawShadowChk.CheckedChanged += new System.EventHandler(this._drawShadowChk_CheckedChanged);
             // 
             // _lineColorBtn
             // 
             this._lineColorBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this._lineColorBtn.Location = new System.Drawing.Point(81, 115);
+            this._lineColorBtn.Location = new System.Drawing.Point(81, 84);
             this._lineColorBtn.Name = "_lineColorBtn";
             this._lineColorBtn.Size = new System.Drawing.Size(121, 23);
             this._lineColorBtn.TabIndex = 4;
@@ -144,10 +121,8 @@ namespace CR_DrawLinesBetweenMethods
             this._mainPanel.Controls.Add(this._lineColorBtn);
             this._mainPanel.Controls.Add(this._drawShadowChk);
             this._mainPanel.Controls.Add(this.label3);
-            this._mainPanel.Controls.Add(this.label1);
             this._mainPanel.Controls.Add(this.label5);
             this._mainPanel.Controls.Add(this.label2);
-            this._mainPanel.Controls.Add(this._lineStyleLst);
             this._mainPanel.Controls.Add(this._lineWidthLst);
             this._mainPanel.Controls.Add(this._fullWidthChk);
             this._mainPanel.Location = new System.Drawing.Point(13, 27);
@@ -157,7 +132,7 @@ namespace CR_DrawLinesBetweenMethods
             // 
             // _shadowHeightNUD
             // 
-            this._shadowHeightNUD.Location = new System.Drawing.Point(75, 165);
+            this._shadowHeightNUD.Location = new System.Drawing.Point(75, 134);
             this._shadowHeightNUD.Maximum = new decimal(new int[] {
             15,
             0,
@@ -166,19 +141,21 @@ namespace CR_DrawLinesBetweenMethods
             this._shadowHeightNUD.Name = "_shadowHeightNUD";
             this._shadowHeightNUD.Size = new System.Drawing.Size(37, 20);
             this._shadowHeightNUD.TabIndex = 12;
+            this._shadowHeightNUD.Visible = false;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(30, 167);
+            this.label6.Location = new System.Drawing.Point(30, 136);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 13);
             this.label6.TabIndex = 11;
             this.label6.Text = "Height:";
+            this.label6.Visible = false;
             // 
             // _drawLineAtStartChk
             // 
-            this._drawLineAtStartChk.Location = new System.Drawing.Point(3, 191);
+            this._drawLineAtStartChk.Location = new System.Drawing.Point(3, 160);
             this._drawLineAtStartChk.Name = "_drawLineAtStartChk";
             this._drawLineAtStartChk.Size = new System.Drawing.Size(193, 24);
             this._drawLineAtStartChk.TabIndex = 10;
@@ -186,7 +163,7 @@ namespace CR_DrawLinesBetweenMethods
             // 
             // _lineSpaceNUD
             // 
-            this._lineSpaceNUD.Location = new System.Drawing.Point(81, 89);
+            this._lineSpaceNUD.Location = new System.Drawing.Point(81, 58);
             this._lineSpaceNUD.Maximum = new decimal(new int[] {
             15,
             0,
@@ -199,7 +176,7 @@ namespace CR_DrawLinesBetweenMethods
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 253);
+            this.label4.Location = new System.Drawing.Point(3, 222);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(109, 13);
             this.label4.TabIndex = 6;
@@ -213,7 +190,7 @@ namespace CR_DrawLinesBetweenMethods
             "Property",
             "Method",
             "Enum"});
-            this._enableOnMemberCheckList.Location = new System.Drawing.Point(3, 272);
+            this._enableOnMemberCheckList.Location = new System.Drawing.Point(3, 241);
             this._enableOnMemberCheckList.Name = "_enableOnMemberCheckList";
             this._enableOnMemberCheckList.Size = new System.Drawing.Size(193, 64);
             this._enableOnMemberCheckList.TabIndex = 5;
@@ -221,7 +198,7 @@ namespace CR_DrawLinesBetweenMethods
             // label5
             // 
             this.label5.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label5.Location = new System.Drawing.Point(3, 91);
+            this.label5.Location = new System.Drawing.Point(3, 60);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 14);
             this.label5.TabIndex = 2;
@@ -241,13 +218,14 @@ namespace CR_DrawLinesBetweenMethods
             // 
             // OptDrawLinesBetweenMethods
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.Controls.Add(this._enabledChk);
             this.Controls.Add(this._mainPanel);
             this.Name = "OptDrawLinesBetweenMethods";
             this.Size = new System.Drawing.Size(661, 617);
-            this.Load += new System.EventHandler(this.OptDrawLinesBetweenMethods_Load);
-            this.PreparePage += new DevExpress.CodeRush.Core.OptionsPage.PreparePageEventHandler(this.OptDrawLinesBetweenMethods_PreparePage);
             this.CommitChanges += new DevExpress.CodeRush.Core.OptionsPage.CommitChangesEventHandler(this.OptDrawLinesBetweenMethods_CommitChanges);
+            this.PreparePage += new DevExpress.CodeRush.Core.OptionsPage.PreparePageEventHandler(this.OptDrawLinesBetweenMethods_PreparePage);
+            this.Load += new System.EventHandler(this.OptDrawLinesBetweenMethods_Load);
             this._mainPanel.ResumeLayout(false);
             this._mainPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._shadowHeightNUD)).EndInit();
