@@ -45,19 +45,19 @@ Public Class PlugIn1
         Catch ex As Exception
             FilenamePattern = String.Empty 
         End Try
-        Try
-            Dim Param As String = String.Format("{0}/{1}", VSLanguage, ea.GetParameterValue(0).Split("|"c)(0))
-            Dim Pos = Param.LastIndexOf("/"c)
-            TemplateName = Param.Substring(Pos + 1)
-            TemplatePath = Param.Substring(0, Pos)
-        Catch ex As Exception
-            Exit Sub
-        End Try
+        'Try
+        Dim Param As String = String.Format("{0}/{1}", VSLanguage, ea.GetParameterValue(0).Split("|"c)(0))
+        Dim Pos = Param.LastIndexOf("/"c)
+        TemplateName = Param.Substring(Pos + 1)
+        TemplatePath = Param.Substring(0, Pos)
+        'Catch ex As Exception
+        '    Exit Sub
+        'End Try
 
         If FilenamePattern = String.Empty Then
             FilenamePattern = TemplateName.GetLastPart("/"c) & CodeRush.Language.ActiveExtension.SupportedFileExtensions
         End If
-        
+
         Dim FileName As String = GetUniqueFileName(FilenamePattern)
         Dim TemplateFullName As String = GetTemplatePath(TemplateName & ".zip", TemplatePath)
         CodeRush.ProjectItems.Active.ProjectItems.AddFromTemplate(TemplateFullName, FileName)
