@@ -131,22 +131,3 @@ Namespace SA11XX
         '        End Function
     End Module
 End Namespace
-
-Public Class testbaseclass
-    Public Sub New()
-        
-    End Sub
-    Public Overridable Sub Method1()
-        Throw New System.NotImplementedException()
-    End Sub
-End Class
-Class TestClass
-    Inherits testbaseclass
-    Private Sub X()
-        Call MyBase.Method1()
-        Call Method1()
-    End Sub
-    Public Overrides Sub Method1()
-        Throw New System.NotImplementedException()
-    End Sub
-End Class
