@@ -10,33 +10,30 @@ using System.Diagnostics;
 
 namespace CR_DrawLinesBetweenMethods
 {
-    class DrawLinesBetweenMethodsDocumentAdornment : TextDocumentAdornment
+    class HorizontalLineDocAdornment : TextDocumentAdornment
     {
-        public DrawLinesBetweenMethodsDocumentAdornment(SourceRange range)
+        public HorizontalLineDocAdornment(SourceRange range)
             : base(range)
         {
-            //Debug.WriteLine("DrawLinesBetweenMethodsAdornmentDocumentAdornment() c'tor");
         }
 
         protected override TextViewAdornment NewAdornment(string feature, IElementFrame frame)
         {
-            //Debug.WriteLine("  DrawLinesBetweenMethodsAdornmentDocumentAdornment.NewAdornment('" + feature + "', '" + frame + "')");
-            var adornment = new DrawLinesBetweenMethodsObjectAdornment(feature, frame);
+            var adornment = new HorizontalLineViewAdornment(feature, frame);
             return adornment;
         }
     }
 
-    class DrawLinesBetweenMethodsObjectAdornment : VisualObjectAdornment
+    class HorizontalLineViewAdornment : VisualObjectAdornment
     {
-        public DrawLinesBetweenMethodsObjectAdornment(string feature, IElementFrame frame)
+        public HorizontalLineViewAdornment(string feature, IElementFrame frame)
             : base(feature, frame)
         {
-            //Debug.WriteLine("DrawLinesBetweenMethodsAdornmentViewAdornment c'tor");
         }
 
         public override void Render(IDrawingSurface drawingSurface, ElementFrameGeometry geometry)
         {
-            //Debug.WriteLine("  DrawLinesBetweenMethodsAdornmentViewAdornment.Render");
+            //Debug.WriteLine("  HorizontalLineViewAdornment.Render");
 
             var settings = DrawLinesBetweenMethodsSettings.Current;
 
