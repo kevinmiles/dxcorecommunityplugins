@@ -6,6 +6,8 @@ using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
 using System.Diagnostics;
 using DevExpress.DXCore.Adornments;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace CR_DrawLinesBetweenMethods
 {
@@ -63,20 +65,35 @@ namespace CR_DrawLinesBetweenMethods
             if (!settings.Enabled)
                 return;
 
+            LanguageElement langElement = args.LanguageElement;
+
             //CodeRush.Documents.ActiveTextDocument.ge
-            if ((args.LanguageElement is Class) && settings.EnableOnClass
-                || (args.LanguageElement is Property) && settings.EnableOnProperty
-                || (args.LanguageElement is Method) && settings.EnableOnMethod
-                || (args.LanguageElement is Enumeration) && settings.EnableOnEnum)
+            if ((langElement is Class) && settings.EnableOnClass
+                || (langElement is Property) && settings.EnableOnProperty
+                || (langElement is Method) && settings.EnableOnMethod
+                || (langElement is Enumeration) && settings.EnableOnEnum)
             {
-                LanguageElement langElement = args.LanguageElement;
                 //Debug.WriteLine("langElement: " + langElement);
 
-                // TODO: Skip up over Comment, AttributeSection, XmlDocComment
+                // Skip up over Comment, AttributeSection, XmlDocComment
+                var commentsAndStuff = previousSiblings(langElement)
+                    .TakeWhile(sibling => sibling is Comment || sibling is XmlDocComment || sibling is AttributeSection);
+
+                langElement = commentsAndStuff.LastOrDefault() ?? langElement;
 
                 //Debug.WriteLine(" > AddBackgroundAdornment ...");
-                var adornment = new DrawLinesBetweenMethodsDocumentAdornment(langElement.Range);
+                var adornment = new HorizontalLineDocAdornment(langElement.Range);
                 args.AddBackgroundAdornment(adornment);
+            }
+        }
+
+        IEnumerable<LanguageElement> previousSiblings(LanguageElement languageElement)
+        {
+            var sibling = languageElement.PreviousSibling;
+            while (sibling != null)
+            {
+                yield return sibling;
+                sibling = sibling.PreviousSibling;
             }
         }
 
