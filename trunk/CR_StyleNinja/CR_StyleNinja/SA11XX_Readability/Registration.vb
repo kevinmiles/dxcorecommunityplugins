@@ -15,14 +15,14 @@ Namespace SA11XX
             ' SA1100
             C.CreateRefactoring("Remove Base Reference",
                                 "Remove Base Reference",
-                                AddressOf Fix_SA1100,
-                                AddressOf Available_SA1100).SolvedIssues.Add(Message_SA1100)
+                                AddressOf Available_SA1100,
+                                AddressOf Fix_SA1100).SolvedIssues.Add(Message_SA1100)
 
             ' SA1101
             C.CreateRefactoring("Add Instance Keyword",
                                 "Add Instance Keyword",
-                                AddressOf Fix_SA1100,
-                                AddressOf Available_SA1100).SolvedIssues.Add(Message_SA1100)
+                                AddressOf Available_SA1100,
+                                AddressOf Fix_SA1100).SolvedIssues.Add(Message_SA1100)
 
         End Sub
     End Module
