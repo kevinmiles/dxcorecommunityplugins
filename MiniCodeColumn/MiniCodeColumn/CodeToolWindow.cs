@@ -43,7 +43,6 @@ namespace MiniCodeColumn
         Rectangle last_code_rect = new Rectangle();
 
         System.Timers.Timer repaint_tool_window_timer;
-        System.Timers.Timer repaint_text_window_timer;
 
         // DXCore-generated code...
         #region InitializePlugIn
@@ -54,26 +53,9 @@ namespace MiniCodeColumn
             repaint_tool_window_timer.AutoReset = false;
             repaint_tool_window_timer.Elapsed += new System.Timers.ElapsedEventHandler(repaint_timer_Elapsed);
 
-            //repaint_text_window_timer = new System.Timers.Timer(500);
-            //repaint_text_window_timer.Enabled = false;
-            //repaint_text_window_timer.AutoReset = false;
-            //repaint_text_window_timer.Elapsed += new System.Timers.ElapsedEventHandler(repaint_text_window_timer_Elapsed);
-
             base.InitializePlugIn();
             LoadSettings();
             SetButtonImage();
-        }
-
-        void RestartTextTimer()
-        {
-            //repaint_text_window_timer.Stop();
-            //repaint_text_window_timer.Start();
-        }
-
-        void repaint_text_window_timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            repaint_text_window_timer.Stop();
-            HighlightSelectedText();
         }
 
         void RestartTimer()
@@ -86,7 +68,6 @@ namespace MiniCodeColumn
         {
             repaint_tool_window_timer.Stop();
             this.Invalidate();
-            HighlightSelectedText();
         }
         #endregion
         #region FinalizePlugIn
@@ -370,7 +351,8 @@ namespace MiniCodeColumn
                             graphics.FillEllipse(BreakPointBrush, 0f, line.Number / height_divisor - 5f, 10f, 12f);
 
                         if (line.MarkerPosition >= 0)
-                            CodeRush.Markers.Draw(graphics, new PointF(line.MarkerPosition, line.Number / height_divisor), PluginOptions.BreakPointColor, 5f, 3f);
+                            graphics.FillEllipse(ColumnBackgroundBrushSelectedWord, 0f, line.Number / height_divisor - 5f, 10f, 12f);
+                            //CodeRush.Graphics..Markers.Draw(graphics, new PointF(line.MarkerPosition, line.Number / height_divisor), PluginOptions.BreakPointColor, 5f, 3f);
                     }
                 }
                 graphics.Dispose();
@@ -408,18 +390,22 @@ namespace MiniCodeColumn
 
         private void events_TextViewActivated(TextViewEventArgs ea)
         {
-            HighlightSelectedText();
             RestartTimer();
         }
 
         private void events_EditorScrolled(EditorScrolledEventArgs ea)
         {
-            HighlightSelectedText();
             RestartTimer();
         }
 
+        void events_EditorPaint(DevExpress.CodeRush.Core.EditorPaintEventArgs ea)
+        {
+            HighlightSelectedText(ea.Graphics);
+        }
+
+
         private bool highlighting;
-        private void HighlightSelectedText()
+        private void HighlightSelectedText(Graphics graphics)
         {
             if (!PluginOptions.WordDoubleClickEnabled || highlighting || last_lines == null || last_lines.Count<=0)
                 return;
@@ -432,19 +418,18 @@ namespace MiniCodeColumn
             highlighting = true;
             CreateGraphicElements();
 
-            Graphics graphics = textView.Graphics;
             //SmoothingMode oldMode = graphics.SmoothingMode;
             try
             {                
                 //TextViewLines items = textView.Lines;
-                for (int l = textView.TopLine; l < textView.BottomLine; l++)
+                for (int l = textView.TopLine; l < textView.BottomLine && l < last_lines.Count; l++)
                 {
                     if (last_lines[l].StartOfWordIndex < 0) continue;
 
-                    Rectangle rect;
-                    textView.GetTextRectangle(selected_double_click, l, last_lines[l].StartOfWordIndex + 1, out rect);
-                    textView.Repaint(rect);
-                    graphics.FillRectangle(ColumnBackgroundBrushSelectedWord, rect);
+                    var rect = textView.GetRectangleFromSourceRange(new SourceRange(l, last_lines[l].StartOfWordIndex + 1, l, last_lines[l].StartOfWordIndex + selected_double_click.Length + 1));
+                    //textView.GetTextRectangle(selected_double_click, l, last_lines[l].StartOfWordIndex + 1, out rect);
+                    //textView.Repaint(rect);
+                    graphics.FillRectangle(ColumnBackgroundBrushSelectedWord, rect.ConvertTo<Rectangle>());
                     //textView.OverlayText(selected_double_click, l, last_lines[l].StartOfWordIndex + 1, ColumnBackgroundBrushSelectedWord.Color, false);
                     //textView.HighlightCode(
                     //        l,
@@ -457,7 +442,7 @@ namespace MiniCodeColumn
                     
                 }
             }
-            catch (Exception ex)
+            catch // (Exception ex)
             {
                 // System.Diagnostics.Debug.WriteLine(ex.Message);
             }
@@ -484,8 +469,11 @@ namespace MiniCodeColumn
                         selected_double_click = word.Text.Trim().ToUpperInvariant();
                     }
                     last_lines = CollectLines(textView, 1);
-                    textView.Repaint();
-                    HighlightSelectedText();
+                    textView.Invalidate();
+                    
+                    //HighlightSelectedText();
+                    RestartTimer();
+                    this.Invalidate();
                 }
                 catch //(Exception ex)
                 {
