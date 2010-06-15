@@ -51,6 +51,7 @@ namespace MiniCodeColumn
             this.events.EditorScrolled += new DevExpress.CodeRush.Core.EditorScrolledEventHandler(this.events_EditorScrolled);
             this.events.TextViewActivated += new DevExpress.CodeRush.Core.TextViewHandler(this.events_TextViewActivated);
             this.events.TextChanged += new DevExpress.CodeRush.Core.TextChangedEventHandler(this.events_TextChanged);
+            this.events.EditorPaint += new DevExpress.CodeRush.Core.EditorPaintEventHandler(this.events_EditorPaint);
             // 
             // CodeToolWindow
             // 
