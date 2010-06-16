@@ -7,7 +7,8 @@ Imports DevExpress.CodeRush.StructuralParser
 Imports EnvDTE80
 Imports System.IO
 Imports System.Runtime.CompilerServices
-
+Imports DX_Extras.Fluent
+Imports DX_Extras.IO
 Public Class PlugIn1
 
     'DXCore-generated code...
@@ -32,21 +33,17 @@ Public Class PlugIn1
         CType(NewItem, System.ComponentModel.ISupportInitialize).EndInit()
     End Sub
     Private Sub NewItem_Execute(ByVal ea As DevExpress.CodeRush.Core.ExecuteTextCommandEventArgs)
-        ' Get Template Name
-
-        ' Need to reformat "TemplatePath|Extension(DefaultLanguage)
-
         Dim TemplateName As String
         Dim TemplatePath As String
-        Dim VSLanguage As String = PreProcess(CodeRush.Documents.ActiveLanguage)
-        Dim FilenamePattern As String 
+        Dim FilenamePattern As String
         Try
             FilenamePattern = ea.GetParameterValue(0).Split("|"c)(1)
         Catch ex As Exception
-            FilenamePattern = String.Empty 
+            FilenamePattern = String.Empty
         End Try
         'Try
-        Dim Param As String = String.Format("{0}/{1}", VSLanguage, ea.GetParameterValue(0).Split("|"c)(0))
+        Dim Param As String = String.Format("{0}/{1}", CodeRush.Documents.ActiveLanguageVS, _
+                                            ea.GetParameterValue(0).Split("|"c)(0))
         Dim Pos = Param.LastIndexOf("/"c)
         TemplateName = Param.Substring(Pos + 1)
         TemplatePath = Param.Substring(0, Pos)
@@ -58,35 +55,12 @@ Public Class PlugIn1
             FilenamePattern = TemplateName.GetLastPart("/"c) & CodeRush.Language.ActiveExtension.SupportedFileExtensions
         End If
 
-        Dim FileName As String = GetUniqueFileName(FilenamePattern)
-        Dim TemplateFullName As String = GetTemplatePath(TemplateName & ".zip", TemplatePath)
+        Dim RootFolder = New FileInfo(TryCast(CodeRush.Source.ActiveFileNode, SourceFile).FilePath).Directory
+        Dim FileName As String = GetUniqueFileName(RootFolder, FilenamePattern)
+        Dim TemplateFullName As String = GetVSTemplatePath(TemplateName & ".zip", TemplatePath)
         CodeRush.ProjectItems.Active.ProjectItems.AddFromTemplate(TemplateFullName, FileName)
     End Sub
-    Private Function GetUniqueFileName(ByVal FileBase As String) As String
-        Dim Mantissa As String = Path.GetFileNameWithoutExtension(FileBase)
-        Dim Extension As String = Path.GetExtension(FileBase)
-        
-        Dim Count As Integer = 0
-        Dim FileName As String
 
-        Dim Folder = New FileInfo(TryCast(CodeRush.Source.ActiveFileNode, SourceFile).FilePath).Directory
-        Do
-            Count += 1
-            FileName = String.Format("{0}{1}{2}", Mantissa, Count, Extension)
-        Loop Until Folder.GetFiles(FileName).Count = 0
-        Return FileName
-    End Function
-    'Private Sub AddProject(ByVal TemplateFileName As String)
-    '    Dim TemplateFullName As String = GetTemplatePath(TemplateFileName, PreProcess(CodeRush.Documents.ActiveLanguage))
-    '    Call CodeRush.ApplicationObject.Solution.AddFromTemplate(TemplateFullName, SolutionFolder, ProjectName, False)
-    'End Sub
-    Private Function PreProcess(ByVal Language As String) As String
-        Return If(Language = "Basic", "VisualBasic", Language)
-    End Function
-    Private Function GetTemplatePath(ByVal Template As String, ByVal Language As String) As String
-        Dim Sol2 As Solution2 = TryCast(CodeRush.ApplicationObject.Solution, Solution2)
-        Return Sol2.GetProjectItemTemplate(Template, Language)
-    End Function
 
 End Class
 Public Module StringExt

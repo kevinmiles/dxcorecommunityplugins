@@ -127,6 +127,12 @@
     <Content Include="DeploymentFiles\Dynamic Lists_TemplatesWeb.xml" />
     <Content Include="DeploymentFiles\Dynamic Lists_TemplatesWin.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DX_Extras\DX_Extras\DX_Extras.vbproj">
+      <Project>{6744ABF2-9CC1-479A-932E-A1E93249B964}</Project>
+      <Name>DX_Extras</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
