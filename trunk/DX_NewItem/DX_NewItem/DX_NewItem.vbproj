@@ -140,7 +140,7 @@
 COPY $(TargetFileName) temp.dll
 ILMerge.exe /out:$(TargetFileName) temp.dll DX_Extras.dll
 DEL DX_Extras.*
-DEL temp.dll</PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
