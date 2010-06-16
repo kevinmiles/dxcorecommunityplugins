@@ -42,7 +42,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>..\..\..\..\RoryData\Documents\DevExpress\IDE Tools\Community\Plugins\</OutputPath>
+    <OutputPath>..\..\..\..\..\RoryData\Documents\DevExpress\IDE Tools\Community\PlugIns\</OutputPath>
     <DocumentationFile>CR_StyleNinja.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
   </PropertyGroup>
@@ -145,6 +145,14 @@
     <Content Include="TextFile1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>echo $(OutDir)
+CD $(OutDir)
+COPY $(TargetFileName) temp.dll
+ILMerge.exe /out:$(TargetFileName) temp.dll DX_Extras.dll
+DEL DX_Extras.*
+DEL temp.dll</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
