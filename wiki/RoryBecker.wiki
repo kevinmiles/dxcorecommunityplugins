@@ -20,6 +20,7 @@ Here are some links to some of the plugins I have written:
  * [CR_LinkBar]
  * [DX_StackNav]
  * [DX_NewItem]
+ * [DX_ReloadSolution]
 
 
 </td><td>
