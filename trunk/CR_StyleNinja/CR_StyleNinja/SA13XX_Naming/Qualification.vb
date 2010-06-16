@@ -97,6 +97,9 @@ Namespace SA13XX
             If Variable Is Nothing Then
                 Return False
             End If
+            If Not Variable.IsField Then
+                Return False
+            End If
             Return Not ((isPublicOrInternal(Variable) OrElse (isPrivateReadonly(Variable)))) AndAlso StartsUpper(Variable)
         End Function
 #End Region
