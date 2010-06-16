@@ -2,6 +2,8 @@ Imports System.ComponentModel
 Imports DevExpress.CodeRush.StructuralParser
 Imports DevExpress.CodeRush.Core
 Imports System.Diagnostics.CodeAnalysis
+Imports System.Runtime.CompilerServices
+
 Namespace SA11XX
     Friend Module Rules
 #Region "Utility"
@@ -69,8 +71,11 @@ Namespace SA11XX
         End Function
 
         Public Sub Fix_SA1100(ByVal sender As Object, ByVal ea As ApplyContentEventArgs)
-            ea.TextDocument.DeleteText(ea.CodeActive.Range())
+            ea.TextDocument.DeleteText(GetEndAdjustedRange(ea.CodeActive.Range, 0, 1))
         End Sub
+        Private Function GetEndAdjustedRange(ByVal Range As SourceRange, ByVal Lines As Integer, ByVal Columns As Integer) As SourceRange
+            Return New SourceRange(Range.Start, Range.End.OffsetPoint(Lines, Columns))
+        End Function
 #End Region
 #Region "SA1101"
         Public Const Message_SA1101 As String = "SA1101 - Prefix local calls this or Me."

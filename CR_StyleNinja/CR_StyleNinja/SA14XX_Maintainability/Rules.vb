@@ -1,5 +1,6 @@
 Imports System.ComponentModel
 Imports DevExpress.CodeRush.StructuralParser
+Imports SP = DevExpress.CodeRush.StructuralParser
 Imports DevExpress.CodeRush.Core
 Imports System.Diagnostics.CodeAnalysis
 Namespace SA14XX
@@ -12,8 +13,12 @@ Namespace SA14XX
         Friend Function IsMemberOrType(ByVal CodeActive As LanguageElement) As Boolean
             Return MemberOrType.Contains(CodeActive.ElementType)
         End Function
-        Friend Function HasExplicityVisibility(ByVal Element As AccessSpecifiedElement) As Boolean
-            Return Element.VisibilityRange <> SourceRange.Empty
+        Friend Function HasExplicitVisibility(ByVal Element As IElement) As Boolean
+            Dim ASE = TryCast(Element, AccessSpecifiedElement)
+            If ASE Is Nothing Then
+                Return False
+            End If
+            Return ASE.VisibilityRange <> SourceRange.Empty
         End Function
 #End Region
 #Region "SA1400 + Fix"
@@ -22,8 +27,33 @@ Namespace SA14XX
             ea.Available = Qualifies_SA1400(ea.CodeActive)
         End Sub
         Public Function Qualifies_SA1400(ByVal Element As IElement) As Boolean
-            Return TypeOf Element Is AccessSpecifiedElement _
-                    AndAlso Not HasExplicityVisibility(CType(Element, AccessSpecifiedElement))
+            Return ShouldHaveExplicitVisibility(Element) _
+                    AndAlso Not HasExplicitVisibility(Element)
+        End Function
+        Private Function ShouldHaveExplicitVisibility(ByVal Element As IElement) As Boolean
+            ' Exclude if not AccessSpecifiedElement
+            If Not TypeOf Element Is AccessSpecifiedElement Then
+                Return False
+            End If
+            ' Exclude Params
+            If TypeOf Element Is SP.Param Then
+                Return False
+            End If
+            ' Exclude Interface
+            If TypeOf Element Is SP.Interface Then
+                Return False
+            End If
+            ' Exclude if Parent is interface
+            If Element.Parent IsNot Nothing _
+                AndAlso TypeOf Element.Parent Is SP.Interface Then
+                Return False
+            End If
+            ' Exclude if Parent is Method
+            If Element.Parent IsNot Nothing _
+                AndAlso TypeOf Element.Parent Is SP.Method Then
+                Return False
+            End If
+            Return True
         End Function
         Public Sub Fix_SA1400(ByVal sender As Object, ByVal ea As ApplyContentEventArgs)
             Dim Element = CType(ea.CodeActive, AccessSpecifiedElement)
