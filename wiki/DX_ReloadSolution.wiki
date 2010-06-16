@@ -17,8 +17,5 @@ This functionality is also bound to an Action called '!ReloadSolution' so you ca
 
 === Future Features ===
 
- - Add Accelerator key to menu item.
- - Move item to bottom of File menu 
-
-
-Not much to add really. 
+ * Add Accelerator key to menu item.
+ * Move item to bottom of File menu 
