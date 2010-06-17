@@ -30,7 +30,10 @@ Namespace SA11XX
                 Return False
             End If
             Dim MethodReference = TryCast(Expression.Parent, MethodReferenceExpression)
-            Dim BaseMethod = MethodReference.GetMethod()
+            Dim BaseMethod = TryCast(MethodReference.GetDeclaration, Method)
+            If BaseMethod Is Nothing Then
+                Return False ' BaseMethod is non source code 
+            End If
             Dim LocalMethods = MethodReference.GetClass.AllMethods().Cast(Of Method)()
             Dim LocalMethod = LocalMethods.Where(Function(m) m.IsOverride _
                                                  AndAlso XOverridesY(m, BaseMethod)).FirstOrDefault

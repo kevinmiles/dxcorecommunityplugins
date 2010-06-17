@@ -98,7 +98,6 @@ Namespace SA14XX
 
             End If
         End Sub
-
 #End Region
 #Region "SA1403"
         Public Const Message_SA1403 As String = "SA1403 - Files must only contain a single Namespace"
@@ -155,7 +154,7 @@ Namespace SA14XX
         ' Imposible Issue
         'Public Const Message_SA1406 As String = "Debug.Fail() does not specify a descriptive message"
 #End Region
-#Region "SA1409"
+#Region "SA1409 + Fix"
         Public Const Message_SA1409 As String = "SA1409 - Remove Unnecessary Code"
         Public Sub Available_SA1409(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
             ea.Available = Qualifies_SA1409(ea.CodeActive)
