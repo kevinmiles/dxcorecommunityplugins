@@ -7,22 +7,30 @@ Imports DevExpress.CodeRush.StructuralParser
 
 Public Class PlugIn1
 
+    Private mDoc As Document
     'DXCore-generated code...
 #Region " InitializePlugIn "
     Public Overrides Sub InitializePlugIn()
         MyBase.InitializePlugIn()
         CreateExpandCurrentDocumentRegions()
         CreateOpenAllRegionsInOpenFiles()
-        AddHandler EventNexus.DocumentOpened, AddressOf OpenActiveDocumentRegions
+        AddHandler EventNexus.DocumentOpened, AddressOf OnDocumentOpened
+        AddHandler EventNexus.DocumentActivated, AddressOf OnDocumentActivated
     End Sub
-    Private Sub OpenActiveDocumentRegions(ByVal ea As DocumentEventArgs)
-        ExpandDocumentRegions(ea.Document)
+    Private Sub OnDocumentOpened(ByVal ea As DocumentEventArgs)
+        mDoc = ea.Document
+    End Sub
+    Private Sub OnDocumentActivated(ByVal ea As DocumentEventArgs)
+        If mDoc IsNot Nothing Then
+            Call ExpandDocumentRegions(mDoc)
+            mDoc = Nothing
+        End If
     End Sub
 
 #End Region
 #Region " FinalizePlugIn "
     Public Overrides Sub FinalizePlugIn()
-        RemoveHandler Me.DocumentOpened, AddressOf OpenActiveDocumentRegions
+        RemoveHandler Me.DocumentOpened, AddressOf OnDocumentOpened
         MyBase.FinalizePlugIn()
     End Sub
 #End Region
