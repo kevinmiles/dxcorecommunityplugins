@@ -5,8 +5,8 @@
 === Introduction ===
 
  * Expands Regions when Files are opened.
- * Provides 'ExpandCurrentDocumentRegions' action.
- * Provides 'ExpandAllRegionsInOpenFiles' action.
+ * Provides '!ExpandCurrentDocumentRegions' action.
+ * Provides '!ExpandAllRegionsInOpenFiles' action.
 
 Actions may be [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html bound to keys]
 
