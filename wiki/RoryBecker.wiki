@@ -35,7 +35,7 @@ Here are some links to some of the plugins I have written:
  * [DX_GuidGen]
  * [DX_BackupSettings]
  * [HighlightCurrentLineInEditor]
-
+ * [DX_RegionManager]
 </td></tr>
 </table>
 
