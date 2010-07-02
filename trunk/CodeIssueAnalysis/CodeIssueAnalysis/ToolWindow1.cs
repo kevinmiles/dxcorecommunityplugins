@@ -1,6 +1,9 @@
 using System;
+using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
@@ -9,17 +12,12 @@ using DevExpress.CodeRush.StructuralParser;
 using DevExpress.DXCore.Controls.Data;
 using DevExpress.DXCore.Controls.XtraGrid.Columns;
 using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
-using System.Data;
-using System.Collections.Generic;
-using System.IO;
-using System.Collections;
-using System.Reflection;
 
 namespace CodeIssueAnalysis
 {
     [Title("Code Issue Analysis")]
     public partial class ToolWindow1 : ToolWindowPlugIn
-    {       
+    {
         Stopwatch watch = new Stopwatch();
         IssueProcessor worker;
         int totalCount;
@@ -35,7 +33,7 @@ namespace CodeIssueAnalysis
         #region InitializePlugIn
         public override void InitializePlugIn()
         {
-            base.InitializePlugIn();           
+            base.InitializePlugIn();
             gridView1.BestFitMaxRowCount = 50;
             CodeIssueOptions.SetupSettingsLists();
             CodeIssueOptions.UpdateLayoutsList(cmbLayouts, true);
@@ -46,7 +44,7 @@ namespace CodeIssueAnalysis
             helper = new RefreshHelper(gridView1, "Hash");
         }
 
-                
+
         #endregion
         #region FinalizePlugIn
         public override void FinalizePlugIn()
@@ -56,7 +54,7 @@ namespace CodeIssueAnalysis
             //
             base.FinalizePlugIn();
         }
-        #endregion      
+        #endregion
 
         private void OnResults(object sender, EventArgs e)
         {
@@ -75,7 +73,7 @@ namespace CodeIssueAnalysis
                 gridView1.Columns["Type"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;
                 gridView1.Columns["Solution"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;
                 gridView1.Columns["Project"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;
-                gridView1.Columns["Message"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;                
+                gridView1.Columns["Message"].OptionsFilter.FilterPopupMode = FilterPopupMode.CheckedList;
                 gridView1.Columns["Source File"].Visible = false;
                 gridView1.Columns["Range"].Visible = false;
                 gridView1.Columns["Hash"].Visible = false;
@@ -96,7 +94,7 @@ namespace CodeIssueAnalysis
             {
                 EndProcessing();
             }
-        }       
+        }
 
         private void OnProcessingFile(object sender, IssueProcessor.ProcessingArgs e)
         {
@@ -114,7 +112,8 @@ namespace CodeIssueAnalysis
             }
             catch (Exception err)
             {
-                Debug.Assert(false, "Error Setting Progress Bar");
+                //don't assert anymore as thread sync issue
+                //Debug.Assert(false, "Error Setting Progress Bar");
             }
         }
 
@@ -135,7 +134,7 @@ namespace CodeIssueAnalysis
         private void gridView1_DoubleClick(object sender, EventArgs e)
         {
             try
-            {                
+            {
                 Point pt = gridControl1.PointToClient(MousePosition);
                 GridView view = (GridView)sender;
                 if (view.CalcHitInfo(pt).InRow)
@@ -181,14 +180,14 @@ namespace CodeIssueAnalysis
         {
             new Thread(worker.AddAllSolutionIssues).Start();
             progressBar.Visible = true;
-            btnCancel.Visible = true;  
+            btnCancel.Visible = true;
         }
 
         private void btnProjectIssues_Click(object sender, EventArgs e)
         {
             new Thread(worker.AddAllProjectIssues).Start();
             progressBar.Visible = true;
-            btnCancel.Visible = true;  
+            btnCancel.Visible = true;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -245,7 +244,7 @@ namespace CodeIssueAnalysis
 
         private void cmbLayouts_SelectedValueChanged(object sender, EventArgs e)
         {
-            
+
             switch (cmbLayouts.SelectedItem.ToString())
             {
                 case CodeIssueOptions.AllString:
@@ -258,7 +257,7 @@ namespace CodeIssueAnalysis
 
                         if (saveLayout.DialogResult == DialogResult.OK)
                             CodeIssueOptions.UpdateLayoutsList(cmbLayouts, true, saveLayout.saveName);
-                    }                    
+                    }
                     break;
                 case CodeIssueOptions.RemoveString:
                     using (RemoveLayout removeLayout = new RemoveLayout())
@@ -267,7 +266,7 @@ namespace CodeIssueAnalysis
 
                         if (removeLayout.DialogResult == DialogResult.OK)
                             CodeIssueOptions.UpdateLayoutsList(cmbLayouts, true);
-                    }                    
+                    }
                     break;
                 case CodeIssueOptions.Separator:
                     break;
@@ -284,14 +283,14 @@ namespace CodeIssueAnalysis
 
         private void btnExportHTMLTable_Click(object sender, EventArgs e)
         {
-           DialogResult expand = MessageBox.Show(
-                           "The export will only show what is visible in the grid. Do you wish to expand all groups to receive all the content?",
-                           "Expand Groups",
-                           MessageBoxButtons.YesNo);
+            DialogResult expand = MessageBox.Show(
+                            "The export will only show what is visible in the grid. Do you wish to expand all groups to receive all the content?",
+                            "Expand Groups",
+                            MessageBoxButtons.YesNo);
 
-           if (expand == DialogResult.Yes)
-               gridView1.ExpandAllGroups();
-            
+            if (expand == DialogResult.Yes)
+                gridView1.ExpandAllGroups();
+
             using (SaveFileDialog dlg = new SaveFileDialog())
             {
                 dlg.Filter = "HTML (*.html)|*.html";
@@ -312,6 +311,6 @@ namespace CodeIssueAnalysis
             }
         }
 
-        
+
     }
 }
