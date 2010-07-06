@@ -9,6 +9,7 @@ Imports DevExpress.CodeRush.StructuralParser
 Imports System.Runtime.CompilerServices
 
 Public Module LanguageElementExt
+#Region "GetParentBlock"
     <Extension()> _
     Public Function GetParentBlock(ByVal Statement As LanguageElement) As LanguageElement
         Dim ParentBlock As LanguageElement = Statement
@@ -18,6 +19,13 @@ Public Module LanguageElementExt
         Return ParentBlock
     End Function
     <Extension()> _
+    Public Function GetParentBlock(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As Statement
+        Dim FirstStatementInSelection = GetFirstNodeOnLine(Selection.Normalise.Start.Line)
+        Return (TryCast(GetParentBlock(FirstStatementInSelection), Statement))
+    End Function
+#End Region
+#Region "GetNextSiblingBlock"
+    <Extension()> _
     Public Function GetNextBlockSibling(ByVal Statement As LanguageElement) As ParentingStatement
         Dim Sibling = Statement
         Do
@@ -25,6 +33,13 @@ Public Module LanguageElementExt
         Loop Until Sibling Is Nothing OrElse TypeOf Sibling Is ParentingStatement
         Return CType(Sibling, ParentingStatement)
     End Function
+    <Extension()> _
+    Public Function GetNextBlockSibling(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As ParentingStatement
+        Dim LastStatementInSelection = GetFirstNodeOnLine(Selection.Normalise.End.Line - 1)
+        Dim NextBlock = GetNextBlockSibling(LastStatementInSelection)
+        Return NextBlock
+    End Function
+#End Region
     <Extension()> _
     Public Function GetInsertPoint(ByVal NextBlock As ParentingStatement) As SourcePoint
         Dim InsertPoint As SourcePoint
@@ -51,8 +66,8 @@ Public Module LanguageElementExt
             If Range.Start < SPoint Then
                 SPoint = Range.Start
             End If
-            If Range.End > Epoint Then
-                Epoint = Range.End
+            If Range.End > EPoint Then
+                EPoint = Range.End
             End If
         Next
         Return New SourceRange(SPoint, EPoint)

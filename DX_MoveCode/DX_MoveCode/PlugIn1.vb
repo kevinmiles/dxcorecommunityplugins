@@ -10,14 +10,13 @@ Imports System.Runtime.CompilerServices
 Imports DevExpress.CodeRush.Diagnostics.General
 
 Public Class PlugIn1
-
-    Private mStatementToMove As Statement = Nothing
     'DXCore-generated code...
 #Region " InitializePlugIn "
     Public Overrides Sub InitializePlugIn()
         MyBase.InitializePlugIn()
 
         'TODO: Add your initialization code here.
+        LoadSettings()
     End Sub
 #End Region
 #Region " FinalizePlugIn "
@@ -31,89 +30,127 @@ Public Class PlugIn1
     'Done: Move Statements Up and down
     'Done: Move Statements Left and Right
     'Done: Move Methods Up and Down
+    'Done: Add functions to work with Selections
 
-    'TODO: Add functions to work with Selections
     'TODO: Add option to use TargerPicker
 
+#Region "Mover Fields"
     Private mStatementMover As IStatementMover
     Private mMemberMover As IMemberMover
     Private mSelectionMover As ISelectionMover
-#Region "Move Code Actions"
-    Public Sub SetupMovers()
-        Dim Mover = New MoverMoveSource
+#End Region
+#Region "Initialise"
+    Private Sub SetupMovers(Of T As {IStatementMover, IMemberMover, ISelectionMover})(ByVal Mover As T)
         mStatementMover = Mover
         mMemberMover = Mover
         mSelectionMover = Mover
     End Sub
-
+#End Region
+#Region "Move Code Actions"
+#Region "Up / Down"
+    'Private Sub cmdMoveCodeDown_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeDown.Execute
+    '    Log.SendMsg("MoveCodeDown: Started")
+    '    Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
+    '    Dim Selection = CodeRush.Documents.ActiveTextView.Selection
+    '    Dim DestRange As SourceRange
+    '    Select Case True
+    '        Case Selection.Height > 1 'Selection
+    '            Selection.ExtendToWholeLines()
+    '            DestRange = mSelectionMover.MoveSelectionDown(Selection.Range)
+    '        Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable) ' Statement 
+    '            DestRange = mStatementMover.MoveStatementDown(FirstNodeOnLine)
+    '        Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent ' Member
+    '            DestRange = mMemberMover.MoveMemberDown(FirstNodeOnLine)
+    '        Case FirstNodeOnLine.Parent.ElementType = LanguageElementType.SourceFile ' Type
+    '            DestRange = mMemberMover.MoveMemberDown(FirstNodeOnLine)
+    '        Case Else
+    '            Exit Sub
+    '    End Select
+    '    CodeRush.Documents.ActiveTextView.MakeVisible(DestRange)
+    '    CodeRush.Documents.ActiveTextDocument.Format(DestRange)
+    '    Log.SendMsg("MoveCodeDown: Finished")
+    'End Sub
     Private Sub cmdMoveCodeDown_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeDown.Execute
         Log.SendMsg("MoveCodeDown: Started")
-        Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Dim Selection = CodeRush.Documents.ActiveTextView.Selection
+        Dim DestRange As SourceRange
         Select Case True
             Case Selection.Height > 1 'Selection
                 Selection.ExtendToWholeLines()
-                mSelectionMover.MoveSelectionDown(Selection.Range)
+                DestRange = mSelectionMover.MoveSelectionDown(Selection.Range)
             Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable) ' Statement 
-                mStatementMover.MoveStatementDown(FirstNodeOnLine)
+                DestRange = mStatementMover.MoveStatementDown(FirstNodeOnLine)
             Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent ' Member
-                mMemberMover.MoveMemberDown(FirstNodeOnLine)
+                DestRange = mMemberMover.MoveMemberDown(FirstNodeOnLine)
             Case FirstNodeOnLine.Parent.ElementType = LanguageElementType.SourceFile ' Type
-                mMemberMover.MoveMemberDown(FirstNodeOnLine)
+                DestRange = mMemberMover.MoveMemberDown(FirstNodeOnLine)
+            Case Else
+                Exit Sub
         End Select
+        CodeRush.Documents.ActiveTextView.MakeVisible(DestRange)
+        CodeRush.Documents.ActiveTextDocument.Format(DestRange)
         Log.SendMsg("MoveCodeDown: Finished")
     End Sub
-
     Private Sub cmdMoveCodeUp_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeUp.Execute
         Log.SendMsg("MoveCodeUp: Started")
-        Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Dim Selection = CodeRush.Documents.ActiveTextView.Selection
+        Dim DestRange As SourceRange
         Select Case True
             Case Selection.Height > 1 'Selection
                 Selection.ExtendToWholeLines()
-                mSelectionMover.MoveSelectionUp(Selection.Range)
+                DestRange = mSelectionMover.MoveSelectionUp(Selection.Range)
             Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable) ' Statement
-                mStatementMover.MoveStatementUp(FirstNodeOnLine)
+                DestRange = mStatementMover.MoveStatementUp(FirstNodeOnLine)
             Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent ' Member
-                mMemberMover.MoveMemberUp(FirstNodeOnLine)
+                DestRange = mMemberMover.MoveMemberUp(FirstNodeOnLine)
             Case CodeRush.Source.IsType(FirstNodeOnLine.Parent) ' Type
-                mMemberMover.MoveMemberUp(FirstNodeOnLine)
+                DestRange = mMemberMover.MoveMemberUp(FirstNodeOnLine)
+            Case Else
+                Exit Sub
         End Select
+        CodeRush.Documents.ActiveTextView.MakeVisible(DestRange)
+        CodeRush.Documents.ActiveTextDocument.Format(DestRange)
         Log.SendMsg("MoveCodeUp: Finished")
     End Sub
-
+#End Region
+#Region "Left / Right"
     Private Sub cmdMoveCodeRight_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeRight.Execute
         Log.SendMsg("MoveCodeRight: Started")
-        Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Dim Selection = CodeRush.Documents.ActiveTextView.Selection
+        Dim DestRange As SourceRange
         If Selection.Height > 1 Then
             Selection.ExtendToWholeLines()
-            mSelectionMover.MoveSelectionRight(Selection.Range)
+            DestRange = mSelectionMover.MoveSelectionRight(Selection.Range)
         Else
-            Call mStatementMover.MoveStatementRight(FirstNodeOnLine.GetParentStatementOrVariable)
+            DestRange = mStatementMover.MoveStatementRight(FirstNodeOnLine.GetParentStatementOrVariable)
         End If
+        CodeRush.Documents.ActiveTextView.MakeVisible(DestRange)
+        CodeRush.Documents.ActiveTextDocument.Format(DestRange)
+
         Log.SendMsg("MoveCodeRight: Finished")
     End Sub
     Private Sub cmdMoveCodeLeft_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeLeft.Execute
         Log.SendMsg("MoveCodeLeft: Started")
-        Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Dim Selection = CodeRush.Documents.ActiveTextView.Selection
+        Dim DestRange As SourceRange
         If Selection.Height > 1 Then
             Selection.ExtendToWholeLines()
-            mSelectionMover.MoveSelectionLeft(Selection.Range)
+            DestRange = mSelectionMover.MoveSelectionLeft(Selection.Range)
         Else
-            Call mStatementMover.MoveStatementLeft(FirstNodeOnLine.GetParentStatementOrVariable)
+            DestRange = mStatementMover.MoveStatementLeft(FirstNodeOnLine.GetParentStatementOrVariable)
         End If
+        CodeRush.Documents.ActiveTextView.MakeVisible(DestRange)
+        CodeRush.Documents.ActiveTextDocument.Format(DestRange)
         Log.SendMsg("MoveCodeLeft: Finished")
     End Sub
 #End Region
+#End Region
 #Region "Move Caret Actions"
     Private Sub cmdMoveCaretUp_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCaretUp.Execute
-        Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Select Case True
             Case FirstNodeOnLine.GetParentMethodOrProperty IsNot Nothing
@@ -121,7 +158,6 @@ Public Class PlugIn1
         End Select
     End Sub
     Private Sub cmdMoveCaretDown_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCaretDown.Execute
-        Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Select Case True
             Case FirstNodeOnLine.GetParentMethodOrProperty IsNot Nothing
@@ -129,12 +165,10 @@ Public Class PlugIn1
         End Select
     End Sub
     Private Sub cmdMoveCaretLeft_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCaretLeft.Execute
-        Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Call MoveCaretLeft(FirstNodeOnLine.GetParentStatementOrVariable)
     End Sub
     Private Sub cmdMoveCaretRight_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCaretRight.Execute
-        Call SetupMovers()
         Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
         Call MoveCaretRight(FirstNodeOnLine.GetParentStatementOrVariable)
     End Sub
@@ -163,6 +197,22 @@ Public Class PlugIn1
     Private Sub MoveCaretToElement(ByVal Destination As LanguageElement)
         If Destination IsNot Nothing Then
             CodeRush.Caret.MoveTo(Destination.Range.Start)
+        End If
+    End Sub
+#End Region
+
+#Region "Settings"
+    Private Sub PlugIn1_OptionsChanged(ByVal ea As DevExpress.CodeRush.Core.OptionsChangedEventArgs) Handles Me.OptionsChanged
+        If ea.OptionsPages.Contains(GetType(Options1)) Then
+            LoadSettings()
+        End If
+    End Sub
+
+    Public Sub LoadSettings()
+        If Options1.Storage.ReadBoolean(Options1.SECTION_MOVE_CODE, Options1.SETTING_MOVE_SOURCE, True) Then
+            SetupMovers(New MoverMoveSource)
+        ElseIf Options1.Storage.ReadBoolean(Options1.SECTION_MOVE_CODE, Options1.SETTING_SWAP_ELEMENTS, False) Then
+            SetupMovers(New MoverSwapElements)
         End If
     End Sub
 #End Region
