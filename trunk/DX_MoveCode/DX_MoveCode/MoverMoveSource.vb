@@ -15,119 +15,128 @@ Public Class MoverMoveSource
     Implements ISelectionMover
 
 #Region "MemberMethods"
-    Public Sub MoveMemberUp(ByVal FirstNodeOnLine As LanguageElement) Implements IMemberMover.MoveMemberUp
-        Call MoveElementUp(FirstNodeOnLine, "")
-    End Sub
-    Public Sub MoveMemberDown(ByVal FirstNodeOnLine As LanguageElement) Implements IMemberMover.MoveMemberDown
-        Call MoveElementDown(FirstNodeOnLine, "")
-    End Sub
+    Public Function MoveMemberUp(ByVal FirstNodeOnLine As LanguageElement) As SourceRange Implements IMemberMover.MoveMemberUp
+        Return MoveSourceElementUp(FirstNodeOnLine, "")
+    End Function
+    Public Function MoveMemberDown(ByVal FirstNodeOnLine As LanguageElement) As SourceRange Implements IMemberMover.MoveMemberDown
+        Return MoveSourceElementDown(FirstNodeOnLine, "")
+    End Function
 #End Region
 #Region "StatementMethods"
 
-    Public Sub MoveStatementDown(ByVal Statement As LanguageElement) Implements IStatementMover.MoveStatementDown
-        Try
-            Call MoveElementDown(Statement.GetParentStatementOrVariable, "")
-        Catch ex As Exception
-            Console.WriteLine(ex)
-
-        End Try
-    End Sub
-    Public Sub MoveStatementUp(ByVal Statement As LanguageElement) Implements IStatementMover.MoveStatementUp
-        Try
-            Call MoveElementUp(Statement.GetParentStatementOrVariable, "")
-        Catch ex As Exception
-            Console.WriteLine(ex)
-        End Try
-    End Sub
-    Public Sub MoveStatementLeft(ByVal Statement As LanguageElement) Implements IStatementMover.MoveStatementLeft
+    Public Function MoveStatementDown(ByVal Statement As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementDown
+        Return MoveSourceElementDown(Statement.GetParentStatementOrVariable, "")
+    End Function
+    Public Function MoveStatementUp(ByVal Statement As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementUp
+        Return MoveSourceElementUp(Statement.GetParentStatementOrVariable, "")
+    End Function
+    Public Function MoveStatementLeft(ByVal Statement As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementLeft
         If Statement IsNot Nothing Then
             Dim ParentBlock As Statement = TryCast(GetParentBlock(Statement), Statement)
             If ParentBlock IsNot Nothing Then
                 Dim Destination As SourcePoint = ParentBlock.GetFullBlockCutRange.Start
                 Dim MovingRange As SourceRange = Statement.ToList.GetSuperRange
                 MoveRangeLeft(MovingRange, Destination, String.Empty)
+                Return MovingRange.OffsetRange(Destination.Subtract(MovingRange.Start))
             End If
         End If
-    End Sub
-    Public Sub MoveStatementRight(ByVal Statement As LanguageElement) Implements IStatementMover.MoveStatementRight
+        Return Nothing
+    End Function
+    Public Function MoveStatementRight(ByVal Statement As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementRight
         If Statement IsNot Nothing Then
             Dim NextBlock = GetNextBlockSibling(Statement)
             If NextBlock IsNot Nothing Then
                 Dim Destination As SourcePoint = GetInsertPoint(NextBlock).LineStart
                 Dim MovingRange As SourceRange = Statement.ToList.GetSuperRange
                 MoveRangeRight(MovingRange, Destination, "")
+                Return MovingRange.OffsetRange(Destination.Subtract(MovingRange.Start))
             End If
         End If
-    End Sub
+        Return Nothing
+    End Function
 #End Region
 #Region "Selection Methods"
 
-    Public Sub MoveSelectionDown(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionDown
+    Public Function MoveSelectionDown(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionDown
         ' Locate Next Sibling of first element on last line of selection
-        Dim SourceElement = GetFirstNodeOnLine(Selection.Normalise.End.Line - 1)
-        Dim Sibling = SourceElement.NextCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
+        Dim Sibling = Selection.GetNextCodeElement()
         If Sibling IsNot Nothing Then
             Dim Destination = Sibling.Range.End.Down.LineStart
-            MoveRangeDown(Selection, Destination, "")
-            CodeRush.Selection.SelectRange(Selection.OffsetRange(Sibling.Range.Height, 0))
+            MoveRangeDownToDestination(Selection, Destination, "")
+            Dim FinalRange As SourceRange = Selection.OffsetRange(Sibling.Range.Height, 0)
+            CodeRush.Selection.SelectRange(FinalRange)
+            Return FinalRange
         End If
-    End Sub
+        Return Nothing
+    End Function
 
-    Public Sub MoveSelectionUp(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionUp
-        Dim SourceElement = GetFirstNodeOnLine(Selection.Normalise.Start.Line)
-        Dim Sibling = SourceElement.PreviousCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
+    Public Function MoveSelectionUp(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionUp
+        Dim Sibling = Selection.GetPriorCodeElement()
         If Sibling IsNot Nothing Then
             Dim Destination = Sibling.Range.Start.LineStart
             MoveRangeUp(Selection, Destination, "")
-            CodeRush.Selection.SelectRange(Selection.OffsetRange(-Sibling.Range.Height, 0))
+            Dim FinalRange As SourceRange = Selection.OffsetRange(-Sibling.Range.Height, 0)
+            CodeRush.Selection.SelectRange(FinalRange)
+            Return FinalRange
         End If
-    End Sub
-    Public Sub MoveSelectionRight(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionRight
-        Dim LastStatementInSelection = GetFirstNodeOnLine(Selection.Normalise.End.Line - 1)
-        Dim NextBlock = GetNextBlockSibling(LastStatementInSelection)
+        Return Nothing
+    End Function
+    Public Function MoveSelectionRight(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionRight
+        Dim NextBlock As ParentingStatement = GetNextBlockSibling(Selection)
         If NextBlock IsNot Nothing Then
             Dim StartLine = Selection.Top.Line
             Dim Destination As SourcePoint = GetInsertPoint(NextBlock).LineStart
             MoveRangeRight(Selection, Destination, "")
             'CodeRush.Selection.SelectRange(Selection)
-            CodeRush.Selection.SelectRange(Selection.OffsetRange(NextBlock.BlockCodeRange.Start.Line - StartLine, 0))
+            Dim FinalRange As SourceRange = Selection.OffsetRange(NextBlock.BlockCodeRange.Start.Line - StartLine, 0)
+            CodeRush.Selection.SelectRange(FinalRange)
+            Return FinalRange
         End If
-    End Sub
-    Public Sub MoveSelectionLeft(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) Implements ISelectionMover.MoveSelectionLeft
-        Dim FirstStatementInSelection = GetFirstNodeOnLine(Selection.Normalise.Start.Line)
-        Dim ParentBlock As Statement = TryCast(GetParentBlock(FirstStatementInSelection), Statement)
+        Return Nothing
+    End Function
+    Public Function MoveSelectionLeft(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionLeft
+        Dim ParentBlock As Statement = GetParentBlock(Selection)
         If ParentBlock IsNot Nothing Then
             Dim StartLine = Selection.Top.Line
             Dim Destination As SourcePoint = ParentBlock.GetFullBlockCutRange.Start
             MoveRangeLeft(Selection, Destination, String.Empty)
             'CodeRush.Selection.SelectRange(Selection)
-            CodeRush.Selection.SelectRange(Selection.OffsetRange(Destination.Line - StartLine, 0))
+            Dim FinalRange As SourceRange = Selection.OffsetRange(Destination.Line - StartLine, 0)
+            CodeRush.Selection.SelectRange(FinalRange)
+            Return FinalRange
         End If
-
-    End Sub
+        Return Nothing
+    End Function
 #End Region
 
 #Region "ElementMethods"
-    Private Sub MoveElementUp(ByVal Element As LanguageElement, ByVal Comment As String)
-        If Element IsNot Nothing Then
-            Dim Sibling = Element.PreviousCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
+    Private Function MoveSourceElementUp(ByVal SourceElement As LanguageElement, ByVal Comment As String) As SourceRange
+        If SourceElement IsNot Nothing Then
+            Dim Sibling = SourceElement.PreviousCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
             If Sibling IsNot Nothing Then
                 Dim Destination = Sibling.Range.Start.LineStart()
-                Dim MovingRange = Element.ToList.GetSuperRange()
+                Dim MovingRange = SourceElement.ToList.GetSuperRange()
                 MoveRangeUp(MovingRange, Destination, Comment)
+                Return MovingRange.OffsetRange(Destination.Subtract(MovingRange.Start))
             End If
         End If
-    End Sub
-    Private Sub MoveElementDown(ByVal Element As LanguageElement, ByVal Comment As String)
-        If Element IsNot Nothing Then
-            Dim Sibling = Element.NextCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
-            If Sibling IsNot Nothing Then
-                Dim Destination = Sibling.Range.End.Down.LineStart
-                Dim MovingRange = Element.ToList.GetSuperRange()
-                MoveRangeDown(MovingRange, Destination, Comment)
-            End If
+        Return Nothing
+    End Function
+    Private Function MoveSourceElementDown(ByVal SourceElement As LanguageElement, ByVal Comment As String) As SourceRange
+        If SourceElement Is Nothing Then
+            Return Nothing
         End If
-    End Sub
+        Dim Sibling = SourceElement.NextCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
+        If Sibling Is Nothing Then
+            ' There is no next sibling. This is the last Sibling
+            Return Nothing
+        End If
+        ' Sibling Found
+        Dim Destination = Sibling.Range.End.Down.LineStart
+        Dim MovingRange = SourceElement.ToList.GetSuperRange()
+        MoveRangeDownToDestination(MovingRange, Destination, Comment)
+        Return MovingRange.OffsetRange(Destination.Subtract(MovingRange.Start))
+    End Function
 
 
 
@@ -139,33 +148,43 @@ Public Class MoverMoveSource
 #End Region
 
 #Region "Range Methods"
-    Private Sub MoveRangeUp(ByVal MovingRange As SourceRange, ByVal Destination As SourcePoint, ByVal Comment As String)
+    Private Function MoveRangeUp(ByVal MovingRange As SourceRange, ByVal Destination As SourcePoint, ByVal Comment As String) As SourceRange
+        'Record Current position of Caret relative to MovingRange
+        Dim CaretDx = CodeRush.Caret.Offset - MovingRange.Start.Offset
+        Dim CaretDy = CodeRush.Caret.Line - MovingRange.Start.Line
+        ' Perform Move
+        CodeRush.Documents.ActiveTextDocument.Move(MovingRange, Destination, Comment)
+        ' Reposition Caret relative to Destination SourcePoint
+        CodeRush.Caret.MoveTo(Destination.OffsetPoint(CaretDy, CaretDx))
+        ' Return calculated destination range.
+        Return MovingRange.OffsetRange(Destination.Subtract(MovingRange.Start))
+    End Function
+    Private Function MoveRangeDownToDestination(ByVal MovingRange As SourceRange, _
+                                                ByVal Destination As SourcePoint, _
+                                                ByVal Comment As String) As SourceRange
+        ' Record Current position of Caret relative to MovingRange
+        Dim CaretDx = CodeRush.Caret.Offset - MovingRange.Start.Offset
+        Dim CaretDy = CodeRush.Caret.Line - MovingRange.Start.Line
+        ' Perform Move
+        CodeRush.Documents.ActiveTextDocument.Move(MovingRange, Destination, Comment)
+        ' Reposition Caret relative to Destination SourcePoint
+        CodeRush.Caret.MoveTo(Destination.OffsetPoint(CaretDy, CaretDx).Up(MovingRange.Height - 1))
+        ' Return calculated destination range.
+        Return MovingRange.OffsetRange(Destination.Subtract(MovingRange.Start))
+    End Function
+    Private Function MoveRangeLeft(ByVal MovingRange As SourceRange, ByVal Destination As SourcePoint, ByVal Comment As String) As SourceRange
         Dim Offset = CodeRush.Caret.Offset - MovingRange.Start.Offset
         Dim Line = CodeRush.Caret.Line - MovingRange.Start.Line
         CodeRush.Documents.ActiveTextDocument.Move(MovingRange, Destination, Comment)
-        CodeRush.Documents.ActiveTextView.MakeVisible(Destination)
-        CodeRush.Caret.MoveTo(Destination.OffsetPoint(Line, Offset))
-    End Sub
-    Private Sub MoveRangeDown(ByVal MovingRange As SourceRange, ByVal Destination As SourcePoint, ByVal Comment As String)
-        Dim Offset = CodeRush.Caret.Offset - MovingRange.Start.Offset
-        Dim Line = CodeRush.Caret.Line - MovingRange.Start.Line
-        CodeRush.Documents.ActiveTextDocument.Move(MovingRange, Destination, Comment)
-        CodeRush.Documents.ActiveTextView.MakeVisible(Destination)
-        CodeRush.Caret.MoveTo(Destination.OffsetPoint(Line, Offset).Up(MovingRange.Height - 1))
-    End Sub
-    Private Sub MoveRangeLeft(ByVal MovingRange As SourceRange, ByVal Destination As SourcePoint, ByVal Comment As String)
-        Dim Offset = CodeRush.Caret.Offset - MovingRange.Start.Offset
-        Dim Line = CodeRush.Caret.Line - MovingRange.Start.Line
-        CodeRush.Documents.ActiveTextDocument.Move(MovingRange, Destination, Comment)
-        CodeRush.Documents.ActiveTextView.MakeVisible(Destination)
         CodeRush.Caret.MoveTo(Destination.OffsetPoint(Line, Offset - CodeRush.Documents.ActiveTextDocument.IndentSize))
-    End Sub
-    Private Sub MoveRangeRight(ByVal MovingRange As SourceRange, ByVal Destination As SourcePoint, ByVal Comment As String)
+        Return MovingRange.OffsetRange(Destination.Subtract(MovingRange.Start))
+    End Function
+    Private Function MoveRangeRight(ByVal MovingRange As SourceRange, ByVal Destination As SourcePoint, ByVal Comment As String) As SourceRange
         Dim Offset = CodeRush.Caret.Offset - MovingRange.Start.Offset
         Dim Line = CodeRush.Caret.Line - MovingRange.Start.Line
         CodeRush.Documents.ActiveTextDocument.Move(MovingRange, Destination, Comment)
-        CodeRush.Documents.ActiveTextView.MakeVisible(Destination)
         CodeRush.Caret.MoveTo(Destination.OffsetPoint(Line, Offset + CodeRush.Documents.ActiveTextDocument.IndentSize).Up(MovingRange.Height - 1))
-    End Sub
+        Return MovingRange.OffsetRange(Destination.Subtract(MovingRange.Start))
+    End Function
 #End Region
 End Class

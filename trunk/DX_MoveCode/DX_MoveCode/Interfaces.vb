@@ -1,18 +1,18 @@
 ﻿Imports DevExpress.CodeRush.StructuralParser
 
 Public Interface IStatementMover
-    Sub MoveStatementUp(ByVal FirstNodeOnLine As LanguageElement)
-    Sub MoveStatementDown(ByVal FirstNodeOnLine As LanguageElement)
-    Sub MoveStatementLeft(ByVal Statement As LanguageElement)
-    Sub MoveStatementRight(ByVal Statement As LanguageElement)
+    Function MoveStatementUp(ByVal FirstNodeOnLine As LanguageElement) As SourceRange
+    Function MoveStatementDown(ByVal FirstNodeOnLine As LanguageElement) As SourceRange
+    Function MoveStatementLeft(ByVal Statement As LanguageElement) As SourceRange
+    Function MoveStatementRight(ByVal Statement As LanguageElement) As SourceRange
 End Interface
 Public Interface IMemberMover
-    Sub MoveMemberUp(ByVal Member As LanguageElement)
-    Sub MoveMemberDown(ByVal Member As LanguageElement)
+    Function MoveMemberUp(ByVal Member As LanguageElement) As SourceRange
+    Function MoveMemberDown(ByVal Member As LanguageElement) As SourceRange
 End Interface
 Public Interface ISelectionMover
-    Sub MoveSelectionDown(ByVal Selection As SourceRange)
-    Sub MoveSelectionUp(ByVal Selection As SourceRange)
-    Sub MoveSelectionRight(ByVal Selection As SourceRange)
-    Sub MoveSelectionLeft(ByVal Selection As SourceRange)
+    Function MoveSelectionDown(ByVal Selection As SourceRange) As SourceRange
+    Function MoveSelectionUp(ByVal Selection As SourceRange) As SourceRange
+    Function MoveSelectionRight(ByVal Selection As SourceRange) As SourceRange
+    Function MoveSelectionLeft(ByVal Selection As SourceRange) As SourceRange
 End Interface

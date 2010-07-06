@@ -72,8 +72,12 @@ Public Module SourcePointRangeExt
         Return OutList
     End Function
     <Extension()> _
-    Public Function MoveABS(ByVal Source As SourceRange, ByVal Point As SourcePoint) As SourceRange
-        Return New SourceRange(Point.Line, 1, Point.Line + Source.Height, 1)
+    Public Function Subtract(ByVal Source As SourcePoint, ByVal Point As SourcePoint) As SourcePoint
+        Return Source.OffsetPoint(Source.Line - Point.Line, Source.Offset - Point.Offset)
+    End Function
+    <Extension()> _
+    Public Function OffsetRange(ByVal Source As SourceRange, ByVal Point As SourcePoint) As SourceRange
+        Return New SourceRange(Source.Start.OffsetPoint(Point.Line, Point.Offset), Source.End.OffsetPoint(Point.Line, Point.Offset))
     End Function
     <Extension()> _
     Public Function NextCodeSiblingWhichIsNot(ByVal Source As LanguageElement, ByVal ParamArray Types() As LanguageElementType) As LanguageElement
@@ -114,4 +118,21 @@ Public Module SourcePointRangeExt
         End If
         Return New SourceRange(Source.End, Source.Start)
     End Function
+    <Extension()> _
+    Public Function GetNextCodeElement(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As LanguageElement
+        Dim SourceElement = GetFirstNodeOnLine(Selection.Normalise.End.Line - 1)
+        Dim Sibling = SourceElement.NextCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
+        Return Sibling
+    End Function
+    <Extension()> _
+    Public Function GetPriorCodeElement(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As LanguageElement
+        Dim SourceElement = GetFirstNodeOnLine(Selection.Normalise.Start.Line)
+        Dim Sibling = SourceElement.PreviousCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
+        Return Sibling
+    End Function
+    <Extension()> _
+    Public Function RelativeTo(ByVal Source As SourcePoint, ByVal DestPoint As SourcePoint) As Point
+        Return New Point(Source.Offset - DestPoint.Offset, DestPoint.Line - DestPoint.Line)
+    End Function
+
 End Module

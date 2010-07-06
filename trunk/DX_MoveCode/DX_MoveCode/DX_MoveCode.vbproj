@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -17,6 +17,10 @@
     <OptionCompare>Binary</OptionCompare>
     <OptionStrict>On</OptionStrict>
     <OptionInfer>On</OptionInfer>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,7 +29,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>D:\RoryData\Documents\DevExpress\IDE Tools\Community\PlugIns</OutputPath>
     <DocumentationFile>DX_MoveCode.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
@@ -36,7 +40,7 @@
     <Optimize>true</Optimize>
     <OutputPath>D:\RoryData\Documents\DevExpress\IDE Tools\Community\PlugIns</OutputPath>
     <DocumentationFile>DX_MoveCode.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.CodeRush.Interop, Version=9.3.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
@@ -116,6 +120,12 @@
     <Compile Include="Extensions\LanguageElementExt.vb" />
     <Compile Include="MoverMoveDestination.vb" />
     <Compile Include="Extensions\SourcePointRangeExt.vb" />
+    <Compile Include="Options1.Designer.vb">
+      <DependentUpon>Options1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Options1.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -126,6 +136,9 @@
     <Compile Include="Interfaces.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Options1.resx">
+      <DependentUpon>Options1.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PlugIn1.resx">
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </EmbeddedResource>

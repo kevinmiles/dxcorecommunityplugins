@@ -58,6 +58,7 @@ Partial Class PlugIn1
         Me.cmdMoveCodeUp.Description = "Moves Code Up"
         Me.cmdMoveCodeUp.Image = CType(resources.GetObject("cmdMoveCodeUp.Image"), System.Drawing.Bitmap)
         Me.cmdMoveCodeUp.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.cmdMoveCodeUp.RegisterInVS = True
         '
         'cmdMoveCodeDown
         '
@@ -67,6 +68,7 @@ Partial Class PlugIn1
         Me.cmdMoveCodeDown.Description = "Moves Code Down"
         Me.cmdMoveCodeDown.Image = CType(resources.GetObject("cmdMoveCodeDown.Image"), System.Drawing.Bitmap)
         Me.cmdMoveCodeDown.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.cmdMoveCodeDown.RegisterInVS = True
         '
         'cmdMoveCodeLeft
         '
@@ -76,6 +78,7 @@ Partial Class PlugIn1
         Me.cmdMoveCodeLeft.Description = "Moves Code Left"
         Me.cmdMoveCodeLeft.Image = CType(resources.GetObject("cmdMoveCodeLeft.Image"), System.Drawing.Bitmap)
         Me.cmdMoveCodeLeft.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.cmdMoveCodeLeft.RegisterInVS = True
         '
         'cmdMoveCodeRight
         '
@@ -85,6 +88,7 @@ Partial Class PlugIn1
         Me.cmdMoveCodeRight.Description = "Moves Code Right"
         Me.cmdMoveCodeRight.Image = CType(resources.GetObject("cmdMoveCodeRight.Image"), System.Drawing.Bitmap)
         Me.cmdMoveCodeRight.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.cmdMoveCodeRight.RegisterInVS = True
         '
         'TargetPicker1
         '
@@ -134,6 +138,9 @@ Partial Class PlugIn1
         Me.cmdMoveCaretRight.Description = "Moves Caret Right"
         Me.cmdMoveCaretRight.Image = CType(resources.GetObject("cmdMoveCaretRight.Image"), System.Drawing.Bitmap)
         Me.cmdMoveCaretRight.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
+        '
+        'PlugIn1
+        '
         CType(Me.cmdMoveCodeUp, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdMoveCodeDown, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cmdMoveCodeLeft, System.ComponentModel.ISupportInitialize).EndInit()

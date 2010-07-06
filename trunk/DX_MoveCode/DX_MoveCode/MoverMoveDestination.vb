@@ -14,61 +14,69 @@ Public Class MoverMoveDestination
     Implements IMemberMover
 
 #Region "MemberMethods"
-    Public Sub MoveMemberUp(ByVal FirstNodeOnLine As LanguageElement) Implements IMemberMover.MoveMemberUp
-        Call MoveElementUp(FirstNodeOnLine)
-    End Sub
-    Public Sub MoveMemberDown(ByVal FirstNodeOnLine As LanguageElement) Implements IMemberMover.MoveMemberDown
-        Call MoveElementDown(FirstNodeOnLine)
-    End Sub
+    Public Function MoveMemberUp(ByVal MemberOrType As LanguageElement) As SourceRange Implements IMemberMover.MoveMemberUp
+        Return MoveElementUp(MemberOrType)
+    End Function
+    Public Function MoveMemberDown(ByVal MemberOrType As LanguageElement) As SourceRange Implements IMemberMover.MoveMemberDown
+        Return MoveElementDown(MemberOrType)
+    End Function
 #End Region
 #Region "StatementMethods"
-    Public Sub MoveStatementUp(ByVal FirstNodeOnLine As LanguageElement) Implements IStatementMover.MoveStatementUp
-        Call MoveElementUp(FirstNodeOnLine.GetParentStatementOrVariable)
-    End Sub
-    Public Sub MoveStatementDown(ByVal FirstNodeOnLine As LanguageElement) Implements IStatementMover.MoveStatementDown
-        Call MoveElementDown(FirstNodeOnLine.GetParentStatementOrVariable)
-    End Sub
-    Public Sub MoveStatementLeft(ByVal Statement As LanguageElement) Implements IStatementMover.MoveStatementLeft
+    Public Function MoveStatementUp(ByVal FirstNodeOnLine As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementUp
+        Return MoveElementUp(FirstNodeOnLine.GetParentStatementOrVariable)
+    End Function
+    Public Function MoveStatementDown(ByVal FirstNodeOnLine As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementDown
+        Return MoveElementDown(FirstNodeOnLine.GetParentStatementOrVariable)
+    End Function
+    Public Function MoveStatementLeft(ByVal Statement As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementLeft
         If Statement IsNot Nothing Then
             Dim ParentBlock As Statement = TryCast(GetParentBlock(Statement), Statement)
             If ParentBlock IsNot Nothing Then
-                Call MoveElementsToPoint(Statement.ToList, ParentBlock.GetFullBlockCutRange.Start)
+                Return MoveElementsToPoint(Statement.ToList, ParentBlock.GetFullBlockCutRange.Start)
             End If
         End If
-    End Sub
-    Public Sub MoveStatementRight(ByVal Statement As LanguageElement) Implements IStatementMover.MoveStatementRight
+        Return Nothing
+    End Function
+    Public Function MoveStatementRight(ByVal Statement As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementRight
         If Statement IsNot Nothing Then
             Dim NextBlock = GetNextBlockSibling(Statement)
             If NextBlock IsNot Nothing Then
-                Call MoveElementsToPoint(Statement.ToList, GetInsertPoint(NextBlock).LineStart)
+                Return MoveElementsToPoint(Statement.ToList, GetInsertPoint(NextBlock).LineStart)
             End If
         End If
-    End Sub
+        Return Nothing
+    End Function
 #End Region
 #Region "ElementMethods"
-    Private Sub MoveElementUp(ByVal Element As LanguageElement)
+    Private Function MoveElementUp(ByVal Element As LanguageElement) As SourceRange
         If Element IsNot Nothing Then
             Dim Sibling = Element.PreviousCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
             If Sibling IsNot Nothing Then
-                Call SwapStatements(Element.ToList, Sibling)
-                CodeRush.Documents.ActiveTextView.MakeVisible(Element)
+                Dim DestRange = SwapStatements(Element.ToList, Sibling)
+                CodeRush.Documents.ActiveTextView.MakeVisible(DestRange)
             End If
         End If
-    End Sub
-    Private Sub MoveElementDown(ByVal Statement As LanguageElement)
-        If Statement IsNot Nothing Then
-            Dim Sibling = Statement.NextCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
+        Return Nothing
+    End Function
+    Private Function MoveElementDown(ByVal Element As LanguageElement) As SourceRange
+        If Element IsNot Nothing Then
+            Dim Sibling = Element.NextCodeSiblingWhichIsNot(LanguageElementType.XmlDocComment, LanguageElementType.AttributeSection)
             If Sibling IsNot Nothing Then
-                Call SwapStatements(Statement.ToList, Sibling)
-                CodeRush.Documents.ActiveTextView.MakeVisible(Statement)
+                Dim DestRange = SwapStatements(Element.ToList, Sibling)
+                CodeRush.Documents.ActiveTextView.MakeVisible(DestRange)
             End If
         End If
-    End Sub
+        Return Nothing
+    End Function
 
 #End Region
-    Private Sub SwapStatements(ByVal Elements As List(Of LanguageElement), ByVal Sibling As LanguageElement)
-        Dim ElementsStartLine = Elements.First.Range.Start.Line
-        Dim SiblingStartLine = Sibling.Range.Start.Line
+    Private Function SwapStatements(ByVal Elements As List(Of LanguageElement), ByVal Sibling As LanguageElement) As SourceRange
+        Dim ElementsRangeStartPoint As SourcePoint = Elements.First.Range.Start
+        Dim ElementsStartLine = ElementsRangeStartPoint.Line
+        Dim SiblingStartRange As SourceRange = Sibling.Range
+        Dim SiblingStartPoint = SiblingStartRange.Start
+        Dim SiblingStartLine = SiblingStartPoint.Line
+        Dim ElementMoveVector = SiblingStartPoint.Subtract(ElementsRangeStartPoint)
         Dim SiblingDestination As SourcePoint = Nothing
         For Each Element In Elements
             Dim Doc = CodeRush.Documents.ActiveTextDocument
@@ -79,8 +87,11 @@ Public Class MoverMoveDestination
             Doc.Move(SiblingRange, SiblingDestination, "")
             Doc.Format(CombinedRange)
         Next
-    End Sub
-    Private Sub MoveElementsToPoint(ByVal Elements As List(Of LanguageElement), ByVal Point As SourcePoint)
+        Return SiblingStartRange.OffsetRange(ElementMoveVector)
+    End Function
+    Private Function MoveElementsToPoint(ByVal Elements As List(Of LanguageElement), ByVal Point As SourcePoint) As SourceRange
+        Dim ElementsStartRange = Elements.GetSuperRange
+        Dim ElementMoveVector = Point.Subtract(ElementsStartRange.Start)
         Dim ElementsStartLine = Elements.First.Range.Start.Line
         Dim LocalPoint = Point.Clone()
         LocalPoint.RemoveAllBindings()
@@ -96,7 +107,9 @@ Public Class MoverMoveDestination
         End If
         Dim Offset As Integer = LocalPoint.Line.StartOfCode.Offset
         CodeRush.Caret.MoveTo(New SourcePoint(LocalPoint.Line, Offset))
-    End Sub
+        Return ElementsStartRange.OffsetRange(ElementMoveVector)
+
+    End Function
     Private Function AddRanges(ByVal SiblingRange As SourceRange, ByVal StatementRange As SourceRange) As SourceRange
         Dim StartLine As Integer = Math.Min(SiblingRange.Start.Line, StatementRange.Start.Line)
         Dim EndLine As Integer = Math.Max(SiblingRange.End.Line, StatementRange.End.Line)
