@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AAE8894B-859F-471E-9995-A65A64108606}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CR_BlockPainterPlus</RootNamespace>
+    <AssemblyName>CR_BlockPainterPlus</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\DevExpress\IDE Tools\Community\PlugIns\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\DevExpress\IDE Tools\Community\PlugIns</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.CodeRush.UserControls, Version=10.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DXCore.Controls.Data.v6.3, Version=10.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
+    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3, Version=10.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
+    <Reference Include="DevExpress.DXCore.Controls.XtraBars.v6.3, Version=10.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
+    <Reference Include="DevExpress.DXCore.Controls.XtraEditors.v6.3, Version=10.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DXCore.Controls.XtraLayout.v6.3, Version=10.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DXCore.Controls.XtraTreeList.v6.3, Version=10.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
+    <Reference Include="DevExpress.DXCore.Platform, Version=10.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject">
+      <HintPath>..\lib\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="EnvDTE" />
+    <Reference Include="EnvDTE80" />
+    <Reference Include="DevExpress.CodeRush.Common" />
+    <Reference Include="DevExpress.CodeRush.Core" />
+    <Reference Include="DevExpress.CodeRush.PlugInCore" />
+    <Reference Include="DevExpress.CodeRush.StructuralParser" />
+    <Reference Include="DevExpress.CodeRush.VSCore" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adornments\BlockMetaDataViewAdornment.cs" />
+    <Compile Include="Adornments\BlockMetaDataDocumentAdornment.cs" />
+    <Compile Include="Adornments\BlockPrefixViewAdornment.cs" />
+    <Compile Include="Adornments\BlockPrefixDocumentAdornment.cs" />
+    <Compile Include="BlockPainterPlugIn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BlockPainterPlugIn.Designer.cs">
+      <DependentUpon>BlockPainterPlugIn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BlockPainterPlusModule.cs" />
+    <Compile Include="Constants\DefaultValues.cs" />
+    <Compile Include="Constants\Words.cs" />
+    <Compile Include="DetailedBlockMetaData.cs" />
+    <Compile Include="GenericBlock.cs" />
+    <Compile Include="Injection Providers\BlockPaintingStrategySettingsProvider.cs" />
+    <Compile Include="Interfaces\IDetailedBlockMetaData.cs" />
+    <Compile Include="Interfaces\IBlockPaintingStrategySettings.cs" />
+    <Compile Include="Interfaces\IGenericBlock.cs" />
+    <Compile Include="Options\BlockPainterPlusOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Options\BlockPainterPlusOptions.Designer.cs">
+      <DependentUpon>BlockPainterPlusOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Injection Providers\BlockPaintingStrategyProvider.cs" />
+    <Compile Include="Interfaces\IBlockPainterPlusSettings.cs" />
+    <Compile Include="Interfaces\IBlockPaintingStrategy.cs" />
+    <Compile Include="Constants\ParameterNames.cs" />
+    <Compile Include="Options\BlockPainterPlusSetings.cs" />
+    <Compile Include="Options\BlockPaintingStrategySettings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Constants\SettingNames.cs" />
+    <Compile Include="Strategies\BlockPaintingStrategy.cs" />
+    <Compile Include="Strategies\CatchPaintingStrategy.cs" />
+    <Compile Include="Strategies\ClassPaintingStrategy.cs" />
+    <Compile Include="Strategies\DoPaintingStrategy.cs" />
+    <Compile Include="Strategies\ElseIfPaintingStrategy.cs" />
+    <Compile Include="Strategies\ElsePaintingStrategy.cs" />
+    <Compile Include="Strategies\FinallyPaintingStrategy.cs" />
+    <Compile Include="Strategies\ForEachPaintingStrategy.cs" />
+    <Compile Include="Strategies\ForPaintingStrategy.cs" />
+    <Compile Include="Strategies\GetPaintingStrategy.cs" />
+    <Compile Include="Strategies\IfPaintingStrategy.cs" />
+    <Compile Include="Strategies\InterfacePaintingStrategy.cs" />
+    <Compile Include="Strategies\LockPaintingStrategy.cs" />
+    <Compile Include="Strategies\NamespacePaintingStrategy.cs" />
+    <Compile Include="Strategies\PropertyPaintingStrategy.cs" />
+    <Compile Include="Strategies\MethodPaintingStrategy.cs" />
+    <Compile Include="Strategies\SetPaintingStrategy.cs" />
+    <Compile Include="Strategies\StructPaintingStrategy.cs" />
+    <Compile Include="Strategies\SwitchPaintingStrategy.cs" />
+    <Compile Include="Strategies\TryPaintingStrategy.cs" />
+    <Compile Include="Strategies\UsingPaintingStrategy.cs" />
+    <Compile Include="Strategies\WhilePaintingStrategy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BlockPainterPlugIn.resx">
+      <DependentUpon>BlockPainterPlugIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options\BlockPainterPlusOptions.resx">
+      <DependentUpon>BlockPainterPlusOptions.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Properties\DataSources\IBlockPaintingStrategySettings.datasource" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
