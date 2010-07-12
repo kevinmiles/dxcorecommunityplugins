@@ -11,7 +11,7 @@ This plugin does not operate on lines of code, but instead on complete statement
 
 It's been suggested (Thanks Ruben) that some good keys to bind these actions to would be Ctrl+Alt+Up|Down|Left|Right. These are similar to those used by Word and !PowerPoint which as pointed out, might enable you to make good use of some muscle memory :)
 
-_Note: Build 675 has additional experimental 'MoveCaret' versions of these new commands._
+_Note: Build 675 has additional experimental '!MoveCaret' versions of these new commands._
 
 = Usage =
 Place your caret on a line with a statement, and activate any of the commands as required.
@@ -20,7 +20,7 @@ Place your caret on a line with a statement, and activate any of the commands as
 
 *Moving Code Up and Down*
 
-The first 2 commands made available by this plugin are MoveCodeUp and MoveCodeDown.
+The first 2 commands made available by this plugin are !MoveCodeUp and !MoveCodeDown.
 
 Because this plugin operates on statements rather than lines of code, when you move a statement down, it will skip past an 'if clause' or a 'for loop' rather than move inside it.
 
@@ -51,11 +51,11 @@ private void SomeMethod()
 
 *Move Code Left or Right*
 
-The next 2 commands are 'MoveCodeLeft' and 'MoveCodeRight'. Their purpose is to deal with scenarios where you might want to move code in and out of parent/child Codeblocks like 'If' and 'For'
+The next 2 commands are '!MoveCodeLeft' and '!MoveCodeRight'. Their purpose is to deal with scenarios where you might want to move code in and out of parent/child code blocks like 'If' and 'For'
 
-MoveCodeRight looks for the next sibling statement which posesses it's own Codeblock (Such as a 'For' or 'If') and moves the statement so as to positioinit first inside of said Codeblock.
+!MoveCodeRight looks for the next sibling statement which possesses it's own code block (Such as a 'For' or 'If') and moves the statement so as to position it first inside of said Codeblock.
 
-MoveCodeLeft Looks to move the current statement immediately prior what every codeblock might already be within.
+!MoveCodeLeft Looks to move the current statement immediately prior what every code block might already be within.
 
 For Example:
 
@@ -122,14 +122,14 @@ private void SomeMethod()
 = History = 
  * Build 1370 - Options page added allowing a choice between 2 movement algorithms.
  * Build 821 - Small fix to ensure moved code remains visible on screen.
- * Build 709 - MoveCode[Up|Down] now works with Methods if caret on signature.
- * Build 675 - MoveCaretUp / MoveCaretDown / MoveCaretLeft / MoveCaretRight actions.
+ * Build 709 - !MoveCode[Up|Down] now works with Methods if caret on signature.
+ * Build 675 - !MoveCaretUp / !MoveCaretDown / !MoveCaretLeft / !MoveCaretRight actions.
 
 = Future Plans = 
 
  * Move Selection (With intelligent selection Adjustment) functionality
- * Option to use TargetPicker for Methods and Selections.
- * Allow MoveCodeLeft, MoveCodeRight to adjust the existence braces on a c# block where the number of statements changes between 1 and 2.
+ * Option to use !TargetPicker for Methods and Selections.
+ * Allow !MoveCodeLeft, !MoveCodeRight to adjust the existence braces on a c# block where the number of statements changes between 1 and 2.
 
 = Credits =
 RoryBecker
