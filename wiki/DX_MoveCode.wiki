@@ -7,8 +7,9 @@ The 4 actions provided by this plugin, allow you to move code around more effici
 This plugin does not operate on lines of code, but instead on complete statements.
 
 = Configuration =
-[http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Bind a key] to each of MoveCodeLeft, MoveCodeRight, MoveCodeUp and MoveCodeDown.
-I tend to use Alt+CursorKeys. (This means I have had to disable the ScopeCycleUp, ScopeCycleDown and CamelCaseLeft, CamelCaseRight Shortcut/Command combos.)
+[http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Bind a key] to each of !MoveCodeLeft, !MoveCodeRight, !MoveCodeUp and !MoveCodeDown.
+
+It's been suggested (Thanks Ruben) that some good keys to bind these actions to would be Ctrl+Alt+Up|Down|Left|Right. These are similar to those used by Word and !PowerPoint which as pointed out, might enable you to make good use of some muscle memory :)
 
 _Note: Build 675 has additional experimental 'MoveCaret' versions of these new commands._
 
@@ -119,6 +120,7 @@ private void SomeMethod()
 }}}
 
 = History = 
+ * Build 1370 - Options page added allowing a choice between 2 movement algorithms.
  * Build 821 - Small fix to ensure moved code remains visible on screen.
  * Build 709 - MoveCode[Up|Down] now works with Methods if caret on signature.
  * Build 675 - MoveCaretUp / MoveCaretDown / MoveCaretLeft / MoveCaretRight actions.
