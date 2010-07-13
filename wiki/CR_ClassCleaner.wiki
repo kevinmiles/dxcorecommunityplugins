@@ -3,7 +3,7 @@
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
 === Introduction ===
-(Note: This text stolen from [http://unhandled-exceptions.com/blog/index.php/2008/07/16/confessions-of-a-developer-tool-hound/ the blog of Steve Bohlen]
+(Note: This text "Borrowed" :) from [http://unhandled-exceptions.com/blog/index.php/2008/07/16/confessions-of-a-developer-tool-hound/ the blog of Steve Bohlen])
 
 If you’re like me and you like to both have your class source code well-organized and at the same time are annoyed at having to remember to scroll back up to the top of your class just to define a new field in the ‘right’ place, then the DXCore CR_ClassCleaner plug-in is for you.
 
