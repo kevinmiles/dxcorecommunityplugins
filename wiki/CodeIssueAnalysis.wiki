@@ -16,13 +16,17 @@ http://img341.imageshack.us/img341/9384/codeissueanalysis.png
 
 Press the solution or project button to begin analysis. This may take some time dependant on the size of your project. Once analyzed a list of code issues will be shown. Analysis can be cancelled at any time.
 
+= CodeRush Xpress Users =
+
+Unfortunately CodeIssues is disabled in the latest version of CRXpress so this plugin will not work for you.
+
 = Installation =
 
 Install by copying the CodeIssueAnalysis.dll to your dxcore plugins directory.
 
-= CodeRush Xpress Users/Keyboard Shortcut =
+= Keyboard Shortcut =
 
-Code Rush Xpress does not have the DevExpress menu to access the tool window. To work around this you can assign a keyboard shortcut to launch it. Follow the guide [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html here] on how to do this, the command is OpenCodeIssueAnalysis.
+Follow the guide [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html here] on how to add a keyboard shortcut. The command is OpenCodeIssueAnalysis.
 
 = Options =
 
