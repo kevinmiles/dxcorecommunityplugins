@@ -61,7 +61,7 @@ namespace CR_NavigateToTest
             // 
             // locatorBeacon1
             // 
-            this.locatorBeacon1.Color = System.Drawing.Color.SlateBlue;
+            this.locatorBeacon1.Color = DevExpress.DXCore.Platform.Drawing.Colors.SlateBlue;
             ((System.ComponentModel.ISupportInitialize)(this.navigationProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.locatorBeacon1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
