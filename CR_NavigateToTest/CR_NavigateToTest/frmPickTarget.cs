@@ -35,7 +35,7 @@ namespace CR_NavigateToTest
             {
                 var classNode = new TreeNode(classElement.Name) { Tag = classElement, ImageIndex = 0, SelectedImageIndex = 0 };
                 trvTargets.Nodes.Add(classNode);
-                foreach (var methodElement in _elements.Where(el => el.GetClass() == classElement).Select(e => e.GetMethod()).Distinct())
+                foreach (var methodElement in _elements.Where(el => el.GetClass() == classElement).Select(e => e.GetMethod()).Where(m => m != null).Distinct())
                 {
                     var methodNode = classNode.Nodes.Add(methodElement.Name);
                     methodNode.Tag = methodElement;
