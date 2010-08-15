@@ -6,7 +6,7 @@
 
 = Introduction =
 
-This plugin allow to convert auto property of any type into XPO property. It can be often used in scenario when classed which were previously serialized are now stored using XPO. Currently the plugin was designed and tested to work under with C#.
+This plugin allow to convert auto property of any type into XPO property. It can be often used in scenario when classed which were previously serialized are now stored using XPO. Currently the plugin was designed and tested to work under C#.
 
 == Sample ==
 
