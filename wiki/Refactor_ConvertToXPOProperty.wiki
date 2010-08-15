@@ -1,0 +1,48 @@
+#summary Plugin allows to convert auto property into XPO property with two key strokes.
+
+= Introduction =
+
+This plugin allow to convert auto property of any type into XPO property. It can be often used in scenario when classed which were previously serialized are now stored using XPO. Currently the plugin was designed and tested to work under with C#.
+
+== Sample ==
+
+This plugins allows convert this:
+
+{{{
+public class Bar : XPObject
+{
+    public string Message { get; set; }
+}
+}}}
+
+Into:
+
+{{{
+public class Bar : XPObject
+{
+    private string _Message;
+    public string Message
+    {
+        get
+        {
+            return _Message;
+        }
+        set
+        {
+            SetPropertyValue("Message", ref _Message, value);
+        }
+    }
+}
+}}}
+
+= Usage =
+
+http://www.virgotech.pl/wp-content/uploads/2010/08/ConvertToXPoProp_01.png
+
+http://www.virgotech.pl/wp-content/uploads/2010/08/ConvertToXPoProp_02.png
+
+http://www.virgotech.pl/wp-content/uploads/2010/08/ConvertToXPoProp_03.png
+
+= Credits =
+
+Author: Krzysztof Blacha
