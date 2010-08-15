@@ -1,5 +1,9 @@
 #summary Plugin allows to convert auto property into XPO property with two key strokes.
 
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_ConvertToXPOProperty/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+
 = Introduction =
 
 This plugin allow to convert auto property of any type into XPO property. It can be often used in scenario when classed which were previously serialized are now stored using XPO. Currently the plugin was designed and tested to work under with C#.
@@ -45,4 +49,4 @@ http://www.virgotech.pl/wp-content/uploads/2010/08/ConvertToXPoProp_03.png
 
 = Credits =
 
-Author: Krzysztof Blacha
+Krzysztof Blacha - You can contact me at krzysztof.blacha@gmail.com
