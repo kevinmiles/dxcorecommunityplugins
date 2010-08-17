@@ -1,15 +1,41 @@
-#summary Organises your code (optionally using regions) based on settings provided.
+#summary Organizes your code (optionally using regions) based on settings provided.
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_ClassCleaner http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
 === Introduction ===
-(Note: This text "Borrowed" :) from [http://unhandled-exceptions.com/blog/index.php/2008/07/16/confessions-of-a-developer-tool-hound/ the blog of Steve Bohlen])
+The ClassCleaner plugin features the ability to:
+ * Organize a class and create regions
+ * Organize a class without creating regions
+ * Remove whitespace (removes excessive line breaks)
+ * Remove regions (rids the class of regions)
+=== Configuration ===
+ # Add the assembly to your plugins folder – “DevExpress\IDE Tools\Community\PlugIns”
+ # Start Visual Studio and select “DevExpress>Options” from the top menu strip then navigate to “IDE\ShortCuts”.
+ # First I recommend creating a folder under “Code” called “Custom” and then within that “ClassCleaner”. The commands that need shortcuts are:
+  * OrganizeWithRegions
+  * OrganizeWORegions
+  * RemoveWhitespace
+  * RemoveRegions
+  * SelectCurrentMember
+  * CutCurrentMember
+[http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ClassCleaner/Screenshots/ClassCleanerActions.jpg]
 
-If you’re like me and you like to both have your class source code well-organized and at the same time are annoyed at having to remember to scroll back up to the top of your class just to define a new field in the ‘right’ place, then the DXCore CR_ClassCleaner plug-in is for you.
+ # Add a shortcut for each command.  The keystrokes I use are:
+  * RemoveRegions: ctrl+shift+alt+I
+  * RemoveWhitespace: ctrl+shift+alt+K
+  * OrganizeWithRegions: ctrl+shift+alt+L
+  * OrganizeWORegions: ctrl+shift+alt+O
+  * SelectCurrentMember ctrl+P
+  * CutCurrentMember ctrl+shift+P
+ # For each shortcut make sure “Use” is set to “InClass” which is located at “Editor/Code/InClass”.
+=== Usage ===
+The next step is to open a class file, put your cursor inside the class, and press ctrl+shift+alt+L or ctrl+shift+alt+O to organize the file.  To test out “RemoveWhitespace”: open a class file, inside the class hit “Enter” five times, and then press ctrl+shift+alt+L.  To test out “RemoveRegions”: open a class file that contains regions, place the cursor inside the class, and press ctrl+shift+alt+I.
+NOTE:  As stated above your cursor must be inside the class.
+What and which order ClassCleaner organizes a class is configurable.  Navigate to “DevExpress>Options” on the top menu strip.   Next go to “Editor/ClassCleaner” to view the configuration.
+  
+[http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ClassCleaner/Screenshots/ClassCleanerOptions.jpg]
 
-!ClassCleaner allows you to add code to your class (methods, fields, properties, enums, constants, whatever) and have !ClassCleaner properly reorganize your class for you with a single keystroke (the keybinding of which you control when you configure it).  This gives you the freedom to just add a new method, etc. anywhere in your class and have !ClassCleaner properly relocate it within the class’ source file when you invoke it — no more jumping around in your source file before you add a method or a field to ensure adherence to some (arbitrary!) code-organization standard (preference smile_teeth).
-
-!ClassCleaner provides a completely configurable order of the elements that you want it to relocate in your class source file, offers options to either ‘organize-with-regions’ if you’re like me and prefer #region tags in your files or ‘organize-without-regions’ if you think that code-folding is evil.  So that your whole team can use the same !ClassCleaner settings, !ClassCleaner supports importing and exporting its settings so that all of your team’s classes can be organized the same way (and so that running ClassCleaner on existing code doesn’t cause all kinds of trouble when you DIFF your code against your buddy’s before merging/committing it smile_omg).  
+The ClassCleaner configuration allows users to add code groups, delete code groups, and change the order of how code blocks will be organized.  Another useful feature is the ability to import and export code group configuration settings.  This allows the settings to be distributed around the team or even have different ClassCleaner configuration files for different projects.  The "Reset" button does just that it resets to the original default settings.
 
 === Credits ===
 Written by John Luiff
