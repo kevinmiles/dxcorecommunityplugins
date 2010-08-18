@@ -35,7 +35,8 @@ namespace Impromptu
 {
 	public partial class PlugIn1 : StandardPlugIn
 	{
-		private bool _DisplayTile;
+        private static string performerPath = LocateExe();
+        private bool _DisplayTile;
         // DXCore-generated code...
 		#region InitializePlugIn
 		public override void InitializePlugIn()
@@ -66,48 +67,48 @@ namespace Impromptu
 
 		private void PlugIn1_EditorPaintLanguageElement(EditorPaintLanguageElementEventArgs ea)
 		{
-			LanguageElement element = ea.LanguageElement;
-			if (element.ElementType == LanguageElementType.Method)
-            {
-				Method method = (Method)element;
-				if (_DisplayTile == true
-					&& method.IsClassOperator == false 
-					&& method.IsConstructor == false 
-					&& method.IsDestructor == false
-					&& method.IsExplicitCast == false
-					&& method.IsImplicitCast == false
-					&& method.ParameterCount == 0
-					&& method.InsideClass == true) // last one is probably not needed, but...
-				{
-					DrawImpromptuIcon(ea.PaintArgs, method);
-				}
-            }
+            //LanguageElement element = ea.LanguageElement;
+            //if (element.ElementType == LanguageElementType.Method)
+            //{
+            //    Method method = (Method)element;
+            //    if (_DisplayTile == true
+            //        && method.IsClassOperator == false 
+            //        && method.IsConstructor == false 
+            //        && method.IsDestructor == false
+            //        && method.IsExplicitCast == false
+            //        && method.IsImplicitCast == false
+            //        && method.ParameterCount == 0
+            //        && method.InsideClass == true) // last one is probably not needed, but...
+            //    {
+            //        DrawImpromptuIcon(ea.PaintArgs, method);
+            //    }
+            //}
 		}
 
-		/// <summary>
-		/// Draw the icon for the tile
-		/// </summary>
-		/// <param name="attributes"></param>
-		private void DrawImpromptuIcon(EditorPaintEventArgs paintArgs, Method target)
-		{
-			Rectangle indicator = CreateIndicator(paintArgs, target.Range.Start);
-			paintArgs.TextView.AddTile(NewTile(indicator, target));
-			try
-			{
-				paintArgs.TextView.Graphics.DrawIcon(new Icon(GetType(), "SawBlade.ico"), indicator);
-			}
-			catch
-			{// fail silently if icon is missing from the project.
-				target = null; // attempt to get rid of coderush warning
-			}
-		}
+        ///// <summary>
+        ///// Draw the icon for the tile
+        ///// </summary>
+        ///// <param name="attributes"></param>
+        //private void DrawImpromptuIcon(EditorPaintEventArgs paintArgs, Method target)
+        //{
+        //    Rectangle indicator = CreateIndicator(paintArgs, target.Range.Start);
+        //    paintArgs.TextView.AddTile(NewTile(indicator, target));
+        //    try
+        //    {
+        //        paintArgs.TextView.Graphics.DrawIcon(new Icon(GetType(), "SawBlade.ico"), indicator);
+        //    }
+        //    catch
+        //    {// fail silently if icon is missing from the project.
+        //        target = null; // attempt to get rid of coderush warning
+        //    }
+        //}
 
-		private static Rectangle CreateIndicator(EditorPaintEventArgs paintArgs, SourcePoint referencePoint)
-		{
-			Point topLeft = paintArgs.TextView.GetPoint(referencePoint.Line, referencePoint.Offset);
-			Rectangle indicator = new Rectangle(topLeft.X - 24 - 16, topLeft.Y + 2, 16, 16); //Double subtract to avoid interfering with access modifyer tile. Need to learn how to determine if it is visible.
-			return indicator;
-		}
+        //private static Rectangle CreateIndicator(EditorPaintEventArgs paintArgs, SourcePoint referencePoint)
+        //{
+        //    Point topLeft = paintArgs.TextView.GetPoint(referencePoint.Line, referencePoint.Offset);
+        //    Rectangle indicator = new Rectangle(topLeft.X - 24 - 16, topLeft.Y + 2, 16, 16); //Double subtract to avoid interfering with access modifyer tile. Need to learn how to determine if it is visible.
+        //    return indicator;
+        //}
 
 		#region Read Assembly Path from Project
 		/// <summary>
@@ -225,7 +226,7 @@ namespace Impromptu
 		/// <summary>
 		/// Opens the output window if needed and sets the focus to it.
 		/// </summary>
-		private static void ShowTestOutputWindow()
+		private static void ShowImpromptuOutputWindow()
 		{
 			ShowOutputWindowPane("Impromptu");
 		}
@@ -257,105 +258,142 @@ namespace Impromptu
 			RunMethod(method);
 		}
 
-		private static void RunMethod(Method method)
-		{
-			try
-			{
-				Cursor.Current = Cursors.WaitCursor;
-				if (BuildActiveProject() == true)
-				{
-					string assemblyPath = GetAssemblyPath();
-					string typeName = ((Class)method.Parent).FullName;
-					string methodName = method.Name;
-					EnvDTE.OutputWindowPane resultPane = GetImpromptuOutputPane();
-					WriteToImpromptuPane(
-						string.Format(
-							"Running Impromptu test for Assembly: {0}, Type: {1}, Method: {2}\r\n",
-							Path.GetFileName(assemblyPath),
-							typeName,
-							methodName),
-						resultPane);
+        private static void RunMethod(Method method)
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                if (BuildActiveProject() == true)
+                {
+                    string assemblyPath = GetAssemblyPath();
+                    string typeName = ((Class)method.Parent).FullName;
+                    string methodName = method.Name;
+                    EnvDTE.OutputWindowPane resultPane = GetImpromptuOutputPane();
+                    WriteToImpromptuPane(
+                        string.Format(
+                            "Running Impromptu test for Assembly: {0}, Type: {1}, Method: {2}\r\n",
+                            Path.GetFileName(assemblyPath),
+                            typeName,
+                            methodName),
+                        resultPane);
 
-					StreamReader sr = null;
-					using (Process p = new Process())
-					{
-						string performerPath = LocateExe();
-						if (performerPath == String.Empty)
-						{
-							return;
-						}
-						p.StartInfo = new ProcessStartInfo(performerPath);
-						p.StartInfo.Arguments = string.Format("/assemblyPath:\"{0}\" /TypeName:{1} /MethodName:{2}", assemblyPath, typeName, methodName);
-						p.StartInfo.UseShellExecute = false;
-						p.StartInfo.RedirectStandardOutput = true;
-						p.StartInfo.CreateNoWindow = true;
-						p.Start();
-						sr = p.StandardOutput;
-					}
-					string line = sr.ReadLine();
-					while (line != null)
-					{
-						WriteToImpromptuPane(string.Format("{0}\n", line), resultPane);
-						line = sr.ReadLine();
-					}
-				}
-				else
-				{
-					ShowBuildOutputWindow();
-				}
-			}
-			catch (Exception ex)
-			{
-				WriteToImpromptuPane(ex.Message);
-			}
-			finally
-			{
-				Cursor.Current = Cursors.Default;
-				ShowTestOutputWindow();
-			}
-		}
+                    StreamReader sr = null;
+                    using (Process p = new Process())
+                    {
+                        if (performerPath == String.Empty)
+                        {
+                            return;
+                        }
+                        p.StartInfo = new ProcessStartInfo(performerPath);
+                        p.StartInfo.Arguments = string.Format("/assemblyPath:\"{0}\" /TypeName:{1} /MethodName:{2}", assemblyPath, typeName, methodName);
+                        p.StartInfo.UseShellExecute = false;
+                        p.StartInfo.RedirectStandardOutput = true;
+                        p.StartInfo.CreateNoWindow = true;
+                        p.Start();
+                        sr = p.StandardOutput;
+                    }
+                    string line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        WriteToImpromptuPane(string.Format("{0}\n", line), resultPane);
+                        line = sr.ReadLine();
+                    }
+                }
+                else
+                {
+                    ShowBuildOutputWindow();
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteToImpromptuPane(ex.Message);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+                ShowImpromptuOutputWindow();
+            }
+        }
 
-		private static string LocateExe()
-		{
-			Microsoft.Win32.RegistryKey communityPathKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Developer Express\\CodeRush for VS\\CommunityPlugIns");
-			if (communityPathKey != null)
-			{
-				string installFolder = communityPathKey.GetValue("InstallFolder").ToString();
-				return Path.Combine(installFolder, "Impromptu.Performer.exe");
-			}
-			return String.Empty;
-		}
+        private static string LocateExe()
+        {
+            string installFolder;
+            GetInstallFolderFromRegistry();            
+            // Okay, no registry data. See if we can find it by using our assembly location
+            installFolder = Path.GetDirectoryName(typeof(MyClass).Assembly.Location);
 
-		private void impromptuActions_Execute(ExecuteEventArgs ea)
+            string exePath = Path.Combine(installFolder, "Impromptu.Performer.exe");
+            if (File.Exists(exePath))
+                return exePath;
+            WriteToImpromptuPane("Unable to locate Impromptu.Performer.Exe. Please ensure that it is in your Community Plugins folder with the Impromptu plugin.");
+            ShowImpromptuOutputWindow();
+            return String.Empty;
+        }
+
+        private static void GetInstallFolderFromRegistry()
+        {
+            string installFolder;
+            Microsoft.Win32.RegistryKey communityPathKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Developer Express\\CodeRush for VS\\CommunityPlugIns");
+            if (communityPathKey == null)
+            {// Yet another Location to choose from. I don't like it when people push key's around!
+                communityPathKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Developer Express\\CodeRush for VS\\Community");
+            }
+            if (communityPathKey != null)
+            {
+                installFolder = communityPathKey.GetValue("InstallFolder").ToString();
+                if (false == installFolder.EndsWith("plugins"))
+                {
+                    installFolder = Path.Combine(installFolder, "Plugins");
+                }
+            }
+        }
+        private void impromptuActions_Execute(ExecuteEventArgs ea)
+        {
+            Method method = CodeRush.Source.ActiveMethod;
+            if (method != null)
+                if (CanBeRun(method))
+                {
+                    RunMethod(method);
+                }
+                else
+                {
+                    WriteToImpromptuPane("Impromptu cannot run methods with parameters");
+                    ShowImpromptuOutputWindow();
+                }
+        }
+        private static bool CanBeRun(Method method)
+        {
+            return (method != null
+                                && method.IsClassOperator == false
+                                && method.IsConstructor == false
+                                && method.IsDestructor == false
+                                && method.IsExplicitCast == false
+                                && method.IsImplicitCast == false
+                                && method.ParameterCount == 0);
+        }
+        private void impromptuActions_CheckAvailability(CheckActionAvailabilityEventArgs ea)
 		{
 			Method method = CodeRush.Source.ActiveMethod;
-			if (method != null)
-			{
-				RunMethod(method);
-			}
-		}
 
-		private void impromptuActions_CheckAvailability(CheckActionAvailabilityEventArgs ea)
-		{
-			Method method = CodeRush.Source.ActiveMethod;
-
-			ea.Available = (method != null 
-					&& method.IsClassOperator == false 
-					&& method.IsConstructor == false 
-					&& method.IsDestructor == false
-					&& method.IsExplicitCast == false
-					&& method.IsImplicitCast == false
-					&& method.ParameterCount == 0) ;
+            ea.Available = CanBeRun(method);
 		}
 
 		private void PlugIn1_OptionsChanged(OptionsChangedEventArgs ea)
 		{
-			bool displayTile = LoadSettings();
-			if (displayTile != _DisplayTile)
-			{
-				_DisplayTile = displayTile;
-				CodeRush.Source.Active.View.Invalidate();
-			}
+            //bool displayTile = LoadSettings();
+            //if (displayTile != _DisplayTile)
+            //{
+            //    _DisplayTile = displayTile;
+            //    CodeRush.Source.Active.View.Invalidate();
+            //}
 		}
-	}
+    }
+    internal class MyClass
+    {
+
+        public MyClass()
+        {
+
+        }
+    }
 }
