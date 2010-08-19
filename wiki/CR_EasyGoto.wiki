@@ -6,7 +6,7 @@
 
 = Introduction =
 
-There are similar behaviors provided by default but some of them forces me to be in some places in order make them work. This plugin allows to jump in many places without such restrictions. Of course it uses markers so you can go back in any time just by pressing your collect marker key. Currently the plugin was designed and tested to work under with C#.
+There are similar behaviors provided by default but some of them forces me to be in some places in order make them work. This plugin allows to jump in many places without such restrictions. Of course it uses markers so you can go back in any time just by pressing your collect marker key. Currently the plugin was designed and tested to work under C#.
 
 = Usage =
 
