@@ -1,4 +1,4 @@
-/*
+using System;/*
  * Software License Agreement for RedGreen
  * 
  * Copyright (c) 2010 Renaissance Learning, Inc. and James Argeropoulos
@@ -21,52 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-using System;
+
+using DevExpress.DXCore.Adornments;
+using DevExpress.DXCore.Platform.Drawing;
 using DevExpress.CodeRush.Core;
+using DevExpress.CodeRush.StructuralParser;
 
 namespace Impromptu
 {
-	[UserLevel(UserLevel.NewUser)]
-	public partial class ImpromptuOptions : OptionsPage
-	{
-		// DXCore-generated code...
-		#region Initialize
-		protected override void Initialize()
-		{
-			base.Initialize();
+    class RunMethodTileAdornment : TileVisual
+    {
+        private static System.Drawing.Bitmap _Bitmap = new System.Drawing.Bitmap(new MyClass(). GetType(), "RunMethod.png");
+        public RunMethodTileAdornment(IElementFrame binding)
+            : base(binding)
+        {
+        }
 
-			//
-			// TODO: Add your initialization code here.
-			//
-		}
-		#endregion
-
-		#region GetCategory
-		public static string GetCategory()
-		{
-			return @"";
-		}
-		#endregion
-		#region GetPageName
-		public static string GetPageName()
-		{
-			return @"Impromptu";
-		}
-		#endregion
-
-		public static bool ReadDisplayIcon(DecoupledStorage storage)
-		{
-			return storage.ReadBoolean("Preferences", "DisplayRunIcon", true);
-		}
-
-		private void ImpromptuOptions_PreparePage(object sender, OptionsPageStorageEventArgs ea)
-		{
-			dispalyTile.Checked = ReadDisplayIcon(ea.Storage);
-		}
-
-		private void ImpromptuOptions_CommitChanges(object sender, CommitChangesEventArgs ea)
-		{
-			ea.Storage.WriteBoolean("Preferences", "DisplayRunIcon", dispalyTile.Checked);
-		}
-	}
+        public override void Render(IDrawingSurface context, ElementFrameGeometry geometry)
+        {
+            context.DrawImage(Image.ConvertFrom(_Bitmap), geometry.Bounds, 0.2);
+        }
+        public override void OnMouseDown(EditorMouseEventArgs ea)
+        {
+            Method target = Object as Method;
+            if (target != null)
+            {
+                PlugIn1.RunMethod(target);
+                ea.Cancel = true;
+            }
+        }
+    }
 }

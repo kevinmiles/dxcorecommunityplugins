@@ -22,51 +22,43 @@
  * THE SOFTWARE.
  */
 using System;
+
+using DevExpress.DXCore.Adornments;
+using DevExpress.DXCore.Platform.Drawing;
+
 using DevExpress.CodeRush.Core;
+using DevExpress.CodeRush.StructuralParser;
 
 namespace Impromptu
 {
-	[UserLevel(UserLevel.NewUser)]
-	public partial class ImpromptuOptions : OptionsPage
-	{
-		// DXCore-generated code...
-		#region Initialize
-		protected override void Initialize()
-		{
-			base.Initialize();
+    class RunMethodTileDocumentAdornment : TextDocumentTile
+    {
+        Method target;
+        public RunMethodTileDocumentAdornment(DocPoint start, DocPoint end, CoreEventHub master, Method target)
+            : base(start, end, master, target)
+        {
+            this.target = target;
+        }
 
-			//
-			// TODO: Add your initialization code here.
-			//
-		}
-		#endregion
+        protected override TextViewAdornment NewAdornment(string feature, IElementFrame binding)
+        {
+            return new RunMethodTileAdornment(binding) { Cursor = Cursor.Arrow };
+        }
+        bool IsVisibleInView(TextView view)
+        {
+            if (view is IGdiTextView)
+                return true;
+            if (target == null)
+                return false;
+            return !target.InCollapsedRange(view);
+        }
+        protected override IElementFrame CreateBinding(TextView view, DocPoint start, DocPoint end)
+        {
+            if (!IsVisibleInView(view))
+                return null;
 
-		#region GetCategory
-		public static string GetCategory()
-		{
-			return @"";
-		}
-		#endregion
-		#region GetPageName
-		public static string GetPageName()
-		{
-			return @"Impromptu";
-		}
-		#endregion
+            return new TileElementFrame(base.CreateBinding(view, start, start)) { XOffset = -30, TileWidth = 11, TileHeight = 11 };
+        }
 
-		public static bool ReadDisplayIcon(DecoupledStorage storage)
-		{
-			return storage.ReadBoolean("Preferences", "DisplayRunIcon", true);
-		}
-
-		private void ImpromptuOptions_PreparePage(object sender, OptionsPageStorageEventArgs ea)
-		{
-			dispalyTile.Checked = ReadDisplayIcon(ea.Storage);
-		}
-
-		private void ImpromptuOptions_CommitChanges(object sender, CommitChangesEventArgs ea)
-		{
-			ea.Storage.WriteBoolean("Preferences", "DisplayRunIcon", dispalyTile.Checked);
-		}
-	}
+    }
 }

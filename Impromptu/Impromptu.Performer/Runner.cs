@@ -1,7 +1,7 @@
 ﻿/*
  * Software License Agreement for RedGreen
  * 
- * Copyright (c) 2009 Renaissance Learning, Inc. and James Argeropoulos
+ * Copyright (c) 2010 Renaissance Learning, Inc. and James Argeropoulos
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -61,7 +61,7 @@ namespace Impromptu.Performer
 			try
 			{
 				// Load Assembly
-				Assembly impromptuAssembly = Assembly.LoadFile(path.Value);
+				Assembly impromptuAssembly = Assembly.LoadFrom(path.Value);
 				
 				// Create type requested
 				Type impromptuType = impromptuAssembly.GetType(typeName.Value);
