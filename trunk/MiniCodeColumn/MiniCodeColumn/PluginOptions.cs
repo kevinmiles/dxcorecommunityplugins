@@ -330,12 +330,12 @@ namespace MiniCodeColumn
                         start = 0;
                         end = 0;
 
-                        if (line.StartOfWord >= 0)
+                        if (line.HasWord)
                         {
-                            int start_index = line.StartOfWord;
+                            int start_index = line.StartOfWords[0];
                             start = start_index / width_divisor;
                             if (start > panelSample.Width)
-                                start = panelSample.Width - 2;
+                                start = panelSample.Width - 6;
                             end = (start_index + selected_double_click_length) / width_divisor;
                             if (end > panelSample.Width)
                                 end = panelSample.Width;

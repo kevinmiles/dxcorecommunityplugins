@@ -5,6 +5,9 @@ using System.Text;
 
 namespace MiniCodeColumn
 {
+    /// <summary>
+    /// class to hold information about start and end of comments, text and the double-clicked-word
+    /// </summary>
     public class Line
     {
         public int Number;
@@ -12,11 +15,12 @@ namespace MiniCodeColumn
         public int End;
         public int StartOfComment;
         public int EndOfComment;
-        public int StartOfWord;
-        public int StartOfWordIndex;
+
+        // more than one occurence of double-clicked word per line !
+        public List<int> StartOfWords;
 
         public bool IsEmpty { get { return Start > End || (Start < 0 && End < 0); } }
-        public bool HasWord { get { return StartOfWord>=0; } }
+        public bool HasWord { get { if (StartOfWords == null) return false; return StartOfWords.Count > 0; } }
 
         public bool HasBreakpoint;
         public int MarkerPosition;
@@ -37,19 +41,25 @@ namespace MiniCodeColumn
         }
 
         public Line(int start, int end, int start_of_comment, int end_of_comment, int start_of_word)
-            : this(0, start, end, start_of_comment, end_of_comment, start_of_word)
         {
+            Number = 0;
+            Start = start;
+            End = end;
+            StartOfComment = start_of_comment;
+            EndOfComment = end_of_comment;
+            StartOfWords = new List<int>();
+            if (start_of_word>=0)
+                StartOfWords.Add(start_of_word);
         }
 
-        public Line(int number, int start, int end, int start_of_comment, int end_of_comment, int start_of_word)
+        public Line(int number, int start, int end, int start_of_comment, int end_of_comment, List<int> start_of_words)
         {
             Number = number;
             Start = start;
             End = end;
             StartOfComment = start_of_comment;
             EndOfComment = end_of_comment;
-            StartOfWord = start_of_word;
-            StartOfWordIndex = StartOfWord;
+            StartOfWords = start_of_words;
             MarkerPosition = -1;
         }
 
@@ -62,7 +72,6 @@ namespace MiniCodeColumn
             if (End > 1) End /= divisor;
             if (StartOfComment > 1) StartOfComment /= divisor;
             if (EndOfComment > 1) EndOfComment /= divisor;
-            if (StartOfWord > 1) StartOfWord /= divisor;
         }
 
         public void PressIntoWidth(int max_width)
@@ -75,8 +84,6 @@ namespace MiniCodeColumn
                 StartOfComment = max_width - 2;
             if (EndOfComment > max_width)
                 EndOfComment = max_width;
-            if (StartOfWord > max_width)
-                StartOfWord = max_width - 6;
         }
 
         public static List<Line> SampleLines

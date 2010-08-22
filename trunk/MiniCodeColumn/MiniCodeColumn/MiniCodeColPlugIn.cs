@@ -6,7 +6,7 @@ using DevExpress.CodeRush.Menus;
 
 namespace MiniCodeColumn
 {
-    #region old plugin - will remove it's button only once
+    #region plugin - starts Tool-Window now
     // only remove button !
     public class MiniCodeColPlugIn : StandardPlugIn
     {
@@ -20,7 +20,13 @@ namespace MiniCodeColumn
             /// <summary>
             /// Required for Windows.Forms Class Composition Designer support
             /// </summary>
-            DropVisualizeButton();
+            try
+            {
+                CodeRush.ToolWindows.Show(typeof(CodeToolWindow));
+            }
+            catch 
+            {                
+            }
         }
 
         /// <summary>
@@ -34,46 +40,6 @@ namespace MiniCodeColumn
                 components.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        void DropVisualizeButton()
-        {
-            try
-            {
-                if (CodeRush.Menus != null && CodeRush.Menus.Bars != null)
-                {
-                    foreach (MenuBar mb in CodeRush.Menus.Bars)
-                    {
-                        bool repeat = false;
-                        do
-                        {
-                            repeat = false;
-                            int index = -1;
-                            if (mb.Name.ToUpperInvariant().IndexOf("DXCORE") >= 0)
-                            {
-                                foreach (IMenuControl menu_item in mb)
-                                {
-                                    System.Diagnostics.Debug.WriteLine(menu_item.Caption);
-                                    if (menu_item.Caption == "Toggle Mini Code Column on/off")
-                                        index = menu_item.Index;
-                                    if (menu_item.Caption == "Mini Code Column")
-                                        index = menu_item.Index;
-                                }
-                            }
-                            if (index >= 0)
-                            {
-                                MessageBox.Show("MiniCodeColumn was moved into a Tool-Window\r\nfor better performance.\r\n\r\nStart with Menu DevExpress->Tool Windows->MiniCodeColumn\r\nand drag the tool window whereever you want.", "Dear user of MiniCodeColumn", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                mb.RemoveAt(index);     // Die Buttons wurden immer mehr !!!
-                                repeat = true;
-                            }
-                        } while (repeat);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Error in DropVisualizeButton : " + ex.Message);
-            }
         }
     }
     #endregion

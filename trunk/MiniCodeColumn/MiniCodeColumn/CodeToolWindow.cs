@@ -27,6 +27,7 @@ namespace MiniCodeColumn
     [Title("MiniCodeColumn")]
     public partial class CodeToolWindow : ToolWindowPlugIn
     {
+        public static bool OnAir = false;
         public int last_height_divisor = 1;
 
         internal static SolidBrush ColumnBackgroundBrushCodeColumn;
@@ -48,14 +49,14 @@ namespace MiniCodeColumn
         #region InitializePlugIn
         public override void InitializePlugIn()
         {
+            base.InitializePlugIn();
+            LoadSettings();
+            SetButtonImage();
+
             repaint_tool_window_timer = new System.Timers.Timer(250);
             repaint_tool_window_timer.Enabled = false;
             repaint_tool_window_timer.AutoReset = false;
             repaint_tool_window_timer.Elapsed += new System.Timers.ElapsedEventHandler(repaint_timer_Elapsed);
-
-            base.InitializePlugIn();
-            LoadSettings();
-            SetButtonImage();
         }
 
         void RestartTimer()
@@ -192,8 +193,8 @@ namespace MiniCodeColumn
                     end_of_comment = end;
                     end = start_of_comment - 1;
                 }
-                int word_start = txt.IndexOf(selected_double_click, StringComparison.InvariantCultureIgnoreCase);
-                Line line = new Line(l, start, end, start_of_comment, end_of_comment, word_start);
+                //int word_start = txt.IndexOf(selected_double_click, StringComparison.InvariantCultureIgnoreCase);
+                Line line = new Line(l, start, end, start_of_comment, end_of_comment, CollectWordIndexes(ref txt));
 
                 line.DivideWidth(width_divisor);
                 line.PressIntoWidth(Width);
@@ -222,6 +223,23 @@ namespace MiniCodeColumn
             return lines;
         }
 
+        List<int> CollectWordIndexes(ref string line)
+        {
+            List<int> pos = new List<int>();
+
+            if (!string.IsNullOrEmpty(selected_double_click))
+            {
+                int p = line.IndexOf(selected_double_click, StringComparison.InvariantCultureIgnoreCase);
+
+                while (p >= 0)
+                {
+                    pos.Add(p);
+                    p = line.IndexOf(selected_double_click, p + 1, StringComparison.InvariantCultureIgnoreCase);
+                }
+            }
+            return pos;
+        }
+
         bool LinesAreEqual(List<Line> l1, List<Line> l2)
         {
             if (l1 == null || l2 == null)
@@ -241,7 +259,7 @@ namespace MiniCodeColumn
                 if (line1.StartOfComment != line2.StartOfComment || line1.EndOfComment != line2.EndOfComment)
                     return false;
 
-                if (line1.StartOfWord != line2.StartOfWord)
+                if (line1.HasWord != line2.HasWord)
                     return false;
 
                 if (line1.HasBreakpoint != line2.HasBreakpoint)
@@ -262,7 +280,7 @@ namespace MiniCodeColumn
         {
             TextView textView = CodeRush.TextViews.Active;
 
-            if (!PluginOptions.MiniCodeColumnEnabled || (textView == null) || drawing)
+            if ((textView == null) || drawing)
                 return;
 
             drawing = true;
@@ -333,15 +351,21 @@ namespace MiniCodeColumn
                         {
                             int y = line.Number / height_divisor;
 
-                            if (line.StartOfWord >= 0)
+                            if (line.HasWord)
                             {
-                                int end = line.StartOfWord + length;
-                                if (end > Width)
-                                    end = Width;
-                                graphics.DrawLine(
-                                    CodePenSelectedWord,
-                                    new Point(line.StartOfWord, y),
-                                    new Point(end, y));
+                                foreach (int st in line.StartOfWords)
+                                {
+                                    int start = st;
+                                    if (start > Width)
+                                        start = Width - 6;
+                                    int end = start / width_divisor + length;
+                                    if (end > Width)
+                                        end = Width;
+                                    graphics.DrawLine(
+                                        CodePenSelectedWord,
+                                        new Point(start / width_divisor, y),
+                                        new Point(end, y));
+                                }
                             }
                         }
                     }
@@ -424,22 +448,13 @@ namespace MiniCodeColumn
                 //TextViewLines items = textView.Lines;
                 for (int l = textView.TopLine; l < textView.BottomLine && l < last_lines.Count; l++)
                 {
-                    if (last_lines[l].StartOfWordIndex < 0) continue;
+                    if (!last_lines[l].HasWord) continue;
 
-                    var rect = textView.GetRectangleFromSourceRange(new SourceRange(l, last_lines[l].StartOfWordIndex + 1, l, last_lines[l].StartOfWordIndex + selected_double_click.Length + 1));
-                    //textView.GetTextRectangle(selected_double_click, l, last_lines[l].StartOfWordIndex + 1, out rect);
-                    //textView.Repaint(rect);
-                    graphics.FillRectangle(ColumnBackgroundBrushSelectedWord, rect.ConvertTo<Rectangle>());
-                    //textView.OverlayText(selected_double_click, l, last_lines[l].StartOfWordIndex + 1, ColumnBackgroundBrushSelectedWord.Color, false);
-                    //textView.HighlightCode(
-                    //        l,
-                    //        last_lines[l].StartOfWordIndex + 1,
-                    //        l,
-                    //        last_lines[l].StartOfWordIndex + selected_double_click.Length,
-                    //        ColumnBrushVisibleLines.Color,
-                    //        ColumnBackgroundBrushSelectedWord.Color,
-                    //        Color.White);
-                    
+                    foreach (int start in last_lines[l].StartOfWords)
+                    {
+                        var rect = textView.GetRectangleFromSourceRange(new SourceRange(l, start + 1, l, start + selected_double_click.Length + 1));
+                        graphics.FillRectangle(ColumnBackgroundBrushSelectedWord, rect.ConvertTo<Rectangle>());                        
+                    }
                 }
             }
             catch // (Exception ex)
