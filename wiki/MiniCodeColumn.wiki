@@ -50,6 +50,11 @@ So this got again my favorite sticker :
 
 I recently set up a [http://code-seeker.blogspot.com/2009/05/minicodecolumn.html personal blog]. See you there :-)
 
+=== Small Update ===
+
+The flickering and slowing down of the studio is fixed as well as 
+handling the highliting of more than one doubleclicked word.
+
 === Call for Comments ===
 
 If you like it - or not - please drop a comment.
