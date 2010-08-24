@@ -179,6 +179,7 @@ namespace MiniCodeColumn
             for (int l = 0; l < textView.TextDocument.LineCount; l++)
             {
                 string txt = textView.TextDocument.GetLine(l).TrimEnd();
+                string org_txt = txt;
                 if (txt.IndexOf('\t') >= 0)
                     txt = txt.Replace("\t", tabs);
 
@@ -194,7 +195,7 @@ namespace MiniCodeColumn
                     end = start_of_comment - 1;
                 }
                 //int word_start = txt.IndexOf(selected_double_click, StringComparison.InvariantCultureIgnoreCase);
-                Line line = new Line(l, start, end, start_of_comment, end_of_comment, CollectWordIndexes(ref txt));
+                Line line = new Line(l, start, end, start_of_comment, end_of_comment, CollectWordIndexes(ref org_txt));
 
                 line.DivideWidth(width_divisor);
                 line.PressIntoWidth(Width);
