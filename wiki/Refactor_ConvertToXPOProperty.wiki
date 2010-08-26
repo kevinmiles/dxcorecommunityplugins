@@ -1,4 +1,4 @@
-#summary Plugin allows to convert auto property into XPO property with two key strokes.
+#summary Plugin allows to convert auto property into XPO or delayed property with two key strokes.
 
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_ConvertToXPOProperty/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
@@ -73,6 +73,7 @@ Into that:
 {{{
 public class Bar : XPObject
 {
+    [Delayed]
     public string Message
     {
         get
