@@ -44,12 +44,12 @@ namespace Refactor_ConvertToXPOProperty
             // 
             // refactoringProvider
             // 
-            this.refactoringProvider.ActionHintText = "Convert to XPO property";
+            this.refactoringProvider.ActionHintText = "Convert to XPO or delayed property";
             this.refactoringProvider.AutoActivate = true;
-            this.refactoringProvider.AutoUndo = false;
+            this.refactoringProvider.AutoUndo = true;
             this.refactoringProvider.CodeIssueMessage = null;
-            this.refactoringProvider.Description = "Enables properties to be converted into XPO properties";
-            this.refactoringProvider.DisplayName = "Convert into XPO property";
+            this.refactoringProvider.Description = "Enables properties to be converted into XPO or delayed properties";
+            this.refactoringProvider.DisplayName = "Convert property into";
             this.refactoringProvider.ExclusiveAvailabilityBehavior = DevExpress.CodeRush.Core.ExclusiveAvailabilityBehavior.ShowMenu;
             this.refactoringProvider.Image = ((System.Drawing.Bitmap)(resources.GetObject("refactoringProvider.Image")));
             this.refactoringProvider.NeedsSelection = false;
