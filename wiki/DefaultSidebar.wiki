@@ -47,6 +47,7 @@
     * [UnitTestErrorVisualizer]
   * Developer Plugins
     * [DX_ContextLab]
+    * [Impromptu]
   * XPO Plugins
     * [XPO_EasyFields]
   * Misc Plugins
