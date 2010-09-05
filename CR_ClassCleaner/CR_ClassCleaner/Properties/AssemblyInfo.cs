@@ -31,7 +31,7 @@ using DevExpress.CodeRush.Common;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("LuifIT")]
 [assembly: AssemblyProduct("CR_ClassCleaner")]
-[assembly: AssemblyCopyright("Copyright © John Luif 2007")]
+[assembly: AssemblyCopyright("Copyright © John Luif 2007, Stephen A. Bohlen 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -50,5 +50,5 @@ using DevExpress.CodeRush.Common;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.5.1")]
-[assembly: AssemblyFileVersion("1.5.1")]
+[assembly: AssemblyVersion("1.5.2")]
+[assembly: AssemblyFileVersion("1.5.2")]

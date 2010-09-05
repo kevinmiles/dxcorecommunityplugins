@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_ClassCleaner", "CR_ClassCleaner\CR_ClassCleaner.csproj", "{480F548A-B1B6-4212-969C-C2AE4C2A30D9}"
 EndProject
 Global
@@ -16,14 +16,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs01.codeplex.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = CR_ClassCleanerPlugin\\CR_ClassCleanerPlugin.csproj
-		SccProjectName1 = CR_ClassCleanerPlugin
-		SccLocalPath1 = CR_ClassCleanerPlugin
 	EndGlobalSection
 EndGlobal
