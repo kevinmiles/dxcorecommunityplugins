@@ -20,13 +20,6 @@ namespace MiniCodeColumn
             /// <summary>
             /// Required for Windows.Forms Class Composition Designer support
             /// </summary>
-            try
-            {
-                CodeRush.ToolWindows.Show(typeof(CodeToolWindow));
-            }
-            catch 
-            {                
-            }
         }
 
         /// <summary>
@@ -40,6 +33,30 @@ namespace MiniCodeColumn
                 components.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void InitializeComponent()
+        {
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            // 
+            // MiniCodeColPlugIn
+            // 
+            this.TextViewActivated += new DevExpress.CodeRush.Core.TextViewHandler(this.MiniCodeColPlugIn_TextViewActivated);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+
+        }
+
+        private void MiniCodeColPlugIn_TextViewActivated(TextViewEventArgs ea)
+        {
+            if (!CodeToolWindow.OnAir)
+                try
+                {
+                    CodeRush.ToolWindows.Show(typeof(CodeToolWindow));
+                }
+                catch
+                {
+                }
+
         }
     }
     #endregion
