@@ -415,6 +415,7 @@ namespace MiniCodeColumn
 
         private void events_TextViewActivated(TextViewEventArgs ea)
         {
+            if (this.Visible) OnAir = true;
             RestartTimer();
         }
 

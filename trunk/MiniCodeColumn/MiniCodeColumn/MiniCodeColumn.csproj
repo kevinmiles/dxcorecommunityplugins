@@ -100,6 +100,9 @@
     <EmbeddedResource Include="CodeToolWindow.resx">
       <DependentUpon>CodeToolWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MiniCodeColPlugIn.resx">
+      <DependentUpon>MiniCodeColPlugIn.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PluginOptions.resx">
       <DependentUpon>PluginOptions.cs</DependentUpon>
     </EmbeddedResource>
