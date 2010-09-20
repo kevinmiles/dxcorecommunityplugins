@@ -41,21 +41,21 @@ namespace MiniCodeColumn
             // 
             // MiniCodeColPlugIn
             // 
-            this.TextViewActivated += new DevExpress.CodeRush.Core.TextViewHandler(this.MiniCodeColPlugIn_TextViewActivated);
+            // this.TextViewActivated += new DevExpress.CodeRush.Core.TextViewHandler(this.MiniCodeColPlugIn_TextViewActivated);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
 
         private void MiniCodeColPlugIn_TextViewActivated(TextViewEventArgs ea)
         {
-            if (!CodeToolWindow.OnAir)
-                try
-                {
-                    CodeRush.ToolWindows.Show(typeof(CodeToolWindow));
-                }
-                catch
-                {
-                }
+            //if (!CodeToolWindow.OnAir)
+            //    try
+            //    {
+            //        CodeRush.ToolWindows.Show(typeof(CodeToolWindow));
+            //    }
+            //    catch
+            //    {
+            //    }
 
         }
     }
