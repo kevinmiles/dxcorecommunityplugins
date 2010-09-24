@@ -9,22 +9,39 @@ This plugin is an addition to the Template expansion engine within !CodeRush. It
  * Import the HTML templates found in !Html_Zen.xml (in the zip file)
  * Shortcut Options (!DevExpress\Options IDE\Shortcuts)
    * Update the existing '!TemplateExpand' shortcut (Code\Expansion)
-      * Place an x (not a tick) in the !IsZenExpression context.
    * Create a new shortcut.
-     * Assign 'Space' to !ZenExpand. 
-     * Tick the !IsZenExpression context.
+     * Assign a key to !ZenExpand. 
 
 ==== Usage ====
- * Type a !ZenCoding expression and then hit space
+ * Type a !ZenCoding expression and then hit the ZenExpand key
 
 ==== Details ====
 Sample expressions:
 {{{
-div#SomeId
+       div
+       div#page
+       div.class1
+       div.class1.class2
+       div.class1.class2#page
 
-div.Class1.Class2
 
-div#page>div.logo+ul#navigation>li*5>a
+
+       div+div
+       div+div+div
+       div*5
+
+       div>div*2>table>tr>td*4
+
+
+       div#page>div.logo.otherlogo
+       div#page>div.logo+ul#navigation
+       div#page>div.logo+ul#navigation>li*5>a
+
+       table>tr>td
+       table>tr*5>td[Title]*2
+       table>tr>td[count="$$"]*10
+
+       div.master>div.child*2>table.table>tr.header+tr.data.#row$*5>td*3
 }}}
 ==== Credits ====
 Plugin by RoryBecker
