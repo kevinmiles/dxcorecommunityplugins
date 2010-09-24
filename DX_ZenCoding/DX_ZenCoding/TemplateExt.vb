@@ -7,7 +7,7 @@ Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
 Imports System.Runtime.CompilerServices
 
-Public Module ViewExt
+Public Module TemplateExt
     ''' <summary>Treat Source as a Template name and expand it into the active view</summary>
     <Extension()> _
     Public Function Expand(ByVal Source As Template) As SourceRange

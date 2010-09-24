@@ -6,13 +6,12 @@ Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
 Imports System.Runtime.CompilerServices
-
 Public Class PlugIn1
 #Region "Constants"
-    Private Const STR_VALIDCHARS As String = "$.:>*+#1234567890ABCDEFGHIJKLMNOPRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    Private Const STR_VALIDCHARS As String = "$.:>[]*+#1234567890ABCDEFGHIJKLMNOPRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     Private Const CHAR_ID As Char = "#"c
     Private Const CHAR_Class As Char = "."c
-    Private Const CHAR_LevelIndicator As Char = ">"c
+    Private Const CHAR_ContainerSeparator As Char = ">"c
     Private Const CHAR_SiblingExpression As Char = "+"c
 #End Region
 #Region "Usual DXCore magic"
@@ -65,148 +64,170 @@ Public Class PlugIn1
     End Sub
     Private Sub ZenExpand_Execute(ByVal ea As ExecuteEventArgs)
         Using Action = CodeRush.Documents.ActiveTextDocument.NewCompoundAction("Expand Zen Expression")
-            Dim Line As String = CodeRush.Documents.ActiveLine.Trim
-            CodeRush.Documents.ActiveTextDocument.DeleteText(ZenRange)
-            Call ProcessExpression(Line)
+            Try
+                CodeRush.Source.BeginUpdate()
+                Dim Line = CodeRush.Documents.ActiveLine.Trim
+                Dim ZenRange = GetZenRange(CodeRush.Documents.ActiveLine, CodeRush.Caret.Line)
+                CodeRush.Documents.ActiveTextDocument.DeleteText(ZenRange)
+                Call ExpandLevelsAtCaret(ExpressionToLevels(Line))
+            Finally
+                CodeRush.Source.EndUpdate()
+            End Try
         End Using
     End Sub
-    ''' <summary>Processes a single (sibling) expression</summary>
-    Private Function ProcessExpression(ByVal Expression As String) As SourcePoint
-        ' div>div+div>div*2+div*4 <-these are levels
-        ' Break out first Level
-        Dim TopLevel = GetTopmostLevel(Expression, CHAR_LevelIndicator)
-        Dim RemainingLevels = GetRightPiece(Expression, CHAR_LevelIndicator)
-        Dim Siblings As String() = TopLevel.Split("+"c)
-        Dim SiblingEndPoint As SourcePoint
-        For S As Integer = 0 To Siblings.Length - 1 Step 1
-            Dim Remainder = If(S < Siblings.Length - 1, "", RemainingLevels)
-            SiblingEndPoint = ExpandMultiplicity(Siblings(S), Remainder)
-            If Siblings.Count > 1 Then
-                CodeRush.Caret.MoveTo(SiblingEndPoint)
+    Private Function ExpressionToLevels(ByVal Line As String) As LinkedList(Of String)
+        Return New LinkedList(Of String)(Line.Split(CHAR_ContainerSeparator))
+    End Function
+    '''' <summary>Processes a single (sibling) expression</summary>
+    'Private Function ProcessExpression(ByVal Expression As String) As SourcePoint
+    '    ' Example: div>div+div>div*2+div*4 
+    '    ' Each > indicates another level of container.
+    '    ' Each container is procesed separately then sub containers are added to it.
+    '    Dim OuterContainer = GetOuterContainer(Expression, CHAR_ContainerSeparator)
+    '    Dim Content = GetInnerContent(Expression, CHAR_ContainerSeparator)
+    '    Dim Siblings As String() = OuterContainer.Split("+"c)
+    '    Dim CaretPoint As SourcePoint = Nothing
+    '    Dim CurrentSibling As Integer = 0
+    '    For Each Sibling As String In Siblings
+    '        ' Process each (> seperated) section in turn.
+    '        Dim Remainder = If(IsLastItemInList(CurrentSibling, Siblings), Content, "")
+    '        ' Expand section into the correct number of containers. 
+    '        CaretPoint = ExpandMultiplicity(Sibling, Remainder)
+    '        If Siblings.Count > 1 Then
+    '            CodeRush.Caret.MoveTo(CaretPoint)
+    '        End If
+    '        CurrentSibling = CurrentSibling + 1
+    '    Next
+    '    Return CaretPoint
+    'End Function
+
+    Private Function ExpandLevelsAtCaret(ByVal Levels As LinkedList(Of String)) As SourcePoint
+        ' Example: div>div+div>div*2+div*4 
+        ' Each > indicates another level of container.
+        ' Each container is procesed separately then sub containers are added to it.
+
+
+        Levels = New LinkedList(Of String)(Levels.ToArray)
+
+        Dim Top As String = Levels.First.Value
+        Dim TopSiblings As String() = Top.Split("+"c)
+        Call Levels.RemoveFirst()
+        Dim Remainder = Levels
+        Dim CaretPoint As SourcePoint = Nothing
+        For Each Sibling As String In TopSiblings
+            ' Process each (+ seperated) section in turn.
+            ' Expand section into the correct number of containers. 
+            CaretPoint = ExpandItem(Sibling, Remainder)
+            If TopSiblings.Count > 1 Then
+                CodeRush.Caret.MoveTo(CaretPoint)
             End If
         Next
-        Return SiblingEndPoint
+        Return CaretPoint
     End Function
-    Private Function ExpandMultiplicity(ByVal TopLevel As String, ByVal RemainingLevels As String) As SourcePoint
-        Dim RepeatCount As Integer
-        Dim BasePiece = ExtractBase(TopLevel, RepeatCount)
-        Dim IsMultiplicity As Boolean = RepeatCount > 1
+
+    Private Function IsLastItemInList(ByVal SiblingIndex As Integer, ByVal Siblings As String()) As Boolean
+        Return SiblingIndex = Siblings.Length - 1
+    End Function
+    '''' <summary>
+    ''''  Expands Section as many times as multiplicity suggests.
+    ''''  Each expansion is also fed child sections
+    '''' </summary>
+    '''' <param name="Section"></param>
+    '''' <param name="Remainder"></param>
+    '''' <returns></returns>
+    '''' <remarks></remarks>
+    'Private Function ExpandMultiplicity(ByVal Section As String, ByVal Remainder As String) As SourcePoint
+    '    ' Expands
+    '    Dim ParsedSection = ExtractBase(Section)
+    '    Dim IsMultiplicity = ParsedSection.Multiplicity > 1
+    '    Dim LastPoint As SourcePoint
+    '    For Interation = 1 To ParsedSection.Multiplicity
+    '        LastPoint = ExpandBasePiece(ParsedSection.Section, Interation).End
+    '        Dim SavedPoint As SourcePoint = LastPoint
+    '        If Remainder.Length > 0 Then
+    '            SavedPoint = SavePoint(LastPoint, CodeRush.Documents.ActiveTextDocument)
+    '            ProcessExpression(Remainder)
+    '            LastPoint = SavedPoint
+    '        End If
+    '        If IsMultiplicity Then
+    '            CodeRush.Caret.MoveTo(SavedPoint)
+    '        End If
+    '    Next
+    '    Return LastPoint
+    'End Function
+    Private Function ExpandItem(ByVal Item As String, ByVal Content As LinkedList(Of System.String)) As SourcePoint
+        Dim ParsedSection = New ParsedSection(Item)
+        ParsedSection.LocateTemplate()
         Dim LastPoint As SourcePoint
-        For x = 1 To RepeatCount
-            LastPoint = ExpandBasePiece(BasePiece, x).End
+        For Interation = 1 To ParsedSection.Multiplicity
+            LastPoint = ExpandBasePiece(ParsedSection, Interation).End
             Dim SavedPoint As SourcePoint = LastPoint
-            If RemainingLevels.Length > 0 Then
+            If Content.Count > 0 Then
                 SavedPoint = SavePoint(LastPoint, CodeRush.Documents.ActiveTextDocument)
-                ProcessExpression(RemainingLevels)
+                ExpandLevelsAtCaret(Content)
                 LastPoint = SavedPoint
             End If
-            If IsMultiplicity Then
+            If ParsedSection.Multiplicity > 1 Then
                 CodeRush.Caret.MoveTo(SavedPoint)
             End If
         Next
         Return LastPoint
     End Function
-    Private Function ExtractBase(ByVal Source As String, ByRef Count As Integer) As String
-        Dim Piece As String
-        If Source.Contains("*"c) Then
-            Piece = Source.Split("*"c)(0)
-            Count = Source.Split("*"c)(1)
-        Else
-            Piece = Source
-            Count = 1
-        End If
-        Return Piece
-    End Function
-    Private Function ExpandBasePiece(ByVal Piece As String, ByVal Iteration As Integer) As SourceRange
-        SetTemplateVariable("ZenCount", If(Iteration > 0, CStr(Iteration), ""))
-        Dim Attribute As String = String.Empty
-        If Piece.Contains(CHAR_ID) Then
-            Dim LeftPiece = GetTopmostLevel(Piece, CHAR_ID)
-            Dim RightPiece = GetRightPiece(Piece, CHAR_ID)
-            If RightPiece <> String.Empty Then
-                ' somehow allocate an Id to expanded item
-                Attribute = String.Format("id='{0}'", RightPiece)
+
+    Private Function ExpandBasePiece(ByVal Content As ParsedSection, ByVal Iteration As Integer) As SourceRange
+        Try
+            SetTemplateVariable("ZenCount", If(Iteration > 0, CStr(Iteration), ""))
+            'Dim ContentAttribute As ContentAttribute = New ContentAttribute(Content.Base, "")
+            'If ContentAttribute.Content.Contains(CHAR_ID) Then
+            '    ContentAttribute = ParseIDPiece(ContentAttribute.Content)
+            'ElseIf ContentAttribute.Content.Contains(CHAR_Class) Then
+            '    ContentAttribute = ParseClassPiece(ContentAttribute.Content)
+            'ElseIf ContentAttribute.Content.Contains("["c) Then
+            '    ' [ means attributes
+            '    Dim Attributes = ContentAttribute.Content.Contents("["c, "]"c)
+            '    Dim Base = ContentAttribute.Content.Replace(Attributes, "").Replace("[]", "")
+            '    ContentAttribute = New ContentAttribute(Base, Attributes)
+            'End If
+            Dim ZenAttributes = Content.GetAttributeWithIteration(Iteration)
+            SetTemplateVariable("ZenAttribute", If(ZenAttributes = String.Empty, "", ZenAttributes))
+            Dim ExpansionRange
+            If Content.Template Is Nothing Then
+                ExpansionRange = Nothing
+            Else
+                ExpansionRange = Content.Template.Expand()
             End If
-            Piece = LeftPiece
-        ElseIf Piece.Contains(CHAR_Class) Then
-            Dim LeftPiece = GetTopmostLevel(Piece, CHAR_Class)
-            Dim RightPiece = GetRightPiece(Piece, CHAR_Class)
-            If RightPiece <> String.Empty Then
-                ' Generated a list of classes from Right
-                Attribute = String.Format("class='{0}'", RightPiece.Replace(".", " "))
-            End If
-            Piece = LeftPiece
-        ElseIf Piece.Contains("["c) Then
-            Attribute = Piece.Contents("["c, "]"c)
-        End If
-        For Count = 5 To 1 Step -1
-            Attribute = Attribute.Replace(New String("$", Count), Iteration.ToString("D" & Count))
-        Next
-        SetTemplateVariable("ZenAttribute", Attribute)
-        Dim Found As Template = GetFirstTemplateWithName(Piece)
-        Dim ExpansionRange As SourceRange
-        If Found IsNot Nothing Then
-            ExpansionRange = Found.Expand()
-        End If
-        SetTemplateVariable("ZenAttribute", "")
-        SetTemplateVariable("ZenCount", "")
-        Return ExpansionRange
+            SetTemplateVariable("ZenAttribute", "")
+            SetTemplateVariable("ZenCount", "")
+            Return ExpansionRange
+        Catch ex As Exception
+            Throw
+        End Try
     End Function
+
+    'Private Function ParseClassPiece(ByVal Content As String) As ContentAttribute
+    '    Dim Attribute As String = String.Empty
+    '    Dim OuterContainer = GetOuterContainer(Content, CHAR_Class)
+    '    Dim InnerContent = GetInnerContent(Content, CHAR_Class)
+    '    If InnerContent <> String.Empty Then
+    '        ' Generated a list of classes from Right
+    '        Attribute = String.Format("class='{0}'", InnerContent.Replace(".", " "))
+    '    End If
+    '    'Content = OuterContainer
+    '    Return New ContentAttribute(OuterContainer, Attribute)
+
+    'End Function
+    'Private Function ParseIDPiece(ByVal Content As String) As ContentAttribute
+    '    Dim Attribute As String = String.Empty
+    '    Dim OuterContainer = GetOuterContainer(Content, CHAR_ID)
+    '    Dim InnerContent = GetInnerContent(Content, CHAR_ID)
+    '    If InnerContent <> String.Empty Then
+    '        ' somehow allocate an Id to expanded item
+    '        Attribute = String.Format("id='{0}'", InnerContent)
+    '    End If
+    '    'Content = OuterContainer
+    '    Return New ContentAttribute(OuterContainer, Attribute)
+
+    'End Function
 #End Region
-#Region "Utils"
-#Region "ExpressionBreaking"
-    Private Function GetTopmostLevel(ByVal Expression As String, ByVal Delimiter As Char) As String
-        Dim Pos As Integer = Expression.IndexOf(Delimiter)
-        Return If(Pos = -1, Expression, Expression.Substring(0, Pos))
-    End Function
-    Private Function GetRightPiece(ByVal Expression As String, ByVal Delimiter As Char) As String
-        Dim Pos As Integer = Expression.IndexOf(Delimiter)
-        Return If(Pos = -1, "", Expression.Substring(Pos + 1))
-    End Function
-#End Region
-#Region "SourcePointOps"
-    Private Function RestorePoint(ByVal SavedPoint As SourcePoint) As SourcePoint
-        CodeRush.Caret.MoveTo(SavedPoint)
-        Return SavedPoint
-    End Function
-    Private Function SavePoint(ByVal Point As SourcePoint, ByVal Document As TextDocument) As SourcePoint
-        Dim NewPoint As SourcePoint = New SourcePoint(Point)
-        NewPoint.BindToCode(Document, True)
-        Return NewPoint
-    End Function
-#End Region
-#Region "Zen Locations"
-    ''' <summary>Full range of the Zen Expression</summary>
-    Public Function ZenRange() As SourceRange
-        Dim StartLine As Integer = CodeRush.Caret.Line
-        Dim TheLine As String = CodeRush.Documents.ActiveTextDocument.GetLine(StartLine)
-        Dim LeftRight As Integer = LocateZenStart(TheLine)
-        Dim StartPoint As SourcePoint = New SourcePoint(StartLine, LeftRight)
-        Return New SourceRange(StartPoint, CodeRush.Caret.SourcePoint)
-    End Function
-    ''' <summary>Locates the Start of the Zen Expression</summary> 
-    Private Function LocateZenStart(ByVal Line As String) As Integer
-        For Position = Line.Count - 1 To 1 Step -1
-            If Not STR_VALIDCHARS.Contains(Line.Substring(Position, 1)) Then
-                'Position is the 0 based location of the first character with is illegal Zen
-                Return Position + 2 'The 1-based position of the last Zen Legal character.
-            End If
-        Next
-        Return 1
-    End Function
-#End Region
-#Region "TemplateOps"
-    ''' <summary>Locates First Template with given Name</summary>
-    Private Function GetFirstTemplateWithName(ByVal Part As String) As Template
-        Dim TemplateList = CodeRush.Templates.Find(Part, False)
-        If TemplateList.Count = 0 Then
-            Return Nothing
-        End If
-        Return TemplateList(0)
-    End Function
-#End Region
-    Private Sub SetTemplateVariable(ByVal VarName As String, ByVal VarValue As String)
-        DevExpress.CodeRush.Core.CodeRush.Strings.Get("Set", String.Format("{0}, {1}", VarName, VarValue))
-    End Sub
-#End Region
+
 End Class

@@ -3,7 +3,7 @@ Imports System.Reflection
 Imports System.Runtime.InteropServices
 Imports DevExpress.CodeRush.Common
 
-<Assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "DX_ZenCoding", PlugInLoadType.Demand, LoadAbilityType.LoadEnabled)>
+<Assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "DX_ZenCoding", PlugInLoadType.StartUp, LoadAbilityType.LoadEnabled)> 
 
 ' General Information about an assembly is controlled through the following 
 ' set of attributes. Change these attribute values to modify the information
@@ -18,7 +18,7 @@ Imports DevExpress.CodeRush.Common
 <Assembly: AssemblyCopyright("Copyright © Microsoft 2010")> 
 <Assembly: AssemblyTrademark("")> 
 
-<Assembly: ComVisible(False)>
+<Assembly: ComVisible(False)> 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
 <Assembly: Guid("282ad5f5-282f-4a09-9441-f97dec7e7c00")> 

@@ -109,6 +109,7 @@
       <DependentUpon>Copy of PlugIn1.vb</DependentUpon>
     </Compile>
     <Compile Include="Copy of PlugIn1.vb" />
+    <Compile Include="ParsedSection.vb" />
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -117,7 +118,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.vb" />
     <Compile Include="StringExt.vb" />
-    <Compile Include="ViewExt.vb" />
+    <Compile Include="UnTestable.vb" />
+    <Compile Include="TemplateExt.vb" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -145,6 +147,13 @@
     <EmbeddedResource Include="PlugIn1.resx">
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DeploymentFiles\HTML_Zen.xml" />
+    <Content Include="Test.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
