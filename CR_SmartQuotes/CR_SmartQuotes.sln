@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_SmartQuotes", "CR_SmartQuotes\CR_SmartQuotes.csproj", "{F97EA35E-A431-44EE-BBAA-31D8F8D0BF23}"
 EndProject
 Global
