@@ -40,10 +40,10 @@ namespace CR_SmartQuotes
             // 
             // CR_SmartQuotes
             // 
-            this.EditorCharacterTyping += new DevExpress.CodeRush.Core.EditorCharacterTypingEventHandler(this.CR_SmartQuotes_EditorCharacterTyping);
+            this.CommandExecuting += new DevExpress.CodeRush.Core.CommandExecutingEventHandler(this.CR_SmartQuotes_CommandExecuting);
             this.OptionsChanged += new DevExpress.CodeRush.Core.OptionsChangedEventHandler(this.CR_SmartQuotes_OptionsChanged);
+            this.EditorCharacterTyping += new DevExpress.CodeRush.Core.EditorCharacterTypingEventHandler(this.CR_SmartQuotes_EditorCharacterTyping);
             this.EditorCharacterTyped += new DevExpress.CodeRush.Core.EditorCharacterTypedEventHandler(this.CR_SmartQuotes_EditorCharacterTyped);
-            this.KeyPressed += new DevExpress.CodeRush.Core.KeyPressedEventHandler(this.CR_SmartQuotes_KeyPressed);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
