@@ -9,7 +9,6 @@ namespace CR_SmartQuotes
     public partial class CR_SmartQuotes : StandardPlugIn
     {
         private SmartQuoteSettings settings = new SmartQuoteSettings();
-        private List<TextField> textFields = new List<TextField>();
 
         // DXCore-generated code...
         #region InitializePlugIn
@@ -18,8 +17,6 @@ namespace CR_SmartQuotes
             base.InitializePlugIn();
 
             this.settings.Load();
-            EventNexus.TextFieldCommitted += this.EventNexus_TextFieldCommitted;
-            EventNexus.AllTextFieldsCommitted += this.EventNexus_AllTextFieldsCommitted;
             EventNexus.IntellisenseDeactivated += this.EventNexus_IntellisenseDeactivated;
         }
 
@@ -29,8 +26,6 @@ namespace CR_SmartQuotes
         {
             base.FinalizePlugIn();
 
-            EventNexus.TextFieldCommitted -= this.EventNexus_TextFieldCommitted;
-            EventNexus.AllTextFieldsCommitted -= this.EventNexus_AllTextFieldsCommitted;
             EventNexus.IntellisenseDeactivated -= this.EventNexus_IntellisenseDeactivated;
         }
         #endregion
@@ -46,87 +41,129 @@ namespace CR_SmartQuotes
                 CodeRush.Caret.DeleteRight(1);
             }
         }
-        
+
+        private void CR_SmartQuotes_CommandExecuting(CommandExecutingEventArgs ea)
+        {
+            if (!ea.CancelDefault && ea.CommandName == "Edit.DeleteBackwards")
+            {
+                TextViewCaret caret = GetCaretInActiveFocusedView();
+                if (caret != null)
+                {
+                    if (this.settings.UseSmartDoubleQuotes && this.settings.DoubleQuotesEasyDelete
+                        && caret.LeftChar == '\"' && caret.RightChar == '\"')
+                    {
+                        this.EasyDelete(caret);
+                        return;
+                    }
+                    if (this.settings.UseSmartQuotes && this.settings.QuotesEasyDelete
+                        && caret.LeftChar == '\'' && caret.RightChar == '\'')
+                    {
+                        this.EasyDelete(caret);
+                        return;
+                    }
+                }
+            }
+        }
+
+        private TextViewCaret GetCaretInActiveFocusedView()
+        {
+            TextView view = CodeRush.Documents.ActiveTextView;
+            if (view != null && view.IsFocused)
+            {
+                return view.Caret;
+            }
+            return null;
+        }
+
+        private void EasyDelete(TextViewCaret caret)
+        {
+            caret.DeleteRight(1);
+            if (CaretInsideTextField())
+            {
+                CloseActiveTextField();
+            }
+        }
+
+        private void IgnoreClosingCharacter(TextViewCaret caret)
+        {
+            if (this.CaretInsideTextField())
+            {
+                this.CloseActiveTextField();
+            }
+            else
+            {
+                caret.MoveRight(1);
+            }
+        }
+
+        private void InsertClosingCharacter(TextViewCaret caret, string character, bool useTextField)
+        {
+            caret.Insert(character, false);
+            if (useTextField)
+            {
+                if (this.CaretInsideTextField())
+                {
+                    this.CloseActiveTextField();
+                }
+                this.InsertTextFieldAt(caret);
+            }
+        }
+
         private void CR_SmartQuotes_EditorCharacterTyped(EditorCharacterTypedEventArgs ea)
         {
-            if (this.settings.UseSmartDoubleQuotes && this.settings.DoubleQuotesAutoComplete
-                && ea.Character == '\"'
-                && !this.IsLastCharacterEscaped(CodeRush.Caret.LeftText))
+            TextViewCaret caret = GetCaretInActiveFocusedView();
+            if (caret != null)
             {
-                CodeRush.Caret.Insert("\"", false);
-                if (this.settings.DoubleQuotesUseTextFields && !this.CaretInsideTextField())
+                if (this.settings.UseSmartDoubleQuotes 
+                    && this.settings.DoubleQuotesAutoComplete
+                    && ea.Character == '\"'
+                    && this.CaretInCodeEditor()
+                    && !this.IsLastCharacterEscaped(caret.LeftText)
+                    && this.CanExecuteFeature("Smart double quotes", "Auto completes closing double quotes"))
                 {
-                    this.InsertTextFieldAtCaretPosition();
-                }
-                return;
-            }
-            if (this.settings.UseSmartQuotes && this.settings.QuotesAutoComplete
-                && ea.Character == '\''
-                && !this.IsLastCharacterEscaped(CodeRush.Caret.LeftText))
-            {
-                CodeRush.Source.ParseIfTextChanged();
-                if (this.CaretWithinNaturalLanguage())
-                {
-                    // to prevent double apostrophes e.g. in English phrases
+                    this.InsertClosingCharacter(caret, "\"", this.settings.DoubleQuotesUseTextFields);
                     return;
                 }
-                CodeRush.Caret.Insert("\'", false);
-                if (this.settings.QuotesUseTextFields && !this.CaretInsideTextField())
+                if (this.settings.UseSmartQuotes 
+                    && this.settings.QuotesAutoComplete
+                    && ea.Character == '\''
+                    && this.CaretInCodeEditor()
+                    && !this.IsLastCharacterEscaped(caret.LeftText)
+                    && this.CanExecuteFeature("Smart quotes", "Auto completes closing quote"))
                 {
-                    this.InsertTextFieldAtCaretPosition();
+                    CodeRush.Source.ParseIfTextChanged();
+                    if (this.CaretWithinNaturalLanguage())
+                    {
+                        // to prevent double apostrophes e.g. in English phrases
+                        return;
+                    }
+                    this.InsertClosingCharacter(caret, "\'", this.settings.QuotesUseTextFields);
+                    return;
                 }
-                return;
             }
         }
 
         private void CR_SmartQuotes_EditorCharacterTyping(EditorCharacterTypingEventArgs ea)
         {
-            if (this.settings.UseSmartDoubleQuotes && this.settings.DoubleQuotesIgnoreClosingQuote
-                && ea.Character == '\"'
-                && this.CaretBeforeClosingDoubleQuote())
+            TextViewCaret caret = GetCaretInActiveFocusedView();
+            if (caret != null)
             {
-                ea.Cancel = true;
-                if (this.CaretInsideTextField())
+                if (this.settings.UseSmartDoubleQuotes 
+                    && this.settings.DoubleQuotesIgnoreClosingQuote
+                    && ea.Character == '\"'
+                    && this.CaretBeforeClosingDoubleQuote(caret))
                 {
-                    this.CloseActiveTextField();
-                }
-                else
-                {
-                    CodeRush.Caret.MoveRight(1);
-                }
-                return;
-            }
-            if (this.settings.UseSmartQuotes && this.settings.QuotesIgnoreClosingQuote
-                && ea.Character == '\''
-                && this.CaretBeforeClosingQuote())
-            {
-                ea.Cancel = true;
-                if (this.CaretInsideTextField())
-                {
-                    this.CloseActiveTextField();
-                }
-                else
-                {
-                    CodeRush.Caret.MoveRight(1);
-                }
-                return;
-            }
-        }
-
-        private void CR_SmartQuotes_KeyPressed(KeyPressedEventArgs ea)
-        {
-            if (ea.IsBackspace && CodeRush.Caret.InsideString)
-            {
-                if (this.settings.UseSmartDoubleQuotes && this.settings.DoubleQuotesEasyDelete 
-                    && CodeRush.Caret.LeftChar == '\"' && CodeRush.Caret.RightChar == '\"')
-                {
-                    CodeRush.Caret.DeleteRight(1);
+                    ea.Cancel = true;
+                    this.IgnoreClosingCharacter(caret);
                     return;
                 }
-                if (this.settings.UseSmartQuotes && this.settings.QuotesEasyDelete 
-                    && CodeRush.Caret.LeftChar == '\'' && CodeRush.Caret.RightChar == '\'')
+                if (this.settings.UseSmartQuotes 
+                    && this.settings.QuotesIgnoreClosingQuote
+                    && ea.Character == '\''
+                    && this.CaretBeforeClosingQuote(caret))
                 {
-                    CodeRush.Caret.DeleteRight(1);
+                    ea.Cancel = true;
+                    this.IgnoreClosingCharacter(caret);
                     return;
                 }
             }
@@ -140,26 +177,12 @@ namespace CR_SmartQuotes
             }
         }
 
-        private void EventNexus_TextFieldCommitted(TextFieldEventArgs ea)
+        private void InsertTextFieldAt(TextViewCaret caret)
         {
-            this.RemoveTextField(ea.TextField);
-        }
-
-        private void EventNexus_AllTextFieldsCommitted(EventArgs ea)
-        {
-            this.textFields.Clear();
-        }
-
-        private void InsertTextFieldAtCaretPosition()
-        {
-            TextDocument document = CodeRush.Documents.ActiveTextDocument;
-            if (document == null)
-            {
-                return;
-            }
-            EditPoint startEditPoint = CodeRush.EditPoints.New(document, CodeRush.Caret.SourcePoint);
+            TextDocument document = caret.TextDocument;
+            EditPoint startEditPoint = CodeRush.EditPoints.New(document, caret.SourcePoint);
             startEditPoint.IsAnchorable = true;
-            EditPoint endEditPoint = CodeRush.EditPoints.New(document, CodeRush.Caret.SourcePoint);
+            EditPoint endEditPoint = CodeRush.EditPoints.New(document, caret.SourcePoint);
             endEditPoint.IsPushable = true;
             TextField newField = new TextField(startEditPoint, endEditPoint, "Enter string value", TextFieldType.Normal, false);
             EditPoint targetPoint = endEditPoint.Clone();
@@ -167,20 +190,11 @@ namespace CR_SmartQuotes
             TextFieldTarget newTarget = new TextFieldTarget(targetPoint, targetPoint);
             document.TextFields.Add(newField);
             document.TextFieldTarget = newTarget;
-            this.textFields.Add(newField);
         }
 
         private void CloseActiveTextField()
         {
             CodeRush.Command.Execute("FieldAccept");
-        }
-
-        private void RemoveTextField(TextField textField)
-        {
-            if (this.textFields.Contains(textField))
-            {
-                this.textFields.Remove(textField);
-            }
         }
 
         private bool IsNextCharacterEscaped(string text)
@@ -205,16 +219,32 @@ namespace CR_SmartQuotes
             return this.IsNextCharacterEscaped(withoutLastChar);
         }
 
-        private bool CaretBeforeClosingDoubleQuote()
+        private bool CaretBeforeClosingDoubleQuote(TextViewCaret caret)
         {
-            return CodeRush.Caret.RightChar == '\"' && CodeRush.Caret.InsideString
-                && !this.IsNextCharacterEscaped(CodeRush.Caret.LeftText);
+            return caret.RightChar == '\"' && CodeRush.Caret.InsideString
+                && !this.IsNextCharacterEscaped(caret.LeftText);
         }
 
-        private bool CaretBeforeClosingQuote()
+        private bool CaretBeforeClosingQuote(TextViewCaret caret)
         {
-            return CodeRush.Caret.RightChar == '\'' && CodeRush.Caret.InsideString
-                && !this.IsNextCharacterEscaped(CodeRush.Caret.LeftText);
+            return caret.RightChar == '\'' && CodeRush.Caret.InsideString
+                && !this.IsNextCharacterEscaped(caret.LeftText);
+        }
+
+        private bool CaretWithinNaturalLanguage()
+        {
+            return CodeRush.Caret.InsideComment
+                || CodeRush.Caret.AtCompilerDirective;
+        }
+
+        private bool CaretInCodeEditor()
+        {
+            return !CodeRush.Refactoring.IsMenuActive
+                && !CodeRush.IDE.IsMenuActive
+                && !this.CaretInLinkedIdentifier()
+                && !CodeRush.Refactoring.PickerIsActive
+                && !CodeRush.Intellassist.Active
+                && !this.CodeIssueFixUIIsActive();
         }
 
         private bool CaretInsideTextField()
@@ -232,10 +262,20 @@ namespace CR_SmartQuotes
             return false;
         }
 
-        private bool CaretWithinNaturalLanguage()
+        private bool CaretInLinkedIdentifier()
         {
-            return CodeRush.Caret.InsideComment
-                || CodeRush.Caret.AtCompilerDirective;
+            return CodeRush.Context.Satisfied("System\\In Linked Identifier") == ContextResult.Satisfied;
+        }
+
+        private bool CodeIssueFixUIIsActive()
+        {
+            return CodeRush.Context.Satisfied("System\\CodeFix UI is active") == ContextResult.Satisfied;
+        }
+
+        private bool CanExecuteFeature(string name, string description)
+        {
+            StandardFeature feature = new StandardFeature(name, description, CodeRush.Options.GetFullName(typeof(SmartQuoteOptions)), FeatureProduct.Unknown);
+            return CodeRush.Feature.CanExecuteFeature(feature);
         }
     }
 }
