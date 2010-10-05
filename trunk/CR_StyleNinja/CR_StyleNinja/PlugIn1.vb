@@ -20,6 +20,7 @@ Public Class PlugIn1
 #Region "Rule Registration"
     Private Sub RegisterRules()
         SA11XX.RegisterRulesAndFixes(Components)
+        SA12XX.RegisterRulesAndFixes(Components)
         SA13XX.RegisterRulesAndFixes(Components)
         SA14XX.RegisterRulesAndFixes(Components)
         SA15XX.RegisterRulesAndFixes(Components)

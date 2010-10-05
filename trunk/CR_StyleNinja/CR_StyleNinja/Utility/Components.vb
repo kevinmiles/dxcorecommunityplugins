@@ -17,14 +17,14 @@ Friend Module Components
                                 ByVal IssueMessage As String, _
                                 ByVal Qualifies As ElementQualifiesDelegate, _
                                 Optional ByVal SourceType As SourceTypeEnum = SourceTypeEnum.Unknown) As IssueProvider
-        Return CreateIssue(Components, IssueMessage, AddressOf New ElementChecker(SourceType, Qualifies, IssueMessage).CheckCodeIssues)
+        Return CreateIssue(Components, IssueMessage, AddressOf New ElementChecker(Qualifies, IssueMessage, SourceType).CheckCodeIssues)
     End Function
     <Extension()> _
     Public Function CreateIssue(ByVal Components As IContainer, _
                                 ByVal IssueMessage As String, _
                                 ByVal Qualifies As ElementQualifiesDelegate, _
                                 ByVal Type As Type) As IssueProvider
-        Return CreateIssue(Components, IssueMessage, AddressOf New ElementChecker(Type, Qualifies, IssueMessage).CheckCodeIssues)
+        Return CreateIssue(Components, IssueMessage, AddressOf New ElementChecker(Qualifies, IssueMessage, Type).CheckCodeIssues)
     End Function
     <Extension()> _
     Public Function CreateIssue(ByVal Components As IContainer,
