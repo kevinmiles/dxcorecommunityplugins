@@ -49,8 +49,7 @@ Namespace SA14XX
                 Return False
             End If
             ' Exclude if Parent is Method
-            If Element.Parent IsNot Nothing _
-                AndAlso TypeOf Element.Parent Is SP.Method Then
+            If Element.ParentMethod IsNot Nothing Then
                 Return False
             End If
             Return True
