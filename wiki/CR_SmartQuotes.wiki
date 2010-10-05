@@ -8,6 +8,7 @@ This plugin brings auto complete of quotes to CodeRush. Features are based on au
   * Support for text fields
   * Easy delete of empty single and double quotes
   * Ignoring of closing single and double quotes while typing
+  * Integrated with CodeRush Feature UI
 
 Features were implemented in language agnostic way. However, plugin was tested only in c# environment. If you find any troubles using it, post issue and I try to fix it ASAP.
 
@@ -26,12 +27,7 @@ SmartQuotes is fully configurable. Options page can be found in "Editor/Auto Com
 = Future work =
 
   * Better support for verbatim strings
-  * Integration with CodeRush Feature UI
-
-= Known Issues =
-
-There is problem (very minor, but still) with clearing text fields from local cache. 
-This will be fixed after DevExpress implement http://www.devexpress.com/Support/Center/p/Q218515.aspx?searchtext=&p=T4|P6|0 suggestion.
+  * Improved ToString selection embedding
 
 = Credits =
 
