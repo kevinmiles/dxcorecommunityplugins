@@ -49,18 +49,84 @@ namespace CR_SmartQuotes
                 TextViewCaret caret = GetCaretInActiveFocusedView();
                 if (caret != null)
                 {
-                    if (this.settings.UseSmartDoubleQuotes && this.settings.DoubleQuotesEasyDelete
-                        && caret.LeftChar == '\"' && caret.RightChar == '\"')
+                    if (this.settings.UseSmartDoubleQuotes 
+                        && this.settings.DoubleQuotesEasyDelete
+                        && caret.LeftChar == '\"' 
+                        && caret.RightChar == '\"'
+                        && this.CanExecuteFeature("Easy delete", "Deletes empty quotes and double quotes"))
                     {
                         this.EasyDelete(caret);
                         return;
                     }
-                    if (this.settings.UseSmartQuotes && this.settings.QuotesEasyDelete
-                        && caret.LeftChar == '\'' && caret.RightChar == '\'')
+                    if (this.settings.UseSmartQuotes 
+                        && this.settings.QuotesEasyDelete
+                        && caret.LeftChar == '\'' 
+                        && caret.RightChar == '\''
+                        && this.CanExecuteFeature("Easy delete", "Deletes empty quotes and double quotes"))
                     {
                         this.EasyDelete(caret);
                         return;
                     }
+                }
+            }
+        }
+
+        private void CR_SmartQuotes_EditorCharacterTyped(EditorCharacterTypedEventArgs ea)
+        {
+            TextViewCaret caret = GetCaretInActiveFocusedView();
+            if (caret != null)
+            {
+                if (this.settings.UseSmartDoubleQuotes
+                    && this.settings.DoubleQuotesAutoComplete
+                    && ea.Character == '\"'
+                    && this.CaretInCodeEditor()
+                    && !this.IsLastCharacterEscaped(caret.LeftText)
+                    && this.CanExecuteFeature("Smart double quotes", "Auto completes closing double quotes"))
+                {
+                    this.InsertClosingCharacter(caret, "\"", this.settings.DoubleQuotesUseTextFields);
+                    return;
+                }
+                if (this.settings.UseSmartQuotes
+                    && this.settings.QuotesAutoComplete
+                    && ea.Character == '\''
+                    && this.CaretInCodeEditor()
+                    && !this.IsLastCharacterEscaped(caret.LeftText)
+                    && this.CanExecuteFeature("Smart quotes", "Auto completes closing quote"))
+                {
+                    CodeRush.Source.ParseIfTextChanged();
+                    if (this.CaretWithinNaturalLanguage())
+                    {
+                        // to prevent double apostrophes e.g. in English phrases
+                        return;
+                    }
+                    this.InsertClosingCharacter(caret, "\'", this.settings.QuotesUseTextFields);
+                    return;
+                }
+            }
+        }
+
+        private void CR_SmartQuotes_EditorCharacterTyping(EditorCharacterTypingEventArgs ea)
+        {
+            TextViewCaret caret = GetCaretInActiveFocusedView();
+            if (caret != null)
+            {
+                if (this.settings.UseSmartDoubleQuotes
+                    && this.settings.DoubleQuotesIgnoreClosingQuote
+                    && ea.Character == '\"'
+                    && this.CaretBeforeClosingDoubleQuote(caret))
+                {
+                    ea.Cancel = true;
+                    this.IgnoreClosingCharacter(caret);
+                    return;
+                }
+                if (this.settings.UseSmartQuotes
+                    && this.settings.QuotesIgnoreClosingQuote
+                    && ea.Character == '\''
+                    && this.CaretBeforeClosingQuote(caret))
+                {
+                    ea.Cancel = true;
+                    this.IgnoreClosingCharacter(caret);
+                    return;
                 }
             }
         }
@@ -106,66 +172,6 @@ namespace CR_SmartQuotes
                     this.CloseActiveTextField();
                 }
                 this.InsertTextFieldAt(caret);
-            }
-        }
-
-        private void CR_SmartQuotes_EditorCharacterTyped(EditorCharacterTypedEventArgs ea)
-        {
-            TextViewCaret caret = GetCaretInActiveFocusedView();
-            if (caret != null)
-            {
-                if (this.settings.UseSmartDoubleQuotes 
-                    && this.settings.DoubleQuotesAutoComplete
-                    && ea.Character == '\"'
-                    && this.CaretInCodeEditor()
-                    && !this.IsLastCharacterEscaped(caret.LeftText)
-                    && this.CanExecuteFeature("Smart double quotes", "Auto completes closing double quotes"))
-                {
-                    this.InsertClosingCharacter(caret, "\"", this.settings.DoubleQuotesUseTextFields);
-                    return;
-                }
-                if (this.settings.UseSmartQuotes 
-                    && this.settings.QuotesAutoComplete
-                    && ea.Character == '\''
-                    && this.CaretInCodeEditor()
-                    && !this.IsLastCharacterEscaped(caret.LeftText)
-                    && this.CanExecuteFeature("Smart quotes", "Auto completes closing quote"))
-                {
-                    CodeRush.Source.ParseIfTextChanged();
-                    if (this.CaretWithinNaturalLanguage())
-                    {
-                        // to prevent double apostrophes e.g. in English phrases
-                        return;
-                    }
-                    this.InsertClosingCharacter(caret, "\'", this.settings.QuotesUseTextFields);
-                    return;
-                }
-            }
-        }
-
-        private void CR_SmartQuotes_EditorCharacterTyping(EditorCharacterTypingEventArgs ea)
-        {
-            TextViewCaret caret = GetCaretInActiveFocusedView();
-            if (caret != null)
-            {
-                if (this.settings.UseSmartDoubleQuotes 
-                    && this.settings.DoubleQuotesIgnoreClosingQuote
-                    && ea.Character == '\"'
-                    && this.CaretBeforeClosingDoubleQuote(caret))
-                {
-                    ea.Cancel = true;
-                    this.IgnoreClosingCharacter(caret);
-                    return;
-                }
-                if (this.settings.UseSmartQuotes 
-                    && this.settings.QuotesIgnoreClosingQuote
-                    && ea.Character == '\''
-                    && this.CaretBeforeClosingQuote(caret))
-                {
-                    ea.Cancel = true;
-                    this.IgnoreClosingCharacter(caret);
-                    return;
-                }
             }
         }
 
