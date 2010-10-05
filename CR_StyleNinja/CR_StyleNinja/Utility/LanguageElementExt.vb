@@ -18,9 +18,8 @@ Public Module LanguageElementExt
         Return (Char.IsLower(Source.First) AndAlso Char.IsUpper(Source.Skip(1).First)) _
         OrElse (Char.IsLower(Source.First) AndAlso Char.IsLower(Source.Skip(1).First) AndAlso Char.IsUpper(Source.Skip(2).First))
     End Function
-
-
-
-
-
+    <Extension()> _
+    Public Function GenerateCode(ByVal Source As LanguageElement) As String
+        Return CodeRush.CodeMod.GenerateCode(Source)
+    End Function
 End Module

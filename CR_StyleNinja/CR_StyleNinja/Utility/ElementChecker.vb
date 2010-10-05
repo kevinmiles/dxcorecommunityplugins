@@ -21,6 +21,7 @@ Public Enum SourceTypeEnum
     Attribute
     MethodCall
     [Try]
+    NamespaceReference
 End Enum
 
 Public Class ElementChecker
@@ -31,14 +32,14 @@ Public Class ElementChecker
     Private mType As Type
 
     Public Delegate Function ElementQualifiesDelegate(ByVal Element As IElement) As Boolean
-    Public Sub New(ByVal Type As Type, ByVal Qualifier As ElementQualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing)
+    Public Sub New(ByVal Qualifier As ElementQualifiesDelegate, ByVal IssueMessage As String, ByVal Type As Type, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing)
         mType = Type
         mSourceType = SourceTypeEnum.Unknown
         mIssueMessage = IssueMessage
         mQualifier = Qualifier
         mExitStrategy = ExitStrategy
     End Sub
-    Public Sub New(ByVal SourceType As SourceTypeEnum, ByVal Qualifier As ElementQualifiesDelegate, ByVal IssueMessage As String, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing)
+    Public Sub New(ByVal Qualifier As ElementQualifiesDelegate, ByVal IssueMessage As String, ByVal SourceType As SourceTypeEnum, Optional ByVal ExitStrategy As Func(Of Boolean) = Nothing)
         mExitStrategy = ExitStrategy
         mSourceType = SourceType
         mIssueMessage = IssueMessage
@@ -57,10 +58,14 @@ Public Class ElementChecker
         End If
     End Sub
     Public Function DecorateRange(ByVal FoundItem As LanguageElement) As SourceRange
-        If FoundItem.ElementType = LanguageElementType.Try Then
-            Return New SourceRange(FoundItem.Range.Start, FoundItem.Range.Start.OffsetPoint(0, 3))
-        End If
-        Return FoundItem.NameRange
+        Select Case FoundItem.ElementType
+            Case LanguageElementType.Try
+                Return New SourceRange(FoundItem.Range.Start, FoundItem.Range.Start.OffsetPoint(0, 3))
+            Case LanguageElementType.NamespaceReference
+                Return FoundItem.Range
+            Case Else
+                Return FoundItem.NameRange
+        End Select
     End Function
     Private Function GetFinder(ByVal Scope As IElement, ByVal ElementType As IElement) As IEnumerable(Of LanguageElement)
         Return Elements(Scope.ToLE, ElementType.GetType)
@@ -95,6 +100,8 @@ Public Class ElementChecker
                 Return [Try](Scope.ToLE)
             Case SourceTypeEnum.Class
                 Return Classes(Scope.ToLE)
+            Case SourceTypeEnum.NamespaceReference
+                Return Elements(Scope.ToLE)
             Case Else
                 Return Elements(Scope.ToLE)
         End Select

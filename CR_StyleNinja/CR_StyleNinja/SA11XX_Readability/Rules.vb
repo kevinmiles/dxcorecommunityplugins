@@ -102,7 +102,7 @@ Namespace SA11XX
             Return True
         End Function
         Public Sub Fix_SA1101(ByVal sender As Object, ByVal ea As ApplyContentEventArgs)
-            Dim NewCode As String = CodeRush.CodeMod.GenerateCode((New ThisReferenceExpression)) + "."
+            Dim NewCode As String = GenerateCode(New ThisReferenceExpression) + "."
             ea.TextDocument.InsertText(ea.CodeActive.Range.Start, NewCode)
         End Sub
 #End Region

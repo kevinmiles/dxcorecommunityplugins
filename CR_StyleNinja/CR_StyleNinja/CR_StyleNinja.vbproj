@@ -97,6 +97,8 @@
   <ItemGroup>
     <Compile Include="SA11XX_Readability\Registration.vb" />
     <Compile Include="SA11XX_Readability\Rules.vb" />
+    <Compile Include="SA12XX_Ordering\Registration.vb" />
+    <Compile Include="SA12XX_Ordering\Rules.vb" />
     <Compile Include="SA15XX_Layout\Registration.vb" />
     <Compile Include="SA15XX_Layout\Rules.vb" />
     <Compile Include="Utility\HiddenDX.vb" />
@@ -147,6 +149,7 @@
   <ItemGroup>
     <Content Include="TextFile1.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
     <PostBuildEvent>
