@@ -6,7 +6,7 @@ namespace CR_SmartQuotes
     using DevExpress.CodeRush.PlugInCore;
     using DevExpress.CodeRush.StructuralParser;
 
-    public partial class CR_SmartQuotes : StandardPlugIn
+    public partial class SmartQuotesPlugIn : StandardPlugIn
     {
         private SmartQuoteSettings settings = new SmartQuoteSettings();
 
@@ -17,7 +17,7 @@ namespace CR_SmartQuotes
             base.InitializePlugIn();
 
             this.settings.Load();
-            EventNexus.IntellisenseDeactivated += this.EventNexus_IntellisenseDeactivated;
+            EventNexus.IntellisenseDeactivated += this.EventNexusIntellisenseDeactivated;
         }
 
         #endregion
@@ -26,11 +26,11 @@ namespace CR_SmartQuotes
         {
             base.FinalizePlugIn();
 
-            EventNexus.IntellisenseDeactivated -= this.EventNexus_IntellisenseDeactivated;
+            EventNexus.IntellisenseDeactivated -= this.EventNexusIntellisenseDeactivated;
         }
         #endregion
 
-        private void EventNexus_IntellisenseDeactivated()
+        private void EventNexusIntellisenseDeactivated()
         {
             // Deletes auto generated closing " when VS added its own " to close HTML or XML attribute
             if (CodeRush.Language.IsHtmlOrXml
@@ -42,7 +42,7 @@ namespace CR_SmartQuotes
             }
         }
 
-        private void CR_SmartQuotes_CommandExecuting(CommandExecutingEventArgs ea)
+        private void SmartQuotesPlugInCommandExecuting(CommandExecutingEventArgs ea)
         {
             if (!ea.CancelDefault && ea.CommandName == "Edit.DeleteBackwards")
             {
@@ -53,25 +53,25 @@ namespace CR_SmartQuotes
                         && this.settings.DoubleQuotesEasyDelete
                         && caret.LeftChar == '\"' 
                         && caret.RightChar == '\"'
-                        && this.CanExecuteFeature("Easy delete", "Deletes empty quotes and double quotes"))
+                        && CanExecuteFeature("Easy delete", "Deletes empty quotes and double quotes"))
                     {
-                        this.EasyDelete(caret);
+                        EasyDelete(caret, this.settings.DoubleQuotesUseTextFields);
                         return;
                     }
                     if (this.settings.UseSmartQuotes 
                         && this.settings.QuotesEasyDelete
                         && caret.LeftChar == '\'' 
                         && caret.RightChar == '\''
-                        && this.CanExecuteFeature("Easy delete", "Deletes empty quotes and double quotes"))
+                        && CanExecuteFeature("Easy delete", "Deletes empty quotes and double quotes"))
                     {
-                        this.EasyDelete(caret);
+                        EasyDelete(caret, this.settings.QuotesUseTextFields);
                         return;
                     }
                 }
             }
         }
 
-        private void CR_SmartQuotes_EditorCharacterTyped(EditorCharacterTypedEventArgs ea)
+        private void SmartQuotesPlugInEditorCharacterTyped(EditorCharacterTypedEventArgs ea)
         {
             TextViewCaret caret = GetCaretInActiveFocusedView();
             if (caret != null)
@@ -79,33 +79,33 @@ namespace CR_SmartQuotes
                 if (this.settings.UseSmartDoubleQuotes
                     && this.settings.DoubleQuotesAutoComplete
                     && ea.Character == '\"'
-                    && this.CaretInCodeEditor()
-                    && !this.IsLastCharacterEscaped(caret.LeftText)
-                    && this.CanExecuteFeature("Smart double quotes", "Auto completes closing double quotes"))
+                    && CaretInCodeEditor()
+                    && !IsLastCharacterEscaped(caret.LeftText)
+                    && CanExecuteFeature("Smart double quotes", "Auto completes closing double quotes"))
                 {
-                    this.InsertClosingCharacter(caret, "\"", this.settings.DoubleQuotesUseTextFields);
+                    InsertClosingCharacter(caret, "\"", this.settings.DoubleQuotesUseTextFields);
                     return;
                 }
                 if (this.settings.UseSmartQuotes
                     && this.settings.QuotesAutoComplete
                     && ea.Character == '\''
-                    && this.CaretInCodeEditor()
-                    && !this.IsLastCharacterEscaped(caret.LeftText)
-                    && this.CanExecuteFeature("Smart quotes", "Auto completes closing quote"))
+                    && CaretInCodeEditor()
+                    && !IsLastCharacterEscaped(caret.LeftText)
+                    && CanExecuteFeature("Smart quotes", "Auto completes closing quote"))
                 {
                     CodeRush.Source.ParseIfTextChanged();
-                    if (this.CaretWithinNaturalLanguage())
+                    if (CaretWithinNaturalLanguage())
                     {
                         // to prevent double apostrophes e.g. in English phrases
                         return;
                     }
-                    this.InsertClosingCharacter(caret, "\'", this.settings.QuotesUseTextFields);
+                    InsertClosingCharacter(caret, "\'", this.settings.QuotesUseTextFields);
                     return;
                 }
             }
         }
 
-        private void CR_SmartQuotes_EditorCharacterTyping(EditorCharacterTypingEventArgs ea)
+        private void SmartQuotesPlugInEditorCharacterTyping(EditorCharacterTypingEventArgs ea)
         {
             TextViewCaret caret = GetCaretInActiveFocusedView();
             if (caret != null)
@@ -113,25 +113,25 @@ namespace CR_SmartQuotes
                 if (this.settings.UseSmartDoubleQuotes
                     && this.settings.DoubleQuotesIgnoreClosingQuote
                     && ea.Character == '\"'
-                    && this.CaretBeforeClosingDoubleQuote(caret))
+                    && CaretBeforeClosingDoubleQuote(caret))
                 {
                     ea.Cancel = true;
-                    this.IgnoreClosingCharacter(caret);
+                    IgnoreClosingCharacter(caret, this.settings.DoubleQuotesUseTextFields);
                     return;
                 }
                 if (this.settings.UseSmartQuotes
                     && this.settings.QuotesIgnoreClosingQuote
                     && ea.Character == '\''
-                    && this.CaretBeforeClosingQuote(caret))
+                    && CaretBeforeClosingQuote(caret))
                 {
                     ea.Cancel = true;
-                    this.IgnoreClosingCharacter(caret);
+                    IgnoreClosingCharacter(caret, this.settings.QuotesUseTextFields);
                     return;
                 }
             }
         }
 
-        private TextViewCaret GetCaretInActiveFocusedView()
+        private static TextViewCaret GetCaretInActiveFocusedView()
         {
             TextView view = CodeRush.Documents.ActiveTextView;
             if (view != null && view.IsFocused)
@@ -141,20 +141,20 @@ namespace CR_SmartQuotes
             return null;
         }
 
-        private void EasyDelete(TextViewCaret caret)
+        private static void EasyDelete(TextViewCaret caret, bool useTextField)
         {
             caret.DeleteRight(1);
-            if (CaretInsideTextField())
+            if (useTextField && CaretInsideTextField())
             {
                 CloseActiveTextField();
             }
         }
 
-        private void IgnoreClosingCharacter(TextViewCaret caret)
+        private static void IgnoreClosingCharacter(TextViewCaret caret, bool useTextField)
         {
-            if (this.CaretInsideTextField())
+            if (useTextField && CaretInsideTextField())
             {
-                this.CloseActiveTextField();
+                CloseActiveTextField();
             }
             else
             {
@@ -162,20 +162,20 @@ namespace CR_SmartQuotes
             }
         }
 
-        private void InsertClosingCharacter(TextViewCaret caret, string character, bool useTextField)
+        private static void InsertClosingCharacter(TextViewCaret caret, string character, bool useTextField)
         {
             caret.Insert(character, false);
             if (useTextField)
             {
-                if (this.CaretInsideTextField())
+                if (CaretInsideTextField())
                 {
-                    this.CloseActiveTextField();
+                    CloseActiveTextField();
                 }
-                this.InsertTextFieldAt(caret);
+                InsertTextFieldAt(caret);
             }
         }
 
-        private void CR_SmartQuotes_OptionsChanged(OptionsChangedEventArgs ea)
+        private void SmartQuotesPluginOptionsChanged(OptionsChangedEventArgs ea)
         {
             if (ea.OptionsPages.Contains(typeof(SmartQuoteOptions)))
             {
@@ -183,7 +183,7 @@ namespace CR_SmartQuotes
             }
         }
 
-        private void InsertTextFieldAt(TextViewCaret caret)
+        private static void InsertTextFieldAt(TextViewCaret caret)
         {
             TextDocument document = caret.TextDocument;
             EditPoint startEditPoint = CodeRush.EditPoints.New(document, caret.SourcePoint);
@@ -198,12 +198,12 @@ namespace CR_SmartQuotes
             document.TextFieldTarget = newTarget;
         }
 
-        private void CloseActiveTextField()
+        private static void CloseActiveTextField()
         {
-            CodeRush.Command.Execute("FieldAccept");
+            CodeRush.Command.Execute("FieldBreak");
         }
 
-        private bool IsNextCharacterEscaped(string text)
+        private static bool IsNextCharacterEscaped(string text)
         {
             if (string.IsNullOrEmpty(text))
             {
@@ -215,45 +215,45 @@ namespace CR_SmartQuotes
             return isCitation;
         }
 
-        private bool IsLastCharacterEscaped(string text)
+        private static bool IsLastCharacterEscaped(string text)
         {
             if (string.IsNullOrEmpty(text) || text.Length < 2)
             {
                 return false;
             }
             string withoutLastChar = text.Substring(0, text.Length - 1);
-            return this.IsNextCharacterEscaped(withoutLastChar);
+            return IsNextCharacterEscaped(withoutLastChar);
         }
 
-        private bool CaretBeforeClosingDoubleQuote(TextViewCaret caret)
+        private static bool CaretBeforeClosingDoubleQuote(TextViewCaret caret)
         {
             return caret.RightChar == '\"' && CodeRush.Caret.InsideString
-                && !this.IsNextCharacterEscaped(caret.LeftText);
+                && !IsNextCharacterEscaped(caret.LeftText);
         }
 
-        private bool CaretBeforeClosingQuote(TextViewCaret caret)
+        private static bool CaretBeforeClosingQuote(TextViewCaret caret)
         {
             return caret.RightChar == '\'' && CodeRush.Caret.InsideString
-                && !this.IsNextCharacterEscaped(caret.LeftText);
+                && !IsNextCharacterEscaped(caret.LeftText);
         }
 
-        private bool CaretWithinNaturalLanguage()
+        private static bool CaretWithinNaturalLanguage()
         {
             return CodeRush.Caret.InsideComment
                 || CodeRush.Caret.AtCompilerDirective;
         }
 
-        private bool CaretInCodeEditor()
+        private static bool CaretInCodeEditor()
         {
             return !CodeRush.Refactoring.IsMenuActive
                 && !CodeRush.IDE.IsMenuActive
-                && !this.CaretInLinkedIdentifier()
+                && !CaretInLinkedIdentifier()
                 && !CodeRush.Refactoring.PickerIsActive
                 && !CodeRush.Intellassist.Active
-                && !this.CodeIssueFixUIIsActive();
+                && !CodeIssueFixUIIsActive();
         }
 
-        private bool CaretInsideTextField()
+        private static bool CaretInsideTextField()
         {
             TextDocument doc = CodeRush.Documents.ActiveTextDocument;
             if (doc != null)
@@ -268,17 +268,17 @@ namespace CR_SmartQuotes
             return false;
         }
 
-        private bool CaretInLinkedIdentifier()
+        private static bool CaretInLinkedIdentifier()
         {
             return CodeRush.Context.Satisfied("System\\In Linked Identifier") == ContextResult.Satisfied;
         }
 
-        private bool CodeIssueFixUIIsActive()
+        private static bool CodeIssueFixUIIsActive()
         {
             return CodeRush.Context.Satisfied("System\\CodeFix UI is active") == ContextResult.Satisfied;
         }
 
-        private bool CanExecuteFeature(string name, string description)
+        private static bool CanExecuteFeature(string name, string description)
         {
             StandardFeature feature = new StandardFeature(name, description, CodeRush.Options.GetFullName(typeof(SmartQuoteOptions)), FeatureProduct.Unknown);
             return CodeRush.Feature.CanExecuteFeature(feature);

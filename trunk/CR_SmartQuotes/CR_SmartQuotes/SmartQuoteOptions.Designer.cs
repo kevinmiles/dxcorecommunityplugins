@@ -106,7 +106,7 @@ namespace CR_SmartQuotes
             this.cbDoubleQuotesAutoComplete.TabIndex = 1;
             this.cbDoubleQuotesAutoComplete.Text = "Auto-complete double quotes";
             this.cbDoubleQuotesAutoComplete.UseVisualStyleBackColor = true;
-            this.cbDoubleQuotesAutoComplete.CheckedChanged += new System.EventHandler(this.DoubleQuotesAutoComplete_CheckedChanged);
+            this.cbDoubleQuotesAutoComplete.CheckedChanged += new System.EventHandler(this.DoubleQuotesAutoCompleteCheckedChanged);
             // 
             // cbSmartDoubleQuotes
             // 
@@ -116,7 +116,7 @@ namespace CR_SmartQuotes
             this.cbSmartDoubleQuotes.TabIndex = 0;
             this.cbSmartDoubleQuotes.Text = "Use Smart Double Quotes";
             this.cbSmartDoubleQuotes.UseVisualStyleBackColor = true;
-            this.cbSmartDoubleQuotes.CheckedChanged += new System.EventHandler(this.SmartDoubleQuotes_CheckedChanged);
+            this.cbSmartDoubleQuotes.CheckedChanged += new System.EventHandler(this.SmartDoubleQuotesCheckedChanged);
             // 
             // gbSmartQuotes
             // 
@@ -168,7 +168,7 @@ namespace CR_SmartQuotes
             this.cbQuotesAutoComplete.TabIndex = 1;
             this.cbQuotesAutoComplete.Text = "Auto-complete quotes";
             this.cbQuotesAutoComplete.UseVisualStyleBackColor = true;
-            this.cbQuotesAutoComplete.CheckedChanged += new System.EventHandler(this.QuotesAutoComplete_CheckedChanged);
+            this.cbQuotesAutoComplete.CheckedChanged += new System.EventHandler(this.QuotesAutoCompleteCheckedChanged);
             // 
             // cbSmartQuotes
             // 
@@ -178,7 +178,7 @@ namespace CR_SmartQuotes
             this.cbSmartQuotes.TabIndex = 0;
             this.cbSmartQuotes.Text = "Use Smart Quotes";
             this.cbSmartQuotes.UseVisualStyleBackColor = true;
-            this.cbSmartQuotes.CheckedChanged += new System.EventHandler(this.SmartQuotes_CheckedChanged);
+            this.cbSmartQuotes.CheckedChanged += new System.EventHandler(this.SmartQuotesCheckedChanged);
             // 
             // SmartQuoteOptions
             // 
@@ -187,9 +187,9 @@ namespace CR_SmartQuotes
             this.Controls.Add(this.gbSmartDoubleQuotes);
             this.Name = "SmartQuoteOptions";
             this.Title = "Auto Complete - Quotes & Double Quotes";
-            this.PreparePage += new DevExpress.CodeRush.Core.OptionsPage.PreparePageEventHandler(this.SmartQuoteOptions_PreparePage);
-            this.RestoreDefaults += new DevExpress.CodeRush.Core.OptionsPage.RestoreDefaultsEventHandler(this.SmartQuoteOptions_RestoreDefaults);
-            this.CommitChanges += new DevExpress.CodeRush.Core.OptionsPage.CommitChangesEventHandler(this.SmartQuoteOptions_CommitChanges);
+            this.CommitChanges += new DevExpress.CodeRush.Core.OptionsPage.CommitChangesEventHandler(this.SmartQuoteOptionsCommitChanges);
+            this.PreparePage += new DevExpress.CodeRush.Core.OptionsPage.PreparePageEventHandler(this.SmartQuoteOptionsPreparePage);
+            this.RestoreDefaults += new DevExpress.CodeRush.Core.OptionsPage.RestoreDefaultsEventHandler(this.SmartQuoteOptionsRestoreDefaults);
             this.gbSmartDoubleQuotes.ResumeLayout(false);
             this.gbSmartQuotes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
