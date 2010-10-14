@@ -73,11 +73,11 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CR_SmartQuotes.cs">
+    <Compile Include="SmartQuotesPlugIn.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CR_SmartQuotes.Designer.cs">
-      <DependentUpon>CR_SmartQuotes.cs</DependentUpon>
+    <Compile Include="SmartQuotesPlugIn.Designer.cs">
+      <DependentUpon>SmartQuotesPlugIn.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmartQuoteOptions.cs">
@@ -89,8 +89,8 @@
     <Compile Include="SmartQuoteSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CR_SmartQuotes.resx">
-      <DependentUpon>CR_SmartQuotes.cs</DependentUpon>
+    <EmbeddedResource Include="SmartQuotesPlugIn.resx">
+      <DependentUpon>SmartQuotesPlugIn.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartQuoteOptions.resx">

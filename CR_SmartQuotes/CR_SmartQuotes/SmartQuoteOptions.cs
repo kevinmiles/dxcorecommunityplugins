@@ -6,28 +6,17 @@ namespace CR_SmartQuotes
     [UserLevel(UserLevel.Advanced)]
     public partial class SmartQuoteOptions : OptionsPage
     {
-        #region GetCategory
         public static string GetCategory()
         {
             return @"Editor\Auto Complete";
         }
-        #endregion
-        #region GetPageName
+
         public static string GetPageName()
         {
             return @"Quotes & Double Quotes";
         }
-        #endregion
 
-        // DXCore-generated code...
-        #region Initialize
-        protected override void Initialize()
-        {
-            base.Initialize();
-        }
-        #endregion
-
-        private void SmartQuoteOptions_CommitChanges(object sender, CommitChangesEventArgs ea)
+        private void SmartQuoteOptionsCommitChanges(object sender, CommitChangesEventArgs ea)
         {
             ea.Storage.WriteBoolean("Settings", "UseSmartDoubleQuotes", this.cbSmartDoubleQuotes.Checked);
             ea.Storage.WriteBoolean("Settings", "DoubleQuotesAutoComplete", this.cbDoubleQuotesAutoComplete.Checked);
@@ -41,7 +30,7 @@ namespace CR_SmartQuotes
             ea.Storage.WriteBoolean("Settings", "QuotesIgnoreClosingQuote", this.cbQuotesIgnoreClosingQuote.Checked);
         }
 
-        private void SmartQuoteOptions_PreparePage(object sender, OptionsPageStorageEventArgs ea)
+        private void SmartQuoteOptionsPreparePage(object sender, OptionsPageStorageEventArgs ea)
         {
             this.cbSmartDoubleQuotes.Checked = ea.Storage.ReadBoolean("Settings", "UseSmartDoubleQuotes", true);
             this.cbDoubleQuotesAutoComplete.Checked = ea.Storage.ReadBoolean("Settings", "DoubleQuotesAutoComplete", true);
@@ -55,7 +44,7 @@ namespace CR_SmartQuotes
             this.cbQuotesIgnoreClosingQuote.Checked = ea.Storage.ReadBoolean("Settings", "QuotesIgnoreClosingQuote", true);
         }
 
-        private void SmartQuoteOptions_RestoreDefaults(object sender, OptionsPageEventArgs ea)
+        private void SmartQuoteOptionsRestoreDefaults(object sender, OptionsPageEventArgs ea)
         {
             this.cbSmartDoubleQuotes.Checked = true;
             this.cbDoubleQuotesAutoComplete.Checked = true;
@@ -69,7 +58,7 @@ namespace CR_SmartQuotes
             this.cbQuotesIgnoreClosingQuote.Checked = true;
         }
 
-        private void SmartDoubleQuotes_CheckedChanged(object sender, EventArgs e)
+        private void SmartDoubleQuotesCheckedChanged(object sender, EventArgs e)
         {
             bool enabled = this.cbSmartDoubleQuotes.Checked;
             this.cbDoubleQuotesAutoComplete.Enabled = enabled;
@@ -78,12 +67,12 @@ namespace CR_SmartQuotes
             this.cbDoubleQuotesUseTextFields.Enabled = enabled && this.cbDoubleQuotesAutoComplete.Checked;
         }
 
-        private void DoubleQuotesAutoComplete_CheckedChanged(object sender, EventArgs e)
+        private void DoubleQuotesAutoCompleteCheckedChanged(object sender, EventArgs e)
         {
             this.cbDoubleQuotesUseTextFields.Enabled = this.cbSmartDoubleQuotes.Checked && this.cbDoubleQuotesAutoComplete.Checked;
         }
 
-        private void SmartQuotes_CheckedChanged(object sender, EventArgs e)
+        private void SmartQuotesCheckedChanged(object sender, EventArgs e)
         {
             bool enabled = this.cbSmartQuotes.Checked;
             this.cbQuotesAutoComplete.Enabled = enabled;
@@ -92,7 +81,7 @@ namespace CR_SmartQuotes
             this.cbQuotesUseTextFields.Enabled = enabled && this.cbQuotesAutoComplete.Checked;
         }
 
-        private void QuotesAutoComplete_CheckedChanged(object sender, EventArgs e)
+        private void QuotesAutoCompleteCheckedChanged(object sender, EventArgs e)
         {
             this.cbQuotesUseTextFields.Enabled = this.cbSmartQuotes.Checked && this.cbQuotesAutoComplete.Checked;
         }

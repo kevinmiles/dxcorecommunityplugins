@@ -1,13 +1,13 @@
 namespace CR_SmartQuotes
 {
-    partial class CR_SmartQuotes
+    partial class SmartQuotesPlugIn
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        public CR_SmartQuotes()
+        public SmartQuotesPlugIn()
         {
             /// <summary>
             /// Required for Windows.Forms Class Composition Designer support
@@ -40,10 +40,10 @@ namespace CR_SmartQuotes
             // 
             // CR_SmartQuotes
             // 
-            this.CommandExecuting += new DevExpress.CodeRush.Core.CommandExecutingEventHandler(this.CR_SmartQuotes_CommandExecuting);
-            this.OptionsChanged += new DevExpress.CodeRush.Core.OptionsChangedEventHandler(this.CR_SmartQuotes_OptionsChanged);
-            this.EditorCharacterTyping += new DevExpress.CodeRush.Core.EditorCharacterTypingEventHandler(this.CR_SmartQuotes_EditorCharacterTyping);
-            this.EditorCharacterTyped += new DevExpress.CodeRush.Core.EditorCharacterTypedEventHandler(this.CR_SmartQuotes_EditorCharacterTyped);
+            this.CommandExecuting += new DevExpress.CodeRush.Core.CommandExecutingEventHandler(this.SmartQuotesPlugInCommandExecuting);
+            this.OptionsChanged += new DevExpress.CodeRush.Core.OptionsChangedEventHandler(this.SmartQuotesPluginOptionsChanged);
+            this.EditorCharacterTyping += new DevExpress.CodeRush.Core.EditorCharacterTypingEventHandler(this.SmartQuotesPlugInEditorCharacterTyping);
+            this.EditorCharacterTyped += new DevExpress.CodeRush.Core.EditorCharacterTypedEventHandler(this.SmartQuotesPlugInEditorCharacterTyped);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
