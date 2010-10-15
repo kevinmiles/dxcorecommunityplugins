@@ -146,7 +146,7 @@ namespace CR_SmartQuotes
             caret.DeleteRight(1);
             if (useTextField && CaretInsideTextField())
             {
-                CloseActiveTextField();
+                AcceptActiveTextField();
             }
         }
 
@@ -154,7 +154,7 @@ namespace CR_SmartQuotes
         {
             if (useTextField && CaretInsideTextField())
             {
-                CloseActiveTextField();
+                AcceptActiveTextField();
             }
             else
             {
@@ -169,7 +169,7 @@ namespace CR_SmartQuotes
             {
                 if (CaretInsideTextField())
                 {
-                    CloseActiveTextField();
+                    BreakActiveTextField();
                 }
                 InsertTextFieldAt(caret);
             }
@@ -198,7 +198,12 @@ namespace CR_SmartQuotes
             document.TextFieldTarget = newTarget;
         }
 
-        private static void CloseActiveTextField()
+        private static void AcceptActiveTextField()
+        {
+            CodeRush.Command.Execute("FieldAccept");
+        }
+
+        private static void BreakActiveTextField()
         {
             CodeRush.Command.Execute("FieldBreak");
         }
