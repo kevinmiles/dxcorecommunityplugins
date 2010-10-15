@@ -1,5 +1,7 @@
-#summary Enables auto-complete and easy delete of generics operators <> (c# only).
 [http://www.ndepend.com http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/NDependLogo_PoweredBy.PNG]
+
+
+#summary Enables auto-complete and easy delete of generics operators <> (c# only).
 
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_SmartGenerics/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
