@@ -1,4 +1,6 @@
 #summary Enables auto-complete and easy delete of generics operators <> (c# only).
+[http://www.ndepend.com http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/NDependLogo_PoweredBy.PNG]
+
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_SmartGenerics/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Disclaimer =
@@ -13,7 +15,7 @@ This plugin brings auto complete of generics operators in c# to CodeRush. Featur
   * Adding spaces inside < and > (< | >)
   * Easy delete of empty <>
   * Ignoring of closing > while typing
-
+  * Integrated with CodeRush Feature UI
 
 I did my best to detect whether < was typed as part of generics or as "lower than" operator. Please let me know when both cases are confused resulting in redundant or lacking >.
 
@@ -30,12 +32,6 @@ SmartGenerics is fully configurable. Options page can be found in "Editor/Auto C
 = Future work =
 
   * Support for other languages.
-  * Integration with CodeRush Feature UI
-
-= Known Issues =
-
-There is problem (very minor, but still) with clearing text fields from local cache. 
-This will be fixed after DevExpress implement http://www.devexpress.com/Support/Center/p/Q218515.aspx?searchtext=&p=T4|P6|0 suggestion
 
 = Credits =
 
