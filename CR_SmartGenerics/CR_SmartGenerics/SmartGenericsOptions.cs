@@ -6,26 +6,15 @@ namespace CR_SmartGenerics
     [UserLevel(UserLevel.Advanced)]
     public partial class SmartGenericsOptions : OptionsPage
     {
-        #region GetCategory
         public static string GetCategory()
         {
             return @"Editor\Auto Complete";
         }
-        #endregion
-        #region GetPageName
+
         public static string GetPageName()
         {
             return @"Generics";
         }
-        #endregion
-
-        // DXCore-generated code...
-        #region Initialize
-        protected override void Initialize()
-        {
-            base.Initialize();
-        }
-        #endregion
 
         private void SmartGenerics_CheckedChanged(object sender, EventArgs e)
         {
@@ -65,12 +54,12 @@ namespace CR_SmartGenerics
 
         private void SmartGenericsOptions_RestoreDefaults(object sender, OptionsPageEventArgs ea)
         {
-            cbSmartGenerics.Checked = true;
-            cbGenericsAutoComplete.Checked = true;
-            cbGenericsUseTextFields.Checked = true;
-            cbGenericsAddSpaces.Checked = false;
-            cbGenericsEasyDelete.Checked = true;
-            cbGenericsIgnoreClosingOperator.Checked = true;
+            this.cbSmartGenerics.Checked = true;
+            this.cbGenericsAutoComplete.Checked = true;
+            this.cbGenericsUseTextFields.Checked = true;
+            this.cbGenericsAddSpaces.Checked = false;
+            this.cbGenericsEasyDelete.Checked = true;
+            this.cbGenericsIgnoreClosingOperator.Checked = true;
         }
     }
 }
