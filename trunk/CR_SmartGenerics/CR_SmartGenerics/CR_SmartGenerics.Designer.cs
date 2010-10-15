@@ -40,10 +40,10 @@ namespace CR_SmartGenerics
             // 
             // CR_SmartGenerics
             // 
-            this.EditorCharacterTyping += new DevExpress.CodeRush.Core.EditorCharacterTypingEventHandler(this.CR_SmartGenerics_EditorCharacterTyping);
+            this.CommandExecuting += new DevExpress.CodeRush.Core.CommandExecutingEventHandler(this.CR_SmartGenerics_CommandExecuting);
             this.OptionsChanged += new DevExpress.CodeRush.Core.OptionsChangedEventHandler(this.CR_SmartGenerics_OptionsChanged);
+            this.EditorCharacterTyping += new DevExpress.CodeRush.Core.EditorCharacterTypingEventHandler(this.CR_SmartGenerics_EditorCharacterTyping);
             this.EditorCharacterTyped += new DevExpress.CodeRush.Core.EditorCharacterTypedEventHandler(this.CR_SmartGenerics_EditorCharacterTyped);
-            this.KeyPressed += new DevExpress.CodeRush.Core.KeyPressedEventHandler(this.CR_SmartGenerics_KeyPressed);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }

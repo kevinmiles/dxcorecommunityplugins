@@ -2,144 +2,114 @@ namespace CR_SmartGenerics
 {
     using System;
     using System.Collections;
-    using System.Collections.Generic;
     using DevExpress.CodeRush.Core;
     using DevExpress.CodeRush.PlugInCore;
     using DevExpress.CodeRush.StructuralParser;
 
     public partial class CR_SmartGenerics : StandardPlugIn
     {
+        private static char[] whiteSpaces = new char[] { '\t', ' ' };
         private SmartGenericsSettings settings = new SmartGenericsSettings();
-        private List<TextField> textFields = new List<TextField>();
-        private char[] whiteSpaces = new char[] { '\t', ' ' };
 
-        // DXCore-generated code...
-        #region InitializePlugIn
         public override void InitializePlugIn()
         {
             base.InitializePlugIn();
             
             this.settings.Load();
-            EventNexus.TextFieldCommitted += this.EventNexus_TextFieldCommitted;
-            EventNexus.AllTextFieldsCommitted += this.EventNexus_AllTextFieldsCommitted;
         }
 
-        #endregion
-        #region FinalizePlugIn
-        public override void FinalizePlugIn()
+        private static bool CanExecuteFeature(string name, string description)
         {
-            base.FinalizePlugIn();
-
-            EventNexus.TextFieldCommitted -= this.EventNexus_TextFieldCommitted;
-            EventNexus.AllTextFieldsCommitted -= this.EventNexus_AllTextFieldsCommitted;
+            StandardFeature feature = new StandardFeature(name, description, CodeRush.Options.GetFullName(typeof(SmartGenericsOptions)), FeatureProduct.Unknown);
+            return CodeRush.Feature.CanExecuteFeature(feature);
         }
-        #endregion
 
-        private void CR_SmartGenerics_EditorCharacterTyped(EditorCharacterTypedEventArgs ea)
+        private static TextViewCaret GetCaretInActiveFocusedView()
         {
-            if (!CodeRush.Language.IsCSharp)
+            TextView view = CodeRush.Documents.ActiveTextView;
+            if (view != null && view.IsFocused)
             {
-                return;
+                return view.Caret;
             }
-            if (this.settings.UseSmartGenerics && this.settings.SmartGenericsAutoComplete
-                && ea.Character == '<')
+            return null;
+        }
+
+        private static void EasyDelete(TextViewCaret caret, bool useTextField)
+        {
+            while (caret.RightChar != '>')
             {
-                CodeRush.Source.ParseIfNeeded();
-                if (this.NeedGenerics())
+                caret.DeleteRight(1);
+            }
+            while (caret.LeftChar != '<')
+            {
+                caret.DeleteLeft(1);
+            }
+            caret.DeleteRight(1);
+            if (useTextField && CaretInsideTextField())
+            {
+                AcceptActiveTextField();
+            }
+        }
+
+        private static void IgnoreClosingCharacter(TextViewCaret caret, bool useTextField)
+        {
+            if (useTextField && CaretInsideTextField())
+            {
+                AcceptActiveTextField();
+            }
+            else
+            {
+                while (caret.RightChar != '>')
                 {
-                    if (this.settings.SmartGenericsAddSpace)
-                    {
-                        CodeRush.Caret.Insert("  >", false);
-                        CodeRush.Caret.MoveRight(1);
-                    }
-                    else
-                    {
-                        CodeRush.Caret.Insert(">", false);
-                    }
-                    if (this.settings.SmartGenericsUseTextFields && !this.CaretInsideTextField())
-                    {
-                        this.InsertTextFieldAtCaretPosition();
-                    }
+                    caret.MoveRight(1);
                 }
+                caret.MoveRight(1);
             }
         }
 
-        private void CR_SmartGenerics_EditorCharacterTyping(EditorCharacterTypingEventArgs ea)
+        private static void InsertClosingCharacter(TextViewCaret caret, bool useTextField, bool addSpace)
         {
-            if (!CodeRush.Language.IsCSharp)
+            if (addSpace)
             {
-                return;
+                caret.Insert("  >", false);
+                caret.MoveRight(1);
             }
-            if (this.settings.UseSmartGenerics && this.settings.SmartGenericsIgnoreClosingGeneric
-                && ea.Character == '>'
-                && this.IsRightTextStartedWithCloseGenericOperator()
-                && this.IsInsideGenerics())
+            else
             {
-                ea.Cancel = true;
-                if (this.CaretInsideTextField())
+                caret.Insert(">", false);
+            }
+
+            if (useTextField)
+            {
+                if (CaretInsideTextField())
                 {
-                    this.CloseActiveTextField();
+                    BreakActiveTextField();
                 }
-                else
-                {
-                    while (this.IsRightTextStartedWithCloseGenericOperator())
-                    {
-                        CodeRush.Caret.MoveRight(1);
-                    }
-                }
-                return;
+                InsertTextFieldAt(caret);
             }
         }
 
-        private void CR_SmartGenerics_KeyPressed(KeyPressedEventArgs ea)
-        {
-            if (ea.AlreadyHandled() || !CodeRush.Language.IsCSharp)
-            {
-                return;
-            }
-            if (ea.IsBackspace && this.IsInsideGenerics())
-            {
-                if (this.settings.UseSmartGenerics && this.settings.SmartGenericsEasyDelete
-                    && this.IsLeftTextEndedWithOpenGenericOperator()
-                    && this.IsRightTextStartedWithCloseGenericOperator())
-                {
-                    CodeRush.Caret.DeleteRight(1);
-                    return;
-                }
-            }
-        }
-
-        private void EventNexus_TextFieldCommitted(TextFieldEventArgs ea)
-        {
-            this.RemoveTextField(ea.TextField);
-        }
-
-        private void EventNexus_AllTextFieldsCommitted(EventArgs ea)
-        {
-            this.textFields.Clear();
-        }
-
-        private bool IsInsideGenerics()
+        private static bool IsInsideGenerics()
         {
             // TODO: implement better heuristic
             return true;
         }
 
-        private bool NeedGenerics()
+        private static bool NeedGenerics(TextViewCaret caret)
         {
-            CategorizedToken leftToken = this.GetLeftToken();
-            return this.IsPossibleTypeOrMethodName(leftToken);
+            CategorizedToken leftToken = GetLeftToken(caret);
+            return IsPossibleTypeOrMethodName(caret, leftToken);
         }
 
-        private CategorizedToken GetLeftToken()
+        private static CategorizedToken GetLeftToken(TextViewCaret caret)
         {
-            TextDocument document = CodeRush.Documents.ActiveTextDocument;
+            TextDocument document = caret.TextDocument;
             if (document == null)
             {
                 return null;
             }
 
-            TokenCollection tokens = CodeRush.Language.GetTokens(CodeRush.Caret.LeftText);
+            TokenCollection tokens = CodeRush.Language.GetTokens(caret.LeftText);
             if (tokens != null && tokens.Count > 1)
             {
                 Token token = tokens[tokens.Count - 2];
@@ -148,7 +118,7 @@ namespace CR_SmartGenerics
             return null;
         }
 
-        private bool IsPossibleTypeOrMethodName(CategorizedToken token)
+        private static bool IsPossibleTypeOrMethodName(TextViewCaret caret, CategorizedToken token)
         {
             if (token == null)
             {
@@ -158,18 +128,18 @@ namespace CR_SmartGenerics
             {
                 return false;
             }
-            if (this.IsFieldOrPropertyOrVariable(token))
+            if (IsFieldOrPropertyOrVariable(token))
             {
                 return false;
             }
-            if (this.IsNamespaceOrAlias(token))
+            if (IsNamespaceOrAlias(caret, token))
             {
                 return false;
             }
             return true;
         }
 
-        private bool IsFieldOrPropertyOrVariable(CategorizedToken token)
+        private static bool IsFieldOrPropertyOrVariable(CategorizedToken token)
         {
             if (CodeRush.Source.DeclaresLocal(token.Value))
             {
@@ -185,16 +155,16 @@ namespace CR_SmartGenerics
             return false;
         }
 
-        private bool IsNamespaceOrAlias(CategorizedToken token)
+        private static bool IsNamespaceOrAlias(TextViewCaret caret, CategorizedToken token)
         {
-            foreach (DictionaryEntry @namespace in CodeRush.Source.NamespaceReferences)
+            foreach (DictionaryEntry @namespace in caret.TextDocument.NamespaceReferences)
             {
                 if (@namespace.Key.ToString() == token.Value)
                 {
                     return true;
                 }
             }
-            foreach (string alias in CodeRush.Documents.ActiveTextDocument.Aliases)
+            foreach (string alias in caret.TextDocument.Aliases)
             {
                 if (alias == token.Value)
                 {
@@ -204,23 +174,42 @@ namespace CR_SmartGenerics
             return false;
         }
 
-        private void InsertTextFieldAtCaretPosition()
+        private static void InsertTextFieldAt(TextViewCaret caret)
         {
-            TextDocument document = CodeRush.Documents.ActiveTextDocument;
-            if (document == null)
-            {
-                return;
-            }
-            EditPoint startEditPoint = CodeRush.EditPoints.New(document, CodeRush.Caret.SourcePoint);
+            TextDocument document = caret.TextDocument;
+            EditPoint startEditPoint = CodeRush.EditPoints.New(document, caret.SourcePoint);
             startEditPoint.IsAnchorable = true;
-            EditPoint endEditPoint = CodeRush.EditPoints.New(document, CodeRush.Caret.SourcePoint);
+            EditPoint endEditPoint = CodeRush.EditPoints.New(document, caret.SourcePoint);
             endEditPoint.IsPushable = true;
-            TextField newField = new TextField(startEditPoint, endEditPoint, "Enter generic parameter", TextFieldType.Normal, false);
+            TextField newField = new TextField(startEditPoint, endEditPoint, "Enter generic parameter(s)", TextFieldType.Normal, false);
+            EditPoint targetPoint = endEditPoint.Clone();
+            targetPoint.MoveRight(1);
+            TextFieldTarget newTarget = new TextFieldTarget(targetPoint, targetPoint);
             document.TextFields.Add(newField);
-            this.textFields.Add(newField);
+            document.TextFieldTarget = newTarget;
         }
 
-        private bool CaretInsideTextField()
+        private static void AcceptActiveTextField()
+        {
+            CodeRush.Command.Execute("FieldAccept");
+        }
+
+        private static void BreakActiveTextField()
+        {
+            CodeRush.Command.Execute("FieldBreak");
+        }
+
+        private static bool CaretInCodeEditor()
+        {
+            return !CodeRush.Refactoring.IsMenuActive
+                && !CodeRush.IDE.IsMenuActive
+                && !CaretInLinkedIdentifier()
+                && !CodeRush.Refactoring.PickerIsActive
+                && !CodeRush.Intellassist.Active
+                && !CodeIssueFixUIIsActive();
+        }
+
+        private static bool CaretInsideTextField()
         {
             TextDocument doc = CodeRush.Documents.ActiveTextDocument;
             if (doc != null)
@@ -235,27 +224,24 @@ namespace CR_SmartGenerics
             return false;
         }
 
-        private void CloseActiveTextField()
+        private static bool CaretInLinkedIdentifier()
         {
-            CodeRush.Command.Execute("FieldAccept");
+            return CodeRush.Context.Satisfied("System\\In Linked Identifier") == ContextResult.Satisfied;
         }
 
-        private void RemoveTextField(TextField textField)
+        private static bool CodeIssueFixUIIsActive()
         {
-            if (this.textFields.Contains(textField))
-            {
-                this.textFields.Remove(textField);
-            }
+            return CodeRush.Context.Satisfied("System\\CodeFix UI is active") == ContextResult.Satisfied;
         }
 
-        private bool IsLeftTextEndedWithOpenGenericOperator()
+        private static bool IsLeftTextEndedWithOpenGenericOperator(TextViewCaret caret)
         {
-            return CodeRush.Caret.LeftText.TrimEnd(this.whiteSpaces).EndsWith("<");
+            return caret.LeftText.TrimEnd(whiteSpaces).EndsWith("<");
         }
 
-        private bool IsRightTextStartedWithCloseGenericOperator()
+        private static bool IsRightTextStartedWithCloseGenericOperator(TextViewCaret caret)
         {
-            return CodeRush.Caret.RightText.TrimStart(this.whiteSpaces).StartsWith(">");
+            return caret.RightText.TrimStart(whiteSpaces).StartsWith(">");
         }
 
         private void CR_SmartGenerics_OptionsChanged(OptionsChangedEventArgs ea)
@@ -263,6 +249,72 @@ namespace CR_SmartGenerics
             if (ea.OptionsPages.Contains(typeof(SmartGenericsOptions)))
             {
                 this.settings.Load();
+            }
+        }
+
+        private void CR_SmartGenerics_CommandExecuting(CommandExecutingEventArgs ea)
+        {
+            if (!CodeRush.Language.IsCSharp)
+            {
+                return;
+            }
+            if (!ea.CancelDefault && ea.CommandName == "Edit.DeleteBackwards")
+            {
+                TextViewCaret caret = GetCaretInActiveFocusedView();
+                if (caret != null
+                    && this.settings.UseSmartGenerics
+                    && this.settings.SmartGenericsEasyDelete
+                    && IsInsideGenerics()
+                    && IsLeftTextEndedWithOpenGenericOperator(caret)
+                    && IsRightTextStartedWithCloseGenericOperator(caret)
+                    && CanExecuteFeature("Easy delete", "Deletes empty generics characters"))
+                {
+                    EasyDelete(caret, this.settings.SmartGenericsUseTextFields);
+                    return;
+                }
+            }
+        }
+
+        private void CR_SmartGenerics_EditorCharacterTyped(EditorCharacterTypedEventArgs ea)
+        {
+            if (!CodeRush.Language.IsCSharp)
+            {
+                return;
+            }
+            TextViewCaret caret = GetCaretInActiveFocusedView();
+            if (caret != null
+                && this.settings.UseSmartGenerics
+                && this.settings.SmartGenericsAutoComplete
+                && ea.Character == '<'
+                && CaretInCodeEditor())
+            {
+                CodeRush.Source.ParseIfNeeded();
+                if (NeedGenerics(caret)
+                    && CanExecuteFeature("Smart generics", "Auto completes closing generics char (\">\")"))
+                {
+                    InsertClosingCharacter(caret, this.settings.SmartGenericsUseTextFields, this.settings.SmartGenericsAddSpace);
+                    return;
+                }
+            }
+        }
+
+        private void CR_SmartGenerics_EditorCharacterTyping(EditorCharacterTypingEventArgs ea)
+        {
+            if (!CodeRush.Language.IsCSharp)
+            {
+                return;
+            }
+            TextViewCaret caret = GetCaretInActiveFocusedView();
+            if (caret != null
+                && this.settings.UseSmartGenerics
+                && this.settings.SmartGenericsIgnoreClosingGeneric
+                && ea.Character == '>'
+                && IsRightTextStartedWithCloseGenericOperator(caret)
+                && IsInsideGenerics())
+            {
+                ea.Cancel = true;
+                IgnoreClosingCharacter(caret, this.settings.SmartGenericsUseTextFields);
+                return;
             }
         }
     }
