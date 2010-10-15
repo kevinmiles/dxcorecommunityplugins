@@ -1,4 +1,6 @@
 #summary Enables auto-complete and easy delete of single and double quotes.
+[http://www.ndepend.com http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/NDependLogo_PoweredBy.PNG]
+
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_SmartQuotes/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Introduction =
