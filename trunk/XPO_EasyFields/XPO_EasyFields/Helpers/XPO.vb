@@ -15,7 +15,6 @@ Namespace Helpers
             Public Const PersistentAliasAttribute As String = "DevExpress.Xpo.PersistentAliasAttribute"
             Public Const NonPersistentAttribute As String = "DevExpress.Xpo.NonPersistentAttribute"
             Public Const FieldsClassName As String = "FieldsClass"
-            Public Const PersistentClassFieldsVariableName As String = "_fields"
             Public Const PersistentClassFieldsPropertyName As String = "Fields"
             Public Const OperandProperty As String = "DevExpress.Data.Filtering.OperandProperty"
             Public Const AggregateOperand As String = "DevExpress.Data.Filtering.AggregateOperand"
@@ -26,6 +25,14 @@ Namespace Helpers
             Public Const AggregateExistsEnum As String = "DevExpress.Data.Filtering.Aggregate.Exists"
             Public Const AggregateCountEnum As String = "DevExpress.Data.Filtering.Aggregate.Avg"
             Private Const _CollectionFieldsClass As String = "CollectionFieldsClass"
+
+            Public Shared ReadOnly Property PersistentClassFieldsVariableName As String
+                Get
+                    Return Settings.FieldsClassVariableName
+                End Get
+            End Property
+
+
             Public Shared ReadOnly Property CollectionFieldsClass() As String
                 Get
                     'ISSUES, this won't resolve the collectionfieldsclass if it is moved out of the default project namespace :(
@@ -322,10 +329,9 @@ Namespace Helpers
 
             End Sub
 
-            Private Sub AddMembersToFieldsClass(ByVal BobClass As ElementBuilder, ByVal NewFieldsClass As [Class], ByVal MembersList As IEnumerable, Optional ByVal PropertyPrefix As String = "")
+            Private Sub AddMembersToFieldsClass(ByVal BobClass As ElementBuilder, ByVal NewFieldsClass As [Class], ByVal MembersList As IEnumerable, Optional ByVal PropertyPrefix As String = "", Optional ByVal FieldPrefix As String = "")
                 For Each MemberElement As IElement In MembersList
-                    If MemberElement.Name.ToLower = "fields" Then _
-    Continue For
+                    If MemberElement.Name.ToLower = "fields" Then Continue For
 
                     Dim Member As IMemberElement = TryCast(MemberElement, IMemberElement)
                     If Member Is Nothing _
@@ -334,13 +340,13 @@ Namespace Helpers
                         Continue For
                     End If
 
-                    If Not XPO.IsPersistedMember(Member) Then _
-                        Continue For
+                    If Not XPO.IsPersistedMember(Member) Then Continue For
 
-                    AddMemberToFieldsClass(BobClass, NewFieldsClass, MemberElement, PropertyPrefix)
+
+                    AddMemberToFieldsClass(BobClass, NewFieldsClass, MemberElement, PropertyPrefix, FieldPrefix)
                 Next
             End Sub
-            Private Sub AddMemberToFieldsClass(ByVal BobClass As ElementBuilder, ByVal NewFieldsClass As [Class], ByVal Member As IMemberElement, Optional ByVal PropertyPrefix As String = "")
+            Private Sub AddMemberToFieldsClass(ByVal BobClass As ElementBuilder, ByVal NewFieldsClass As [Class], ByVal Member As IMemberElement, Optional ByVal PropertyPrefix As String = "", Optional ByVal FieldPrefix As String = "")
                 Dim newPropertyType As String = ""
                 Dim PropertyType As ITypeReferenceExpression = CType(Member, IHasType).Type
 
@@ -355,10 +361,14 @@ Namespace Helpers
                         End If
                     End If
                 ElseIf TypeOf PropertyTypeElement Is IStructElement And Not PropertyTypeElement.FullName.StartsWith("System.") Then
-                    AddMembersToFieldsClass(BobClass, NewFieldsClass, CType(PropertyTypeElement, IStructElement).Members, Member.Name & "_")
-                    Exit Sub
+                    AddMembersToFieldsClass(BobClass, NewFieldsClass, CType(PropertyTypeElement, IStructElement).Members, Member.Name & "_", Member.Name)
+                    'Exit Sub
                 Else
                     newPropertyType = Names.OperandProperty
+                End If
+
+                If Settings.IncludeFieldConstants AndAlso newPropertyType = Names.OperandProperty Then
+                    AddMemberConstantToFieldsClass(BobClass, NewFieldsClass, Member, PropertyPrefix, FieldPrefix)
                 End If
 
                 Dim newProperty As [Property] = BobClass.AddProperty(NewFieldsClass, newPropertyType, PropertyPrefix & Member.Name)
@@ -367,9 +377,14 @@ Namespace Helpers
                 newProperty.Visibility = MemberVisibility.Public
                 Dim ReturnArguments As New ExpressionCollection
                 Dim GetNestedNameArguments As New ExpressionCollection
-                GetNestedNameArguments.Add(BobClass.BuildPrimitiveFromObject(Member.Name))
+                GetNestedNameArguments.Add(BobClass.BuildPrimitiveFromObject(If(String.IsNullOrEmpty(FieldPrefix), "", FieldPrefix & ".") & Member.Name))
                 ReturnArguments.Add(BobClass.BuildMethodCallExpression("GetNestedName", GetNestedNameArguments))
                 BobClass.AddReturn(newPropertyGetter, BobClass.BuildObjectCreationExpression(newPropertyType, ReturnArguments))
+            End Sub
+            Private Sub AddMemberConstantToFieldsClass(ByVal BobClass As ElementBuilder, ByVal NewFieldsClass As [Class], ByVal Member As IMemberElement, Optional ByVal PropertyPrefix As String = "", Optional ByVal FieldPrefix As String = "")
+                Dim newConst As New [Const]("String", PropertyPrefix & Member.Name & "FieldName", BobClass.BuildPrimitiveFromObject(If(String.IsNullOrEmpty(FieldPrefix), "", FieldPrefix & ".") & Member.Name))
+                newConst.Visibility = MemberVisibility.Public
+                BobClass.AddNode(NewFieldsClass, newConst)
             End Sub
         End Class
     End Namespace

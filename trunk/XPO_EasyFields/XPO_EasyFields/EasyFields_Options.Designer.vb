@@ -28,26 +28,31 @@ Partial Class EasyFields_Options
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(EasyFields_Options))
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
-        Me.GrowLabel1 = New XPO_EasyFields.GrowLabel
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel
-        Me.Label1 = New XPO_EasyFields.GrowLabel
-        Me.Panel1 = New System.Windows.Forms.Panel
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.chkIncludedInheritedMembers = New System.Windows.Forms.CheckBox
-        Me.chkIncludeNonPersistent = New System.Windows.Forms.CheckBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.chkReplaceClassOnly = New System.Windows.Forms.CheckBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.chkUseCollectionsFieldsClass = New System.Windows.Forms.CheckBox
-        Me.txtCommentFormat = New System.Windows.Forms.TextBox
-        Me.chkUseComment = New System.Windows.Forms.CheckBox
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.chkUpdateOnDocumentSave = New System.Windows.Forms.CheckBox
-        Me.chkAvailableWithinEntireClass = New System.Windows.Forms.CheckBox
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.GrowLabel1 = New XPO_EasyFields.GrowLabel()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.Label1 = New XPO_EasyFields.GrowLabel()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.chkIncludeFieldConstants = New System.Windows.Forms.CheckBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtVariableName = New System.Windows.Forms.TextBox()
+        Me.chkIncludedInheritedMembers = New System.Windows.Forms.CheckBox()
+        Me.chkIncludeNonPersistent = New System.Windows.Forms.CheckBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.chkReplaceClassOnly = New System.Windows.Forms.CheckBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.chkUseCollectionsFieldsClass = New System.Windows.Forms.CheckBox()
+        Me.txtCommentFormat = New System.Windows.Forms.TextBox()
+        Me.chkUseComment = New System.Windows.Forms.CheckBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chkUpdateOnDocumentSave = New System.Windows.Forms.CheckBox()
+        Me.chkAvailableWithinEntireClass = New System.Windows.Forms.CheckBox()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
@@ -153,6 +158,9 @@ Partial Class EasyFields_Options
         '
         Me.GroupBox3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox3.Controls.Add(Me.chkIncludeFieldConstants)
+        Me.GroupBox3.Controls.Add(Me.Label2)
+        Me.GroupBox3.Controls.Add(Me.txtVariableName)
         Me.GroupBox3.Controls.Add(Me.chkIncludedInheritedMembers)
         Me.GroupBox3.Controls.Add(Me.chkIncludeNonPersistent)
         Me.GroupBox3.Controls.Add(Me.Label4)
@@ -165,10 +173,49 @@ Partial Class EasyFields_Options
         Me.GroupBox3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(63, Byte), Integer), CType(CType(111, Byte), Integer))
         Me.GroupBox3.Location = New System.Drawing.Point(9, 88)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(523, 234)
+        Me.GroupBox3.Size = New System.Drawing.Size(523, 294)
         Me.GroupBox3.TabIndex = 20
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "FieldsClass Options"
+        '
+        'chkIncludeFieldConstants
+        '
+        Me.chkIncludeFieldConstants.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkIncludeFieldConstants.AutoSize = True
+        Me.chkIncludeFieldConstants.CheckAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.chkIncludeFieldConstants.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkIncludeFieldConstants.ForeColor = System.Drawing.Color.Black
+        Me.chkIncludeFieldConstants.Location = New System.Drawing.Point(6, 70)
+        Me.chkIncludeFieldConstants.Name = "chkIncludeFieldConstants"
+        Me.chkIncludeFieldConstants.Size = New System.Drawing.Size(255, 17)
+        Me.chkIncludeFieldConstants.TabIndex = 23
+        Me.chkIncludeFieldConstants.Text = "Include FieldsClass Constants for Attribute usage"
+        Me.ToolTip1.SetToolTip(Me.chkIncludeFieldConstants, "This will generate a Constant <MyProperty>FieldName for each property on your Per" & _
+                "sistent Object, this can then be used for Attributes where they require a consta" & _
+                "nt and can't use an expression")
+        Me.chkIncludeFieldConstants.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
+        Me.Label2.ForeColor = System.Drawing.Color.Black
+        Me.Label2.Location = New System.Drawing.Point(30, 47)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(134, 13)
+        Me.Label2.TabIndex = 22
+        Me.Label2.Text = "FieldsClass Variable Name:"
+        '
+        'txtVariableName
+        '
+        Me.txtVariableName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtVariableName.Location = New System.Drawing.Point(170, 44)
+        Me.txtVariableName.Name = "txtVariableName"
+        Me.txtVariableName.Size = New System.Drawing.Size(100, 20)
+        Me.txtVariableName.TabIndex = 21
+        Me.ToolTip1.SetToolTip(Me.txtVariableName, "This will be the name of the Variable generated for your FieldsClass, this allows" & _
+                " you to specify something that matches your coding style")
         '
         'chkIncludedInheritedMembers
         '
@@ -178,12 +225,14 @@ Partial Class EasyFields_Options
         Me.chkIncludedInheritedMembers.CheckAlign = System.Drawing.ContentAlignment.TopLeft
         Me.chkIncludedInheritedMembers.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkIncludedInheritedMembers.ForeColor = System.Drawing.Color.Black
-        Me.chkIncludedInheritedMembers.Location = New System.Drawing.Point(6, 92)
+        Me.chkIncludedInheritedMembers.Location = New System.Drawing.Point(6, 139)
         Me.chkIncludedInheritedMembers.Name = "chkIncludedInheritedMembers"
         Me.chkIncludedInheritedMembers.Size = New System.Drawing.Size(439, 17)
         Me.chkIncludedInheritedMembers.TabIndex = 20
         Me.chkIncludedInheritedMembers.Text = "Include Inherited Members? (Inherit from ancestor FieldsClass instead of Persiste" & _
             "ntBase)"
+        Me.ToolTip1.SetToolTip(Me.chkIncludedInheritedMembers, "When your Object inherits from another Object, you can have XPO_EasyFields includ" & _
+                "e the inherited classes Fields as well")
         Me.chkIncludedInheritedMembers.UseVisualStyleBackColor = True
         '
         'chkIncludeNonPersistent
@@ -194,11 +243,14 @@ Partial Class EasyFields_Options
         Me.chkIncludeNonPersistent.CheckAlign = System.Drawing.ContentAlignment.TopLeft
         Me.chkIncludeNonPersistent.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkIncludeNonPersistent.ForeColor = System.Drawing.Color.Black
-        Me.chkIncludeNonPersistent.Location = New System.Drawing.Point(6, 69)
+        Me.chkIncludeNonPersistent.Location = New System.Drawing.Point(6, 116)
         Me.chkIncludeNonPersistent.Name = "chkIncludeNonPersistent"
         Me.chkIncludeNonPersistent.Size = New System.Drawing.Size(249, 17)
         Me.chkIncludeNonPersistent.TabIndex = 19
         Me.chkIncludeNonPersistent.Text = "Include Non-Persistent Properties in FieldsClass"
+        Me.ToolTip1.SetToolTip(Me.chkIncludeNonPersistent, "Allows you to have Non-Persistent properties included in your FieldsClass, this c" & _
+                "an be handy for Binding scenarios where you want to have references to PropertyN" & _
+                "ames")
         Me.chkIncludeNonPersistent.UseVisualStyleBackColor = True
         '
         'Label4
@@ -206,7 +258,7 @@ Partial Class EasyFields_Options
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(113, 161)
+        Me.Label4.Location = New System.Drawing.Point(113, 208)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(222, 65)
         Me.Label4.TabIndex = 11
@@ -227,6 +279,7 @@ Partial Class EasyFields_Options
         Me.chkReplaceClassOnly.Size = New System.Drawing.Size(220, 17)
         Me.chkReplaceClassOnly.TabIndex = 16
         Me.chkReplaceClassOnly.Text = "Don't replace Fields Property or Variable?"
+        Me.ToolTip1.SetToolTip(Me.chkReplaceClassOnly, resources.GetString("chkReplaceClassOnly.ToolTip"))
         Me.chkReplaceClassOnly.UseVisualStyleBackColor = True
         '
         'Label3
@@ -234,7 +287,7 @@ Partial Class EasyFields_Options
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.Black
-        Me.Label3.Location = New System.Drawing.Point(24, 141)
+        Me.Label3.Location = New System.Drawing.Point(24, 188)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(89, 13)
         Me.Label3.TabIndex = 10
@@ -248,11 +301,13 @@ Partial Class EasyFields_Options
         Me.chkUseCollectionsFieldsClass.CheckAlign = System.Drawing.ContentAlignment.TopLeft
         Me.chkUseCollectionsFieldsClass.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkUseCollectionsFieldsClass.ForeColor = System.Drawing.Color.DarkGray
-        Me.chkUseCollectionsFieldsClass.Location = New System.Drawing.Point(6, 46)
+        Me.chkUseCollectionsFieldsClass.Location = New System.Drawing.Point(6, 93)
         Me.chkUseCollectionsFieldsClass.Name = "chkUseCollectionsFieldsClass"
         Me.chkUseCollectionsFieldsClass.Size = New System.Drawing.Size(380, 17)
         Me.chkUseCollectionsFieldsClass.TabIndex = 18
         Me.chkUseCollectionsFieldsClass.Text = "Use XPO_EasyFields CollectionFieldsClass for XPCollections (not ready yet)"
+        Me.ToolTip1.SetToolTip(Me.chkUseCollectionsFieldsClass, "Not in use yet, Will allow for generating Aggregate Operands for common scenarios" & _
+                " such as Count/Sum/Min/Max/Exist")
         Me.chkUseCollectionsFieldsClass.UseVisualStyleBackColor = True
         '
         'txtCommentFormat
@@ -260,11 +315,12 @@ Partial Class EasyFields_Options
         Me.txtCommentFormat.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtCommentFormat.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCommentFormat.Location = New System.Drawing.Point(116, 138)
+        Me.txtCommentFormat.Location = New System.Drawing.Point(116, 185)
         Me.txtCommentFormat.Name = "txtCommentFormat"
         Me.txtCommentFormat.Size = New System.Drawing.Size(401, 20)
         Me.txtCommentFormat.TabIndex = 9
         Me.txtCommentFormat.Text = "Created/Updated: {computername}\{currentuser} {dateshort} {timeshort}"
+        Me.ToolTip1.SetToolTip(Me.txtCommentFormat, "Format of generated comment")
         '
         'chkUseComment
         '
@@ -274,11 +330,12 @@ Partial Class EasyFields_Options
         Me.chkUseComment.CheckAlign = System.Drawing.ContentAlignment.TopLeft
         Me.chkUseComment.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkUseComment.ForeColor = System.Drawing.Color.Black
-        Me.chkUseComment.Location = New System.Drawing.Point(6, 115)
+        Me.chkUseComment.Location = New System.Drawing.Point(6, 162)
         Me.chkUseComment.Name = "chkUseComment"
         Me.chkUseComment.Size = New System.Drawing.Size(233, 17)
         Me.chkUseComment.TabIndex = 8
         Me.chkUseComment.Text = "Place comment when updating FieldsClass?"
+        Me.ToolTip1.SetToolTip(Me.chkUseComment, "Simple comment placed on top of the class indicating when it was last generated")
         Me.chkUseComment.UseVisualStyleBackColor = True
         '
         'GroupBox2
@@ -308,6 +365,8 @@ Partial Class EasyFields_Options
         Me.chkUpdateOnDocumentSave.Size = New System.Drawing.Size(149, 17)
         Me.chkUpdateOnDocumentSave.TabIndex = 15
         Me.chkUpdateOnDocumentSave.Text = "Perform Update on Save?"
+        Me.ToolTip1.SetToolTip(Me.chkUpdateOnDocumentSave, "When the document is Saved, XPO_EasyFields can be triggered to update the FieldsC" & _
+                "lass")
         Me.chkUpdateOnDocumentSave.UseVisualStyleBackColor = True
         '
         'chkAvailableWithinEntireClass
@@ -323,6 +382,9 @@ Partial Class EasyFields_Options
         Me.chkAvailableWithinEntireClass.Size = New System.Drawing.Size(347, 17)
         Me.chkAvailableWithinEntireClass.TabIndex = 14
         Me.chkAvailableWithinEntireClass.Text = "Action visible in Refactor Menu anywhere within the Persistent Class"
+        Me.ToolTip1.SetToolTip(Me.chkAvailableWithinEntireClass, "With this on the Action to Update FieldsClass can be available anywhere within th" & _
+                "e class, otherwise it will only be available when your cursor is on the Class de" & _
+                "finition")
         Me.chkAvailableWithinEntireClass.UseVisualStyleBackColor = True
         '
         'EasyFields_Options
@@ -382,6 +444,10 @@ Partial Class EasyFields_Options
     Friend WithEvents chkIncludedInheritedMembers As System.Windows.Forms.CheckBox
     Friend WithEvents GrowLabel1 As XPO_EasyFields.GrowLabel
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents txtVariableName As System.Windows.Forms.TextBox
+    Friend WithEvents chkIncludeFieldConstants As System.Windows.Forms.CheckBox
+    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
 
     Public Shared ReadOnly Property FullPath() As String
         Get
