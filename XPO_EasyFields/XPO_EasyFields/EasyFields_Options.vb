@@ -33,6 +33,8 @@ Public Class EasyFields_Options
         Helpers.Settings.ReplaceClassOnly = chkReplaceClassOnly.Checked
         Helpers.Settings.CommentFormat = txtCommentFormat.Text
         Helpers.Settings.UseComment = chkUseComment.Checked
+        Helpers.Settings.FieldsClassVariableName = txtVariableName.Text
+        Helpers.Settings.IncludeFieldConstants = chkIncludeFieldConstants.Checked
         Helpers.Settings.IncludeNonPersistent = chkIncludeNonPersistent.Checked
         Helpers.Settings.UseCollectionFieldsClass = chkUseCollectionsFieldsClass.Checked
         Helpers.Settings.IncludeInheritedMembers = chkIncludedInheritedMembers.Checked
@@ -43,7 +45,9 @@ Public Class EasyFields_Options
         chkReplaceClassOnly.Checked = Helpers.Settings.ReplaceClassOnly
         chkUpdateOnDocumentSave.Checked = Helpers.Settings.UpdateOnSave
         chkUseComment.Checked = Helpers.Settings.UseComment
+        chkIncludeFieldConstants.Checked = Helpers.Settings.IncludeFieldConstants
         txtCommentFormat.Text = Helpers.Settings.CommentFormat
+        txtVariableName.Text = Helpers.Settings.FieldsClassVariableName
         chkIncludeNonPersistent.Checked = Helpers.Settings.IncludeNonPersistent
         chkUseCollectionsFieldsClass.Checked = Helpers.Settings.UseCollectionFieldsClass
         chkIncludedInheritedMembers.Checked = Helpers.Settings.IncludeInheritedMembers

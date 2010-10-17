@@ -17,9 +17,12 @@ Namespace Helpers
             Public Const sIncludeNonPersistent As String = "IncludeNonPersistent"
             Public Const sUseCollectionFieldsClass As String = "UseCollectionFieldsClass"
             Public Const sIncludeInheritedMembers As String = "IncludeInheritedMembers"
+            Public Const sFieldsClassVariableName As String = "FieldsClassVariableName"
+            Public Const sIncludeFieldConstants As String = "IncludeFieldConstants"
 
             'Setting Default
             Public Const sDefaultCommentFormat As String = "Created/Updated: {currentuser} on {computername} at {dateshort} {timeshort}"
+            Public Const sDefaultFieldsClassVariableName As String = "_Fields"
 
             Private _storage As DecoupledStorage
             Public ReadOnly Property Storage() As DecoupledStorage
@@ -31,6 +34,14 @@ Namespace Helpers
                 End Get
             End Property
 
+            Public Property IncludeFieldConstants As Boolean
+                Get
+                    Return Storage.ReadBoolean(sName, sIncludeFieldConstants, False)
+                End Get
+                Set(ByVal value As Boolean)
+                    Storage.WriteBoolean(sName, sIncludeFieldConstants, value)
+                End Set
+            End Property
             Public Property IncludeInheritedMembers() As Boolean
                 Get
                     Return Storage.ReadBoolean(sName, sIncludeInheritedMembers, True)
@@ -74,6 +85,15 @@ Namespace Helpers
                 End Get
                 Set(ByVal Value As String)
                     Storage.WriteString(sName, sCommentFormat, Value)
+                End Set
+            End Property
+
+            Public Property FieldsClassVariableName As String
+                Get
+                    Return Storage.ReadString(sName, sFieldsClassVariableName, sDefaultFieldsClassVariableName)
+                End Get
+                Set(ByVal Value As String)
+                    Storage.WriteString(sName, sFieldsClassVariableName, Value)
                 End Set
             End Property
 

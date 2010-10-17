@@ -1111,4 +1111,10 @@
         0b4Y1LcXoH0DhLV/G9Q2qN8IBv4HEgPWjoSaa4MAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="chkReplaceClassOnly.ToolTip" xml:space="preserve">
+    <value>When updating the FieldsClass you can tell XPO_EasyFields to only replace the class and don't touch the Property/Variable definitions, this is handy if you have places your properties/variables in a particular space or renamed them.</value>
+  </data>
 </root>
