@@ -53,6 +53,10 @@ Place the caret on the Class name of your persistent object, bring up the Refact
 
 
 = History =
+  * Build 1439
+    * [beta] Added support for Constant generation for use in Attributes
+    * [fixed] hopefully fixed Structures not generating correctly
+    * [added] can customise what the private variable name will be generated from the Options page, this helps meet any StyleCop/StyleNinja rules you may have.
   * Build 1205
     * New option to Sync Non-Persistent properties (default: False)
     * New option to include Inherited Members (default: True)
