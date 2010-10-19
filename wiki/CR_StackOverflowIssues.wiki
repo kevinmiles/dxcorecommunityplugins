@@ -1,5 +1,10 @@
 #summary Highlights possible stack overflow problems in properties that call themselves recursively.
+
+[http://www.ndepend.com http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/NDependLogo_PoweredBy.PNG]
+
+
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_StackOverflowIssues/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
 = Introduction =
 
