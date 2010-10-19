@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
@@ -54,7 +53,7 @@ namespace MiniCodeColumn
         {
             try
             {
-                DecoupledStorage store = DevExpress.CodeRush.Core.CodeRush.Options.GetStorage(GetCategory(), GetPageName());
+                DecoupledStorage store = CodeRush.Options.GetStorage(GetCategory(), GetPageName());
                 if (store != null)
                 {
                     MiniCodeColumnEnabled = store.ReadBoolean("Config", "Enabled", true);
@@ -100,16 +99,15 @@ namespace MiniCodeColumn
                                         Color.FromArgb(70, Color.Green).ToArgb()
                                        ));
                     BreakPointColor = Color.FromArgb(
-                        store.ReadInt32(    
+                        store.ReadInt32(
                                         "Config",
                                         "BreakPointColor",
                                         Color.FromArgb(90, Color.Red).ToArgb()
                                        ));
                 }
             }
-            catch // (Exception ex)
+            catch
             {
-                
             }
         }
         //Moved out of Initialize region as I couldn't find it to start with, if it is in a region
@@ -169,9 +167,8 @@ namespace MiniCodeColumn
                 CodeToolWindow.DisposeGraphicElements();
                 panelSample.Refresh();
             }
-            catch //(Exception ex)
+            catch
             {
-                
             }
         }
 
@@ -179,7 +176,7 @@ namespace MiniCodeColumn
         {
             try
             {
-                DecoupledStorage store = DevExpress.CodeRush.Core.CodeRush.Options.GetStorage(GetCategory(), GetPageName());
+                DecoupledStorage store = CodeRush.Options.GetStorage(GetCategory(), GetPageName());
                 if (store != null)
                 {
                     store.WriteBoolean("Config", "Enabled", MiniCodeColumnEnabled);
@@ -202,9 +199,8 @@ namespace MiniCodeColumn
                                         CodeColorCommentLine.ToArgb());
                 }
             }
-            catch // (Exception ex)
+            catch
             {
-                
             }
         }
 
@@ -249,7 +245,7 @@ namespace MiniCodeColumn
 
         private void btnResetSettings_Click(object sender, EventArgs e)
         {
-            DecoupledStorage store = DevExpress.CodeRush.Core.CodeRush.Options.GetStorage(GetCategory(), GetPageName());
+            DecoupledStorage store = CodeRush.Options.GetStorage(GetCategory(), GetPageName());
             if (store != null)
             {
                 store.EraseSection("Config");
@@ -266,8 +262,6 @@ namespace MiniCodeColumn
             Graphics graphics = e.Graphics;
 
             Rectangle rect = new Rectangle(0, sampleHeader.Height, panelSample.Width, panelSample.Height - sampleHeader.Height);
-            rect.X = 0;
-            rect.Width = panelSample.Width;
 
             //SmoothingMode oldMode = graphics.SmoothingMode;
             try
@@ -347,13 +341,8 @@ namespace MiniCodeColumn
                     }
                 }
             }
-            catch //(Exception ex)
+            catch
             {
-                // System.Diagnostics.Debug.WriteLine(ex.Message);
-            }
-            finally
-            {
-                //graphics.SmoothingMode = oldMode;
             }
         }
 

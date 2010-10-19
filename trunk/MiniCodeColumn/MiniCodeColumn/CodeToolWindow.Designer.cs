@@ -46,7 +46,6 @@ namespace MiniCodeColumn
             // 
             this.events.OptionsChanged += new DevExpress.CodeRush.Core.OptionsChangedEventHandler(this.events_OptionsChanged);
             this.events.MarkerCollected += new DevExpress.CodeRush.Core.MarkerEventHandler(this.events_MarkerCollected);
-            this.events.EditorIdle += new DevExpress.CodeRush.Core.EditorIdleEventHandler(this.events_EditorIdle);
             this.events.EditorMouseDoubleClick += new DevExpress.CodeRush.Core.EditorMouseEventHandler(this.events_EditorMouseDoubleClick);
             this.events.EditorScrolled += new DevExpress.CodeRush.Core.EditorScrolledEventHandler(this.events_EditorScrolled);
             this.events.TextViewActivated += new DevExpress.CodeRush.Core.TextViewHandler(this.events_TextViewActivated);

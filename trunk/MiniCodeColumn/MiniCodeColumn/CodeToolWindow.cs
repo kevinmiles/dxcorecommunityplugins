@@ -7,7 +7,6 @@
 #endregion
 
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
@@ -16,7 +15,6 @@ using DevExpress.CodeRush.StructuralParser;
 using DevExpress.CodeRush.Menus;
 using System.Drawing.Drawing2D;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace MiniCodeColumn
 {
@@ -27,7 +25,7 @@ namespace MiniCodeColumn
     [Title("MiniCodeColumn")]
     public partial class CodeToolWindow : ToolWindowPlugIn
     {
-        public static bool OnAir = false;
+        public static bool OnAir;
         public int last_height_divisor = 1;
 
         internal static SolidBrush ColumnBackgroundBrushCodeColumn;
@@ -53,10 +51,8 @@ namespace MiniCodeColumn
             LoadSettings();
             SetButtonImage();
 
-            repaint_tool_window_timer = new System.Timers.Timer(250);
-            repaint_tool_window_timer.Enabled = false;
-            repaint_tool_window_timer.AutoReset = false;
-            repaint_tool_window_timer.Elapsed += new System.Timers.ElapsedEventHandler(repaint_timer_Elapsed);
+            repaint_tool_window_timer = new System.Timers.Timer(250) { Enabled = false, AutoReset = false };
+            repaint_tool_window_timer.Elapsed += repaint_timer_Elapsed;
         }
 
         void RestartTimer()
@@ -68,7 +64,7 @@ namespace MiniCodeColumn
         void repaint_timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             repaint_tool_window_timer.Stop();
-            this.Invalidate();
+            Invalidate();
         }
         #endregion
         #region FinalizePlugIn
@@ -77,7 +73,15 @@ namespace MiniCodeColumn
             //
             // TODO: Add your finalization code here.
             //
-            DisposeGraphicElements();
+            try
+            {
+                DisposeGraphicElements();
+                HideWindow().Close(EnvDTE.vsSaveChanges.vsSaveChangesYes);
+            }
+            catch //(Exception ex)
+            {
+                
+            }
             base.FinalizePlugIn();
         }
         #endregion
@@ -92,9 +96,9 @@ namespace MiniCodeColumn
                     {
                         if (item.Caption.ToUpperInvariant() == "MINICODECOLUMN")
                         {
-                            DevExpress.CodeRush.Menus.IMenuButton btn = item as DevExpress.CodeRush.Menus.IMenuButton;
+                            IMenuButton btn = item as IMenuButton;
 
-                            btn.Face = this.Image;
+                            btn.Face = Image;
                         }
                     }
                 }
@@ -171,10 +175,11 @@ namespace MiniCodeColumn
             int end = 0;
             string tabs = new string(' ', textView.TextDocument.TabSize);
 
-            string line_comment_start = "//";
-
+            string line_comment_start;
             if (textView.TextDocument.Language == "Basic")
                 line_comment_start = "'";
+            else
+                line_comment_start = "//";
 
             for (int l = 0; l < textView.TextDocument.LineCount; l++)
             {
@@ -241,7 +246,7 @@ namespace MiniCodeColumn
             return pos;
         }
 
-        bool LinesAreEqual(List<Line> l1, List<Line> l2)
+        static bool LinesAreEqual(List<Line> l1, List<Line> l2)
         {
             if (l1 == null || l2 == null)
                 return false;
@@ -274,7 +279,7 @@ namespace MiniCodeColumn
         }
 
 
-        bool drawing = false;
+        bool drawing;
         private Bitmap _backBuffer;
         private List<Line> last_lines;
         private void DrawCodeColumn(Graphics my_graphics)
@@ -293,7 +298,7 @@ namespace MiniCodeColumn
             try
             {
                 //graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                Rectangle rect = new Rectangle(0, 0, this.Width, this.Height);
+                Rectangle rect = new Rectangle(0, 0, Width, Height);
                 if (rect != last_code_rect)
                 {
                     if (_backBuffer != null)
@@ -303,10 +308,10 @@ namespace MiniCodeColumn
                 }
                 last_code_rect = rect;
 
-                Rectangle bmp_rect = new Rectangle(0, 0, this.Width, this.Height);
+                //Rectangle bmp_rect = new Rectangle(0, 0, Width, Height);
 
                 if (_backBuffer == null)
-                    _backBuffer = new Bitmap(this.Width, this.Height);
+                    _backBuffer = new Bitmap(Width, Height);
 
                 Graphics graphics = Graphics.FromImage(_backBuffer);
 
@@ -395,10 +400,6 @@ namespace MiniCodeColumn
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
-            finally
-            {
-                //graphics.SmoothingMode = oldMode;
-            }
             drawing = false;
         }
 
@@ -415,7 +416,32 @@ namespace MiniCodeColumn
 
         private void events_TextViewActivated(TextViewEventArgs ea)
         {
-            if (this.Visible) OnAir = true;
+            if (Visible && OnAir == false)
+            {
+                EnvDTE.Window wnd = null;
+                try
+                {
+                    wnd = CodeRush.ToolWindows.Show(typeof(CodeToolWindow));
+                    if (wnd != null && wnd.IsFloating)
+                    {
+                        wnd.Width = 60;
+                        wnd.Top = ea.TextView.ScreenBounds.Top;
+                        wnd.Height = ea.TextView.ScreenBounds.Height;
+                        wnd.Left = ea.TextView.ScreenBounds.Right - wnd.Width;
+
+                        EnvDTE.Window prop_wnd = CodeRush.ApplicationObject.Windows.Item("{EEFA5220-E298-11D0-8F78-00A0C9110057}");
+                        if (prop_wnd != null && prop_wnd.Linkable)
+                        {
+                            var frame = wnd.DTE.Windows.CreateLinkedWindowFrame(wnd, prop_wnd, EnvDTE.vsLinkedWindowType.vsLinkedWindowTypeVertical);
+                            //prop_wnd.LinkedWindows.Add(wnd);
+                        }
+                    }
+                }
+                catch
+                {
+                }
+                OnAir = true;
+            }
             RestartTimer();
         }
 
@@ -424,7 +450,7 @@ namespace MiniCodeColumn
             RestartTimer();
         }
 
-        void events_EditorPaint(DevExpress.CodeRush.Core.EditorPaintEventArgs ea)
+        void events_EditorPaint(EditorPaintEventArgs ea)
         {
             HighlightSelectedText(ea.Graphics);
         }
@@ -490,7 +516,7 @@ namespace MiniCodeColumn
                     
                     //HighlightSelectedText();
                     RestartTimer();
-                    this.Invalidate();
+                    Invalidate();
                 }
                 catch //(Exception ex)
                 {
@@ -498,7 +524,7 @@ namespace MiniCodeColumn
             }
         }
 
-        bool mouse_is_down = false;
+        bool mouse_is_down;
         private void CodeToolWindow_MouseDown(object sender, MouseEventArgs e)
         {
             mouse_is_down = true;
@@ -520,7 +546,7 @@ namespace MiniCodeColumn
 
                 textView.MakeVisible(line, 0);
                 textView.CenterLine(center_line);
-                this.Invalidate();
+                Invalidate();
             }
         }
 
@@ -547,17 +573,5 @@ namespace MiniCodeColumn
             RestartTimer();
         }
 
-        private void events_EditorIdle(EditorIdleEventArgs ea)
-        {
-            // verschieben
-            //if (mouse_is_down)
-            //    return;
-
-            //if (redraw_reqired)
-            //{
-            //    redraw_reqired = false;
-            //    HighlightSelectedText();
-            //}
-        }
     }
 }
