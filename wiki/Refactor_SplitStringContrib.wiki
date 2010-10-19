@@ -1,5 +1,10 @@
 #summary Allows to break string literal into 2 lines using standard "Split String" refactoring. Also allows to use '&' as concatenation operator used by this refactoring in VB documents.
+
+[http://www.ndepend.com http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/NDependLogo_PoweredBy.PNG]
+
+
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_SplitStringContrib/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
 = Introduction =
 
