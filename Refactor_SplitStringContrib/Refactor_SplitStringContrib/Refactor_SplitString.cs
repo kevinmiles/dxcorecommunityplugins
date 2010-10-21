@@ -43,22 +43,26 @@ namespace Refactor_SplitStringContrib
             if (this.settings.SmartEnterSplitString
                 && ea.IsEnter && !ea.ShiftKeyDown && !ea.AltKeyDown && !ea.CtrlKeyDown)
             {
-                CodeRush.Source.ParseIfTextChanged();
-                if (CodeRush.Caret.InsideString
-                    && this.CaretInCodeEditor())
+                TextViewCaret caret = GetCaretInActiveFocusedView();
+                if (caret != null)
                 {
-                    CodeRush.SmartTags.UpdateContext();
-                    RefactoringProviderBase splitString = CodeRush.Refactoring.Get("Split String");
-                    if (splitString != null
-                        && this.IsRefactoringAvailable(splitString))
+                    CodeRush.Source.ParseIfTextChanged();
+                    if (CodeRush.Caret.InsideString
+                        && CaretInCodeEditor())
                     {
-                        splitString.Execute();
-                        if (this.settings.LeaveConcatenationOperatorAtTheEndOfLine)
+                        CodeRush.SmartTags.UpdateContext();
+                        RefactoringProviderBase splitString = CodeRush.Refactoring.Get("Split String");
+                        if (splitString != null
+                            && IsRefactoringAvailable(splitString))
                         {
-                            CodeRush.Caret.MoveRight(1);
+                            splitString.Execute();
+                            if (this.settings.LeaveConcatenationOperatorAtTheEndOfLine)
+                            {
+                                caret.MoveRight(1);
+                            }
+                            caret.Insert(CodeRush.Language.LineContinuationCharacter, true);
+                            return;
                         }
-                        CodeRush.Caret.Insert(CodeRush.Language.LineContinuationCharacter, true);
-                        return;
                     }
                 }
             }
@@ -72,18 +76,28 @@ namespace Refactor_SplitStringContrib
             }
         }
 
-        private bool CaretInCodeEditor()
+        private static TextViewCaret GetCaretInActiveFocusedView()
         {
-            return !this.CaretInsideTextField()
-                && !CodeRush.Refactoring.IsMenuActive
-                && !CodeRush.IDE.IsMenuActive
-                && !this.CaretInLinkedIdentifier()
-                && !CodeRush.Refactoring.PickerIsActive
-                && !CodeRush.Intellassist.Active
-                && !this.CodeIssueFixUIIsActive();
+            TextView view = CodeRush.Documents.ActiveTextView;
+            if (view != null && view.IsFocused)
+            {
+                return view.Caret;
+            }
+            return null;
         }
 
-        private bool CaretInsideTextField()
+        private static bool CaretInCodeEditor()
+        {
+            return !CaretInsideTextField()
+                && !CodeRush.Refactoring.IsMenuActive
+                && !CodeRush.IDE.IsMenuActive
+                && !CaretInLinkedIdentifier()
+                && !CodeRush.Refactoring.PickerIsActive
+                && !CodeRush.Intellassist.Active
+                && !CodeIssueFixUIIsActive();
+        }
+
+        private static bool CaretInsideTextField()
         {
             TextDocument doc = CodeRush.Documents.ActiveTextDocument;
             if (doc != null)
@@ -98,17 +112,17 @@ namespace Refactor_SplitStringContrib
             return false;
         }
 
-        private bool CaretInLinkedIdentifier()
+        private static bool CaretInLinkedIdentifier()
         {
             return CodeRush.Context.Satisfied("System\\In Linked Identifier") == ContextResult.Satisfied;
         }
 
-        private bool CodeIssueFixUIIsActive()
+        private static bool CodeIssueFixUIIsActive()
         {
             return CodeRush.Context.Satisfied("System\\CodeFix UI is active") == ContextResult.Satisfied;
         }
 
-        private bool IsRefactoringAvailable(RefactoringProviderBase refactoring)
+        private static bool IsRefactoringAvailable(RefactoringProviderBase refactoring)
         {
             return refactoring.GetAvailability() == RefactoringAvailability.Available;
         }
