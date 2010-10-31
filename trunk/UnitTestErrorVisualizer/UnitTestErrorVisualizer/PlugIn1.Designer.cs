@@ -40,11 +40,9 @@ namespace UnitTestErrorVisualizer
 			// 
 			// PlugIn1
 			// 
-			this.TileMouseEnter += new DevExpress.CodeRush.Core.TileEventHandler(this.PlugIn1_TileMouseEnter);
 			this.OptionsChanged += new DevExpress.CodeRush.Core.OptionsChangedEventHandler(this.PlugIn1_OptionsChanged);
-			this.EditorPaintForeground += new DevExpress.CodeRush.Core.EditorPaintEventHandler(this.PlugIn1_EditorPaintForeground);
+			this.DecorateLanguageElement += new DevExpress.CodeRush.Core.DecorateLanguageElementEventHandler(this.PlugIn1_DecorateLanguageElement);
 			this.EditorPaintLanguageElement += new DevExpress.CodeRush.Core.EditorPaintLanguageElementEventHandler(this.PlugIn1_EditorPaintLanguageElement);
-			this.TileMouseLeave += new DevExpress.CodeRush.Core.TileEventHandler(this.PlugIn1_TileMouseLeave);
 			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
 		}
