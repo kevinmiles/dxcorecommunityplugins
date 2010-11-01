@@ -63,6 +63,7 @@ namespace UnitTestErrorVisualizer
 			string incorrect;
 
 			limiter.AdjustExpectedActualLengths(ref expected, ref actual, differAt, out correct, out incorrect);
+			Expected = expected;
 			Correct = correct;
 			Incorrect = incorrect;
 		}

@@ -10,7 +10,7 @@ namespace UnitTestErrorVisualizer
 	{
 		private const string kNUnitActualStartDelimiter = "\n  But was:  ";
 		private const string kNUnitExpectedStartDelimiter = "Expected: ";
-		private const string kXunitActualStartDelimiter = "\nActual:   ";
+		private const string kXunitActualStartDelimiter = "\r\nActual:   ";
 		private const string kXunitExpectedStartDelimiter = "\nExpected: ";
 		private const string kMbUnitActualStartDelimiter = "\nActual Value   : ";
 		private const string kMbUnitExpectedStartDelimiter = "\nExpected Value : ";

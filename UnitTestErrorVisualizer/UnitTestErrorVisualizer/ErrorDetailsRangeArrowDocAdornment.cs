@@ -22,25 +22,27 @@
  * THE SOFTWARE.
  */
 using System;
-using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.StructuralParser;
 using DevExpress.DXCore.Adornments;
+using Platform = DevExpress.DXCore.Platform.Drawing;
 
 namespace UnitTestErrorVisualizer
 {
-    public class ErrorDetailsRangeArrow : RangeArrow
+	public class ErrorDetailsRangeArrowDocAdornment : RangeArrowDocAdornment
 	{
 		ArrowDescription whatToDraw;
-		public ErrorDetailsRangeArrow(SourceRange start, SourceRange end, ArrowDescription whatToDraw)
-			: base (start, end)
+		Platform.Color localCopyColor;
+		public ErrorDetailsRangeArrowDocAdornment(SourceRange startRange, SourceRange endRange, Platform.Color color, ArrowDescription data)
+			: base(startRange, endRange, color)
 		{
-			this.whatToDraw = whatToDraw;
+			whatToDraw = data;
+			localCopyColor = color;
 		}
-
-		protected override CodeViewAdornment CreateCodeViewAdornment(TextView textView)
+		protected override TextViewAdornment NewAdornment(string feature, IElementFrame binding)
 		{
-			ErrorDetailsRangeArrowDocAdornment adornment = new ErrorDetailsRangeArrowDocAdornment(StartRange, EndRange, Color, whatToDraw);
-			return (adornment.CreateTextViewAdornment(textView) as CodeViewAdornment);
+			ErrorDetailsRangeArrowAdornment adornment = new ErrorDetailsRangeArrowAdornment(binding, whatToDraw);
+			adornment.Color = localCopyColor;
+			return adornment;
 		}
 	}
 }
