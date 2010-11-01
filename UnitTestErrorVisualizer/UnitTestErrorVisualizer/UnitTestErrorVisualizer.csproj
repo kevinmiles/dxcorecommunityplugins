@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrowDescription.cs" />
+    <Compile Include="EnhancedRangeArrow.cs" />
     <Compile Include="ErrorDetailsRangeArrow.cs" />
     <Compile Include="ErrorDetailsRangeArrowAdornment.cs" />
     <Compile Include="ErrorDetailsRangeArrowDocAdornment.cs" />

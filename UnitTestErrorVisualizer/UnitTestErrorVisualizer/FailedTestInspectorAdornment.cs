@@ -52,7 +52,8 @@ namespace UnitTestErrorVisualizer
 		public override void OnMouseEnter(EditorMouseEventArgs ea)
         {
             base.OnMouseEnter(ea);
-			_ArrowToAssert = new ErrorDetailsRangeArrow(ErrorInformation.Start, ErrorInformation.End, ErrorInformation);
+			_ArrowToAssert = new EnhancedRangeArrow1(ErrorInformation.Start, ErrorInformation.End, new ErrorDetailsForRangArrow(ErrorInformation));
+			//_ArrowToAssert = new ErrorDetailsRangeArrow(ErrorInformation.Start, ErrorInformation.End, ErrorInformation);
 			_ArrowToAssert.Add(TextView.Active);
 		}
         public override void OnMouseLeave(EditorMouseEventArgs ea)
