@@ -28,7 +28,7 @@ using DevExpress.DXCore.Adornments;
 
 namespace UnitTestErrorVisualizer
 {
-    public class ErrorDetailsRangeArrow : RangeArrow
+	public class ErrorDetailsRangeArrow : RangeArrow
 	{
 		ArrowDescription whatToDraw;
 		public ErrorDetailsRangeArrow(SourceRange start, SourceRange end, ArrowDescription whatToDraw)
