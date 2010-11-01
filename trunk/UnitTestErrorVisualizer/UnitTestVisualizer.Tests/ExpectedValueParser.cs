@@ -19,7 +19,7 @@ namespace UnitTestVisualizer.Tests
 		[Fact]
 		public void TestResultParser_XStringMessage_Who()
 		{
-			string message = "Assert.Equal() Failure\nPosition: First difference is at position 6\nExpected: who's there\nActual:   who's where";
+			string message = "Assert.Equal() Failure\nPosition: First difference is at position 6\r\nExpected: who's there\r\nActual:   who's where";
 
 			string expected = TestResultParser.Expected(message);
 
@@ -59,7 +59,7 @@ namespace UnitTestVisualizer.Tests
 		[Fact]
 		public void TestResultParser_XIntMessage_Zero()
 		{
-			string message = "Assert.Equal() Failure\nExpected: 0\nActual:   1\n";
+			string message = "Assert.Equal() Failure\nExpected: 0\r\nActual:   1\n";
 
 			string expected = TestResultParser.Expected(message);
 
