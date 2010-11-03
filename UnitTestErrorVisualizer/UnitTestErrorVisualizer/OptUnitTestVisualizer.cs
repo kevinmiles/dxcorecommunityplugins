@@ -9,7 +9,6 @@ namespace UnitTestErrorVisualizer
 	{
 		private const string kShadeAttributeKey = "ShadeAttribute";
 		private const string kDrawArrowKey = "DrawArrow";
-		private const string kOverlayErrorKey = "OverlayError";
 		private const string kPreferencesSection = "Preferences";
 		private const string kMaxContextLength = "MaxContentLength";
 		private const string kShortenLongStrings = "ShortenLongStrings";
@@ -98,11 +97,6 @@ namespace UnitTestErrorVisualizer
 			return storage.ReadBoolean(kPreferencesSection, kConvertEscape, Default.ConvertEscapeCharacters);
 		}
 
-		public static bool ReadOverlayError(DecoupledStorage storage)
-		{
-			return storage.ReadBoolean(kPreferencesSection, kOverlayErrorKey, Default.OverlayError);
-		}
-
 		public static Color ReadTestPassColor(DecoupledStorage storage)
 		{
 			int alpha = storage.ReadInt32(kPreferencesSection, "PassAlphaComponent", Default.PassColor.Alpha);
@@ -137,7 +131,6 @@ namespace UnitTestErrorVisualizer
 			shortenLongStrings.Checked = ReadShortenLongStrings(ea.Storage);
 			maxContextLength.Text = ReadMaxContextLength(ea.Storage);
 			convertEscape.Checked = ReadConvertEscapeCharacters(ea.Storage);
-			overlayMessage.Checked = ReadOverlayError(ea.Storage);
 
 			//Not going to put up the color options yet. Later maybe.
 		}
@@ -149,7 +142,6 @@ namespace UnitTestErrorVisualizer
 			ea.Storage.WriteBoolean(kPreferencesSection, kShortenLongStrings, shortenLongStrings.Checked);
 			ea.Storage.WriteInt32(kPreferencesSection, kMaxContextLength, Convert.ToInt32(maxContextLength.Text));
 			ea.Storage.WriteBoolean(kPreferencesSection, kConvertEscape, convertEscape.Checked);
-			ea.Storage.WriteBoolean(kPreferencesSection, kOverlayErrorKey, overlayMessage.Checked);
 		}
 
 		private void UnitTestVisualizer_RestoreDefaults(object sender, OptionsPageEventArgs ea)
@@ -159,7 +151,6 @@ namespace UnitTestErrorVisualizer
 			shortenLongStrings.Checked = Default.ShortenLongStrings;
 			maxContextLength.Text = Default.ContextLength;
 			convertEscape.Checked = Default.ConvertEscapeCharacters;
-			overlayMessage.Checked = Default.OverlayError;
 		}
 
 		private void arrowToFailed_CheckedChanged(object sender, EventArgs e)

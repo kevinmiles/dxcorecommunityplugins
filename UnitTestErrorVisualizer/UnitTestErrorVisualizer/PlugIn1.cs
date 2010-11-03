@@ -31,13 +31,11 @@ namespace UnitTestErrorVisualizer
 				ShortenLongStrings = OptUnitTestVisualizer.ReadShortenLongStrings(storage);
 				MaxContextLength = Convert.ToInt32(OptUnitTestVisualizer.ReadMaxContextLength(storage));
 				ConvertEscapeCharacters = OptUnitTestVisualizer.ReadConvertEscapeCharacters(storage);
-				//OverlayError = OptUnitTestVisualizer.ReadOverlayError(storage);
 				AttributeColors = new ShadeColors {
 					PassedColor = Platform.Color.ConvertFrom(OptUnitTestVisualizer.ReadTestPassColor(storage)),
 					FailedColor = Platform.Color.ConvertFrom(OptUnitTestVisualizer.ReadTestFailColor(storage)),
 					SkippedColor = Platform.Color.ConvertFrom(OptUnitTestVisualizer.ReadTestSkipColor(storage))
 				};
-				//FailedColor = Platform.Color.ConvertFrom(OptUnitTestVisualizer.ReadTestFailColor(storage));
 			}
 		}
 		public ShadeColors AttributeColors { get; set; }
@@ -46,8 +44,6 @@ namespace UnitTestErrorVisualizer
 		public bool ShortenLongStrings { get; set; }
 		public bool ShadeAttribute { get; set; }
 		public bool DrawArrowToAssert { get; set; }
-		//public bool OverlayError { get; set; }
-		//public Color FailedColor { get; set; }
 
 		private void PlugIn1_OptionsChanged(OptionsChangedEventArgs ea)
 		{
@@ -67,59 +63,6 @@ namespace UnitTestErrorVisualizer
 		}
 		#endregion
 
-
-		///// <summary>
-		///// Draw the parsed error text at the end of the method causing the test failure 
-		///// </summary>
-		//private void OverlayErrorNextToAssert(EditorPaintLanguageElementEventArgs ea, TestMethod test)
-		//{
-		//    if (OverlayError == true && test.TestResult != null && test.TestResult.Status == TestStatus.Failure)
-		//    {
-		//        int line = TestResultParser.LineNumber(test.TestResult.StackTrace);
-		//        LanguageElement statement = GetStatement(test.FullName, line);
-		//        if (statement != null)
-		//        {
-		//            int startColumn = statement.EndOffset + 5;
-		//            string expected = TestResultParser.Expected(test.TestResult.Message);
-		//            string actual = TestResultParser.Actual(test.TestResult.Message);
-		//            int differAt;
-		//            differAt = TestResultParser.DifferAt(test.TestResult.Message, expected, actual);
-		//            string correct;
-		//            string incorrect;
-		//            MessageLimiter limiter = new MessageLimiter(ShortenLongStrings, MaxContextLength, ConvertEscapeCharacters);
-		//            limiter.AdjustExpectedActualLengths(ref expected, ref actual, differAt, out correct, out incorrect);
-
-		//            if (string.IsNullOrEmpty(expected))
-		//            {
-		//                ea.PaintArgs.OverlayText("<------- Test failed here",
-		//                    line,
-		//                    startColumn,
-		//                    FailedColor);
-		//            }
-		//            else if (differAt < 0)
-		//            {
-		//                ea.PaintArgs.OverlayText(string.Format("Expected: {0} Actual: {1}",
-		//                    expected,
-		//                    actual),
-		//                    line,
-		//                    startColumn,
-		//                    FailedColor);
-		//            }
-		//            else
-		//            {
-		//                string correctPortion = string.Format("Expected: {0} Actual: {1}", expected, correct);
-		//                ea.PaintArgs.OverlayText(correctPortion,
-		//                    line,
-		//                    startColumn,
-		//                    FailedColor);
-		//                ea.PaintArgs.OverlayText(incorrect,
-		//                    line,
-		//                    startColumn + correctPortion.Length,
-		//                    Color.Red);
-		//            }
-		//        }
-		//    }
-		//}
 
 		private void CreateErrorArrowAdornment(DecorateLanguageElementEventArgs args,
 			DevExpress.CodeRush.StructuralParser.Attribute attribute,
