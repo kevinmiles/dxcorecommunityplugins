@@ -50,10 +50,10 @@ namespace UnitTestErrorVisualizer
 			context.DrawImage(PlatformImage.ConvertFrom(_Bitmap), geometry.Bounds, 0.5);
         }
 		public override void OnMouseEnter(EditorMouseEventArgs ea)
-        {
-            base.OnMouseEnter(ea);
-			_ArrowToAssert = new EnhancedRangeArrow1(ErrorInformation.Start, ErrorInformation.End, new ErrorDetailsForRangArrow(ErrorInformation));
-			//_ArrowToAssert = new ErrorDetailsRangeArrow(ErrorInformation.Start, ErrorInformation.End, ErrorInformation);
+		{
+			base.OnMouseEnter(ea);
+			ErrorDetailsForRangArrow arrowAnnotation = new ErrorDetailsForRangArrow(ErrorInformation);
+			_ArrowToAssert = new EnhancedRangeArrow(ErrorInformation.Start, ErrorInformation.End, arrowAnnotation.Render);
 			_ArrowToAssert.Add(TextView.Active);
 		}
         public override void OnMouseLeave(EditorMouseEventArgs ea)

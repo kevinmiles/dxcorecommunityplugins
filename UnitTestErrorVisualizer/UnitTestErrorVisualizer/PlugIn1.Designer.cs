@@ -42,7 +42,6 @@ namespace UnitTestErrorVisualizer
 			// 
 			this.OptionsChanged += new DevExpress.CodeRush.Core.OptionsChangedEventHandler(this.PlugIn1_OptionsChanged);
 			this.DecorateLanguageElement += new DevExpress.CodeRush.Core.DecorateLanguageElementEventHandler(this.PlugIn1_DecorateLanguageElement);
-			this.EditorPaintLanguageElement += new DevExpress.CodeRush.Core.EditorPaintLanguageElementEventHandler(this.PlugIn1_EditorPaintLanguageElement);
 			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
 		}
