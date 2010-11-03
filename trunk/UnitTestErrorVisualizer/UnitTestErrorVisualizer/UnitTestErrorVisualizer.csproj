@@ -59,9 +59,7 @@
   <ItemGroup>
     <Compile Include="ArrowDescription.cs" />
     <Compile Include="EnhancedRangeArrow.cs" />
-    <Compile Include="ErrorDetailsRangeArrow.cs" />
-    <Compile Include="ErrorDetailsRangeArrowAdornment.cs" />
-    <Compile Include="ErrorDetailsRangeArrowDocAdornment.cs" />
+    <Compile Include="ErrorDetailsForRangArrow.cs" />
     <Compile Include="FailedTestInspectorAdornment.cs" />
     <Compile Include="FailedTestInspectorDocumentAdornment.cs" />
     <Compile Include="MessageLimiter.cs" />
@@ -79,6 +77,7 @@
     <Compile Include="OptUnitTestVisualizer.Designer.cs">
       <DependentUpon>OptUnitTestVisualizer.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestAttributeShaderAdornment.cs" />
     <Compile Include="TestResultParser.cs" />
   </ItemGroup>
   <ItemGroup>
