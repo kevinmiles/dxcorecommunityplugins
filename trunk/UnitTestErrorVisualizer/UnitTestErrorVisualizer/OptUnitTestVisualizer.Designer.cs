@@ -41,7 +41,6 @@ namespace UnitTestErrorVisualizer
 		{
 			this.shadeAttribute = new System.Windows.Forms.CheckBox();
 			this.arrowToFailed = new System.Windows.Forms.CheckBox();
-			this.overlayMessage = new System.Windows.Forms.CheckBox();
 			this.shortenLongStrings = new System.Windows.Forms.CheckBox();
 			this.maxContextLength = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
@@ -54,9 +53,10 @@ namespace UnitTestErrorVisualizer
 			this.shadeAttribute.AutoSize = true;
 			this.shadeAttribute.Checked = true;
 			this.shadeAttribute.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.shadeAttribute.Location = new System.Drawing.Point(16, 16);
+			this.shadeAttribute.Location = new System.Drawing.Point(12, 13);
+			this.shadeAttribute.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.shadeAttribute.Name = "shadeAttribute";
-			this.shadeAttribute.Size = new System.Drawing.Size(280, 21);
+			this.shadeAttribute.Size = new System.Drawing.Size(214, 17);
 			this.shadeAttribute.TabIndex = 0;
 			this.shadeAttribute.Text = "Shade test attribute with pass/fail status";
 			this.shadeAttribute.UseVisualStyleBackColor = true;
@@ -66,52 +66,44 @@ namespace UnitTestErrorVisualizer
 			this.arrowToFailed.AutoSize = true;
 			this.arrowToFailed.Checked = true;
 			this.arrowToFailed.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.arrowToFailed.Location = new System.Drawing.Point(16, 44);
+			this.arrowToFailed.Location = new System.Drawing.Point(12, 36);
+			this.arrowToFailed.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.arrowToFailed.Name = "arrowToFailed";
-			this.arrowToFailed.Size = new System.Drawing.Size(205, 21);
+			this.arrowToFailed.Size = new System.Drawing.Size(156, 17);
 			this.arrowToFailed.TabIndex = 1;
 			this.arrowToFailed.Text = "Draw arrow to failed asserts";
 			this.arrowToFailed.UseVisualStyleBackColor = true;
 			this.arrowToFailed.CheckedChanged += new System.EventHandler(this.arrowToFailed_CheckedChanged);
-			// 
-			// overlayMessage
-			// 
-			this.overlayMessage.AutoSize = true;
-			this.overlayMessage.Checked = true;
-			this.overlayMessage.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.overlayMessage.Location = new System.Drawing.Point(16, 150);
-			this.overlayMessage.Name = "overlayMessage";
-			this.overlayMessage.Size = new System.Drawing.Size(302, 21);
-			this.overlayMessage.TabIndex = 2;
-			this.overlayMessage.Text = "Parse failed asserts and overlay the details";
-			this.overlayMessage.UseVisualStyleBackColor = true;
 			// 
 			// shortenLongStrings
 			// 
 			this.shortenLongStrings.AutoSize = true;
 			this.shortenLongStrings.Checked = true;
 			this.shortenLongStrings.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.shortenLongStrings.Location = new System.Drawing.Point(36, 71);
+			this.shortenLongStrings.Location = new System.Drawing.Point(27, 58);
+			this.shortenLongStrings.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.shortenLongStrings.Name = "shortenLongStrings";
-			this.shortenLongStrings.Size = new System.Drawing.Size(396, 21);
+			this.shortenLongStrings.Size = new System.Drawing.Size(295, 17);
 			this.shortenLongStrings.TabIndex = 3;
 			this.shortenLongStrings.Text = "Display only characters arround difference for long strings";
 			this.shortenLongStrings.UseVisualStyleBackColor = true;
 			// 
 			// maxContextLength
 			// 
-			this.maxContextLength.Location = new System.Drawing.Point(217, 99);
+			this.maxContextLength.Location = new System.Drawing.Point(163, 80);
+			this.maxContextLength.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.maxContextLength.Name = "maxContextLength";
-			this.maxContextLength.Size = new System.Drawing.Size(100, 22);
+			this.maxContextLength.Size = new System.Drawing.Size(76, 20);
 			this.maxContextLength.TabIndex = 4;
 			this.maxContextLength.Validating += new System.ComponentModel.CancelEventHandler(this.contextSize_Validating);
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(59, 99);
+			this.label1.Location = new System.Drawing.Point(44, 80);
+			this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(152, 17);
+			this.label1.Size = new System.Drawing.Size(115, 13);
 			this.label1.TabIndex = 5;
 			this.label1.Text = "Shortened context size";
 			// 
@@ -120,23 +112,24 @@ namespace UnitTestErrorVisualizer
 			this.convertEscape.AutoSize = true;
 			this.convertEscape.Checked = true;
 			this.convertEscape.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.convertEscape.Location = new System.Drawing.Point(36, 123);
+			this.convertEscape.Location = new System.Drawing.Point(27, 100);
+			this.convertEscape.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.convertEscape.Name = "convertEscape";
-			this.convertEscape.Size = new System.Drawing.Size(266, 21);
+			this.convertEscape.Size = new System.Drawing.Size(202, 17);
 			this.convertEscape.TabIndex = 6;
 			this.convertEscape.Text = "Make non-printable characters visible";
 			this.convertEscape.UseVisualStyleBackColor = true;
 			// 
 			// OptUnitTestVisualizer
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.Controls.Add(this.convertEscape);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.maxContextLength);
 			this.Controls.Add(this.shortenLongStrings);
-			this.Controls.Add(this.overlayMessage);
 			this.Controls.Add(this.arrowToFailed);
 			this.Controls.Add(this.shadeAttribute);
+			this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.Name = "OptUnitTestVisualizer";
 			this.PreparePage += new DevExpress.CodeRush.Core.OptionsPage.PreparePageEventHandler(this.UnitTestVisualizer_PreparePage);
 			this.RestoreDefaults += new DevExpress.CodeRush.Core.OptionsPage.RestoreDefaultsEventHandler(this.UnitTestVisualizer_RestoreDefaults);
@@ -200,7 +193,6 @@ namespace UnitTestErrorVisualizer
 
 		private System.Windows.Forms.CheckBox shadeAttribute;
 		private System.Windows.Forms.CheckBox arrowToFailed;
-		private System.Windows.Forms.CheckBox overlayMessage;
 		private System.Windows.Forms.CheckBox shortenLongStrings;
 		private System.Windows.Forms.TextBox maxContextLength;
 		private System.Windows.Forms.Label label1;
