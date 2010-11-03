@@ -6,6 +6,7 @@
     using DevExpress.CodeRush.Core;
     using DevExpress.CodeRush.StructuralParser;
     using Microsoft.StyleCop;
+    using Microsoft.StyleCop.CSharp;
 
     internal class SA1401CodeIssue : ICodeIssue
     {
@@ -14,19 +15,18 @@
         public void AddViolationIssue(CheckCodeIssuesEventArgs ea, IDocument document, Violation violation)
         {
             string message = String.Format("{0}: {1}", violation.Rule.CheckId, violation.Message);
-            if (violation.Element == null)
+            CsElement csElement = violation.Element as CsElement;
+            if (csElement == null)
             {
                 ea.AddSmell(new SourceRange(violation.Line, 1, violation.Line, document.LengthOfLine(violation.Line) + 1), message, 10);
                 return;
             }
             SourcePoint? startPoint = null;
             SourcePoint? endPoint = null;
-            foreach (var token in violation.Element.ElementTokens.Where(t => t.LineNumber >= violation.Line))
+            foreach (var token in from token in csElement.ElementTokens
+                                  where token.LineNumber >= violation.Line && !string.IsNullOrEmpty(token.Text.Trim())
+                                  select token)
             {
-                if (string.IsNullOrEmpty(token.Text.Trim()))
-                {
-                    continue;
-                }
                 if (modifiers.Contains(token.Text))
                 {
                     if (startPoint == null)

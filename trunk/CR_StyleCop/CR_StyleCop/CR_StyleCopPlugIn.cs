@@ -53,14 +53,14 @@ namespace CR_StyleCop
             if (project == null)
                 return;
 
-            using (StyleCopConsole styleCopConsole = new StyleCopConsole(null, true, null, null, true))
+            using (StyleCopObjectConsole styleCopConsole = new StyleCopObjectConsole(new ObjectBasedEnvironment(this.CodeFactory, this.SettingsFactory), null, null, true))
             {
                 Configuration configuration = new Configuration(new string[] { "DEBUG" });
                 CodeProject styleCopProject = new CodeProject(project.FullName.GetHashCode(), project.FullName, configuration);
-                styleCopConsole.Core.Environment.AddSourceCode(styleCopProject, scope.FilePath, null);
+                styleCopConsole.Core.Environment.AddSourceCode(styleCopProject, scope.FilePath, scope.TextStrings.ToString());
                 this.violations.Clear();
                 styleCopConsole.ViolationEncountered += this.OnViolationEncountered;
-                styleCopConsole.Start(new List<CodeProject> { styleCopProject }, true);
+                styleCopConsole.Start(new List<CodeProject> { styleCopProject });
                 styleCopConsole.ViolationEncountered -= this.OnViolationEncountered;
             }
 
@@ -76,6 +76,17 @@ namespace CR_StyleCop
                     }
                 }
             }
+        }
+
+        private Microsoft.StyleCop.SourceCode CodeFactory(string path, CodeProject project, SourceParser parser, object context)
+        {
+            string codeToAnalyze = (string)context;
+            return new AnalyzedSourceCode(project, parser, path, codeToAnalyze);
+        }
+
+        private Microsoft.StyleCop.Settings SettingsFactory(string path, bool readOnly)
+        {
+            return null;
         }
 
         private void OnViolationEncountered(object sender, ViolationEventArgs e)
