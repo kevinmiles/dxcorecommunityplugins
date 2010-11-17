@@ -110,7 +110,7 @@ Public Class PlugIn1
         Levels = New LinkedList(Of String)(Levels.ToArray)
 
         Dim Top As String = Levels.First.Value
-        Dim TopSiblings As String() = Top.Split("+"c)
+        Dim TopSiblings As String() = Top.Split(CHAR_SiblingExpression)
         Call Levels.RemoveFirst()
         Dim Remainder = Levels
         Dim CaretPoint As SourcePoint = Nothing
