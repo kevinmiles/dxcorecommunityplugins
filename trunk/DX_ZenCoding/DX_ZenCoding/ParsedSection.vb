@@ -29,6 +29,7 @@ Public Structure ParsedSection
 #End Region
 #Region "Constructors"
     Public Sub New(ByVal Section As String)
+        Dim Quote = GetQuote()
         ' Extract Multiplicity
         Dim MultiplicityParts = Section.Split(CHAR_Multiplicity)
         mMultiplicity = If(MultiplicityParts.Count > 1, MultiplicityParts(1), 1)
@@ -54,15 +55,18 @@ Public Structure ParsedSection
 
         ' ID -> mAttributes
         If mID <> String.Empty Then
-            mAttributes = String.Format(" id='{0}'", mID) & mAttributes
+            mAttributes = String.Format(" id={1}{0}{1}", mID, Quote) & mAttributes
         End If
 
         ' Class -> mAttributes
         If mClass <> String.Empty Then
-            mAttributes = String.Format(" class='{0}'", mClass) & mAttributes
+            mAttributes = String.Format(" class={1}{0}{1}", mClass, Quote) & mAttributes
         End If
 
     End Sub
+    Private Function GetQuote() As String
+        Return """"
+    End Function
     Public Sub New(ByVal Section As String, ByVal Multiplicity As Integer)
         mBase = Section
         mMultiplicity = Multiplicity
