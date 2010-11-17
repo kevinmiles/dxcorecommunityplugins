@@ -36,11 +36,12 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\Documents and Settings\iwonka\Moje dokumenty\DevExpress\IDE Tools\Community\PlugIns</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,9 +59,11 @@
     <Reference Include="Extensibility, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.StyleCop">
       <HintPath>..\..\..\..\Program Files\Microsoft StyleCop 4.4.1.2\Microsoft.StyleCop.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.StyleCop.CSharp">
       <HintPath>..\..\..\..\Program Files\Microsoft StyleCop 4.4.1.2\Microsoft.StyleCop.CSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
