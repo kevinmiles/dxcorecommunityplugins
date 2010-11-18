@@ -18,12 +18,12 @@
             this.handlers.Add("SA1602", new SA1602_EnumerationItemsMustBeDocumented()); // OK
             this.handlers.Add("SA1603", new SA1603_DocumentationMustContainValidXml()); // OK
             this.handlers.Add("SA1604", new SA1604_ElementDocumentationMustHaveSummary()); // OK
-            this.handlers.Add("SA1605", nullHandler); // Cannot get this violation with stylecop. Sample needed
+            this.handlers.Add("SA1605", new SA1605_PartialElementDocumentationMustHaveSummary()); // Cannot get this violation with stylecop. Sample needed
             this.handlers.Add("SA1606", new SA1606_ElementDocumentationMustHaveSummaryText()); // OK
             this.handlers.Add("SA1607", new SA1607_PartialElementDocumentationMustHaveSummaryText()); // OK
             this.handlers.Add("SA1608", new SA1608_ElementDocumentationMustNotHaveDefaultSummary()); // OK
             this.handlers.Add("SA1609", new SA1609_PropertyDocumentationMustHaveValue()); // OK
-            this.handlers.Add("SA1610", nullHandler); // Cannot get this violation with stylecop. Sample needed
+            this.handlers.Add("SA1610", new SA1610_PropertyDocumentationMustHaveValueText()); // Cannot get this violation with stylecop. Sample needed
             this.handlers.Add("SA1611", new SA1611_ElementParametersMustBeDocumented()); // OK
             this.handlers.Add("SA1612", new SA1612_ElementParameterDocumentationMustMatchElementParameters()); // OK
             this.handlers.Add("SA1613", new SA1613_ElementParameterDocumentationMustDeclareParameterName()); // OK
@@ -40,7 +40,7 @@
             this.handlers.Add("SA1624", new SA1624_PropertySummaryDocumentationMustOmitSetAccessorWithRestrictedAccess()); // OK
             this.handlers.Add("SA1625", new SA1625_ElementDocumentationMustNotBeCopiedAndPasted()); // OK
             this.handlers.Add("SA1626", new SA1626_SingleLineCommentsMustNotUseDocumentationStyleSlashes()); // OK
-            this.handlers.Add("SA1627", nullHandler); // Cannot get this violation with stylecop. Sample needed
+            this.handlers.Add("SA1627", new SA1627_DocumentationTextMustNotBeEmpty()); // Cannot get this violation with stylecop. Sample needed
             this.handlers.Add("SA1628", new SA1628_DocumentationTextMustBeginWithACapitalLetter()); // OK
             this.handlers.Add("SA1629", new SA1629_DocumentationTextMustEndWithAPeriod()); // OK
             this.handlers.Add("SA1630", new SA1630_DocumentationTextMustContainWhitespace()); // OK
@@ -64,7 +64,7 @@
             this.handlers.Add("SA1500", new SA1500_CurlyBracketsForMultiLineStatementsMustNotShareLine()); // OK
             this.handlers.Add("SA1501", new SA1501_StatementMustNotBeOnASingleLine()); // OK
             this.handlers.Add("SA1502", new SA1502_ElementMustNotBeOnASingleLine()); // OK
-            this.handlers.Add("SA1503", nullHandler); // TODO
+            this.handlers.Add("SA1503", new SA1503_CurlyBracketsMustNotBeOmitted()); // TODO
             this.handlers.Add("SA1504", new SA1504_AllAccessorsMustBeSingleLineOrMultiLine()); // BUG
             this.handlers.Add("SA1505", new SA1505_OpeningCurlyBracketsMustNotBeFollowedByBlankLine()); // OK
             this.handlers.Add("SA1506", new SA1506_ElementDocumentationHeadersMustNotBeFollowedByBlankLine()); // DxCore bug
