@@ -57,7 +57,8 @@ namespace CR_StyleCop
             {
                 Configuration configuration = new Configuration(new string[] { "DEBUG" });
                 CodeProject styleCopProject = new CodeProject(project.FullName.GetHashCode(), project.FullName, configuration);
-                styleCopConsole.Core.Environment.AddSourceCode(styleCopProject, scope.FilePath, scope.TextStrings.ToString());
+                string analyzedCode = scope.Document.GetText(scope.StartLine, scope.StartOffset, scope.EndLine, scope.EndOffset);
+                styleCopConsole.Core.Environment.AddSourceCode(styleCopProject, scope.FilePath, analyzedCode);
                 this.violations.Clear();
                 styleCopConsole.ViolationEncountered += this.OnViolationEncountered;
                 styleCopConsole.Start(new List<CodeProject> { styleCopProject });
