@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using DevExpress.CodeRush.Common;
 
-[assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "CR_StyleCop", PlugInLoadType.Demand, LoadAbilityType.LoadEnabled)]
+[assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "CR_StyleCop", PlugInLoadType.Default, LoadAbilityType.LoadDisabled)]
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
