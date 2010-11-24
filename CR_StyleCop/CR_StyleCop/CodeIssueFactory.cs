@@ -80,6 +80,8 @@
             this.handlers.Add("SA1516", new SA1516_ElementsMustBeSeparatedByBlankLine()); // OK
             this.handlers.Add("SA1400", new SA1400_AccessModifierMustBeDeclared()); // OK
             this.handlers.Add("SA1401", new SA1401_FieldsMustBePrivate()); // OK
+            this.handlers.Add("SA1402", new SA1402_FileMayOnlyContainASingleClass()); // TO Check
+            this.handlers.Add("SA1403", new SA1403_FileMayOnlyContainASingleNamespace()); // TO Check
             this.handlers.Add("SA1300", new SA1300_ElementMustBeginWithUpperCaseLetter()); // OK
             this.handlers.Add("SA1301", new SA1301_ElementMustBeginWithLowerCaseLetter()); // Never reported according to StyleCop help
             this.handlers.Add("SA1302", new SA1302_InterfaceNamesMustBeginWithI()); // OK

@@ -84,6 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyzedSourceCode.cs" />
+    <Compile Include="CodeIssues\SA1402_FileMayOnlyContainASingleClass.cs" />
+    <Compile Include="CodeIssues\SA1403_FileMayOnlyContainASingleNamespace.cs" />
     <Compile Include="CodeIssues\SA1503_CurlyBracketsMustNotBeOmitted.cs" />
     <Compile Include="CodeIssues\SA1627_DocumentationTextMustNotBeEmpty.cs" />
     <Compile Include="CodeIssues\SA1610_PropertyDocumentationMustHaveValueText.cs" />
