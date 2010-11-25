@@ -177,5 +177,53 @@ namespace CR_ReSharperCompatibility
       // TODO: Replace with actual call to show the CI Solutions window.
       CodeRush.Command.Execute("Refactor");
     }
+
+    private void actReSharperCommentWithLineComment_Execute(ExecuteEventArgs ea)
+    {
+      CodeRush.Command.Execute("SelectionComment");
+    }
+
+    private void actReSharperGoToBookmark_Execute(ExecuteEventArgs ea)
+    {
+      ExecuteBookmarkCommandByIndex(ea, "BookmarkGoto");
+    }
+
+    private void actReSharperSetRemoveBookmark_Execute(ExecuteEventArgs ea)
+    {
+      ExecuteBookmarkCommandByIndex(ea, "BookmarkToggle");
+    }
+
+    private void ExecuteBookmarkCommandByIndex(ExecuteEventArgs ea, string commandName)
+    {
+      ParameterCollection parameters = ea.Action.Parameters;
+      if (parameters == null || parameters.Count == 0)
+        return;
+      Parameter parameter = parameters["IndexName"];
+      string indexName = (string)parameter.Value;
+      if (String.IsNullOrEmpty(indexName)) // default value
+        return;
+
+      CodeRush.Command.Execute(commandName, indexName);
+    }
+
+    private void actReSharperGoToImplementation_Execute(ExecuteEventArgs ea)
+    {
+      CodeRush.Command.Execute("Navigate", "Implementations");
+    }
+
+    private void actReSharperGoToNextHighlight_Execute(ExecuteEventArgs ea)
+    {
+      CodeRush.Command.Execute("NextIssue");
+    }
+
+    private void actReSharperGoToPreviousHighlight_Execute(ExecuteEventArgs ea)
+    {
+      CodeRush.Command.Execute("PreviousIssue");
+    }
+
+    private void actReSharperTurnCodeAnalysisOnOff_Execute(ExecuteEventArgs ea)
+    {
+      CodeRush.Command.Execute("CodeIssueToggle");
+    }
   }
 }

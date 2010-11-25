@@ -38,6 +38,7 @@ namespace CR_ReSharperCompatibility
     {
       this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FullyImplemented));
+      DevExpress.CodeRush.Core.Parameter parameter1 = new DevExpress.CodeRush.Core.Parameter(new DevExpress.CodeRush.Core.StringParameterType());
       this.actReSharperExtendSelection = new DevExpress.CodeRush.Core.Action(this.components);
       this.actReSharperShrinkSelection = new DevExpress.CodeRush.Core.Action(this.components);
       this.actReSharperDuplicateLine = new DevExpress.CodeRush.Core.Action(this.components);
@@ -65,6 +66,13 @@ namespace CR_ReSharperCompatibility
       this.actReSharperExtractMethod = new DevExpress.CodeRush.Core.Action(this.components);
       this.actReSharperIntroduceVariable = new DevExpress.CodeRush.Core.Action(this.components);
       this.actReSharperEncapsulateField = new DevExpress.CodeRush.Core.Action(this.components);
+      this.actReSharperCommentWithLineComment = new DevExpress.CodeRush.Core.Action(this.components);
+      this.actReSharperGoToBookmark = new DevExpress.CodeRush.Core.Action(this.components);
+      this.actReSharperSetRemoveBookmark = new DevExpress.CodeRush.Core.Action(this.components);
+      this.actReSharperGoToImplementation = new DevExpress.CodeRush.Core.Action(this.components);
+      this.actReSharperGoToNextHighlight = new DevExpress.CodeRush.Core.Action(this.components);
+      this.actReSharperGoToPreviousHighlight = new DevExpress.CodeRush.Core.Action(this.components);
+      this.actReSharperTurnCodeAnalysisOnOff = new DevExpress.CodeRush.Core.Action(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.actReSharperExtendSelection)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.actReSharperShrinkSelection)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.actReSharperDuplicateLine)).BeginInit();
@@ -92,6 +100,13 @@ namespace CR_ReSharperCompatibility
       ((System.ComponentModel.ISupportInitialize)(this.actReSharperExtractMethod)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.actReSharperIntroduceVariable)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.actReSharperEncapsulateField)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperCommentWithLineComment)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperGoToBookmark)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperSetRemoveBookmark)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperGoToImplementation)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperGoToNextHighlight)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperGoToPreviousHighlight)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperTurnCodeAnalysisOnOff)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
       // 
       // actReSharperExtendSelection
@@ -101,6 +116,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperExtendSelection.Description = "Compatible with ReSharper\'s \"Extend Selection\" feature.";
       this.actReSharperExtendSelection.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperExtendSelection.Image")));
       this.actReSharperExtendSelection.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperExtendSelection.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperExtendSelection.ToolbarItem.Caption = null;
+      this.actReSharperExtendSelection.ToolbarItem.Image = null;
       this.actReSharperExtendSelection.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperExtendSelection_Execute);
       // 
       // actReSharperShrinkSelection
@@ -110,6 +128,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperShrinkSelection.Description = "Compatible with ReSharper\'s \"Shrink Selection\" feature.";
       this.actReSharperShrinkSelection.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperShrinkSelection.Image")));
       this.actReSharperShrinkSelection.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperShrinkSelection.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperShrinkSelection.ToolbarItem.Caption = null;
+      this.actReSharperShrinkSelection.ToolbarItem.Image = null;
       this.actReSharperShrinkSelection.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperShrinkSelection_Execute);
       // 
       // actReSharperDuplicateLine
@@ -119,6 +140,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperDuplicateLine.Description = "Compatible with ReSharper\'s \"DuplicateLine\" feature.";
       this.actReSharperDuplicateLine.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperDuplicateLine.Image")));
       this.actReSharperDuplicateLine.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperDuplicateLine.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperDuplicateLine.ToolbarItem.Caption = null;
+      this.actReSharperDuplicateLine.ToolbarItem.Image = null;
       this.actReSharperDuplicateLine.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperDuplicateLine_Execute);
       // 
       // actReSharper_ShowQuickFixesAndContextActions
@@ -128,6 +152,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharper_ShowQuickFixesAndContextActions.Description = "Compatible with ReSharper\'s \"Show quick-fixes and context actions\" feature.";
       this.actReSharper_ShowQuickFixesAndContextActions.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharper_ShowQuickFixesAndContextActions.Image")));
       this.actReSharper_ShowQuickFixesAndContextActions.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharper_ShowQuickFixesAndContextActions.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharper_ShowQuickFixesAndContextActions.ToolbarItem.Caption = null;
+      this.actReSharper_ShowQuickFixesAndContextActions.ToolbarItem.Image = null;
       this.actReSharper_ShowQuickFixesAndContextActions.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharper_ShowQuickFixesAndContextActions_Execute);
       // 
       // actReSharperFindUsages
@@ -137,6 +164,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperFindUsages.Description = "Compatible with ReSharper\'s \"Find usages\" feature.";
       this.actReSharperFindUsages.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperFindUsages.Image")));
       this.actReSharperFindUsages.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperFindUsages.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperFindUsages.ToolbarItem.Caption = null;
+      this.actReSharperFindUsages.ToolbarItem.Image = null;
       this.actReSharperFindUsages.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperFindUsages_Execute);
       // 
       // actReSharperHighlightUsages
@@ -146,6 +176,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperHighlightUsages.Description = "Compatible with ReSharper\'s \"Highlight usages in file\" feature.";
       this.actReSharperHighlightUsages.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperHighlightUsages.Image")));
       this.actReSharperHighlightUsages.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperHighlightUsages.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperHighlightUsages.ToolbarItem.Caption = null;
+      this.actReSharperHighlightUsages.ToolbarItem.Image = null;
       this.actReSharperHighlightUsages.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperHighlightUsages_Execute);
       // 
       // actReSharperGenerateCode
@@ -156,6 +189,9 @@ namespace CR_ReSharperCompatibility
           "g/overriding members, etc)\" feature.";
       this.actReSharperGenerateCode.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGenerateCode.Image")));
       this.actReSharperGenerateCode.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGenerateCode.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGenerateCode.ToolbarItem.Caption = null;
+      this.actReSharperGenerateCode.ToolbarItem.Image = null;
       this.actReSharperGenerateCode.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGenerateCode_Execute);
       // 
       // actReSharperNavigateFromHere
@@ -165,6 +201,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperNavigateFromHere.Description = "Compatible with ReSharper\'s \"Navigate from here\" feature.";
       this.actReSharperNavigateFromHere.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperNavigateFromHere.Image")));
       this.actReSharperNavigateFromHere.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperNavigateFromHere.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperNavigateFromHere.ToolbarItem.Caption = null;
+      this.actReSharperNavigateFromHere.ToolbarItem.Image = null;
       this.actReSharperNavigateFromHere.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperNavigateFromHere_Execute);
       // 
       // actReSharperGoToType
@@ -174,6 +213,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperGoToType.Description = "Compatible with ReSharper\'s \"Go to type\" feature.";
       this.actReSharperGoToType.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToType.Image")));
       this.actReSharperGoToType.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToType.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToType.ToolbarItem.Caption = null;
+      this.actReSharperGoToType.ToolbarItem.Image = null;
       this.actReSharperGoToType.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToType_Execute);
       // 
       // actReSharperGoToFile
@@ -183,6 +225,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperGoToFile.Description = "Compatible with ReSharper\'s \"Go to file\" feature.";
       this.actReSharperGoToFile.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToFile.Image")));
       this.actReSharperGoToFile.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToFile.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToFile.ToolbarItem.Caption = null;
+      this.actReSharperGoToFile.ToolbarItem.Image = null;
       this.actReSharperGoToFile.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToFile_Execute);
       // 
       // actReSharperGoToFileMember
@@ -192,6 +237,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperGoToFileMember.Description = "Compatible with ReSharper\'s \"Go to file member\" feature.";
       this.actReSharperGoToFileMember.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToFileMember.Image")));
       this.actReSharperGoToFileMember.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToFileMember.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToFileMember.ToolbarItem.Caption = null;
+      this.actReSharperGoToFileMember.ToolbarItem.Image = null;
       this.actReSharperGoToFileMember.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToFileMember_Execute);
       // 
       // actReSharperGoToSymbol
@@ -201,6 +249,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperGoToSymbol.Description = "Compatible with ReSharper\'s \"Go to symbol\" feature.";
       this.actReSharperGoToSymbol.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToSymbol.Image")));
       this.actReSharperGoToSymbol.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToSymbol.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToSymbol.ToolbarItem.Caption = null;
+      this.actReSharperGoToSymbol.ToolbarItem.Image = null;
       this.actReSharperGoToSymbol.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToSymbol_Execute);
       // 
       // actReSharperGoToContainingDeclaration
@@ -210,6 +261,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperGoToContainingDeclaration.Description = "Compatible with ReSharper\'s \"Go to containing declaration\" feature.";
       this.actReSharperGoToContainingDeclaration.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToContainingDeclaration.Image")));
       this.actReSharperGoToContainingDeclaration.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToContainingDeclaration.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToContainingDeclaration.ToolbarItem.Caption = null;
+      this.actReSharperGoToContainingDeclaration.ToolbarItem.Image = null;
       this.actReSharperGoToContainingDeclaration.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToContainingDeclaration_Execute);
       // 
       // actReSharperGoToBase
@@ -219,6 +273,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperGoToBase.Description = "Compatible with ReSharper\'s \"Go to base\" feature.";
       this.actReSharperGoToBase.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToBase.Image")));
       this.actReSharperGoToBase.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToBase.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToBase.ToolbarItem.Caption = null;
+      this.actReSharperGoToBase.ToolbarItem.Image = null;
       this.actReSharperGoToBase.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToBase_Execute);
       // 
       // actReSharperGoToInheritor
@@ -228,6 +285,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperGoToInheritor.Description = "Compatible with ReSharper\'s \"Go to inheritor\" feature.";
       this.actReSharperGoToInheritor.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToInheritor.Image")));
       this.actReSharperGoToInheritor.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToInheritor.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToInheritor.ToolbarItem.Caption = null;
+      this.actReSharperGoToInheritor.ToolbarItem.Image = null;
       this.actReSharperGoToInheritor.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToInheritor_Execute);
       // 
       // actReSharperGoToNextMemberOrTag
@@ -237,6 +297,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperGoToNextMemberOrTag.Description = "Compatible with ReSharper\'s \"Go to next member/tag\" feature.";
       this.actReSharperGoToNextMemberOrTag.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToNextMemberOrTag.Image")));
       this.actReSharperGoToNextMemberOrTag.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToNextMemberOrTag.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToNextMemberOrTag.ToolbarItem.Caption = null;
+      this.actReSharperGoToNextMemberOrTag.ToolbarItem.Image = null;
       this.actReSharperGoToNextMemberOrTag.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToNextMemberOrTag_Execute);
       // 
       // actReSharperGoToPreviousMemberOrTag
@@ -246,6 +309,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperGoToPreviousMemberOrTag.Description = "Compatible with ReSharper\'s \"Go to previous member/tag\" feature.";
       this.actReSharperGoToPreviousMemberOrTag.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToPreviousMemberOrTag.Image")));
       this.actReSharperGoToPreviousMemberOrTag.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToPreviousMemberOrTag.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToPreviousMemberOrTag.ToolbarItem.Caption = null;
+      this.actReSharperGoToPreviousMemberOrTag.ToolbarItem.Image = null;
       this.actReSharperGoToPreviousMemberOrTag.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToPreviousMemberOrTag_Execute);
       // 
       // actReSharperPreviousUsage
@@ -255,6 +321,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperPreviousUsage.Description = "Compatible with ReSharper\'s \"Go to previous usage\" feature.";
       this.actReSharperPreviousUsage.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperPreviousUsage.Image")));
       this.actReSharperPreviousUsage.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperPreviousUsage.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperPreviousUsage.ToolbarItem.Caption = null;
+      this.actReSharperPreviousUsage.ToolbarItem.Image = null;
       this.actReSharperPreviousUsage.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperPreviousUsage_Execute);
       // 
       // actReSharperNextUsage
@@ -264,6 +333,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperNextUsage.Description = "Compatible with ReSharper\'s \"Go to next usage\" feature.";
       this.actReSharperNextUsage.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperNextUsage.Image")));
       this.actReSharperNextUsage.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperNextUsage.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperNextUsage.ToolbarItem.Caption = null;
+      this.actReSharperNextUsage.ToolbarItem.Image = null;
       this.actReSharperNextUsage.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperNextUsage_Execute);
       // 
       // actReSharperGoToLastEditLocation
@@ -273,6 +345,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperGoToLastEditLocation.Description = "Compatible with ReSharper\'s \"Go to last edit location\" feature.";
       this.actReSharperGoToLastEditLocation.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToLastEditLocation.Image")));
       this.actReSharperGoToLastEditLocation.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToLastEditLocation.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToLastEditLocation.ToolbarItem.Caption = null;
+      this.actReSharperGoToLastEditLocation.ToolbarItem.Image = null;
       this.actReSharperGoToLastEditLocation.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToLastEditLocation_Execute);
       // 
       // actReSharperGoToDeclaration
@@ -282,6 +357,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperGoToDeclaration.Description = "Compatible with ReSharper\'s \"Go to declaration\" feature.";
       this.actReSharperGoToDeclaration.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToDeclaration.Image")));
       this.actReSharperGoToDeclaration.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToDeclaration.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToDeclaration.ToolbarItem.Caption = null;
+      this.actReSharperGoToDeclaration.ToolbarItem.Image = null;
       this.actReSharperGoToDeclaration.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToDeclaration_Execute);
       // 
       // actReSharperViewRecentFiles
@@ -291,6 +369,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperViewRecentFiles.Description = "Compatible with ReSharper\'s \"View recent files\" feature.";
       this.actReSharperViewRecentFiles.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperViewRecentFiles.Image")));
       this.actReSharperViewRecentFiles.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperViewRecentFiles.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperViewRecentFiles.ToolbarItem.Caption = null;
+      this.actReSharperViewRecentFiles.ToolbarItem.Image = null;
       this.actReSharperViewRecentFiles.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperViewRecentFiles_Execute);
       // 
       // actReSharperRefactorThis
@@ -300,6 +381,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperRefactorThis.Description = "Compatible with ReSharper\'s \"Refactor this\" feature.";
       this.actReSharperRefactorThis.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperRefactorThis.Image")));
       this.actReSharperRefactorThis.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperRefactorThis.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperRefactorThis.ToolbarItem.Caption = null;
+      this.actReSharperRefactorThis.ToolbarItem.Image = null;
       this.actReSharperRefactorThis.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperRefactorThis_Execute);
       // 
       // actReSharperRename
@@ -309,6 +393,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperRename.Description = "Compatible with ReSharper\'s \"Rename\" refactoring.";
       this.actReSharperRename.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperRename.Image")));
       this.actReSharperRename.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperRename.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperRename.ToolbarItem.Caption = null;
+      this.actReSharperRename.ToolbarItem.Image = null;
       this.actReSharperRename.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperRename_Execute);
       // 
       // actReSharperExtractMethod
@@ -318,6 +405,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperExtractMethod.Description = "Compatible with ReSharper\'s \"Extract method\" refactoring.";
       this.actReSharperExtractMethod.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperExtractMethod.Image")));
       this.actReSharperExtractMethod.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperExtractMethod.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperExtractMethod.ToolbarItem.Caption = null;
+      this.actReSharperExtractMethod.ToolbarItem.Image = null;
       this.actReSharperExtractMethod.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperExtractMethod_Execute);
       // 
       // actReSharperIntroduceVariable
@@ -327,6 +417,9 @@ namespace CR_ReSharperCompatibility
       this.actReSharperIntroduceVariable.Description = "Compatible with ReSharper\'s \"Introduce variable\" refactoring.";
       this.actReSharperIntroduceVariable.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperIntroduceVariable.Image")));
       this.actReSharperIntroduceVariable.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperIntroduceVariable.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperIntroduceVariable.ToolbarItem.Caption = null;
+      this.actReSharperIntroduceVariable.ToolbarItem.Image = null;
       this.actReSharperIntroduceVariable.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperIntroduceVariable_Execute);
       // 
       // actReSharperEncapsulateField
@@ -336,7 +429,99 @@ namespace CR_ReSharperCompatibility
       this.actReSharperEncapsulateField.Description = "Compatible with ReSharper\'s \"Encapsulate field\" refactoring.";
       this.actReSharperEncapsulateField.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperEncapsulateField.Image")));
       this.actReSharperEncapsulateField.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperEncapsulateField.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperEncapsulateField.ToolbarItem.Caption = null;
+      this.actReSharperEncapsulateField.ToolbarItem.Image = null;
       this.actReSharperEncapsulateField.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperEncapsulateField_Execute);
+      // 
+      // actReSharperCommentWithLineComment
+      // 
+      this.actReSharperCommentWithLineComment.ActionName = "ReSharper.CommentWithLineComment";
+      this.actReSharperCommentWithLineComment.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+      this.actReSharperCommentWithLineComment.Description = "Compatible with ReSharper\'s \"Comment with line comment\" feature.";
+      this.actReSharperCommentWithLineComment.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperCommentWithLineComment.Image")));
+      this.actReSharperCommentWithLineComment.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperCommentWithLineComment.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperCommentWithLineComment.ToolbarItem.Caption = null;
+      this.actReSharperCommentWithLineComment.ToolbarItem.Image = null;
+      this.actReSharperCommentWithLineComment.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperCommentWithLineComment_Execute);
+      // 
+      // actReSharperGoToBookmark
+      // 
+      this.actReSharperGoToBookmark.ActionName = "ReSharper.GoToBookmark";
+      this.actReSharperGoToBookmark.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+      this.actReSharperGoToBookmark.Description = "Compatible with ReSharper\'s \"Go to bookmark\" feature.";
+      this.actReSharperGoToBookmark.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToBookmark.Image")));
+      this.actReSharperGoToBookmark.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      parameter1.DefaultValue = "";
+      parameter1.Description = null;
+      parameter1.Name = "IndexName";
+      parameter1.Optional = false;
+      this.actReSharperGoToBookmark.Parameters.Add(parameter1);
+      this.actReSharperGoToBookmark.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToBookmark.ToolbarItem.Caption = null;
+      this.actReSharperGoToBookmark.ToolbarItem.Image = null;
+      this.actReSharperGoToBookmark.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToBookmark_Execute);
+      // 
+      // actReSharperSetRemoveBookmark
+      // 
+      this.actReSharperSetRemoveBookmark.ActionName = "ReSharper.SetRemoveBookmark";
+      this.actReSharperSetRemoveBookmark.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+      this.actReSharperSetRemoveBookmark.Description = "Compatible with ReSharper\'s \"Set/Remove bookmark\" feature.";
+      this.actReSharperSetRemoveBookmark.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperSetRemoveBookmark.Image")));
+      this.actReSharperSetRemoveBookmark.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperSetRemoveBookmark.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperSetRemoveBookmark.ToolbarItem.Caption = null;
+      this.actReSharperSetRemoveBookmark.ToolbarItem.Image = null;
+      this.actReSharperSetRemoveBookmark.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperSetRemoveBookmark_Execute);
+      // 
+      // actReSharperGoToImplementation
+      // 
+      this.actReSharperGoToImplementation.ActionName = "ReSharper.GoToImplementation";
+      this.actReSharperGoToImplementation.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+      this.actReSharperGoToImplementation.Description = "Compatible with ReSharper\'s \"Go to implementation\" feature.";
+      this.actReSharperGoToImplementation.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToImplementation.Image")));
+      this.actReSharperGoToImplementation.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToImplementation.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToImplementation.ToolbarItem.Caption = null;
+      this.actReSharperGoToImplementation.ToolbarItem.Image = null;
+      this.actReSharperGoToImplementation.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToImplementation_Execute);
+      // 
+      // actReSharperGoToNextHighlight
+      // 
+      this.actReSharperGoToNextHighlight.ActionName = "ReSharper.GoToNextHighlight";
+      this.actReSharperGoToNextHighlight.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+      this.actReSharperGoToNextHighlight.Description = "Compatible with ReSharper\'s \"Go to next highlight\" feature.";
+      this.actReSharperGoToNextHighlight.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToNextHighlight.Image")));
+      this.actReSharperGoToNextHighlight.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToNextHighlight.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToNextHighlight.ToolbarItem.Caption = null;
+      this.actReSharperGoToNextHighlight.ToolbarItem.Image = null;
+      this.actReSharperGoToNextHighlight.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToNextHighlight_Execute);
+      // 
+      // actReSharperGoToPreviousHighlight
+      // 
+      this.actReSharperGoToPreviousHighlight.ActionName = "ReSharper.GoToPreviousHighlight";
+      this.actReSharperGoToPreviousHighlight.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+      this.actReSharperGoToPreviousHighlight.Description = "Compatible with ReSharper\'s \"Go to previous highlight\" feature.";
+      this.actReSharperGoToPreviousHighlight.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperGoToPreviousHighlight.Image")));
+      this.actReSharperGoToPreviousHighlight.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperGoToPreviousHighlight.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperGoToPreviousHighlight.ToolbarItem.Caption = null;
+      this.actReSharperGoToPreviousHighlight.ToolbarItem.Image = null;
+      this.actReSharperGoToPreviousHighlight.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperGoToPreviousHighlight_Execute);
+      // 
+      // actReSharperTurnCodeAnalysisOnOff
+      // 
+      this.actReSharperTurnCodeAnalysisOnOff.ActionName = "ReSharper.TurnCodeAnalysisOnOffsHighlight";
+      this.actReSharperTurnCodeAnalysisOnOff.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+      this.actReSharperTurnCodeAnalysisOnOff.Description = "Compatible with ReSharper\'s \"Turn code analysis on/off\" feature.";
+      this.actReSharperTurnCodeAnalysisOnOff.Image = ((System.Drawing.Bitmap)(resources.GetObject("actReSharperTurnCodeAnalysisOnOff.Image")));
+      this.actReSharperTurnCodeAnalysisOnOff.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.actReSharperTurnCodeAnalysisOnOff.ToolbarItem.ButtonIsPressed = false;
+      this.actReSharperTurnCodeAnalysisOnOff.ToolbarItem.Caption = null;
+      this.actReSharperTurnCodeAnalysisOnOff.ToolbarItem.Image = null;
+      this.actReSharperTurnCodeAnalysisOnOff.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actReSharperTurnCodeAnalysisOnOff_Execute);
       ((System.ComponentModel.ISupportInitialize)(this.actReSharperExtendSelection)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.actReSharperShrinkSelection)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.actReSharperDuplicateLine)).EndInit();
@@ -364,6 +549,13 @@ namespace CR_ReSharperCompatibility
       ((System.ComponentModel.ISupportInitialize)(this.actReSharperExtractMethod)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.actReSharperIntroduceVariable)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.actReSharperEncapsulateField)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperCommentWithLineComment)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperGoToBookmark)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperSetRemoveBookmark)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperGoToImplementation)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperGoToNextHighlight)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperGoToPreviousHighlight)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.actReSharperTurnCodeAnalysisOnOff)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
     }
@@ -397,5 +589,12 @@ namespace CR_ReSharperCompatibility
     private DevExpress.CodeRush.Core.Action actReSharperExtractMethod;
     private DevExpress.CodeRush.Core.Action actReSharperIntroduceVariable;
     private DevExpress.CodeRush.Core.Action actReSharperEncapsulateField;
+    private DevExpress.CodeRush.Core.Action actReSharperCommentWithLineComment;
+    private DevExpress.CodeRush.Core.Action actReSharperGoToBookmark;
+    private DevExpress.CodeRush.Core.Action actReSharperSetRemoveBookmark;
+    private DevExpress.CodeRush.Core.Action actReSharperGoToImplementation;
+    private DevExpress.CodeRush.Core.Action actReSharperGoToNextHighlight;
+    private DevExpress.CodeRush.Core.Action actReSharperGoToPreviousHighlight;
+    private DevExpress.CodeRush.Core.Action actReSharperTurnCodeAnalysisOnOff;
   }
 }
