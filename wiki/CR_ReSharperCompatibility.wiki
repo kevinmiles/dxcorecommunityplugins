@@ -15,9 +15,13 @@ Also you can type "%!AppData%\!CodeRush for VS.Net\" into your address bar and h
 = Support =
 Several Resharper functions are now supported:
 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ReSharperCompatibility/Screenshots/ResharperKeys1.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ReSharperCompatibility/Screenshots/ShortcutVS1.png
 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ReSharperCompatibility/Screenshots/ResharperKeys2.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ReSharperCompatibility/Screenshots/ShortcutVS2.png
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ReSharperCompatibility/Screenshots/ShorctutsIntelliJ1.png
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ReSharperCompatibility/Screenshots/ShorctutsIntelliJ1.png
 
 = Source = 
 Coderush, like this plugin, is build on top of the [http://devexpress.com/dxcore DXCore] and the source to this plugin as with all [http://code.google.com/p/dxcorecommunityplugins others on this site] is available free to all.
