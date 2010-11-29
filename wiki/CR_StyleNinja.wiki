@@ -28,7 +28,7 @@ The following rules are implemented at this time:
  * SA13XX - Naming
    * SA1300 - Namespace, Class, Structure, Enum, Delegate, Event, Method and Property names must begin with an uppercase character.
    * SA1302 - Interface names must begin with I
-   * SA1304 - NonPrivate Readonly fields must begin with an uppercase character
+   * SA1304 - Non-Private Readonly fields must begin with an uppercase character
    * SA1305 - Field names must not use Hungarian Notation.
    * SA1306 - Internal Field names must begin with a lowercase character
    * SA1307 - External Field names must begin with an uppercase character
