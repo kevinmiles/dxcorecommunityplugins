@@ -18,22 +18,13 @@ This plugin does not provide it's own options screen at the moment. It will howe
 
 The following rules are implemented at this time:
 
- * Fields start with {{{<YourPreferenceHere>}}}
- * Locals start with {{{<YourPreferenceHere>}}}
- * Params start with {{{<YourPreferenceHere>}}}
- * Interfaces start with 'I'
- * Elements start with uppercase char: 
-   * Namespaces
-   * Classes
-   * Structs
-   * Enums
-   * Methods
-   * Properties
-   * Delegates
-   * Events
+ * Naming (!CodeRush settings based).
+   * Fields start with {{{<YourPreferenceHere>}}}
+   * Locals start with {{{<YourPreferenceHere>}}}
+   * Params start with {{{<YourPreferenceHere>}}}
  * SA11XX - Readability
-    * SA1100 - Do not prefix calls with Base or MyBase unless a local implementation exists.
-    * SA1101 - Prefix local calls this or Me.
+   * SA1100 - Do not prefix calls with Base or MyBase unless a local implementation exists.
+   * SA1101 - Prefix local calls this or Me.
  * SA13XX - Naming
    * SA1300 - Namespace, Class, Structure, Enum, Delegate, Event, Method and Property names must begin with an uppercase character.
    * SA1302 - Interface names must begin with I
@@ -45,16 +36,16 @@ The following rules are implemented at this time:
    * SA1309 - Field names should not begin with {{{_}}}
    * SA1310 - Field names should not contain {{{_}}}
  * SA14XX - Maintainability
-    * SA1400 - Access Modifier Must Be Declared.
-    * SA1401 - Fields must be Private
-    * SA1402 - (Partial) Files must only contain a single Class
-    * SA1403 - (Partial) Files must only contain a single Namespace
-    * SA1404 - (No fix Possible) SuppressMessage attribute does not include a justification
-    * SA1405 - (No fix Possible) Debug.Assert does not include a message
-    * SA1406 - (Impossible Rule) Debug.Fail() does not specify a descriptive message
-    * SA1409 - Remove Unnecessary Code
+   * SA1400 - Access Modifier Must Be Declared.
+   * SA1401 - Fields must be Private
+   * SA1402 - (Partial) Files must only contain a single Class
+   * SA1403 - (Partial) Files must only contain a single Namespace
+   * SA1404 - (No fix Possible) SuppressMessage attribute does not include a justification
+   * SA1405 - (No fix Possible) Debug.Assert does not include a message
+   * SA1406 - (Impossible Rule) Debug.Fail() does not specify a descriptive message
+   * SA1409 - Remove Unnecessary Code
  * SA15XX - Layout
-    * SA1507 - Multiple Blank Lines are Bad.
+   * SA1507 - Multiple Blank Lines are Bad.
 = History = 
  * Build 1342 - New rules implemented.
    * Readability rules - SA1101 and SA1100
