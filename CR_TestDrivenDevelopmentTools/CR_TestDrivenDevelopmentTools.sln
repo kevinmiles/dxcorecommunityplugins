@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_TestDrivenDevelopmentTools", "CR_TestDrivenDevelopmentTools\CR_TestDrivenDevelopmentTools.csproj", "{C0B6A238-6D82-49ED-96A2-DE3C328677AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDrivenDevelopmentTools.Test", "TestDrivenDevelopmentTools.Test\TestDrivenDevelopmentTools.Test.csproj", "{CEAA548D-5AFA-45A7-AA22-E2BF254205EF}"
