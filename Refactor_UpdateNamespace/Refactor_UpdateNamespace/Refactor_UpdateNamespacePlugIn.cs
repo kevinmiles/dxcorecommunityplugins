@@ -120,7 +120,7 @@ namespace Refactor_UpdateNamespace
 
         private bool ShouldBeAvailable(SourcePoint caret)
         {
-            return NamespaceShouldBeUpdated(CodeRush.Source.ActiveFileNode.GetNodeAt(caret), ExpectedNamespace(CodeRush.Source.ActiveFileNode.Project, CodeRush.Documents.ActiveTextDocument.Path));
+            return NamespaceShouldBeUpdated(CodeRush.Source.ActiveFileNode.GetNodeAt(caret), ExpectedNamespace(CodeRush.Source.ActiveFileNode.Project as ProjectElement, CodeRush.Documents.ActiveTextDocument.Path));
         }
 
         private IEnumerable<TextRange> GetNameSpaceRanges(ISourceFile scope, INamespaceElement namespaceElement)
@@ -160,9 +160,10 @@ namespace Refactor_UpdateNamespace
                 do
                 {
                     childNamespace = temp;
-                    temp = (from child in childNamespace.Namespaces.Cast<INamespaceElement>() where
-                        (from tempRange in GetNameSpaceRanges(scope, child) where tempRange.End.Line == range.Start.Line select range).Any()
-                        select child).FirstOrDefault();
+                    temp = (from child in childNamespace.Namespaces.Cast<INamespaceElement>()
+                            where
+                                (from tempRange in GetNameSpaceRanges(scope, child) where tempRange.End.Line == range.Start.Line select range).Any()
+                            select child).FirstOrDefault();
                 }
                 while (temp != null);
 
