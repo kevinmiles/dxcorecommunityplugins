@@ -18,6 +18,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NDepend) = preSolution
-		Project = ".\CR_SmartQuotes.ndproj"
+		Project = ""
 	EndGlobalSection
 EndGlobal
