@@ -1,6 +1,5 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class EasyFields_Options
-    Inherits DevExpress.CodeRush.Core.OptionsPage
 
     <System.Diagnostics.DebuggerNonUserCode()> _
     Public Sub New()
