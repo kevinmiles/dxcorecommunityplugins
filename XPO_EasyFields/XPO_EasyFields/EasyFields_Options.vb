@@ -6,6 +6,7 @@ Imports System.Xml
 
 <UserLevel(UserLevel.NewUser)> _
 Public Class EasyFields_Options
+    Inherits DevExpress.CodeRush.Core.OptionsPage
 
     'DXCore-generated code...
 #Region " Initialize "

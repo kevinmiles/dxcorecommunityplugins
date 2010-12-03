@@ -41,6 +41,8 @@ Namespace Helpers
                 End If
                 If DeclaredTypeElement.FullName.Replace("`1", "") = type OrElse DeclaredTypeElement.DescendsFrom(type) Then 'dodgy hack to get around generic
                     Return True
+                Else
+                    Return False
                 End If
             End Function
 
