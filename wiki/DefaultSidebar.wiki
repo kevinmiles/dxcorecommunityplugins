@@ -33,6 +33,7 @@
     * [CR_NavigateToDefinition]
     * [CR_ClearAllMarkers]
     * [CR_MarkerCloseOnCollect]
+    * [DX_TabNav]
   * Decorative Plugins
     * [CR_MethodPreview]
     * [CR_MetricShader]
