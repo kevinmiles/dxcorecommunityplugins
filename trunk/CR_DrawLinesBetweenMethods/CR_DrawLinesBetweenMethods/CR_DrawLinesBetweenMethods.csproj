@@ -114,17 +114,20 @@
       <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
     </Reference>
     <Reference Include="DevExpress.CodeRush.StructuralParser">
-      <Name>DevExpress.CodeRush.StructuralParser</Name>
       <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.StructuralParser.dll</HintPath>
-      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.CodeRush.VSCore">
       <Name>DevExpress.CodeRush.VSCore</Name>
       <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.VSCore.dll</HintPath>
       <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
     </Reference>
-    <Reference Include="DevExpress.DXCore.Parser, Version=10.2.3.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.DXCore.Platform, Version=10.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3, Version=10.2.3.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 2010.2\IDETools\System\DXCore\BIN\DevExpress.DXCore.Controls.Utils.v6.3.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.DXCore.Parser" />
+    <Reference Include="DevExpress.DXCore.Platform">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="EnvDTE">
