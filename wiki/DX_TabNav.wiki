@@ -7,7 +7,7 @@ Allows VB.Net users to tab between the start and end of blocks.
 
 Supported blocks include Namespaces, Classes, Interfaces, Methods, Properties, Ifs, do..Whiles and others.
 
-C# is explicitly enabled for only VB.Net as this functionality is provided naively by visual studio for C# and other brace-based languages.
+Support is explicitly enabled for only VB.Net as this functionality is provided naively by visual studio for C# and other brace-based languages via the Ctrl+] key combo
 
 = Configuration = 
 Make sure that you [http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx bind the {tab} key] to the "!TabNav" command.
