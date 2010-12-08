@@ -9,22 +9,22 @@ Public Class Options1
     Public Const SETTING_MOVE_SOURCE As String = "MoveSource"
     Public Const SETTING_SWAP_ELEMENTS As String = "SwapElements"
 
-	'DXCore-generated code...
+    'DXCore-generated code...
 #Region " Initialize "
-	Protected Overrides Sub Initialize()
-		MyBase.Initialize()
+    Protected Overrides Sub Initialize()
+        MyBase.Initialize()
 
-		'TODO: Add your initialization code here.
-	End Sub
+        'TODO: Add your initialization code here.
+    End Sub
 #End Region
 
 #Region " GetCategory "
-	Public Shared Function GetCategory() As String
-		Return "IDE"
-	End Function
+    Public Shared Function GetCategory() As String
+        Return "IDE"
+    End Function
 #End Region
 #Region " GetPageName "
-	Public Shared Function GetPageName() As String
+    Public Shared Function GetPageName() As String
         Return SECTION_MOVE_CODE
     End Function
 #End Region
