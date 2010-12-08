@@ -1,12 +1,6 @@
 Option Infer On
-Imports System.ComponentModel
-Imports System.Drawing
-Imports System.Windows.Forms
-Imports DevExpress.CodeRush
 Imports DevExpress.CodeRush.Core
-Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
-Imports System.Runtime.CompilerServices
 
 Public Class MoverSwapElements
     Implements IStatementMover
@@ -22,10 +16,19 @@ Public Class MoverSwapElements
 #End Region
 #Region "IStatementMover"
     Public Function MoveStatementDown(ByVal FirstNodeOnLine As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementDown
-        Call MoveElementDown(FirstNodeOnLine.GetParentStatementOrVariable)
+        Call SwapElementWithNextSibling(FirstNodeOnLine.GetParentStatementOrVariable)
     End Function
     Public Function MoveStatementUp(ByVal FirstNodeOnLine As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementUp
-        Call MoveElementUp(FirstNodeOnLine.GetParentStatementOrVariable)
+        Call SwapElementWithPreviousSibling(FirstNodeOnLine.GetParentStatementOrVariable)
+    End Function
+
+    Public Function MoveStatementLeft(ByVal Statement As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementLeft
+        If Statement IsNot Nothing Then
+            Dim ParentBlock As Statement = TryCast(GetParentBlock(Statement), Statement)
+            If ParentBlock IsNot Nothing Then
+                Call MoveElementsToPoint(Statement.ToList, ParentBlock.GetFullBlockCutRange.Start)
+            End If
+        End If
     End Function
     Public Function MoveStatementRight(ByVal Statement As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementRight
         If Statement IsNot Nothing Then
@@ -35,38 +38,30 @@ Public Class MoverSwapElements
             End If
         End If
     End Function
-    Public Function MoveStatementLeft(ByVal Statement As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementLeft
-        If Statement IsNot Nothing Then
-            Dim ParentBlock As Statement = TryCast(GetParentBlock(Statement), Statement)
-            If ParentBlock IsNot Nothing Then
-                Call MoveElementsToPoint(Statement.ToList, ParentBlock.GetFullBlockCutRange.Start)
-            End If
-        End If
-    End Function
 #End Region
 #Region "ISelectionMover"
-    Public Function MoveSelectionDown(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionDown
+    Public Function MoveSelectionDown(ByVal Selection As SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionDown
         Dim Sibling As LanguageElement = Selection.GetNextCodeElement()
         Call SwapRanges(Selection, Sibling.GetFullBlockCutRange)
         CodeRush.Selection.SelectRange(Selection.OffsetRange(Sibling.Range.Height, 0))
     End Function
-    Public Function MoveSelectionUp(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionUp
+    Public Function MoveSelectionUp(ByVal Selection As SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionUp
         Dim Sibling As LanguageElement = Selection.GetPriorCodeElement()
         Call SwapRanges(Selection, Sibling.GetFullBlockCutRange)
         CodeRush.Selection.SelectRange(Selection.OffsetRange(-Sibling.Range.Height, 0))
     End Function
 
-    Public Function MoveSelectionRight(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionRight
+    Public Function MoveSelectionRight(ByVal Selection As SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionRight
         Call SwapRanges(Selection, Selection.GetNextBlockSibling.Range)
     End Function
 
-    Public Function MoveSelectionLeft(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionLeft
+    Public Function MoveSelectionLeft(ByVal Selection As SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionLeft
         Call SwapRanges(Selection, Selection.GetParentBlock.Range)
     End Function
 
 #End Region
 #Region "ElementMethods"
-    Private Sub MoveElementUp(ByVal Element As LanguageElement)
+    Private Sub SwapElementWithPreviousSibling(ByVal Element As LanguageElement)
         If Element IsNot Nothing Then
             Dim Sibling = PreviousRealCodeSibling(Element)
             If Sibling IsNot Nothing Then
@@ -76,7 +71,7 @@ Public Class MoverSwapElements
             End If
         End If
     End Sub
-    Private Sub MoveElementDown(ByVal Element As LanguageElement)
+    Private Sub SwapElementWithNextSibling(ByVal Element As LanguageElement)
         If Element IsNot Nothing Then
             Dim Sibling = NextRealCodeSibling(Element)
             If Sibling IsNot Nothing Then
