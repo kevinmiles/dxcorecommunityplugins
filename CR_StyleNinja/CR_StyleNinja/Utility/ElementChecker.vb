@@ -53,7 +53,8 @@ Public Class ElementChecker
         If ea.Scope.ToLE IsNot Nothing Then
             Dim Finder = From e In GetFinder(ea.Scope) Where mQualifier.Invoke(e)
             For Each FoundItem In Finder
-                ea.AddHint(DecorateRange(FoundItem), mIssueMessage)
+                'Todo: Find a way to provide a configurable custom color for StyleCop Violations
+                ea.AddIssue(CodeIssueType.Hint, DecorateRange(FoundItem), mIssueMessage)
             Next
         End If
     End Sub
