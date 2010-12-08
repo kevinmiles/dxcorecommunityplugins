@@ -100,7 +100,10 @@ Namespace SA13XX
             If Not Variable.IsField Then
                 Return False
             End If
-            Return Not ((isPublicOrInternal(Variable) OrElse (isPrivateReadonly(Variable)))) AndAlso StartsUpper(Variable)
+            Return Not ((isPublicOrInternal(Variable) _
+                         OrElse Variable.IsConst _
+                         OrElse (isPrivateReadonly(Variable)))) _
+                 AndAlso StartsUpper(Variable)
         End Function
 #End Region
 #Region "Qualifies_SA1307"
