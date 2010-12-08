@@ -83,6 +83,9 @@ Public Class PlugIn1
                 DestRange = mStatementMover.MoveStatementDown(FirstNodeOnLine)
             Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent ' Member
                 DestRange = mMemberMover.MoveMemberDown(FirstNodeOnLine)
+                ' This Case Fails if there is no visibility specifier
+                ' This is because the firstNodeOnLine is a child of the next node rather than of the type.
+
             Case FirstNodeOnLine.Parent.ElementType = LanguageElementType.SourceFile ' Type
                 DestRange = mMemberMover.MoveMemberDown(FirstNodeOnLine)
             Case Else
