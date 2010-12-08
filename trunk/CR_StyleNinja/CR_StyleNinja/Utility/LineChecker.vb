@@ -23,7 +23,8 @@ Public Class LineChecker
             For Each Range As SourceRange In ea.Scope.Ranges
                 For Line = Range.Top.Line To Range.Bottom.Line
                     If mQualifier.Invoke(Line) Then
-                        ea.AddHint(New SourceRange(Line, 1, Line, 2), mIssueMessage)
+                        'Todo: Find a way to provide a configurable custom color for StyleCop Violations
+                        ea.AddIssue(CodeIssueType.Hint, New SourceRange(Line, 1, Line, 2), mIssueMessage)
                     End If
                 Next
             Next
