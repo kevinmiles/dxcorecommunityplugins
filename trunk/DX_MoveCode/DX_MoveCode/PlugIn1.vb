@@ -46,6 +46,27 @@ Public Class PlugIn1
         mSelectionMover = Mover
     End Sub
 #End Region
+#Region "Context"
+    Private Function MultipleLinesSelected() As Boolean
+        Return CodeRush.Documents.ActiveTextView.Selection.Height > 1
+    End Function
+    Private Function CaretOnType() As Boolean
+        Dim FirstNodeOnLine = GetFirstNodeOnCaretLine()
+        Return FirstNodeOnLine.Parent.ElementType = LanguageElementType.SourceFile
+    End Function
+    Private Function CaretOnStatement() As Boolean
+        Dim FirstNodeOnLine = GetFirstNodeOnCaretLine()
+        Return CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable)
+    End Function
+    Private Function CaretOnMember() As Boolean
+        'Return CodeRush.Caret.
+        Dim FirstNodeOnLine = GetFirstNodeOnCaretLine()
+        Return FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
+        ' This Case Fails if there is no visibility specifier
+        ' This is because the firstNodeOnLine is a child of the next node rather than of the type.
+    End Function
+#End Region
+
 #Region "Move Code Actions"
 #Region "Up / Down"
     'Private Sub cmdMoveCodeDown_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeDown.Execute
@@ -72,21 +93,18 @@ Public Class PlugIn1
     'End Sub
     Private Sub cmdMoveCodeDown_Execute(ByVal ea As ExecuteEventArgs) Handles cmdMoveCodeDown.Execute
         Log.SendMsg("MoveCodeDown: Started")
-        Dim FirstNodeOnLine = GetFirstNodeOnLine(CodeRush.Caret.Line)
+        Dim FirstNodeOnLine = GetFirstNodeOnCaretLine()
         Dim Selection = CodeRush.Documents.ActiveTextView.Selection
         Dim DestRange As SourceRange
         Select Case True
             Case Selection.Height > 1 'Selection
                 Selection.ExtendToWholeLines()
                 DestRange = mSelectionMover.MoveSelectionDown(Selection.Range)
-            Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable) ' Statement 
+            Case CaretOnStatement() ' Statement 
                 DestRange = mStatementMover.MoveStatementDown(FirstNodeOnLine)
-            Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent ' Member
+            Case CaretOnMember() ' Member
                 DestRange = mMemberMover.MoveMemberDown(FirstNodeOnLine)
-                ' This Case Fails if there is no visibility specifier
-                ' This is because the firstNodeOnLine is a child of the next node rather than of the type.
-
-            Case FirstNodeOnLine.Parent.ElementType = LanguageElementType.SourceFile ' Type
+            Case CaretOnType()
                 DestRange = mMemberMover.MoveMemberDown(FirstNodeOnLine)
             Case Else
                 Exit Sub
@@ -101,14 +119,14 @@ Public Class PlugIn1
         Dim Selection = CodeRush.Documents.ActiveTextView.Selection
         Dim DestRange As SourceRange
         Select Case True
-            Case Selection.Height > 1 'Selection
+            Case MultipleLinesSelected()
                 Selection.ExtendToWholeLines()
                 DestRange = mSelectionMover.MoveSelectionUp(Selection.Range)
-            Case CodeRush.Source.IsStatement(FirstNodeOnLine.GetParentStatementOrVariable) ' Statement
+            Case CaretOnStatement()
                 DestRange = mStatementMover.MoveStatementUp(FirstNodeOnLine)
-            Case FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent ' Member
+            Case CaretOnMember()
                 DestRange = mMemberMover.MoveMemberUp(FirstNodeOnLine)
-            Case CodeRush.Source.IsType(FirstNodeOnLine.Parent) ' Type
+            Case CaretOnType()
                 DestRange = mMemberMover.MoveMemberUp(FirstNodeOnLine)
             Case Else
                 Exit Sub
@@ -197,6 +215,9 @@ Public Class PlugIn1
     End Sub
 #End Region
 #Region "Utility"
+    Private Function GetFirstNodeOnCaretLine() As LanguageElement
+        Return GetFirstNodeOnLine(CodeRush.Caret.Line)
+    End Function
     Private Sub MoveCaretToElement(ByVal Destination As LanguageElement)
         If Destination IsNot Nothing Then
             CodeRush.Caret.MoveTo(Destination.Range.Start)
