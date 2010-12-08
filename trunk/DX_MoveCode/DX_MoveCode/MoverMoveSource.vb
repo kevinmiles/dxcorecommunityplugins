@@ -1,12 +1,6 @@
 Option Infer On
-Imports System.ComponentModel
-Imports System.Drawing
-Imports System.Windows.Forms
-Imports DevExpress.CodeRush
 Imports DevExpress.CodeRush.Core
-Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
-Imports System.Runtime.CompilerServices
 
 
 Public Class MoverMoveSource
@@ -14,7 +8,7 @@ Public Class MoverMoveSource
     Implements IMemberMover
     Implements ISelectionMover
 
-#Region "MemberMethods"
+#Region "IMemberMover"
     Public Function MoveMemberUp(ByVal FirstNodeOnLine As LanguageElement) As SourceRange Implements IMemberMover.MoveMemberUp
         Return MoveSourceElementUp(FirstNodeOnLine, "")
     End Function
@@ -22,8 +16,7 @@ Public Class MoverMoveSource
         Return MoveSourceElementDown(FirstNodeOnLine, "")
     End Function
 #End Region
-#Region "StatementMethods"
-
+#Region "IStatementMover"
     Public Function MoveStatementDown(ByVal Statement As LanguageElement) As SourceRange Implements IStatementMover.MoveStatementDown
         Return MoveSourceElementDown(Statement.GetParentStatementOrVariable, "")
     End Function
@@ -34,8 +27,8 @@ Public Class MoverMoveSource
         If Statement IsNot Nothing Then
             Dim ParentBlock As Statement = TryCast(GetParentBlock(Statement), Statement)
             If ParentBlock IsNot Nothing Then
-                Dim Destination As SourcePoint = ParentBlock.GetFullBlockCutRange.Start
-                Dim MovingRange As SourceRange = Statement.ToList.GetSuperRange
+                Dim Destination = ParentBlock.GetFullBlockCutRange.Start
+                Dim MovingRange = Statement.ToList.GetSuperRange
                 MoveRangeLeft(MovingRange, Destination, String.Empty)
                 Return MovingRange.OffsetRange(Destination.Subtract(MovingRange.Start))
             End If
@@ -46,8 +39,8 @@ Public Class MoverMoveSource
         If Statement IsNot Nothing Then
             Dim NextBlock = GetNextBlockSibling(Statement)
             If NextBlock IsNot Nothing Then
-                Dim Destination As SourcePoint = GetInsertPoint(NextBlock).LineStart
-                Dim MovingRange As SourceRange = Statement.ToList.GetSuperRange
+                Dim Destination = GetInsertPoint(NextBlock).LineStart
+                Dim MovingRange = Statement.ToList.GetSuperRange
                 MoveRangeRight(MovingRange, Destination, "")
                 Return MovingRange.OffsetRange(Destination.Subtract(MovingRange.Start))
             End If
@@ -55,9 +48,8 @@ Public Class MoverMoveSource
         Return Nothing
     End Function
 #End Region
-#Region "Selection Methods"
-
-    Public Function MoveSelectionDown(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionDown
+#Region "ISelectionMover"
+    Public Function MoveSelectionDown(ByVal Selection As SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionDown
         ' Locate Next Sibling of first element on last line of selection
         Dim Sibling = Selection.GetNextCodeElement()
         If Sibling IsNot Nothing Then
@@ -70,7 +62,7 @@ Public Class MoverMoveSource
         Return Nothing
     End Function
 
-    Public Function MoveSelectionUp(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionUp
+    Public Function MoveSelectionUp(ByVal Selection As SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionUp
         Dim Sibling = Selection.GetPriorCodeElement()
         If Sibling IsNot Nothing Then
             Dim Destination = Sibling.Range.Start.LineStart
@@ -81,7 +73,7 @@ Public Class MoverMoveSource
         End If
         Return Nothing
     End Function
-    Public Function MoveSelectionRight(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionRight
+    Public Function MoveSelectionRight(ByVal Selection As SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionRight
         Dim NextBlock As ParentingStatement = GetNextBlockSibling(Selection)
         If NextBlock IsNot Nothing Then
             Dim StartLine = Selection.Top.Line
@@ -94,7 +86,7 @@ Public Class MoverMoveSource
         End If
         Return Nothing
     End Function
-    Public Function MoveSelectionLeft(ByVal Selection As DevExpress.CodeRush.StructuralParser.SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionLeft
+    Public Function MoveSelectionLeft(ByVal Selection As SourceRange) As SourceRange Implements ISelectionMover.MoveSelectionLeft
         Dim ParentBlock As Statement = GetParentBlock(Selection)
         If ParentBlock IsNot Nothing Then
             Dim StartLine = Selection.Top.Line

@@ -1,13 +1,6 @@
 Option Infer On
-Imports System.ComponentModel
-Imports System.Drawing
-Imports System.Windows.Forms
-Imports DevExpress.CodeRush
 Imports DevExpress.CodeRush.Core
-Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
-Imports System.Runtime.CompilerServices
-
 
 Public Class MoverMoveDestination
     Implements IStatementMover
