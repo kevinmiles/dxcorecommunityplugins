@@ -21,14 +21,24 @@ Namespace SA14XX
             Return ASE.VisibilityRange <> SourceRange.Empty
         End Function
 #End Region
+        Public Enum test
+            Item1
+            Item2
+
+        End Enum
+
 #Region "SA1400 + Fix"
         Public Const Message_SA1400 As String = "SA1400 - Access Modifier Must Be Declared"
         Public Sub SA1400_Available(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
             ea.Available = Qualifies_SA1400(ea.CodeActive)
         End Sub
         Public Function Qualifies_SA1400(ByVal Element As IElement) As Boolean
+            If TypeOf Element Is EnumElement Then
+                ' Work around DXCore bug which thinks EnumElement is an AccessSpecifiedElement
+                Return False
+            End If
             Return ShouldHaveExplicitVisibility(Element) _
-                    AndAlso Not HasExplicitVisibility(Element)
+                   AndAlso Not HasExplicitVisibility(Element)
         End Function
         Private Function ShouldHaveExplicitVisibility(ByVal Element As IElement) As Boolean
             ' Exclude if not AccessSpecifiedElement
