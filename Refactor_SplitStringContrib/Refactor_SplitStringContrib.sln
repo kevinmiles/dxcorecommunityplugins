@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refactor_SplitStringContrib", "Refactor_SplitStringContrib\Refactor_SplitStringContrib.csproj", "{3B78AB5F-5C15-4702-BA03-50C1B7CC2E00}"
 EndProject
 Global
