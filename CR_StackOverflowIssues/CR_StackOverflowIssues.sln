@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_StackOverflowIssues", "CR_StackOverflowIssues\CR_StackOverflowIssues.csproj", "{96E1F98B-4A3B-4171-B87F-57F897E05710}"
 EndProject
 Global
