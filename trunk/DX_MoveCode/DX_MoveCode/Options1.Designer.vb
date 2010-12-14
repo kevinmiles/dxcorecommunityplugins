@@ -65,7 +65,7 @@ Partial Class Options1
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(61, 35)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(236, 13)
+        Me.Label1.Size = New System.Drawing.Size(239, 13)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Use which algorithm to moving Elements around."
         '
@@ -74,7 +74,7 @@ Partial Class Options1
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(91, 82)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(160, 13)
+        Me.Label2.Size = New System.Drawing.Size(165, 13)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Moves the element at the caret. "
         '
@@ -82,10 +82,10 @@ Partial Class Options1
         '
         Me.Label3.Location = New System.Drawing.Point(91, 119)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(313, 49)
+        Me.Label3.Size = New System.Drawing.Size(313, 40)
         Me.Label3.TabIndex = 1
-        Me.Label3.Text = "Exchanges the element at the caret, with the another, one place in the direction " & _
-            "of the move."
+        Me.Label3.Text = "Exchanges the element at the caret, with another, one place in the direction of t" & _
+            "he move."
         '
         'Options1
         '

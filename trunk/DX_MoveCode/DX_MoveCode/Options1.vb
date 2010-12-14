@@ -46,4 +46,7 @@ Public Class Options1
         ea.Storage.WriteBoolean(SECTION_MOVE_CODE, SETTING_SWAP_ELEMENTS, optSwapElements.Checked)
     End Sub
 
+    Private Sub Label3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label3.Click
+
+    End Sub
 End Class
