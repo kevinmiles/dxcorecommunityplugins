@@ -64,7 +64,21 @@ Public Class PlugIn1
         Return FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
         ' This Case Fails if there is no visibility specifier
         ' This is because the firstNodeOnLine is a child of the next node rather than of the type.
+        'Return CaretOnMethodSignature() OrElse OnPropertySignature() OrElse OnField()
     End Function
+    Private Function CaretOnMethodSignature() As Boolean
+        Return CodeRush.Caret.OnMethod _
+            AndAlso CodeRush.Caret.SourcePoint.Line = CodeRush.Source.ActiveMethod.StartLine
+    End Function
+    Private Function OnPropertySignature() As Boolean
+        Return CodeRush.Caret.OnProperty _
+            AndAlso CodeRush.Caret.SourcePoint.Line = CodeRush.Source.ActiveProperty.StartLine
+    End Function
+    Private Function OnField() As Boolean
+        Dim BitTypes = New LanguageElementType() {LanguageElementType.BitFieldConst, LanguageElementType.BitFieldVariable}
+        Return BitTypes.Contains(CodeRush.Source.Active.ElementType)
+    End Function
+
 #End Region
 
 #Region "Move Code Actions"
