@@ -60,11 +60,11 @@ Public Class PlugIn1
     End Function
     Private Function CaretOnMember() As Boolean
         'Return CodeRush.Caret.
-        Dim FirstNodeOnLine = GetFirstNodeOnCaretLine()
-        Return FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
+        'Dim FirstNodeOnLine = GetFirstNodeOnCaretLine()
+        'Return FirstNodeOnLine.GetParentClassInterfaceStructOrModule Is FirstNodeOnLine.Parent
         ' This Case Fails if there is no visibility specifier
         ' This is because the firstNodeOnLine is a child of the next node rather than of the type.
-        'Return CaretOnMethodSignature() OrElse OnPropertySignature() OrElse OnField()
+        Return CaretOnMethodSignature() OrElse OnPropertySignature() OrElse OnField()
     End Function
     Private Function CaretOnMethodSignature() As Boolean
         Return CodeRush.Caret.OnMethod _
@@ -117,7 +117,7 @@ Public Class PlugIn1
             Case CaretOnStatement() ' Statement 
                 DestRange = mStatementMover.MoveStatementDown(FirstNodeOnLine)
             Case CaretOnMember() ' Member
-                DestRange = mMemberMover.MoveMemberDown(FirstNodeOnLine)
+                DestRange = mMemberMover.MoveMemberDown(CodeRush.Source.ActiveMember) 'FirstNodeOnLine)
             Case CaretOnType()
                 DestRange = mMemberMover.MoveMemberDown(FirstNodeOnLine)
             Case Else
@@ -139,7 +139,7 @@ Public Class PlugIn1
             Case CaretOnStatement()
                 DestRange = mStatementMover.MoveStatementUp(FirstNodeOnLine)
             Case CaretOnMember()
-                DestRange = mMemberMover.MoveMemberUp(FirstNodeOnLine)
+                DestRange = mMemberMover.MoveMemberUp(CodeRush.Source.ActiveMember)
             Case CaretOnType()
                 DestRange = mMemberMover.MoveMemberUp(FirstNodeOnLine)
             Case Else
