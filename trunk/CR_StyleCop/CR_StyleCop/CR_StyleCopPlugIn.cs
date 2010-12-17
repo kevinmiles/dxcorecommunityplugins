@@ -46,7 +46,7 @@ namespace CR_StyleCop
                 return;
 
             var scope = ea.Scope as SourceFile;
-            if (scope == null)
+            if (scope == null || scope.Document == null)
                 return;
 
             var project = scope.Project as ProjectElement;
