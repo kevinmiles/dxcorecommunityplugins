@@ -12,7 +12,6 @@
 
         public CodeIssueFactory()
         {
-            ElementByNameCodeIssue markElementByItsNameCodeIssue = new ElementByNameCodeIssue();
             this.handlers.Add("SA1600", new SA1600_ElementsMustBeDocumented()); // OK
             this.handlers.Add("SA1601", new SA1601_PartialElementsMustBeDocumented()); // OK
             this.handlers.Add("SA1602", new SA1602_EnumerationItemsMustBeDocumented()); // OK
@@ -93,6 +92,7 @@
             this.handlers.Add("SA1308", new SA1308_VariableNamesMustNotBePrefixed()); // OK
             this.handlers.Add("SA1309", new SA1309_FieldNamesMustNotBeginWithUnderscore()); // OK
             this.handlers.Add("SA1310", new SA1310_FieldNamesMustNotContainUnderscore()); // OK
+            this.handlers.Add("SA1119", new SA1119_StatementMustNotUseUnnecessaryParenthesis());
         }
 
         public ICodeIssue GetIssueFor(Violation violation)
