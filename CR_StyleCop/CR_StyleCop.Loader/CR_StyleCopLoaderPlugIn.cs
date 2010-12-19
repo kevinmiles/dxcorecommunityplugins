@@ -8,16 +8,33 @@ namespace CR_StyleCop.Loader
 
     public partial class CR_StyleCopLoaderPlugIn : StandardPlugIn
     {
+        private bool styleCopLoaded;
+        private bool styleCopCSharpLoaded;
+
         public override void InitializePlugIn()
         {
             base.InitializePlugIn();
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
             foreach (Assembly assembly in assemblies)
             {
-                if (assembly.GetName().Name == "Microsoft.StyleCop")
+                string assemblyName = assembly.GetName().Name;
+                if (assemblyName == "Microsoft.StyleCop")
                 {
-                    LoadCRStyleCopPlugin();
-                    return;
+                    this.styleCopLoaded = true;
+                    if (this.styleCopCSharpLoaded)
+                    {
+                        LoadCRStyleCopPlugin();
+                        return;
+                    }
+                }
+                if (assemblyName == "Microsoft.StyleCop.CSharp")
+                {
+                    this.styleCopCSharpLoaded = true;
+                    if (this.styleCopLoaded)
+                    {
+                        LoadCRStyleCopPlugin();
+                        return;
+                    }
                 }
             }
 
@@ -39,9 +56,24 @@ namespace CR_StyleCop.Loader
 
         private void CurrentDomainAssemblyLoad(object sender, AssemblyLoadEventArgs e)
         {
-            if (e.LoadedAssembly.GetName().Name == "Microsoft.StyleCop")
+            string loadedAssemblyName = e.LoadedAssembly.GetName().Name;
+            if (loadedAssemblyName == "Microsoft.StyleCop")
             {
-                LoadCRStyleCopPlugin();
+                this.styleCopLoaded = true;
+                if (this.styleCopCSharpLoaded)
+                {
+                    LoadCRStyleCopPlugin();
+                    return;
+                }
+            }
+            if (loadedAssemblyName == "Microsoft.StyleCop.CSharp")
+            {
+                this.styleCopCSharpLoaded = true;
+                if (this.styleCopLoaded)
+                {
+                    LoadCRStyleCopPlugin();
+                    return;
+                }
             }
         }
     }
