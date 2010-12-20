@@ -18,6 +18,7 @@
                 ea.AddSmell(new SourceRange(violation.Line, 1, violation.Line, document.LengthOfLine(violation.Line) + 1), message, 10);
                 return;
             }
+
             SourcePoint? startPoint = null;
             SourcePoint? endPoint = null;
             foreach (var token in from token in csElement.ElementTokens
@@ -29,15 +30,18 @@
                     startPoint = endPoint = new SourcePoint(token.Location.StartPoint.LineNumber, token.Location.StartPoint.IndexOnLine + 1);
                     continue;
                 }
+
                 if (token.Text == "{")
                 {
                     if (startPoint != null)
                     {
-                        SourceRange sourceRange = new SourceRange(startPoint.Value, endPoint.Value);
+                        var sourceRange = new SourceRange(startPoint.Value, endPoint.Value);
                         ea.AddSmell(sourceRange, message, 10);
                     }
+
                     return;
                 }
+
                 if (startPoint != null)
                 {
                     endPoint = new SourcePoint(token.Location.EndPoint.LineNumber, token.Location.EndPoint.IndexOnLine + 2);

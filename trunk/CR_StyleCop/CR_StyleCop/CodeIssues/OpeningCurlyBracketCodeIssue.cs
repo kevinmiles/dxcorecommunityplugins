@@ -18,6 +18,7 @@
                 ea.AddSmell(new SourceRange(violation.Line, 1, violation.Line, document.LengthOfLine(violation.Line) + 1), message, 10);
                 return;
             }
+
             foreach (var location in from token in csElement.ElementTokens
                                      where violation.Line == token.Location.StartPoint.LineNumber && token.Text == "{"
                                      select token.Location)
