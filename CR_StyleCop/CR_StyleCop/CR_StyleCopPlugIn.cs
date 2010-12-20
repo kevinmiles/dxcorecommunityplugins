@@ -35,12 +35,12 @@ namespace CR_StyleCop
         private Dictionary<string, List<Violation>> violations = new Dictionary<string, List<Violation>>();
         private CodeIssueFactory factory = new CodeIssueFactory();
 
-        private void styleCopIssueProvider_LanguageSupported(LanguageSupportedEventArgs ea)
+        private void StyleCopIssueProvider_LanguageSupported(LanguageSupportedEventArgs ea)
         {
             ea.Handled = ea.LanguageID.ToLower() == "csharp";
         }
 
-        private void styleCopIssueProvider_CheckCodeIssues(object sender, CheckCodeIssuesEventArgs ea)
+        private void StyleCopIssueProvider_CheckCodeIssues(object sender, CheckCodeIssuesEventArgs ea)
         {
             if (ea.IsSuppressed(ea.Scope))
                 return;
@@ -98,6 +98,7 @@ namespace CR_StyleCop
                 list = new List<Violation>();
                 this.violations.Add(e.Violation.Rule.CheckId, list);
             }
+
             list.Add(e.Violation);
         }
     }

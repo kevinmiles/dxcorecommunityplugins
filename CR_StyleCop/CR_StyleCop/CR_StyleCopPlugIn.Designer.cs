@@ -47,8 +47,8 @@ namespace CR_StyleCop
             this.styleCopIssueProvider.DisplayName = "StyleCop Issues";
             this.styleCopIssueProvider.ProviderName = "StyleCopProvider";
             this.styleCopIssueProvider.Register = true;
-            this.styleCopIssueProvider.LanguageSupported += new DevExpress.CodeRush.Core.LanguageSupportedEventHandler(this.styleCopIssueProvider_LanguageSupported);
-            this.styleCopIssueProvider.CheckCodeIssues += new DevExpress.CodeRush.Core.CheckCodeIssuesEventHandler(this.styleCopIssueProvider_CheckCodeIssues);
+            this.styleCopIssueProvider.LanguageSupported += new DevExpress.CodeRush.Core.LanguageSupportedEventHandler(this.StyleCopIssueProvider_LanguageSupported);
+            this.styleCopIssueProvider.CheckCodeIssues += new DevExpress.CodeRush.Core.CheckCodeIssuesEventHandler(this.StyleCopIssueProvider_CheckCodeIssues);
             ((System.ComponentModel.ISupportInitialize)(this.styleCopIssueProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
