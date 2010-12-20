@@ -62,7 +62,8 @@ Public Class PlugIn1
 
         Dim PartialDoc = TryCast(CodeRush.File.Activate(FilePathAndName), TextDocument)
         Dim PartialClass = LocateClassInFile(TryCast(PartialDoc.FileNode, SourceFile), SourceClass.Name) ' Locate Class Called ClassName in File Filename
-        Dim MovingText = ActiveDoc.GetText(Region.InnerRange)
+        'Dim MovingText = ActiveDoc.GetText(Region.InnerRange)
+        Dim MovingText = ActiveDoc.GetText(Region.GetFullBlockCutRange)
         PartialDoc.InsertText(PartialClass.BlockEnd.Start, MovingText)
         ActiveDoc.DeleteText(Region.GetFullBlockCutRange)
     End Sub
@@ -71,10 +72,9 @@ Public Class PlugIn1
         Return GetClassesInSource(CaretRegion.FileNode).Any(Function(c) CaretRegion.ContainedIn(c.Range))
     End Function
 
-    Private Shared Function GetFilePathAndName(ByVal ActiveDoc As TextDocument, ByVal ClassName As String, ByVal Region As RegionDirective) As String
-        Dim PlugIn1 As New PlugIn1()
+    Private Function GetFilePathAndName(ByVal ActiveDoc As TextDocument, ByVal ClassName As String, ByVal Region As RegionDirective) As String
         Dim Folder = New System.IO.FileInfo(ActiveDoc.FileNode.Name).DirectoryName & "\"
-        Return Folder & PlugIn1.GetPartialFilename(ClassName, Region.Name.OnlyAlphaNumerics())
+        Return Folder & GetPartialFilename(ClassName, Region.Name.OnlyAlphaNumerics())
     End Function
 
     Private Shared Function RegionAtCaret(ByVal File As SourceFile) As RegionDirective
