@@ -54,14 +54,14 @@ Public Class PlugIn1
         CodeRush.Markers.Drop()
         ' Gather references
         Dim ActiveDoc As TextDocument = CodeRush.Documents.ActiveTextDocument
-        Dim ClassName As String = CodeRush.Source.Active.Name
+        Dim SourceClass = TryCast(CodeRush.Source.Active, [Class])
 
         Dim Region = RegionAtCaret(TryCast(ActiveDoc.FileNode, SourceFile))
-        Dim FilePathAndName As String = GetFilePathAndName(ActiveDoc, ClassName, Region)
-        EnsurePartialClassFileExists(CodeRush.Source.ActiveProject, FilePathAndName, ClassName)
+        Dim FilePathAndName As String = GetFilePathAndName(ActiveDoc, SourceClass.Name, Region)
+        EnsurePartialClassFileExists(CodeRush.Source.ActiveProject, FilePathAndName, SourceClass)
 
         Dim PartialDoc = TryCast(CodeRush.File.Activate(FilePathAndName), TextDocument)
-        Dim PartialClass = LocateClassInFile(TryCast(PartialDoc.FileNode, SourceFile), ClassName) ' Locate Class Called ClassName in File Filename
+        Dim PartialClass = LocateClassInFile(TryCast(PartialDoc.FileNode, SourceFile), SourceClass.Name) ' Locate Class Called ClassName in File Filename
         Dim MovingText = ActiveDoc.GetText(Region.InnerRange)
         PartialDoc.InsertText(PartialClass.BlockEnd.Start, MovingText)
         ActiveDoc.DeleteText(Region.GetFullBlockCutRange)
@@ -72,8 +72,9 @@ Public Class PlugIn1
     End Function
 
     Private Shared Function GetFilePathAndName(ByVal ActiveDoc As TextDocument, ByVal ClassName As String, ByVal Region As RegionDirective) As String
+        Dim PlugIn1 As New PlugIn1()
         Dim Folder = New System.IO.FileInfo(ActiveDoc.FileNode.Name).DirectoryName & "\"
-        Return Folder & GetPartialFilename(ClassName, Region.Name.OnlyAlphaNumerics())
+        Return Folder & PlugIn1.GetPartialFilename(ClassName, Region.Name.OnlyAlphaNumerics())
     End Function
 
     Private Shared Function RegionAtCaret(ByVal File As SourceFile) As RegionDirective
@@ -87,18 +88,36 @@ Public Class PlugIn1
         CodeRush.UndoStack.Add(New CreatedFileUndoUnit(FilePathAndName, Code))
     End Sub
 
-    Private Sub EnsurePartialClassFileExists(ByVal Project As ProjectElement, ByVal FilePathAndName As String, ByVal ClassName As String)
-        If Not Project.AllFiles.Contains(FilePathAndName) Then
-            If System.IO.File.Exists(FilePathAndName) Then
-                Dim DeletedFileText = System.IO.File.ReadAllText(FilePathAndName)
-                System.IO.File.Delete(FilePathAndName)
-                CodeRush.UndoStack.Add(New DeletedFileUndoUnit(FilePathAndName, DeletedFileText))
-            End If
-            Call CreateFileWithRootElement(FilePathAndName, GenerateNewPartialClass(ClassName))
-            CodeRush.Solution.AddFileToProject(Project.Name, FilePathAndName)
-            CodeRush.UndoStack.Add(New AddedProjectFileUndoUnit(Project.Name, FilePathAndName))
+    Private Sub EnsurePartialClassFileExists(ByVal Project As ProjectElement, ByVal FilePathAndName As String, ByVal SourceClass As [Class])
+        Dim PlugIn1 As New PlugIn1()
+        If Project.AllFiles.Contains(FilePathAndName) Then
+            Return
+        End If
+        PlugIn1.DeleteFileIfNeeded(FilePathAndName)
+        Dim SourceFile As New SourceFile
+        SourceFile.AddNodes(PlugIn1.CloneNamespaceReferences(SourceClass))
+        SourceFile.AddNode(CloneHierarchy(SourceClass))
+        Call CreateFileWithRootElement(FilePathAndName, SourceFile)
+        CodeRush.Solution.AddFileToProject(Project.Name, FilePathAndName)
+        CodeRush.UndoStack.Add(New AddedProjectFileUndoUnit(Project.Name, FilePathAndName))
+    End Sub
+    Private Sub DeleteFileIfNeeded(ByVal FilePathAndName As String)
+        If System.IO.File.Exists(FilePathAndName) Then
+            Dim DeletedFileText = System.IO.File.ReadAllText(FilePathAndName)
+            System.IO.File.Delete(FilePathAndName)
+            CodeRush.UndoStack.Add(New DeletedFileUndoUnit(FilePathAndName, DeletedFileText))
         End If
     End Sub
+    Private Function CloneNamespaceReferences(ByVal SourceClass As [Class]) As LanguageElementCollectionBase
+        Dim SourceFile As SourceFile = SourceClass.GetSourceFile
+        Dim NamespaceReferences = SourceFile.Nodes.OfType(Of NamespaceReference)()
+        Dim Result As New LanguageElementCollectionBase
+        For Each NSR As NamespaceReference In NamespaceReferences
+            Result.Add(New NamespaceReference(NSR.Name))
+        Next
+        Return Result
+    End Function
+
     Private Function GetClassesInSource(ByVal Scope As LanguageElement) As IEnumerable(Of SP.Class)
         Return New ElementEnumerable(Scope, New ElementTypeFilter(GetType(SP.Class)), True).OfType(Of SP.Class)()
         'Return SourceModelUtils.GetElementEnumerator(Scope, New ElementTypeFilter(GetType(SP.Class))).OfType(Of SP.Class)()
@@ -107,28 +126,20 @@ Public Class PlugIn1
         Return GetClassesInSource(File).Where(Function(c) c.Name = ClassName).FirstOrDefault
     End Function
 
-    Private Function GenerateNewPartialClass(ByVal ClassName As String) As LanguageElement
-        Return New [Class](ClassName) With {.IsPartial = True}
+    Private Function CloneHierarchy(ByVal SourceClass As [Class]) As LanguageElement
+        Dim NewClass = New [Class](SourceClass.Name) With {.IsPartial = True}
+        Dim ReadPoint As LanguageElement = SourceClass
+        Dim WritePoint As LanguageElement = NewClass
+        Do Until TryCast(ReadPoint.Parent, [Namespace]) Is Nothing
+            Dim ThisNamespace = New [Namespace](ReadPoint.Parent.Name)
+            ThisNamespace.AddNode(WritePoint)
+            WritePoint = ThisNamespace
+            ReadPoint = ReadPoint.Parent
+        Loop
+        Return WritePoint
     End Function
-    Private Shared Function GetPartialFilename(ByVal ClassName As String, ByVal Suffix As String) As String
+
+    Private Function GetPartialFilename(ByVal ClassName As String, ByVal Suffix As String) As String
         Return String.Format("{0}_{1}", ClassName, Suffix) & CodeRush.Language.SupportedFileExtensions
     End Function
 End Class
-Public Module RegionDirectiveExt
-    <Extension()> _
-    Public Function InnerRange(ByVal Source As RegionDirective) As SourceRange
-        Return New SourceRange(Source.StartLine + 1, 1, Source.EndLine, 1)
-    End Function
-    <Extension()> _
-    Public Function OnlyAlphaNumerics(ByVal Source As String) As String
-        Dim ValidChars As String = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-        Dim Result = String.Empty
-        For Each Character In Source
-            If ValidChars.Contains(Character) Then
-                Result &= Character
-            End If
-        Next
-        Return Result
-    End Function
-
-End Module
