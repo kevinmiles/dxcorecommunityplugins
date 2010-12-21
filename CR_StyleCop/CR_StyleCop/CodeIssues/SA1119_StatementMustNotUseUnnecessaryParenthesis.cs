@@ -42,6 +42,7 @@
                 LanguageElementType.CaseClausesList,
                 LanguageElementType.Catch,
                 LanguageElementType.Checked,
+                LanguageElementType.CheckedExpression,
                 LanguageElementType.ConstructorInitializer,
                 LanguageElementType.Continue,
                 LanguageElementType.Do,
