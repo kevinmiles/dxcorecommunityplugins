@@ -84,6 +84,7 @@
             this.handlers.Add("SA1404", new SA1404_CodeAnalysisSuppressionMustHaveJustification()); // OK
             this.handlers.Add("SA1405", new SA1405_DebugAssertMustProvideMessageText()); // OK
             this.handlers.Add("SA1406", new SA1406_DebugFailMustProvideMessageText()); // OK
+            this.handlers.Add("SA1407", new SA1407_ArithmeticExpressionsMustDeclarePrecedence()); // OK
             this.handlers.Add("SA1300", new SA1300_ElementMustBeginWithUpperCaseLetter()); // OK
             this.handlers.Add("SA1301", new SA1301_ElementMustBeginWithLowerCaseLetter()); // Never reported according to StyleCop help
             this.handlers.Add("SA1302", new SA1302_InterfaceNamesMustBeginWithI()); // OK

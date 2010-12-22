@@ -90,6 +90,7 @@
     <Compile Include="CodeIssues\SA1404_CodeAnalysisSuppressionMustHaveJustification.cs" />
     <Compile Include="CodeIssues\SA1405_DebugAssertMustProvideMessageText.cs" />
     <Compile Include="CodeIssues\SA1406_DebugFailMustProvideMessageText.cs" />
+    <Compile Include="CodeIssues\SA1407_ArithmeticExpressionsMustDeclarePrecedence.cs" />
     <Compile Include="CodeIssues\SA1503_CurlyBracketsMustNotBeOmitted.cs" />
     <Compile Include="CodeIssues\SA1627_DocumentationTextMustNotBeEmpty.cs" />
     <Compile Include="CodeIssues\SA1610_PropertyDocumentationMustHaveValueText.cs" />
