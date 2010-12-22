@@ -2,7 +2,7 @@
 
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_NavigateToTest/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-
+===== Requires DXCore 10.2 since build 1538 =====
 = Introduction =
 
 This plugin provides a new Navigation Item (in the Jump To) menu which lists all test classes that reference either the current class, or the type reference under the cursor (so you can right click on a reference to a class, and see where it is being tested).  Test classes are determined by looking at all of the references for the class being searched for, and returning only those that have appropriate test class attributes.  This should work with NUnit, MbUnit, and MSTest.  Currently, xUnit.Net is not supported, since it does not use a class level attribute to identify tests.
