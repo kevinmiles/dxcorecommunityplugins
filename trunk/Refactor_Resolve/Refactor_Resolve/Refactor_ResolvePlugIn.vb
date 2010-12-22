@@ -669,7 +669,8 @@ Namespace Refactor_Resolve
                                           theElement.NameRange.Start.Offset, _
                                           theElement.NameRange.End.Offset - theElement.NameRange.Start.Offset, _
                                           Drawing.Color.BlueViolet, _
-                                          LineStyle.SolidUnderline)
+                                          DevExpress.CodeRush.Core.LineStyle.SolidUnderline)
+                    'LineStyle' is ambiguous, imported from the namespaces or types ', DevExpress.CodeRush.Core'.	C:\Users\Rory.Becker\Desktop\CommunityPlugins\Refactor_Resolve\Refactor_Resolve\Refactor_ResolvePlugIn.vb	672	43	Refactor_Resolve
                 End If
             Catch ex As Exception
 
