@@ -27,7 +27,24 @@ Public Module ProjectExt
         'Return TryCast(TestProject.GetClassIterator().FirstOrDefault(Func), SP.Class)
     End Function
     <Extension()> _
-    Public Function FirstMethodWhere(ByVal TestType As TypeDeclaration, ByVal Func As Func(Of Method, Boolean)) As Method
-        Return TestType.AllMethods.OfType(Of Method).Where(Func).FirstOrDefault
+    Public Function CreateNewFile(ByVal TheProject As ProjectElement, ByVal BaseFileName As String, ByVal code As String, Optional ByVal RelativePath As String = "") As String
+        ' Setup
+        Dim ThePath As String = Path.Combine(New FileInfo(TheProject.FilePath).DirectoryName, RelativePath)
+        Dim FileAndPath As String = String.Format("{0}\{1}{2}", ThePath, BaseFileName, CodeRush.Language.SupportedFileExtensions)
+
+        Call FileOperations.CreateFileWithUndo(FileAndPath, code)
+        Call ProjectExt.AddFileToProjectWithUndo(TheProject, FileAndPath)
+        Return FileAndPath
     End Function
+
+    <Extension()> _
+        Public Sub AddFileToProjectWithUndo(ByVal TheProject As ProjectElement, ByVal FileAndPath As String)
+        CodeRush.Solution.AddFileToProject(TheProject.Name, FileAndPath)
+        CodeRush.UndoStack.Add(New AddedProjectFileUndoUnit(TheProject.Name, FileAndPath))
+    End Sub
+    <Extension()> _
+    Public Function GetTypeWithName(ByVal ParentProject As ProjectElement, ByVal TypeName As String) As TypeDeclaration
+        Return ParentProject.FirstTypeWhere(Function(x) x.Name = TypeName)
+    End Function
+
 End Module

@@ -4,8 +4,12 @@ Imports DevExpress.CodeRush.StructuralParser
 Imports SP = DevExpress.CodeRush.StructuralParser
 Imports EnvDTE80
 Imports System.IO
+Imports System.Runtime.CompilerServices
+Imports System.Reflection
 
 Public Class PlugIn1
+    Private Const TEMPLATE_TestsGenerateNUnitClassStub As String = "Tests\Generate\NUnitClassStub"
+    Private Const TEMPLATE_TestsGenerateNUnitMethodStub As String = "Tests\Generate\NUnitMethodStub"
 
     'DXCore-generated code...
 #Region " InitializePlugIn "
@@ -26,39 +30,66 @@ Public Class PlugIn1
     Private Sub GenerateTest_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs) Handles GenerateTest.CheckAvailability
         ea.Available = True
     End Sub
-
-    Private Sub GenerateTest_Apply(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs) Handles GenerateTest.Apply
-        Dim InitiallyActiveClass As [Class] = CodeRush.Source.ActiveClass
-        Dim InitiallyActiveProject As ProjectElement = CodeRush.Source.ActiveProject
-        Dim InitiallyActiveMethod As Method = CodeRush.Source.ActiveMethod
-
-        Dim TestProject = EnsureTestProjectExists(InitiallyActiveProject)
-        Dim TestType = EnsureTestTypeExists2(InitiallyActiveClass, TestProject)
-        Dim TestMethod = EnsureTestMethodExists2(InitiallyActiveMethod, TestType)
+    Public Sub SetupTemplates()
+        EnsureTemplateExists(TEMPLATE_TestsGenerateNUnitClassStub, GetStringResource("DefaultVBNUnitStubClass.vb"))
+        EnsureTemplateExists(TEMPLATE_TestsGenerateNUnitMethodStub, GetStringResource("DefaultVBNUnitStubMethod.vb"))
     End Sub
-#Region "EnsureTestProjectExists"
-    Private Function EnsureTestProjectExists(ByVal Project As ProjectElement) As ProjectElement
-        Dim TestProjectName As String = String.Format("{0}_Tests", Project.Name)
-        Dim Solution As SolutionServices = CodeRush.Solution
-        If Not Solution.AllProjects.Any(Function(x) x.Name = TestProjectName) Then
-            Call CreateProject(Project, TestProjectName)
-            'Call RemoveFile("Class1", Project.Language)
-        End If
-        Return GetProject(TestProjectName)
+    Public Function GetStringResource(ByVal Filename As String) As String
+        Dim Asm As Assembly = Assembly.GetAssembly(Me.GetType)
+        Dim stream As IO.Stream = Asm.GetManifestResourceStream(String.Format("CR_GenerateTest.{0}", Filename))
+        Using Reader As StreamReader = New IO.StreamReader(stream)
+            Return Reader.ReadToEnd()
+        End Using
     End Function
-    Private Function CreateProject(ByVal Project As ProjectElement, ByVal ProjectName As String) As EnvDTE.Project
-        'Creating Project because it was not found in the solution
-        ' Project might already exist on disk
-        Dim NewProjectFolder As String = Project.GetSolutionFolderName() & "\" & ProjectName
-        If Directory.Exists(NewProjectFolder) Then
-            If MsgBox("A folder 'X' appears to exist already. Would you like me to delete it?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
-                ' Delete existing Project Folder
-                Call Directory.Delete(NewProjectFolder, True)
-            Else
-                Return CodeRush.ApplicationObject.Solution.AddFromFile(Project.GetSolutionFolderName() & "\" & ProjectName)
+    Private Sub GenerateTest_Apply(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs) Handles GenerateTest.Apply
+        Call SetupTemplates()
+        Dim TestTypeName As String = CodeRush.Source.ActiveClass.Name.Add_Test
+        Dim TestMethodName = CodeRush.Source.ActiveMethod.Name.Add_Test
+        Dim TestProjectName As String = CodeRush.Source.ActiveProject.Name.Add_Tests
+        Dim ProjectLanguage As String = CodeRush.Source.ActiveProject.Language
+        Dim SolutionFolder As String = CodeRush.Source.ActiveProject.GetSolutionFolderName()
+
+
+        Call SetTemplateVariable("TypeName", TestTypeName)
+        Call SetTemplateVariable("MethodName", TestMethodName)
+
+
+        Dim TestProject = EnsureProjectExists(SolutionFolder, TestProjectName, ProjectLanguage)
+        Dim TestType = CreateTypeViaTemplate(TestProject, TestTypeName, TEMPLATE_TestsGenerateNUnitClassStub)
+        Dim TestMethod = CreateMethodViaTemplate(TestType, TestMethodName, TEMPLATE_TestsGenerateNUnitMethodStub)
+    End Sub
+
+#Region "EnsureTestProjectExists"
+    Private Function EnsureProjectExists(ByVal SolutionFolder As String, ByVal ProjectName As String, ByVal Language As String) As ProjectElement
+        Dim FoundProject As ProjectElement = GetProject(ProjectName)
+        If FoundProject Is Nothing Then
+            Call DeleteProject(SolutionFolder & "\" & ProjectName, True)
+            If Not ExistsProject(CodeRush.Solution, ProjectName) Then
+                Call CreateProject(SolutionFolder, Language, ProjectName)
             End If
+            FoundProject = GetProject(ProjectName)
         End If
-        Dim TemplateName As String = GetTemplatePath("ClassLibrary.zip", PreProcess(Project.Language))
+        Return FoundProject
+    End Function
+    Public Function DeleteProject(ByVal ProjectNameAndLocation As String, ByVal RequireConfirmation As Boolean) As Boolean
+        If Not Directory.Exists(ProjectNameAndLocation) Then
+            ' Nothing to delete
+            Return False
+        End If
+        Dim Proceed = True ' default to true unless confirmation says otherwise.
+        If RequireConfirmation Then
+            Dim Message = String.Format("A folder '{0}' appears to exist already. Would you like me to delete it?", ProjectNameAndLocation)
+            Proceed = MsgBox(Message, MsgBoxStyle.YesNo) = MsgBoxResult.Yes
+        End If
+        If Proceed Then
+            ' Delete existing Project Folder
+            Call Directory.Delete(ProjectNameAndLocation, True)
+        End If
+    End Function
+    Private Function CreateProject(ByVal SolutionFolder As String, ByVal ProjectLanguage As String, ByVal ProjectName As String) As EnvDTE.Project
+
+        Dim NewProjectFolder As String = SolutionFolder & "\" & ProjectName
+        Dim TemplateName As String = GetTemplatePath("ClassLibrary.zip", PreProcess(ProjectLanguage))
         Return CodeRush.ApplicationObject.Solution.AddFromTemplate(TemplateName, NewProjectFolder, ProjectName, False)
     End Function
     Private Function PreProcess(ByVal Language As String) As String
@@ -75,85 +106,37 @@ Public Class PlugIn1
     End Function
 #End Region
 
-#Region "EnsureTestTypeExists"
-    Private Function EnsureTestTypeExists(ByVal TypeToTest As TypeDeclaration, ByVal TestProject As ProjectElement) As TypeDeclaration
-        Dim Func As Func(Of TypeDeclaration, Boolean) = Function(x) x.Name = TypeToTest.Name
-        Dim TestType = TestProject.FirstTypeWhere(Func)
-        If TestType Is Nothing Then
-            ' Create new Class
-            Dim Builder = CodeRush.Language.GetElementBuilder(TypeToTest.Project.Language)
-            TestType = Builder.BuildClass(TypeToTest.Name)
-            ' Create file with code within
-            Dim TestClassFilename As String = GetFilePathForClass(TestProject, TestType)
-            Call My.Computer.FileSystem.WriteAllText(TestClassFilename, TestType.GenerateCode(TestProject.Language), False)
-            CodeRush.Solution.AddFileToProject(TestProject.Name, TestClassFilename)
-            '-----ISSUES--------------------------------------------------
-            'CodeRush.File.Activate(TestClassFilename)
-            CodeRush.Language.Parse(TestClassFilename)
-            '-------------------------------------------------------------
-        End If
-        Return TestProject.FirstTypeWhere(Func)
-    End Function
-#End Region
-#Region "EnsureTestMethodExists"
-    Private Function EnsureTestMethodExists(ByVal Method As Method, ByVal TestType As TypeDeclaration) As Method
-        ' Create Method_Test is it doesn't exist
-        Dim TestMethodName As String = String.Format("{0}_Test", Method.Name)
-        Dim TestMethod As Method = TestType.FirstMethodWhere(Function(M) M.Name = TestMethodName)
-
-        If TestMethod Is Nothing Then
-            ' Create TestMethod
-            Dim eb As ElementBuilder = New ElementBuilder
-            TestMethod = eb.BuildMethod(String.Empty, TestMethodName)
-            TestMethod.Attributes.Add(eb.BuildAttribute("Test"))
-            TestType.AddNode(TestMethod)
-            ' Render method
-            Dim InsertionPoint = TestType.BlockCodeRange.Start
-            Dim ActiveDoc As TextDocument = GetTypeTextDocument(TestType)
-            ActiveDoc.Format(ActiveDoc.ExpandText(InsertionPoint, TestMethod.GenerateCode(TestType.Project.Language)))
-        End If
-        Return TestMethod
-    End Function
-    Private Function GetTypeTextDocument(ByVal TestType As TypeDeclaration) As TextDocument
-        '-----ISSUES--------------------------------------------------
-        'Dim ActiveDoc As TextDocument = TryCast(CodeRush.File.Activate(TestClass.FileNode.FilePath), TextDocument)
-        Return TryCast(CodeRush.File.Activate(TestType.GetSourceFile().FilePath), TextDocument)
-        '-------------------------------------------------------------
-    End Function
-#End Region
-    Private Function EnsureTestTypeExists2(ByVal TypeToTest As TypeDeclaration, ByVal TestProject As ProjectElement) As TypeDeclaration
-        ' Check for Type 
-        Dim Func As Func(Of TypeDeclaration, Boolean) = Function(x) x.Name = TypeToTest.Name
-        Dim TestType = TestProject.FirstTypeWhere(Func)
-        If TestType Is Nothing Then
+    Private Function CreateTypeViaTemplate(ByVal Project As ProjectElement, ByVal TypeName As String, ByVal TemplateName As String) As TypeDeclaration
+        ' Create a Type in a Project using a Template
+        If Project.GetTypeWithName(TypeName) Is Nothing Then
             ' Create New File 
-            Dim TestClassFilename = TestProject.CreateFileInProject(TypeToTest.Name, "")
-            Call CodeRush.File.Activate(TestClassFilename)
-            Call ExpandTemplateInDocument("Tests\Generate\NUnitClassStub", CodeRush.Documents.ActiveTextDocument)
+            Dim TestClassFilename = Project.CreateNewFile(TypeName, "")
+            Dim ActiveDoc = CodeRush.File.Activate(TestClassFilename)
+            CodeRush.Documents.ActiveTextView.ExpandTemplate(TemplateName)
+            CodeRush.Language.ParseActiveDocument()
         End If
-        Return TestProject.FirstTypeWhere(Func)
+        Return Project.GetTypeWithName(TypeName)
     End Function
-    Private Function EnsureTestMethodExists2(ByVal Method As Method, ByVal TestType As TypeDeclaration) As Method
-        ' Create Method_Test is it doesn't exist
-        Dim TestMethodName As String = String.Format("{0}_Test", Method.Name)
-        Dim Func As Func(Of Method, Boolean) = Function(M) M.Name = TestMethodName
-        Dim TestMethod As Method = TestType.FirstMethodWhere(Func)
+    Private Function CreateMethodViaTemplate(ByVal TestType As TypeDeclaration, ByVal MethodName As String, ByVal TemplateName As String) As Method
+        ' Create a Method in a Type using a Template
+        If TestType.GetMethodWithName(MethodName) Is Nothing Then
+            ' No test Method Found with given name.
+            TestType.Document.Activate()
+            Dim View As TextView = CodeRush.Documents.ActiveTextView
+            View.Caret.MoveTo(TestType.Range.End.Line, 1)
+            Dim Range = View.ExpandTemplate(TemplateName)
+            View.TextDocument.Format(Range)
+        End If
+        Return TestType.GetMethodWithName(MethodName)
+    End Function
 
-        If TestMethod Is Nothing Then
-            ' Create TestMethod
-            'Dim TabSize As Short = CodeRush.VSSettings.TextEditor.ActiveLanguage.TabSize
-            DevExpress.CodeRush.Core.CodeRush.Strings.Get("Set", String.Format("TestMethodName, {0}", TestMethodName))
-            CodeRush.Documents.ActiveTextDocument.ActiveView.Caret.MoveTo(TestType.Range.End.Line, 1)
-            Dim Range = ExpandTemplateInDocument("Tests\Generate\NUnitMethodStub", CodeRush.Documents.ActiveTextDocument)
-            CodeRush.Documents.ActiveTextDocument.Format(Range)
-        End If
-        Return TestType.FirstMethodWhere(Func)
-    End Function
-    Private Function ExpandTemplateInDocument(ByVal FullTemplateNameAndPath As String, ByVal TextDocument As TextDocument, Optional ByVal InsertCRlf As Boolean = False) As SourceRange
-        Dim TemplateName = FullTemplateNameAndPath.Split("\"c).Last
-        Dim TemplateCategory = FullTemplateNameAndPath.Substring(0, FullTemplateNameAndPath.Length - TemplateName.Length - 1)
-        Dim Template = CodeRush.Templates.FindTemplate(TemplateName, TemplateCategory, CodeRush.Documents.ActiveLanguage)
-        'Dim FinalText = CodeRush.Strings.Expand(Template.FirstItemInContext.Expansion)
-        Return TextDocument.ExpandText(TextDocument.ActiveView.Caret.SourcePoint, Template.FirstItemInContext.Expansion)
-    End Function
 End Class
+Public Module ViewExt
+    <Extension()> _
+    Public Function ExpandTemplate(ByVal View As TextView, ByVal TemplateNameAndPath As String) As SourceRange
+        Dim TemplateName = TemplateNameAndPath.Split("\"c).Last
+        Dim TemplateCategory = TemplateNameAndPath.Substring(0, TemplateNameAndPath.Length - TemplateName.Length - 1)
+        Dim Template = CodeRush.Templates.FindTemplate(TemplateName, TemplateCategory, CodeRush.Documents.ActiveLanguage)
+        Return View.TextDocument.ExpandText(View.Caret.SourcePoint, Template.FirstItemInContext.Expansion)
+    End Function
+End Module
