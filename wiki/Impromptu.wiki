@@ -1,7 +1,7 @@
-Impromptu gives you a way to run methods with no parameters quickly and see the results in the output window.
+#summary Impromptu gives you a way to run methods with no parameters quickly and see the results in the output window.
 
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Impromptu/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]  [http://dxcorecommunityplugins.googlecode.com/svn/trunk/Impromptu/Screenshots/ImpromptuInAction.swf http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Screencast.png]    [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-
+===== Requires DXCore 10.2 since build 1540 =====
 = Introduction =
 
 I used to use TestDriven.Net before it required a license purchase. I loved it's Ad Hoc test run feature. This plug-in reproduces the behavior without a right click.
