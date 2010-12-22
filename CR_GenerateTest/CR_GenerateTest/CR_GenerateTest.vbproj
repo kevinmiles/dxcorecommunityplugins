@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -17,6 +17,10 @@
     <OptionCompare>Binary</OptionCompare>
     <OptionStrict>On</OptionStrict>
     <OptionInfer>On</OptionInfer>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,7 +29,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>D:\RoryData\Documents\DevExpress\IDE Tools\Community\PlugIns</OutputPath>
     <DocumentationFile>CR_GenerateTest.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -35,7 +39,7 @@
     <Optimize>true</Optimize>
     <OutputPath>D:\RoryData\Documents\DevExpress\IDE Tools\Community\PlugIns</OutputPath>
     <DocumentationFile>CR_GenerateTest.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.CodeRush.Controls, Version=9.2.5.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
@@ -63,6 +67,9 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.DXCore.Controls.XtraTreeList.v6.3, Version=9.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.DXCore.Parser, Version=10.2.3.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Extensibility, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -130,7 +137,7 @@
   <ItemGroup>
     <Compile Include="Common\FileOperations.vb" />
     <Compile Include="Common\FluentDX.vb" />
-    <Compile Include="Common\ProjectOperations.vb" />
+    <Compile Include="Common\TypeExt.vb" />
     <Compile Include="Common\SolutionExt.vb" />
     <Compile Include="Common\UndoUnits\AddedProjectFileUndoUnit.vb" />
     <Compile Include="Common\UndoUnits\CreatedFileUndoUnit.vb" />
@@ -139,6 +146,10 @@
     <Compile Include="Common\UndoUnits\FileActivateUndoUnit.vb" />
     <Compile Include="Common\UndoUnits\RemovedProjectFileUndoUnit.vb" />
     <Compile Include="Common\DXtras.vb" />
+    <Compile Include="Common\ViewExt.vb" />
+    <EmbeddedResource Include="DefaultTemplates\DefaultVBNUnitStubClass.vb" />
+    <EmbeddedResource Include="DefaultTemplates\DefaultVBNUnitStubMethod.vb" />
+    <Compile Include="Module1.vb" />
     <Compile Include="Options1.Designer.vb">
       <DependentUpon>Options1.vb</DependentUpon>
     </Compile>
@@ -154,6 +165,8 @@
     </Compile>
     <Compile Include="PluginSettings.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
+    <Compile Include="StringExt.vb" />
+    <Compile Include="TemplateFunctions.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Options1.resx">

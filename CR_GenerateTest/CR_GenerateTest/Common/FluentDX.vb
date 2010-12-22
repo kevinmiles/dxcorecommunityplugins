@@ -12,6 +12,8 @@ Imports System.IO
 Imports DevExpress.CodeRush.Interop.OLE.Helpers
 Imports DevExpress.DXCore.TextBuffers
 Imports System.Runtime.CompilerServices
+Imports EnvDTE80
+
 
 Public Module FluentDX
     <Extension()> _

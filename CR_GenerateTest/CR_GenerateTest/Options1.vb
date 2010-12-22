@@ -39,7 +39,6 @@ Public Class Options1
     Private Sub Options1_PreparePage(ByVal sender As Object, ByVal ea As OptionsPageStorageEventArgs) Handles Me.PreparePage
         ' Load Data
         mSettingsXML = PluginSettings.Load(ea.Storage)
-        cbx()
     End Sub
 
     Private Sub Options1_CommitChanges(ByVal sender As Object, ByVal ea As CommitChangesEventArgs) Handles Me.CommitChanges

@@ -53,4 +53,7 @@ Public Module SolutionExt
             RemoveProjectItemWithName(lProjectItem.ProjectItems, filePath)
         Next
     End Sub
+    Public Function ExistsProject(ByVal Solution As SolutionServices, ByVal ProjectName As String) As Boolean
+        Return Solution.AllProjects.Any(Function(x) x.Name = ProjectName)
+    End Function
 End Module
