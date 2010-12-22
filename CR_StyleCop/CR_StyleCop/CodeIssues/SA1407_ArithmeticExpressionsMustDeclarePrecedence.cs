@@ -3,7 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using DevExpress.CodeRush.Core;
     using DevExpress.CodeRush.StructuralParser;
+    using Microsoft.StyleCop;
     using Microsoft.StyleCop.CSharp;
 
     internal class SA1407_ArithmeticExpressionsMustDeclarePrecedence : ICodeIssue
@@ -19,7 +21,7 @@
                 {"%", OperatorType.Modulo}
             };
 
-        public void AddViolationIssue(DevExpress.CodeRush.Core.CheckCodeIssuesEventArgs ea, DevExpress.CodeRush.StructuralParser.IDocument document, Microsoft.StyleCop.Violation violation)
+        public void AddViolationIssue(CheckCodeIssuesEventArgs ea, IDocument document, Violation violation)
         {
             string message = String.Format("{0}: {1}", violation.Rule.CheckId, violation.Message);
             var csElement = violation.Element as CsElement;
@@ -30,11 +32,11 @@
             }
 
             foreach (BinaryOperatorExpression operation in from x in ea.GetEnumerable(ea.Scope, new ElementTypeFilter(LanguageElementType.BinaryOperatorExpression))
-                                                         let binaryOperation = (BinaryOperatorExpression)x.ToLanguageElement()
-                                                         where binaryOperation.RecoveredRange.Start.Line == violation.Line 
-                                                            && (binaryOperation.LeftSide.ElementType == LanguageElementType.BinaryOperatorExpression
-                                                                || binaryOperation.RightSide.ElementType == LanguageElementType.BinaryOperatorExpression)
-                                                         select binaryOperation)
+                                                           let binaryOperation = (BinaryOperatorExpression)x.ToLanguageElement()
+                                                           where binaryOperation.RecoveredRange.Start.Line == violation.Line
+                                                              && (binaryOperation.LeftSide.ElementType == LanguageElementType.BinaryOperatorExpression
+                                                                  || binaryOperation.RightSide.ElementType == LanguageElementType.BinaryOperatorExpression)
+                                                           select binaryOperation)
             {
                 OperatorType parentType = operators[operation.Name];
                 OperatorType leftChildType = operation.LeftSide.ElementType == LanguageElementType.BinaryOperatorExpression ? operators[operation.LeftSide.Name] : parentType;

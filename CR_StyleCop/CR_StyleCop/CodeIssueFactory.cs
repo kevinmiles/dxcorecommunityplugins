@@ -60,6 +60,7 @@
             this.handlers.Add("SA1645", new SA1645_IncludedDocumentationFileDoesNotExist()); // OK
             this.handlers.Add("SA1646", new SA1646_IncludedDocumentationXPathDoesNotExist()); // OK
             this.handlers.Add("SA1647", new SA1647_IncludeNodeDoesNotContainValidFileAndPath()); // OK
+            
             this.handlers.Add("SA1500", new SA1500_CurlyBracketsForMultiLineStatementsMustNotShareLine()); // OK
             this.handlers.Add("SA1501", new SA1501_StatementMustNotBeOnASingleLine()); // OK
             this.handlers.Add("SA1502", new SA1502_ElementMustNotBeOnASingleLine()); // OK
@@ -77,6 +78,7 @@
             this.handlers.Add("SA1514", new SA1514_ElementDocumentationHeadersMustBePrecededByBlankLine()); // TO Check when debugging will be available
             this.handlers.Add("SA1515", new SA1515_SingleLineCommentsMustBePrecededByBlankLine()); // OK
             this.handlers.Add("SA1516", new SA1516_ElementsMustBeSeparatedByBlankLine()); // OK
+            
             this.handlers.Add("SA1400", new SA1400_AccessModifierMustBeDeclared()); // OK
             this.handlers.Add("SA1401", new SA1401_FieldsMustBePrivate()); // OK
             this.handlers.Add("SA1402", new SA1402_FileMayOnlyContainASingleClass()); // OK
@@ -85,6 +87,8 @@
             this.handlers.Add("SA1405", new SA1405_DebugAssertMustProvideMessageText()); // OK
             this.handlers.Add("SA1406", new SA1406_DebugFailMustProvideMessageText()); // OK
             this.handlers.Add("SA1407", new SA1407_ArithmeticExpressionsMustDeclarePrecedence()); // OK
+            this.handlers.Add("SA1408", new SA1408_ConditionalExpressionsMustDeclarePrecedence()); // OK
+            
             this.handlers.Add("SA1300", new SA1300_ElementMustBeginWithUpperCaseLetter()); // OK
             this.handlers.Add("SA1301", new SA1301_ElementMustBeginWithLowerCaseLetter()); // Never reported according to StyleCop help
             this.handlers.Add("SA1302", new SA1302_InterfaceNamesMustBeginWithI()); // OK
@@ -96,6 +100,7 @@
             this.handlers.Add("SA1308", new SA1308_VariableNamesMustNotBePrefixed()); // OK
             this.handlers.Add("SA1309", new SA1309_FieldNamesMustNotBeginWithUnderscore()); // OK
             this.handlers.Add("SA1310", new SA1310_FieldNamesMustNotContainUnderscore()); // OK
+            
             this.handlers.Add("SA1119", new SA1119_StatementMustNotUseUnnecessaryParenthesis());
         }
 
