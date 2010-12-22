@@ -3,7 +3,7 @@
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_ConvertToXPOProperty/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-
+===== Requires DXCore 10.2 since build 1542 =====
 = Introduction =
 
 This plugin allow to convert auto property of any type into XPO property. It can be often used in scenario when classed which were previously serialized are now stored using XPO. It also supports delayed properties so you can easily convert from a auto property to delayed property and also from XPO property to an delayed property. Currently the plugin was designed and tested to work under C#.
