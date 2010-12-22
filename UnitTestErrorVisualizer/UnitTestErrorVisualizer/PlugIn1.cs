@@ -76,6 +76,8 @@ namespace UnitTestErrorVisualizer
 													target,
 													test.TestResult,
 													new MessageLimiter(ShortenLongStrings, MaxContextLength, ConvertEscapeCharacters));
+                // TestResult has been replaced with TestResults[]. 
+                // I wasn't sure if you wanted to just use TestResults[0] though, so I have left this.
 				args.AddAdornment(
 					new FailedTestInspectorDocumentAdornment(
 						new DocPoint(attribute.StartLine, attribute.StartOffset),
