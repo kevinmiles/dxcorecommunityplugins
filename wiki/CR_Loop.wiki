@@ -1,0 +1,20 @@
+#summary Provides a TextCommand (Loop) which expands a template multiple times.
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_Loop http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Requires DXCore 10.2 since build 1550 =====
+=== Introduction ===
+Provides a !TextCommand (Loop) which expands a template multiple times.
+
+=== Usage ===
+Use the following syntax in Templates and other places where !TextCommands are appropriate
+
+*«Loop(!TemplateName,Count,Offset)»*
+
+Reference iteration value from within a template using the *«?!LoopIterationValue»* !StringProvider
+
+!TemplateName: Name of template to repeat.
+Count: Number of iterations.
+Offset: Numeric value to add to *«?!LoopIterationValue»* before returning it.
+
+=== Credits ===
+Written by [http://community.devexpress.com/blogs/markmiller/default.aspx Mark Miller]
