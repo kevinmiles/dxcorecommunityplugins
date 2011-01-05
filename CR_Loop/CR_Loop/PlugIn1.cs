@@ -59,5 +59,13 @@ namespace CR_Loop
 			int offset = strLoopIterationValue.Parameters["Offset"].ValueAsInt;
 			ea.Value = (_Counter + offset).ToString();
 		}
+
+        private void LoopLiteral_GetString(GetStringEventArgs ea)
+        {
+            int count = LoopLiteral.Parameters["Count"].ValueAsInt;
+            string Text = LoopLiteral.Parameters["Text"].ValueAsStr;
+
+            ea.Value = String.Join("", Enumerable.Repeat(Text, count).ToArray()); 
+        }
 	}
 }
