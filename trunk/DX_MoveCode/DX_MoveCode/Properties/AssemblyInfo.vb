@@ -3,7 +3,7 @@ Imports System.Reflection
 Imports System.Runtime.InteropServices
 Imports DevExpress.CodeRush.Common
 
-<Assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "DX_MoveCode", PlugInLoadType.Demand, LoadAbilityType.LoadDisabled)> 
+<Assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "DX_MoveCode", PlugInLoadType.Demand, LoadAbilityType.LoadEnabled)> 
 
 ' General Information about an assembly is controlled through the following 
 ' set of attributes. Change these attribute values to modify the information
@@ -18,7 +18,7 @@ Imports DevExpress.CodeRush.Common
 <Assembly: AssemblyCopyright("Copyright © Microsoft 2009")> 
 <Assembly: AssemblyTrademark("")> 
 
-<Assembly: ComVisible(False)>
+<Assembly: ComVisible(False)> 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
 <Assembly: Guid("6c24ffbe-8223-4fa4-9e0a-03cf141bfb1c")> 
