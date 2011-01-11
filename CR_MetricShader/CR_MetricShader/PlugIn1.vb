@@ -11,6 +11,7 @@ Imports System.Runtime.CompilerServices
 Imports System.Reflection
 Imports DevExpress.CodeRush.Menus
 Imports DevExpress.CodeRush.Extensions
+Imports Platform = DevExpress.DXCore.Platform.Drawing
 
 Public Class PlugIn1
 
@@ -21,7 +22,7 @@ Public Class PlugIn1
 
         'TODO: Add your initialization code here.
         Call LoadSettings()
-        Call CreateVisualizeButton()
+        'Call CreateVisualizeButton()
 
     End Sub
 #End Region
@@ -97,30 +98,61 @@ Public Class PlugIn1
     End Sub
 #End Region
 #Region "Editor Events"
-    Private Sub PlugIn1_EditorPaintBackground(ByVal ea As EditorPaintEventArgs) Handles Me.EditorPaintBackground
+    Private Sub PlugIn1_DecorateLanguageElement(ByVal sender As Object, ByVal args As DecorateLanguageElementEventArgs) Handles Me.DecorateLanguageElement
         If CodeRush.Source.ActiveClass Is Nothing Then
             Exit Sub
         End If
         If Not mEnabled Then
             Exit Sub
         End If
-        Dim View = CodeRush.Documents.ActiveTextView
-        Dim Members = CodeRush.Source.ActiveClass.AllMembers.OfType(Of Member)()
-        Dim ViewRange As SourceRange = View.GetRangeFromRectangle(View.Bounds)
-        Dim MembersToHighlight = (From M In Members _
-                     Where ViewRange.Overlaps(M.GetFullBlockCutRange) _
-                            AndAlso GetColor(M).HasValue).ToList
-        For Each Member In MembersToHighlight
-            Dim HighlightRange = New SourceRange(Member.StartLine, 1, Member.EndLine + 1, 0)
-            Dim HighlightColor = GetColor(Member).Value
-            'View.HighlightCode(HighlightRange, HighlightColor, HighlightColor, Color.White)
-            Dim BlockElements As BlockElements = BlockElements.LeadingWhiteSpace _
-                                              Or BlockElements.TrailingWhiteSpace _
-                                              Or BlockElements.Region _
-                                              Or BlockElements.AllSupportElements
-            View.HighlightCode(Member.GetFullBlockCutRange(BlockElements), HighlightColor, HighlightColor, Color.White)
-        Next
+        If Not TypeOf args.LanguageElement Is Member Then
+            Exit Sub
+        End If
+        Dim View As TextView = CodeRush.Documents.ActiveTextView
+        Dim Member = TryCast(args.LanguageElement, Member) 'MembersToHighlight.FirstOrDefault
+        Dim ViewRange = View.GetRangeFromRectangle(View.Bounds)
+        If Not ViewRange.Overlaps(Member.GetFullBlockCutRange) Then
+            Exit Sub
+        End If
+        If Not GetColor(Member).HasValue Then
+            Exit Sub
+        End If
+        Dim HighlightColor = GetColor(Member).Value
+        Dim BlockElements As BlockElements = BlockElements.LeadingWhiteSpace _
+                                          Or BlockElements.TrailingWhiteSpace _
+                                          Or BlockElements.Region _
+                                          Or BlockElements.AllSupportElements
+        Dim Range As SourceRange = Member.GetFullBlockCutRange(BlockElements)
+
+        Dim Width As Integer = 120 'GetLongestLine(Range) - 1
+        Range = New SourceRange(New SourcePoint(Member.StartLine, 1), _
+                                New SourcePoint(Range.End.Line - 1, Width))
+
+        Dim PlatformColor = Platform.Color.FromArgb(HighlightColor.A, _
+                                            HighlightColor.R, _
+                                            HighlightColor.G, _
+                                            HighlightColor.B)
+        args.AddAdornment(New AdornmentFactory(Range, PlatformColor))
     End Sub
+
+    Private Function GetLongestLine(ByVal Range As SourceRange) As Integer
+        Dim Result As Integer = 0
+        For line = Range.Start.Line To Range.End.Line
+            Dim Length = CodeRush.Documents.ActiveTextDocument.GetCodeOnLine(line).Length
+            If Length > Result Then
+                Result = Length
+            End If
+        Next
+        Return Result
+    End Function
+    Private Function GetMembersToHighlight(ByVal View As TextView) As System.Collections.Generic.List(Of Member)
+        Dim Members = CodeRush.Source.ActiveClass.AllMembers.OfType(Of Member)()
+        Dim ViewRange = View.GetRangeFromRectangle(View.Bounds)
+        Dim MembersToHighlight = (From M In Members _
+                                    Where ViewRange.Overlaps(M.GetFullBlockCutRange) _
+                                        AndAlso GetColor(M).HasValue).ToList
+        Return MembersToHighlight
+    End Function
 
     Private Sub PlugIn1_OptionsChanged(ByVal ea As OptionsChangedEventArgs) Handles Me.OptionsChanged
         If ea.OptionsPages.Contains(GetType(Options1)) Then
@@ -128,31 +160,31 @@ Public Class PlugIn1
         End If
     End Sub
 #End Region
-#Region "Visualize Button"
-    Private Sub CreateVisualizeButton()
-        If (CodeRush.Menus Is Nothing OrElse CodeRush.Menus.VisualizeToolBar Is Nothing) Then
-            Return
-        End If
-        Dim Image = GetBitmapByName("CR_MetricShader.ico")
-        mVisualizeButton = CodeRush.Menus.VisualizeToolBar.AddButton(Options1.GetPageName(), Image)
-        If (mVisualizeButton Is Nothing) Then
-            Return
-        End If
-        mVisualizeButton.Style = ButtonStyle.Icon
-        mVisualizeButton.SetFace(Image, Image)
-        mVisualizeButton.IsDown = mEnabled
-        AddHandler mVisualizeButton.Click, AddressOf VisualizeButton_Click
-    End Sub
+    '#Region "Visualize Button"
+    '    Private Sub CreateVisualizeButton()
+    '        If (CodeRush.Menus Is Nothing OrElse CodeRush.Menus.VisualizeToolBar Is Nothing) Then
+    '            Return
+    '        End If
+    '        Dim Image = GetBitmapByName("CR_MetricShader.ico")
+    '        mVisualizeButton = CodeRush.Menus.VisualizeToolBar.AddButton(Options1.GetPageName(), Image)
+    '        If (mVisualizeButton Is Nothing) Then
+    '            Return
+    '        End If
+    '        mVisualizeButton.Style = ButtonStyle.Icon
+    '        mVisualizeButton.SetFace(Image, Image)
+    '        mVisualizeButton.IsDown = mEnabled
+    '        AddHandler mVisualizeButton.Click, AddressOf VisualizeButton_Click
+    '    End Sub
 
-    Private Sub VisualizeButton_Click(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
-        ' Toggle Feature
-        mEnabled = Not mEnabled
-        Using Storage = Options1.Storage
-            Storage.WriteBoolean(Options1.SETTING_MetricShader, Options1.SETTING_ShaderEnabled, mEnabled)
-        End Using
-        Call LoadSettings()
-    End Sub
-#End Region
+    '    Private Sub VisualizeButton_Click(ByVal sender As Object, ByVal e As MenuButtonClickEventArgs)
+    '        ' Toggle Feature
+    '        mEnabled = Not mEnabled
+    '        Using Storage = Options1.Storage
+    '            Storage.WriteBoolean(Options1.SETTING_MetricShader, Options1.SETTING_ShaderEnabled, mEnabled)
+    '        End Using
+    '        Call LoadSettings()
+    '    End Sub
+    '#End Region
 
 #Region "Demo Metric"
     Private Sub LineCountDemoMetric_GetMetricValue(ByVal sender As System.Object, ByVal e As GetMetricValueEventArgs) Handles LineCountDemoMetric.GetMetricValue
