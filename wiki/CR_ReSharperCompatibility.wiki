@@ -1,7 +1,7 @@
 #summary Coderush plugin designed to ease the process of moving from Resharper
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_ReSharperCompatibility/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-
+===== Requires DXCore 10.2 since build 1472 =====
 = Introduction =
 
 This is a simple plugin and a set of key bindings (listed below) designed to ease the process of moving from Resharper or just testing out !CodeRush and !RefactorPro from a Resharper user's point of view.
