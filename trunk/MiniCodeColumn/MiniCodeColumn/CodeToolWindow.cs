@@ -12,9 +12,9 @@ using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
-using DevExpress.CodeRush.Menus;
 using System.Drawing.Drawing2D;
 using System.Collections.Generic;
+using DevExpress.CodeRush.Menus;
 
 namespace MiniCodeColumn
 {
@@ -25,6 +25,8 @@ namespace MiniCodeColumn
     [Title("MiniCodeColumn")]
     public partial class CodeToolWindow : ToolWindowPlugIn
     {
+        private bool shutting_down = false;
+
         public static bool OnAir;
         public int last_height_divisor = 1;
 
@@ -48,8 +50,11 @@ namespace MiniCodeColumn
         public override void InitializePlugIn()
         {
             base.InitializePlugIn();
+
             LoadSettings();
             SetButtonImage();
+
+            this.WindowShow += new EventHandler(CodeToolWindow_WindowShow);
 
             repaint_tool_window_timer = new System.Timers.Timer(250) { Enabled = false, AutoReset = false };
             repaint_tool_window_timer.Elapsed += repaint_timer_Elapsed;
@@ -57,6 +62,11 @@ namespace MiniCodeColumn
 
         void RestartTimer()
         {
+            if (shutting_down)
+            {
+                repaint_tool_window_timer.Stop();
+                return;
+            }
             repaint_tool_window_timer.Stop();
             repaint_tool_window_timer.Start();
         }
@@ -64,6 +74,7 @@ namespace MiniCodeColumn
         void repaint_timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             repaint_tool_window_timer.Stop();
+            if (shutting_down) return;
             Invalidate();
         }
         #endregion
@@ -76,7 +87,7 @@ namespace MiniCodeColumn
             try
             {
                 DisposeGraphicElements();
-                HideWindow().Close(EnvDTE.vsSaveChanges.vsSaveChangesYes);
+                //HideWindow().Close(EnvDTE.vsSaveChanges.vsSaveChangesYes);
             }
             catch //(Exception ex)
             {
@@ -170,6 +181,7 @@ namespace MiniCodeColumn
         List<Line> CollectLines(TextView textView, int width_divisor)
         {
             List<Line> lines = new List<Line>();
+            if (shutting_down) return lines;
 
             int start = 0;
             int end = 0;
@@ -286,7 +298,7 @@ namespace MiniCodeColumn
         {
             TextView textView = CodeRush.TextViews.Active;
 
-            if ((textView == null) || drawing)
+            if ((textView == null) || drawing || shutting_down)
                 return;
 
             drawing = true;
@@ -405,8 +417,10 @@ namespace MiniCodeColumn
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            // base.OnPaint(e);
-            DrawCodeColumn(e.Graphics);
+            if (shutting_down)
+                base.OnPaint(e);
+            else
+                DrawCodeColumn(e.Graphics);
         }
 
         private void events_TextChanged(TextChangedEventArgs ea)
@@ -416,32 +430,6 @@ namespace MiniCodeColumn
 
         private void events_TextViewActivated(TextViewEventArgs ea)
         {
-            if (Visible && OnAir == false)
-            {
-                EnvDTE.Window wnd = null;
-                try
-                {
-                    wnd = CodeRush.ToolWindows.Show(typeof(CodeToolWindow));
-                    if (wnd != null && wnd.IsFloating)
-                    {
-                        wnd.Width = 60;
-                        wnd.Top = ea.TextView.ScreenBounds.Top;
-                        wnd.Height = ea.TextView.ScreenBounds.Height;
-                        wnd.Left = ea.TextView.ScreenBounds.Right - wnd.Width;
-
-                        EnvDTE.Window prop_wnd = CodeRush.ApplicationObject.Windows.Item("{EEFA5220-E298-11D0-8F78-00A0C9110057}");
-                        if (prop_wnd != null && prop_wnd.Linkable)
-                        {
-                            var frame = wnd.DTE.Windows.CreateLinkedWindowFrame(wnd, prop_wnd, EnvDTE.vsLinkedWindowType.vsLinkedWindowTypeVertical);
-                            //prop_wnd.LinkedWindows.Add(wnd);
-                        }
-                    }
-                }
-                catch
-                {
-                }
-                OnAir = true;
-            }
             RestartTimer();
         }
 
@@ -452,6 +440,7 @@ namespace MiniCodeColumn
 
         void events_EditorPaint(EditorPaintEventArgs ea)
         {
+            if (shutting_down) return;
             HighlightSelectedText(ea.Graphics);
         }
 
@@ -459,7 +448,7 @@ namespace MiniCodeColumn
         private bool highlighting;
         private void HighlightSelectedText(Graphics graphics)
         {
-            if (!PluginOptions.WordDoubleClickEnabled || highlighting || last_lines == null || last_lines.Count<=0)
+            if (!PluginOptions.WordDoubleClickEnabled || highlighting || last_lines == null || last_lines.Count<= 0 || shutting_down)
                 return;
 
 
@@ -497,7 +486,7 @@ namespace MiniCodeColumn
 
         private void events_EditorMouseDoubleClick(EditorMouseEventArgs ea)
         {
-            if (!PluginOptions.WordDoubleClickEnabled)
+            if (!PluginOptions.WordDoubleClickEnabled || shutting_down)
                 return;
 
             TextView textView = CodeRush.TextViews.Active;
@@ -527,13 +516,14 @@ namespace MiniCodeColumn
         bool mouse_is_down;
         private void CodeToolWindow_MouseDown(object sender, MouseEventArgs e)
         {
+            if (shutting_down) return;
             mouse_is_down = true;
             CodeToolWindow_MouseMove(sender, e);
         }
 
         private void CodeToolWindow_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!mouse_is_down || !PluginOptions.MiniCodeColumnEnabled)
+            if (!mouse_is_down || !PluginOptions.MiniCodeColumnEnabled || shutting_down)
                 return;
 
             TextView textView = CodeRush.TextViews.Active;
@@ -572,6 +562,67 @@ namespace MiniCodeColumn
         {
             RestartTimer();
         }
+
+        void CodeToolWindow_WindowShow(object sender, EventArgs e)
+        {
+            if (shutting_down) return;
+            if (OnAir == false && CodeRush.TextViews.Active!=null)
+            {
+                EnvDTE.Window wnd = null;
+                try
+                {
+                    wnd = this.Window; // CodeRush.ToolWindows.Show(typeof(CodeToolWindow));
+                    if (wnd != null && wnd.IsFloating)
+                    {
+                        //wnd.Visible = true;
+                        //wnd.IsFloating = true;
+                        EnvDTE.Window prop_wnd = CodeRush.ApplicationObject.Windows.Item(EnvDTE.Constants.vsWindowKindProperties);
+                        if (prop_wnd == null) return;
+
+                        wnd.Width = 60;
+                        wnd.Top = prop_wnd.Top; // ea.TextView.ScreenBounds.Top;
+                        wnd.Height = prop_wnd.Height; // ea.TextView.ScreenBounds.Height;
+                        wnd.Left = prop_wnd.Left;// +code_wnd.Width + 1; // ea.TextView.ScreenBounds.Right - wnd.Width;
+                        
+                        //wnd.IsFloating = false;
+                        if (false) //(prop_wnd != null && prop_wnd.Linkable && prop_wnd.LinkedWindowFrame != null && prop_wnd.LinkedWindowFrame.LinkedWindows != null)
+                        {
+                            //var frame = wnd.DTE.Windows.CreateLinkedWindowFrame(wnd, prop_wnd, EnvDTE.vsLinkedWindowType.vsLinkedWindowTypeVertical);
+                            prop_wnd.LinkedWindowFrame.LinkedWindows.Add(wnd);
+                        }
+                        else
+                        {
+                            int width = prop_wnd.Width + 60;
+                            int height = prop_wnd.Height;
+                            prop_wnd.LinkedWindowFrame.LinkedWindows.Remove(prop_wnd);
+                            //prop_wnd.IsFloating = true;
+                            EnvDTE80.Window2 Frame = (EnvDTE80.Window2)CodeRush.ApplicationObject.Windows.CreateLinkedWindowFrame(wnd, prop_wnd,
+                                    EnvDTE.vsLinkedWindowType.vsLinkedWindowTypeVertical);
+                            Frame.Caption = "Properties && Code";
+                            
+                            Frame.SetKind(EnvDTE.vsWindowType.vsWindowTypeToolWindow);
+                            Frame.Width = width;
+                            Frame.Height = height;
+                            EnvDTE.Window main_wnd = ((EnvDTE80.DTE2)CodeRush.ApplicationObject).MainWindow;
+                            //EnvDTE.Window main_wnd = CodeRush.ApplicationObject.Windows.Item(EnvDTE.Constants.vsWindowKindDocumentOutline);
+                            //main_wnd.LinkedWindowFrame.LinkedWindows.Add(Frame);
+                            main_wnd.LinkedWindows.Add(Frame);
+                        }
+
+                        OnAir = true;
+                    }
+                }
+                catch
+                {
+                }
+            }
+        }
+
+        private void events_BeginShutdown()
+        {
+            shutting_down = true;
+        }
+
 
     }
 }

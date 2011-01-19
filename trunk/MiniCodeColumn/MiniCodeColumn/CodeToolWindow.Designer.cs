@@ -44,13 +44,14 @@ namespace MiniCodeColumn
             // 
             // events
             // 
+            this.events.BeginShutdown += new DevExpress.CodeRush.Core.DefaultHandler(this.events_BeginShutdown);
             this.events.OptionsChanged += new DevExpress.CodeRush.Core.OptionsChangedEventHandler(this.events_OptionsChanged);
             this.events.MarkerCollected += new DevExpress.CodeRush.Core.MarkerEventHandler(this.events_MarkerCollected);
             this.events.EditorMouseDoubleClick += new DevExpress.CodeRush.Core.EditorMouseEventHandler(this.events_EditorMouseDoubleClick);
+            this.events.EditorPaint += new DevExpress.CodeRush.Core.EditorPaintEventHandler(this.events_EditorPaint);
             this.events.EditorScrolled += new DevExpress.CodeRush.Core.EditorScrolledEventHandler(this.events_EditorScrolled);
             this.events.TextViewActivated += new DevExpress.CodeRush.Core.TextViewHandler(this.events_TextViewActivated);
             this.events.TextChanged += new DevExpress.CodeRush.Core.TextChangedEventHandler(this.events_TextChanged);
-            this.events.EditorPaint += new DevExpress.CodeRush.Core.EditorPaintEventHandler(this.events_EditorPaint);
             // 
             // CodeToolWindow
             // 

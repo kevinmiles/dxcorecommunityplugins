@@ -2,7 +2,6 @@ using System;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
-using DevExpress.CodeRush.Menus;
 
 namespace MiniCodeColumn
 {
