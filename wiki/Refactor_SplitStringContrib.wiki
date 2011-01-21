@@ -6,6 +6,8 @@
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_SplitStringContrib/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
+*Requires DXCore 10.2 since build 1515*
+
 = Introduction =
 
 This plugin enhances "Split String" refactoring provided with Refactor Pro. It allows VB developers to use '&' instead of '+' as their concatenation operator. Also, when caret is inside string, you can fast and easy split it into two at the caret position. What is more, right string will be moved to the next line.
