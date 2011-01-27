@@ -27,7 +27,7 @@ Partial Class PlugIn1
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()> _
   	Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PlugIn1))
         Me.GenerateTest = New DevExpress.CodeRush.Core.CodeProvider(Me.components)
         Me.Action1 = New DevExpress.CodeRush.Core.Action(Me.components)
@@ -40,7 +40,8 @@ Partial Class PlugIn1
         Me.GenerateTest.ActionHintText = ""
         Me.GenerateTest.AutoActivate = True
         Me.GenerateTest.AutoUndo = False
-        Me.GenerateTest.Description = "Generate Test"
+        Me.GenerateTest.CodeIssueMessage = Nothing
+        Me.GenerateTest.Description = ""
         Me.GenerateTest.DisplayName = "Generate Test"
         Me.GenerateTest.ExclusiveAvailabilityBehavior = DevExpress.CodeRush.Core.ExclusiveAvailabilityBehavior.ShowMenu
         Me.GenerateTest.Image = CType(resources.GetObject("GenerateTest.Image"), System.Drawing.Bitmap)
@@ -54,6 +55,9 @@ Partial Class PlugIn1
         Me.Action1.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None
         Me.Action1.Image = CType(resources.GetObject("Action1.Image"), System.Drawing.Bitmap)
         Me.Action1.ImageBackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Action1.ToolbarItem.ButtonIsPressed = False
+        Me.Action1.ToolbarItem.Caption = Nothing
+        Me.Action1.ToolbarItem.Image = Nothing
         CType(Me.GenerateTest, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Action1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()

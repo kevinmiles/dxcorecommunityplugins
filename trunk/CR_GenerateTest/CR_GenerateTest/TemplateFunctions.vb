@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 Imports DevExpress.CodeRush.Core
 
-Public Module TemplateFunctions
+Public Class TemplateCRUD
     Public Sub EnsureTemplateExists(ByVal TemplateName As String, ByVal TemplateText As String)
         Dim Parts = SplitTemplateCategoryAndName(TemplateName)
         Call CreateTemplate(Parts(0), TemplateText, Parts(1), New ContextPickerData())
@@ -58,4 +58,4 @@ Public Module TemplateFunctions
         End If
         Return Template
     End Function
-End Module
+End Class

@@ -27,7 +27,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>D:\RoryData\Documents\DevExpress\IDE Tools\Community\PlugIns</OutputPath>
+    <OutputPath>..\..\..\..\Documents\DevExpress\IDE Tools\Community\PlugIns\</OutputPath>
     <DocumentationFile>CR_GenerateTest.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <PlatformTarget>x86</PlatformTarget>
@@ -135,10 +135,13 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestGenerators\BaseTestGenerator.vb" />
+    <Compile Include="Extensions\LanguageElementExt.vb" />
+    <Compile Include="TestGenerators\NUnitTestGenerator.vb" />
     <Compile Include="Common\FileOperations.vb" />
-    <Compile Include="Common\FluentDX.vb" />
-    <Compile Include="Common\TypeExt.vb" />
-    <Compile Include="Common\SolutionExt.vb" />
+    <Compile Include="Extensions\StringExt.vb" />
+    <Compile Include="Extensions\TypeExt.vb" />
+    <Compile Include="Extensions\SolutionExt.vb" />
     <Compile Include="Common\UndoUnits\AddedProjectFileUndoUnit.vb" />
     <Compile Include="Common\UndoUnits\CreatedFileUndoUnit.vb" />
     <Compile Include="Common\UndoUnits\DeletedFileUndoUnit.vb" />
@@ -146,32 +149,24 @@
     <Compile Include="Common\UndoUnits\FileActivateUndoUnit.vb" />
     <Compile Include="Common\UndoUnits\RemovedProjectFileUndoUnit.vb" />
     <Compile Include="Common\DXtras.vb" />
-    <Compile Include="Common\ViewExt.vb" />
+    <Compile Include="Extensions\ViewExt.vb" />
+    <Compile Include="TestGenerators\ITestGenerator.vb" />
+    <Compile Include="ProjectCRUD.vb" />
+    <Compile Include="TestGenerators\KnackeredGenerator.vb" />
     <EmbeddedResource Include="DefaultTemplates\DefaultVBNUnitStubClass.vb" />
     <EmbeddedResource Include="DefaultTemplates\DefaultVBNUnitStubMethod.vb" />
-    <Compile Include="Module1.vb" />
-    <Compile Include="Options1.Designer.vb">
-      <DependentUpon>Options1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Options1.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Common\ProjectExt.vb" />
+    <Compile Include="Extensions\ProjectExt.vb" />
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PlugIn1.Designer.vb">
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </Compile>
-    <Compile Include="PluginSettings.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
-    <Compile Include="StringExt.vb" />
+    <Compile Include="ResourceRepo.vb" />
     <Compile Include="TemplateFunctions.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Options1.resx">
-      <DependentUpon>Options1.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="PlugIn1.resx">
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </EmbeddedResource>
