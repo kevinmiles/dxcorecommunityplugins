@@ -1,12 +1,20 @@
 #summary Generates a stub test method for the method your caret is residing in.
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_GenerateTest/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-
+===== Requires DXCore 10.2 since build 1576 =====
 = Introduction =
 
-Generates a Test Project "{{{<SourceProject>_Test}}}" containing a Test Class "{{{<SourceClass>_Test}}}" containing a Test Method "{{{<SourceMethod>_Test}}}".
+Generates a new stub method, creating a class and project around it as needed.
 
 = Details =
+
+ * Generates a Test Project 
+   * References your *SourceProject*
+   * References '*Nunit.Framework.dll*'
+ * Generates a Test Class 
+   * Marks it with a *!TestFixture* Attribute
+ * Generates an empty Test Method
+   * Marks it with a *Test* Attribute
 
 So if you have 
 
@@ -20,13 +28,16 @@ End Class
 ----
 ... in a Project called "SomeProject"
 
-Then activation will cause the generation of an additional project within the solution called "SomeProject_Test".
+Then activation will cause the generation of an additional project within the solution called "SomeProject_Tests".
 
 This project will contain a class...
 ----
 {{{
-Public Class SomeClass_Test
-    Public Sub SomeMethod_Test()
+Imports Nunit.Framework
+<TestFixture> _
+Public Class SomeClass_Tests
+    <Test> _
+    Public Sub Test_Test()
     End Sub 
 End Class
 }}}
