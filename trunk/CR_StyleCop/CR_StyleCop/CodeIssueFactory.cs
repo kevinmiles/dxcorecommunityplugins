@@ -88,7 +88,8 @@
             this.handlers.Add("SA1406", new SA1406_DebugFailMustProvideMessageText()); // OK
             this.handlers.Add("SA1407", new SA1407_ArithmeticExpressionsMustDeclarePrecedence()); // OK
             this.handlers.Add("SA1408", new SA1408_ConditionalExpressionsMustDeclarePrecedence()); // OK
-            this.handlers.Add("SA1409", new SA1409_RemoveUnnecessaryCode()); // OK
+            this.handlers.Add("SA1409", new SA1409_RemoveUnnecessaryCode()); // problem with 2 use cases
+            this.handlers.Add("SA1410", new SA1410_RemoveDelegateParenthesisWhenPossible()); // OK
             
             this.handlers.Add("SA1300", new SA1300_ElementMustBeginWithUpperCaseLetter()); // OK
             this.handlers.Add("SA1301", new SA1301_ElementMustBeginWithLowerCaseLetter()); // Never reported according to StyleCop help
