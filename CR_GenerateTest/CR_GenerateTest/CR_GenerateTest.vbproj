@@ -152,7 +152,6 @@
     <Compile Include="Extensions\ViewExt.vb" />
     <Compile Include="TestGenerators\ITestGenerator.vb" />
     <Compile Include="ProjectCRUD.vb" />
-    <Compile Include="TestGenerators\KnackeredGenerator.vb" />
     <EmbeddedResource Include="DefaultTemplates\DefaultVBNUnitStubClass.vb" />
     <EmbeddedResource Include="DefaultTemplates\DefaultVBNUnitStubMethod.vb" />
     <Compile Include="Extensions\ProjectExt.vb" />

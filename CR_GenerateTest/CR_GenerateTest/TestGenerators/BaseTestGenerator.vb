@@ -18,25 +18,25 @@ Public MustInherit Class BaseTestGenerator
     Public MustOverride ReadOnly Property TestAttributeName As String
     Public MustOverride ReadOnly Property TestFixtureAttributeName As String
 
-    Protected Overridable ReadOnly Property TestnamePrefix As String
+    Protected Overridable ReadOnly Property TestnamePrefix As String Implements ITestGenerator.TestnamePrefix
         Get
             Return String.Empty
         End Get
     End Property
 
-    Protected Overridable ReadOnly Property TestnamePostfix As String
+    Protected Overridable ReadOnly Property TestnamePostfix As String Implements ITestGenerator.TestnamePostfix
         Get
             Return String.Empty
         End Get
     End Property
 
 
-    Public Overridable ReadOnly Property TestProjectSuffix() As String
+    Public Overridable ReadOnly Property TestProjectSuffix() As String Implements ITestGenerator.TestProjectSuffix
         Get
             Return "_Tests"
         End Get
     End Property
-    Public Overridable ReadOnly Property TestFixtureSuffix() As String
+    Public Overridable ReadOnly Property TestFixtureSuffix() As String Implements ITestGenerator.TestFixtureSuffix
         Get
             Return "_Tests"
         End Get
