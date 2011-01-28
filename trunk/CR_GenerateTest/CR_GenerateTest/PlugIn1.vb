@@ -28,7 +28,17 @@ Public Class PlugIn1
 
     Private TestGenerator As ITestGenerator
     Private Sub GenerateTest_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs) Handles GenerateTest.CheckAvailability
+        TestGenerator = New NUnitTestGenerator
         ea.Available = True
+        ' In Class 
+        Dim [Class] = TryCast(ea.CodeActive, [Class])
+        If [Class] Is Nothing Then
+            ea.Available = False
+        End If
+        ' Class Not suffixed
+        If [Class].Name.EndsWith(TestGenerator.TestFixtureSuffix) Then
+            ea.Available = False
+        End If
     End Sub
 
     Private Sub GenerateTest_Apply(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs) Handles GenerateTest.Apply
@@ -38,9 +48,9 @@ Public Class PlugIn1
         Dim ProjectLanguage As String = SourceProject.Language
 
         'TestGenerator = New NUnitTestGenerator
-        TestGenerator = New NUnitTestGenerator
         TestGenerator.GenerateTest(SourceProject, SourceTypeName, ProjectLanguage)
     End Sub
+
 
 
 End Class

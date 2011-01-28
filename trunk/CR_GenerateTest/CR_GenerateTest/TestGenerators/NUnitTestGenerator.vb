@@ -11,12 +11,12 @@ Public Class NUnitTestGenerator
 
     Public Overrides ReadOnly Property TestAssemblyName As String
         Get
-            Return "Nunit.Framework.dll"
+            Return "NUnit.Framework.dll"
         End Get
     End Property
     Public Overrides ReadOnly Property TestNamespace As String
         Get
-            Return "Nunit.Framework"
+            Return "NUnit.Framework"
         End Get
     End Property
     Public Overrides ReadOnly Property TestAttributeName As String
