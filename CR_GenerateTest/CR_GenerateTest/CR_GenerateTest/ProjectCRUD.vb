@@ -4,17 +4,16 @@ Imports DevExpress.CodeRush.StructuralParser
 Imports SP = DevExpress.CodeRush.StructuralParser
 Imports EnvDTE80
 Imports System.IO
+Imports System.Runtime.CompilerServices
 Imports System.Reflection
 
 Public Class ProjectCRUD
     Public Function EnsureProjectExists(ByVal SolutionFolder As String, ByVal ProjectName As String, ByVal Language As String) As ProjectElement
         Dim FoundProject As ProjectElement = GetProject(ProjectName)
         If FoundProject Is Nothing Then
-
-            Call DeleteProject(String.Format("{0}\{1}", SolutionFolder, ProjectName), True)
+            Call DeleteProject(SolutionFolder & "\" & ProjectName, True)
             If Not ExistsProject(CodeRush.Solution, ProjectName) Then
                 Call CreateProject(SolutionFolder, Language, ProjectName)
-
             End If
             FoundProject = GetProject(ProjectName)
         End If
@@ -44,7 +43,7 @@ Public Class ProjectCRUD
     End Function
     Private Function CreateProject(ByVal SolutionFolder As String, ByVal ProjectLanguage As String, ByVal ProjectName As String) As EnvDTE.Project
 
-        Dim NewProjectFolder As String = String.Format("{0}\{1}", SolutionFolder, ProjectName)
+        Dim NewProjectFolder As String = SolutionFolder & "\" & ProjectName
         Dim TemplateName As String = GetTemplatePath("ClassLibrary.zip", PreProcess(ProjectLanguage))
         Return CodeRush.ApplicationObject.Solution.AddFromTemplate(TemplateName, NewProjectFolder, ProjectName, False)
     End Function
