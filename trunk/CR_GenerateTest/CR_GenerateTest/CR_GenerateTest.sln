@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CR_GenerateTest", "CR_GenerateTest\CR_GenerateTest.vbproj", "{F5A607A7-E17A-4AAA-970F-8E240D5D48D7}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CR_GenerateTest_Tests", "CR_GenerateTest_Tests\CR_GenerateTest_Tests.vbproj", "{C0CD3AB5-1FC9-4919-A193-542F6A1BCC90}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5A607A7-E17A-4AAA-970F-8E240D5D48D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5A607A7-E17A-4AAA-970F-8E240D5D48D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5A607A7-E17A-4AAA-970F-8E240D5D48D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5A607A7-E17A-4AAA-970F-8E240D5D48D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0CD3AB5-1FC9-4919-A193-542F6A1BCC90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0CD3AB5-1FC9-4919-A193-542F6A1BCC90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0CD3AB5-1FC9-4919-A193-542F6A1BCC90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0CD3AB5-1FC9-4919-A193-542F6A1BCC90}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
