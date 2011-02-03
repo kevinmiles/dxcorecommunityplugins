@@ -88,6 +88,12 @@
     <Compile Include="AnalyzedSourceCode.cs" />
     <Compile Include="CodeIssues\MethodCallCodeIssue.cs" />
     <Compile Include="CodeIssues\SA1119_StatementMustNotUseUnnecessaryParenthesis.cs" />
+    <Compile Include="CodeIssues\SA1200_UsingDirectivesMustBePlacedWithinNamespace.cs" />
+    <Compile Include="CodeIssues\SA1208_SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives.cs" />
+    <Compile Include="CodeIssues\SA1209_UsingAliasDirectivesMustBePlacedAfterOtherUsingDirectives.cs" />
+    <Compile Include="CodeIssues\SA1210_UsingDirectivesMustBeOrderedAlphabeticallyByNamespace.cs" />
+    <Compile Include="CodeIssues\SA1211_UsingAliasDirectivesMustBeOrderedAlphabeticallyByAliasName.cs" />
+    <Compile Include="CodeIssues\SA1300_ElementMustBeginWithUpperCaseLetter.cs" />
     <Compile Include="CodeIssues\SA1402_FileMayOnlyContainASingleClass.cs" />
     <Compile Include="CodeIssues\SA1403_FileMayOnlyContainASingleNamespace.cs" />
     <Compile Include="CodeIssues\SA1404_CodeAnalysisSuppressionMustHaveJustification.cs" />
@@ -103,7 +109,6 @@
     <Compile Include="CodeIssues\SA1605_PartialElementDocumentationMustHaveSummary.cs" />
     <Compile Include="CodeIssues\KeywordCodeIssue.cs" />
     <Compile Include="CodeIssues\OpeningCurlyBracketCodeIssue.cs" />
-    <Compile Include="CodeIssues\SA1300_ElementMustBeginWithUpperCaseLetter.cs" />
     <Compile Include="CodeIssues\SA1301_ElementMustBeginWithLowerCaseLetter.cs" />
     <Compile Include="CodeIssues\SA1302_InterfaceNamesMustBeginWithI.cs" />
     <Compile Include="CodeIssues\SA1303_ConstFieldNamesMustBeginWithUpperCaseLetter.cs" />
@@ -170,6 +175,7 @@
     <Compile Include="CodeIssues\SA1646_IncludedDocumentationXPathDoesNotExist.cs" />
     <Compile Include="CodeIssues\SA1647_IncludeNodeDoesNotContainValidFileAndPath.cs" />
     <Compile Include="CodeIssues\SingleLineCommentCodeIssue.cs" />
+    <Compile Include="CodeIssues\UsingDirectiveCodeIssue.cs" />
     <Compile Include="CR_StyleCopPlugIn.cs">
       <SubType>Component</SubType>
     </Compile>
