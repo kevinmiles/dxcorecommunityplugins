@@ -10,6 +10,8 @@ namespace CR_StyleCop.Loader
     {
         private bool styleCopLoaded;
         private bool styleCopCSharpLoaded;
+        private bool styleCopCSharpRulesLoaded;
+        private bool styleCopVSPackageLoaded;
 
         public override void InitializePlugIn()
         {
@@ -21,7 +23,7 @@ namespace CR_StyleCop.Loader
                 if (assemblyName == "Microsoft.StyleCop")
                 {
                     this.styleCopLoaded = true;
-                    if (this.styleCopCSharpLoaded)
+                    if (this.StyleCopLoaded)
                     {
                         LoadCRStyleCopPlugin();
                         return;
@@ -30,7 +32,25 @@ namespace CR_StyleCop.Loader
                 if (assemblyName == "Microsoft.StyleCop.CSharp")
                 {
                     this.styleCopCSharpLoaded = true;
-                    if (this.styleCopLoaded)
+                    if (this.StyleCopLoaded)
+                    {
+                        LoadCRStyleCopPlugin();
+                        return;
+                    }
+                }
+                if (assemblyName == "Microsoft.StyleCop.CSharp.Rules")
+                {
+                    this.styleCopCSharpRulesLoaded = true;
+                    if (this.StyleCopLoaded)
+                    {
+                        LoadCRStyleCopPlugin();
+                        return;
+                    }
+                }
+                if (assemblyName == "Microsoft.StyleCop.VSPackage")
+                {
+                    this.styleCopVSPackageLoaded = true;
+                    if (this.StyleCopLoaded)
                     {
                         LoadCRStyleCopPlugin();
                         return;
@@ -60,20 +80,49 @@ namespace CR_StyleCop.Loader
             if (loadedAssemblyName == "Microsoft.StyleCop")
             {
                 this.styleCopLoaded = true;
-                if (this.styleCopCSharpLoaded)
+                if (this.StyleCopLoaded)
                 {
                     LoadCRStyleCopPlugin();
-                    return;
                 }
+                return;
             }
             if (loadedAssemblyName == "Microsoft.StyleCop.CSharp")
             {
                 this.styleCopCSharpLoaded = true;
-                if (this.styleCopLoaded)
+                if (this.StyleCopLoaded)
                 {
                     LoadCRStyleCopPlugin();
-                    return;
                 }
+                return;
+            }
+            if (loadedAssemblyName == "Microsoft.StyleCop.CSharp.Rules")
+            {
+                this.styleCopCSharpRulesLoaded = true;
+                if (this.StyleCopLoaded)
+                {
+                    LoadCRStyleCopPlugin();
+                }
+                return;
+            }
+            if (loadedAssemblyName == "Microsoft.StyleCop.VSPackage")
+            {
+                this.styleCopVSPackageLoaded = true;
+                if (this.StyleCopLoaded)
+                {
+                    LoadCRStyleCopPlugin();
+                }
+                return;
+            }
+        }
+
+        private bool StyleCopLoaded
+        {
+            get
+            {
+                return this.styleCopLoaded
+                    && this.styleCopCSharpLoaded
+                    && this.styleCopCSharpRulesLoaded
+                    && this.styleCopVSPackageLoaded;
             }
         }
     }
