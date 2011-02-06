@@ -93,6 +93,9 @@
     <Compile Include="CodeIssues\SA1200_UsingDirectivesMustBePlacedWithinNamespace.cs" />
     <Compile Include="CodeIssues\SA1201_ElementsMustAppearInTheCorrectOrder.cs" />
     <Compile Include="CodeIssues\SA1202_ElementsMustBeOrderedByAccess.cs" />
+    <Compile Include="CodeIssues\SA1203_ConstantsMustAppearBeforeFields.cs" />
+    <Compile Include="CodeIssues\SA1204_StaticElementsMustAppearBeforeInstanceElements.cs" />
+    <Compile Include="CodeIssues\SA1205_PartialElementsMustDeclareAccess.cs" />
     <Compile Include="CodeIssues\SA1208_SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives.cs" />
     <Compile Include="CodeIssues\SA1209_UsingAliasDirectivesMustBePlacedAfterOtherUsingDirectives.cs" />
     <Compile Include="CodeIssues\SA1210_UsingDirectivesMustBeOrderedAlphabeticallyByNamespace.cs" />
