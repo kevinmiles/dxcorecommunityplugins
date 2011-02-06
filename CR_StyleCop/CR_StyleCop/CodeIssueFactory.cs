@@ -104,12 +104,16 @@
             this.handlers.Add("SA1310", new SA1310_FieldNamesMustNotContainUnderscore()); // OK
 
             this.handlers.Add("SA1200", new SA1200_UsingDirectivesMustBePlacedWithinNamespace()); // OK
-            //this.handlers.Add("SA1201", new SA1201_ElementsMustAppearInTheCorrectOrder());
-            this.handlers.Add("SA1202", new SA1202_ElementsMustBeOrderedByAccess());
-            this.handlers.Add("SA1208", new SA1208_SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives());// OK
-            this.handlers.Add("SA1209", new SA1209_UsingAliasDirectivesMustBePlacedAfterOtherUsingDirectives());// OK
-            this.handlers.Add("SA1210", new SA1210_UsingDirectivesMustBeOrderedAlphabeticallyByNamespace());// OK
-            this.handlers.Add("SA1211", new SA1211_UsingAliasDirectivesMustBeOrderedAlphabeticallyByAliasName());// OK
+            this.handlers.Add("SA1201", new SA1201_ElementsMustAppearInTheCorrectOrder()); // Need to be fine tuned - stylecop returns confusing results
+            this.handlers.Add("SA1202", new SA1202_ElementsMustBeOrderedByAccess()); // Need to be fine tuned - stylecop returns confusing results
+            this.handlers.Add("SA1203", new SA1203_ConstantsMustAppearBeforeFields()); // Need to be fine tuned - stylecop returns confusing results
+            this.handlers.Add("SA1204", new SA1204_StaticElementsMustAppearBeforeInstanceElements()); // Need to be fine tuned - stylecop returns confusing results
+            this.handlers.Add("SA1205", new SA1205_PartialElementsMustDeclareAccess()); // Need sample code to test, rule is not documented
+
+            this.handlers.Add("SA1208", new SA1208_SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives()); // OK
+            this.handlers.Add("SA1209", new SA1209_UsingAliasDirectivesMustBePlacedAfterOtherUsingDirectives()); // OK
+            this.handlers.Add("SA1210", new SA1210_UsingDirectivesMustBeOrderedAlphabeticallyByNamespace()); // OK
+            this.handlers.Add("SA1211", new SA1211_UsingAliasDirectivesMustBeOrderedAlphabeticallyByAliasName()); // OK
 
             this.handlers.Add("SA1119", new SA1119_StatementMustNotUseUnnecessaryParenthesis());
         }
