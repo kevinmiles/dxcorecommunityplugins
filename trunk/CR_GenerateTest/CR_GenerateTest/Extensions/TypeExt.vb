@@ -16,11 +16,11 @@ Public Module TypeExt
         Return TestType.AllMethods.OfType(Of Method).Where(Func).FirstOrDefault
     End Function
     <Extension()> _
-    Public Function FirstMethodNameNotInUse(ByVal TestType As TypeDeclaration, ByVal BaseMethodName As String) As String
+    Public Function FirstMethodNameNotInUse(ByVal TestType As TypeDeclaration, ByVal BaseMethodName As String, ByVal Prefix As String, ByVal Suffix As String) As String
         Dim Result = String.Empty
         Dim CandidateName As String = BaseMethodName
         Dim Count As Integer = 0
-        Do While TestType.AllMethods.OfType(Of Method).Any(Function(m) m.Name = CandidateName)
+        Do While TestType.AllMethods.OfType(Of Method).Any(Function(m) m.Name = Prefix & CandidateName & Suffix)
             Count += 1
             CandidateName = BaseMethodName & CStr(Count)
         Loop

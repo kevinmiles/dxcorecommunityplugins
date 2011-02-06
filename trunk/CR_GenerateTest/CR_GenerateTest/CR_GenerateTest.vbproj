@@ -138,9 +138,17 @@
     <Compile Include="Extensions\CodeElementExt.vb" />
     <Compile Include="Extensions\DocumentExt.vb" />
     <Compile Include="Extensions\NamespaceExt.vb" />
+    <Compile Include="NamingOptions.vb" />
+    <Compile Include="Options1.Designer.vb">
+      <DependentUpon>Options1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Options1.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="TestGenerators\BaseTestGenerator.vb" />
     <Compile Include="Extensions\LanguageElementExt.vb" />
     <Compile Include="TestGenerators\BaseTestGeneratorOldButWorking.vb" />
+    <Compile Include="TestGenerators\CustomTestGenerator.vb" />
     <Compile Include="TestGenerators\NUnitTestGenerator.vb" />
     <Compile Include="Common\FileOperations.vb" />
     <Compile Include="Extensions\StringExt.vb" />
@@ -156,6 +164,7 @@
     <Compile Include="Extensions\ViewExt.vb" />
     <Compile Include="TestGenerators\ITestGenerator.vb" />
     <Compile Include="ProjectCRUD.vb" />
+    <Compile Include="TestGenerators\XUnitTestGenerator.vb" />
     <EmbeddedResource Include="DefaultTemplates\DefaultVBNUnitStubClass.vb" />
     <EmbeddedResource Include="DefaultTemplates\DefaultVBNUnitStubMethod.vb" />
     <Compile Include="Extensions\ProjectExt.vb" />
@@ -170,6 +179,9 @@
     <Compile Include="TemplateFunctions.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Options1.resx">
+      <DependentUpon>Options1.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PlugIn1.resx">
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </EmbeddedResource>
