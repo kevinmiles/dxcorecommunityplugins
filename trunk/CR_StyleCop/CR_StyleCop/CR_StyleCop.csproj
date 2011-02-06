@@ -183,6 +183,7 @@
     <Compile Include="CodeIssues\SA1647_IncludeNodeDoesNotContainValidFileAndPath.cs" />
     <Compile Include="CodeIssues\SingleLineCommentCodeIssue.cs" />
     <Compile Include="CodeIssues\UsingDirectiveCodeIssue.cs" />
+    <Compile Include="CodeIssues\WrongElementOrderCodeIssue.cs" />
     <Compile Include="CR_StyleCopPlugIn.cs">
       <SubType>Component</SubType>
     </Compile>
