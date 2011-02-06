@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal class SA1203_ConstantsMustAppearBeforeFields : ElementByNameCodeIssue
+    internal class SA1203_ConstantsMustAppearBeforeFields : WrongElementOrderCodeIssue
     {
     }
 }

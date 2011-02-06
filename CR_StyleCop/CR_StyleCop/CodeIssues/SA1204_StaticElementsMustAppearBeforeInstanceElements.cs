@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal class SA1204_StaticElementsMustAppearBeforeInstanceElements : ElementByNameCodeIssue
+    internal class SA1204_StaticElementsMustAppearBeforeInstanceElements : WrongElementOrderCodeIssue
     {
     }
 }

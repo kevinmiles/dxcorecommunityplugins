@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal class SA1202_ElementsMustBeOrderedByAccess : ElementByNameCodeIssue
+    internal class SA1202_ElementsMustBeOrderedByAccess : WrongElementOrderCodeIssue
     {
     }
 }

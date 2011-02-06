@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal class SA1201_ElementsMustAppearInTheCorrectOrder : ElementByNameCodeIssue
+    internal class SA1201_ElementsMustAppearInTheCorrectOrder : WrongElementOrderCodeIssue
     {
     }
 }
