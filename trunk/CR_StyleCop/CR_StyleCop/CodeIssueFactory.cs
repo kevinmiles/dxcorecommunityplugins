@@ -109,7 +109,8 @@
             this.handlers.Add("SA1203", new SA1203_ConstantsMustAppearBeforeFields()); // OK
             this.handlers.Add("SA1204", new SA1204_StaticElementsMustAppearBeforeInstanceElements()); // OK
             this.handlers.Add("SA1205", new SA1205_PartialElementsMustDeclareAccess()); // OK
-
+            this.handlers.Add("SA1206", new SA1206_DeclarationKeywordsMustFollowOrder()); // OK
+            this.handlers.Add("SA1207", new SA1207_ProtectedMustComeBeforeInternal()); // OK
             this.handlers.Add("SA1208", new SA1208_SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives()); // OK
             this.handlers.Add("SA1209", new SA1209_UsingAliasDirectivesMustBePlacedAfterOtherUsingDirectives()); // OK
             this.handlers.Add("SA1210", new SA1210_UsingDirectivesMustBeOrderedAlphabeticallyByNamespace()); // OK
