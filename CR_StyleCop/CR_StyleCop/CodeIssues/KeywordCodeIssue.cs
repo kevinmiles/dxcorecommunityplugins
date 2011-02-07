@@ -26,13 +26,25 @@
                 ea.AddSmell(new SourceRange(violation.Line, 1, violation.Line, document.LengthOfLine(violation.Line) + 1), message, 10);
                 return;
             }
+
+            CodePoint startPoint = null;
+            CodePoint endPoint = null;
             foreach (var location in from token in csElement.ElementTokens
                                   where token.LineNumber == violation.Line && this.keywords.Contains(token.Text)
                                   select token.Location)
             {
-                SourceRange sourceRange = new SourceRange(location.StartPoint.LineNumber, location.StartPoint.IndexOnLine + 1, location.EndPoint.LineNumber, location.EndPoint.IndexOnLine + 2);
+                if (startPoint == null)
+                {
+                    startPoint = location.StartPoint;
+                }
+
+                endPoint = location.EndPoint;
+            }
+
+            if (startPoint != null && endPoint != null)
+            {
+                var sourceRange = new SourceRange(startPoint.LineNumber, startPoint.IndexOnLine + 1, endPoint.LineNumber, endPoint.IndexOnLine + 2);
                 ea.AddSmell(sourceRange, message, 10);
-                return;
             }
         }
     }

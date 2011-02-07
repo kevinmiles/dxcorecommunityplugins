@@ -96,6 +96,8 @@
     <Compile Include="CodeIssues\SA1203_ConstantsMustAppearBeforeFields.cs" />
     <Compile Include="CodeIssues\SA1204_StaticElementsMustAppearBeforeInstanceElements.cs" />
     <Compile Include="CodeIssues\SA1205_PartialElementsMustDeclareAccess.cs" />
+    <Compile Include="CodeIssues\SA1206_DeclarationKeywordsMustFollowOrder.cs" />
+    <Compile Include="CodeIssues\SA1207_ProtectedMustComeBeforeInternal.cs" />
     <Compile Include="CodeIssues\SA1208_SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives.cs" />
     <Compile Include="CodeIssues\SA1209_UsingAliasDirectivesMustBePlacedAfterOtherUsingDirectives.cs" />
     <Compile Include="CodeIssues\SA1210_UsingDirectivesMustBeOrderedAlphabeticallyByNamespace.cs" />
