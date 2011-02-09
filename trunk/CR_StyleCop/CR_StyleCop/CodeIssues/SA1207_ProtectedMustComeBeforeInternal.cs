@@ -5,7 +5,7 @@
     internal class SA1207_ProtectedMustComeBeforeInternal : KeywordCodeIssue
     {
         public SA1207_ProtectedMustComeBeforeInternal()
-            : base(new[] {"protected", "internal" })
+            : base("protected", "internal")
         {
         }
     }
