@@ -115,6 +115,8 @@
             this.handlers.Add("SA1209", new SA1209_UsingAliasDirectivesMustBePlacedAfterOtherUsingDirectives()); // OK
             this.handlers.Add("SA1210", new SA1210_UsingDirectivesMustBeOrderedAlphabeticallyByNamespace()); // OK
             this.handlers.Add("SA1211", new SA1211_UsingAliasDirectivesMustBeOrderedAlphabeticallyByAliasName()); // OK
+            this.handlers.Add("SA1212", new SA1212_PropertyAccessorsMustFollowOrder()); // OK
+            this.handlers.Add("SA1213", new SA1213_EventAccessorsMustFollowOrder()); // OK
 
             this.handlers.Add("SA1119", new SA1119_StatementMustNotUseUnnecessaryParenthesis());
         }
