@@ -102,6 +102,8 @@
     <Compile Include="CodeIssues\SA1209_UsingAliasDirectivesMustBePlacedAfterOtherUsingDirectives.cs" />
     <Compile Include="CodeIssues\SA1210_UsingDirectivesMustBeOrderedAlphabeticallyByNamespace.cs" />
     <Compile Include="CodeIssues\SA1211_UsingAliasDirectivesMustBeOrderedAlphabeticallyByAliasName.cs" />
+    <Compile Include="CodeIssues\SA1212_PropertyAccessorsMustFollowOrder.cs" />
+    <Compile Include="CodeIssues\SA1213_EventAccessorsMustFollowOrder.cs" />
     <Compile Include="CodeIssues\SA1300_ElementMustBeginWithUpperCaseLetter.cs" />
     <Compile Include="CodeIssues\SA1402_FileMayOnlyContainASingleClass.cs" />
     <Compile Include="CodeIssues\SA1403_FileMayOnlyContainASingleNamespace.cs" />
