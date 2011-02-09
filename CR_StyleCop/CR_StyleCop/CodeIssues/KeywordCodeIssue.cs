@@ -12,7 +12,7 @@
     {
         private readonly IEnumerable<string> keywords;
 
-        public KeywordCodeIssue(IEnumerable<string> keywords)
+        public KeywordCodeIssue(params string[] keywords)
         {
             this.keywords = keywords;
         }
