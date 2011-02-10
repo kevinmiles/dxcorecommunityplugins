@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="AnalyzedSourceCode.cs" />
     <Compile Include="CodeIssues\MethodCallCodeIssue.cs" />
+    <Compile Include="CodeIssues\SA1100_DoNotPrefixCallsWithBaseUnlessLocalImplementationExists.cs" />
     <Compile Include="CodeIssues\SA1119_StatementMustNotUseUnnecessaryParenthesis.cs" />
     <Compile Include="CodeIssues\SA1200_UsingDirectivesMustBePlacedWithinNamespace.cs" />
     <Compile Include="CodeIssues\SA1201_ElementsMustAppearInTheCorrectOrder.cs" />
