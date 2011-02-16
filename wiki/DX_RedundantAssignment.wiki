@@ -8,6 +8,6 @@ Provides an additional !CodeIssue to warn whena variable is being assigned to it
 = Usage =
 These rules will work as long as the !CodeIssues function is turned on. 
 
-Note: The !CodeIssues feature is NOT available in !CodeRush Xpress. =
+Note: The !CodeIssues feature is NOT available in !CodeRush Xpress.
 = Credits =
 RoryBecker
