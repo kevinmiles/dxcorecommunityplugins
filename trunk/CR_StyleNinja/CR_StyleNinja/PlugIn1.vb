@@ -1,4 +1,5 @@
 Imports System.ComponentModel
+Imports DevExpress.CodeRush.Core
 Public Class PlugIn1
 
     'DXCore-generated code...
