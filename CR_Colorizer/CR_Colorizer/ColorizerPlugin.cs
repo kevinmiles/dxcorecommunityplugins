@@ -105,9 +105,11 @@ namespace CR_Colorizer
         private void RedrawStuff(object sender, EventArgs e)
         {
 
+
             _paintableElements.Clear();
-            if(CodeRush.TextViews.Active != null)
-                CodeRush.TextViews.Active.Repaint();
+            IGdiTextView gdiTextView = CodeRush.TextViews.Active as IGdiTextView;
+            if (gdiTextView != null)
+                gdiTextView.Repaint();
         }
         #endregion
         #region FinalizePlugIn
