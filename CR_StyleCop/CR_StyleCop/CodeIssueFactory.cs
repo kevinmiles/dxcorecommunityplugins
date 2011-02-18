@@ -119,6 +119,7 @@
             this.handlers.Add("SA1213", new SA1213_EventAccessorsMustFollowOrder()); // OK
 
             this.handlers.Add("SA1100", new SA1100_DoNotPrefixCallsWithBaseUnlessLocalImplementationExists());
+            this.handlers.Add("SA1101", new SA1101_PrefixLocalCallsWithThis());
             this.handlers.Add("SA1119", new SA1119_StatementMustNotUseUnnecessaryParenthesis());
         }
 
