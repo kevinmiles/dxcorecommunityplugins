@@ -330,7 +330,7 @@ namespace MiniCodeColumn
                 int width_divisor = 2;
                 // falls die Höhe nicht reicht, Teiler ermitteln
                 int height_divisor = 1;
-                while ((textView.TextDocument.LineCount / height_divisor) > textView.Height)
+                while ((textView.TextDocument.LineCount / height_divisor) > Height)
                 {
                     height_divisor++;
                 }
