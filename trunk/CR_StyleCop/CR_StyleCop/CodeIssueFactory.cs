@@ -120,6 +120,10 @@
 
             this.handlers.Add("SA1100", new SA1100_DoNotPrefixCallsWithBaseUnlessLocalImplementationExists());
             this.handlers.Add("SA1101", new SA1101_PrefixLocalCallsWithThis());
+            this.handlers.Add("SA1102", new SA1102_QueryClauseMustFollowPreviousClause());
+            this.handlers.Add("SA1103", new SA1103_QueryClausesMustBeOnSeparateLinesOrAllOnOneLine());
+            this.handlers.Add("SA1104", new SA1104_QueryClauseMustBeginOnNewLineWhenPreviousClauseSpansMultipleLines());
+            this.handlers.Add("SA1105", new SA1105_QueryClausesSpanningMultipleLinesMustBeginOnOwnLine());
             this.handlers.Add("SA1119", new SA1119_StatementMustNotUseUnnecessaryParenthesis());
         }
 
