@@ -5,7 +5,7 @@
     internal class SA1510_ChainedStatementBlocksMustNotBePrecededByBlankLine : KeywordCodeIssue
     {
         public SA1510_ChainedStatementBlocksMustNotBePrecededByBlankLine()
-            : base("else", "catch", "finally")
+            : base(Underline.FirstKeywordOnLine, "else", "catch", "finally")
         {
         }
     }

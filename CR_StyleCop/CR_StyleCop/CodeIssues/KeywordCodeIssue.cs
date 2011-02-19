@@ -11,9 +11,16 @@
     internal class KeywordCodeIssue : ICodeIssue
     {
         private readonly IEnumerable<string> keywords;
+        private readonly Underline underline;
 
-        public KeywordCodeIssue(params string[] keywords)
+        public KeywordCodeIssue(string keyword)
+            : this(Underline.FirstKeywordOnLine, keyword)
         {
+        }
+
+        public KeywordCodeIssue(Underline underline, params string[] keywords)
+        {
+            this.underline = underline;
             this.keywords = keywords;
         }
 
@@ -30,22 +37,42 @@
             CodePoint startPoint = null;
             CodePoint endPoint = null;
             foreach (var location in from token in csElement.ElementTokens
-                                  where token.LineNumber == violation.Line && this.keywords.Contains(token.Text)
-                                  select token.Location)
+                                     where token.LineNumber == violation.Line && this.keywords.Contains(token.Text)
+                                     select token.Location)
             {
-                if (startPoint == null)
+                switch (this.underline)
                 {
-                    startPoint = location.StartPoint;
-                }
+                    case Underline.FirstKeywordOnLine:
+                        AddCodeSmell(ea, message, location.StartPoint, location.EndPoint);
+                        return;
+                    case Underline.LastKeywordOnLine:
+                        startPoint = location.StartPoint;
+                        endPoint = location.EndPoint;
+                        break;
+                    case Underline.AllKeywordsOnLine:
+                        AddCodeSmell(ea, message, location.StartPoint, location.EndPoint);
+                        break;
+                    case Underline.SpanFromFirstToLastKeywordOnLine:
+                        if (startPoint == null)
+                        {
+                            startPoint = location.StartPoint;
+                        }
 
-                endPoint = location.EndPoint;
+                        endPoint = location.EndPoint;
+                        break;
+                }
             }
 
             if (startPoint != null && endPoint != null)
             {
-                var sourceRange = new SourceRange(startPoint.LineNumber, startPoint.IndexOnLine + 1, endPoint.LineNumber, endPoint.IndexOnLine + 2);
-                ea.AddSmell(sourceRange, message, 10);
+                AddCodeSmell(ea, message, startPoint, endPoint);
             }
+        }
+
+        private static void AddCodeSmell(CheckCodeIssuesEventArgs ea, string message, CodePoint startPoint, CodePoint endPoint)
+        {
+            var sourceRange = new SourceRange(startPoint.LineNumber, startPoint.IndexOnLine + 1, endPoint.LineNumber, endPoint.IndexOnLine + 2);
+            ea.AddSmell(sourceRange, message, 10);
         }
     }
 }

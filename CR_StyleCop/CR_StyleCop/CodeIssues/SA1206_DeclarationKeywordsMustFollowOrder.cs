@@ -30,7 +30,7 @@
             };
 
         public SA1206_DeclarationKeywordsMustFollowOrder()
-            : base(keywords)
+            : base(Underline.SpanFromFirstToLastKeywordOnLine, keywords)
         {
         }
     }

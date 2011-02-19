@@ -5,7 +5,7 @@
     internal class SA1207_ProtectedMustComeBeforeInternal : KeywordCodeIssue
     {
         public SA1207_ProtectedMustComeBeforeInternal()
-            : base("protected", "internal")
+            : base(Underline.SpanFromFirstToLastKeywordOnLine, "protected", "internal")
         {
         }
     }
