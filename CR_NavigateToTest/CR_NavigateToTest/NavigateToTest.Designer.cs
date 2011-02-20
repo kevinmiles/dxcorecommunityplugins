@@ -56,7 +56,7 @@ namespace CR_NavigateToTest
             this.navigationProvider1.ProviderName = "NavToTest";
             this.navigationProvider1.Register = true;
             this.navigationProvider1.SupportsAsyncMode = false;
-            this.navigationProvider1.Navigate += new DevExpress.CodeRush.Library.NavigationEventHandler(this.navigationProvider1_Navigate);
+            this.navigationProvider1.Apply += new DevExpress.Refactor.Core.ApplyRefactoringEventHandler(this.navigationProvider1_Apply);
             this.navigationProvider1.CheckAvailability += new DevExpress.Refactor.Core.CheckAvailabilityEventHandler(this.navigationProvider1_CheckAvailability);
             // 
             // locatorBeacon1
