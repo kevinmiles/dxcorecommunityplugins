@@ -30,7 +30,7 @@ Public Class JumpToImplementation
             NavProvider.ProviderName = "First Implementation"
             NavProvider.Description = "First Implementation"
             NavProvider.Register = True
-            AddHandler NavProvider.Navigate, AddressOf ImplementorFromInterfaceDeclaration_Navigate
+            AddHandler NavProvider.Apply, AddressOf ImplementorFromInterfaceDeclaration_Apply
             AddHandler NavProvider.CheckAvailability, AddressOf ImplementorFromInterfaceDeclaration_CheckAvailability
         Finally
             initialize.EndInit()
@@ -40,7 +40,7 @@ Public Class JumpToImplementation
         If NavProvider Is Nothing Then
             Return
         End If
-        RemoveHandler NavProvider.Navigate, AddressOf ImplementorFromInterfaceDeclaration_Navigate
+        RemoveHandler NavProvider.Apply, AddressOf ImplementorFromInterfaceDeclaration_Apply
         RemoveHandler NavProvider.CheckAvailability, AddressOf ImplementorFromInterfaceDeclaration_CheckAvailability
         NavProvider.Dispose()
         NavProvider = Nothing
@@ -140,7 +140,7 @@ Public Class JumpToImplementation
         Call JumpToImplementation(CodeRush.Source.Active)
     End Sub
 #Region "ImplementorFromInterfaceDeclaration"
-    Private Sub ImplementorFromInterfaceDeclaration_Navigate(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs)
+    Private Sub ImplementorFromInterfaceDeclaration_Apply(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs)
         Call JumpToImplementation(ea.Element)
     End Sub
     Private Sub ImplementorFromInterfaceDeclaration_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs)
