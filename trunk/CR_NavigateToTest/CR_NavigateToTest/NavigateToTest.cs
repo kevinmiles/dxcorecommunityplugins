@@ -73,7 +73,7 @@ namespace CR_NavigateToTest
 
         }
 
-        private void navigationProvider1_Navigate(object sender, DevExpress.CodeRush.Library.NavigationEventArgs ea)
+        private void navigationProvider1_Apply(object sender, DevExpress.Refactor.Core.ApplyRefactoringEventArgs ea)
         {
             var location = GetCaretPositionScreenPoint(true);
             
