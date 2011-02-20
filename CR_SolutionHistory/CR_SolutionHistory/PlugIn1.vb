@@ -63,7 +63,7 @@ Public Class PlugIn1
     End Sub
 #Region "RebaseFileForNewSolution"
     Public Function RebaseFile(ByVal SourceFile As SourceFile, ByVal NewSolutionFolder As DirectoryInfo) As String
-        Dim SolutionFolder = SourceFile.Project.Solution.Directory
+        Dim SolutionFolder As DirectoryInfo = New DirectoryInfo(SourceFile.Solution.FullName)
         Return RebaseFile(SourceFile.Name, SolutionFolder, NewSolutionFolder)
     End Function
     Private Function RebaseFile(ByVal FileName As String, ByVal OldSolFolder As DirectoryInfo, ByVal NewSolFolder As DirectoryInfo) As String
