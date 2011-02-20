@@ -2,7 +2,7 @@
 Imports System.IO
 Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.Interop.OLE.Helpers
-Imports DevExpress.Refactor.Diagnostics
+
 
 Public Class DeletedFileUndoUnit
     Inherits UndoUnit

@@ -1,7 +1,7 @@
 ﻿Imports System
 Imports DevExpress.CodeRush.Core
 Imports DevExpress.CodeRush.Interop.OLE.Helpers
-Imports DevExpress.Refactor.Diagnostics
+
 Imports DXCoreEngine = DevExpress.CodeRush.Core.CodeRush
 
 Public Class FileActivateRedoUnit
