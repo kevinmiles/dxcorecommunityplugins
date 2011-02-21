@@ -64,6 +64,10 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.DXCore.Parser, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\PROGRAM FILES (X86)\DEVEXPRESS 2011.1\IDETOOLS\System\DXCore\Bin\DevExpress.DXCore.Parser.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
