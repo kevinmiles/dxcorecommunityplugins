@@ -25,8 +25,5 @@ Public Class CodeIssueProvider
 
     Private Sub IssueProvider1_CheckCodeIssues(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckCodeIssuesEventArgs) Handles IssueProvider1.CheckCodeIssues
 
-        For Each Issue As INamespaceElement In ea.GetEnumerable()
-
-        Next
     End Sub
 End Class
