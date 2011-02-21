@@ -27,7 +27,7 @@ Partial Class CodeIssueProvider
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
       Private Sub InitializeComponent()
-        Me.IssueProvider1 = New DevExpress.CodeRush.Core.IssueProvider
+        Me.IssueProvider1 = New DevExpress.CodeRush.Core.IssueProvider(Container)
         CType(Me.IssueProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '

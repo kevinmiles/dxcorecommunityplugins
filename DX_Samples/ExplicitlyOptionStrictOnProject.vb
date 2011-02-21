@@ -22,10 +22,10 @@ Namespace DX_Samples
 
         ' constructor...
 #Region " ExplicitlyOptionStrictOnProject "
+        ''' <summary>
+        ''' Required for Windows.Forms Class Composition Designer support
+        ''' </summary>
         Public Sub New()
-            ''' <summary>
-            ''' Required for Windows.Forms Class Composition Designer support
-            ''' </summary>
             InitializeComponent()
         End Sub
 #End Region
