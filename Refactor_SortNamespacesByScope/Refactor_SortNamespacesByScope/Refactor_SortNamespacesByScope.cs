@@ -93,7 +93,7 @@ namespace Refactor_SortNamespacesByScope
 	{
 		public static bool IsPartOfTheActiveSolution(this NamespaceReference nref)
 		{
-			var c = nref.Solution.AllProjects.Cast<ProjectElement>().Where(p => nref.Name.StartsWith(p.Name)).Count();
+			var c = (nref.Solution as ISolutionElement).Projects.Cast<ProjectElement>().Where(p => nref.Name.StartsWith(p.Name)).Count();
 			return c > 0;
 		}
 
