@@ -38,7 +38,7 @@ Public Class PlugIn1
         ' This method is executed when your action is called.
         ' Remember you must bind your action to a shortcut in order to use it.
         ' Shortcuts are created\altered using the IDE\Shortcuts option page 
-        Dim SolutionFilename = CodeRush.Source.Active.Solution.FilePath
+        Dim SolutionFilename = CodeRush.Source.Active.Solution.FullName
         SolutionHelper.CloseSolution(SolutionFilename)
         CodeRush.ApplicationObject.Solution.Open(SolutionFilename)
     End Sub
