@@ -36,7 +36,7 @@ Public Class PlugIn1
     Public Sub CreateRemoveRedundantAssignment()
         Dim RemoveRedundantAssignment As New DevExpress.Refactor.Core.RefactoringProvider(components)
         CType(RemoveRedundantAssignment, System.ComponentModel.ISupportInitialize).BeginInit()
-        RemoveRedundantAssignment.ProviderName = "Remove Redundant Assignment" ' Should be Unique
+        RemoveRedundantAssignment.ProviderName = "Remove Redundant Assignment2" ' Should be Unique
         RemoveRedundantAssignment.DisplayName = "Remove Redundant Assignment"
         AddHandler RemoveRedundantAssignment.CheckAvailability, AddressOf RemoveRedundantAssignment_CheckAvailability
         AddHandler RemoveRedundantAssignment.Apply, AddressOf RemoveRedundantAssignment_Execute
@@ -64,10 +64,28 @@ Public Class PlugIn1
     End Function
 
     Private Sub RemoveRedundantAssignment_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
-        ea.Available = TypeOf ea.CodeActive Is Assignment AndAlso IsRedundantAssignment(TryCast(ea.CodeActive, Assignment))
+        Dim Assignment As Assignment = GetAssignment(ea.CodeActive)
+        ea.Available = Assignment IsNot Nothing AndAlso IsRedundantAssignment(Assignment)
     End Sub
+
+    Private Shared Function GetAssignment(ByVal CodeActive As LanguageElement) As Assignment
+        Dim Assignment = TryCast(CodeActive, Assignment)
+        If Assignment Is Nothing Then
+            Dim ERE = TryCast(CodeActive, ElementReferenceExpression)
+            If ERE Is Nothing Then
+                Return Nothing
+            End If
+            If ERE.Parent IsNot Nothing AndAlso ERE.Parent.ElementType = LanguageElementType.Assignment Then
+                Assignment = ERE.Parent
+            Else
+                Return Nothing
+            End If
+        End If
+        Return Assignment
+    End Function
     Private Sub RemoveRedundantAssignment_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
-        ea.TextDocument.SetText(ea.CodeActive.Range, "")
+        Dim Assignment = GetAssignment(ea.CodeActive)
+        ea.TextDocument.SetText(Assignment.Range, "")
     End Sub
 
 End Class
