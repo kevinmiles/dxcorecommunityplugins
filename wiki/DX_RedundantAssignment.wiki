@@ -5,7 +5,7 @@
 = Introduction =
 Provides an additional !CodeIssue to warn when a variable is being assigned to itself.
 
-Also provides a Refactoring (also available from the CodeIssue) which removes the assignment entirely.
+Also provides a Refactoring (also available from the !CodeIssue) which removes the assignment entirely.
 
 = Usage =
 These rules will work as long as the !CodeIssues function is turned on. 
