@@ -32,20 +32,20 @@ namespace ExampleCS
             MyVar.MySub();
         }
 
-        public void IdealTests1()
-        {
-            MyInterface MyVar;
-            // Illegal syntax
-            string Value4 = MyVar.MyProp();
-            string Value5 = MyVar.MyFunc; // Not found since this refers to a no-existent member
-        }
-        public void IdealTests2()
-        {
-            MyImplementor MyVar;
-            // Illegal syntax
-            string Value4 = MyVar.MyProp();
-            string Value5 = MyVar.MyFunc; // Not found since this refers to a no-existent member
-        }
+        //public void IdealTests1()
+        //{
+        //    MyInterface MyVar;
+        //    // Illegal syntax
+        //    string Value4 = MyVar.MyProp();
+        //    string Value5 = MyVar.MyFunc; // Not found since this refers to a no-existent member
+        //}
+        //public void IdealTests2()
+        //{
+        //    MyImplementor MyVar;
+        //    // Illegal syntax
+        //    string Value4 = MyVar.MyProp();
+        //    string Value5 = MyVar.MyFunc; // Not found since this refers to a no-existent member
+        //}
     }
     public class MyImplementor : MyInterface
     {
@@ -60,6 +60,7 @@ namespace ExampleCS
         {
             get
             {
+                return "dummy";
             }
         }
     }
@@ -76,6 +77,7 @@ namespace ExampleCS
         {
             get
             {
+                return "dummy";
             }
         }
     }
