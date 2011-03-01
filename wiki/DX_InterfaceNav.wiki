@@ -22,7 +22,7 @@ Provides a number of implementations of "To Implementor" within the CodeRush Nav
             string Value3 = MyVar.MyFunc();     // From MyVar or MyFunc
             MyVar.MySub();                      // From MyVar or MySub
 }}}
-
+[http://dxcorecommunityplugins.googlecode.com/svn/trunk/DX_InterfaceNav/Screenshots/DX_InterfaceNavExample1.png]
 {{{
             // MyVar declared as *MyImplementor*
 
