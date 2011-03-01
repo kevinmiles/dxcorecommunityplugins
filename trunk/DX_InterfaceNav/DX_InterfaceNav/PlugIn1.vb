@@ -19,11 +19,13 @@ Public Class PlugIn1
         'CreateNavigateToInterfaceFromClass()
         CreateNavigateToImplementor()
         CreateToImplementorFromInterfaceMethod()
+
         CreateNavigateToImplementorFromVarDeclaration()
         CreateNavigateToImplementorFromVarReference()
+
         CreateNavigateToImplementorFromMethodReference()
 
-        CreateNavigateToImplementorFromVarReferenceMember()
+        CreateNavigateToImplementorFromClassImplementingInterface()
         'TODO: Add your initialization code here.
     End Sub
 #End Region
@@ -37,30 +39,6 @@ Public Class PlugIn1
 
     Private mElements As Dictionary(Of String, IElement)
 
-#Region "ToInterface FromClass"
-    'Public Sub CreateNavigateToInterfaceFromClass()
-    '    Dim NavigateToInterfaceFromClass As New DevExpress.CodeRush.Library.NavigationProvider(components)
-    '    CType(NavigateToInterfaceFromClass, System.ComponentModel.ISupportInitialize).BeginInit()
-    '    NavigateToInterfaceFromClass.ProviderName = "NavigateToInterfaceFromClass"
-    '    NavigateToInterfaceFromClass.DisplayName = "To Interface"
-    '    AddHandler NavigateToInterfaceFromClass.CheckAvailability, AddressOf NavigateToInterfaceFromClass_CheckAvailability
-    '    AddHandler NavigateToInterfaceFromClass.Apply, AddressOf NavigateToInterfaceFromClass_Execute
-    '    CType(NavigateToInterfaceFromClass, System.ComponentModel.ISupportInitialize).EndInit()
-    'End Sub
-    'Private Sub NavigateToInterfaceFromClass_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
-    '    ' This method is executed when the system checks the availability of your NavigationProvider.
-    '    ea.Available = ea.CodeActive.ElementType = LanguageElementType.Class
-    '    Dim TheClass = TryCast(ea.CodeActive, [Class])
-    '    Dim TypeReferences As TypeReferenceExpressionCollection = TheClass.SecondaryAncestorTypes
-    '    Dim Interfaces = From t In TypeReferences Select t.GetDeclaration
-    '    For Each I As [Interface] In Interfaces.OfType(Of [Interface])()
-    '        ea.AddSubMenuItem(I.FullName)
-    '    Next
-    'End Sub
-    'Private Sub NavigateToInterfaceFromClass_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
-    '    JumpToFirstElementWithName(ea.SelectedSubMenuItem.Name)
-    'End Sub
-#End Region
 #Region "NavigateToImplementorFromInterface"
     '   Interface Declaration -> Class(Of Interface)
     Public Sub CreateNavigateToImplementor()
@@ -78,8 +56,7 @@ Public Class PlugIn1
             Exit Sub
         End If
         Dim Classes = CType(GetClassesImplementingInterface([Interface]), IEnumerable(Of IElement))
-        mElements = New Dictionary(Of String, IElement)
-        Call PopulateList(ea, Classes, mElements, AddressOf AddItemToMenu)
+        Call PopulateMenuWithElements(ea, Classes)
         ea.Available = Classes.Any
     End Sub
     Private Sub NavigateToImplementor_Apply(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
@@ -106,8 +83,7 @@ Public Class PlugIn1
             Exit Sub
         End If
         Dim Members = GetMembersImplementingInterfaceMember(CType(Method.Parent, IInterfaceElement), Method)
-        mElements = New Dictionary(Of String, IElement)
-        Call PopulateList(ea, Members, mElements, AddressOf AddItemToMenu)
+        Call PopulateMenuWithElements(ea, Members)
         ea.Available = Members.Any
     End Sub
 
@@ -141,14 +117,7 @@ Public Class PlugIn1
             Exit Sub
         End If
         Dim TheInterface = GetFirstInterfaceOfDeclaration(Variable)
-        If TheInterface Is Nothing Then
-            Exit Sub
-        End If
-        Dim Classes = CType(GetClassesImplementingInterface(TheInterface), IEnumerable(Of IElement))
-        mElements = New Dictionary(Of String, IElement)
-        Call PopulateList(ea, Classes, mElements, AddressOf AddItemToMenu)
-        ea.Available = Classes.Any
-
+        PopulateWithClassesImplementingInterfaces(TheInterface.ToList, ea)
     End Sub
 
     Private Sub NavigateToImplementorFromVarDeclaration_Apply(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
@@ -181,36 +150,10 @@ Public Class PlugIn1
         End If
 
         Dim TheInterface = GetFirstInterfaceOfDeclaration(Declaration)
-        If TheInterface Is Nothing Then
-            Exit Sub
-        End If
-        Dim Classes = CType(GetClassesImplementingInterface(TheInterface), IEnumerable(Of IElement))
-        mElements = New Dictionary(Of String, IElement)
-        Call PopulateList(ea, Classes, mElements, AddressOf AddItemToMenu)
-        ea.Available = Classes.Any
+        PopulateWithClassesImplementingInterfaces(TheInterface.ToList, ea)
     End Sub
     Private Sub NavigateToImplementorFromVarReference_Apply(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
         JumpToFirstElementWithName(ea.SelectedSubMenuItem.Name)
-    End Sub
-#End Region
-
-#Region "NavigateToImplmentorFromMethodDeclaration - Unnessecary"
-    Public Sub CreateNavigateToImplementorFromMethodDeclaration()
-        Dim NavigateToImplementorFromMethodDeclaration As New DevExpress.CodeRush.Library.NavigationProvider(components)
-        CType(NavigateToImplementorFromMethodDeclaration, System.ComponentModel.ISupportInitialize).BeginInit()
-        NavigateToImplementorFromMethodDeclaration.ProviderName = "NavigateToImplementorFromMethodDeclaration" ' Should be Unique
-        NavigateToImplementorFromMethodDeclaration.DisplayName = "To Implementor"
-        AddHandler NavigateToImplementorFromMethodDeclaration.CheckAvailability, AddressOf NavigateToImplementorFromMethodDeclaration_CheckAvailability
-        AddHandler NavigateToImplementorFromMethodDeclaration.Apply, AddressOf NavigateToImplementorFromMethodDeclaration_Apply
-        CType(NavigateToImplementorFromMethodDeclaration, System.ComponentModel.ISupportInitialize).EndInit()
-    End Sub
-    Private Sub NavigateToImplementorFromMethodDeclaration_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
-        ' This method is executed when the system checks the availability of your NavigationProvider.
-        ea.Available = True ' Change this to return true, only when your NavigationProvider should be available.
-    End Sub
-    Private Sub NavigateToImplementorFromMethodDeclaration_Apply(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
-        ' This method is executed when the system executes your NavigationProvider 
-
     End Sub
 #End Region
 
@@ -257,7 +200,7 @@ Public Class PlugIn1
             Dim [Interface] = CType(InterfaceMember.Parent, IInterfaceElement)
             Methods.AddRange(GetMembersImplementingInterfaceMember([Interface], InterfaceMember))
         Next
-        PopulateMenu(ea, Methods)
+        PopulateMenuWithElements(ea, Methods)
         ea.Available = Methods.Any
     End Sub
     Private Shared Function GetTypeInterfaces(ByVal Type As ITypeElement) As IEnumerable(Of IInterfaceElement)
@@ -316,62 +259,56 @@ Public Class PlugIn1
     End Sub
 #End Region
 
-
-#Region "NavigateToImplementorFromVarReferenceMember"
-    Public Sub CreateNavigateToImplementorFromVarReferenceMember()
-        Dim NavigateToImplementorFromVarReferenceMember As New DevExpress.CodeRush.Library.NavigationProvider(components)
-        CType(NavigateToImplementorFromVarReferenceMember, System.ComponentModel.ISupportInitialize).BeginInit()
-        NavigateToImplementorFromVarReferenceMember.ProviderName = "NavigateToImplementorFromVarReferenceMember" ' Should be Unique
-        NavigateToImplementorFromVarReferenceMember.DisplayName = "To Implementor"
-        AddHandler NavigateToImplementorFromVarReferenceMember.CheckAvailability, AddressOf NavigateToImplementorFromVarReferenceMember_CheckAvailability
-        AddHandler NavigateToImplementorFromVarReferenceMember.Apply, AddressOf NavigateToImplementorFromVarReferenceMember_Apply
-        CType(NavigateToImplementorFromVarReferenceMember, System.ComponentModel.ISupportInitialize).EndInit()
+#Region "NavigateToImplementorFromClassImplementingInterface"
+    Public Sub CreateNavigateToImplementorFromClassImplementingInterface()
+        Dim NavigateToImplementorFromClassImplementingInterface As New DevExpress.CodeRush.Library.NavigationProvider(components)
+        CType(NavigateToImplementorFromClassImplementingInterface, System.ComponentModel.ISupportInitialize).BeginInit()
+        NavigateToImplementorFromClassImplementingInterface.ProviderName = "ToImplementor" ' Should be Unique
+        NavigateToImplementorFromClassImplementingInterface.DisplayName = "To Implementor"
+        AddHandler NavigateToImplementorFromClassImplementingInterface.CheckAvailability, AddressOf NavigateToImplementorFromClassImplementingInterface_CheckAvailability
+        AddHandler NavigateToImplementorFromClassImplementingInterface.Apply, AddressOf NavigateToImplementorFromClassImplementingInterface_Apply
+        CType(NavigateToImplementorFromClassImplementingInterface, System.ComponentModel.ISupportInitialize).EndInit()
     End Sub
-    Private Sub NavigateToImplementorFromVarReferenceMember_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
-        '   Variable(Of Interface).Member -> Class(Of Interface).Member
-        Dim MRE = TryCast(ea.CodeActive, MethodReferenceExpression)
-        If MRE Is Nothing Then
+    Private Sub NavigateToImplementorFromClassImplementingInterface_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
+        Dim [Class] = TryCast(ea.CodeActive, [Class])
+        If [Class] Is Nothing Then
             Exit Sub
         End If
-        Dim Qualifier = MRE.Qualifier
-        If Qualifier Is Nothing Then
-            Exit Sub
-        End If
-        'Dim X = (New SourceTreeResolver()).GetDeclaration(Qualifier.Get
-        If Not MRE.Parent.ElementType = LanguageElementType.Interface Then
-            Exit Sub
-        End If
-        'Dim Members = GetMemberImplementingInterface(MRE.Parent, MRE)
-        'mElements = New Dictionary(Of String, IElement)
-        'Call PopulateList(ea, Members, mElements, AddressOf AddClassItemToMenu)
-        'ea.Available = Members.Any
+        Dim Interfaces = GetTypeInterfaces(CType([Class], TypeDeclaration))
+        PopulateWithClassesImplementingInterfaces(Interfaces, ea)
     End Sub
-    Private Sub NavigateToImplementorFromVarReferenceMember_Apply(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
-        ' This method is executed when the system executes your NavigationProvider 
-
+    Private Sub PopulateWithClassesImplementingInterfaces(ByVal Interfaces As IEnumerable(Of IInterfaceElement), ByVal ea As CheckContentAvailabilityEventArgs)
+        If Interfaces Is Nothing Then
+            Exit Sub
+        End If
+        Dim ItemAdded As Boolean
+        For Each [Interface] In Interfaces
+            Dim Classes = CType(GetClassesImplementingInterface([Interface]), IEnumerable(Of IElement))
+            mElements = New Dictionary(Of String, IElement)
+            For Each Element In Classes
+                Call AddItemToMenu(ea, mElements, Element)
+                ItemAdded = True
+            Next
+        Next
+        ea.Available = ItemAdded
+    End Sub
+    Private Sub NavigateToImplementorFromClassImplementingInterface_Apply(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
+        JumpToFirstElementWithName(ea.SelectedSubMenuItem.Name)
     End Sub
 #End Region
 
 #Region "Utility"
 #Region "Menu Funcs"
-    Private Sub PopulateMenu(ByVal ea As CheckContentAvailabilityEventArgs, ByVal Methods As List(Of IElement))
+    Private Sub PopulateMenuWithElements(ByVal ea As CheckContentAvailabilityEventArgs, ByVal Elements As IEnumerable(Of IElement))
         mElements = New Dictionary(Of String, IElement)
-        Call PopulateList(ea, Methods, mElements, AddressOf AddItemToMenu)
-    End Sub
-
-    Private Sub PopulateList(ByVal ea As CheckContentAvailabilityEventArgs, _
-                             ByVal Elements As IEnumerable(Of IElement), _
-                             ByVal Dict As Dictionary(Of String, IElement), _
-                             ByVal AddItemProc As AddMenuItemDelegate)
-        If Elements.Any Then
-            For Each Element In Elements
-                Call AddItemProc.Invoke(ea, Dict, Element)
-            Next
+        If Not Elements.Any Then
+            Return
         End If
+
+        For Each Element In Elements
+            Call AddItemToMenu(ea, mElements, Element)
+        Next
     End Sub
-    Private Delegate Sub AddMenuItemDelegate(ByVal ea As CheckContentAvailabilityEventArgs, _
-                              ByVal Dict As Dictionary(Of String, IElement), _
-                              ByVal Element As IElement)
     Private Sub AddItemToMenu(ByVal ea As CheckContentAvailabilityEventArgs, _
                               ByVal Dict As Dictionary(Of String, IElement), _
                               ByVal Element As IElement)
@@ -379,45 +316,12 @@ Public Class PlugIn1
         Dict.Add(Key, Element)
         ea.AddSubMenuItem(Key, CType(Element, IElement).FullName)
     End Sub
-    'Private Sub AddClassMethodItemsToMenu(ByVal ea As CheckContentAvailabilityEventArgs, _
-    '                                      ByVal Dict As Dictionary(Of String, IElement), _
-    '                                      ByVal Element As IElement)
-    '    'Iterate Classes
-    '    Dim Key As String = Element.FullName
-    '    Dict.Add(Key, Element)
-    '    Dim ItemToAdd As IElement = CType(Element, IElement)
-    '    ea.AddSubMenuItem(Key, ItemToAdd.FullName)
-    'End Sub
-    Private Sub AddMemberItemToMenu(ByVal ea As CheckContentAvailabilityEventArgs, _
-                                    ByVal Dict As Dictionary(Of String, IElement), _
-                                    ByVal Element As IElement)
-        Dim Key As String = CType(Element.Parent, IClassElement).FullName
-        Dict.Add(Key, Element)
-        ea.AddSubMenuItem(Key, CType(Element.Parent, IClassElement).FullName)
-
-    End Sub
 #End Region
 #Region "Get"
     Private Function GetFirstInterfaceOfDeclaration(ByVal Declaration As IHasType) As IInterfaceElement
-        'Dim [Interface] = TryCast(Declaration, IInterfaceElement)
-        'If Not [Interface] Is Nothing Then
-        '    Return [Interface]
-        'End If
         Dim DeclarationType = CType((New SourceTreeResolver()).GetDeclaration(Declaration.Type), ITypeElement)
         Return GetTypeInterfaces(DeclarationType).First
-        'Dim [Class] As IClassElement = TryCast(DeclarationType, IClassElement)
-        'If Not [Class] Is Nothing Then
-        '    GetClassInterfaces([Class])
-        'End If
-        'Dim [Interface] = TryCast(DeclarationType, IInterfaceElement)
-        'If Not [Interface] Is Nothing Then
-        '    Return [Interface]
-        'End If
     End Function
-    'Private Function GetSingleInterfaceOfVariable(ByVal Reference As ElementReferenceExpression) As IInterfaceElement
-    '    Dim VarDeclaration = (New SourceTreeResolver()).GetDeclaration(Reference)
-    '    Return GetSingleInterfaceOfVariable(VarDeclaration)
-    'End Function
     Private Function GetClassesImplementingInterface(ByVal [Interface] As IInterfaceElement) As IEnumerable(Of IClassElement)
         Dim Result As New List(Of IClassElement)
         Dim AllTypes = AllSolutionTypes()
