@@ -11,6 +11,6 @@ Also provides a Refactoring (also available from the !CodeIssue) which removes t
 These rules will work as long as the !CodeIssues function is turned on. 
 
 Note: The !CodeIssues feature is NOT available in !CodeRush Xpress.
-However the Refactoring will still available under CodeRush Xpress
+However the Refactoring will still available under !CodeRush Xpress
 = Credits =
 RoryBecker
