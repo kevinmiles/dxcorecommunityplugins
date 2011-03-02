@@ -12,23 +12,30 @@ namespace CR_DrawLinesBetweenMethods
 {
     class HorizontalLineDocAdornment : TextDocumentAdornment
     {
+        SourceRange _range;
+
         public HorizontalLineDocAdornment(SourceRange range)
             : base(range)
         {
+            //Debug.WriteLine("new HorizontalLineDocAdornment - range:" + range);
+            _range = range;
         }
 
         protected override TextViewAdornment NewAdornment(string feature, IElementFrame frame)
         {
-            var adornment = new HorizontalLineViewAdornment(feature, frame);
-            return adornment;
+            //Debug.WriteLine("  NewAdornment " + feature + ", " + frame);
+            return new HorizontalLineViewAdornment(feature, frame, _range);
         }
     }
 
     class HorizontalLineViewAdornment : VisualObjectAdornment
     {
-        public HorizontalLineViewAdornment(string feature, IElementFrame frame)
+        SourceRange _range;
+
+        public HorizontalLineViewAdornment(string feature, IElementFrame frame, SourceRange range)
             : base(feature, frame)
         {
+            _range = range;
         }
 
         public override void Render(IDrawingSurface drawingSurface, ElementFrameGeometry geometry)
@@ -38,21 +45,26 @@ namespace CR_DrawLinesBetweenMethods
             var settings = DrawLinesBetweenMethodsSettings.Current;
 
             Color lineColor = Color.ConvertFrom(settings.LineColor);
-            // Top line
-            if (settings.DrawLineAtStartOfMethod)
+
+            if (_range.LineCount.NumLines > 1)
             {
-                Point startPoint = geometry.StartPoint
-                    .MoveUp(settings.LineSpacer);
-                drawLine(drawingSurface, settings, startPoint);
+                // Top line
+                if (settings.DrawLineAtStartOfMethod)
+                {
+                    Point startPoint = geometry.StartPoint
+                        .MoveUp(settings.LineSpacer);
+                    drawLine(drawingSurface, settings, startPoint);
+                }
+
+                // Bottom line
+                if (settings.DrawLineAtEndOfMethod)
+                {
+                    Point startPoint = geometry.EndRect.BottomLeft
+                        .MoveDown(settings.LineSpacer);
+                    drawLine(drawingSurface, settings, startPoint);
+                }
             }
 
-            // Bottom line
-            if (settings.DrawLineAtEndOfMethod)
-            {
-                Point startPoint = geometry.EndRect.BottomLeft
-                    .MoveDown(settings.LineSpacer);
-                drawLine(drawingSurface, settings, startPoint);
-            }
 
             // TODO: DrawRectangle method only draws horizontal gradients
             //const int shadowHeight = 10;
@@ -61,7 +73,7 @@ namespace CR_DrawLinesBetweenMethods
             //Color shadowStartColor = Color.FromArgb(shadowAlpha, lineColor);
             //Color shadowEndColor = Colors.Transparent;
             //drawingSurface.DrawRectangle(shadowStartColor, shadowEndColor, Colors.Transparent, shadowRect);
-            
+
         }
 
         void drawLine(IDrawingSurface drawingSurface, DrawLinesBetweenMethodsSettings settings, Point startPoint)
@@ -69,7 +81,7 @@ namespace CR_DrawLinesBetweenMethods
             int lineWidth = 3000; //TODO: perhaps more scientific way of doing this?
 
             Point endPoint = startPoint.MoveRight(lineWidth);
-            Debug.WriteLine("Line " + startPoint + " -> " + endPoint);
+            //Debug.WriteLine("  drawLine " + startPoint + " -> " + endPoint);
             drawingSurface.DrawLine(Color.ConvertFrom(settings.LineColor), startPoint, endPoint, null, settings.LineWidth);
         }
     }

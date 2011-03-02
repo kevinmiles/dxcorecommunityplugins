@@ -30,7 +30,7 @@
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <DxCorePluginsFolder>$(registry:HKEY_CURRENT_USER\Software\Developer Express\CodeRush for VS\Community@InstallFolder)\Plugins</DxCorePluginsFolder>
-    <DxCoreInstallFolder>$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\Developer Express\CodeRush for VS\10.1@InstallFolder)</DxCoreInstallFolder>
+    <DxCoreInstallFolder>$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\Developer Express\CodeRush for VS\10.2@InstallFolder)</DxCoreInstallFolder>
     <OutputPath>$(DxCorePluginsFolder)</OutputPath>
     <StartAction>Program</StartAction>
     <StartProgram>$(DevEnvDir)devenv.exe</StartProgram>
@@ -122,9 +122,9 @@
       <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.VSCore.dll</HintPath>
       <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
     </Reference>
-    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3, Version=10.2.3.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 2010.2\IDETools\System\DXCore\BIN\DevExpress.DXCore.Controls.Utils.v6.3.dll</HintPath>
+      <HintPath>$(DxCoreInstallFolder)DevExpress.DXCore.Controls.Utils.v6.3.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.DXCore.Parser" />
     <Reference Include="DevExpress.DXCore.Platform">
