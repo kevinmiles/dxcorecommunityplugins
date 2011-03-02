@@ -82,7 +82,7 @@ namespace CR_DrawLinesBetweenMethods
                 langElement = commentsAndStuff.LastOrDefault() ?? langElement;
 
                 //Debug.WriteLine(" > AddBackgroundAdornment ...");
-                var adornment = new HorizontalLineDocAdornment(langElement.Range);
+                var adornment = new HorizontalLineDocAdornment(langElement);
                 args.AddBackgroundAdornment(adornment);
             }
         }
