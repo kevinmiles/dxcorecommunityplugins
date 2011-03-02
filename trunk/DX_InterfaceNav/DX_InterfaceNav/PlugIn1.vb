@@ -104,7 +104,7 @@ Public Class PlugIn1
     End Sub
     Private Sub NavFromVarDeclaration_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
         ' Ensure Variable Declaration
-        Dim Variable = TryCast(ea.CodeActive, Variable)
+        Dim Variable = TryCast(ea.CodeActive, BaseVariable)
         If Variable Is Nothing Then
             Exit Sub
         End If
