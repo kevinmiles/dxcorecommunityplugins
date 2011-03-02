@@ -193,7 +193,11 @@ Public Class PlugIn1
         ' ...then pass the interface and interface method to GetMembersImplementingInterfaceMethod and populate the list with that. 
 
         ' Get interfaces implemented by Class
-        Dim Interfaces = GetTypeInterfaces(CType(Member.Parent, TypeDeclaration))
+        Dim MemberParent As TypeDeclaration = TryCast(Member.Parent, TypeDeclaration)
+        If MemberParent Is Nothing Then
+            Exit Sub
+        End If
+        Dim Interfaces = GetTypeInterfaces(MemberParent)
         Dim InterfaceMembers = GetInterfaceMemberMatchingMember(Interfaces, Member)
         Dim Methods As New List(Of IElement)
         For Each InterfaceMember In InterfaceMembers
