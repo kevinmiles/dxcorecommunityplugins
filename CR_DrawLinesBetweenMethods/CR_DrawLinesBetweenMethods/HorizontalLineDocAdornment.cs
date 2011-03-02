@@ -12,30 +12,30 @@ namespace CR_DrawLinesBetweenMethods
 {
     class HorizontalLineDocAdornment : TextDocumentAdornment
     {
-        SourceRange _range;
+        LanguageElement _languageElement;
 
-        public HorizontalLineDocAdornment(SourceRange range)
-            : base(range)
+        public HorizontalLineDocAdornment(LanguageElement languageElement)
+            : base(languageElement.Range)
         {
             //Debug.WriteLine("new HorizontalLineDocAdornment - range:" + range);
-            _range = range;
+            _languageElement = languageElement;
         }
 
         protected override TextViewAdornment NewAdornment(string feature, IElementFrame frame)
         {
             //Debug.WriteLine("  NewAdornment " + feature + ", " + frame);
-            return new HorizontalLineViewAdornment(feature, frame, _range);
+            return new HorizontalLineViewAdornment(feature, frame, _languageElement);
         }
     }
 
     class HorizontalLineViewAdornment : VisualObjectAdornment
     {
-        SourceRange _range;
+        LanguageElement _languageElement;
 
-        public HorizontalLineViewAdornment(string feature, IElementFrame frame, SourceRange range)
+        public HorizontalLineViewAdornment(string feature, IElementFrame frame, LanguageElement languageElement)
             : base(feature, frame)
         {
-            _range = range;
+            _languageElement = languageElement;
         }
 
         public override void Render(IDrawingSurface drawingSurface, ElementFrameGeometry geometry)
@@ -46,7 +46,9 @@ namespace CR_DrawLinesBetweenMethods
 
             Color lineColor = Color.ConvertFrom(settings.LineColor);
 
-            if (_range.LineCount.NumLines > 1)
+            bool isAttributeOrComment = (_languageElement is Comment || _languageElement is XmlDocComment || _languageElement is AttributeSection);
+
+            if (isAttributeOrComment || _languageElement.Range.LineCount.NumLines > 1)
             {
                 // Top line
                 if (settings.DrawLineAtStartOfMethod)
