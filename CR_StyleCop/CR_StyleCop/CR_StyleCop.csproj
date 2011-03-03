@@ -97,6 +97,7 @@
     <Compile Include="CodeIssues\SA1103_QueryClausesMustBeOnSeparateLinesOrAllOnOneLine.cs" />
     <Compile Include="CodeIssues\SA1104_QueryClauseMustBeginOnNewLineWhenPreviousClauseSpansMultipleLines.cs" />
     <Compile Include="CodeIssues\SA1105_QueryClausesSpanningMultipleLinesMustBeginOnOwnLine.cs" />
+    <Compile Include="CodeIssues\SA1006_PreprocessorKeywordsMustNotBePrecededBySpace.cs" />
     <Compile Include="CodeIssues\SA1119_StatementMustNotUseUnnecessaryParenthesis.cs" />
     <Compile Include="CodeIssues\SA1200_UsingDirectivesMustBePlacedWithinNamespace.cs" />
     <Compile Include="CodeIssues\SA1201_ElementsMustAppearInTheCorrectOrder.cs" />
