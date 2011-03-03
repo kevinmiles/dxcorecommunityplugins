@@ -125,6 +125,8 @@
             this.handlers.Add("SA1104", new SA1104_QueryClauseMustBeginOnNewLineWhenPreviousClauseSpansMultipleLines());
             this.handlers.Add("SA1105", new SA1105_QueryClausesSpanningMultipleLinesMustBeginOnOwnLine());
             this.handlers.Add("SA1119", new SA1119_StatementMustNotUseUnnecessaryParenthesis());
+
+            this.handlers.Add("SA1006", new SA1006_PreprocessorKeywordsMustNotBePrecededBySpace());
         }
 
         public ICodeIssue GetIssueFor(Violation violation)
