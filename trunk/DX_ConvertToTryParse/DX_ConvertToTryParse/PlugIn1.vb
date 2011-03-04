@@ -21,7 +21,7 @@ Public Class PlugIn1
 #End Region
 
     Public Sub CreateConvertToTryParse()
-        Dim ConvertToTryParse As New DevExpress.Refactor.Core.RefactoringProvider(components)
+        Dim ConvertToTryParse As New DevExpress.CodeRush.Core.CodeProvider(components)
         CType(ConvertToTryParse, ISupportInitialize).BeginInit()
         ConvertToTryParse.ProviderName = "ConvertToTryParse" ' Should be Unique
         ConvertToTryParse.DisplayName = "Convert to TryParse"
