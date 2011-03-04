@@ -19,6 +19,19 @@ namespace CR_MarkerExtensions
     {
       base.InitializePlugIn();
       Opt_MarkerExtensions.LoadSettings(_settings);
+      this.Disposed += (sender, e) =>
+        {
+          if ( _locatorBeacon != null )
+          {
+            _locatorBeacon.Dispose();
+            _locatorBeacon = null;
+          }
+          if ( _cornerBeacon != null )
+          {
+            _cornerBeacon.Dispose();
+            _cornerBeacon = null;
+          }
+        };
     }
     #endregion
     #region FinalizePlugIn
@@ -52,12 +65,18 @@ namespace CR_MarkerExtensions
       collect = action == MarkerCollectFirstAction || action == MarkerCollectPrevAction
         || action == MarkerCollectNextAction || action == MarkerCollectLastAction || action == MarkerCollectAtCaretAction;
     }
-    private int LoadMarkerList(List<IMarker> markers)
+    private int LoadMarkerList(List<IMarker> markers, bool skipSelectionMarkers)
     {
       markers.Clear();
       foreach ( IMarker marker in CodeRush.Markers )
+      {
         if ( marker.TextDocument == CodeRush.Documents.ActiveTextDocument && !marker.Hidden && !marker.Temporal )
-          markers.Add(marker);
+        {
+          bool skipIt = skipSelectionMarkers && marker is ISelectionMarker && ((ISelectionMarker)marker).HasSelection;
+          if ( !skipIt )
+            markers.Add(marker);
+        }
+      }
       return markers.Count;
     }
     private void SortMarkerListInDocumentOrder(List<IMarker> markers)
@@ -79,8 +98,8 @@ namespace CR_MarkerExtensions
       if ( activeView == null )
         return null;
 
-      List<IMarker> markers = new List<IMarker>();
-      LoadMarkerList(markers);
+      var markers = new List<IMarker>();
+      LoadMarkerList(markers, _settings.SkipSelectionMarkers);
       if ( markers.Count == 0 )
         return null;
 
@@ -141,13 +160,42 @@ namespace CR_MarkerExtensions
 
       if ( _settings.ShowBeacon )
       {
-        locatorBeacon.Color = DxDwg.Color.ConvertFrom(_settings.BeaconColor);
-        locatorBeacon.Duration = _settings.BeaconDuration;
-        locatorBeacon.Start(marker.TextDocument.ActiveView, marker.Line, marker.Column);
+        bool wasBeaconAnimated = false;
+
+        var selectionMarker = marker as ISelectionMarker;
+        if ( selectionMarker != null && selectionMarker.HasSelection )
+        {
+          if ( _cornerBeacon == null )
+            _cornerBeacon = new DevExpress.CodeRush.PlugInCore.CornerBeacon();
+
+          if ( _cornerBeacon.AccomplishedPercent > 0f )
+            _cornerBeacon.Stop();
+
+          _cornerBeacon.Color = DxDwg.Color.ConvertFrom(_settings.BeaconColor);
+          _cornerBeacon.Duration = _settings.BeaconDuration;
+          var range = new SourceRange(selectionMarker.AnchorLine, selectionMarker.AnchorColumn, selectionMarker.Line, selectionMarker.Column);
+          _cornerBeacon.Start(marker.TextDocument.ActiveView, range.Top, range.Bottom, 0x1a);
+
+          wasBeaconAnimated = true;
+        }
+
+        if ( !wasBeaconAnimated )
+        {
+          if ( _locatorBeacon == null )
+            _locatorBeacon = new DevExpress.CodeRush.PlugInCore.LocatorBeacon();
+
+          if ( _locatorBeacon.AccomplishedPercent > 0f )
+            _locatorBeacon.Stop();
+          _locatorBeacon.Color = DxDwg.Color.ConvertFrom(_settings.BeaconColor);
+          _locatorBeacon.Duration = _settings.BeaconDuration;
+          _locatorBeacon.Start(marker.TextDocument.ActiveView, marker.Line, marker.Column);
+        }
       }
     }
 
     private PlugInSettings _settings = new PlugInSettings();
+    private DevExpress.CodeRush.PlugInCore.LocatorBeacon _locatorBeacon;
+    private DevExpress.CodeRush.PlugInCore.CornerBeacon _cornerBeacon;
 
     private void CR_MarkerExtensionsPlugIn_OptionsChanged(OptionsChangedEventArgs e)
     {
@@ -167,6 +215,13 @@ namespace CR_MarkerExtensions
         if ( collect )
           CodeRush.Markers.Remove(marker);
       }
+    }
+    private void MarkerClearAllAction_Execute(ExecuteEventArgs ea)
+    {
+      List<IMarker> markers = new List<IMarker>();
+      LoadMarkerList(markers, false);
+      foreach ( IMarker marker in markers )
+        CodeRush.Markers.Remove(marker);
     }
   }
 }

@@ -55,7 +55,7 @@ namespace CR_MarkerExtensions
     private Color _beaconColor = Color.SlateBlue;
     private int _beaconDuration = 200;
     private bool _rollOverOnPrevNext = false;
-    private bool _skipSelectionMarkers = true;
+    private bool _skipSelectionMarkers = false;
 
     private const string STR_Preferences = @"Preferences";
     private const string STR_ShowBeacon = @"ShowBeacon";

@@ -39,7 +39,6 @@ namespace CR_MarkerExtensions
     /// </summary>
     private void InitializeComponent()
     {
-      this.components = new System.ComponentModel.Container();
       this.showLocatorBeaconLabel = new System.Windows.Forms.Label();
       this.showLocatorBeaconCheckBox = new System.Windows.Forms.CheckBox();
       this.beaconColorLabel = new System.Windows.Forms.Label();
@@ -47,13 +46,11 @@ namespace CR_MarkerExtensions
       this.beaconDurationTrackBar = new System.Windows.Forms.TrackBar();
       this.rollOverOnNextPrevCheckBox = new System.Windows.Forms.CheckBox();
       this.dynamicBeaconDurationLabel = new System.Windows.Forms.Label();
-      this.testBeacon = new DevExpress.CodeRush.PlugInCore.LocatorBeacon(this.components);
       this.beaconColorDialog = new System.Windows.Forms.ColorDialog();
       this.testBeaconButton = new System.Windows.Forms.Button();
       this.skipSelectionMarkersCheckBox = new System.Windows.Forms.CheckBox();
       this.beaconColorSelectButton = new System.Windows.Forms.Button();
       ((System.ComponentModel.ISupportInitialize)(this.beaconDurationTrackBar)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.testBeacon)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
       this.SuspendLayout();
       // 
@@ -62,7 +59,7 @@ namespace CR_MarkerExtensions
       this.showLocatorBeaconLabel.AutoSize = true;
       this.showLocatorBeaconLabel.Location = new System.Drawing.Point(12, 60);
       this.showLocatorBeaconLabel.Name = "showLocatorBeaconLabel";
-      this.showLocatorBeaconLabel.Size = new System.Drawing.Size(88, 13);
+      this.showLocatorBeaconLabel.Size = new System.Drawing.Size(86, 13);
       this.showLocatorBeaconLabel.TabIndex = 2;
       this.showLocatorBeaconLabel.Text = "Locator Beacons";
       // 
@@ -71,7 +68,7 @@ namespace CR_MarkerExtensions
       this.showLocatorBeaconCheckBox.AutoSize = true;
       this.showLocatorBeaconCheckBox.Location = new System.Drawing.Point(24, 84);
       this.showLocatorBeaconCheckBox.Name = "showLocatorBeaconCheckBox";
-      this.showLocatorBeaconCheckBox.Size = new System.Drawing.Size(65, 17);
+      this.showLocatorBeaconCheckBox.Size = new System.Drawing.Size(64, 17);
       this.showLocatorBeaconCheckBox.TabIndex = 3;
       this.showLocatorBeaconCheckBox.Text = "Enabled";
       this.showLocatorBeaconCheckBox.UseVisualStyleBackColor = true;
@@ -90,7 +87,7 @@ namespace CR_MarkerExtensions
       this.beaconDurationLabel.AutoSize = true;
       this.beaconDurationLabel.Location = new System.Drawing.Point(20, 136);
       this.beaconDurationLabel.Name = "beaconDurationLabel";
-      this.beaconDurationLabel.Size = new System.Drawing.Size(50, 13);
+      this.beaconDurationLabel.Size = new System.Drawing.Size(52, 13);
       this.beaconDurationLabel.TabIndex = 6;
       this.beaconDurationLabel.Text = "Duration:";
       // 
@@ -113,7 +110,7 @@ namespace CR_MarkerExtensions
       this.rollOverOnNextPrevCheckBox.AutoSize = true;
       this.rollOverOnNextPrevCheckBox.Location = new System.Drawing.Point(16, 16);
       this.rollOverOnNextPrevCheckBox.Name = "rollOverOnNextPrevCheckBox";
-      this.rollOverOnNextPrevCheckBox.Size = new System.Drawing.Size(330, 17);
+      this.rollOverOnNextPrevCheckBox.Size = new System.Drawing.Size(337, 17);
       this.rollOverOnNextPrevCheckBox.TabIndex = 0;
       this.rollOverOnNextPrevCheckBox.Text = "\"Roll over\" first/last marker when navigating to prev/next marker";
       this.rollOverOnNextPrevCheckBox.UseVisualStyleBackColor = true;
@@ -125,9 +122,6 @@ namespace CR_MarkerExtensions
       this.dynamicBeaconDurationLabel.Size = new System.Drawing.Size(100, 23);
       this.dynamicBeaconDurationLabel.TabIndex = 8;
       this.dynamicBeaconDurationLabel.Text = "(0 ms)";
-      // 
-      // testBeacon
-      // 
       // 
       // beaconColorDialog
       // 
@@ -156,7 +150,7 @@ namespace CR_MarkerExtensions
       this.skipSelectionMarkersCheckBox.AutoSize = true;
       this.skipSelectionMarkersCheckBox.Location = new System.Drawing.Point(16, 36);
       this.skipSelectionMarkersCheckBox.Name = "skipSelectionMarkersCheckBox";
-      this.skipSelectionMarkersCheckBox.Size = new System.Drawing.Size(142, 17);
+      this.skipSelectionMarkersCheckBox.Size = new System.Drawing.Size(139, 17);
       this.skipSelectionMarkersCheckBox.TabIndex = 1;
       this.skipSelectionMarkersCheckBox.Text = "Skip \"selection\" markers";
       this.skipSelectionMarkersCheckBox.UseVisualStyleBackColor = true;
@@ -186,10 +180,10 @@ namespace CR_MarkerExtensions
       this.Controls.Add(this.showLocatorBeaconCheckBox);
       this.Controls.Add(this.showLocatorBeaconLabel);
       this.Name = "Opt_MarkerExtensions";
+      this.CommitChanges += new DevExpress.CodeRush.Core.OptionsPage.CommitChangesEventHandler(this.Opt_MarkerExtensions_CommitChanges);
       this.PreparePage += new DevExpress.CodeRush.Core.OptionsPage.PreparePageEventHandler(this.Opt_MarkerExtensions_PreparePage);
       this.RestoreDefaults += new DevExpress.CodeRush.Core.OptionsPage.RestoreDefaultsEventHandler(this.Opt_MarkerExtensions_RestoreDefaults);
       ((System.ComponentModel.ISupportInitialize)(this.beaconDurationTrackBar)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.testBeacon)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
@@ -254,7 +248,6 @@ namespace CR_MarkerExtensions
     private System.Windows.Forms.TrackBar beaconDurationTrackBar;
     private System.Windows.Forms.CheckBox rollOverOnNextPrevCheckBox;
     private System.Windows.Forms.Label dynamicBeaconDurationLabel;
-    private DevExpress.CodeRush.PlugInCore.LocatorBeacon testBeacon;
     private System.Windows.Forms.ColorDialog beaconColorDialog;
     private System.Windows.Forms.Button testBeaconButton;
     private System.Windows.Forms.CheckBox skipSelectionMarkersCheckBox;
