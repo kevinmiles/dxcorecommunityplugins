@@ -41,7 +41,6 @@ namespace CR_MarkerExtensions
       this.MarkerPrevAction = new DevExpress.CodeRush.Core.Action(this.components);
       this.MarkerNextAction = new DevExpress.CodeRush.Core.Action(this.components);
       this.MarkerLastAction = new DevExpress.CodeRush.Core.Action(this.components);
-      this.locatorBeacon = new DevExpress.CodeRush.PlugInCore.LocatorBeacon(this.components);
       this.MarkerCollectFirstAction = new DevExpress.CodeRush.Core.Action(this.components);
       this.MarkerCollectLastAction = new DevExpress.CodeRush.Core.Action(this.components);
       this.MarkerCollectPrevAction = new DevExpress.CodeRush.Core.Action(this.components);
@@ -49,11 +48,11 @@ namespace CR_MarkerExtensions
       this.MarkerStackTopAction = new DevExpress.CodeRush.Core.Action(this.components);
       this.MarkerCollectAtCaretAction = new DevExpress.CodeRush.Core.Action(this.components);
       this.MarkerStackBottomAction = new DevExpress.CodeRush.Core.Action(this.components);
+      this.MarkerClearAllAction = new DevExpress.CodeRush.Core.Action(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.MarkerFirstAction)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerPrevAction)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerNextAction)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerLastAction)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.locatorBeacon)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerCollectFirstAction)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerCollectLastAction)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerCollectPrevAction)).BeginInit();
@@ -61,6 +60,7 @@ namespace CR_MarkerExtensions
       ((System.ComponentModel.ISupportInitialize)(this.MarkerStackTopAction)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerCollectAtCaretAction)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerStackBottomAction)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.MarkerClearAllAction)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
       // 
       // MarkerFirstAction
@@ -112,11 +112,6 @@ namespace CR_MarkerExtensions
       this.MarkerLastAction.ToolbarItem.Caption = null;
       this.MarkerLastAction.ToolbarItem.Image = null;
       this.MarkerLastAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerAction_Execute);
-      // 
-      // locatorBeacon
-      // 
-      this.locatorBeacon.Duration = 200;
-      this.locatorBeacon.StepFactor = -1;
       // 
       // MarkerCollectFirstAction
       // 
@@ -202,6 +197,18 @@ namespace CR_MarkerExtensions
       this.MarkerStackBottomAction.ToolbarItem.Image = null;
       this.MarkerStackBottomAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerAction_Execute);
       // 
+      // MarkerClearAllAction
+      // 
+      this.MarkerClearAllAction.ActionName = "MarkerClearAll";
+      this.MarkerClearAllAction.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+      this.MarkerClearAllAction.Description = "Clears all markers in the active document.";
+      this.MarkerClearAllAction.Image = null;
+      this.MarkerClearAllAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+      this.MarkerClearAllAction.ToolbarItem.ButtonIsPressed = false;
+      this.MarkerClearAllAction.ToolbarItem.Caption = null;
+      this.MarkerClearAllAction.ToolbarItem.Image = null;
+      this.MarkerClearAllAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MarkerClearAllAction_Execute);
+      // 
       // CR_MarkerExtensionsPlugIn
       // 
       this.OptionsChanged += new DevExpress.CodeRush.Core.OptionsChangedEventHandler(this.CR_MarkerExtensionsPlugIn_OptionsChanged);
@@ -209,7 +216,6 @@ namespace CR_MarkerExtensions
       ((System.ComponentModel.ISupportInitialize)(this.MarkerPrevAction)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerNextAction)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerLastAction)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.locatorBeacon)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerCollectFirstAction)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerCollectLastAction)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerCollectPrevAction)).EndInit();
@@ -217,6 +223,7 @@ namespace CR_MarkerExtensions
       ((System.ComponentModel.ISupportInitialize)(this.MarkerStackTopAction)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerCollectAtCaretAction)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.MarkerStackBottomAction)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.MarkerClearAllAction)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
     }
@@ -227,7 +234,6 @@ namespace CR_MarkerExtensions
     private DevExpress.CodeRush.Core.Action MarkerPrevAction;
     private DevExpress.CodeRush.Core.Action MarkerNextAction;
     private DevExpress.CodeRush.Core.Action MarkerLastAction;
-    private DevExpress.CodeRush.PlugInCore.LocatorBeacon locatorBeacon;
     private DevExpress.CodeRush.Core.Action MarkerCollectFirstAction;
     private DevExpress.CodeRush.Core.Action MarkerCollectLastAction;
     private DevExpress.CodeRush.Core.Action MarkerCollectPrevAction;
@@ -235,5 +241,6 @@ namespace CR_MarkerExtensions
     private DevExpress.CodeRush.Core.Action MarkerStackTopAction;
     private DevExpress.CodeRush.Core.Action MarkerCollectAtCaretAction;
     private DevExpress.CodeRush.Core.Action MarkerStackBottomAction;
+    private DevExpress.CodeRush.Core.Action MarkerClearAllAction;
   }
 }

@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
-using DxDwg = DevExpress.DXCore.Platform.Drawing;
 
 namespace CR_MarkerExtensions
 {
@@ -17,6 +14,15 @@ namespace CR_MarkerExtensions
     protected override void Initialize()
     {
       base.Initialize();
+      Disposed += (sender, e) =>
+        {
+          if ( _testBeacon != null )
+          {
+            _testBeacon.Dispose();
+            _testBeacon = null;
+          }
+        };
+      _testBeacon = new DevExpress.CodeRush.PlugInCore.GdiLocatorBeacon();
     }
     #endregion
 
@@ -67,8 +73,10 @@ namespace CR_MarkerExtensions
       skipSelectionMarkersCheckBox.Checked = _settings.SkipSelectionMarkers;
     }
 
+    private DevExpress.CodeRush.PlugInCore.GdiLocatorBeacon _testBeacon;
     private PlugInSettings _settings = new PlugInSettings();
-    private void Opt_MarkerExtensions_CommitChanges(object sender, OptionsPageStorageEventArgs ea)
+
+    private void Opt_MarkerExtensions_CommitChanges(object sender, CommitChangesEventArgs ea)
     {
       ControlsToSettings();
       _settings.Save(ea.Storage);
@@ -77,16 +85,12 @@ namespace CR_MarkerExtensions
     {
       _settings.Load(ea.Storage);
       SettingsToControls();
-      // todo!!
-      testBeaconButton.Text = "(testing does not work with 10.1 yet)";
-      testBeaconButton.Enabled = false;
     }
     private void Opt_MarkerExtensions_RestoreDefaults(object sender, OptionsPageEventArgs ea)
     {
       _settings = new PlugInSettings();
       SettingsToControls();
     }
-
     private void beaconColorSelectLabel_Click(object sender, EventArgs e)
     {
       Color beaconColor = beaconColorSelectButton.BackColor;
@@ -105,14 +109,16 @@ namespace CR_MarkerExtensions
     }
     private void testBeaconButton_Click(object sender, EventArgs e)
     {
-      testBeacon.Color = DxDwg.Color.ConvertFrom(beaconColorSelectButton.BackColor);
-      testBeacon.Duration = beaconDurationTrackBar.Value;
       Rectangle beaconRect = new Rectangle();
       beaconRect.Width = Math.Min(testBeaconButton.Width, testBeaconButton.Height);
       beaconRect.Height = beaconRect.Width;
       beaconRect.X = (testBeaconButton.Width - beaconRect.Width) / 2;
       beaconRect.Y = (testBeaconButton.Height - beaconRect.Height) / 2;
-      //testBeacon.Start(testBeaconButton.Handle, beaconRect);
+      if ( _testBeacon.PercentRemaining > 0f )
+        _testBeacon.Stop();
+      _testBeacon.Color = beaconColorSelectButton.BackColor;
+      _testBeacon.Duration = beaconDurationTrackBar.Value;
+      _testBeacon.Start(testBeaconButton.Handle, beaconRect);
     }
   }
 }
