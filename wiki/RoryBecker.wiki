@@ -22,6 +22,8 @@ Here are some links to some of the plugins I have written or contributed to:
  * [DX_NewItem]
  * [DX_ReloadSolution]
 
+ * [DX_InterfaceNav]
+ * [DX_ConvertToTryParse]
 
 </td><td>
  * [CR_ReSharperCompatibility] 
@@ -36,6 +38,8 @@ Here are some links to some of the plugins I have written or contributed to:
  * [DX_BackupSettings]
  * [HighlightCurrentLineInEditor]
  * [DX_RegionManager]
+ * [DX_GenerateProxy]
+ * [DX_RedundantAssignment]
 </td></tr>
 </table>
 
