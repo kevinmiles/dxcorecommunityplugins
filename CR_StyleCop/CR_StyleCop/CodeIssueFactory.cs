@@ -124,6 +124,13 @@
             this.handlers.Add("SA1103", new SA1103_QueryClausesMustBeOnSeparateLinesOrAllOnOneLine());
             this.handlers.Add("SA1104", new SA1104_QueryClauseMustBeginOnNewLineWhenPreviousClauseSpansMultipleLines());
             this.handlers.Add("SA1105", new SA1105_QueryClausesSpanningMultipleLinesMustBeginOnOwnLine());
+            this.handlers.Add("SA1106", new SA1106_CodeMustNotContainEmptyStatements());
+            this.handlers.Add("SA1107", nullHandler);
+            this.handlers.Add("SA1108", new SA1108_BlockStatementsMustNotContainEmbeddedComments());
+            this.handlers.Add("SA1109", new SA1109_BlockStatementsMustNotContainEmbeddedRegions());
+            this.handlers.Add("SA1110", new SA1110_OpeningParenthesisMustBeOnDeclarationLine());
+            this.handlers.Add("SA1111", new SA1111_ClosingParenthesisMustBeOnLineOfLastParameter());
+
             this.handlers.Add("SA1119", new SA1119_StatementMustNotUseUnnecessaryParenthesis());
 
             this.handlers.Add("SA1006", new SA1006_PreprocessorKeywordsMustNotBePrecededBySpace());
