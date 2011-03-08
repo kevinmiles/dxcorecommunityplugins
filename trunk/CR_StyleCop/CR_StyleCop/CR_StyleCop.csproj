@@ -90,6 +90,7 @@
     <Compile Include="AnalyzedSourceCode.cs" />
     <Compile Include="CodeIssues\KeywordUnderline.cs" />
     <Compile Include="CodeIssues\MethodCallCodeIssue.cs" />
+    <Compile Include="CodeIssues\PreprocessorDirectiveCodeIssue.cs" />
     <Compile Include="CodeIssues\QueryExpressionCodeIssue.cs" />
     <Compile Include="CodeIssues\SA1100_DoNotPrefixCallsWithBaseUnlessLocalImplementationExists.cs" />
     <Compile Include="CodeIssues\SA1101_PrefixLocalCallsWithThis.cs" />
@@ -98,6 +99,11 @@
     <Compile Include="CodeIssues\SA1104_QueryClauseMustBeginOnNewLineWhenPreviousClauseSpansMultipleLines.cs" />
     <Compile Include="CodeIssues\SA1105_QueryClausesSpanningMultipleLinesMustBeginOnOwnLine.cs" />
     <Compile Include="CodeIssues\SA1006_PreprocessorKeywordsMustNotBePrecededBySpace.cs" />
+    <Compile Include="CodeIssues\SA1106_CodeMustNotContainEmptyStatements.cs" />
+    <Compile Include="CodeIssues\SA1108_BlockStatementsMustNotContainEmbeddedComments.cs" />
+    <Compile Include="CodeIssues\SA1109_BlockStatementsMustNotContainEmbeddedRegions.cs" />
+    <Compile Include="CodeIssues\SA1110_OpeningParenthesisMustBeOnDeclarationLine.cs" />
+    <Compile Include="CodeIssues\SA1111_ClosingParenthesisMustBeOnLineOfLastParameter.cs" />
     <Compile Include="CodeIssues\SA1119_StatementMustNotUseUnnecessaryParenthesis.cs" />
     <Compile Include="CodeIssues\SA1200_UsingDirectivesMustBePlacedWithinNamespace.cs" />
     <Compile Include="CodeIssues\SA1201_ElementsMustAppearInTheCorrectOrder.cs" />
