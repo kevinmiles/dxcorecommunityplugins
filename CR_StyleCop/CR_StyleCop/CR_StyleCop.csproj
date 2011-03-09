@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyzedSourceCode.cs" />
+    <Compile Include="CodeIssues\FirstParameterCodeIssue.cs" />
     <Compile Include="CodeIssues\KeywordUnderline.cs" />
     <Compile Include="CodeIssues\MethodCallCodeIssue.cs" />
     <Compile Include="CodeIssues\PreprocessorDirectiveCodeIssue.cs" />
@@ -104,6 +105,10 @@
     <Compile Include="CodeIssues\SA1109_BlockStatementsMustNotContainEmbeddedRegions.cs" />
     <Compile Include="CodeIssues\SA1110_OpeningParenthesisMustBeOnDeclarationLine.cs" />
     <Compile Include="CodeIssues\SA1111_ClosingParenthesisMustBeOnLineOfLastParameter.cs" />
+    <Compile Include="CodeIssues\SA1112_ClosingParenthesisMustBeOnLineOfOpeningParenthesis.cs" />
+    <Compile Include="CodeIssues\SA1113_CommaMustBeOnSameLineAsPreviousParameter.cs" />
+    <Compile Include="CodeIssues\SA1114_ParameterListMustFollowDeclaration.cs" />
+    <Compile Include="CodeIssues\SA1115_ParameterMustFollowComma.cs" />
     <Compile Include="CodeIssues\SA1119_StatementMustNotUseUnnecessaryParenthesis.cs" />
     <Compile Include="CodeIssues\SA1200_UsingDirectivesMustBePlacedWithinNamespace.cs" />
     <Compile Include="CodeIssues\SA1201_ElementsMustAppearInTheCorrectOrder.cs" />
