@@ -45,7 +45,6 @@ Public Class PlugIn1
         RemoveRedundantAssignment.SolvedIssues.Add("Redundant Assignment")
     End Sub
 
-
     Private Sub RedundantAssignmentCodeIssue_CheckCodeIssues(ByVal sender As Object, ByVal ea As CheckCodeIssuesEventArgs)
         ' This method is executed when the system checks for your issue.
         Dim Scope = TryCast(ea.Scope, LanguageElement)
@@ -60,7 +59,18 @@ Public Class PlugIn1
         Next
     End Sub
     Private Shared Function IsRedundantAssignment(ByVal FoundItem As Assignment) As Boolean
-        Return FoundItem.LeftSide.GetDeclaration Is FoundItem.Expression.GetDeclaration
+        Dim LQE = TryCast(FoundItem.LeftSide, QualifiedElementReference)
+        Dim RQE = TryCast(FoundItem.Expression, QualifiedElementReference)
+        Dim SameQualifier = False
+        If (LQE Is Nothing AndAlso RQE Is Nothing) Then
+            SameQualifier = True
+        ElseIf (LQE Is Nothing OrElse RQE Is Nothing) Then
+            SameQualifier = False
+        ElseIf LQE.Qualifier.GetDeclaration Is RQE.Qualifier.GetDeclaration Then
+            SameQualifier = True
+        End If
+        Dim SameDeclaration As Boolean = FoundItem.LeftSide.GetDeclaration Is FoundItem.Expression.GetDeclaration
+        Return SameDeclaration AndAlso SameQualifier
     End Function
 
     Private Sub RemoveRedundantAssignment_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
@@ -75,7 +85,8 @@ Public Class PlugIn1
             If ERE Is Nothing Then
                 Return Nothing
             End If
-            If ERE.Parent IsNot Nothing AndAlso ERE.Parent.ElementType = LanguageElementType.Assignment Then
+            If ERE.Parent IsNot Nothing _
+                AndAlso ERE.Parent.ElementType = LanguageElementType.Assignment Then
                 Assignment = ERE.Parent
             Else
                 Return Nothing
