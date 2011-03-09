@@ -130,6 +130,10 @@
             this.handlers.Add("SA1109", new SA1109_BlockStatementsMustNotContainEmbeddedRegions());
             this.handlers.Add("SA1110", new SA1110_OpeningParenthesisMustBeOnDeclarationLine());
             this.handlers.Add("SA1111", new SA1111_ClosingParenthesisMustBeOnLineOfLastParameter());
+            this.handlers.Add("SA1112", new SA1112_ClosingParenthesisMustBeOnLineOfOpeningParenthesis());
+            this.handlers.Add("SA1113", new SA1113_CommaMustBeOnSameLineAsPreviousParameter());
+            this.handlers.Add("SA1114", new SA1114_ParameterListMustFollowDeclaration());
+            this.handlers.Add("SA1115", new SA1115_ParameterMustFollowComma());
 
             this.handlers.Add("SA1119", new SA1119_StatementMustNotUseUnnecessaryParenthesis());
 
