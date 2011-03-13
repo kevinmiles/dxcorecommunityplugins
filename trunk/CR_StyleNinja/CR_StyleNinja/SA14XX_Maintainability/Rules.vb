@@ -83,7 +83,12 @@ Namespace SA14XX
         End Function
         Public Sub Fix_SA1401(ByVal sender As Object, ByVal ea As ApplyContentEventArgs)
             Dim Element = CType(ea.CodeActive, Variable)
-            ea.TextDocument.InsertText(Element.Range.Start, GetVisibilityName(MemberVisibility.Private) & " ")
+            Dim Visibility = GetVisibilityName(MemberVisibility.Private)
+            If Element.VisibilityRange.IsEmpty Then
+                ea.TextDocument.InsertText(Element.Range.Start, Visibility & " ")
+            Else
+                ea.TextDocument.Replace(Element.VisibilityRange, Visibility, "")
+            End If
         End Sub
 
 #End Region
