@@ -58,8 +58,8 @@ Namespace SA14XX
                 AndAlso TypeOf Element.Parent Is SP.Interface Then
                 Return False
             End If
-            ' Exclude if Parent is Method
-            If Element.ParentMethod IsNot Nothing Then
+            ' Exclude if Parent is Method or accessor
+            If Element.ParentMethodOrAccessor IsNot Nothing Then
                 Return False
             End If
             Return True
