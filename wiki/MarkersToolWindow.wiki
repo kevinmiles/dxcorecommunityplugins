@@ -1,0 +1,16 @@
+#summary Provides a toolwindow for visualizing the current stack of Markers
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/MarkersToolWindow/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Requires DXCore 10.2 since build 1724=====
+=== Introduction ===
+This plugin provides an additional tool window which shows the current stack of Markers within the system
+
+It updates itself when Markers are added or removed, and allows navigation via a double-click
+
+Additionally a preview of the code in which a Marker sits is available.
+
+[http://dxcorecommunityplugins.googlecode.com/svn/trunk/MarkersToolWindow/Screenshots/MarkersToolWindow.png]
+
+=== Credits ===
+
+Author: [http://devexpress.com/Mark MarkMiller]
