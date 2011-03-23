@@ -60,11 +60,15 @@ namespace CR_ExtensionMethodsHelper
 
     private ICollection GetProjectSymbols()
     {
-      ProjectElement scope = CodeRush.Source.ActiveProject;
-      if (scope == null)
-        return null;
+        SolutionElement scope = CodeRush.Source.ActiveSolution;
+        if (scope == null)
+            return null;
+        List<IElement> list = new List<IElement>();
+        foreach (ProjectElement project in scope.AllProjects)
+            foreach (IElement element in project.ProjectSymbols.Values)
+                list.Add(element);
 
-      return scope.ProjectSymbols.Values;
+        return list;
     }
 
     private bool IsValidReferenceAndQualifier(LanguageElement activeRerence, out ITypeElement callerType)
