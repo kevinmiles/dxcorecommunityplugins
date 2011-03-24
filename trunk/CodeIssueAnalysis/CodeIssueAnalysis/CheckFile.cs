@@ -49,27 +49,36 @@ namespace CodeIssueAnalysis
         }
 
         internal void Check(object state)
-        {            
+        {     
             //abort threads quickly if cancel pressed
             if (!issueProcessor.shutdown)
             {
-                try
-                {
-                    if (IsIncluded())
-                    {                
-                        //exlusions only need to be tested if file is included
-                        if (!IsExcluded())
+                if (IsIncluded())
+                {                
+                    //exlusions only need to be tested if file is included
+                    if (!IsExcluded())
+                    {
+                        try
                         {
                             foreach (CodeIssue issue in issueService.CheckCodeIssues(file))
                             {
-                                issueProcessor.AddCodeIssue(issue, file, GetFileTextRange(issue.Range));
+                                try
+                                {
+                                    issueProcessor.AddCodeIssue(issue, file, GetFileTextRange(issue.Range));
+                                }
+                                catch (Exception err)
+                                {
+                                    Debug.Assert(false, "Failure During Checking Issue", 
+                                        String.Format("File: {0}{1}{2}{3}Issue: {4}", file, Environment.NewLine, err, Environment.NewLine, issue));
+                                }
                             }
                         }
+                        catch (Exception err)
+                        {
+                            Debug.Assert(false, "Failure During issueService.CheckCodeIssues(file)", 
+                                String.Format("File: {0}{1}{2}", file, Environment.NewLine, err));
+                        }
                     }
-                }
-                catch (Exception err)
-                {
-                    Debug.Assert(false, "Failed To Check Issues", err.Message);
                 }
             }
 
@@ -108,12 +117,20 @@ namespace CodeIssueAnalysis
 
         private bool FileNamePatternMatch(List<string> patterns)
         {
-            foreach (string pattern in patterns)
+            try
             {
-                if ((new Regex(pattern)).Match(file.Name).Success)
-                {                    
-                    return true;
+                foreach (string pattern in patterns)
+                {
+                    if ((new Regex(pattern)).Match(file.Name).Success)
+                    {                    
+                        return true;
+                    }
                 }
+            }
+            catch (Exception err)
+            {
+                Debug.Assert(false, "Error checking File Patterns",
+                    String.Format("File: {0}{1}{2}", file, Environment.NewLine, err));
             }
             return false;
         }
