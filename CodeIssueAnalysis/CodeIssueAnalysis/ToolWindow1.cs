@@ -36,14 +36,18 @@ namespace CodeIssueAnalysis
             base.InitializePlugIn();
             gridView1.BestFitMaxRowCount = 50;
             CodeIssueOptions.SetupSettingsLists();
-            CodeIssueOptions.UpdateLayoutsList(cmbLayouts, true);
+            CodeIssueOptions.UpdateLayoutsList(cmbLayouts, true);            
+            helper = new RefreshHelper(gridView1, "Hash");
+        }
+
+
+        private void SetupWorker()
+        {
             worker = new IssueProcessor();
             worker.Results += OnResults;
             worker.Error += OnError;
             worker.ProcessingFile += OnProcessingFile;
-            helper = new RefreshHelper(gridView1, "Hash");
         }
-
 
         #endregion
         #region FinalizePlugIn
@@ -88,7 +92,8 @@ namespace CodeIssueAnalysis
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message, "Error Updating Grid");
+                //Collection enumeration issues can't fix
+                //MessageBox.Show(err.Message, "Invalid Op2");
             }
             finally
             {
@@ -178,6 +183,7 @@ namespace CodeIssueAnalysis
 
         private void btnSolutionIssues_Click(object sender, EventArgs e)
         {
+            SetupWorker();
             new Thread(worker.AddAllSolutionIssues).Start();
             progressBar.Visible = true;
             btnCancel.Visible = true;
@@ -185,6 +191,7 @@ namespace CodeIssueAnalysis
 
         private void btnProjectIssues_Click(object sender, EventArgs e)
         {
+            SetupWorker();
             new Thread(worker.AddAllProjectIssues).Start();
             progressBar.Visible = true;
             btnCancel.Visible = true;
@@ -192,7 +199,8 @@ namespace CodeIssueAnalysis
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            worker.shutdown = true;
+            if (worker != null)
+                worker.shutdown = true;
             EndProcessing();
         }
 
@@ -239,6 +247,7 @@ namespace CodeIssueAnalysis
 
         private void btnFileIssues_Click(object sender, EventArgs e)
         {
+            SetupWorker();
             worker.RescanFileIssues(CodeRush.Source.ActiveSourceFile);
         }
 

@@ -209,10 +209,17 @@ namespace CodeIssueAnalysis
 
         private void CheckIssues(SourceFile file)
         {
-            //non threaded way
-            //new CheckFile(issueService, file, this).Check(null);
-            ThreadPool.SetMaxThreads(8, 8);
-            ThreadPool.QueueUserWorkItem(new CheckFile(issueService, file, this).Check);
+            try
+            {
+                //non threaded way
+                //new CheckFile(issueService, file, this).Check(null);
+                ThreadPool.SetMaxThreads(8, 8);
+                ThreadPool.QueueUserWorkItem(new CheckFile(issueService, file, this).Check);
+            }
+            catch (Exception err)
+            {
+                Debug.Assert(false, "Error queing issue service", err.Message);
+            } 
         }
 
         internal static void GotoCode(SourceFile file, SourceRange range, LocatorBeacon beacon)
@@ -240,8 +247,7 @@ namespace CodeIssueAnalysis
                     case RunType.NotRun:
                     case RunType.Solution:
                         processedFiles = 0;
-                        totalFiles = 1;
-                        codeIssues.RemoveAll(new CodeIssueMatch(e.FileNode.Document.FullName).FilePathMatch);
+                        totalFiles = 1;                        
                         CheckIssues(e.FileNode);
                         break;
                     case RunType.Project:
@@ -249,7 +255,6 @@ namespace CodeIssueAnalysis
                         totalFiles = 1;
                         if (e.FileNode.Project == activeProject)
                         {
-                            codeIssues.RemoveAll(new CodeIssueMatch(e.FileNode.Document.FullName).FilePathMatch);
                             CheckIssues(e.FileNode);
                         }
                         break;
