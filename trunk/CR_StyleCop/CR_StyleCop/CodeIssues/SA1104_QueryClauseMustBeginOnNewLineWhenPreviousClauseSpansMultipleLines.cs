@@ -2,10 +2,10 @@
 {
     using System;
 
-    internal class SA1104_QueryClauseMustBeginOnNewLineWhenPreviousClauseSpansMultipleLines : QueryExpressionCodeIssue
+    internal class SA1104_QueryClauseMustBeginOnNewLineWhenPreviousClauseSpansMultipleLines : StyleCopRule
     {
         public SA1104_QueryClauseMustBeginOnNewLineWhenPreviousClauseSpansMultipleLines()
-            : base(Underline.FirstKeywordOnLine)
+            : base(new FirstTokenByTypeIssueLocator(Keywords.QueryExpression))
         {
         }
     }

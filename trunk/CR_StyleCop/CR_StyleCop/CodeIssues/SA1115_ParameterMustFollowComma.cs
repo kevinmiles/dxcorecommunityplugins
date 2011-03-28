@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1115_ParameterMustFollowComma : FirstParameterCodeIssue
+    internal class SA1115_ParameterMustFollowComma : StyleCopRule
     {
+        public SA1115_ParameterMustFollowComma()
+            : base(new FirstParameterIssueLocator())
+        {
+        }
     }
 }

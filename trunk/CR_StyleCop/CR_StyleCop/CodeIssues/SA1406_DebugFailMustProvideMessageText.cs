@@ -3,10 +3,10 @@
     using System;
     using DevExpress.CodeRush.StructuralParser;
 
-    internal class SA1406_DebugFailMustProvideMessageText : MethodCallCodeIssue
+    internal class SA1406_DebugFailMustProvideMessageText : StyleCopRule
     {
         public SA1406_DebugFailMustProvideMessageText()
-            : base("Fail", QualifyParameters)
+            : base(new MethodCallIssueLocator("Fail", QualifyParameters))
         {
         }
 

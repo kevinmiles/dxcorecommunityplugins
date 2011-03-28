@@ -9,7 +9,7 @@ namespace CR_StyleCop
     using DevExpress.CodeRush.Diagnostics.General;
     using DevExpress.CodeRush.PlugInCore;
     using DevExpress.CodeRush.StructuralParser;
-    using Microsoft.StyleCop;
+    using StyleCop;
 
     public partial class CR_StyleCopPlugIn : StandardPlugIn
     {
@@ -75,11 +75,11 @@ namespace CR_StyleCop
             {
                 foreach (var violation in violationList)
                 {
-                    ICodeIssue issue = this.issuesFactory.GetIssueFor(violation);
+                    IStyleCopRule rule = this.issuesFactory.GetRuleFor(violation);
                     IDocument document = scope.Document;
                     if (document != null)
                     {
-                        issue.AddViolationIssue(ea, document, violation);
+                        rule.AddViolationIssue(ea, document, violation);
                     }
                 }
             }

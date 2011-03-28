@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1624_PropertySummaryDocumentationMustOmitSetAccessorWithRestrictedAccess : ElementByNameCodeIssue
+    internal class SA1624_PropertySummaryDocumentationMustOmitSetAccessorWithRestrictedAccess : StyleCopRule
     {
+        public SA1624_PropertySummaryDocumentationMustOmitSetAccessorWithRestrictedAccess()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }

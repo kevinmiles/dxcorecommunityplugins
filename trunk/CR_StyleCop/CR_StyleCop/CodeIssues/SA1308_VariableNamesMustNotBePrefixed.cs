@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1308_VariableNamesMustNotBePrefixed : ElementByNameCodeIssue
+    internal class SA1308_VariableNamesMustNotBePrefixed : StyleCopRule
     {
+        public SA1308_VariableNamesMustNotBePrefixed()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }

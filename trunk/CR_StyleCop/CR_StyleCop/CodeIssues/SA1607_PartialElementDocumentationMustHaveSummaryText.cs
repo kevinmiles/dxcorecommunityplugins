@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1607_PartialElementDocumentationMustHaveSummaryText : ElementByNameCodeIssue
+    internal class SA1607_PartialElementDocumentationMustHaveSummaryText : StyleCopRule
     {
+        public SA1607_PartialElementDocumentationMustHaveSummaryText()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }

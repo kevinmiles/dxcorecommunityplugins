@@ -1,17 +1,23 @@
 ﻿namespace CR_StyleCop.CodeIssues
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using DevExpress.CodeRush.Core;
     using DevExpress.CodeRush.StructuralParser;
-    using DevExpress.CodeRush.Diagnostics.General;
-    using Microsoft.StyleCop;
-    using Microsoft.StyleCop.CSharp;
-    using System.Collections.Generic;
+    using StyleCop;
+    using StyleCop.CSharp;
 
-    internal class SA1119_StatementMustNotUseUnnecessaryParenthesis : ICodeIssue
+    internal class SA1119_StatementMustNotUseUnnecessaryParenthesis : StyleCopRule
     {
-        private List<LanguageElementType> validParenthesizedContent = new List<LanguageElementType>()
+        public SA1119_StatementMustNotUseUnnecessaryParenthesis()
+            : base(new IssueLocator())
+        {
+        }
+
+        internal class IssueLocator : ICodeIssueLocator
+        {
+            private List<LanguageElementType> validParenthesizedContent = new List<LanguageElementType>()
             {
                 LanguageElementType.TypeCheck,
                 LanguageElementType.ConditionalTypeCast,
@@ -32,7 +38,7 @@
                 LanguageElementType.RelationalOperation
             };
 
-        private List<LanguageElementType> invalidParenthesizedParent = new List<LanguageElementType>()
+            private List<LanguageElementType> invalidParenthesizedParent = new List<LanguageElementType>()
             {
                 LanguageElementType.Assignment,
                 LanguageElementType.Block,
@@ -78,22 +84,21 @@
                 LanguageElementType.YieldReturn
             };
 
-        public void AddViolationIssue(CheckCodeIssuesEventArgs ea, IDocument document, Violation violation)
-        {
-            string message = String.Format("{0}: {1}", violation.Rule.CheckId, violation.Message);
-            var csElement = violation.Element as CsElement;
-            if (csElement == null)
+            public IEnumerable<StyleCopCodeIssue> GetCodeIssues(
+                IDocument document,
+                Func<ElementTypeFilter, IEnumerable<IElement>> enumerate,
+                Violation violation,
+                CsElement csElement)
             {
-                ea.AddSmell(new SourceRange(violation.Line, 1, violation.Line, document.LengthOfLine(violation.Line) + 1), message, 10);
-                return;
-            }
-
-            foreach (IElement element in ea.GetEnumerable(ea.Scope, new ElementTypeFilter(LanguageElementType.ParenthesizedExpression)).Where(x => x.FirstNameRange.Start.Line == violation.Line))
-            {
-                if (!this.validParenthesizedContent.Contains(element.Children[0].ElementType)
-                    || this.invalidParenthesizedParent.Contains(element.Parent.ElementType))
+                foreach (IElement element in from x in enumerate(new ElementTypeFilter(LanguageElementType.ParenthesizedExpression))
+                                             where x.FirstNameRange.Start.Line == violation.Line
+                                             select x)
                 {
-                    ea.AddSmell(element.FirstNameRange, message, 10);
+                    if (!this.validParenthesizedContent.Contains(element.Children[0].ElementType)
+                        || this.invalidParenthesizedParent.Contains(element.Parent.ElementType))
+                    {
+                        yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, element.FirstNameRange);
+                    }
                 }
             }
         }

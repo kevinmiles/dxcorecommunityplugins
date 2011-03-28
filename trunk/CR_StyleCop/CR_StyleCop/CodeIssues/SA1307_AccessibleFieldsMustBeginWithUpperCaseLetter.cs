@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1307_AccessibleFieldsMustBeginWithUpperCaseLetter : ElementByNameCodeIssue
+    internal class SA1307_AccessibleFieldsMustBeginWithUpperCaseLetter : StyleCopRule
     {
+        public SA1307_AccessibleFieldsMustBeginWithUpperCaseLetter()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }

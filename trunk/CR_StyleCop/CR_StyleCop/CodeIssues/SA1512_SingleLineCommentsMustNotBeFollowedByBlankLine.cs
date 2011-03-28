@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1512_SingleLineCommentsMustNotBeFollowedByBlankLine : SingleLineCommentCodeIssue
+    internal class SA1512_SingleLineCommentsMustNotBeFollowedByBlankLine : StyleCopRule
     {
+        public SA1512_SingleLineCommentsMustNotBeFollowedByBlankLine()
+            : base(new SingleLineCommentIssueLocator())
+        {
+        }
     }
 }

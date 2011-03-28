@@ -3,12 +3,12 @@
     using System;
     using System.Collections.Generic;
     using CR_StyleCop.CodeIssues;
-    using Microsoft.StyleCop;
+    using StyleCop;
 
     internal class CodeIssueFactory
     {
-        private Dictionary<string, ICodeIssue> handlers = new Dictionary<string, ICodeIssue>();
-        private ICodeIssue nullHandler = new NullCodeIssue();
+        private Dictionary<string, IStyleCopRule> handlers = new Dictionary<string, IStyleCopRule>();
+        private IStyleCopRule emptyRule = new StyleCopRule(new NullIssueLocator());
 
         public CodeIssueFactory()
         {
@@ -45,15 +45,15 @@
             this.handlers.Add("SA1630", new SA1630_DocumentationTextMustContainWhitespace()); // OK
             this.handlers.Add("SA1631", new SA1631_DocumentationTextMustMeetCharacterPercentage()); // OK
             this.handlers.Add("SA1632", new SA1632_DocumentationTextMustMeetMinimumCharacterLength()); // OK
-            this.handlers.Add("SA1633", nullHandler); // TODO
-            this.handlers.Add("SA1634", nullHandler); // TODO
-            this.handlers.Add("SA1635", nullHandler); // TODO
-            this.handlers.Add("SA1636", nullHandler); // TODO
-            this.handlers.Add("SA1637", nullHandler); // TODO
-            this.handlers.Add("SA1638", nullHandler); // TODO
-            this.handlers.Add("SA1639", nullHandler); // TODO
-            this.handlers.Add("SA1640", nullHandler); // TODO
-            this.handlers.Add("SA1641", nullHandler); // TODO
+            this.handlers.Add("SA1633", emptyRule); // TODO
+            this.handlers.Add("SA1634", emptyRule); // TODO
+            this.handlers.Add("SA1635", emptyRule); // TODO
+            this.handlers.Add("SA1636", emptyRule); // TODO
+            this.handlers.Add("SA1637", emptyRule); // TODO
+            this.handlers.Add("SA1638", emptyRule); // TODO
+            this.handlers.Add("SA1639", emptyRule); // TODO
+            this.handlers.Add("SA1640", emptyRule); // TODO
+            this.handlers.Add("SA1641", emptyRule); // TODO
             this.handlers.Add("SA1642", new SA1642_ConstructorSummaryDocumentationMustBeginWithStandardText()); // OK
             this.handlers.Add("SA1643", new SA1643_DestructorSummaryDocumentationMustBeginWithStandardText()); // OK
             this.handlers.Add("SA1644", new SA1644_DocumentationHeadersMustNotContainBlankLines()); // OK
@@ -125,7 +125,7 @@
             this.handlers.Add("SA1104", new SA1104_QueryClauseMustBeginOnNewLineWhenPreviousClauseSpansMultipleLines());
             this.handlers.Add("SA1105", new SA1105_QueryClausesSpanningMultipleLinesMustBeginOnOwnLine());
             this.handlers.Add("SA1106", new SA1106_CodeMustNotContainEmptyStatements());
-            this.handlers.Add("SA1107", nullHandler);
+            this.handlers.Add("SA1107", emptyRule);
             this.handlers.Add("SA1108", new SA1108_BlockStatementsMustNotContainEmbeddedComments());
             this.handlers.Add("SA1109", new SA1109_BlockStatementsMustNotContainEmbeddedRegions());
             this.handlers.Add("SA1110", new SA1110_OpeningParenthesisMustBeOnDeclarationLine());
@@ -134,17 +134,18 @@
             this.handlers.Add("SA1113", new SA1113_CommaMustBeOnSameLineAsPreviousParameter());
             this.handlers.Add("SA1114", new SA1114_ParameterListMustFollowDeclaration());
             this.handlers.Add("SA1115", new SA1115_ParameterMustFollowComma());
+            this.handlers.Add("SA1116", new SA1116_SplitParametersMustStartOnLineAfterDeclaration());
 
             this.handlers.Add("SA1119", new SA1119_StatementMustNotUseUnnecessaryParenthesis());
 
             this.handlers.Add("SA1006", new SA1006_PreprocessorKeywordsMustNotBePrecededBySpace());
         }
 
-        public ICodeIssue GetIssueFor(Violation violation)
+        public IStyleCopRule GetRuleFor(Violation violation)
         {
-            ICodeIssue handler = null;
-            this.handlers.TryGetValue(violation.Rule.CheckId, out handler);
-            return handler ?? this.nullHandler;
+            IStyleCopRule rule = null;
+            this.handlers.TryGetValue(violation.Rule.CheckId, out rule);
+            return rule ?? this.emptyRule;
         }
     }
 }

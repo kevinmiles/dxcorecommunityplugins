@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1514_ElementDocumentationHeadersMustBePrecededByBlankLine : SingleLineCommentCodeIssue
+    internal class SA1514_ElementDocumentationHeadersMustBePrecededByBlankLine : StyleCopRule
     {
+        public SA1514_ElementDocumentationHeadersMustBePrecededByBlankLine()
+            : base(new SingleLineCommentIssueLocator())
+        {
+        }
     }
 }

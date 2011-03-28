@@ -1,38 +1,46 @@
 ﻿namespace CR_StyleCop.CodeIssues
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using DevExpress.CodeRush.Core;
     using DevExpress.CodeRush.StructuralParser;
-    using Microsoft.StyleCop;
-    using Microsoft.StyleCop.CSharp;
+    using StyleCop;
+    using StyleCop.CSharp;
 
-    internal class SA1501_StatementMustNotBeOnASingleLine : ICodeIssue
+    internal class SA1501_StatementMustNotBeOnASingleLine : StyleCopRule
     {
-        public void AddViolationIssue(CheckCodeIssuesEventArgs ea, IDocument document, Violation violation)
+        public SA1501_StatementMustNotBeOnASingleLine()
+            : base(new IssueLocator())
         {
-            string message = String.Format("{0}: {1}", violation.Rule.CheckId, violation.Message);
-            CsElement csElement = violation.Element as CsElement;
-            if (csElement == null)
+        }
+
+        internal class IssueLocator : ICodeIssueLocator
+        {
+            public IEnumerable<StyleCopCodeIssue> GetCodeIssues(
+                IDocument document, 
+                Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, 
+                Violation violation, 
+                CsElement csElement)
             {
-                ea.AddSmell(new SourceRange(violation.Line, 1, violation.Line, document.LengthOfLine(violation.Line) + 1), message, 10);
-                return;
-            }
-            CsToken startToken = null;
-            foreach (var token in from token in csElement.ElementTokens
-                                  where violation.Line == token.Location.StartPoint.LineNumber
-                                  select token)
-            {
-                if (token.Text == "{")
+                CsToken startToken = null;
+                foreach (var token in from token in csElement.ElementTokens
+                                      where violation.Line == token.Location.StartPoint.LineNumber
+                                        && (token.CsTokenType == CsTokenType.OpenCurlyBracket 
+                                            || token.CsTokenType == CsTokenType.CloseCurlyBracket)
+                                      select token)
                 {
-                    startToken = token;
-                    continue;
-                }
-                if (token.Text == "}")
-                {
-                    SourceRange sourceRange = new SourceRange(startToken.Location.StartPoint.LineNumber, startToken.Location.StartPoint.IndexOnLine + 1, token.Location.EndPoint.LineNumber, token.Location.EndPoint.IndexOnLine + 2);
-                    ea.AddSmell(sourceRange, message, 10);
-                    return;
+                    if (token.CsTokenType == CsTokenType.OpenCurlyBracket)
+                    {
+                        startToken = token;
+                        continue;
+                    }
+
+                    if (token.CsTokenType == CsTokenType.CloseCurlyBracket)
+                    {
+                        var sourceRange = new SourceRange(startToken.Location.StartPoint.LineNumber, startToken.Location.StartPoint.IndexOnLine + 1, token.Location.EndPoint.LineNumber, token.Location.EndPoint.IndexOnLine + 2);
+                        yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, sourceRange);
+                    }
                 }
             }
         }

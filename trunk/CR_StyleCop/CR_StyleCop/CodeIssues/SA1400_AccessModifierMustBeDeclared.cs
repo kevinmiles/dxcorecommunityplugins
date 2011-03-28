@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1400_AccessModifierMustBeDeclared : ElementByNameCodeIssue
+    internal class SA1400_AccessModifierMustBeDeclared : StyleCopRule
     {
+        public SA1400_AccessModifierMustBeDeclared()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }

@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1619_GenericTypeParametersMustBeDocumentedPartialClass : ElementByNameCodeIssue
+    internal class SA1619_GenericTypeParametersMustBeDocumentedPartialClass : StyleCopRule
     {
+        public SA1619_GenericTypeParametersMustBeDocumentedPartialClass()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }

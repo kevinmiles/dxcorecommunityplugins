@@ -4,27 +4,27 @@
     using System.Linq;
     using DevExpress.CodeRush.Core;
     using DevExpress.CodeRush.StructuralParser;
-    using Microsoft.StyleCop;
-    using Microsoft.StyleCop.CSharp;
+    using StyleCop;
+    using StyleCop.CSharp;
+    using System.Collections.Generic;
 
-    internal class SA1626_SingleLineCommentsMustNotUseDocumentationStyleSlashes : ICodeIssue
+    internal class SA1626_SingleLineCommentsMustNotUseDocumentationStyleSlashes : StyleCopRule
     {
-        public void AddViolationIssue(CheckCodeIssuesEventArgs ea, IDocument document, Violation violation)
+        public SA1626_SingleLineCommentsMustNotUseDocumentationStyleSlashes()
+            : base(new IssueLocator())
         {
-            string message = String.Format("{0}: {1}", violation.Rule.CheckId, violation.Message);
-            CsElement csElement = violation.Element as CsElement;
-            if (csElement == null)
+        }
+
+        internal class IssueLocator : ICodeIssueLocator
+        {
+            public IEnumerable<StyleCopCodeIssue> GetCodeIssues(IDocument document, Func<ElementTypeFilter, IEnumerable<IElement>> crEnumerable, Violation violation, CsElement csElement)
             {
-                ea.AddSmell(new SourceRange(violation.Line, 1, violation.Line, document.LengthOfLine(violation.Line) + 1), message, 10);
-                return;
-            }
-            foreach (var location in from token in csElement.ElementTokens
-                                  where token.Text.StartsWith("///") && !token.Text.StartsWith("////")
-                                  select token.Location)
-            {
-                SourceRange sourceRange = new SourceRange(location.StartPoint.LineNumber, location.StartPoint.IndexOnLine + 1, location.EndPoint.LineNumber, location.EndPoint.IndexOnLine + 2);
-                ea.AddSmell(sourceRange, message, 10);
-                return;
+                return from token in csElement.ElementTokens
+                       where token.Text.StartsWith("///") && !token.Text.StartsWith("////")
+                       let startPoint = token.Location.StartPoint
+                       let endPoint = token.Location.EndPoint
+                       let sourceRange = new SourceRange(startPoint.LineNumber, startPoint.IndexOnLine + 1, endPoint.LineNumber, endPoint.IndexOnLine + 2)
+                       select new StyleCopCodeIssue(CodeIssueType.CodeSmell, sourceRange);
             }
         }
     }

@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1611_ElementParametersMustBeDocumented : ElementByNameCodeIssue
+    internal class SA1611_ElementParametersMustBeDocumented : StyleCopRule
     {
+        public SA1611_ElementParametersMustBeDocumented()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }

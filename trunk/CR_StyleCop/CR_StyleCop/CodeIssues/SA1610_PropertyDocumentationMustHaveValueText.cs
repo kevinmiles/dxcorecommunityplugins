@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1610_PropertyDocumentationMustHaveValueText : ElementByNameCodeIssue
+    internal class SA1610_PropertyDocumentationMustHaveValueText : StyleCopRule
     {
+        public SA1610_PropertyDocumentationMustHaveValueText()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }
