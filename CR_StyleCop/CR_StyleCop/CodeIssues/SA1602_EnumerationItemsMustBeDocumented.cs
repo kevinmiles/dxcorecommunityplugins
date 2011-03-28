@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1602_EnumerationItemsMustBeDocumented : ElementByNameCodeIssue
+    internal class SA1602_EnumerationItemsMustBeDocumented : StyleCopRule
     {
+        public SA1602_EnumerationItemsMustBeDocumented()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }

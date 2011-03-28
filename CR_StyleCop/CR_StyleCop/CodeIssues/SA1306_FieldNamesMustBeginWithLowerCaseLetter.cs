@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1306_FieldNamesMustBeginWithLowerCaseLetter : ElementByNameCodeIssue
+    internal class SA1306_FieldNamesMustBeginWithLowerCaseLetter : StyleCopRule
     {
+        public SA1306_FieldNamesMustBeginWithLowerCaseLetter()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }

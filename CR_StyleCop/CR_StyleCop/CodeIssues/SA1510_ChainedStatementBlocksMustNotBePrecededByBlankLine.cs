@@ -1,11 +1,12 @@
 ﻿namespace CR_StyleCop.CodeIssues
 {
     using System;
+    using StyleCop.CSharp;
 
-    internal class SA1510_ChainedStatementBlocksMustNotBePrecededByBlankLine : KeywordCodeIssue
+    internal class SA1510_ChainedStatementBlocksMustNotBePrecededByBlankLine : StyleCopRule
     {
         public SA1510_ChainedStatementBlocksMustNotBePrecededByBlankLine()
-            : base(Underline.FirstKeywordOnLine, "else", "catch", "finally")
+            : base(new FirstTokenByTypeIssueLocator(CsTokenType.Else, CsTokenType.Catch, CsTokenType.Finally))
         {
         }
     }

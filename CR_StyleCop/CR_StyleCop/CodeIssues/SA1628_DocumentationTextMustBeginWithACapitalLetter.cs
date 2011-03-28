@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1628_DocumentationTextMustBeginWithACapitalLetter : ElementByNameCodeIssue
+    internal class SA1628_DocumentationTextMustBeginWithACapitalLetter : StyleCopRule
     {
+        public SA1628_DocumentationTextMustBeginWithACapitalLetter()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }

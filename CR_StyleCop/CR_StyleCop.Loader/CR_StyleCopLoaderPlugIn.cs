@@ -20,7 +20,7 @@ namespace CR_StyleCop.Loader
             foreach (Assembly assembly in assemblies)
             {
                 string assemblyName = assembly.GetName().Name;
-                if (assemblyName == "Microsoft.StyleCop")
+                if (assemblyName == "StyleCop")
                 {
                     this.styleCopLoaded = true;
                     if (this.StyleCopLoaded)
@@ -29,7 +29,7 @@ namespace CR_StyleCop.Loader
                         return;
                     }
                 }
-                if (assemblyName == "Microsoft.StyleCop.CSharp")
+                if (assemblyName == "StyleCop.CSharp")
                 {
                     this.styleCopCSharpLoaded = true;
                     if (this.StyleCopLoaded)
@@ -38,7 +38,7 @@ namespace CR_StyleCop.Loader
                         return;
                     }
                 }
-                if (assemblyName == "Microsoft.StyleCop.CSharp.Rules")
+                if (assemblyName == "StyleCop.CSharp.Rules")
                 {
                     this.styleCopCSharpRulesLoaded = true;
                     if (this.StyleCopLoaded)
@@ -47,7 +47,7 @@ namespace CR_StyleCop.Loader
                         return;
                     }
                 }
-                if (assemblyName == "Microsoft.StyleCop.VSPackage")
+                if (assemblyName == "StyleCop.VSPackage")
                 {
                     this.styleCopVSPackageLoaded = true;
                     if (this.StyleCopLoaded)
@@ -77,7 +77,7 @@ namespace CR_StyleCop.Loader
         private void CurrentDomainAssemblyLoad(object sender, AssemblyLoadEventArgs e)
         {
             string loadedAssemblyName = e.LoadedAssembly.GetName().Name;
-            if (loadedAssemblyName == "Microsoft.StyleCop")
+            if (loadedAssemblyName == "StyleCop")
             {
                 this.styleCopLoaded = true;
                 if (this.StyleCopLoaded)
@@ -86,7 +86,7 @@ namespace CR_StyleCop.Loader
                 }
                 return;
             }
-            if (loadedAssemblyName == "Microsoft.StyleCop.CSharp")
+            if (loadedAssemblyName == "StyleCop.CSharp")
             {
                 this.styleCopCSharpLoaded = true;
                 if (this.StyleCopLoaded)
@@ -95,7 +95,7 @@ namespace CR_StyleCop.Loader
                 }
                 return;
             }
-            if (loadedAssemblyName == "Microsoft.StyleCop.CSharp.Rules")
+            if (loadedAssemblyName == "StyleCop.CSharp.Rules")
             {
                 this.styleCopCSharpRulesLoaded = true;
                 if (this.StyleCopLoaded)
@@ -104,7 +104,7 @@ namespace CR_StyleCop.Loader
                 }
                 return;
             }
-            if (loadedAssemblyName == "Microsoft.StyleCop.VSPackage")
+            if (loadedAssemblyName == "StyleCop.VSPackage")
             {
                 this.styleCopVSPackageLoaded = true;
                 if (this.StyleCopLoaded)

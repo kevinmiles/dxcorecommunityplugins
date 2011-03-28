@@ -1,44 +1,45 @@
 ﻿namespace CR_StyleCop.CodeIssues
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using DevExpress.CodeRush.Core;
     using DevExpress.CodeRush.StructuralParser;
-    using Microsoft.StyleCop;
-    using Microsoft.StyleCop.CSharp;
+    using StyleCop;
+    using StyleCop.CSharp;
 
-    internal class SA1101_PrefixLocalCallsWithThis : ICodeIssue
+    internal class SA1101_PrefixLocalCallsWithThis : StyleCopRule
     {
-        public void AddViolationIssue(CheckCodeIssuesEventArgs ea, IDocument document, Violation violation)
+        public SA1101_PrefixLocalCallsWithThis()
+            : base(new IssueLocator())
         {
-            var message = string.Format("{0}: {1}", violation.Rule.CheckId, violation.Message);
-            var csElement = violation.Element as CsElement;
-            if (csElement == null)
-            {
-                ea.AddSmell(new SourceRange(violation.Line, 1, violation.Line, document.LengthOfLine(violation.Line) + 1), message, 10);
-                return;
-            }
+        }
 
-            int prefixLength = "SA1101: The call to ".Length;
-            var memberName = message.Substring(prefixLength, message.IndexOf(" must") - prefixLength);
-            var thisFound = false;
-            foreach (var token in from token in csElement.ElementTokens
-                                  where token.LineNumber == violation.Line && token.CsTokenType != CsTokenType.WhiteSpace
-                                  select token)
+        private class IssueLocator : ICodeIssueLocator
+        {
+            public IEnumerable<StyleCopCodeIssue> GetCodeIssues(IDocument document, Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, Violation violation, CsElement csElement)
             {
-                if (token.Text == "this" || (thisFound && token.Text == "."))
+                int prefixLength = "The call to ".Length;
+                var memberName = violation.Message.Substring(prefixLength, violation.Message.IndexOf(" must") - prefixLength);
+                var thisFound = false;
+                foreach (var token in from token in csElement.ElementTokens
+                                      where token.LineNumber == violation.Line && token.CsTokenType != CsTokenType.WhiteSpace
+                                      select token)
                 {
-                    thisFound = true;
-                }
-                else
-                {
-                    if (token.Text == memberName && !thisFound)
+                    if (token.CsTokenType == CsTokenType.This || (thisFound && token.Text == "."))
                     {
-                        var sourceRange = new SourceRange(token.Location.StartPoint.LineNumber, token.Location.StartPoint.IndexOnLine + 1, token.Location.EndPoint.LineNumber, token.Location.EndPoint.IndexOnLine + 2);
-                        ea.AddSmell(sourceRange, message, 10);
+                        thisFound = true;
                     }
+                    else
+                    {
+                        if (token.Text == memberName && !thisFound)
+                        {
+                            var sourceRange = new SourceRange(token.Location.StartPoint.LineNumber, token.Location.StartPoint.IndexOnLine + 1, token.Location.EndPoint.LineNumber, token.Location.EndPoint.IndexOnLine + 2);
+                            yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, sourceRange);
+                        }
 
-                    thisFound = false;
+                        thisFound = false;
+                    }
                 }
             }
         }

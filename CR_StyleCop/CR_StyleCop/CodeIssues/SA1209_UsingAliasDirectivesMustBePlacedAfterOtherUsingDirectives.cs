@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1209_UsingAliasDirectivesMustBePlacedAfterOtherUsingDirectives : UsingDirectiveCodeIssue
+    internal class SA1209_UsingAliasDirectivesMustBePlacedAfterOtherUsingDirectives : StyleCopRule
     {
+        public SA1209_UsingAliasDirectivesMustBePlacedAfterOtherUsingDirectives()
+            : base(new UsingDirectiveCodeIssue())
+        {
+        }
     }
 }

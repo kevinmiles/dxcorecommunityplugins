@@ -1,51 +1,50 @@
 ﻿namespace CR_StyleCop.CodeIssues
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using DevExpress.CodeRush.Core;
     using DevExpress.CodeRush.StructuralParser;
-    using Microsoft.StyleCop;
-    using Microsoft.StyleCop.CSharp;
+    using StyleCop;
+    using StyleCop.CSharp;
 
-    internal class SA1403_FileMayOnlyContainASingleNamespace : ICodeIssue
+    internal class SA1403_FileMayOnlyContainASingleNamespace : StyleCopRule
     {
-        public void AddViolationIssue(CheckCodeIssuesEventArgs ea, IDocument document, Violation violation)
+        public SA1403_FileMayOnlyContainASingleNamespace()
+            : base(new IssueLocator())
         {
-            string message = String.Format("{0}: {1}", violation.Rule.CheckId, violation.Message);
-            CsElement csElement = violation.Element as CsElement;
-            if (csElement == null)
-            {
-                ea.AddSmell(new SourceRange(violation.Line, 1, violation.Line, document.LengthOfLine(violation.Line) + 1), message, 10);
-                return;
-            }
+        }
 
-            SourcePoint? startPoint = null;
-            SourcePoint? endPoint = null;
-            foreach (var token in from token in csElement.ElementTokens
-                                  where token.LineNumber >= violation.Line && !string.IsNullOrEmpty(token.Text.Trim())
-                                  select token)
+        internal class IssueLocator : ICodeIssueLocator
+        {
+            public IEnumerable<StyleCopCodeIssue> GetCodeIssues(IDocument document, Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, Violation violation, CsElement csElement)
             {
-                if (token.Text == "namespace")
+                SourcePoint? startPoint = null;
+                SourcePoint? endPoint = null;
+                foreach (var token in from token in csElement.ElementTokens
+                                      where token.LineNumber >= violation.Line && token.CsTokenType != CsTokenType.WhiteSpace
+                                      select token)
                 {
-                    startPoint = endPoint = new SourcePoint(token.Location.StartPoint.LineNumber, token.Location.StartPoint.IndexOnLine + 1);
-                    continue;
-                }
-
-                if (token.Text == "{")
-                {
-                    if (startPoint != null)
+                    if (token.CsTokenType == CsTokenType.Namespace)
                     {
-                        var sourceRange = new SourceRange(startPoint.Value, endPoint.Value);
-                        ea.AddSmell(sourceRange, message, 10);
+                        startPoint = endPoint = new SourcePoint(token.Location.StartPoint.LineNumber, token.Location.StartPoint.IndexOnLine + 1);
+                        continue;
                     }
 
-                    return;
-                }
+                    if (token.CsTokenType == CsTokenType.OpenCurlyBracket)
+                    {
+                        if (startPoint != null)
+                        {
+                            var sourceRange = new SourceRange(startPoint.Value, endPoint.Value);
+                            yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, sourceRange);
+                        }
+                    }
 
-                if (startPoint != null)
-                {
-                    endPoint = new SourcePoint(token.Location.EndPoint.LineNumber, token.Location.EndPoint.IndexOnLine + 2);
-                    continue;
+                    if (startPoint != null)
+                    {
+                        endPoint = new SourcePoint(token.Location.EndPoint.LineNumber, token.Location.EndPoint.IndexOnLine + 2);
+                        continue;
+                    }
                 }
             }
         }

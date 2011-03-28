@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1622_GenericTypeParameterDocumentationMustHaveText : ElementByNameCodeIssue
+    internal class SA1622_GenericTypeParameterDocumentationMustHaveText : StyleCopRule
     {
+        public SA1622_GenericTypeParameterDocumentationMustHaveText()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }

@@ -2,10 +2,10 @@
 {
     using System;
 
-    internal class SA1105_QueryClausesSpanningMultipleLinesMustBeginOnOwnLine : QueryExpressionCodeIssue
+    internal class SA1105_QueryClausesSpanningMultipleLinesMustBeginOnOwnLine : StyleCopRule
     {
         public SA1105_QueryClausesSpanningMultipleLinesMustBeginOnOwnLine()
-            : base(Underline.LastKeywordOnLine)
+            : base(new LastTokenByTypeIssueLocator(Keywords.QueryExpression))
         {
         }
     }

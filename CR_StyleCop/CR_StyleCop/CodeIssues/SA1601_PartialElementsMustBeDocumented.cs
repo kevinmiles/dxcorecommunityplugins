@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1601_PartialElementsMustBeDocumented : ElementByNameCodeIssue
+    internal class SA1601_PartialElementsMustBeDocumented : StyleCopRule
     {
+        public SA1601_PartialElementsMustBeDocumented()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }

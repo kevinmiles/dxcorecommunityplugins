@@ -2,10 +2,10 @@
 {
     using System;
 
-    internal class SA1103_QueryClausesMustBeOnSeparateLinesOrAllOnOneLine : QueryExpressionCodeIssue
+    internal class SA1103_QueryClausesMustBeOnSeparateLinesOrAllOnOneLine : StyleCopRule
     {
         public SA1103_QueryClausesMustBeOnSeparateLinesOrAllOnOneLine()
-            : base(Underline.AllKeywordsOnLine)
+            : base(new AllTokensByTypeIssueLocator(Keywords.QueryExpression))
         {
         }
     }

@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Microsoft.StyleCop;
+    using StyleCop;
 
     internal class AnalyzedSourceCode : SourceCode
     {

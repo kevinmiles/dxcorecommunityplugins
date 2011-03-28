@@ -2,7 +2,11 @@
 {
     using System;
 
-    internal class SA1644_DocumentationHeadersMustNotContainBlankLines : ElementByNameCodeIssue
+    internal class SA1644_DocumentationHeadersMustNotContainBlankLines : StyleCopRule
     {
+        public SA1644_DocumentationHeadersMustNotContainBlankLines()
+            : base(new ElementNameIssueLocator())
+        {
+        }
     }
 }

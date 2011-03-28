@@ -63,13 +63,11 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Extensibility, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="Microsoft.StyleCop">
-      <HintPath>..\..\..\..\Program Files\Microsoft StyleCop 4.4.1.2\Microsoft.StyleCop.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="StyleCop">
+      <HintPath>..\..\..\..\Program Files\StyleCop 4.5\StyleCop.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.StyleCop.CSharp">
-      <HintPath>..\..\..\..\Program Files\Microsoft StyleCop 4.4.1.2\Microsoft.StyleCop.CSharp.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="StyleCop.CSharp">
+      <HintPath>..\..\..\..\Program Files\StyleCop 4.5\StyleCop.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -88,11 +86,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalyzedSourceCode.cs" />
-    <Compile Include="CodeIssues\FirstParameterCodeIssue.cs" />
-    <Compile Include="CodeIssues\KeywordUnderline.cs" />
-    <Compile Include="CodeIssues\MethodCallCodeIssue.cs" />
-    <Compile Include="CodeIssues\PreprocessorDirectiveCodeIssue.cs" />
-    <Compile Include="CodeIssues\QueryExpressionCodeIssue.cs" />
+    <Compile Include="CodeIssues\AllTokensByTypeIssueLocator.cs" />
+    <Compile Include="CodeIssues\FirstParameterIssueLocator.cs" />
+    <Compile Include="CodeIssues\FirstTokenByTypeIssueLocator.cs" />
+    <Compile Include="CodeIssues\FirstToLastTokenByTypeIssueLocator.cs" />
+    <Compile Include="CodeIssues\Keywords.cs" />
+    <Compile Include="CodeIssues\LastTokenByTypeIssueLocator.cs" />
+    <Compile Include="CodeIssues\MethodCallIssueLocator.cs" />
+    <Compile Include="CodeIssues\PreprocessorDirectiveIssueLocator.cs" />
     <Compile Include="CodeIssues\SA1100_DoNotPrefixCallsWithBaseUnlessLocalImplementationExists.cs" />
     <Compile Include="CodeIssues\SA1101_PrefixLocalCallsWithThis.cs" />
     <Compile Include="CodeIssues\SA1102_QueryClauseMustFollowPreviousClause.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="CodeIssues\SA1113_CommaMustBeOnSameLineAsPreviousParameter.cs" />
     <Compile Include="CodeIssues\SA1114_ParameterListMustFollowDeclaration.cs" />
     <Compile Include="CodeIssues\SA1115_ParameterMustFollowComma.cs" />
+    <Compile Include="CodeIssues\SA1116_SplitParametersMustStartOnLineAfterDeclaration.cs" />
     <Compile Include="CodeIssues\SA1119_StatementMustNotUseUnnecessaryParenthesis.cs" />
     <Compile Include="CodeIssues\SA1200_UsingDirectivesMustBePlacedWithinNamespace.cs" />
     <Compile Include="CodeIssues\SA1201_ElementsMustAppearInTheCorrectOrder.cs" />
@@ -138,8 +140,6 @@
     <Compile Include="CodeIssues\SA1627_DocumentationTextMustNotBeEmpty.cs" />
     <Compile Include="CodeIssues\SA1610_PropertyDocumentationMustHaveValueText.cs" />
     <Compile Include="CodeIssues\SA1605_PartialElementDocumentationMustHaveSummary.cs" />
-    <Compile Include="CodeIssues\KeywordCodeIssue.cs" />
-    <Compile Include="CodeIssues\OpeningCurlyBracketCodeIssue.cs" />
     <Compile Include="CodeIssues\SA1301_ElementMustBeginWithLowerCaseLetter.cs" />
     <Compile Include="CodeIssues\SA1302_InterfaceNamesMustBeginWithI.cs" />
     <Compile Include="CodeIssues\SA1303_ConstFieldNamesMustBeginWithUpperCaseLetter.cs" />
@@ -159,7 +159,6 @@
     <Compile Include="CodeIssues\SA1505_OpeningCurlyBracketsMustNotBeFollowedByBlankLine.cs" />
     <Compile Include="CodeIssues\SA1506_ElementDocumentationHeadersMustNotBeFollowedByBlankLine.cs" />
     <Compile Include="CodeIssues\SA1507_CodeMustNotContainMultipleBlankLinesInARow.cs" />
-    <Compile Include="CodeIssues\ClosingCurlyBracketCodeIssue.cs" />
     <Compile Include="CodeIssues\SA1508_ClosingCurlyBracketsMustNotBePrecededByBlankLine.cs" />
     <Compile Include="CodeIssues\SA1509_OpeningCurlyBracketsMustNotBePrecededByBlankLine.cs" />
     <Compile Include="CodeIssues\SA1510_ChainedStatementBlocksMustNotBePrecededByBlankLine.cs" />
@@ -205,20 +204,25 @@
     <Compile Include="CodeIssues\SA1645_IncludedDocumentationFileDoesNotExist.cs" />
     <Compile Include="CodeIssues\SA1646_IncludedDocumentationXPathDoesNotExist.cs" />
     <Compile Include="CodeIssues\SA1647_IncludeNodeDoesNotContainValidFileAndPath.cs" />
-    <Compile Include="CodeIssues\SingleLineCommentCodeIssue.cs" />
+    <Compile Include="CodeIssues\SingleLineCommentIssueLocator.cs" />
     <Compile Include="CodeIssues\UsingDirectiveCodeIssue.cs" />
-    <Compile Include="CodeIssues\WrongElementOrderCodeIssue.cs" />
+    <Compile Include="CodeIssues\WholeElementIssueLocator.cs" />
+    <Compile Include="CodeIssues\WholeLineIssueLocator.cs" />
+    <Compile Include="CodeIssues\WrongElementOrderIssueLocator.cs" />
     <Compile Include="CR_StyleCopPlugIn.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CR_StyleCopPlugIn.Designer.cs">
       <DependentUpon>CR_StyleCopPlugIn.cs</DependentUpon>
     </Compile>
-    <Compile Include="CodeIssues\ICodeIssue.cs" />
-    <Compile Include="CodeIssues\NullCodeIssue.cs" />
+    <Compile Include="ICodeIssueLocator.cs" />
+    <Compile Include="CodeIssues\NullIssueLocator.cs" />
+    <Compile Include="IStyleCopRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CodeIssueFactory.cs" />
-    <Compile Include="CodeIssues\ElementByNameCodeIssue.cs" />
+    <Compile Include="CodeIssues\ElementNameIssueLocator.cs" />
+    <Compile Include="StyleCopCodeIssue.cs" />
+    <Compile Include="StyleCopRule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CR_StyleCopPlugIn.resx">

@@ -2,10 +2,10 @@
 {
     using System;
 
-    internal class SA1102_QueryClauseMustFollowPreviousClause : QueryExpressionCodeIssue
+    internal class SA1102_QueryClauseMustFollowPreviousClause : StyleCopRule
     {
         public SA1102_QueryClauseMustFollowPreviousClause()
-            : base(Underline.FirstKeywordOnLine)
+            : base(new FirstTokenByTypeIssueLocator(Keywords.QueryExpression))
         {
         }
     }
