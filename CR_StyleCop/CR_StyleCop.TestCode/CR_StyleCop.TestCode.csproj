@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9D1A774B-4315-46D9-A0FF-653AAE4F34C3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CR_StyleCop.TestCode</RootNamespace>
+    <AssemblyName>CR_StyleCop.TestCode</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SA1006TestCode.cs" />
+    <Compile Include="SA1100TestCode.cs" />
+    <Compile Include="SA1101TestCode.cs" />
+    <Compile Include="SA1102TestCode.cs" />
+    <Compile Include="SA1103TestCode.cs" />
+    <Compile Include="SA1104TestCode.cs" />
+    <Compile Include="SA1105TestCode.cs" />
+    <Compile Include="SA1106TestCode.cs" />
+    <Compile Include="SA1108TestCode.cs" />
+    <Compile Include="SA1109TestCode.cs" />
+    <Compile Include="SA1110TestCode.cs" />
+    <Compile Include="SA1111TestCode.cs" />
+    <Compile Include="SA1112TestCode.cs" />
+    <Compile Include="SA1113TestCode.cs" />
+    <Compile Include="SA1114TestCode.cs" />
+    <Compile Include="SA1115TestCode.cs" />
+    <Compile Include="SA1116TestCode.cs" />
+    <Compile Include="SA1117TestCode.cs" />
+    <Compile Include="SA1118TestCode.cs" />
+    <Compile Include="SA1119TestCode.cs" />
+    <Compile Include="SA1120TestCode.cs" />
+    <Compile Include="SA1121TestCode.cs" />
+    <Compile Include="SA1122TestCode.cs" />
+    <Compile Include="SA1123TestCode.cs" />
+    <Compile Include="SA1124TestCode.cs" />
+    <Compile Include="SA1125TestCode.cs" />
+    <Compile Include="SA1200TestCode.cs" />
+    <Compile Include="SA1201TestCode.cs" />
+    <Compile Include="SA1201TestCode2.cs" />
+    <Compile Include="SA1202TestCode.cs" />
+    <Compile Include="SA1203TestCode.cs" />
+    <Compile Include="SA1204TestCode.cs" />
+    <Compile Include="SA1205TestCode.cs" />
+    <Compile Include="SA1206TestCode.cs" />
+    <Compile Include="SA1207TestCode.cs" />
+    <Compile Include="SA1208TestCode.cs" />
+    <Compile Include="SA1209TestCode.cs" />
+    <Compile Include="SA1210TestCode.cs" />
+    <Compile Include="SA1211TestCode.cs" />
+    <Compile Include="SA1212TestCode.cs" />
+    <Compile Include="SA1213TestCode.cs" />
+    <Compile Include="SA1400TestCode.cs" />
+    <Compile Include="SA1401TestCode.cs" />
+    <Compile Include="SA1402TestCode.cs" />
+    <Compile Include="SA1403TestCode.cs" />
+    <Compile Include="SA1403TestCode2.cs" />
+    <Compile Include="SA1403TestCode3.cs" />
+    <Compile Include="SA1404TestCode.cs" />
+    <Compile Include="SA1405TestCode.cs" />
+    <Compile Include="SA1406TestCode.cs" />
+    <Compile Include="SA1407TestCode.cs" />
+    <Compile Include="SA1408TestCode.cs" />
+    <Compile Include="SA1409TestCode.cs" />
+    <Compile Include="SA1410TestCode.cs" />
+    <Compile Include="SA1411TestCode.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
