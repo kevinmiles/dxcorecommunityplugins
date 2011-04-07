@@ -33,19 +33,18 @@ namespace Refactor_NamedParameters
 		}
 		#endregion
 
-		private static string GetGeneratedCode(MethodCall originalCall)
+    private static string GetGeneratedCode(LanguageElement originalCall)
 		{
-			if (originalCall == null)
+      if (!(originalCall is IHasArguments))
 				return null;
-			ExpressionCollection originalArguments = originalCall.Arguments;
+      ExpressionCollection originalArguments = (originalCall as IHasArguments).Arguments;
 			if (originalArguments == null)
 				return null;
-			MethodCall replacementCall = originalCall.Clone(ElementCloneOptions.Default) as MethodCall;
-			replacementCall.Arguments.Clear();
-			IElement declaration = originalCall.GetDeclaration();
-			Method methodDeclaration = declaration as Method;
+      LanguageElement replacementCall = originalCall.Clone() as LanguageElement;
+      (replacementCall as IHasArguments).Arguments.Clear();
+      IMethodElement methodDeclaration = originalCall.GetDeclaration(false) as IMethodElement;
 			
-			if (methodDeclaration == null || methodDeclaration.ParameterCount != originalArguments.Count)
+			if (methodDeclaration == null || methodDeclaration.Parameters.Count != originalArguments.Count)
 				return null;
 
 			for (int i = 0; i < originalArguments.Count; i++)
@@ -54,15 +53,13 @@ namespace Refactor_NamedParameters
 				AttributeVariableInitializer namedArgument = new AttributeVariableInitializer();
 				namedArgument.LeftSide = leftSide;
 				namedArgument.RightSide = originalArguments[i];
-				replacementCall.Arguments.Add(namedArgument);
+        (replacementCall as IHasArguments).Arguments.Add(namedArgument);
 			}
-			string generatedCode = CodeRush.Language.GenerateElement(replacementCall);
-			generatedCode = generatedCode.TrimEnd('\n', '\r');
-			return generatedCode;
+			return CodeRush.CodeMod.GenerateCode(replacementCall, true);
 		}
 		private void rpUseNamedParameters_Apply(object sender, ApplyContentEventArgs ea)
 		{
-			MethodCall originalCall = GetMethodCall(ea.Element);
+			LanguageElement originalCall = GetMethodCall(ea.Element);
 			string generatedCode = GetGeneratedCode(originalCall);
 			if (String.IsNullOrEmpty(generatedCode))
 				return;
@@ -71,28 +68,46 @@ namespace Refactor_NamedParameters
 			//originalCall.ReplaceWith(leadingWhiteSpace + generatedCode, "Use Named Parameters");
 		}
 
-		private static MethodCall GetMethodCall(LanguageElement element)
-		{
-			if (element is MethodReferenceExpression && element.Parent is MethodCall)
-				return (MethodCall)element.Parent;
-			return null;
-		}
+    private LanguageElement GetMethodCall(LanguageElement element)
+    {
+      if (element is MethodReferenceExpression)
+      {
+        LanguageElement elementParent = element.Parent;
+        if (elementParent is MethodCall || elementParent is MethodCallExpression)
+          return elementParent;
+      }
+      return null;
+    }
 		private void rpUseNamedParameters_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
 		{
-			MethodCall methodCall = GetMethodCall(ea.Element);
+      LanguageElement methodCall = GetMethodCall(ea.Element);
 			if (methodCall == null)
 				return;
-			if (methodCall.Arguments != null && methodCall.Arguments.Count > 0)
-				ea.Available = !(methodCall.Arguments[0] is AttributeVariableInitializer);
+
+      IHasArguments hasArguments = methodCall as IHasArguments;
+      if (hasArguments == null)
+        return;
+
+      if (methodCall.GetDeclaration(false) == null)
+        return;
+
+      ExpressionCollection arguments = hasArguments.Arguments;
+      if (arguments != null && arguments.Count > 0)
+        ea.Available = !(arguments[0] is AttributeVariableInitializer);
 		}
 
 		private void rpUseNamedParameters_PreparePreview(object sender, PrepareContentPreviewEventArgs ea)
 		{
-			MethodCall originalCall = GetMethodCall(ea.Element);
+      LanguageElement originalCall = GetMethodCall(ea.Element);
 			string generatedCode = GetGeneratedCode(originalCall);
 			if (String.IsNullOrEmpty(generatedCode))
 				return;
 			ea.AddCodePreview(originalCall.Range.Start, generatedCode);
 		}
+
+    private void rpUseNamedParameters_VisualStudioSupported(VisualStudioSupportedEventArgs ea)
+    {
+      ea.Handled = CodeRush.VSSettings.VersionAtLeast(VisualStudioVersion.VS2010);
+    }
 	}
 }
