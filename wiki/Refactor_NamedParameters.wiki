@@ -1,0 +1,21 @@
+#summary Refactoring which changes a method call to use named parameters.
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_NamedParameters/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Requires DXCore 10.2 since build =====
+****This page is temporary Nothing on here is confirmed yet *****
+=== Introduction ===
+
+Adds a new Refactoring which alters a call to a method to use named parameters in the call
+
+=== Usage ===
+
+ * Place the caret on a method call
+ * Select "Use Named Parameters"
+
+Your method call will change to use 'named' rather than 'positional' parameters.
+
+For full details see [http://community.devexpress.com/blogs/markmiller/default.aspx this blog post]
+
+=== Credits ===
+
+Author: [http://community.devexpress.com/blogs/markmiller/default.aspx Mark Miller]
