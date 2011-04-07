@@ -83,6 +83,16 @@
     <Compile Include="SA1211TestCode.cs" />
     <Compile Include="SA1212TestCode.cs" />
     <Compile Include="SA1213TestCode.cs" />
+    <Compile Include="SA1300TestCode.cs" />
+    <Compile Include="SA1302TestCode.cs" />
+    <Compile Include="SA1303TestCode.cs" />
+    <Compile Include="SA1304TestCode.cs" />
+    <Compile Include="SA1305TestCode.cs" />
+    <Compile Include="SA1306TestCode.cs" />
+    <Compile Include="SA1307TestCode.cs" />
+    <Compile Include="SA1308TestCode.cs" />
+    <Compile Include="SA1309TestCode.cs" />
+    <Compile Include="SA1310TestCode.cs" />
     <Compile Include="SA1400TestCode.cs" />
     <Compile Include="SA1401TestCode.cs" />
     <Compile Include="SA1402TestCode.cs" />
