@@ -14,6 +14,8 @@
 
         private Nullable<DateTime> Date { get; set; }
 
+        private List<Nullable<DateTime>> Dates { get; set; }
+
         private Nullable<int> IntProperty
         {
             get { return this.intProperty; }
