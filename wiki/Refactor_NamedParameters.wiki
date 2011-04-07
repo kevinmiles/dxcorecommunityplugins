@@ -2,7 +2,6 @@
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_NamedParameters/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== Requires DXCore 10.2 since build 1744=====
-****This page is temporary Nothing on here is confirmed yet *****
 === Introduction ===
 
 Adds a new Refactoring which converts a method call with positional arguments, into a named-argument equivalent
@@ -10,7 +9,7 @@ Adds a new Refactoring which converts a method call with positional arguments, i
 === Usage ===
 
  * Place the caret on a method call
- * Select "Use Named Parameters"
+ * Select "*Use Named Parameters*"
 
 Your method call will change to use 'named' rather than 'positional' parameters.
 
