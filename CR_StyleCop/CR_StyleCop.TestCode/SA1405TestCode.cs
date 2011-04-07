@@ -21,7 +21,6 @@
             Debug.Assert(val != true, String.Empty);
             Debug.Assert(val != true, System.String.Empty);
             Debug.Assert(val != true, global::System.String.Empty);
-            Debug.Assert(val != true, String.Empty);
             Debug.Assert(val != true, string.Empty);
             Debug.Assert(val != true, null);
             Debug.Assert(val != true);
