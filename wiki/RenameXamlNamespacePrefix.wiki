@@ -1,0 +1,10 @@
+[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/RenameXamlNamespacePrefix/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Requires DXCore 10.2 since build =====
+=== Introduction ===
+
+=== Usage ===
+
+=== Credits ===
+
+Author: [http://community.devexpress.com/blogs/markmiller/default.aspx Mark Miller] 
