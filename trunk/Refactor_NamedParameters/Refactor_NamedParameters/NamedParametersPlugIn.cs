@@ -1,15 +1,15 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
+using DevExpress.DXCore.Constants;
 
 namespace Refactor_NamedParameters
 {
-	public partial class PlugIn1 : StandardPlugIn
+	public partial class NamedParametersPlugIn : StandardPlugIn
 	{
 		// DXCore-generated code...
 		#region InitializePlugIn
@@ -108,6 +108,12 @@ namespace Refactor_NamedParameters
     private void rpUseNamedParameters_VisualStudioSupported(VisualStudioSupportedEventArgs ea)
     {
       ea.Handled = CodeRush.VSSettings.VersionAtLeast(VisualStudioVersion.VS2010);
+    }
+
+    private void rpUseNamedParameters_LanguageSupported(LanguageSupportedEventArgs ea)
+    {
+      // TODO: add CodeRush.Language.SupportsNamedArguments call.
+      ea.Handled = ea.LanguageID == Str.Language.CSharp || ea.LanguageID == Str.Language.VisualBasic;
     }
 	}
 }
