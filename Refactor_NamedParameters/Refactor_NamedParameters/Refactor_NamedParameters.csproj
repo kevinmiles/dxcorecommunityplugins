@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\RoryData\Documents\DevExpress\IDE Tools\Community\Plugins\</OutputPath>
+    <OutputPath>..\..\..\bin\PlugIns\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,24 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.CodeRush.UserControls, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.DXCore.Localization, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.DXCore.Platform, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Refactor.Core, Version=11.1.0.0, Culture=neutral, PublicKeyToken=3f8e338797a7a380, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <Reference Include="DevExpress.CodeRush.UserControls, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
+    <Reference Include="DevExpress.DXCore.Localization, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
+    <Reference Include="DevExpress.DXCore.Platform, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d" />
+    <Reference Include="DevExpress.Refactor.Core, Version=11.1.0.0, Culture=neutral, PublicKeyToken=3f8e338797a7a380, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System" />
     <Reference Include="System.Core">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
@@ -68,17 +57,17 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlugIn1.cs">
+    <Compile Include="NamedParametersPlugIn.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PlugIn1.Designer.cs">
-      <DependentUpon>PlugIn1.cs</DependentUpon>
+    <Compile Include="NamedParametersPlugIn.Designer.cs">
+      <DependentUpon>NamedParametersPlugIn.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PlugIn1.resx">
-      <DependentUpon>PlugIn1.cs</DependentUpon>
+    <EmbeddedResource Include="NamedParametersPlugIn.resx">
+      <DependentUpon>NamedParametersPlugIn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

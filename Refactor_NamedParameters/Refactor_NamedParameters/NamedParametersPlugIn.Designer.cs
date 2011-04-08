@@ -1,13 +1,13 @@
 namespace Refactor_NamedParameters
 {
-	partial class PlugIn1
+	partial class NamedParametersPlugIn
 	{
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
 
-		public PlugIn1()
+		public NamedParametersPlugIn()
 		{
 			/// <summary>
 			/// Required for Windows.Forms Class Composition Designer support
@@ -37,7 +37,7 @@ namespace Refactor_NamedParameters
 		private void InitializeComponent()
 		{
       this.components = new System.ComponentModel.Container();
-      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlugIn1));
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NamedParametersPlugIn));
       this.rpUseNamedParameters = new DevExpress.Refactor.Core.RefactoringProvider(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.rpUseNamedParameters)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -50,13 +50,14 @@ namespace Refactor_NamedParameters
       this.rpUseNamedParameters.CodeIssueMessage = null;
       this.rpUseNamedParameters.Description = "Converts a method call with positional arguments into a named-argument equivalent" +
     ".";
-      this.rpUseNamedParameters.DisplayName = "Use Named Parameters";
+      this.rpUseNamedParameters.DisplayName = "Use Named Arguments";
       this.rpUseNamedParameters.Image = ((System.Drawing.Bitmap)(resources.GetObject("rpUseNamedParameters.Image")));
       this.rpUseNamedParameters.NeedsSelection = false;
-      this.rpUseNamedParameters.ProviderName = "UseNamedParameters";
+      this.rpUseNamedParameters.ProviderName = "Use Named Arguments";
       this.rpUseNamedParameters.Register = true;
       this.rpUseNamedParameters.SupportsAsyncMode = false;
       this.rpUseNamedParameters.CheckAvailability += new DevExpress.Refactor.Core.CheckAvailabilityEventHandler(this.rpUseNamedParameters_CheckAvailability);
+      this.rpUseNamedParameters.LanguageSupported += new DevExpress.CodeRush.Core.LanguageSupportedEventHandler(this.rpUseNamedParameters_LanguageSupported);
       this.rpUseNamedParameters.VisualStudioSupported += new DevExpress.CodeRush.Core.VisualStudioSupportedEventHandler(this.rpUseNamedParameters_VisualStudioSupported);
       this.rpUseNamedParameters.Apply += new DevExpress.Refactor.Core.ApplyRefactoringEventHandler(this.rpUseNamedParameters_Apply);
       this.rpUseNamedParameters.PreparePreview += new DevExpress.Refactor.Core.PrepareRefactoringPreviewEventHandler(this.rpUseNamedParameters_PreparePreview);
