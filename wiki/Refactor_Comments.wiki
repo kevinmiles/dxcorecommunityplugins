@@ -1,7 +1,7 @@
 #summary Provides refactorings for changing multi-line comments into groups of single-line comments and back again.
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/Refactor_Comments/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 since build =====
+===== Requires DXCore 10.2 since build 1765=====
 === Introduction ===
 This plugin provides refactorings for changing multi-line comments into groups of single-line comments and back again.
 
@@ -21,10 +21,6 @@ Your comments will be merged into a single multiline comment
 
 === Limitations ===
 This plugin is designed to work in any language that supports multiline comments. As such it will not work in VB.Net
-
-Additionally a minor bug currently prevents this plugin from working with !JavaScript. This will be addressed shortly.
-
-
 
 === Credits ===
 
