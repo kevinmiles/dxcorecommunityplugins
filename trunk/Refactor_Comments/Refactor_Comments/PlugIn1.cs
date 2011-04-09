@@ -48,7 +48,7 @@ namespace Refactor_Comments
         #region ConvertToMultipleSingleLineComments_LanguageSupported
         private void ConvertToMultipleSingleLineComments_LanguageSupported(LanguageSupportedEventArgs ea)
         {
-            ea.Handled = CodeRush.Language.IsCSharpLanguage(ea.LanguageID);
+            ea.Handled = CodeRush.Language.SupportsMultiLineComments(ea.LanguageID);
         }
         #endregion
         #region ConvertToMultipleSingleLineComments_CheckAvailability
@@ -72,7 +72,9 @@ namespace Refactor_Comments
             string NewText = String.Empty;
             for (int i = 0; i < Lines.Length; i++)
             {
-                NewText += CodeRush.Language.GetComment(" " + Lines[i].Trim());
+                string CommentText = Lines[i].Trim();
+                if (CommentText != String.Empty)
+                    NewText += CodeRush.Language.GetComment(" " + CommentText);
             }
             ActiveDoc.QueueReplace(CommentRange, NewText);
             ActiveDoc.ApplyQueuedEdits("Convert to Singleline comments", true);
@@ -96,7 +98,7 @@ namespace Refactor_Comments
         #region ConvertToMultilineComment_LanguageSupported
         private void ConvertToMultilineComment_LanguageSupported(LanguageSupportedEventArgs ea)
         {
-            ea.Handled = CodeRush.Language.IsCSharpLanguage(ea.LanguageID);
+            ea.Handled = CodeRush.Language.SupportsMultiLineComments(ea.LanguageID);
         }
         #endregion
         #region ConvertToMultilineComment_CheckAvailability
