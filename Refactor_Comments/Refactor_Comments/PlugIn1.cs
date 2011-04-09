@@ -48,7 +48,7 @@ namespace Refactor_Comments
         #region ConvertToMultipleSingleLineComments_LanguageSupported
         private void ConvertToMultipleSingleLineComments_LanguageSupported(LanguageSupportedEventArgs ea)
         {
-            ea.Handled = CodeRush.Language.SupportsMultiLineComments(ea.LanguageID);
+            ea.Handled = CodeRush.Language.SupportsMultiLineComments(ea.LanguageID) || ea.LanguageID == "JavaScript";
         }
         #endregion
         #region ConvertToMultipleSingleLineComments_CheckAvailability
@@ -98,7 +98,7 @@ namespace Refactor_Comments
         #region ConvertToMultilineComment_LanguageSupported
         private void ConvertToMultilineComment_LanguageSupported(LanguageSupportedEventArgs ea)
         {
-            ea.Handled = CodeRush.Language.SupportsMultiLineComments(ea.LanguageID);
+            ea.Handled = CodeRush.Language.SupportsMultiLineComments(ea.LanguageID) || ea.LanguageID == "JavaScript";
         }
         #endregion
         #region ConvertToMultilineComment_CheckAvailability
