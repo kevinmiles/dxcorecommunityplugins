@@ -1,3 +1,0 @@
-(CR_NCover.CoverageOverlay) overlay..ctor()
-(CR_NCover.Service) service..ctor()
-(CR_NCover.CoverageOverlay) overlay.Hide()

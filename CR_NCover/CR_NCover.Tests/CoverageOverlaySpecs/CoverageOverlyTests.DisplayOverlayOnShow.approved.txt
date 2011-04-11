@@ -1,4 +1,0 @@
-CR_NCover.VisualStudio.GetRectangleFromRange()
-CR_NCover.VisualStudio.FillRectangle()
-CR_NCover.VisualStudio.GetRectangleFromRange()
-CR_NCover.VisualStudio.FillRectangle()

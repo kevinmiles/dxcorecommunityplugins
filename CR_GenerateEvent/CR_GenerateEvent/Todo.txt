@@ -1,4 +1,0 @@
-﻿1.> Wrap everyting in Undo (may already work by default... Check This)
-2.> Indent code properly. As per C# standards
-3.> Code seems over engineered.. Perhaps can be reduced through the use of ElementBuilders.
-4.>

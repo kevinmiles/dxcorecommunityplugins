@@ -1,5 +1,0 @@
-(CR_NCover.CoverageOverlay) overlay..ctor()
-(CR_NCover.Service) service..ctor()
-(CR_NCover.Service) service.WatchForResults()
-(CR_NCover.Service) service.GetCoverageResultsForActiveDocument()
-(CR_NCover.CoverageOverlay) overlay.Show()
