@@ -1,17 +1,38 @@
 using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
-using DevExpress.Refactor;
+using DevExpress.Refactor.Core;
 
 namespace Refactor_Comments
 {
 	public partial class PlugIn1 : StandardPlugIn
 	{
+		public void CreateConvertToMultilineComment()
+		{
+			var provider = new RefactoringProvider(_components);
+			((ISupportInitialize)(provider)).BeginInit();
+			provider.ProviderName = "ConvertToMultilineComment"; // Should be Unique
+			provider.DisplayName = "Convert to Multiline Comment";
+			provider.CheckAvailability += ConvertToMultilineComment_CheckAvailability;
+			provider.LanguageSupported += ConvertToMultilineComment_LanguageSupported;
+			provider.Apply += ConvertToMultilineComment_Execute;
+			((ISupportInitialize)(provider)).EndInit();
+		}
+
+		public void CreateConvertToMultipleSingleLineComments()
+		{
+			var provider = new RefactoringProvider(_components);
+			((ISupportInitialize)(provider)).BeginInit();
+			provider.ProviderName = "ConvertToMultipleSinglelineComments"; // Should be Unique
+			provider.DisplayName = "Convert To Singleline Comments";
+			provider.CheckAvailability += ConvertToMultipleSingleLineComments_CheckAvailability;
+			provider.LanguageSupported += ConvertToMultipleSingleLineComments_LanguageSupported;
+			provider.Apply += ConvertToMultipleSingleLineComments_Execute;
+			((ISupportInitialize)(provider)).EndInit();
+		}
+
 		public override void InitializePlugIn()
 		{
 			base.InitializePlugIn();
@@ -21,23 +42,37 @@ namespace Refactor_Comments
 
 		public override void FinalizePlugIn()
 		{
-			//
 			// TODO: Add your finalization code here.
-			//
-
 			base.FinalizePlugIn();
 		}
 
-		public void CreateConvertToMultipleSingleLineComments()
+		private void ConvertToMultipleSingleLineComments_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
 		{
-			DevExpress.Refactor.Core.RefactoringProvider ConvertToMultipleSingleLineComments = new DevExpress.Refactor.Core.RefactoringProvider(components);
-			((System.ComponentModel.ISupportInitialize)(ConvertToMultipleSingleLineComments)).BeginInit();
-			ConvertToMultipleSingleLineComments.ProviderName = "ConvertToMultipleSinglelineComments"; // Should be Unique
-			ConvertToMultipleSingleLineComments.DisplayName = "Convert To Singleline Comments";
-			ConvertToMultipleSingleLineComments.CheckAvailability += ConvertToMultipleSingleLineComments_CheckAvailability;
-			ConvertToMultipleSingleLineComments.LanguageSupported += ConvertToMultipleSingleLineComments_LanguageSupported;
-			ConvertToMultipleSingleLineComments.Apply += ConvertToMultipleSingleLineComments_Execute;
-			((System.ComponentModel.ISupportInitialize)(ConvertToMultipleSingleLineComments)).EndInit();
+			var comment = ea.CodeActive as Comment;
+			if (comment == null || comment.CommentType == CommentType.SingleLine)
+			{
+				return;
+			}
+			ea.Available = true;
+		}
+
+		private void ConvertToMultipleSingleLineComments_Execute(object sender, ApplyContentEventArgs ea)
+		{
+			var comment = ea.CodeActive as Comment;
+			var commentRange = comment.Range;
+			var activeDoc = CodeRush.Documents.ActiveTextDocument;
+			string[] lines = comment.Name.Replace('\r', ' ').Split('\n');
+			string newText = String.Empty;
+			for (int i = 0; i < lines.Length; i++)
+			{
+				string commentText = lines[i].Trim();
+				if (commentText != String.Empty)
+				{
+					newText += CodeRush.Language.GetComment(" " + commentText);
+				}
+			}
+			activeDoc.QueueReplace(commentRange, newText);
+			activeDoc.ApplyQueuedEdits("Convert to Singleline Comments", true);
 		}
 
 		private void ConvertToMultipleSingleLineComments_LanguageSupported(LanguageSupportedEventArgs ea)
@@ -45,43 +80,46 @@ namespace Refactor_Comments
 			ea.Handled = CodeRush.Language.SupportsMultiLineComments(ea.LanguageID) || ea.LanguageID == "JavaScript";
 		}
 
-		private void ConvertToMultipleSingleLineComments_CheckAvailability(Object sender, CheckContentAvailabilityEventArgs ea)
+		private void ConvertToMultilineComment_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
 		{
 			var Comment = ea.CodeActive as Comment;
-			if (Comment == null)
-				return;
-			if (Comment.CommentType == CommentType.SingleLine)
-				return;
-			ea.Available = true;
-		}
-
-		private void ConvertToMultipleSingleLineComments_Execute(Object sender, ApplyContentEventArgs ea)
-		{
-			var Comment = ea.CodeActive as Comment;
-			var CommentRange = Comment.Range;
-			var ActiveDoc = CodeRush.Documents.ActiveTextDocument;
-			string[] Lines = Comment.Name.Replace('\r', ' ').Split('\n');
-			string NewText = String.Empty;
-			for (int i = 0; i < Lines.Length; i++)
+			if (
+				Comment == null ||
+				Comment.CommentType == CommentType.MultiLine ||
+				Comment.PreviousConnectedComment == null && Comment.NextConnectedComment == null)
 			{
-				string CommentText = Lines[i].Trim();
-				if (CommentText != String.Empty)
-					NewText += CodeRush.Language.GetComment(" " + CommentText);
+				// Active element isn't a comment OR
+				// Comment is already multiline OR
+				// It's only a one-line comment.
+				return;
 			}
-			ActiveDoc.QueueReplace(CommentRange, NewText);
-			ActiveDoc.ApplyQueuedEdits("Convert to Singleline comments", true);
+			ea.Available = true; // Change this to return true, only when your refactoring should be available.
 		}
 
-		public void CreateConvertToMultilineComment()
+		private void ConvertToMultilineComment_Execute(object sender, ApplyContentEventArgs ea)
 		{
-			DevExpress.Refactor.Core.RefactoringProvider ConvertToMultilineComment = new DevExpress.Refactor.Core.RefactoringProvider(components);
-			((System.ComponentModel.ISupportInitialize)(ConvertToMultilineComment)).BeginInit();
-			ConvertToMultilineComment.ProviderName = "ConvertToMultilineComment"; // Should be Unique
-			ConvertToMultilineComment.DisplayName = "Convert to Multiline Comment";
-			ConvertToMultilineComment.CheckAvailability += ConvertToMultilineComment_CheckAvailability;
-			ConvertToMultilineComment.LanguageSupported += ConvertToMultilineComment_LanguageSupported;
-			ConvertToMultilineComment.Apply += ConvertToMultilineComment_Execute;
-			((System.ComponentModel.ISupportInitialize)(ConvertToMultilineComment)).EndInit();
+			var comment = ea.CodeActive as Comment;
+			Comment firstComment;
+			Comment lastComment;
+			comment.GetFirstAndLastConnectedComments(out firstComment, out lastComment);
+
+			string commentText = Environment.NewLine;
+			var currentComment = firstComment;
+			string whitespace = CodeRush.Documents.GetLeadingWhiteSpace(firstComment.Range.Start.Line);
+			do
+			{
+				commentText += whitespace + currentComment.Name + Environment.NewLine;
+				currentComment = currentComment.NextConnectedComment;
+			} while (currentComment != null);
+
+			commentText += whitespace;
+
+			// Determine First Comment
+			var newComment = GetCommentMultiline(commentText);
+			SourceRange commentRange = new SourceRange(firstComment.Range.Start, lastComment.Range.End);
+			var activeDoc = CodeRush.Documents.ActiveTextDocument;
+			activeDoc.QueueReplace(commentRange, newComment);
+			activeDoc.ApplyQueuedEdits("Convert to Multiline Comment", true);
 		}
 
 		private void ConvertToMultilineComment_LanguageSupported(LanguageSupportedEventArgs ea)
@@ -89,48 +127,14 @@ namespace Refactor_Comments
 			ea.Handled = CodeRush.Language.SupportsMultiLineComments(ea.LanguageID) || ea.LanguageID == "JavaScript";
 		}
 
-		private void ConvertToMultilineComment_CheckAvailability(Object sender, CheckContentAvailabilityEventArgs ea)
+		private string GetCommentMultiline(string commentText)
 		{
-			var Comment = ea.CodeActive as Comment;
-			if (Comment == null)
-				return; // exit because the active element is not a comment
-			if (Comment.CommentType == CommentType.MultiLine)
-				return; // exit because this comment is already multiline
-			if (Comment.PreviousConnectedComment == null && Comment.NextConnectedComment == null)
-				return; // Exit because no connected comments
-			ea.Available = true; // Change this to return true, only when your refactoring should be available.
-		}
-
-		private void ConvertToMultilineComment_Execute(Object sender, ApplyContentEventArgs ea)
-		{
-			var Comment = ea.CodeActive as Comment;
-			Comment FirstComment;
-			Comment LastComment;
-			Comment.GetFirstAndLastConnectedComments(out FirstComment, out LastComment);
-
-			string CommentText = Environment.NewLine;
-			Comment CurrentComment = FirstComment;
-			string Whitespace = CodeRush.Documents.GetLeadingWhiteSpace(FirstComment.Range.Start.Line);
-			do
-			{
-				CommentText += Whitespace + CurrentComment.Name + Environment.NewLine;
-				CurrentComment = CurrentComment.NextConnectedComment;
-			} while (CurrentComment != null);
-
-			CommentText += Whitespace;
-			// Determine First Comment
-
-			var NewComment = GetCommentMultiline(CommentText);
-			SourceRange CommentRange = new SourceRange(FirstComment.Range.Start, LastComment.Range.End);
-			var ActiveDoc = CodeRush.Documents.ActiveTextDocument;
-			ActiveDoc.QueueReplace(CommentRange, NewComment);
-			ActiveDoc.ApplyQueuedEdits("Convert to Multiline Comment", true);
-		}
-
-		private string GetCommentMultiline(string CommentText)
-		{
-			Comment Comment = new Comment() { Name = CommentText, CommentType = CommentType.MultiLine };
-			return CodeRush.CodeMod.GenerateCode(Comment);
+			var comment = new Comment()
+			{ 
+				Name = commentText,
+				CommentType = CommentType.MultiLine
+			};
+			return CodeRush.CodeMod.GenerateCode(comment);
 		}
 	}
 }
