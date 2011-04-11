@@ -77,7 +77,7 @@ namespace Refactor_Comments
 
 		private void ConvertToMultipleSingleLineComments_LanguageSupported(LanguageSupportedEventArgs ea)
 		{
-			ea.Handled = CodeRush.Language.SupportsMultiLineComments(ea.LanguageID) || ea.LanguageID == "JavaScript";
+			ea.Handled = ea.LanguageID.SupportsMultiLineComments();
 		}
 
 		private void ConvertToMultilineComment_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
@@ -130,7 +130,7 @@ namespace Refactor_Comments
 		private string GetCommentMultiline(string commentText)
 		{
 			var comment = new Comment()
-			{ 
+			{
 				Name = commentText,
 				CommentType = CommentType.MultiLine
 			};
