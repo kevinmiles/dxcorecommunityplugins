@@ -27,47 +27,15 @@ namespace Refactor_Comments
 			((ISupportInitialize)(provider)).BeginInit();
 			provider.ProviderName = ProviderId.ConvertToSingleLineComments;
 			provider.DisplayName = Properties.Resources.ConvertToSingleLineComment_DisplayName;
-			provider.CheckAvailability += ConvertToMultipleSingleLineComments_CheckAvailability;
+			provider.CheckAvailability += ConvertToSingleLineComments_CheckAvailability;
 			provider.LanguageSupported += CommentRefactoringsSupported;
-			provider.Apply += ConvertToMultipleSingleLineComments_Execute;
+			provider.Apply += ConvertToSingleLineComments_Execute;
 			((ISupportInitialize)(provider)).EndInit();
 		}
 
-		public override void InitializePlugIn()
+		private void CommentRefactoringsSupported(LanguageSupportedEventArgs ea)
 		{
-			base.InitializePlugIn();
-			CreateConvertToSingleLineComments();
-			CreateConvertToMultiLineComment();
-		}
-
-		public override void FinalizePlugIn()
-		{
-			// TODO: Add your finalization code here.
-			base.FinalizePlugIn();
-		}
-
-		private void ConvertToMultipleSingleLineComments_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
-		{
-			ea.Available = ea.CodeActive.CanBeConvertedToSingleLineComment();
-		}
-
-		private void ConvertToMultipleSingleLineComments_Execute(object sender, ApplyContentEventArgs ea)
-		{
-			var comment = ea.CodeActive as Comment;
-			var commentRange = comment.Range;
-			var activeDoc = CodeRush.Documents.ActiveTextDocument;
-			string[] lines = comment.Name.Replace('\r', ' ').Split('\n');
-			string newText = String.Empty;
-			for (int i = 0; i < lines.Length; i++)
-			{
-				string commentText = lines[i].Trim();
-				if (commentText != String.Empty)
-				{
-					newText += CodeRush.Language.GetComment(" " + commentText);
-				}
-			}
-			activeDoc.QueueReplace(commentRange, newText);
-			activeDoc.ApplyQueuedEdits(ProviderId.ConvertToSingleLineComments, true);
+			ea.Handled = ea.LanguageID.SupportsMultiLineComments();
 		}
 
 		private void ConvertToMultilineComment_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
@@ -101,9 +69,28 @@ namespace Refactor_Comments
 			activeDoc.ApplyQueuedEdits(ProviderId.ConvertToMultiLineComment, true);
 		}
 
-		private void CommentRefactoringsSupported(LanguageSupportedEventArgs ea)
+		private void ConvertToSingleLineComments_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
 		{
-			ea.Handled = ea.LanguageID.SupportsMultiLineComments();
+			ea.Available = ea.CodeActive.CanBeConvertedToSingleLineComment();
+		}
+
+		private void ConvertToSingleLineComments_Execute(object sender, ApplyContentEventArgs ea)
+		{
+			var comment = ea.CodeActive as Comment;
+			var commentRange = comment.Range;
+			var activeDoc = CodeRush.Documents.ActiveTextDocument;
+			string[] lines = comment.Name.Replace('\r', ' ').Split('\n');
+			string newText = String.Empty;
+			for (int i = 0; i < lines.Length; i++)
+			{
+				string commentText = lines[i].Trim();
+				if (commentText != String.Empty)
+				{
+					newText += CodeRush.Language.GetComment(" " + commentText);
+				}
+			}
+			activeDoc.QueueReplace(commentRange, newText);
+			activeDoc.ApplyQueuedEdits(ProviderId.ConvertToSingleLineComments, true);
 		}
 
 		private string GetCommentMultiline(string commentText)
@@ -114,6 +101,19 @@ namespace Refactor_Comments
 				CommentType = CommentType.MultiLine
 			};
 			return CodeRush.CodeMod.GenerateCode(comment);
+		}
+
+		public override void InitializePlugIn()
+		{
+			base.InitializePlugIn();
+			CreateConvertToSingleLineComments();
+			CreateConvertToMultiLineComment();
+		}
+
+		public override void FinalizePlugIn()
+		{
+			// TODO: Add your finalization code here.
+			base.FinalizePlugIn();
 		}
 	}
 }
