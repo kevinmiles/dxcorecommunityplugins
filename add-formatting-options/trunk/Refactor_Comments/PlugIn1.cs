@@ -9,26 +9,26 @@ namespace Refactor_Comments
 {
 	public partial class PlugIn1 : StandardPlugIn
 	{
-		public void CreateConvertToMultilineComment()
+		public void CreateConvertToMultiLineComment()
 		{
 			var provider = new RefactoringProvider(_components);
 			((ISupportInitialize)(provider)).BeginInit();
-			provider.ProviderName = "ConvertToMultilineComment"; // Should be Unique
+			provider.ProviderName = ProviderId.ConvertToMultiLineComment;
 			provider.DisplayName = "Convert to Multiline Comment";
 			provider.CheckAvailability += ConvertToMultilineComment_CheckAvailability;
-			provider.LanguageSupported += ConvertToMultilineComment_LanguageSupported;
+			provider.LanguageSupported += CommentRefactoringsSupported;
 			provider.Apply += ConvertToMultilineComment_Execute;
 			((ISupportInitialize)(provider)).EndInit();
 		}
 
-		public void CreateConvertToMultipleSingleLineComments()
+		public void CreateConvertToSingleLineComments()
 		{
 			var provider = new RefactoringProvider(_components);
 			((ISupportInitialize)(provider)).BeginInit();
-			provider.ProviderName = "ConvertToMultipleSinglelineComments"; // Should be Unique
+			provider.ProviderName = ProviderId.ConvertToSingleLineComments;
 			provider.DisplayName = "Convert To Singleline Comments";
 			provider.CheckAvailability += ConvertToMultipleSingleLineComments_CheckAvailability;
-			provider.LanguageSupported += ConvertToMultipleSingleLineComments_LanguageSupported;
+			provider.LanguageSupported += CommentRefactoringsSupported;
 			provider.Apply += ConvertToMultipleSingleLineComments_Execute;
 			((ISupportInitialize)(provider)).EndInit();
 		}
@@ -36,8 +36,8 @@ namespace Refactor_Comments
 		public override void InitializePlugIn()
 		{
 			base.InitializePlugIn();
-			CreateConvertToMultipleSingleLineComments();
-			CreateConvertToMultilineComment();
+			CreateConvertToSingleLineComments();
+			CreateConvertToMultiLineComment();
 		}
 
 		public override void FinalizePlugIn()
@@ -48,12 +48,7 @@ namespace Refactor_Comments
 
 		private void ConvertToMultipleSingleLineComments_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
 		{
-			var comment = ea.CodeActive as Comment;
-			if (comment == null || comment.CommentType == CommentType.SingleLine)
-			{
-				return;
-			}
-			ea.Available = true;
+			ea.Available = ea.CodeActive.CanBeConvertedToSingleLineComment();
 		}
 
 		private void ConvertToMultipleSingleLineComments_Execute(object sender, ApplyContentEventArgs ea)
@@ -75,25 +70,9 @@ namespace Refactor_Comments
 			activeDoc.ApplyQueuedEdits("Convert to Singleline Comments", true);
 		}
 
-		private void ConvertToMultipleSingleLineComments_LanguageSupported(LanguageSupportedEventArgs ea)
-		{
-			ea.Handled = ea.LanguageID.SupportsMultiLineComments();
-		}
-
 		private void ConvertToMultilineComment_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
 		{
-			var Comment = ea.CodeActive as Comment;
-			if (
-				Comment == null ||
-				Comment.CommentType == CommentType.MultiLine ||
-				Comment.PreviousConnectedComment == null && Comment.NextConnectedComment == null)
-			{
-				// Active element isn't a comment OR
-				// Comment is already multiline OR
-				// It's only a one-line comment.
-				return;
-			}
-			ea.Available = true; // Change this to return true, only when your refactoring should be available.
+			ea.Available = ea.CodeActive.CanBeConvertedToMultiLineComment();
 		}
 
 		private void ConvertToMultilineComment_Execute(object sender, ApplyContentEventArgs ea)
@@ -122,9 +101,9 @@ namespace Refactor_Comments
 			activeDoc.ApplyQueuedEdits("Convert to Multiline Comment", true);
 		}
 
-		private void ConvertToMultilineComment_LanguageSupported(LanguageSupportedEventArgs ea)
+		private void CommentRefactoringsSupported(LanguageSupportedEventArgs ea)
 		{
-			ea.Handled = CodeRush.Language.SupportsMultiLineComments(ea.LanguageID) || ea.LanguageID == "JavaScript";
+			ea.Handled = ea.LanguageID.SupportsMultiLineComments();
 		}
 
 		private string GetCommentMultiline(string commentText)

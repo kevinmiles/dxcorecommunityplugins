@@ -49,6 +49,7 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LanguageElementExtensions.cs" />
     <Compile Include="PlugIn1.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -56,6 +57,7 @@
       <DependentUpon>PlugIn1.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProviderId.cs" />
     <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
