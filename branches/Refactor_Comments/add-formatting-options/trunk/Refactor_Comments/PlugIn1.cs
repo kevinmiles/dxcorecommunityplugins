@@ -14,7 +14,7 @@ namespace Refactor_Comments
 			var provider = new RefactoringProvider(_components);
 			((ISupportInitialize)(provider)).BeginInit();
 			provider.ProviderName = ProviderId.ConvertToMultiLineComment;
-			provider.DisplayName = "Convert to Multiline Comment";
+			provider.DisplayName = Properties.Resources.ConvertToMultiLineComment_DisplayName;
 			provider.CheckAvailability += ConvertToMultilineComment_CheckAvailability;
 			provider.LanguageSupported += CommentRefactoringsSupported;
 			provider.Apply += ConvertToMultilineComment_Execute;
@@ -26,7 +26,7 @@ namespace Refactor_Comments
 			var provider = new RefactoringProvider(_components);
 			((ISupportInitialize)(provider)).BeginInit();
 			provider.ProviderName = ProviderId.ConvertToSingleLineComments;
-			provider.DisplayName = "Convert To Singleline Comments";
+			provider.DisplayName = Properties.Resources.ConvertToSingleLineComment_DisplayName;
 			provider.CheckAvailability += ConvertToMultipleSingleLineComments_CheckAvailability;
 			provider.LanguageSupported += CommentRefactoringsSupported;
 			provider.Apply += ConvertToMultipleSingleLineComments_Execute;
@@ -67,7 +67,7 @@ namespace Refactor_Comments
 				}
 			}
 			activeDoc.QueueReplace(commentRange, newText);
-			activeDoc.ApplyQueuedEdits("Convert to Singleline Comments", true);
+			activeDoc.ApplyQueuedEdits(ProviderId.ConvertToSingleLineComments, true);
 		}
 
 		private void ConvertToMultilineComment_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
@@ -98,7 +98,7 @@ namespace Refactor_Comments
 			SourceRange commentRange = new SourceRange(firstComment.Range.Start, lastComment.Range.End);
 			var activeDoc = CodeRush.Documents.ActiveTextDocument;
 			activeDoc.QueueReplace(commentRange, newComment);
-			activeDoc.ApplyQueuedEdits("Convert to Multiline Comment", true);
+			activeDoc.ApplyQueuedEdits(ProviderId.ConvertToMultiLineComment, true);
 		}
 
 		private void CommentRefactoringsSupported(LanguageSupportedEventArgs ea)
