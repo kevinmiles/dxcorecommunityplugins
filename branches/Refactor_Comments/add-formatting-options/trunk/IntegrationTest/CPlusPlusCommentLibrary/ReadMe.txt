@@ -1,0 +1,1 @@
+IGNORE EVERYTHING IN HERE except CPlusPlusCommentLibrary.h
