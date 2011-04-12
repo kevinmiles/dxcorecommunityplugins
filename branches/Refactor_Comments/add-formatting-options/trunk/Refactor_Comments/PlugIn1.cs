@@ -4,6 +4,8 @@ using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
 using DevExpress.Refactor.Core;
+using System.Text;
+using System.Diagnostics;
 
 namespace Refactor_Comments
 {
@@ -77,19 +79,25 @@ namespace Refactor_Comments
 		private void ConvertToSingleLineComments_Execute(object sender, ApplyContentEventArgs ea)
 		{
 			var comment = ea.CodeActive as Comment;
-			var commentRange = comment.Range;
-			var activeDoc = CodeRush.Documents.ActiveTextDocument;
+			if (comment == null)
+			{
+				return;
+			}
+
 			string[] lines = comment.Name.Replace('\r', ' ').Split('\n');
-			string newText = String.Empty;
+			var builder = new StringBuilder();
 			for (int i = 0; i < lines.Length; i++)
 			{
 				string commentText = lines[i].Trim();
-				if (commentText != String.Empty)
+				if (!String.IsNullOrEmpty(commentText))
 				{
-					newText += CodeRush.Language.GetComment(" " + commentText);
+					builder.Append(CodeRush.Language.GetComment(" " + commentText));
 				}
 			}
-			activeDoc.QueueReplace(commentRange, newText);
+
+			var commentRange = comment.Range;
+			var activeDoc = CodeRush.Documents.ActiveTextDocument;
+			activeDoc.QueueReplace(commentRange, builder.ToString());
 			activeDoc.ApplyQueuedEdits(ProviderId.ConvertToSingleLineComments, true);
 		}
 
