@@ -9,7 +9,6 @@
     /// </summary>
     public class SA1308TestCode
     {
-        // BUGBUG: wrong violation wording - says about m_ prefix, should about s_
         private static int s_field;
         private int m_field;
     }
