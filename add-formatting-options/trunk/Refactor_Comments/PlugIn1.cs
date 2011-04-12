@@ -5,7 +5,6 @@ using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
 using DevExpress.Refactor.Core;
 using System.Text;
-using System.Diagnostics;
 
 namespace Refactor_Comments
 {

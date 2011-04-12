@@ -77,5 +77,23 @@ namespace Refactor_Comments.Properties {
                 return ResourceManager.GetString("ConvertToSingleLineComment_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Multiline Comments.
+        /// </summary>
+        internal static string MultiLineCommentOptionsControl_GroupBox {
+            get {
+                return ResourceManager.GetString("MultiLineCommentOptionsControl_GroupBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Put {0} on each comment line.
+        /// </summary>
+        internal static string MultiLineCommentOptionsControl_LineLeadersLabel {
+            get {
+                return ResourceManager.GetString("MultiLineCommentOptionsControl_LineLeadersLabel", resourceCulture);
+            }
+        }
     }
 }

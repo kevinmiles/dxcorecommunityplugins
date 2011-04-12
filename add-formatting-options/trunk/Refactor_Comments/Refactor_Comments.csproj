@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3, Version=10.2.6.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Refactor.Core, Version=10.2.6.0, Culture=neutral, PublicKeyToken=3f8e338797a7a380, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -49,7 +50,20 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentOptionsPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommentOptionsPage.Designer.cs">
+      <DependentUpon>CommentOptionsPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="LanguageElementExtensions.cs" />
+    <Compile Include="MultiLineCommentOptions.cs" />
+    <Compile Include="MultiLineCommentOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MultiLineCommentOptionsControl.Designer.cs">
+      <DependentUpon>MultiLineCommentOptionsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlugIn1.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -66,6 +80,12 @@
     <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CommentOptionsPage.resx">
+      <DependentUpon>CommentOptionsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MultiLineCommentOptionsControl.resx">
+      <DependentUpon>MultiLineCommentOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
