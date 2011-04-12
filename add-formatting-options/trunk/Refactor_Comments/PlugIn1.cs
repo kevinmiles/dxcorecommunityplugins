@@ -47,6 +47,9 @@ namespace Refactor_Comments
 
 		private void ConvertToMultilineComment_Execute(object sender, ApplyContentEventArgs ea)
 		{
+			// TODO: Create a custom code generator for multiline comments that allows for our style options.
+			// DevExpress.CodeRush.StructuralParser.SupportElementCodeGenBase : LanguageElementCodeGenBase
+
 			var comment = ea.CodeActive as Comment;
 			Comment firstComment;
 			Comment lastComment;
@@ -84,10 +87,14 @@ namespace Refactor_Comments
 				return;
 			}
 
-			string[] lines = comment.Name.Replace('\r', ' ').Split('\n');
+			// Normalize the line endings so we can split properly.
+			string[] lines = comment.Name.Replace("\r\n", "\n").Split('\n');
+
 			var builder = new StringBuilder();
 			for (int i = 0; i < lines.Length; i++)
 			{
+				// TODO: Test a comment that has leading spaces that should be kept.
+				// TODO: Test a comment that has the leading * that you usually get.
 				string commentText = lines[i].Trim();
 				if (!String.IsNullOrEmpty(commentText))
 				{
