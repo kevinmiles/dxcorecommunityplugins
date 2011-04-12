@@ -117,16 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConvertToMultiLineComment_DisplayName" xml:space="preserve">
-    <value>Convert to Multiline Comment</value>
-  </data>
-  <data name="ConvertToSingleLineComment_DisplayName" xml:space="preserve">
-    <value>Convert to Single-Line Comments</value>
-  </data>
-  <data name="MultiLineCommentOptionsControl_GroupBox" xml:space="preserve">
-    <value>{0} Multiline Comments</value>
-  </data>
-  <data name="MultiLineCommentOptionsControl_LineLeadersLabel" xml:space="preserve">
-    <value>Put {0} on each comment line</value>
-  </data>
 </root>
