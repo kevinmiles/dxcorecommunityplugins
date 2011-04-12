@@ -25,13 +25,12 @@
         internal readonly int Valid10 = 1;
         protected internal readonly int Valid11 = 1;
         protected readonly int Valid12 = 1;
+        private readonly int Valid13 = 1;
 
         public int Valid6;
         internal int Valid7;
         protected internal int Valid8;
 
-        // BUGBUG: private readonly field does not fire SA1306
-        private readonly int Invalid3 = 1;
         protected int Invalid1;
         private int Invalid2;
     }
