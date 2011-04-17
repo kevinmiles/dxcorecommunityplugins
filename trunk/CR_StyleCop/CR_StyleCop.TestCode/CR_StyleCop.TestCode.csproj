@@ -32,6 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gallio, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL" />
+    <Reference Include="MbUnit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -107,6 +109,25 @@
     <Compile Include="SA1409TestCode.cs" />
     <Compile Include="SA1410TestCode.cs" />
     <Compile Include="SA1411TestCode.cs" />
+    <Compile Include="SA1500TestCode.cs" />
+    <Compile Include="SA1501TestCode.cs" />
+    <Compile Include="SA1502TestCode.cs" />
+    <Compile Include="SA1503TestCode.cs" />
+    <Compile Include="SA1504TestCode.cs" />
+    <Compile Include="SA1505TestCode.cs" />
+    <Compile Include="SA1506TestCode.cs" />
+    <Compile Include="SA1507TestCode.cs" />
+    <Compile Include="SA1508TestCode.cs" />
+    <Compile Include="SA1509TestCode.cs" />
+    <Compile Include="SA1510TestCode.cs" />
+    <Compile Include="SA1511TestCode.cs" />
+    <Compile Include="SA1512TestCode.cs" />
+    <Compile Include="SA1513TestCode.cs" />
+    <Compile Include="SA1514TestCode.cs" />
+    <Compile Include="SA1515TestCode.cs" />
+    <Compile Include="SA1516TestCode.cs" />
+    <Compile Include="SA1517TestCode.cs" />
+    <Compile Include="SA1518TestCode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
