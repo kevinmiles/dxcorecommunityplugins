@@ -9,7 +9,6 @@
     [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter", Justification = "This is about SA1307 rule.")]
     public class SA1307TestCode
     {
-        // BUGBUG: const field does not trigger SA1307.
         public const int invalid1 = 1;
         public readonly int invalid7 = 1;
         public static int invalid4 = 1;

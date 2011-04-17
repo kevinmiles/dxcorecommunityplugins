@@ -24,7 +24,7 @@
             Debug.Assert(val != true, string.Empty);
             Debug.Assert(val != true, null);
             Debug.Assert(val != true);
-            string message = null;
+            string message = null;  
             Debug.Assert(val != true, message);
             Debug.Assert(val != true, MessageConstant);
             Debug.Assert(val != true, MessageConstant2);
