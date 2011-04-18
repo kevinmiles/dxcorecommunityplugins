@@ -17,7 +17,9 @@ Namespace SA13XX
         Private Function isNonPrivate(ByVal e As IMemberElement) As Boolean
             Return e.Visibility <> MemberVisibility.Private
         End Function
-
+        Private Function StartsAlpha(ByVal V As IElement) As Boolean
+            Return Char.IsLetter(V.Name.First)
+        End Function
         Private Function StartsLower(ByVal V As IElement) As Boolean
             Return Char.IsLower(V.Name.First)
         End Function
@@ -61,7 +63,7 @@ Namespace SA13XX
 #Region "Qualifies_SA1300"
         Friend Const Message_SA1300 As String = "SA1300: Element does not start with an uppercase char."
         Friend Function Qualifies_SA1300(ByVal Element As IElement) As Boolean
-            Return isMainElement(Element) AndAlso StartsLower(Element)
+            Return isMainElement(Element) AndAlso StartsAlpha(Element) AndAlso StartsLower(Element)
         End Function
 #End Region
 #Region "Qualifies_SA1302"
@@ -143,7 +145,7 @@ Namespace SA13XX
             If Variable Is Nothing Then
                 Return False
             End If
-            Return Variable.IsField AndAlso Variable.Name.Contains("_")
+            Return Variable.IsField AndAlso Variable.Name.IndexOf("_") > 0
         End Function
 #End Region
 #End Region
