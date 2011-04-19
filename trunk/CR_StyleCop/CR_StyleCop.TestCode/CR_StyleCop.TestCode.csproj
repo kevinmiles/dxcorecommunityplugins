@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SA1610TestCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SA1006TestCode.cs" />
     <Compile Include="SA1100TestCode.cs" />
@@ -128,6 +129,16 @@
     <Compile Include="SA1516TestCode.cs" />
     <Compile Include="SA1517TestCode.cs" />
     <Compile Include="SA1518TestCode.cs" />
+    <Compile Include="SA1600TestCode.cs" />
+    <Compile Include="SA1601TestCode.cs" />
+    <Compile Include="SA1602TestCode.cs" />
+    <Compile Include="SA1603TestCode.cs" />
+    <Compile Include="SA1604TestCode.cs" />
+    <Compile Include="SA1605TestCode.cs" />
+    <Compile Include="SA1606TestCode.cs" />
+    <Compile Include="SA1607TestCode.cs" />
+    <Compile Include="SA1608TestCode.cs" />
+    <Compile Include="SA1609TestCode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

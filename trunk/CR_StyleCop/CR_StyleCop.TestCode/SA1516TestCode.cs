@@ -26,7 +26,7 @@
         {
         }
         private int PropertyName { get; set; }
-        private int PropertyName
+        private int PropertyName2
         {
             get
             {
