@@ -2,7 +2,16 @@
 #labels Phase-Support
 [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/HighlightCurrentLineInEditor/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-= Introduction =
+=== Obsolete ===
+This plugin is now obsolete. The main reason for this, is that it's functionality is now included with CodeRush as standard. (See the Line Highlighter entry on [http://community.devexpress.com/blogs/rorybecker/archive/2010/07/26/The-DXCore-Visualize-Toolbar.aspx this blog post])
+
+This being the case, it is not deemed worth maintaining this plugin any further.
+
+The original code will remain here in the code repository for those who are interested. 
+
+Note: The Line Highlighter source code is also shipped with CodeRush 
+
+=== Introduction ===
 
 This plugin (as it's name suggests) highlights the current line using 3 user configurable colors.
   * Outer Color: Border of the highlight bar.
@@ -11,7 +20,7 @@ This plugin (as it's name suggests) highlights the current line using 3 user con
 
 Forum thread: http://community.devexpress.com/forums/p/64753/219766.aspx 
 
-= Options =
+=== Options ===
 Options are located at Editor\Painting\CurrentLine in the DevExpress\Options screen.
 
 You can...
