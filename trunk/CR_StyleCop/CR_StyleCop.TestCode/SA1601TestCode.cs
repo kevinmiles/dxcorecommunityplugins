@@ -9,6 +9,7 @@
 
     public partial class SA1601TestCode
     {
+        // BUGBUG: SA1600 reported instead of SA1601 for partial methods.
         partial void MethodName()
         {
         }
