@@ -7,7 +7,6 @@
     /// </summary>
     public class SA1610TestCode
     {
-        // BUGBUG: SA1609 is reported instead of SA1610.
         private int propertyName2;
         private int propertyName3 = 42;
         private int propertyName4;

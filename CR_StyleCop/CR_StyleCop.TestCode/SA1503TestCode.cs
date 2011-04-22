@@ -17,8 +17,7 @@
             while (string.IsNullOrEmpty(x))
                 x = x.Substring(1);
 
-            // BUGBUG: SA1503 not reported here
-            lock (this.syncRoot)
+            lock (this.syncRoot) 
                 x = x.Substring(1);
 
             for (int i = 0; i < 5; i++)
