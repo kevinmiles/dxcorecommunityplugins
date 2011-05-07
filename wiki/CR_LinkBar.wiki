@@ -1,5 +1,5 @@
 #summary Favorites bar for different arrangements of files (workspaces) in your solution.
-[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_LinkBar/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_LinkBar/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
 = Introduction =
@@ -24,7 +24,7 @@ Once done, close everything and hit the "MyWork" button....
 Your files are restored and you can continue working on what you were before.
 
 = Download = 
-The download is [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_LinkBar/ available from here]
+The download is [http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_LinkBar/ available from here]
 
 = Specifics = 
 Workspaces are saved in normal DXCore Settings, but are specific to the given solution.

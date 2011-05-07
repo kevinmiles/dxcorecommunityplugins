@@ -1,6 +1,6 @@
 #summary Draws a line between method, enum, and class declarations.
 #labels Phase-Support
-[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/CR_DrawLinesBetweenMethods/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_DrawLinesBetweenMethods/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 ===== Requires DXCore 10.2 since build 1490 =====
 = Introduction =
 The VB.NET editor provides a line separator between methods but the C# editor does not. This plugin provides a similar line separation functionality with some additional flexibility for line format. It also now allows you to specify lines between enum and classes.

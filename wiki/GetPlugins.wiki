@@ -19,4 +19,4 @@ Because of the nature of the zip filenames, the download links point at the fold
 
 We do not currently provide a download containing all plugins. 
 
-Important Note: The plugins listed on the left are not the only ones on this site. We have more... Just [http://code.google.com/p/dxcorecommunityplugins/w/list peruse the wiki]. Most (but not all) plugin pages are prefixed DX_ or CR_ and if you're feeling really brave you can even skip past the wiki and just go [http://www.rorybecker.me.uk/DevExpress/Plugins/Community/ peruse the binary downloads] :) 
+Important Note: The plugins listed on the left are not the only ones on this site. We have more... Just [http://code.google.com/p/dxcorecommunityplugins/w/list peruse the wiki]. Most (but not all) plugin pages are prefixed DX_ or CR_ and if you're feeling really brave you can even skip past the wiki and just go [http://www.rorybecker.co.uk/DevExpress/Plugins/Community/ peruse the binary downloads] :) 

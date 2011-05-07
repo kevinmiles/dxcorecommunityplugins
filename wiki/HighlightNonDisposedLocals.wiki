@@ -1,6 +1,6 @@
 #summary Describes the "HighlightNonDisposedLocals" plugin.
 #labels Phase-Support
-[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/HighlightNonDisposedLocals/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/HighlightNonDisposedLocals/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 = Introduction =
 This plugin was written by Mark Miller in a series of blog articles.
 

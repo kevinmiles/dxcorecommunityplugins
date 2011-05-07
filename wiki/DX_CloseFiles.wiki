@@ -1,5 +1,5 @@
 #summary Provides an action/command to close all files except the current one and it's Test equivalent.
-[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/DX_CloseFiles http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/DX_CloseFiles http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== Requires DXCore 10.2 since build 1711 =====
 == Introduction ==

@@ -1,6 +1,6 @@
 #summary Highlights the currently active line in the editor.
 #labels Phase-Support
-[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/HighlightCurrentLineInEditor/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/HighlightCurrentLineInEditor/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 === Obsolete ===
 This plugin is now obsolete. The main reason for this, is that it's functionality is now included with CodeRush as standard. (See the Line Highlighter entry on [http://community.devexpress.com/blogs/rorybecker/archive/2010/07/26/The-DXCore-Visualize-Toolbar.aspx this blog post])

@@ -1,6 +1,6 @@
 This plug-in provides various ways to better interact with the results of the CodeRush Unit Test Runner.
 
-[http://www.rorybecker.me.uk/DevExpress/Plugins/Community/UnitTestErrorVisualizer/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]  [http://dxcorecommunityplugins.googlecode.com/svn/trunk/UnitTestErrorVisualizer/Screenshots/UnitTestErrorVisualizer_Demo.swf http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Screencast.png]    [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/UnitTestErrorVisualizer/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]  [http://dxcorecommunityplugins.googlecode.com/svn/trunk/UnitTestErrorVisualizer/Screenshots/UnitTestErrorVisualizer_Demo.swf http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Screencast.png]    [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 ===== Requires DXCore 10.2 since build 1547 =====
 = Introduction =
 
