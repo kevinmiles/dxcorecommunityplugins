@@ -31,12 +31,6 @@
             remove { this.event2 = (EventHandler)Delegate.Remove(this.event2, value); }
         }
 
-        [System.ComponentModel.Browsable(false)]
-
-        // TODO: propose rule that attributes must not be followed by blank line.
-        // TODO: propose rule that first attribute must be preceded by blank line.
-        // TODO: propose rule that xmldoccomments must come before attributes for element.
-        // TODO: propose rule that Attribute suffix must be omitted.
         internal string Property1
         {
             get { return this.property1; }
