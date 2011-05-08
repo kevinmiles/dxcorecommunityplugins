@@ -146,6 +146,12 @@
     <Compile Include="SA1615TestCode.cs" />
     <Compile Include="SA1616TestCode.cs" />
     <Compile Include="SA1617TestCode.cs" />
+    <Compile Include="SA1618TestCode.cs" />
+    <Compile Include="SA1619TestCode.cs" />
+    <Compile Include="SA1620TestCode1.cs" />
+    <Compile Include="SA1620TestCode2.cs" />
+    <Compile Include="SA1621TestCode.cs" />
+    <Compile Include="SA1622TestCode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
