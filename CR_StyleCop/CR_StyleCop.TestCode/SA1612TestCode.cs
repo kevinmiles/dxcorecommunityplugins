@@ -35,7 +35,7 @@
         /// </summary>
         /// <param name="intParameter">Should be second.</param>
         /// <param name="parameter">Should be first.</param>
-        public delegate void MyDelegate(object parameter, int intParameter);
+        public delegate void MyDelegate2(object parameter, int intParameter);
 
         /// <summary>
         /// Some indexer.
