@@ -47,7 +47,7 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
-    <OutputPath>D:\RoryData\Documents\DevExpress\IDE Tools\Community\PlugIns</OutputPath>
+    <OutputPath>..\..\..\..\Documents\DevExpress\IDE Tools\Community\PlugIns\</OutputPath>
     <DocumentationFile>DX_NewItem.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
   </PropertyGroup>
