@@ -16,6 +16,16 @@ namespace CR_StyleCop.TestCode
         private int propertyName;
         private EventHandler eventName;
 
+        public SA1626TestCode()
+        {
+            /// Wrong comment.
+        }
+
+        ~SA1626TestCode()
+        {
+            /// Wrong comment
+        }
+
         public event EventHandler EventName
         {
             add
@@ -46,9 +56,23 @@ namespace CR_StyleCop.TestCode
             }
         }
 
+        public int this[int index]
+        {
+            get
+            {
+                /// 5. Wrong comment.
+                return 42;
+            }
+
+            set
+            {
+                /// 6. Wrong comment.
+            }
+        }
+
         public void MethodName()
         {
-            /// 5. Wrong comment
+            /// 7. Wrong comment
         }
     }
 }
