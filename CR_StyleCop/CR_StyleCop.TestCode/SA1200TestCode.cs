@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="SA1200TestCode.cs" company="ACME">
+//     Copyright (c) 2011. All rights reserved.
+// </copyright>
+
+using System;
 using System.Linq;
 
 namespace CR_StyleCop.TestCode

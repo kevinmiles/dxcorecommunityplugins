@@ -1,9 +1,10 @@
-﻿namespace CR_StyleCop.TestCode
+﻿// <copyright file="SA1213TestCode.cs" company="ACME">
+//     Copyright (c) 2011. All rights reserved.
+// </copyright>
+
+namespace CR_StyleCop.TestCode
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Test code for SA1213 rule - add must come before remove.
