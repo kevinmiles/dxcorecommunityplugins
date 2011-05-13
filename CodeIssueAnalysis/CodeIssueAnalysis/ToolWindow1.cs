@@ -225,7 +225,7 @@ namespace CodeIssueAnalysis
             dt.Columns.Add("Text", typeof(String));
             dt.Columns.Add("Hash", typeof(int));
 
-            foreach (CodeIssueFile issue in worker.codeIssues)
+            foreach (CodeIssueFile issue in worker.CodeIssues)
             {
                 int tmp = issue.GetHashCode();
                 var values = new object[10];

@@ -15,7 +15,7 @@ namespace CodeIssueAnalysis
     {
         internal volatile bool shutdown;
         private IssueServices issueService = CodeRush.Issues;
-        internal List<CodeIssueFile> codeIssues = new List<CodeIssueFile>();
+        private List<CodeIssueFile> codeIssues = new List<CodeIssueFile>();
 
         internal event EventHandler<EventArgs> Results;
         internal event EventHandler<ProcessingArgs> ProcessingFile;
@@ -26,6 +26,7 @@ namespace CodeIssueAnalysis
 
         RunType runType = RunType.NotRun;
         ProjectElement activeProject = null;
+        object codeIssuesLock = new object();
 
         internal enum RunType
         {
@@ -34,12 +35,32 @@ namespace CodeIssueAnalysis
             NotRun
         }
 
+        // KaKTODO: 25.3.2011 (KaK) Never use lock(this) - bad practice
+        // KaKTODO: 25.3.2011 (KaK) lock(codeIssues) was missing at many places. Use thread-safe property - this is simpler solution
+        /// <summary>
+        /// Thread safe access to CodeIssues
+        /// </summary>
+        public List<CodeIssueFile> CodeIssues
+        {
+            get
+            {
+                lock (codeIssuesLock)
+                {
+                    return codeIssues;
+                }
+            }
+            set
+            {
+                lock (codeIssuesLock)
+                {
+                    codeIssues = value;
+                }
+            }
+        }
+
         internal void AddCodeIssue(CodeIssue issue, SourceFile file, string message)
         {
-            lock (this)
-            {
-               codeIssues.Add(new CodeIssueFile(issue, file, message));
-            }
+            CodeIssues.Add(new CodeIssueFile(issue, file, message));
         }
 
         private void OnResults(EventArgs e)
@@ -68,7 +89,7 @@ namespace CodeIssueAnalysis
 
         internal void AddProcessedCount()
         {
-            lock (this)
+            lock (codeIssuesLock)
             {
                 processedFiles++;
                 OnProcessingFile(new ProcessingArgs(processedFiles, totalFiles));
@@ -76,7 +97,7 @@ namespace CodeIssueAnalysis
                 if (processedFiles >= totalFiles)
                     OnResults(null);
             }
-        }       
+        }
 
         internal class ProcessingArgs : EventArgs
         {
@@ -84,7 +105,7 @@ namespace CodeIssueAnalysis
             public int processedFiles { get; private set; }
 
             public ProcessingArgs(int processedFiles, int totalFiles)
-            {                
+            {
                 this.processedFiles = processedFiles;
                 this.totalFiles = totalFiles;
             }
@@ -113,7 +134,7 @@ namespace CodeIssueAnalysis
         private void ProjectAdded(EnvDTE.Project project)
         {
             if (runType == RunType.Solution)
-            {              
+            {
                 try
                 {
                     processedFiles = 0;
@@ -134,7 +155,7 @@ namespace CodeIssueAnalysis
         {
             try
             {
-                codeIssues.RemoveAll(new CodeIssueMatch(project).ProjectMatch);
+                CodeIssues.RemoveAll(new CodeIssueMatch(project).ProjectMatch);
             }
             catch (Exception err)
             {
@@ -150,8 +171,8 @@ namespace CodeIssueAnalysis
             {
                 processedFiles = 0;
                 totalFiles = 1;
-                
-                codeIssues.RemoveAll(new CodeIssueMatch(file.Document.FullName).FilePathMatch);
+
+                CodeIssues.RemoveAll(new CodeIssueMatch(file.Document.FullName).FilePathMatch);
                 CheckIssues(file);
             }
             catch (Exception err)
@@ -172,7 +193,7 @@ namespace CodeIssueAnalysis
                 {
                     runType = RunType.Project;
                     processedFiles = 0;
-                    codeIssues.Clear();
+                    CodeIssues.Clear();
                     activeProject = CodeRush.Source.ActiveProject;
                     totalFiles = CodeRush.Source.ActiveProject.AllFiles.Count;
 
@@ -193,13 +214,13 @@ namespace CodeIssueAnalysis
                 runType = RunType.Solution;
                 processedFiles = 0;
                 totalFiles = 0;
-                codeIssues.Clear();
+                CodeIssues.Clear();
 
                 foreach (ProjectElement project in CodeRush.Source.ActiveSolution.AllProjects)
                     totalFiles = totalFiles + project.AllFiles.Count;
 
                 foreach (SourceFile file in CodeRush.Source.ActiveSolution.AllFiles)
-                        CheckIssues(file);
+                    CheckIssues(file);
             }
             catch (Exception err)
             {
@@ -219,7 +240,7 @@ namespace CodeIssueAnalysis
             catch (Exception err)
             {
                 Debug.Assert(false, "Error queing issue service", err.Message);
-            } 
+            }
         }
 
         internal static void GotoCode(SourceFile file, SourceRange range, LocatorBeacon beacon)
@@ -239,7 +260,7 @@ namespace CodeIssueAnalysis
         }
 
         private void FileChecked(object sender, CodeIssuesCheckedEventArgs e)
-        {                 
+        {
             try
             {
                 switch (runType)
@@ -247,7 +268,7 @@ namespace CodeIssueAnalysis
                     case RunType.NotRun:
                     case RunType.Solution:
                         processedFiles = 0;
-                        totalFiles = 1;                        
+                        totalFiles = 1;
                         CheckIssues(e.FileNode);
                         break;
                     case RunType.Project:
@@ -265,14 +286,14 @@ namespace CodeIssueAnalysis
             catch (Exception err)
             {
                 Debug.Assert(false, "Error adding code issues", err.Message);
-            } 
+            }
         }
 
         private void ProjectItemRemoved(EnvDTE.ProjectItem projectItem)
         {
             try
             {
-                codeIssues.RemoveAll(new CodeIssueMatch(projectItem.get_FileNames(0)).FilePathMatch);
+                CodeIssues.RemoveAll(new CodeIssueMatch(projectItem.get_FileNames(0)).FilePathMatch);
             }
             catch (Exception err)
             {
@@ -300,7 +321,7 @@ namespace CodeIssueAnalysis
                         if (file.Project == activeProject)
                         {
                             CheckIssues(file);
-                        }                        
+                        }
                         break;
                     default:
                         break;
@@ -309,7 +330,7 @@ namespace CodeIssueAnalysis
             catch (Exception err)
             {
                 Debug.Assert(false, "Error adding code issues", err.Message);
-            }       
+            }
         }
 
         private void ProjectItemRenamed(EnvDTE.ProjectItem projectItem, string oldName)
@@ -317,7 +338,7 @@ namespace CodeIssueAnalysis
             try
             {
                 string originalPath = Path.GetDirectoryName(projectItem.get_FileNames(0)) + Path.DirectorySeparatorChar + oldName;
-                foreach (CodeIssueFile codeIssue in codeIssues)
+                foreach (CodeIssueFile codeIssue in CodeIssues)
                 {
                     if (codeIssue.file.Name == originalPath)
                         codeIssue.file = GetSourceFile(projectItem);
