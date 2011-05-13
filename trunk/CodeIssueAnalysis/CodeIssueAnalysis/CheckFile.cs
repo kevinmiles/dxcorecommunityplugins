@@ -49,7 +49,8 @@ namespace CodeIssueAnalysis
         }
 
         internal void Check(object state)
-        {     
+        {
+            
             //abort threads quickly if cancel pressed
             if (!issueProcessor.shutdown)
             {
@@ -60,6 +61,8 @@ namespace CodeIssueAnalysis
                     {
                         try
                         {
+                            // KaKTODO: 25.3.2011 (KaK) Take into account issueService.CalculationIsActive. 
+                            // On large project solution analysis take several minutes and you are processing collection which is constantly modified 
                             foreach (CodeIssue issue in issueService.CheckCodeIssues(file))
                             {
                                 try
