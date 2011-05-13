@@ -1,3 +1,7 @@
+// <copyright file="SA1620TestCode2.cs" company="ACME">
+//     Copyright (c) 2011. All rights reserved.
+// </copyright>
+
 namespace CR_StyleCop.TestCode
 {
     using System;

@@ -1,4 +1,8 @@
-﻿namespace CR_StyleCop.testCode
+﻿// <copyright file="SA1300TestCode.cs" company="ACME">
+//     Copyright (c) 2011. All rights reserved.
+// </copyright>
+
+namespace CR_StyleCop.testCode
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
