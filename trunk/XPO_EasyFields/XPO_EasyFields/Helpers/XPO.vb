@@ -211,6 +211,7 @@ Namespace Helpers
 
             Public Sub UpdateFieldsClass()
                 If Helpers.XPO.IsPersistentClass(_class) Then
+                    DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Caramel")
                     'Bob the CodeRush Builder ;)
                     Dim BobClass As ElementBuilder = New ElementBuilder
                     Dim BobProperty As ElementBuilder = New ElementBuilder
@@ -222,7 +223,7 @@ Namespace Helpers
                         .Visibility = MemberVisibility.Public
                         .IsNew = True 'This seems to do the "Shadows" keyword
                         If Settings.IncludeInheritedMembers Then
-                            .PrimaryAncestorType = New TypeReferenceExpression(String.Format("{0}.{1}", _class.GetBaseType.FullName, Helpers.XPO.Names.FieldsClassName)) 'Couldn't find easier way, needs to "shadow" the persistentbase FieldsClass
+                            .PrimaryAncestorType = New TypeReferenceExpression(String.Format("{0}.{1}", _class.GetBaseType.Name, Helpers.XPO.Names.FieldsClassName)) 'Couldn't find easier way, needs to "shadow" the persistentbase FieldsClass
                         Else
                             .PrimaryAncestorType = New TypeReferenceExpression(String.Format("{0}.{1}", Helpers.XPO.Names.PersistentBase, Helpers.XPO.Names.FieldsClassName))
                         End If
