@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
@@ -29,20 +23,20 @@ namespace CodeIssueAnalysis
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
             try
             {
-                File.Delete(CodeIssueOptions.GetLayoutPath() + Path.DirectorySeparatorChar + cmbLayouts.SelectedItem.ToString());
-                this.Close();
+                File.Delete(String.Format("{0}{1}{2}",CodeIssueOptions.GetLayoutPath(), Path.DirectorySeparatorChar, cmbLayouts.SelectedItem));
+                Close();
             }
-            catch (Exception err)
+            catch
             {
                 MessageBox.Show("Failed to Remove Layout", "Removing Layout Failed");
-                this.Close();
+                Close();
             }
         }
     }

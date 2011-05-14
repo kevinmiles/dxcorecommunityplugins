@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using DevExpress.DXCore.Controls.XtraGrid;
-using DevExpress.DXCore.Controls.Utils;
 using DevExpress.DXCore.Controls.XtraGrid.Columns;
 using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
 
@@ -13,8 +12,8 @@ namespace CodeIssueAnalysis {
 			public int level;
 		};
 
-		private GridView view;
-		private string keyFieldName;
+        private readonly GridView view;
+        private readonly string keyFieldName;
 		private ArrayList saveExpList;
 		private ArrayList saveSelList;
 		private ArrayList saveMasterRowsList;

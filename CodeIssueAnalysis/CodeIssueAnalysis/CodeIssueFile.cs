@@ -1,7 +1,6 @@
 ﻿using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.StructuralParser;
 using System;
-using System.Diagnostics;
 
 namespace CodeIssueAnalysis
 {
