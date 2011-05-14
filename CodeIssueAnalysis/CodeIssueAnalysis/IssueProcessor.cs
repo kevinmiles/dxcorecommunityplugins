@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
@@ -13,7 +14,7 @@ namespace CodeIssueAnalysis
     internal class IssueProcessor
     {
         internal volatile bool shutdown;
-        private readonly IssueServices issueService = CodeRush.Issues;
+        private IssueServices issueService = CodeRush.Issues;
         private List<CodeIssueFile> codeIssues = new List<CodeIssueFile>();
 
         internal event EventHandler<EventArgs> Results;
@@ -24,8 +25,8 @@ namespace CodeIssueAnalysis
         private int totalFiles;
 
         RunType runType = RunType.NotRun;
-        ProjectElement activeProject;
-        readonly object codeIssuesLock = new object();
+        ProjectElement activeProject = null;
+        object codeIssuesLock = new object();
 
         internal enum RunType
         {
@@ -34,6 +35,8 @@ namespace CodeIssueAnalysis
             NotRun
         }
 
+        // KaKTODO: 25.3.2011 (KaK) Never use lock(this) - bad practice
+        // KaKTODO: 25.3.2011 (KaK) lock(codeIssues) was missing at many places. Use thread-safe property - this is simpler solution
         /// <summary>
         /// Thread safe access to CodeIssues
         /// </summary>
@@ -76,6 +79,14 @@ namespace CodeIssueAnalysis
             }
         }
 
+        private void OnError(ErrorArgs e)
+        {
+            if (Error != null)
+            {
+                Error(this, e);
+            }
+        }
+
         internal void AddProcessedCount()
         {
             lock (codeIssuesLock)
@@ -106,7 +117,7 @@ namespace CodeIssueAnalysis
 
             public ErrorArgs(Exception error)
             {
-                Error = error;
+                this.Error = error;
             }
         }
 
@@ -133,9 +144,9 @@ namespace CodeIssueAnalysis
                     foreach (SourceFile file in addedProject.AllFiles)
                         CheckIssues(file);
                 }
-                catch (Exception ex)
+                catch (Exception err)
                 {
-                    Debug.Assert(false, "Error Scanning Project", ex.Message);
+                    Debug.Assert(false, "Error Scanning Project", err.Message);
                 }
             }
         }
@@ -146,9 +157,9 @@ namespace CodeIssueAnalysis
             {
                 CodeIssues.RemoveAll(new CodeIssueMatch(project).ProjectMatch);
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
-                Debug.Assert(false, "Error removing code issues", ex.Message);
+                Debug.Assert(false, "Error removing code issues", err.Message);
             }
 
             OnResults(null);
@@ -164,9 +175,9 @@ namespace CodeIssueAnalysis
                 CodeIssues.RemoveAll(new CodeIssueMatch(file.Document.FullName).FilePathMatch);
                 CheckIssues(file);
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
-                Debug.Assert(false, "Error Scanning File", ex.Message);
+                Debug.Assert(false, "Error Scanning File", err.Message);
             }
         }
 
@@ -189,9 +200,9 @@ namespace CodeIssueAnalysis
                     foreach (SourceFile file in CodeRush.Source.ActiveProject.AllFiles)
                         CheckIssues(file);
                 }
-                catch (Exception ex)
+                catch (Exception err)
                 {
-                    Debug.Assert(false, "Error Scanning Project", ex.Message);
+                    Debug.Assert(false, "Error Scanning Project", err.Message);
                 }
             }
         }
@@ -211,9 +222,9 @@ namespace CodeIssueAnalysis
                 foreach (SourceFile file in CodeRush.Source.ActiveSolution.AllFiles)
                     CheckIssues(file);
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
-                Debug.Assert(false, "Error Scanning Project", ex.Message);
+                Debug.Assert(false, "Error Scanning Project", err.Message);
             }
         }
 
@@ -221,12 +232,14 @@ namespace CodeIssueAnalysis
         {
             try
             {
+                //non threaded way
+                //new CheckFile(issueService, file, this).Check(null);
                 ThreadPool.SetMaxThreads(8, 8);
                 ThreadPool.QueueUserWorkItem(new CheckFile(issueService, file, this).Check);
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
-                Debug.Assert(false, "Error queing issue service", ex.Message);
+                Debug.Assert(false, "Error queing issue service", err.Message);
             }
         }
 
@@ -270,9 +283,9 @@ namespace CodeIssueAnalysis
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
-                Debug.Assert(false, "Error adding code issues", ex.Message);
+                Debug.Assert(false, "Error adding code issues", err.Message);
             }
         }
 
@@ -282,9 +295,9 @@ namespace CodeIssueAnalysis
             {
                 CodeIssues.RemoveAll(new CodeIssueMatch(projectItem.get_FileNames(0)).FilePathMatch);
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
-                Debug.Assert(false, "Error removing code issues", ex.Message);
+                Debug.Assert(false, "Error removing code issues", err.Message);
             }
 
             OnResults(null);
@@ -310,14 +323,13 @@ namespace CodeIssueAnalysis
                             CheckIssues(file);
                         }
                         break;
-                    case RunType.NotRun:
                     default:
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
-                Debug.Assert(false, "Error adding code issues", ex.Message);
+                Debug.Assert(false, "Error adding code issues", err.Message);
             }
         }
 
@@ -332,9 +344,9 @@ namespace CodeIssueAnalysis
                         codeIssue.file = GetSourceFile(projectItem);
                 }
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
-                Debug.Assert(false, "Error renaming code issues", ex.Message);
+                Debug.Assert(false, "Error renaming code issues", err.Message);
             }
 
             OnResults(null);
