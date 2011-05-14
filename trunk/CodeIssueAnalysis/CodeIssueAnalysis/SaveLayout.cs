@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
 using System.IO;
-using System.Diagnostics;
 
 namespace CodeIssueAnalysis
 {
     public partial class SaveLayout : Form
     {
-        GridView view;
+        readonly GridView view;
         internal string saveName;
 
         public SaveLayout()
@@ -30,7 +23,7 @@ namespace CodeIssueAnalysis
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -39,16 +32,16 @@ namespace CodeIssueAnalysis
             {
                 if (txtName.Text.Length > 0)
                 {
-                    view.SaveLayoutToXml(CodeIssueOptions.GetLayoutPath() + Path.DirectorySeparatorChar + txtName.Text + ".xml");
+                    view.SaveLayoutToXml(String.Format("{0}{1}{2}.xml", CodeIssueOptions.GetLayoutPath(), Path.DirectorySeparatorChar, txtName.Text));
                     saveName = txtName.Text + ".xml";
-                    this.Close();
+                    Close();
                 }
                 else
                 {
                     MessageBox.Show("You must enter a layout name.", "Enter Layout Name");
                 }
             }
-            catch (Exception err)
+            catch
             {
                 MessageBox.Show("Failed to Save", "Saving Failed Possibly Access Privileges");
             }

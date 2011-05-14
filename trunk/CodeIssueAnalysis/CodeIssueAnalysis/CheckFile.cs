@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -14,9 +13,9 @@ namespace CodeIssueAnalysis
         const int MaxRangeTextLength = 30;
         const int MinRangeTextLength = 20;
 
-        IssueServices issueService;
-        SourceFile file;        
-        IssueProcessor issueProcessor;
+        readonly IssueServices issueService;
+        readonly SourceFile file;
+        readonly IssueProcessor issueProcessor;
 
         private string _FileText = String.Empty;
         public string FileText
@@ -39,6 +38,46 @@ namespace CodeIssueAnalysis
             }
         }
 
+        private void UpdateFileText()
+        {
+            //first attempt to get text through editor on failing resort to read from disk
+            try
+            {
+                string fileName = file.Name; // File path            
+
+                DevExpress.DXCore.TextBuffers.ITextBuffer buffer = CodeRush.TextBuffers[fileName];
+                if (buffer == null)
+                    buffer = CodeRush.TextBuffers.Open(fileName);
+
+                SourceRange rng = buffer.Range;
+                FileText = buffer.GetText(rng);
+            }
+            catch (Exception ex)
+            {
+                Debug.Assert(false, "Failed To Get File Text Attempt 1", ex.Message);
+                try
+                {
+                    //read file without locking
+                    using (FileStream fs = new FileStream(file.Name, FileMode.Open, FileAccess.Read))
+                    using (StreamReader sr = new StreamReader(fs))
+                    {
+                        FileText = sr.ReadToEnd();
+                        fs.Flush();
+
+                        if (sr != null)
+                            sr.Close();
+                        if (fs != null)
+                            fs.Close();
+                    }
+                }
+                catch (Exception err)
+                {
+                    Debug.Assert(false, "Failed To Get File Text Attempt 2", err.Message);
+                    FileText = String.Empty;
+                }
+            }
+        }
+
         internal CheckFile(IssueServices issueService, 
                             SourceFile file, 
                             IssueProcessor issueProcessor)
@@ -50,7 +89,6 @@ namespace CodeIssueAnalysis
 
         internal void Check(object state)
         {
-            
             //abort threads quickly if cancel pressed
             if (!issueProcessor.shutdown)
             {
@@ -60,14 +98,13 @@ namespace CodeIssueAnalysis
                     if (!IsExcluded())
                     {
                         try
-                        {
-                            // KaKTODO: 25.3.2011 (KaK) Take into account issueService.CalculationIsActive. 
+                        {                             
                             // On large project solution analysis take several minutes and you are processing collection which is constantly modified 
                             foreach (CodeIssue issue in issueService.CheckCodeIssues(file))
                             {
                                 try
                                 {
-                                    issueProcessor.AddCodeIssue(issue, file, GetFileTextRange(issue.Range));
+                                    issueProcessor.AddCodeIssue(issue, file, GetMessageText(issue.Range));
                                 }
                                 catch (Exception err)
                                 {
@@ -151,46 +188,12 @@ namespace CodeIssueAnalysis
             return false;
         }
 
-        private void UpdateFileText()
-        {
-            //first attempt to get text through editor on failing resort to read from disk
-            try
-            {
-                string fileName = file.Name; // File path            
-
-                DevExpress.DXCore.TextBuffers.ITextBuffer buffer = CodeRush.TextBuffers[fileName];
-                if (buffer == null)
-                    buffer = CodeRush.TextBuffers.Open(fileName);
-                  
-                SourceRange rng = buffer.Range;
-                FileText = buffer.GetText(rng);
-            }
-            catch
-            {
-                try
-                {
-                    //read file without locking
-                    using (FileStream fs = new FileStream(file.Name, FileMode.Open, FileAccess.Read))
-                    using (StreamReader sr = new StreamReader(fs))
-                    {
-                        FileText = sr.ReadToEnd();
-                        fs.Flush();
-                        
-                        if (sr != null)
-                            sr.Close();
-                        if (fs != null)
-                            fs.Close();
-                    }
-                }
-                catch (Exception err)
-                {
-                    Debug.Assert(false, "Failed To Get File Text", err.Message);
-                    FileText = String.Empty;
-                } 
-            }            
-        }
-
-        internal string GetFileTextRange(SourceRange range)
+        /// <summary>
+        /// Returns some text to show in the grid for the issue shorter than the full message
+        /// </summary>
+        /// <param name="range"></param>
+        /// <returns></returns>
+        internal string GetMessageText(SourceRange range)
         {
             try
             {
@@ -236,68 +239,5 @@ namespace CodeIssueAnalysis
                 return String.Empty;
             }
         }
-
-        /* regular expression way to get groups was slower than looping code currently used
-        private string TextRangeTest1(SourceRange range)
-        {
-            string content = "";
-            Match m = Regex.Match(FileText, "((" + Environment.NewLine + ").*?){" + (range.End.Line - 1) + "}");
-
-            if (m.Success)
-            {
-                int start = m.Groups[2].Captures[range.Start.Line - 2].Index + range.Start.Offset + 1;
-                int end = m.Groups[2].Captures[range.End.Line - 2].Index + range.End.Offset + 1;
-                content = FileText.Substring(start, end - start);
-            }
-            return content;
-        }*/
-
-        /* methods to read file text within environment 
-         * seem to get object refrence errors sometimes
-         * so done outside VS for now
-        private static string GetFileText(SourceFile fileNode)
-        {
-            try
-            {
-                string fileName = fileNode.Name; // File path            
-
-                DevExpress.DXCore.TextBuffers.ITextBuffer buffer = CodeRush.TextBuffers[fileName];
-                if (buffer == null)
-                    buffer = CodeRush.TextBuffers.Open(fileName);
-                if (buffer == null)
-                    return String.Empty;
-                
-                SourceRange rng = buffer.Range;
-                return buffer.GetText(rng);
-            } 
-            catch(Exception err)
-            {
-                Debug.Assert(false, "Failed Get File Text", err.Message);
-                return String.Empty;
-            }
-        }
-
-        private static string GetFileText(SourceFile fileNode, SourceRange range)
-        {
-            try
-            {
-                string fileName = fileNode.Name; // File path            
-
-                DevExpress.DXCore.TextBuffers.ITextBuffer buffer = CodeRush.TextBuffers[fileName];
-                if (buffer == null)
-                    buffer = CodeRush.TextBuffers.Open(fileName);
-                if (buffer == null)
-                    return String.Empty;
-                
-                string tmp = buffer.GetText(range);
-                return tmp.Length > 20 ? tmp.Substring(0, 20) : tmp;
-            }
-            catch(Exception err)
-            {
-                Debug.Assert(false, "Failed To Get File Text Range", err.Message);
-                return String.Empty;
-            }
-        }        
-        */
     }
 }

@@ -149,7 +149,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RefreshHelperClass.cs" />
+    <Compile Include="RefreshHelper.cs" />
     <Compile Include="RemoveLayout.cs">
       <SubType>Form</SubType>
     </Compile>

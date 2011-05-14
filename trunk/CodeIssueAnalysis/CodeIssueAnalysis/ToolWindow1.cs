@@ -1,6 +1,5 @@
 using System;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -18,7 +17,6 @@ namespace CodeIssueAnalysis
     [Title("Code Issue Analysis")]
     public partial class ToolWindow1 : ToolWindowPlugIn
     {
-        Stopwatch watch = new Stopwatch();
         IssueProcessor worker;
         int totalCount;
         RefreshHelper helper;
@@ -63,9 +61,9 @@ namespace CodeIssueAnalysis
         private void OnResults(object sender, EventArgs e)
         {
             //cross thread - so you don't get the cross theading exception
-            if (this.InvokeRequired)
+            if (InvokeRequired)
             {
-                this.BeginInvoke((MethodInvoker)delegate { OnResults(sender, e); });
+                BeginInvoke((MethodInvoker)delegate { OnResults(sender, e); });
                 return;
             }
 
@@ -85,15 +83,6 @@ namespace CodeIssueAnalysis
                 gridControl1.RefreshDataSource();
                 gridView1.BestFitColumns();
                 gridControl1.Refresh();
-
-                watch.Stop();
-                //MessageBox.Show("Ticks = " + watch.ElapsedTicks.ToString());
-                watch.Reset();
-            }
-            catch (Exception err)
-            {
-                //Collection enumeration issues can't fix
-                //MessageBox.Show(err.Message, "Invalid Op2");
             }
             finally
             {
@@ -103,31 +92,23 @@ namespace CodeIssueAnalysis
 
         private void OnProcessingFile(object sender, IssueProcessor.ProcessingArgs e)
         {
-            //cross thread - so you don't get the cross theading exception
-            if (this.InvokeRequired)
+            //cross thread
+            if (InvokeRequired)
             {
-                this.BeginInvoke((MethodInvoker)delegate { OnProcessingFile(sender, e); });
+                BeginInvoke((MethodInvoker)delegate { OnProcessingFile(sender, e); });
                 return;
             }
 
-            try
-            {
-                progressBar.Maximum = e.totalFiles;
-                progressBar.Value = e.processedFiles;
-            }
-            catch (Exception err)
-            {
-                //don't assert anymore as thread sync issue
-                //Debug.Assert(false, "Error Setting Progress Bar");
-            }
+            progressBar.Maximum = e.totalFiles;
+            progressBar.Value = e.processedFiles;           
         }
 
         private void OnError(object sender, IssueProcessor.ErrorArgs e)
         {
-            //cross thread - so you don't get the cross theading exception
-            if (this.InvokeRequired)
+            //cross thread
+            if (InvokeRequired)
             {
-                this.BeginInvoke((MethodInvoker)delegate { OnError(sender, e); });
+                BeginInvoke((MethodInvoker)delegate { OnError(sender, e); });
                 return;
             }
 
@@ -147,9 +128,9 @@ namespace CodeIssueAnalysis
                     IssueProcessor.GotoCode((SourceFile)gridView1.GetFocusedDataRow()["Source File"], (SourceRange)gridView1.GetFocusedDataRow()["Range"], locatorBeacon1);
                 }
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                MessageBox.Show(err.Message, "Error Going To Code");
+                MessageBox.Show(ex.Message, "Error Going To Code");
             }
         }
 
@@ -175,9 +156,9 @@ namespace CodeIssueAnalysis
                     e.TotalValue = totalCount;
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                Debug.Assert(false, "Error creating custom summaries");
+                MessageBox.Show(ex.Message, "Error Creating Custom Summaries");
             }
         }
 
@@ -201,6 +182,7 @@ namespace CodeIssueAnalysis
         {
             if (worker != null)
                 worker.shutdown = true;
+
             EndProcessing();
         }
 
@@ -227,7 +209,6 @@ namespace CodeIssueAnalysis
 
             foreach (CodeIssueFile issue in worker.CodeIssues)
             {
-                int tmp = issue.GetHashCode();
                 var values = new object[10];
                 values[0] = issue.codeIssue.Type.ToString();
                 values[1] = issue.codeIssue.Message;
@@ -287,7 +268,7 @@ namespace CodeIssueAnalysis
 
         public static Stream GetEmbeddedFile(string fileName)
         {
-            return Assembly.GetExecutingAssembly().GetManifestResourceStream(Assembly.GetExecutingAssembly().GetName().Name + "." + fileName);
+            return Assembly.GetExecutingAssembly().GetManifestResourceStream(String.Format("{0}.{1}", Assembly.GetExecutingAssembly().GetName().Name, fileName));
         }
 
         private void btnExportHTMLTable_Click(object sender, EventArgs e)
@@ -300,11 +281,11 @@ namespace CodeIssueAnalysis
             if (expand == DialogResult.Yes)
                 gridView1.ExpandAllGroups();
 
-            using (SaveFileDialog dlg = new SaveFileDialog())
+            using (SaveFileDialog dlg = new SaveFileDialog 
+            { 
+                Filter = "HTML (*.html)|*.html", CheckFileExists = false, 
+                InitialDirectory = CodeIssueOptions.GetLayoutPath() })
             {
-                dlg.Filter = "HTML (*.html)|*.html";
-                dlg.CheckFileExists = false;
-                dlg.InitialDirectory = CodeIssueOptions.GetLayoutPath();
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
@@ -312,9 +293,9 @@ namespace CodeIssueAnalysis
                     {
                         File.WriteAllText(dlg.FileName, new HTMLTableBuilder(gridView1).BuildHTMLTable("#E3EEFB"));
                     }
-                    catch (Exception err)
+                    catch (Exception ex)
                     {
-                        Debug.Assert(false, "Export Failed");
+                        MessageBox.Show(ex.Message, "Error Exporting File");
                     }
                 }
             }
