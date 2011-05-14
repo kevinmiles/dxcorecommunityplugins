@@ -4,9 +4,9 @@ namespace CodeIssueAnalysis
 {
     class CodeIssueMatch
     {
-        readonly SourceFile file;
-        readonly string filePath;
-        readonly EnvDTE.Project project;
+        SourceFile file;
+        string filePath;
+        EnvDTE.Project project;
 
         public CodeIssueMatch(SourceFile file)
         {
@@ -22,6 +22,11 @@ namespace CodeIssueAnalysis
         {
             this.project = project;
         }
+        /*
+        internal bool FileMatch(CodeIssueFile issue)
+        {
+            return issue.file == file ? true : false;
+        }*/
 
         internal bool FilePathMatch(CodeIssueFile issue)
         {

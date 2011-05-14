@@ -8,7 +8,7 @@ namespace CodeIssueAnalysis
 {
     class HTMLTableBuilder
     {
-        readonly GridView view;
+        GridView view;
         /// <summary>
         /// Initializes a new instance of the HTMLTableBuilder class.
         /// </summary>
@@ -56,7 +56,7 @@ namespace CodeIssueAnalysis
             foreach (GridColumn col in view.VisibleColumns)
             {
                 if (!view.GroupedColumns.Contains(col))
-                    table.Append(String.Format("<td>{0}</td>", gridRow.Field<object>(col.Caption)));
+                    table.Append("<td>" + gridRow.Field<object>(col.Caption).ToString() + "</td>");
             }
 
             table.AppendLine("</tr>");
@@ -65,30 +65,30 @@ namespace CodeIssueAnalysis
 
         private void BuildHTMLHeader(StringBuilder table, string colour)
         {
-            table.AppendLine(String.Format(@"<html><head>
-                                         <style type='text/css'>
-                                         body {{
-                                             font-family:Calibri, Verdana, Arial, Helvetica, sans-serif;
-                                             font-size:x-small;
-                                         }}
-                             
-                             			table,th, td
-                             			{{
-                                             border-collapse:collapse;
-                             				border: 1px solid {0};
-                             			}}
-                                         </style>
-                                         </head>
-                                         <body>
-                                         <table><tr>", colour));
+            table.AppendLine(@"<html><head>
+            <style type='text/css'>
+            body {
+                font-family:Calibri, Verdana, Arial, Helvetica, sans-serif;
+                font-size:x-small;
+            }
+
+			table,th, td
+			{
+                border-collapse:collapse;
+				border: 1px solid " + colour + @";
+			}
+            </style>
+            </head>
+            <body>
+            <table><tr>");
 
             for (int i = 0; i < view.GroupedColumns.Count; i++)
-                table.AppendLine(String.Format("<td bgcolor='{0}'>&nbsp;&nbsp;&nbsp;</td>", colour));
+                table.AppendLine("<td bgcolor='" + colour + "'>&nbsp;&nbsp;&nbsp;</td>");
 
             foreach (GridColumn col in view.VisibleColumns)
             {
                 if (!view.GroupedColumns.Contains(col))
-                    table.AppendLine(String.Format("<td bgcolor='{0}'><strong>{1}</strong></td>", colour, col.Caption));
+                    table.AppendLine("<td bgcolor='" + colour + "'><strong>" + col.Caption + "</strong></td>");
             }
 
             table.AppendLine("</tr>");

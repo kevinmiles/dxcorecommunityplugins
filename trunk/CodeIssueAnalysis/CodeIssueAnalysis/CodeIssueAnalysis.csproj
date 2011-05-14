@@ -37,7 +37,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>C:\Users\k\Documents\DevExpress\IDE Tools\Community\PlugIns\</OutputPath>
+    <OutputPath>..\..\..\..\Users\Pete\Documents\DevExpress\IDE Tools\Community\PlugIns\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -149,7 +149,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RefreshHelper.cs" />
+    <Compile Include="RefreshHelperClass.cs" />
     <Compile Include="RemoveLayout.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using DevExpress.CodeRush.Core;
 using System.Windows.Forms;
+using System.Diagnostics;
 using System.IO;
 using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
+using DevExpress.DXCore.Controls;
 
 namespace CodeIssueAnalysis
 {
@@ -39,8 +41,7 @@ namespace CodeIssueAnalysis
 
         internal static string GetLayoutPath()
         {
-            return String.Format("{0}{1}CodeIssueAnalysisLayouts", 
-                new DevExpress.CodeRush.Common.DXCorePaths().CommunityPlugInsPath, Path.DirectorySeparatorChar);
+            return new DevExpress.CodeRush.Common.DXCorePaths().CommunityPlugInsPath + Path.DirectorySeparatorChar + "CodeIssueAnalysisLayouts";
         }
 
         internal static void SetupSettingsLists()
@@ -82,7 +83,7 @@ namespace CodeIssueAnalysis
                     layoutList.SelectedItem = AllString;
                 }
             }
-            catch
+            catch (Exception err)
             {
                 MessageBox.Show("Update Layout List Failed", "Failed to update the layout list");
             }
@@ -94,7 +95,7 @@ namespace CodeIssueAnalysis
             {
                 view.RestoreLayoutFromXml(GetLayoutPath() + Path.DirectorySeparatorChar + name);
             }
-            catch
+            catch (Exception err)
             {
                 MessageBox.Show("Load Layout Failed", "Failed to load the layout");
             }
