@@ -18,7 +18,6 @@ namespace CR_StyleCop.TestCode
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "This is about SA1624 rule")]
         private bool booleanReadOnlyProperty;
 
-        // BUGBUG: Redundant SA1623
         /// <summary>
         /// Gets or sets a value indicating whether read only boolean value is true.
         /// </summary>
@@ -40,7 +39,6 @@ namespace CR_StyleCop.TestCode
         /// </summary>
         public int Index { get; private set; }
 
-        // BUGBUG: Redundant SA1623
         /// <summary>
         /// Gets or sets a value indicating whether it is good comment.
         /// </summary>

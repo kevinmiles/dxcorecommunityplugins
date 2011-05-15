@@ -10,8 +10,6 @@ namespace CR_StyleCop.TestCode
     /// </summary>
     public partial class SA1607TestCode
     {
-        // BUGBUG: SA1606 is reported instead of SA1607
-
         /// <summary>
         /// </summary>
         partial void Method();
