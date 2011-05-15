@@ -12,8 +12,6 @@ namespace CR_StyleCop.TestCode
     /// <typeparam name="T">Test code for SA1625 rule - documentation text must not be the same for two tags.</typeparam>
     public class SA1625TestCode<T>
     {
-        // BUGBUG: SA1625 not reported for fields.
-
         /// <summary>
         /// Duplicated text.
         /// </summary>
@@ -37,8 +35,6 @@ namespace CR_StyleCop.TestCode
             this.Something = something;
         }
 
-        // BUGBUG: SA1625 not reported for destructors.
-        
         /// <summary>
         /// Finalizes an instance of the <see cref="SA1625TestCode{T}"/> class.
         /// </summary>
@@ -54,8 +50,6 @@ namespace CR_StyleCop.TestCode
         /// <param name="ea">Duplicated text.</param>
         public delegate void MyDelegate(object sender, EventArgs ea);
 
-        // BUGBUG: SA1625 not reported for events.
-        
         /// <summary>
         /// Duplicated text.
         /// </summary>
@@ -69,8 +63,6 @@ namespace CR_StyleCop.TestCode
         public interface IInnerInterface<TI>
         {
         }
-
-        // BUGBUG: SA1625 not reported for properties.
 
         /// <summary>
         /// Gets or sets something.

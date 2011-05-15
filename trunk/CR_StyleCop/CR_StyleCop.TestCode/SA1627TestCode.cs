@@ -6,7 +6,6 @@ namespace CR_StyleCop.TestCode
 {
     using System;
 
-    // BUGBUG: SA1627 is not reported at all.
     /// <summary>
     /// Test code for SA1627 - documentation text must not be empty.
     /// </summary>

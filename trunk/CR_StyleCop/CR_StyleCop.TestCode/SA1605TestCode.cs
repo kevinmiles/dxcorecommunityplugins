@@ -9,8 +9,6 @@ namespace CR_StyleCop.TestCode
     /// <typeparam name="T">Generic parameter.</typeparam>
     public partial class SA1605TestCode<T>
     {
-        // BUGBUG: SA1604 is reported instead of SA1605
-
         /// <param name="paramName">The parameter for method.</param>
         partial void Method(int paramName);
     }
