@@ -1,11 +1,14 @@
 ﻿// <copyright file="SA1629TestCode.cs" company="ACME">
 //     Copyright (c) 2011. All rights reserved.
 // </copyright>
+// <summary>Summary for the file</summary>
 
 namespace CR_StyleCop.TestCode
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+
+#pragma warning disable 67
 
     /// <summary>
     /// Test code for SA1629 rule - documentation text must end with period

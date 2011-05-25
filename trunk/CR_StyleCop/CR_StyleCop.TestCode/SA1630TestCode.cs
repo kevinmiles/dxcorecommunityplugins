@@ -1,11 +1,14 @@
 ﻿// <copyright file="SA1630TestCode.cs" company="ACME">
 //     Copyright (c) 2011. All rights reserved.
 // </copyright>
+// <summary>Summary for the file</summary>
 
 namespace CR_StyleCop.TestCode
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+
+#pragma warning disable 67
 
     /// <summary>
     /// Test_code_for_SA1630_rule_-_documentation_text_must_contain_space.
