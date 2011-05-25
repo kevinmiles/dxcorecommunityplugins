@@ -1,11 +1,14 @@
 ﻿// <copyright file="SA1628TestCode.cs" company="ACME">
 //     Copyright (c) 2011. All rights reserved.
 // </copyright>
+// <summary>Summary for the file</summary>
 
 namespace CR_StyleCop.TestCode
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+
+#pragma warning disable 67
 
     /// <summary>
     /// test code for SA1628 rule - documentation text must start with capital letter.

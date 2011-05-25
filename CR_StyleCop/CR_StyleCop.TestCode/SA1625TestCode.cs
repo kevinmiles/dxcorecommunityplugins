@@ -1,10 +1,13 @@
 ﻿// <copyright file="SA1625TestCode.cs" company="ACME">
 //     Copyright (c) 2011. All rights reserved.
 // </copyright>
+// <summary>Summary for the file</summary>
 
 namespace CR_StyleCop.TestCode
 {
     using System;
+
+#pragma warning disable 67
 
     /// <summary>
     /// Test code for SA1625 rule - documentation text must not be the same for two tags.
@@ -109,8 +112,9 @@ namespace CR_StyleCop.TestCode
         /// </summary>
         /// <param name="firstName">The parameter is not used.</param>
         /// <param name="lastName">The parameter is not used.</param>
+        /// <param name="notUsed">The parameter is not used.</param>
         /// <returns>The joined names.</returns>
-        public string JoinNames(string firstName, string lastName)
+        public string JoinNames(string firstName, string lastName, string notUsed)
         {
             return "Something";
         }
@@ -121,7 +125,7 @@ namespace CR_StyleCop.TestCode
         /// <param name="firstName">Duplicated text.</param>
         /// <param name="lastName">Part of the name.</param>
         /// <returns>The joined names.</returns>
-        public string JoinNames(string firstName, string lastName)
+        public string JoinNames2(string firstName, string lastName)
         {
             return firstName + " " + lastName;
         }

@@ -1,14 +1,17 @@
 ﻿// <copyright file="SA1631TestCode.cs" company="ACME">
 //     Copyright (c) 2011. All rights reserved.
 // </copyright>
+// <summary>Summary for the file</summary>
 
 namespace CR_StyleCop.TestCode
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
 
+#pragma warning disable 67
+
     /// <summary>
-    /// Test code for SA1630 rule - documentation text must contain space..######################################################################################################################################################################################.
+    /// Test code for SA1631 rule - documentation text must contain enough letters.######################################################################################################################################################################################.
     /// </summary>
     /// <typeparam name="T">Description of type#######################################################################################################################################################################################.</typeparam>
     /// <exception cref="NullReferenceException">Exception condition#######################################################################################################################################################################################.</exception>

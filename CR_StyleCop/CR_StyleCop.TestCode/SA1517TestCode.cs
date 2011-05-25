@@ -2,6 +2,7 @@
 // <copyright file="SA1517TestCode.cs" company="ACME">
 //     Copyright (c) 2011. All rights reserved.
 // </copyright>
+// <summary>Summary for the file</summary>
 
 namespace CR_StyleCop.TestCode
 {
