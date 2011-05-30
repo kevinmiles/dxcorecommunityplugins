@@ -9,6 +9,7 @@ namespace CR_StyleCop.TestCode
     using System.Diagnostics.CodeAnalysis;
 
 #pragma warning disable 414
+#pragma warning disable 1591
 
     /// <summary>
     /// Test code for SA1304 rule - non private readonly fields must be upper cased.

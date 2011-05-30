@@ -7,6 +7,8 @@ namespace CR_StyleCop.TestCode
 {
     using System;
 
+#pragma warning disable 1570
+
     /// <summary>
     /// Test code for SA1603 rule - xml doc comment must be valid xml.
     /// <summary>

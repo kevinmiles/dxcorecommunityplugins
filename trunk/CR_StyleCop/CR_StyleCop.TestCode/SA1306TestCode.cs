@@ -11,6 +11,7 @@ namespace CR_StyleCop.TestCode
 #pragma warning disable 169
 #pragma warning disable 414
 #pragma warning disable 649
+#pragma warning disable 1591
 
     /// <summary>
     /// Test code for SA1306 rule - field names must begin with lower case.

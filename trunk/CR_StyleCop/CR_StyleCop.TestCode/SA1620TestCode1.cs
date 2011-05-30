@@ -7,6 +7,8 @@ namespace CR_StyleCop.TestCode
 {
     using System;
 
+#pragma warning disable 1711
+
     /// <summary>
     /// Test code for SA1620 rule - comments must match generic parameter list.
     /// </summary>

@@ -8,6 +8,8 @@ namespace CR_StyleCop.TestCode
     using System;
     using System.Diagnostics.CodeAnalysis;
 
+#pragma warning disable 1591
+
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1307 rule.")]
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "*", Justification = "This is about SA1307 rule.")]
     [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1303:ConstFieldNamesMustBeginWithUpperCaseLetter", Justification = "This is about SA1307 rule.")]

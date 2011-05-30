@@ -7,6 +7,8 @@ namespace CR_StyleCop.TestCode
 {
     using System;
 
+#pragma warning disable 1591
+
     /// <summary>
     /// Test code for SA1602 rule - enum values must be documented.
     /// </summary>

@@ -9,6 +9,7 @@ namespace CR_StyleCop.testCode
     using System.Diagnostics.CodeAnalysis;
 
 #pragma warning disable 67
+#pragma warning disable 1591
 
     /// <summary>
     /// Test code for SA1300 rule - elements' names must begin with uppercase letter.

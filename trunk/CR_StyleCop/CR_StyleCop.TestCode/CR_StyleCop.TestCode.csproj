@@ -22,6 +22,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Debug\CR_StyleCop.TestCode.XML</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -174,6 +176,12 @@
     <Compile Include="SA1642TestCode.cs" />
     <Compile Include="SA1643TestCode.cs" />
     <Compile Include="SA1644TestCode.cs" />
+    <Compile Include="SA1645TestCode.cs" />
+    <Compile Include="SA1646TestCode.cs" />
+    <Compile Include="SA1647TestCode.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\CR_StyleCop.TestCode.XML" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
