@@ -1,0 +1,2347 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CR_StyleCop.TestCode</name>
+    </assembly>
+    <members>
+        <member name="T:CR_StyleCop.TestCode.SA1644TestCode`1">
+            <summary>
+            Test code for SA1644 rule - documentation should not contain blank lines.
+            </summary>
+            <typeparam name="T">Description of type.</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <c>
+            namespace xxx
+            {
+            
+            }
+            </c>
+            <code>
+            namespace xxx
+            {
+            
+            }
+            </code>
+            </example>
+        </member>
+        <member name="F:CR_StyleCop.TestCode.SA1644TestCode`1.InvalidField">
+            <summary>
+            No capital letter...
+            </summary>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //
+            </code>
+            </example>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1644TestCode`1.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SA1644TestCode"/> class..
+            </summary>
+            <param name="parameter">Input parameter for method.</param>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //
+            </code>
+            </example>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1644TestCode`1.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:SA1644TestCode"/> class..
+            </summary>
+            <remarks>Some remarks to destructor.</remarks>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1644TestCode`1.Method``1(System.Int32)">
+            <summary>
+            Description of method...
+            </summary>
+            <typeparam name="TT">Generic parameter for method.</typeparam>
+            <param name="parameter">Input parameter for method.</param>
+            <returns>Something not useful at all.</returns>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //
+            </code>
+            </example>
+        </member>
+        <member name="E:CR_StyleCop.TestCode.SA1644TestCode`1.EventName">
+            <summary>
+            This event is never fired...
+            </summary>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //
+            </code>
+            </example>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1644TestCode`1.Property">
+            <summary>
+            Gets or sets some integer...
+            </summary>
+            <value>The integer.</value>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //
+            </code>
+            </example>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1644TestCode`1.Item(System.Int32)">
+            <summary>
+            Summary for indexer...
+            </summary>
+            <param name="index">Index parameter is ignored.</param>
+            <returns>Magic number of 42.</returns>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1644TestCode`1.MyEventHandler`1">
+            <summary>
+            Summary for delegate...
+            </summary>
+            <typeparam name="TD">Generic parameter for delegate.</typeparam>
+            <param name="ea">Argument for delegate.</param>
+            <returns>Something not useful at all.</returns>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1644TestCode`1.IMyInterface`1">
+            <summary>
+            Summary for interface...
+            </summary>
+            <typeparam name="TI">Generic parameter for interface.</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to interface.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1644TestCode`1.MyStruct`1">
+            <summary>
+            Summary for struct...
+            </summary>
+            <typeparam name="TS">Generic parameter for struct.</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to struct.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1614TestCode">
+            <summary>
+            Test code for SA1614 rule - parameter documentation must be filled with text.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1614TestCode.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CR_StyleCop.TestCode.SA1614TestCode"/> class.
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1614TestCode.MethodName(System.String)">
+            <summary>
+            Some method.
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1614TestCode.Item(System.Int32)">
+            <summary>
+            Some indexer.
+            </summary>
+            <returns>The value 42.</returns>
+            <param name="parameter"></param>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1614TestCode.MyDelegate">
+            <summary>
+            Some delegate.
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1509TestCode">
+            <summary>
+            Test code for SA1509 rule - opening curly bracket must not be preceded by blank line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1409TestCode">
+            <summary>
+            Test code for SA1409 rule - report redundant code.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1402TestCode">
+            <summary>
+            Test code for SA1402 rule - file can have only one class.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1402Violation">
+            <summary>
+            Test code for SA1402 rule - file can have only one class.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1106TestCode">
+            <summary>
+            Test code for SA1106 rule - code must not contain empty statements.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1639TestCode">
+            <summary>
+            Test code for SA1639 rule - file header must have summary tag.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1623TestCode">
+            <summary>
+            Test code for SA623 rule - property documentation must match accessors.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.ReadOnlyProperty">
+            <summary>
+            Gets read only property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.ReadOnlyProperty2">
+            <summary>
+            Sets read only property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.WriteOnlyProperty">
+            <summary>
+            Gets write only property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.WriteOnlyProperty2">
+            <summary>
+            Sets write only property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.WriteOnlyProperty3">
+            <summary>
+            Gets or sets write only property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.BooleanReadOnlyProperty">
+            <summary>
+            Gets a value indicating whether read only boolean property is true.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.BooleanReadOnlyProperty2">
+            <summary>
+            Sets a value indicating whether read only boolean property is true.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.BooleanWriteOnlyProperty">
+            <summary>
+            Gets a value indicating whether write only boolean property is true.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.BooleanWriteOnlyProperty2">
+            <summary>
+            Sets a value indicating whether write only boolean property is true.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.BooleanWriteOnlyProperty3">
+            <summary>
+            Gets or sets a value indicating whether write only boolean property is true.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.RegularProperty">
+            <summary>
+            Gets regular property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.RegularProperty2">
+            <summary>
+            Sets regular property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.RegularProperty3">
+            <summary>
+            Gets or sets regular property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.RegularProperty4">
+            <summary>
+            Gets regular property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.RegularProperty5">
+            <summary>
+            Sets regular property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.RegularProperty7">
+            <summary>
+            Gets regular property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.RegularProperty8">
+            <summary>
+            Sets regular property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.RegularProperty9">
+            <summary>
+            Gets or sets regular property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.BoolProperty">
+            <summary>
+            Gets a value indicating whether it is good comment.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.BoolProperty2">
+            <summary>
+            Sets a value indicating whether it is good comment.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.BoolProperty3">
+            <summary>
+            Gets or sets a value indicating whether it is good comment.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.BoolProperty4">
+            <summary>
+            Gets a value indicating whether it is good comment.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.BoolProperty5">
+            <summary>
+            Sets a value indicating whether it is good comment.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.BoolProperty7">
+            <summary>
+            Gets a value indicating whether it is good comment.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.BoolProperty8">
+            <summary>
+            Sets a value indicating whether it is good comment.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1623TestCode.BoolProperty9">
+            <summary>
+            Gets or sets a value indicating whether it is good comment.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1609TestCode">
+            <summary>
+            Test code for SA1609 rule - property documentation must have value tag.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1609TestCode.PropertyName">
+            <summary>
+            Gets or sets something.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1609TestCode.PropertyName2">
+            <summary>
+            Gets or sets something else.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1609TestCode.PropertyName3">
+            <summary>
+            Gets anything.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1609TestCode.PropertyName4">
+            <summary>
+            Sets anything.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1609TestCode.PropertyNameX">
+            <summary>
+            Gets or sets internal property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1609TestCode.PropertyNameZ">
+            <summary>
+            Gets or sets protected property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1609TestCode.PropertyNameY">
+            <summary>
+            Gets or sets protected property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1609TestCode.PropertyNameZZ">
+            <summary>
+            Gets or sets private property.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1518TestCode">
+            <summary>
+            Test code for SA1518 rule - blank lines at the end of file are bad.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1502TestCode">
+            <summary>
+            Test code for SA1502 rule - elements with curly brackets must not be on single line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1411TestCode">
+            <summary>
+            Test code for SA1411 rule - redundant parens from attributes.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1306TestCode">
+            <summary>
+            Test code for SA1306 rule - field names must begin with lower case.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1206TestCode">
+            <summary>
+            Test code for SA1206 rule - declaration keywords must be ordered correctly.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1201TestCode2">
+            <summary>
+            Test code for SA1201 rule - class elements must be ordered correctly.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1115TestCode">
+            <summary>
+            Test code for SA1115 rule - parameter must be on the same or on the next line as previous parameter.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1641TestCode">
+            <summary>
+            Test code for SA1641 rule - company name in file header must match specified one.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1618TestCode`1">
+            <summary>
+            Test code for SA1618 rule - generic parameters must be documented.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1618TestCode`1.MethodName``1">
+            <summary>
+            Some method.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1611TestCode">
+            <summary>
+            Test code for SA1611 rule - parameters must be documented.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1611TestCode.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CR_StyleCop.TestCode.SA1611TestCode"/> class.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1611TestCode.MethodName(System.String)">
+            <summary>
+            Some method.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1611TestCode.Item(System.Int32)">
+            <summary>
+            Some indexer.
+            </summary>
+            <returns>The value 42.</returns>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1611TestCode.MyDelegate">
+            <summary>
+            Some delegate.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1602TestCode">
+            <summary>
+            Test code for SA1602 rule - enum values must be documented.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1511TestCode">
+            <summary>
+            Test code for SA1511 rule - do while must not be separated by blank line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1406TestCode">
+            <summary>
+            Test code for SA1406 rule - Debug.Fail must provide message.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1124TestCode">
+            <summary>
+            Test code for SA1124 rule - do not use regions at all.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1103TestCode">
+            <summary>
+            Test code for SA1103 rule - query clauses must be on separate lines or on single line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1632TestCode`1">
+            <summary>
+            Test code for SA1632 rule - documentation text cannot be too short.
+            </summary>
+            <typeparam name="T">A.</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="F:CR_StyleCop.TestCode.SA1632TestCode`1.InvalidField">
+            <summary>
+            No capital letter...
+            </summary>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1632TestCode`1.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SA1632TestCode"/> class..
+            </summary>
+            <param name="parameter">Input parameter for method.</param>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1632TestCode`1.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:SA1632TestCode"/> class..
+            </summary>
+            <remarks>Some remarks to destructor.</remarks>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1632TestCode`1.Method``1(System.Int32)">
+            <summary>
+            Description of method...
+            </summary>
+            <typeparam name="TT">Generic parameter for method.</typeparam>
+            <param name="parameter">Input parameter for method.</param>
+            <returns>Something not useful at all.</returns>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="E:CR_StyleCop.TestCode.SA1632TestCode`1.EventName">
+            <summary>
+            This event is never fired...
+            </summary>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1632TestCode`1.Property">
+            <summary>
+            Gets or sets some integer...
+            </summary>
+            <value>The integer.</value>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1632TestCode`1.Item(System.Int32)">
+            <summary>
+            Summary for indexer...
+            </summary>
+            <param name="index">Index parameter is ignored.</param>
+            <returns>Magic number of 42.</returns>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1632TestCode`1.MyEventHandler`1">
+            <summary>
+            Summary for delegate...
+            </summary>
+            <typeparam name="TD">Generic parameter for delegate.</typeparam>
+            <param name="ea">Argument for delegate.</param>
+            <returns>Something not useful at all.</returns>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1632TestCode`1.IMyInterface`1">
+            <summary>
+            Summary for interface...
+            </summary>
+            <typeparam name="TI">Generic parameter for interface.</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to interface.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1632TestCode`1.MyStruct`1">
+            <summary>
+            Summary for struct...
+            </summary>
+            <typeparam name="TS">Generic parameter for struct.</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission.</permission>
+            <remarks>Some remarks to struct.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1627TestCode">
+            <summary>
+            Test code for SA1627 - documentation text must not be empty.
+            </summary>
+            <remarks></remarks>
+            <example></example>
+            <exception cref="T:System.NullReferenceException"></exception>
+            <permission cref="T:System.Security.PermissionSet"></permission>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1627TestCode.MethodName">
+            <summary>
+            Some method.
+            </summary>
+            <remarks></remarks>
+            <example></example>
+            <exception cref="T:System.NullReferenceException"></exception>
+            <permission cref="T:System.Security.PermissionSet"></permission>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1506TestCode">
+            <summary>
+            Test code for SA1506 rule - xml doc comments must not be followed by blank line.
+            </summary>
+        </member>
+        <member name="F:CR_StyleCop.TestCode.SA1506TestCode.Field">
+            <summary>
+            Nothing important.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1506TestCode.MethodName">
+            <summary>
+            Does nothing.
+            </summary>
+        </member>
+        <member name="E:CR_StyleCop.TestCode.SA1506TestCode.EventName">
+            <summary>
+            Occurs never.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1506TestCode.PropertyName">
+            <summary>
+            Gets or sets something.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1506TestCode.StringProperty">
+            <summary>
+            Gets or sets something else.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1203TestCode">
+            <summary>
+            Test code for SA1203 rule - const and readonly fields must come first.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1119TestCode">
+            <summary>
+            Test code for SA1119 rule - line has redundant parenthesis.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1119TestCode.Method">
+            <summary>
+            Some method documentation.
+            </summary>
+            <returns>Something returned.</returns>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1119TestCode.Yielder">
+            <summary>
+            This should also report SA1119.
+            </summary>
+            <returns>The number of 13.</returns>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1119TestCode.ValidParenthesis">
+            <summary>
+            Statements below should not report SA1119 violations.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1112TestCode">
+            <summary>
+            Test code for SA1112 rule - closing paren must be on the same line as opening paren when there are no parameters.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1636TestCode">
+            <summary>
+            Test code for SA1636 rule - file header's copyright must match to specified one.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1606TestCode">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1606TestCode.MethodName">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1606TestCode.PropertyName">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1515TestCode">
+            <summary>
+            Test code for SA1515 rule - single line comments must be preceded by blank line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1303TestCode">
+            <summary>
+            Test code for SA1303 rule - const must be upper cased.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1212TestCode">
+            <summary>
+            Test code for SA1212 rule - getter must come before setter.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1121TestCode">
+            <summary>
+            Test code for SA1121 rule - always use type alias.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1615TestCode">
+            <summary>
+            Test code for SA1615 rule - return value must be documented.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1615TestCode.MethodName(System.String)">
+            <summary>
+            Some method.
+            </summary>
+            <param name="parameter">Some parameter.</param>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1615TestCode.Item(System.Int32)">
+            <summary>
+            Some indexer.
+            </summary>
+            <param name="parameter">Some parameter.</param>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1615TestCode.MyDelegate">
+            <summary>
+            Some delegate.
+            </summary>
+            <param name="parameter">Some parameter.</param>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1403TestCode">
+            <summary>
+            Test code for SA1403 rule - file can have only one namespace declaration.
+            </summary>
+            <summary>
+            Test code for SA1403 rule - file can have only one namespace declaration.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1207TestCode">
+            <summary>
+            Test code for SA1207 rule - protected must come before internal.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1100TestCode">
+            <summary>
+            Test code for SA1100 rule - don't use base prefix unnecessary.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1633TestCode">
+            <summary>
+            Test code for SA1633 rule - file must have header.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1624TestCode">
+            <summary>
+            Test code for SA1624 rule - restricted setters must be omitted from documentation text.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1624TestCode.BooleanReadOnlyProperty">
+            <summary>
+            Gets or sets a value indicating whether read only boolean value is true.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1624TestCode.ReadOnlyProperty">
+            <summary>
+            Gets or sets read only property.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1624TestCode.Index">
+            <summary>
+            Gets or sets index.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1624TestCode.BoolProperty">
+            <summary>
+            Gets or sets a value indicating whether it is good comment.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:CR_StyleCop.TestCode.SA1603TestCode" -->
+        <!-- Badly formed XML comment ignored for member "P:CR_StyleCop.TestCode.SA1603TestCode.PropertyName" -->
+        <!-- Badly formed XML comment ignored for member "P:CR_StyleCop.TestCode.SA1603TestCode.PropertyName2" -->
+        <member name="T:CR_StyleCop.TestCode.SA1512TestCode">
+            <summary>
+            Test code for SA1512 rule - Single line comments must not be followed by blank line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1503TestCode">
+            <summary>
+            Test code for SA1503 rule - curly brackets must not be omitted.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1200TestCode">
+            <summary>
+            Test code for SA1200 rule - using directives must be inside name space.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1125TestCode">
+            <summary>
+            Test code for SA1125 rule - use shorthand for nullable types.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1116TestCode">
+            <summary>
+            Test code for SA1116 rule - split parameters must begin on line after declaration.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1642TestCode">
+            <summary>
+            Test code for SA1642 rule - ctor comment must start with standard text.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1642TestCode.#ctor">
+            <summary>
+            Blah Initializes a new instance of the SA1642TestCode class.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1619TestCode`1">
+            <summary>
+            Test code for SA1619 rule - generic parameters must be documented for partial classes.
+            </summary>
+            <content>
+            Content description.
+            </content>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1619TestCode`1.Method``1">
+            <summary>
+            Implementation of method.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1612TestCode">
+            <summary>
+            Test code for SA1612 rule - comments must match parameters list.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1612TestCode.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CR_StyleCop.TestCode.SA1612TestCode"/> class.
+            </summary>
+            <param name="parameter2">Not existing parameter.</param>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1612TestCode.#ctor(System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CR_StyleCop.TestCode.SA1612TestCode"/> class.
+            </summary>
+            <param name="intParameter">Should be second.</param>
+            <param name="parameter">Should be first.</param>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1612TestCode.MethodName(System.String)">
+            <summary>
+            Some method.
+            </summary>
+            <param name="parameter2">Not existing parameter.</param>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1612TestCode.MethodName(System.String,System.Int32)">
+            <summary>
+            Some method.
+            </summary>
+            <param name="intParameter">Should be second.</param>
+            <param name="parameter">Should be first.</param>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1612TestCode.Item(System.Int32)">
+            <summary>
+            Some indexer.
+            </summary>
+            <param name="parameter2">Not existing parameter.</param>
+            <returns>The value 42.</returns>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1612TestCode.Item(System.Int32,System.Int32)">
+            <summary>
+            Some indexer.
+            </summary>
+            <param name="intParameter">Should be second.</param>
+            <param name="parameter">Should be first.</param>
+            <returns>The value 42.</returns>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1612TestCode.MyDelegate">
+            <summary>
+            Some delegate.
+            </summary>
+            <param name="parameter2">Not existing parameter.</param>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1612TestCode.MyDelegate2">
+            <summary>
+            Some delegate.
+            </summary>
+            <param name="intParameter">Should be second.</param>
+            <param name="parameter">Should be first.</param>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1407TestCode">
+            <summary>
+            Test code for SA1407 rule - arithmetic expressions must declare precedence.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1400TestCode">
+            <summary>
+            Test code for SA1400 rule - elements should have access modifier.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.testCode.SA1300TestCode">
+            <summary>
+            Test code for SA1300 rule - elements' names must begin with uppercase letter.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1104TestCode">
+            <summary>
+            Test code for SA1104 rule - query clause must be on new line when previous clause spans multiple lines.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1628TestCode`1">
+            <summary>
+            test code for SA1628 rule - documentation text must start with capital letter.
+            </summary>
+            <typeparam name="T">description of type.</typeparam>
+            <exception cref="T:System.NullReferenceException">exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">description of permission.</permission>
+            <remarks>some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="F:CR_StyleCop.TestCode.SA1628TestCode`1.InvalidField">
+            <summary>
+            no capital letter.
+            </summary>
+            <permission cref="T:System.Security.PermissionSet">description of permission.</permission>
+            <remarks>some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1628TestCode`1.#ctor(System.Int32)">
+            <summary>
+            initializes a new instance of the <see cref="T:SA1628TestCode"/> class.
+            </summary>
+            <param name="parameter">input parameter for method.</param>
+            <exception cref="T:System.NullReferenceException">exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">description of permission.</permission>
+            <remarks>some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1628TestCode`1.Finalize">
+            <summary>
+            finalizes an instance of the <see cref="T:SA1628TestCode"/> class.
+            </summary>
+            <remarks>some remarks to destructor.</remarks>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1628TestCode`1.Method``1(System.Int32)">
+            <summary>
+            description of method.
+            </summary>
+            <typeparam name="TT">generic parameter for method.</typeparam>
+            <param name="parameter">input parameter for method.</param>
+            <returns>something not useful at all.</returns>
+            <exception cref="T:System.NullReferenceException">exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">description of permission.</permission>
+            <remarks>some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="E:CR_StyleCop.TestCode.SA1628TestCode`1.EventName">
+            <summary>
+            this event is never fired.
+            </summary>
+            <permission cref="T:System.Security.PermissionSet">description of permission.</permission>
+            <remarks>some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1628TestCode`1.Property">
+            <summary>
+            gets or sets some integer.
+            </summary>
+            <value>the integer.</value>
+            <exception cref="T:System.NullReferenceException">exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">description of permission.</permission>
+            <remarks>some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1628TestCode`1.Item(System.Int32)">
+            <summary>
+            summary for indexer.
+            </summary>
+            <param name="index">index parameter is ignored.</param>
+            <returns>magic number of 42.</returns>
+            <exception cref="T:System.NullReferenceException">exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">description of permission.</permission>
+            <remarks>some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1628TestCode`1.MyEventHandler`1">
+            <summary>
+            summary for delegate.
+            </summary>
+            <typeparam name="TD">generic parameter for delegate.</typeparam>
+            <param name="ea">argument for delegate.</param>
+            <returns>something not useful at all.</returns>
+            <exception cref="T:System.NullReferenceException">exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">description of permission.</permission>
+            <remarks>some remarks to class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1628TestCode`1.IMyInterface`1">
+            <summary>
+            summary for interface.
+            </summary>
+            <typeparam name="TI">generic parameter for interface.</typeparam>
+            <exception cref="T:System.NullReferenceException">exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">description of permission.</permission>
+            <remarks>some remarks to interface.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1628TestCode`1.MyStruct`1">
+            <summary>
+            summary for struct.
+            </summary>
+            <typeparam name="TS">generic parameter for struct.</typeparam>
+            <exception cref="T:System.NullReferenceException">exception condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">description of permission.</permission>
+            <remarks>some remarks to struct.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1621TestCode`1">
+            <summary>
+            Test code for SA1621 rule - typeparam tag must specify parameter name.
+            </summary>
+            <typeparam>Generic parameter.</typeparam>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1621TestCode`1.MethodName``1">
+            <summary>
+            Some method.
+            </summary>
+            <typeparam>Generic parameter.</typeparam>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1507TestCode">
+            <summary>
+            Test code for SA1507 rule - multiple blank lines are bad.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1500TestCode">
+            <summary>
+            Test code for SA1500 rule - curly brackets must be on own line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1204TestCode">
+            <summary>
+            Test code for SA1204 rule - static members must come first.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1113TestCode">
+            <summary>
+            Test code for SA1113 rule - comma must follow previous parameter.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1637TestCode">
+            <summary>
+            Test code for SA1637 rule - copyright tag must have filename attribute.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1630TestCode`1">
+            <summary>
+            Test_code_for_SA1630_rule_-_documentation_text_must_contain_space.
+            </summary>
+            <typeparam name="T">Description_of_type.</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception_condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description_of_permission.</permission>
+            <remarks>Some_remarks_to_class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="F:CR_StyleCop.TestCode.SA1630TestCode`1.InvalidField">
+            <summary>
+            No_capital_letter.
+            </summary>
+            <permission cref="T:System.Security.PermissionSet">Description_of_permission.</permission>
+            <remarks>Some_remarks_to_class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1630TestCode`1.#ctor(System.Int32)">
+            <summary>
+            Initializes_a_new_instance_of_the_<see cref="T:SA1630TestCode"/>_class.
+            </summary>
+            <param name="parameter">Input_parameter_for_method.</param>
+            <exception cref="T:System.NullReferenceException">Exception_condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description_of_permission.</permission>
+            <remarks>Some_remarks_to_class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1630TestCode`1.Finalize">
+            <summary>
+            Finalizes_an_instance_of_the_<see cref="T:SA1630TestCode"/>_class.
+            </summary>
+            <remarks>Some_remarks_to_destructor.</remarks>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1630TestCode`1.Method``1(System.Int32)">
+            <summary>
+            Description_of_method.
+            </summary>
+            <typeparam name="TT">Generic_parameter_for_method.</typeparam>
+            <param name="parameter">Input_parameter_for_method.</param>
+            <returns>Something_not_useful_at_all.</returns>
+            <exception cref="T:System.NullReferenceException">Exception_condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description_of_permission.</permission>
+            <remarks>Some_remarks_to_class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="E:CR_StyleCop.TestCode.SA1630TestCode`1.EventName">
+            <summary>
+            This_event_is_never_fired.
+            </summary>
+            <permission cref="T:System.Security.PermissionSet">Description_of_permission.</permission>
+            <remarks>Some_remarks_to_class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1630TestCode`1.Property">
+            <summary>
+            Gets_or_sets_some_integer.
+            </summary>
+            <value>The_integer.</value>
+            <exception cref="T:System.NullReferenceException">Exception_condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description_of_permission.</permission>
+            <remarks>Some_remarks_to_class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1630TestCode`1.Item(System.Int32)">
+            <summary>
+            Summary_for_indexer.
+            </summary>
+            <param name="index">Index_parameter_is_ignored.</param>
+            <returns>Magic_number_of_42.</returns>
+            <exception cref="T:System.NullReferenceException">Exception_condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description_of_permission.</permission>
+            <remarks>Some_remarks_to_class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1630TestCode`1.MyEventHandler`1">
+            <summary>
+            Summary_for_delegate.
+            </summary>
+            <typeparam name="TD">Generic_parameter_for_delegate.</typeparam>
+            <param name="ea">Argument_for_delegate.</param>
+            <returns>Something_not_useful_at_all.</returns>
+            <exception cref="T:System.NullReferenceException">Exception_condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description_of_permission.</permission>
+            <remarks>Some_remarks_to_class.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1630TestCode`1.IMyInterface`1">
+            <summary>
+            Summary_for_interface.
+            </summary>
+            <typeparam name="TI">Generic_parameter_for_interface.</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception_condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description_of_permission.</permission>
+            <remarks>Some_remarks_to_interface.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1630TestCode`1.MyStruct`1">
+            <summary>
+            Summary_for_struct.
+            </summary>
+            <typeparam name="TS">Generic_parameter_for_struct.</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception_condition.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description_of_permission.</permission>
+            <remarks>Some_remarks_to_struct.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1616TestCode">
+            <summary>
+            Test code for SA1616 rule - returns tag must be filled with text.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1616TestCode.MethodName(System.String)">
+            <summary>
+            Some method.
+            </summary>
+            <param name="parameter">Some parameter.</param>
+            <returns></returns>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1616TestCode.Item(System.Int32)">
+            <summary>
+            Some indexer.
+            </summary>
+            <param name="parameter">Some parameter.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1616TestCode.MyDelegate">
+            <summary>
+            Some delegate.
+            </summary>
+            <param name="parameter">Some parameter.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1607TestCode">
+            <summary>
+            </summary>
+            <content>
+            </content>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1607TestCode.Method">
+            <content>
+            </content>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1516TestCode">
+            <summary>
+            Test code for SA1516 rule - elements must be separated by blank line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1304TestCode">
+            <summary>
+            Test code for SA1304 rule - non private readonly fields must be upper cased.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1213TestCode">
+            <summary>
+            Test code for SA1213 rule - add must come before remove.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1122TestCode">
+            <summary>
+            Test code for SA1122 rule - string.Empty should be used for empty strings.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1625TestCode`1">
+            <summary>
+            Test code for SA1625 rule - documentation text must not be the same for two tags.
+            </summary>
+            <typeparam name="T">Test code for SA1625 rule - documentation text must not be the same for two tags.</typeparam>
+        </member>
+        <member name="F:CR_StyleCop.TestCode.SA1625TestCode`1.Constant">
+            <summary>
+            Duplicated text.
+            </summary>
+            <remarks>Duplicated text.</remarks>
+        </member>
+        <member name="F:CR_StyleCop.TestCode.SA1625TestCode`1.anything">
+            <summary>
+            Duplicated text.
+            </summary>
+            <remarks>Duplicated text.</remarks>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1625TestCode`1.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CR_StyleCop.TestCode.SA1625TestCode`1"/> class.
+            </summary>
+            <param name="anything">Duplicated text.</param>
+            <param name="something">Duplicated text.</param>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1625TestCode`1.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:CR_StyleCop.TestCode.SA1625TestCode`1"/> class.
+            </summary>
+            <remarks>Finalizes an instance of the <see cref="T:CR_StyleCop.TestCode.SA1625TestCode`1"/> class.</remarks>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1625TestCode`1.JoinNames(System.String,System.String)">
+            <summary>
+            Joins a first name and a last name together into a single string.
+            </summary>
+            <param name="firstName">Part of the name.</param>
+            <param name="lastName">Part of the name.</param>
+            <returns>The joined names.</returns>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1625TestCode`1.JoinNames(System.String,System.String,System.String)">
+            <summary>
+            Joins a first name and a last name together into a single string.
+            </summary>
+            <param name="firstName">The parameter is not used.</param>
+            <param name="lastName">The parameter is not used.</param>
+            <param name="notUsed">The parameter is not used.</param>
+            <returns>The joined names.</returns>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1625TestCode`1.JoinNames2(System.String,System.String)">
+            <summary>
+            Duplicated text.
+            </summary>
+            <param name="firstName">Duplicated text.</param>
+            <param name="lastName">Part of the name.</param>
+            <returns>The joined names.</returns>
+        </member>
+        <member name="E:CR_StyleCop.TestCode.SA1625TestCode`1.Event">
+            <summary>
+            Duplicated text.
+            </summary>
+            <remarks>Duplicated text.</remarks>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1625TestCode`1.Something">
+            <summary>
+            Gets or sets something.
+            </summary>
+            <remarks>Gets or sets something.</remarks>
+            <value>Gets or sets something.</value>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1625TestCode`1.Anything">
+            <summary>
+            Gets or sets anything.
+            </summary>
+            <remarks>Gets or sets anything.</remarks>
+            <value>Gets or sets anything.</value>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1625TestCode`1.Item(System.Int32)">
+            <summary>
+            Duplicated text.
+            </summary>
+            <param name="index">Duplicated text.</param>
+            <returns>Duplicated text.</returns>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1625TestCode`1.MyDelegate">
+            <summary>
+            Duplicated text.
+            </summary>
+            <param name="sender">Duplicated text.</param>
+            <param name="ea">Duplicated text.</param>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1625TestCode`1.IInnerInterface`1">
+            <summary>
+            Duplicated text.
+            </summary>
+            <typeparam name="TI">Duplicated text.</typeparam>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1625TestCode`1.InnerStruct`1">
+            <summary>
+            Duplicated text.
+            </summary>
+            <typeparam name="TS">Duplicated text.</typeparam>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1504TestCode">
+            <summary>
+            Test code for SA1504 rule - all accessors must be single line or multi line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1404TestCode">
+            <summary>
+            Test code for SA1404 rule - SuppressMessage attribute must provide justification.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1208TestCode">
+            <summary>
+            Test code for SA 1208 issue - using system.* directives must come before other using directives
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1117TestCode">
+            <summary>
+            Test code for SA1117 rule - parameters must be on the same line or on separate lines each.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1108TestCode">
+            <summary>
+            Test code for SA1108 rule - block statements must not contain embedded comments.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1101TestCode">
+            <summary>
+            Test code for SA1101 rule - use this to indicate instance member access.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1634TestCode">
+            <summary>
+            Test code for SA1634 rule - file header must have copyright.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1604TestCode">
+            <content>
+            Test code for SA1604 rule - documentation must have summary tag.
+            </content>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1604TestCode.MethodName(System.Int32)">
+            <param name="paramName">The parameter.</param>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1604TestCode.PropertyName">
+            <value>
+            Some unknown value.
+            </value>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1513TestCode">
+            <summary>
+            Test code for SA1513 rule - closing curly bracket must be followed by blank line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.Inner.SA1403TestCode3">
+            <summary>
+            Test code for SA1403 rule - file can have only one namespace declaration.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1308TestCode">
+            <summary>
+            Test code for SA1308 rule - fields cannot use m_ or s_ prefixes.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1201TestCode">
+            <summary>
+            Test code for SA1201 rule - elements must be ordered correctly.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.MyStruct">
+            <summary>
+            Test code for SA1201 rule - elements must be ordered correctly.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.MyStruct2">
+            <summary>
+            Test code for SA1201 rule - elements must be ordered correctly.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.IMyInterface">
+            <summary>
+            Test code for SA1201 rule - elements must be ordered correctly.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.MyEnum">
+            <summary>
+            Test code for SA1201 rule - elements must be ordered correctly.
+            </summary>
+        </member>
+        <member name="F:CR_StyleCop.TestCode.MyEnum.FirstElement">
+            <summary>
+            Test code for SA1201 rule - elements must be ordered correctly.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.MyEventHandler">
+            <summary>
+            Test code for SA1201 rule - elements must be ordered correctly.
+            </summary>
+            <param name="sender">Sender parameter.</param>
+            <param name="ea">Event args parameter.</param>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1110TestCode">
+            <summary>
+            Test code for SA1110 rule - opening paren must be on declaration line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1643TestCode">
+            <summary>
+            Test code for SA1643 rule - destructor summary must start with standard text.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1643TestCode.Finalize">
+            <summary>
+            Non standard text.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1613TestCode">
+            <summary>
+            Test code for SA1613 rule - param tag must specify parameter name.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1613TestCode.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CR_StyleCop.TestCode.SA1613TestCode"/> class.
+            </summary>
+            <param>Not existing parameter.</param>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1613TestCode.MethodName(System.String)">
+            <summary>
+            Some method.
+            </summary>
+            <param>Not existing parameter.</param>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1613TestCode.Item(System.Int32)">
+            <summary>
+            Some indexer.
+            </summary>
+            <param>Not existing parameter.</param>
+            <returns>The value 42.</returns>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1613TestCode.MyDelegate">
+            <summary>
+            Some delegate.
+            </summary>
+            <param>Not existing parameter.</param>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1408TestCode">
+            <summary>
+            Test code for SA1408 rule - conditional expressions must declare precedence.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1403TestCode2">
+            <summary>
+            Test code for SA1403 rule - file can have only one namespace declaration.
+            </summary>
+        </member>
+        <member name="T:Second.SecondClass2">
+            <summary>
+            Test code for SA1403 rule - file can have only one namespace declaration.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1401TestCode">
+            <summary>
+            Test code for SA1401 rule - fields must be private.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1310TestCode">
+            <summary>
+            Test code for SA1310 rule - field name must not contain _.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1210TestCode">
+            <summary>
+            Test code for SA 1210 rule - using directives must be sorted alphabetically.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1105TestCode">
+            <summary>
+            Test code for SA1105 rule - query clause must begin on its own line when spans multiple lines.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1638TestCode">
+            <summary>
+            Test code for SA1638 - filename must match filename attribute in file header.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1629TestCode`1">
+            <summary>
+            Test code for SA1629 rule - documentation text must end with period
+            </summary>
+            <typeparam name="T">Description of type</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception condition</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission</permission>
+            <remarks>Some remarks to class</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="F:CR_StyleCop.TestCode.SA1629TestCode`1.InvalidField">
+            <summary>
+            No capital letter
+            </summary>
+            <permission cref="T:System.Security.PermissionSet">Description of permission</permission>
+            <remarks>Some remarks to class</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1629TestCode`1.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SA1629TestCode"/> class
+            </summary>
+            <param name="parameter">Input parameter for method</param>
+            <exception cref="T:System.NullReferenceException">Exception condition</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission</permission>
+            <remarks>Some remarks to class</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1629TestCode`1.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:SA1629TestCode"/> class
+            </summary>
+            <remarks>Some remarks to destructor</remarks>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1629TestCode`1.Method``1(System.Int32)">
+            <summary>
+            Description of method
+            </summary>
+            <typeparam name="TT">Generic parameter for method</typeparam>
+            <param name="parameter">Input parameter for method</param>
+            <returns>Something not useful at all</returns>
+            <exception cref="T:System.NullReferenceException">Exception condition</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission</permission>
+            <remarks>Some remarks to class</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="E:CR_StyleCop.TestCode.SA1629TestCode`1.EventName">
+            <summary>
+            This event is never fired
+            </summary>
+            <permission cref="T:System.Security.PermissionSet">Description of permission</permission>
+            <remarks>Some remarks to class</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1629TestCode`1.Property">
+            <summary>
+            Gets or sets some integer
+            </summary>
+            <value>The integer</value>
+            <exception cref="T:System.NullReferenceException">Exception condition</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission</permission>
+            <remarks>Some remarks to class</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1629TestCode`1.Item(System.Int32)">
+            <summary>
+            Summary for indexer
+            </summary>
+            <param name="index">Index parameter is ignored</param>
+            <returns>Magic number of 42</returns>
+            <exception cref="T:System.NullReferenceException">Exception condition</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission</permission>
+            <remarks>Some remarks to class</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1629TestCode`1.MyEventHandler`1">
+            <summary>
+            Summary for delegate
+            </summary>
+            <typeparam name="TD">Generic parameter for delegate</typeparam>
+            <param name="ea">Argument for delegate</param>
+            <returns>Something not useful at all</returns>
+            <exception cref="T:System.NullReferenceException">Exception condition</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission</permission>
+            <remarks>Some remarks to class</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1629TestCode`1.IMyInterface`1">
+            <summary>
+            Summary for interface
+            </summary>
+            <typeparam name="TI">Generic parameter for interface</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception condition</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission</permission>
+            <remarks>Some remarks to interface</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1629TestCode`1.MyStruct`1">
+            <summary>
+            Summary for struct
+            </summary>
+            <typeparam name="TS">Generic parameter for struct</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception condition</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission</permission>
+            <remarks>Some remarks to struct</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1622TestCode`1">
+            <summary>
+            Test code for SA1622 rule - generic parameter documentation must have text.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1622TestCode`1.MethodName``1">
+            <summary>
+            Some method.
+            </summary>
+            <typeparam name="TM"></typeparam>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1608TestCode">
+            <summary>
+            Summary description for the SA1608TestCode class.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1517TestCode">
+            <summary>
+            Test code for SA1517 rule - blank lines at the beginning of file are bad.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1508TestCode">
+            <summary>
+            Test code for SA1508 rule - closing curly bracket must not be preceded by blank line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1501TestCode">
+            <summary>
+            Test code for SA1501 rule - statements must not be on single line with curly brackets.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1410TestCode">
+            <summary>
+            Test code for SA1410 rule - remove redundant parens from anonymous methods.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1205TestCode">
+            <summary>
+            Test code for SA1205 rule - partial elements must declare access.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1114TestCode">
+            <summary>
+            Test code for SA1114 rule - parameters must be on the same or on the next line as opening paren.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1631TestCode`1">
+            <summary>
+            Test code for SA1631 rule - documentation text must contain enough letters.######################################################################################################################################################################################.
+            </summary>
+            <typeparam name="T">Description of type#######################################################################################################################################################################################.</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception condition#######################################################################################################################################################################################.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission#######################################################################################################################################################################################.</permission>
+            <remarks>Some remarks to class#######################################################################################################################################################################################.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //######################################################################################################################################################################################
+            </code>
+            </example>
+        </member>
+        <member name="F:CR_StyleCop.TestCode.SA1631TestCode`1.InvalidField">
+            <summary>
+            No capital letter..######################################################################################################################################################################################.
+            </summary>
+            <permission cref="T:System.Security.PermissionSet">Description of permission#######################################################################################################################################################################################.</permission>
+            <remarks>Some remarks to class#######################################################################################################################################################################################.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //######################################################################################################################################################################################
+            </code>
+            </example>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1631TestCode`1.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SA1631TestCode"/> class.######################################################################################################################################################################################.
+            </summary>
+            <param name="parameter">Input parameter for method#######################################################################################################################################################################################.</param>
+            <exception cref="T:System.NullReferenceException">Exception condition#######################################################################################################################################################################################.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission#######################################################################################################################################################################################.</permission>
+            <remarks>Some remarks to class#######################################################################################################################################################################################.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //######################################################################################################################################################################################
+            </code>
+            </example>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1631TestCode`1.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:SA1631TestCode"/> class.######################################################################################################################################################################################.
+            </summary>
+            <remarks>Some remarks to destructor#######################################################################################################################################################################################.</remarks>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1631TestCode`1.Method``1(System.Int32)">
+            <summary>
+            Description of method..######################################################################################################################################################################################.
+            </summary>
+            <typeparam name="TT">Generic parameter for method#######################################################################################################################################################################################.</typeparam>
+            <param name="parameter">Input parameter for method#######################################################################################################################################################################################.</param>
+            <returns>Something not useful at all#######################################################################################################################################################################################.</returns>
+            <exception cref="T:System.NullReferenceException">Exception condition#######################################################################################################################################################################################.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission#######################################################################################################################################################################################.</permission>
+            <remarks>Some remarks to class#######################################################################################################################################################################################.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //######################################################################################################################################################################################
+            </code>
+            </example>
+        </member>
+        <member name="E:CR_StyleCop.TestCode.SA1631TestCode`1.EventName">
+            <summary>
+            This event is never fired..######################################################################################################################################################################################.
+            </summary>
+            <permission cref="T:System.Security.PermissionSet">Description of permission#######################################################################################################################################################################################.</permission>
+            <remarks>Some remarks to class#######################################################################################################################################################################################.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //######################################################################################################################################################################################
+            </code>
+            </example>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1631TestCode`1.Property">
+            <summary>
+            Gets or sets some integer..######################################################################################################################################################################################.
+            </summary>
+            <value>The integer#######################################################################################################################################################################################.</value>
+            <exception cref="T:System.NullReferenceException">Exception condition#######################################################################################################################################################################################.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission#######################################################################################################################################################################################.</permission>
+            <remarks>Some remarks to class#######################################################################################################################################################################################.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //######################################################################################################################################################################################
+            </code>
+            </example>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1631TestCode`1.Item(System.Int32)">
+            <summary>
+            Summary for indexer..######################################################################################################################################################################################.
+            </summary>
+            <param name="index">Index parameter is ignored#######################################################################################################################################################################################.</param>
+            <returns>Magic number of 42#######################################################################################################################################################################################.</returns>
+            <exception cref="T:System.NullReferenceException">Exception condition#######################################################################################################################################################################################.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission#######################################################################################################################################################################################.</permission>
+            <remarks>Some remarks to class#######################################################################################################################################################################################.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //######################################################################################################################################################################################
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1631TestCode`1.MyEventHandler`1">
+            <summary>
+            Summary for delegate..######################################################################################################################################################################################.
+            </summary>
+            <typeparam name="TD">Generic parameter for delegate#######################################################################################################################################################################################.</typeparam>
+            <param name="ea">Argument for delegate#######################################################################################################################################################################################.</param>
+            <returns>Something not useful at all#######################################################################################################################################################################################.</returns>
+            <exception cref="T:System.NullReferenceException">Exception condition#######################################################################################################################################################################################.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission#######################################################################################################################################################################################.</permission>
+            <remarks>Some remarks to class#######################################################################################################################################################################################.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //######################################################################################################################################################################################
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1631TestCode`1.IMyInterface`1">
+            <summary>
+            Summary for interface..######################################################################################################################################################################################.
+            </summary>
+            <typeparam name="TI">Generic parameter for interface#######################################################################################################################################################################################.</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception condition#######################################################################################################################################################################################.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission#######################################################################################################################################################################################.</permission>
+            <remarks>Some remarks to interface#######################################################################################################################################################################################.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1631TestCode`1.MyStruct`1">
+            <summary>
+            Summary for struct..######################################################################################################################################################################################.
+            </summary>
+            <typeparam name="TS">Generic parameter for struct#######################################################################################################################################################################################.</typeparam>
+            <exception cref="T:System.NullReferenceException">Exception condition#######################################################################################################################################################################################.</exception>
+            <permission cref="T:System.Security.PermissionSet">Description of permission#######################################################################################################################################################################################.</permission>
+            <remarks>Some remarks to struct#######################################################################################################################################################################################.</remarks>
+            <example>
+            <code>
+            namespace xxx
+            {
+            }
+            //######################################################################################################################################################################################
+            </code>
+            </example>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1620TestCode2`2">
+            <summary>
+            Test code for SA1620 rule - comments must match generic parameter list.
+            </summary>
+            <typeparam name="T2">Should be second.</typeparam>
+            <typeparam name="T1">Should be first.</typeparam>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1620TestCode2`2.MethodName``2">
+            <summary>
+            Some method.
+            </summary>
+            <typeparam name="TM2">Should be second.</typeparam>
+            <typeparam name="TM1">Should be first.</typeparam>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1617TestCode">
+            <summary>
+            Test code for SA1617 rule - void return value must not be documented.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1617TestCode.MethodName(System.String)">
+            <summary>
+            Some method.
+            </summary>
+            <param name="parameter">Some parameter.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1617TestCode.MyDelegate">
+            <summary>
+            Some delegate.
+            </summary>
+            <param name="parameter">Some parameter.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1510TestCode">
+            <summary>
+            Test code for SA1510 rule - chained elements must not be separated with blank line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1405TestCode">
+            <summary>
+            Test code for SA1405 rule - Debug.Assert must provide message.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1305TestCode">
+            <summary>
+            Test code for SA1305 rule - fields can not use hungarian notation.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1123TestCode">
+            <summary>
+            Test code for SA1123 rule - do not use regions within code elements.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1109TestCode">
+            <summary>
+            Test code for SA1109 rule - block statements must not contain region directive.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1640TestCode">
+            <summary>
+            Test code for SA1640 rule - copyright tag must have company attribute.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1626TestCode">
+            <summary>
+            Test code for SA1626 rule - documentation must not use three slashes.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1620TestCode1`1">
+            <summary>
+            Test code for SA1620 rule - comments must match generic parameter list.
+            </summary>
+            <typeparam name="T">T parameter.</typeparam>
+            <typeparam name="S">Additional parameter.</typeparam>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1620TestCode1`1.MethodName``1">
+            <summary>
+            Some method.
+            </summary>
+            <typeparam name="TM">TM parameter.</typeparam>
+            <typeparam name="TM2">Additional parameter.</typeparam>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1505TestCode">
+            <summary>
+            Test code for SA1505 rule - opening curly bracket must not be followed by blank line.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1209TestCode">
+            <summary>
+            Test code for SA 1209 rule - using alias must come after all using directives.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1202TestCode">
+            <summary>
+            Test code for SA1202 rule - elements must be sorted by access correctly.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1118TestCode">
+            <summary>
+            Test code for SA1118 rule - only first parameter can span multiple lines.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1102TestCode">
+            <summary>
+            Test code for SA1102Test rule - query clauses must not be separated by blank lines.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1610TestCode">
+            <summary>
+            Test code for SA1610 rule - property documentation value tag must be filled.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1610TestCode.PropertyName">
+            <summary>
+            Gets or sets something.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1610TestCode.PropertyName2">
+            <summary>
+            Gets or sets something else.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1610TestCode.PropertyName3">
+            <summary>
+            Gets anything. 
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1610TestCode.PropertyName4">
+            <summary>
+            Sets anything.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1610TestCode.PropertyNameX">
+            <summary>
+            Gets or sets internal property.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1610TestCode.PropertyNameZ">
+            <summary>
+            Gets or sets protected property.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1610TestCode.PropertyNameY">
+            <summary>
+            Gets or sets protected property.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1610TestCode.PropertyNameZZ">
+            <summary>
+            Gets or sets private property.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1635TestCode">
+            <summary>
+            Test code for SA1635 rule - file header must have copyright text.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1605TestCode`1">
+            <typeparam name="T">Generic parameter.</typeparam>
+            <typeparam name="T">Generic parameter.</typeparam>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1605TestCode`1.Method(System.Int32)">
+            <param name="paramName">The parameter for method.</param>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1514TestCode">
+            <summary>
+            Test code for SA1514 rule - xml doc comments must be preceded by blank line.
+            </summary>
+        </member>
+        <member name="F:CR_StyleCop.TestCode.SA1514TestCode.Field">
+            <summary>
+            First comment is valid.
+            </summary>
+        </member>
+        <member name="M:CR_StyleCop.TestCode.SA1514TestCode.MethodName">
+            <summary>
+            Does nothing.
+            </summary>
+        </member>
+        <member name="E:CR_StyleCop.TestCode.SA1514TestCode.EventName">
+            <summary>
+            Occurs never.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1514TestCode.PropertyName">
+            <summary>
+            Gets or sets something.
+            </summary>
+        </member>
+        <member name="P:CR_StyleCop.TestCode.SA1514TestCode.StringProperty">
+            <summary>
+            Gets or sets something else.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1309TestCode">
+            <summary>
+            Test code for SA1309 rule - field name must not start with _.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1302TestCode">
+            <summary>
+            Test code for SA1302 rule - interface name must begin with "I".
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1211TestCode">
+            <summary>
+            Test code for SA 1211 rule - using aliases must be sorted alphabetically by alias name.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1120TestCode">
+            <summary>
+            Test code for SA1120 rule - comments must have text.
+            </summary>
+        </member>
+        <member name="T:CR_StyleCop.TestCode.SA1111TestCode">
+            <summary>
+            Test code for SA1111 rule - closing paren must be on last parameter line.
+            </summary>
+        </member>
+    </members>
+</doc>

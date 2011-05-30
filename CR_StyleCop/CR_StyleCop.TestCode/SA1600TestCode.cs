@@ -9,6 +9,7 @@ namespace CR_StyleCop.TestCode
 
 #pragma warning disable 414
 #pragma warning disable 67
+#pragma warning disable 1591
 
     public class SA1600TestCode
     {

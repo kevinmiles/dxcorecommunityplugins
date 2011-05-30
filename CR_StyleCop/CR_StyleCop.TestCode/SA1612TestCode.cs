@@ -7,6 +7,9 @@ namespace CR_StyleCop.TestCode
 {
     using System;
 
+#pragma warning disable 1572
+#pragma warning disable 1573
+
     /// <summary>
     /// Test code for SA1612 rule - comments must match parameters list.
     /// </summary>

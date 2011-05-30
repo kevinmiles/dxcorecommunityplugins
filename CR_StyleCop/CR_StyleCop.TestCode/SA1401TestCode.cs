@@ -10,6 +10,7 @@ namespace CR_StyleCop.TestCode
 
 #pragma warning disable 649
 #pragma warning disable 169
+#pragma warning disable 1591
 
     /// <summary>
     /// Test code for SA1401 rule - fields must be private.

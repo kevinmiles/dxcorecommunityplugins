@@ -7,6 +7,8 @@ namespace CR_StyleCop.TestCode
 {
     using System;
 
+#pragma warning disable 1710
+
     /// <typeparam name="T">Generic parameter.</typeparam>
     public partial class SA1605TestCode<T>
     {

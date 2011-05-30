@@ -7,6 +7,8 @@ namespace CR_StyleCop.TestCode
 {
     using System;
 
+#pragma warning disable 1591
+
     public partial class SA1601TestCode
     {
         partial void MethodName();

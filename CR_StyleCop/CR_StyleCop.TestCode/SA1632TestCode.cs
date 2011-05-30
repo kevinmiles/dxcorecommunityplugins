@@ -15,7 +15,7 @@ namespace CR_StyleCop.TestCode
     /// </summary>
     /// <typeparam name="T">A.</typeparam>
     /// <exception cref="NullReferenceException">Exception condition.</exception>
-    /// <permission cref="">Description of permission.</permission>
+    /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
     /// <remarks>Some remarks to class.</remarks>
     /// <example>
     /// <code>
@@ -32,7 +32,7 @@ namespace CR_StyleCop.TestCode
         /// <summary>
         /// No capital letter...
         /// </summary>
-        /// <permission cref="">Description of permission.</permission>
+        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
         /// <remarks>Some remarks to class.</remarks>
         /// <example>
         /// <code>
@@ -44,11 +44,11 @@ namespace CR_StyleCop.TestCode
         public const int InvalidField = 14;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SA1631TestCode"/> class..
+        /// Initializes a new instance of the <see cref="T:SA1632TestCode"/> class..
         /// </summary>
         /// <param name="parameter">Input parameter for method.</param>
         /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="">Description of permission.</permission>
+        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
         /// <remarks>Some remarks to class.</remarks>
         /// <example>
         /// <code>
@@ -62,7 +62,7 @@ namespace CR_StyleCop.TestCode
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="SA1631TestCode"/> class..
+        /// Finalizes an instance of the <see cref="T:SA1632TestCode"/> class..
         /// </summary>
         /// <remarks>Some remarks to destructor.</remarks>
         ~SA1632TestCode()
@@ -76,7 +76,7 @@ namespace CR_StyleCop.TestCode
         /// <param name="ea">Argument for delegate.</param>
         /// <returns>Something not useful at all.</returns>
         /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="">Description of permission.</permission>
+        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
         /// <remarks>Some remarks to class.</remarks>
         /// <example>
         /// <code>
@@ -90,7 +90,7 @@ namespace CR_StyleCop.TestCode
         /// <summary>
         /// This event is never fired...
         /// </summary>
-        /// <permission cref="">Description of permission.</permission>
+        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
         /// <remarks>Some remarks to class.</remarks>
         /// <example>
         /// <code>
@@ -106,7 +106,7 @@ namespace CR_StyleCop.TestCode
         /// </summary>
         /// <typeparam name="TI">Generic parameter for interface.</typeparam>
         /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="">Description of permission.</permission>
+        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
         /// <remarks>Some remarks to interface.</remarks>
         /// <example>
         /// <code>
@@ -124,7 +124,7 @@ namespace CR_StyleCop.TestCode
         /// </summary>
         /// <value>The integer.</value>
         /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="">Description of permission.</permission>
+        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
         /// <remarks>Some remarks to class.</remarks>
         /// <example>
         /// <code>
@@ -141,7 +141,7 @@ namespace CR_StyleCop.TestCode
         /// <param name="index">Index parameter is ignored.</param>
         /// <returns>Magic number of 42.</returns>
         /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="">Description of permission.</permission>
+        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
         /// <remarks>Some remarks to class.</remarks>
         /// <example>
         /// <code>
@@ -162,7 +162,7 @@ namespace CR_StyleCop.TestCode
         /// <param name="parameter">Input parameter for method.</param>
         /// <returns>Something not useful at all.</returns>
         /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="">Description of permission.</permission>
+        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
         /// <remarks>Some remarks to class.</remarks>
         /// <example>
         /// <code>
@@ -181,7 +181,7 @@ namespace CR_StyleCop.TestCode
         /// </summary>
         /// <typeparam name="TS">Generic parameter for struct.</typeparam>
         /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="">Description of permission.</permission>
+        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
         /// <remarks>Some remarks to struct.</remarks>
         /// <example>
         /// <code>

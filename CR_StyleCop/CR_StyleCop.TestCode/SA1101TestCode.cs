@@ -8,6 +8,8 @@ namespace CR_StyleCop.TestCode
     using System;
     using System.Diagnostics.CodeAnalysis;
 
+#pragma warning disable 1591
+
     /// <summary>
     /// Test code for SA1101 rule - use this to indicate instance member access.
     /// </summary>
