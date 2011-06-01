@@ -13,7 +13,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1632 rule - documentation text cannot be too short.
     /// </summary>
-    /// <typeparam name="T">A.</typeparam>
+    /// <typeparam name="T">F b.</typeparam>
     /// <exception cref="NullReferenceException">Exception condition.</exception>
     /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
     /// <remarks>Some remarks to class.</remarks>

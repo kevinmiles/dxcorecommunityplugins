@@ -179,6 +179,8 @@
     <Compile Include="SA1645TestCode.cs" />
     <Compile Include="SA1646TestCode.cs" />
     <Compile Include="SA1647TestCode.cs" />
+    <Compile Include="SA1648TestCode.cs" />
+    <Compile Include="SA1649TestCode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\CR_StyleCop.TestCode.XML" />
