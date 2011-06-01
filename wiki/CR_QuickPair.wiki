@@ -15,7 +15,7 @@ In addition to the [http://code.google.com/p/dxcorecommunityplugins/wiki/Install
 
 === Usage ===
 
-Full details on this plugins usage will shortly be available on [http://community.devexpress.com/blogs/markmiller/default.aspx Mark Miller's Blog]
+Full details on this plugins usage are available on [http://community.devexpress.com/blogs/markmiller/archive/2011/06/01/new-coderush-feature-quick-pair-parens-brackets-quotes-etc-for-visual-studio.aspx Mark Miller's Blog]
 
 
 === Credits ===
