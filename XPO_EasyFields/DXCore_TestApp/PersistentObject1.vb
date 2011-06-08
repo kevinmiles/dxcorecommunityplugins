@@ -21,6 +21,17 @@ End Class
 Public Class BaseObject
     Inherits XPObject
 
+    Private fTestByteArray As Byte()
+    Public Property TestByteArray As Byte()
+        Get
+            Return fTestByteArray
+        End Get
+        Set(ByVal Value As Byte())
+            SetPropertyValue(Of Byte())("TestByteArray", fTestByteArray, Value)
+        End Set
+    End Property
+
+
     Private _createdOn As Date
     Public Property CreatedOn() As Date
         Get
@@ -41,15 +52,37 @@ Public Class BaseObject
         End Set
     End Property
 
-    'Created/Updated: PC-ALF\Michael on PC-ALF at 3/12/2010 10:16 AM
+
+
+
+    
+
+    Private Shared _Fields As FieldsClass
+    Public Shared Shadows ReadOnly Property Fields() As FieldsClass
+        Get
+            If ReferenceEquals(_Fields, Nothing) Then
+                _Fields = New FieldsClass()
+            End If
+            Return _Fields
+        End Get
+    End Property
+    'Created/Updated: PC-DEV\Michael on PC-DEV at 8/06/2011 10:50 AM
     Public Shadows Class FieldsClass
-        Inherits DevExpress.Xpo.XPObject.FieldsClass
+        Inherits XPObject.FieldsClass
         Public Sub New()
             MyBase.New()
+
         End Sub
         Public Sub New(ByVal propertyName As String)
             MyBase.New(propertyName)
+
         End Sub
+        Public Const TestByteArrayFieldName As String = "TestByteArray"
+        Public ReadOnly Property TestByteArray() As DevExpress.Data.Filtering.OperandProperty
+            Get
+                Return New DevExpress.Data.Filtering.OperandProperty(GetNestedName("TestByteArray"))
+            End Get
+        End Property
         Public Const CreatedOnFieldName As String = "CreatedOn"
         Public ReadOnly Property CreatedOn() As DevExpress.Data.Filtering.OperandProperty
             Get
@@ -63,15 +96,6 @@ Public Class BaseObject
             End Get
         End Property
     End Class
-    Private Shared _fields As FieldsClass
-    Public Shared Shadows ReadOnly Property Fields() As FieldsClass
-        Get
-            If ReferenceEquals(_Fields, Nothing) Then
-                _Fields = New FieldsClass()
-            End If
-            Return _Fields
-        End Get
-    End Property
 End Class
 Public Class PersistentObject1
     Inherits BaseObject

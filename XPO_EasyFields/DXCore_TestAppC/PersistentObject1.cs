@@ -28,6 +28,19 @@ namespace DXCore_TestAppC
             // Place here your initialization code.
         }
 
+        private byte[] fTestByteArray;
+        public byte[] TestByteArray
+        {
+            get
+            {
+                return fTestByteArray;
+            }
+            set
+            {
+                SetPropertyValue("TestByteArray", ref fTestByteArray, value);
+            }
+        }
+
         private string _PersistentProperty;
         public string PersistentProperty
         {
@@ -75,5 +88,48 @@ namespace DXCore_TestAppC
                 return _fields;
             }
         }
+//Created/Updated: PC-DEV\Michael on PC-DEV at 8/06/2011 11:00 AM
+public newclass FieldsClass : XPObject.FieldsClass
+{
+    public FieldsClass()
+        : base()
+    {
+    }
+    public FieldsClass(string propertyName)
+        : base(propertyName)
+    {
+    }
+    public const String TestByteArrayFieldName = "TestByteArray";
+    public DevExpress.Data.Filtering.OperandProperty TestByteArray
+    {
+        get
+        {
+            return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("TestByteArray"));
+        }
+    }
+    public const String PersistentPropertyFieldName = "PersistentProperty";
+    public DevExpress.Data.Filtering.OperandProperty PersistentProperty
+    {
+        get
+        {
+            return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("PersistentProperty"));
+        }
+    }
+    public const String NonPersistentPropertyFieldName = "NonPersistentProperty";
+    public DevExpress.Data.Filtering.OperandProperty NonPersistentProperty
+    {
+        get
+        {
+            return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("NonPersistentProperty"));
+        }
+    }
+    public DXCore_TestAppC.PersistentObject1.FieldsClass PersistentReferenceProperty
+    {
+        get
+        {
+            return new DXCore_TestAppC.PersistentObject1.FieldsClass(GetNestedName("PersistentReferenceProperty"));
+        }
+    }
+}
     } 
 }
