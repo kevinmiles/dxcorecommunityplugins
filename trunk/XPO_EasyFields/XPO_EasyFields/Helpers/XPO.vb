@@ -126,14 +126,15 @@ Namespace Helpers
                 If MemberElementType Is Nothing Then
                     Return False
                 End If
-                Dim Member As ITypeElement = Source.ResolveType(MemberElementType.Type)
+
+                Dim Member As ITypeReferenceExpression = MemberElementType.Type
 
                 If Member Is Nothing Then
                     Return False
                 End If
 
-                If Member.Name = Helpers.XPO.Names.PersistentClassFieldsPropertyName _
-                    Or Member.Name = Helpers.XPO.Names.PersistentClassFieldsVariableName Then
+                If MemberElement.Name = Helpers.XPO.Names.PersistentClassFieldsPropertyName _
+                    Or MemberElement.Name = Helpers.XPO.Names.PersistentClassFieldsVariableName Then
 
                     Return False
                 End If
@@ -211,7 +212,7 @@ Namespace Helpers
 
             Public Sub UpdateFieldsClass()
                 If Helpers.XPO.IsPersistentClass(_class) Then
-                    DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Caramel")
+
                     'Bob the CodeRush Builder ;)
                     Dim BobClass As ElementBuilder = New ElementBuilder
                     Dim BobProperty As ElementBuilder = New ElementBuilder
