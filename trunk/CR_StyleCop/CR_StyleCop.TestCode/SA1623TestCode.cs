@@ -1,4 +1,4 @@
-﻿// <copyright file="" company="ACME">
+﻿// <copyright file="SA1623TestCode.cs" company="ACME">
 //     Copyright (c) 2011. All rights reserved.
 // </copyright>
 // <summary>Summary for the file</summary>
