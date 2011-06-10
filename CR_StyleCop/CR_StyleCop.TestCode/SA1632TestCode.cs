@@ -14,15 +14,11 @@ namespace CR_StyleCop.TestCode
     /// Test code for SA1632 rule - documentation text cannot be too short.
     /// </summary>
     /// <typeparam name="T">F b.</typeparam>
-    /// <exception cref="NullReferenceException">Exception condition.</exception>
-    /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
-    /// <remarks>Some remarks to class.</remarks>
+    /// <exception cref="NullReferenceException">E c.</exception>
+    /// <permission cref="System.Security.PermissionSet">D p.</permission>
+    /// <remarks>R c.</remarks>
     /// <example>
-    /// <code>
-    /// namespace xxx
-    /// {
-    /// }
-    /// </code>
+    /// E e.
     /// </example>
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1642:ConstructorSummaryDocumentationMustBeginWithStandardText", Justification = "This is about SA1632 rule.")]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1643:DestructorSummaryDocumentationMustBeginWithStandardText", Justification = "This is about SA1632 rule.")]
@@ -30,125 +26,97 @@ namespace CR_StyleCop.TestCode
     public class SA1632TestCode<T>
     {
         /// <summary>
-        /// No capital letter...
+        /// S t.
         /// </summary>
-        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
-        /// <remarks>Some remarks to class.</remarks>
+        /// <permission cref="System.Security.PermissionSet">D p.</permission>
+        /// <remarks>R c.</remarks>
         /// <example>
-        /// <code>
-        /// namespace xxx
-        /// {
-        /// }
-        /// </code>
+        /// E e.
         /// </example>
         public const int InvalidField = 14;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:SA1632TestCode"/> class..
+        /// I d.
         /// </summary>
-        /// <param name="parameter">Input parameter for method.</param>
-        /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
-        /// <remarks>Some remarks to class.</remarks>
+        /// <param name="parameter">P i.</param>
+        /// <exception cref="NullReferenceException">E c.</exception>
+        /// <permission cref="System.Security.PermissionSet">D p.</permission>
+        /// <remarks>R c.</remarks>
         /// <example>
-        /// <code>
-        /// namespace xxx
-        /// {
-        /// }
-        /// </code>
+        /// E e.
         /// </example>
         public SA1632TestCode(int parameter)
         {
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="T:SA1632TestCode"/> class..
+        /// F c.
         /// </summary>
-        /// <remarks>Some remarks to destructor.</remarks>
+        /// <remarks>R d.</remarks>
         ~SA1632TestCode()
         {
         }
 
         /// <summary>
-        /// Summary for delegate...
+        /// S d.
         /// </summary>
-        /// <typeparam name="TD">Generic parameter for delegate.</typeparam>
-        /// <param name="ea">Argument for delegate.</param>
-        /// <returns>Something not useful at all.</returns>
-        /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
-        /// <remarks>Some remarks to class.</remarks>
+        /// <typeparam name="TD">G p.</typeparam>
+        /// <param name="ea">P i.</param>
+        /// <returns>R v.</returns>
+        /// <exception cref="NullReferenceException">E c.</exception>
+        /// <permission cref="System.Security.PermissionSet">D p.</permission>
+        /// <remarks>R c.</remarks>
         /// <example>
-        /// <code>
-        /// namespace xxx
-        /// {
-        /// }
-        /// </code>
+        /// E e.
         /// </example>
         public delegate int MyEventHandler<TD>(EventArgs ea);
 
         /// <summary>
-        /// This event is never fired...
+        /// E s.
         /// </summary>
-        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
-        /// <remarks>Some remarks to class.</remarks>
+        /// <permission cref="System.Security.PermissionSet">D p.</permission>
+        /// <remarks>R c.</remarks>
         /// <example>
-        /// <code>
-        /// namespace xxx
-        /// {
-        /// }
-        /// </code>
+        /// E e.
         /// </example>
         public event EventHandler EventName;
 
         /// <summary>
-        /// Summary for interface...
+        /// S i.
         /// </summary>
-        /// <typeparam name="TI">Generic parameter for interface.</typeparam>
-        /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
-        /// <remarks>Some remarks to interface.</remarks>
+        /// <typeparam name="TI">G p.</typeparam>
+        /// <exception cref="NullReferenceException">E c.</exception>
+        /// <permission cref="System.Security.PermissionSet">D p.</permission>
+        /// <remarks>R i.</remarks>
         /// <example>
-        /// <code>
-        /// namespace xxx
-        /// {
-        /// }
-        /// </code>
+        /// E e.
         /// </example>
         public interface IMyInterface<TI>
         {
         }
 
         /// <summary>
-        /// Gets or sets some integer...
+        /// P s.
         /// </summary>
-        /// <value>The integer.</value>
-        /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
-        /// <remarks>Some remarks to class.</remarks>
+        /// <value>V v.</value>
+        /// <exception cref="NullReferenceException">E c.</exception>
+        /// <permission cref="System.Security.PermissionSet">D p.</permission>
+        /// <remarks>R p.</remarks>
         /// <example>
-        /// <code>
-        /// namespace xxx
-        /// {
-        /// }
-        /// </code>
+        /// E e.
         /// </example>
         public int Property { get; set; }
 
         /// <summary>
-        /// Summary for indexer...
+        /// S i.
         /// </summary>
-        /// <param name="index">Index parameter is ignored.</param>
-        /// <returns>Magic number of 42.</returns>
-        /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
-        /// <remarks>Some remarks to class.</remarks>
+        /// <param name="index">I p.</param>
+        /// <returns>R v.</returns>
+        /// <exception cref="NullReferenceException">E c.</exception>
+        /// <permission cref="System.Security.PermissionSet">D p.</permission>
+        /// <remarks>R i.</remarks>
         /// <example>
-        /// <code>
-        /// namespace xxx
-        /// {
-        /// }
-        /// </code>
+        /// E e.
         /// </example>
         public int this[int index]
         {
@@ -156,20 +124,16 @@ namespace CR_StyleCop.TestCode
         }
 
         /// <summary>
-        /// Description of method...
+        /// M s.
         /// </summary>
-        /// <typeparam name="TT">Generic parameter for method.</typeparam>
-        /// <param name="parameter">Input parameter for method.</param>
-        /// <returns>Something not useful at all.</returns>
-        /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
-        /// <remarks>Some remarks to class.</remarks>
+        /// <typeparam name="TT">G p.</typeparam>
+        /// <param name="parameter">I p.</param>
+        /// <returns>R v.</returns>
+        /// <exception cref="NullReferenceException">E c.</exception>
+        /// <permission cref="System.Security.PermissionSet">D p.</permission>
+        /// <remarks>R m.</remarks>
         /// <example>
-        /// <code>
-        /// namespace xxx
-        /// {
-        /// }
-        /// </code>
+        /// E e.
         /// </example>
         public int Method<TT>(int parameter)
         {
@@ -177,18 +141,14 @@ namespace CR_StyleCop.TestCode
         }
 
         /// <summary>
-        /// Summary for struct...
+        /// S s.
         /// </summary>
-        /// <typeparam name="TS">Generic parameter for struct.</typeparam>
-        /// <exception cref="NullReferenceException">Exception condition.</exception>
-        /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
-        /// <remarks>Some remarks to struct.</remarks>
+        /// <typeparam name="TS">G p.</typeparam>
+        /// <exception cref="NullReferenceException">E c.</exception>
+        /// <permission cref="System.Security.PermissionSet">D p.</permission>
+        /// <remarks>R s.</remarks>
         /// <example>
-        /// <code>
-        /// namespace xxx
-        /// {
-        /// }
-        /// </code>
+        /// E e.
         /// </example>
         public struct MyStruct<TS>
         {

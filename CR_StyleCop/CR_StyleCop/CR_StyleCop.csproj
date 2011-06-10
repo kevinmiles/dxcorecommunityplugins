@@ -211,7 +211,9 @@
     <Compile Include="CodeIssues\WholeElementIssueLocator.cs" />
     <Compile Include="CodeIssues\WholeLineIssueLocator.cs" />
     <Compile Include="CodeIssues\WrongElementOrderIssueLocator.cs" />
-    <Compile Include="CR_StyleCopPlugIn.cs" />
+    <Compile Include="CR_StyleCopPlugIn.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CR_StyleCopPlugIn.Designer.cs">
       <DependentUpon>CR_StyleCopPlugIn.cs</DependentUpon>
     </Compile>
