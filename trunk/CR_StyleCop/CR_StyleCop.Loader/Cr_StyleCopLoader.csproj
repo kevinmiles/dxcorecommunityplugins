@@ -77,7 +77,9 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CR_StyleCopLoaderPlugIn.cs" />
+    <Compile Include="CR_StyleCopLoaderPlugIn.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CR_StyleCopLoaderPlugIn.Designer.cs">
       <DependentUpon>CR_StyleCopLoaderPlugIn.cs</DependentUpon>
     </Compile>
