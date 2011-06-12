@@ -45,10 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SA1004TestCode2.cs" />
     <Compile Include="SA1000TestCode.cs" />
     <Compile Include="SA1001TestCode.cs" />
     <Compile Include="SA1002TestCode.cs" />
     <Compile Include="SA1003TestCode.cs" />
+    <Compile Include="SA1004TestCode.cs" />
+    <Compile Include="SA1005TestCode.cs" />
     <Compile Include="SA1632TestCode.cs" />
     <Compile Include="SA1610TestCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
