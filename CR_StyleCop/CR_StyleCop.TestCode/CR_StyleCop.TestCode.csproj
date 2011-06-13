@@ -52,6 +52,15 @@
     <Compile Include="SA1003TestCode.cs" />
     <Compile Include="SA1004TestCode.cs" />
     <Compile Include="SA1005TestCode.cs" />
+    <Compile Include="SA1007TestCode.cs" />
+    <Compile Include="SA1008TestCode.cs" />
+    <Compile Include="SA1009TestCode.cs" />
+    <Compile Include="SA1010TestCode.cs" />
+    <Compile Include="SA1011TestCode.cs" />
+    <Compile Include="SA1012TestCode.cs" />
+    <Compile Include="SA1013TestCode.cs" />
+    <Compile Include="SA1014TestCode.cs" />
+    <Compile Include="SA1015TestCode.cs" />
     <Compile Include="SA1632TestCode.cs" />
     <Compile Include="SA1610TestCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
