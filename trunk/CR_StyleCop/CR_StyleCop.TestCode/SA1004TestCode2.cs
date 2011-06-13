@@ -9,6 +9,8 @@ namespace CR_StyleCop.TestCode
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
+#pragma warning disable 67
+
     ///<summary>
     ///Test code for SA1004 - documentation line must start with single space.
     ///</summary>

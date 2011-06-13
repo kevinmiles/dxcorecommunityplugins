@@ -11,6 +11,8 @@ namespace CR_StyleCop.TestCode
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
+#pragma warning disable 1591
+
     /// <summary>
     /// Test code for SA1002 rule - semicolons must be spaced correctly.
     /// </summary>

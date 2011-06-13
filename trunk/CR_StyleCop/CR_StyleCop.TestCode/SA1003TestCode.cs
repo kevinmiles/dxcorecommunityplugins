@@ -9,6 +9,8 @@ namespace CR_StyleCop.TestCode
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
+#pragma warning disable 1591
+
     /// <summary>
     /// Test code for SA1003 rule - operators must be spaced correctly.
     /// </summary>
@@ -24,7 +26,7 @@ namespace CR_StyleCop.TestCode
         {
         }
 
-        private void MethodName<T>(T x) where T :object
+        private void MethodName<T>(T x) where T :class
         {
             int varName=2;
             EventHandler handler = (o, s)=>{ };
