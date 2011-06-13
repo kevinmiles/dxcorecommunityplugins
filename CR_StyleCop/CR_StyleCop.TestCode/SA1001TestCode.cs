@@ -9,6 +9,8 @@ namespace CR_StyleCop.TestCode
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
+#pragma warning disable 169
+
     /// <summary>
     /// Test code for SA1001 rule - commas must be spaced correctly.
     /// </summary>
