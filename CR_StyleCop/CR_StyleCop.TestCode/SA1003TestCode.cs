@@ -39,7 +39,7 @@ namespace CR_StyleCop.TestCode
             varName = 2<< 3;
             varName+= 1;
             varName -=1;
-            varName*=1; // BUGBUG
+            varName*=1;
             varName /=1;
             varName%= 1;
             varName>>=1;
@@ -65,7 +65,7 @@ namespace CR_StyleCop.TestCode
             boolVar = (x)is bool; // BUGBUG
             object oo = (x)as object; // BUGBUG
 
-            if ( !boolVar) // BUGBUG
+            if ( !boolVar)
             {
             }
         }
