@@ -1,6 +1,8 @@
 #summary Allows for use of XPO Simplied Criteria Syntax (creates/updates the PersistentBase.FieldsClass of your object, for easy field reference)
 [http://www.rorybecker.co.uk/DevExpress/Plugins/Community/XPO_EasyFields/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]           [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
+<wiki:gadget url="http://www.alfware.com.au/facebook-like.xml" width="500" height="30" />
+
 <wiki:toc max_depth="1" />
 
 = Introduction =
@@ -53,6 +55,8 @@ Place the caret on the Class name of your persistent object, bring up the Refact
 
 
 = History =
+  * Build 1829
+    * (fixed) incompatibility 
   * Build 1439
     * (beta) Added support for Constant generation for use in Attributes
     * (fixed) hopefully fixed Structures not generating correctly
