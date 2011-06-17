@@ -7,7 +7,7 @@ namespace CR_StyleCop.TestCode
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-
+    
 #pragma warning disable 67
 
     /// <summary>

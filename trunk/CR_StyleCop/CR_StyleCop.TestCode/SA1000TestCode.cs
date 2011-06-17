@@ -31,16 +31,12 @@ namespace CR_StyleCop.TestCode
             int[] values = new[] { 1 };
             var values2 = from x in(values) 
                           where(x < 2)
-                          group(x) 
-                          by(x) 
-                          into g
+                          group(x) by(x) into g
                           orderby(g)
                           let y = g
                           select(y);
             var values3 = from x in values
-                          join p in(values2) 
-                          on(x.ToString()) 
-                          equals(p.ToString())
+                          join p in(values2) on(x.ToString()) equals(p.ToString())
                           select Tuple.Create(x, p);
             foreach(var value in values2)
             {

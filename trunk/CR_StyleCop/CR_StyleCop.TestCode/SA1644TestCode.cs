@@ -12,10 +12,9 @@ namespace CR_StyleCop.TestCode
 
 #pragma warning disable 67
 
-    // BUGBUG: SA1644 is reported within <c> tag.
-
     /// <summary>
     /// Test code for SA1644 rule - documentation should not contain blank lines.
+    /// 
     /// </summary>
     /// <typeparam name="T">Description of type.</typeparam>
     /// <exception cref="NullReferenceException">Exception condition.</exception>
@@ -28,12 +27,6 @@ namespace CR_StyleCop.TestCode
     /// 
     /// }
     /// </c>
-    /// <code>
-    /// namespace xxx
-    /// {
-    /// 
-    /// }
-    /// </code>
     /// </example>
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1642:ConstructorSummaryDocumentationMustBeginWithStandardText", Justification = "This is about SA1631 rule.")]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1643:DestructorSummaryDocumentationMustBeginWithStandardText", Justification = "This is about SA1631 rule.")]
@@ -46,11 +39,11 @@ namespace CR_StyleCop.TestCode
         /// <permission cref="System.Security.PermissionSet">Description of permission.</permission>
         /// <remarks>Some remarks to class.</remarks>
         /// <example>
+        /// 
         /// <code>
         /// namespace xxx
         /// {
         /// }
-        /// //
         /// </code>
         /// </example>
         public const int InvalidField = 14;
@@ -67,8 +60,9 @@ namespace CR_StyleCop.TestCode
         /// namespace xxx
         /// {
         /// }
-        /// //
+        /// 
         /// </code>
+        /// 
         /// </example>
         public SA1644TestCode(int parameter)
         {
@@ -78,13 +72,16 @@ namespace CR_StyleCop.TestCode
         /// Finalizes an instance of the <see cref="T:SA1644TestCode"/> class..
         /// </summary>
         /// <remarks>Some remarks to destructor.</remarks>
+        /// 
         ~SA1644TestCode()
         {
         }
 
         /// <summary>
         /// Summary for delegate...
+        /// 
         /// </summary>
+        /// 
         /// <typeparam name="TD">Generic parameter for delegate.</typeparam>
         /// <param name="ea">Argument for delegate.</param>
         /// <returns>Something not useful at all.</returns>
