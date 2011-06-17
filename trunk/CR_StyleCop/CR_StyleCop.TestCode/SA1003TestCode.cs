@@ -62,12 +62,17 @@ namespace CR_StyleCop.TestCode
             boolVar = true|| false;
             boolVar = ! true;
             boolVar =!true;
-            boolVar = (x)is bool; // BUGBUG
-            object oo = (x)as object; // BUGBUG
+            boolVar = (this.SomeReallyObscuredMethod(42, "foo"))is IConvertible; // BUGBUG
+            IConvertible convertible = (this.SomeReallyObscuredMethod(42, "foo"))as IConvertible; // BUGBUG
 
             if ( !boolVar)
             {
             }
+        }
+
+        private object SomeReallyObscuredMethod(int intParam, string stringParam)
+        {
+            return true;
         }
     }
 }
