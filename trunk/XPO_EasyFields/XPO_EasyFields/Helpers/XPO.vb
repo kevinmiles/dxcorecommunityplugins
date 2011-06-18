@@ -224,7 +224,8 @@ Namespace Helpers
                         .Visibility = MemberVisibility.Public
                         .IsNew = True 'This seems to do the "Shadows" keyword
                         If Settings.IncludeInheritedMembers Then
-                            .PrimaryAncestorType = New TypeReferenceExpression(String.Format("{0}.{1}", _class.GetBaseType.Name, Helpers.XPO.Names.FieldsClassName)) 'Couldn't find easier way, needs to "shadow" the persistentbase FieldsClass
+
+                            .PrimaryAncestorType = New TypeReferenceExpression(String.Format("{0}.{1}", _class.PrimaryAncestorType.ToString, Helpers.XPO.Names.FieldsClassName)) 'Couldn't find easier way, needs to "shadow" the persistentbase FieldsClass
                         Else
                             .PrimaryAncestorType = New TypeReferenceExpression(String.Format("{0}.{1}", Helpers.XPO.Names.PersistentBase, Helpers.XPO.Names.FieldsClassName))
                         End If
@@ -366,7 +367,7 @@ Namespace Helpers
                     AddMembersToFieldsClass(BobClass, NewFieldsClass, CType(PropertyTypeElement, IStructElement).Members, Member.Name & "_", Member.Name)
                     'Exit Sub
                 Else
-                    newPropertyType = Names.OperandProperty
+                    newPropertyType = CodeRush.Source.StripNamespace(Names.OperandProperty)
                 End If
 
                 If Settings.IncludeFieldConstants AndAlso newPropertyType = Names.OperandProperty Then

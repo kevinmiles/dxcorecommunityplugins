@@ -16,18 +16,18 @@ namespace DXCore_TestAppC
             get { return _key; }
             set { _key = value; }
         }
-        private static FieldsClass _fields;
+        private static FieldsClass _Fields;
         public new static FieldsClass Fields
         {
             get
             {
-                if (ReferenceEquals(_fields, null))
-                    _fields = new FieldsClass();
-                return _fields;
+                if (ReferenceEquals(_Fields, null))
+                    _Fields = new FieldsClass();
+                return _Fields;
             }
         }
-        //Created/Updated: PC-ALF\PC-ALF\Michael 4/05/2010 2:11 AM
-        public new class FieldsClass : DevExpress.Xpo.XPBaseObject.FieldsClass
+        //Created/Updated: PC-DEV\Michael on PC-DEV at 11/06/2011 9:14 AM
+        public new class FieldsClass : XPBaseObject.FieldsClass
         {
             public FieldsClass()
                 : base()
@@ -37,6 +37,7 @@ namespace DXCore_TestAppC
                 : base(propertyName)
             {
             }
+            public const String IDFieldName = "ID";
             public DevExpress.Data.Filtering.OperandProperty ID
             {
                 get
@@ -95,9 +96,18 @@ public class Capture : XPBaseObject
         }
     }
 
-
-    //Created/Updated: PC-ALF\PC-ALF\Michael 4/05/2010 2:14 AM
-    public new class FieldsClass : DevExpress.Xpo.XPBaseObject.FieldsClass
+    private static FieldsClass _Fields;
+    public new static FieldsClass Fields
+    {
+        get
+        {
+            if (ReferenceEquals(_Fields, null))
+                _Fields = new FieldsClass();
+            return _Fields;
+        }
+    }
+    //Created/Updated: PC-DEV\Michael on PC-DEV at 11/06/2011 9:14 AM
+    public new class FieldsClass : XPBaseObject.FieldsClass
     {
         public FieldsClass()
             : base()
@@ -107,44 +117,44 @@ public class Capture : XPBaseObject
             : base(propertyName)
         {
         }
-        public DXCore_TestAppC.CollectionFieldsClass Session3s
+        public const String Session3sFieldName = "Session3s";
+        public DevExpress.Data.Filtering.OperandProperty Session3s
         {
             get
             {
-                return new DXCore_TestAppC.CollectionFieldsClass(GetNestedName("Session3s"));
+                return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Session3s"));
             }
         }
         public DXCore_TestAppC.SessionMB.FieldsClass Key_SessionMB
         {
             get
             {
-                return new DXCore_TestAppC.SessionMB.FieldsClass(GetNestedName("SessionMB"));
+                return new DXCore_TestAppC.SessionMB.FieldsClass(GetNestedName("Key.SessionMB"));
             }
         }
+        public const String Key_SequenceFieldName = "Key.Sequence";
         public DevExpress.Data.Filtering.OperandProperty Key_Sequence
         {
             get
             {
-                return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Sequence"));
+                return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Key.Sequence"));
             }
         }
+        public const String KeyFieldName = "Key";
+        public DevExpress.Data.Filtering.OperandProperty Key
+        {
+            get
+            {
+                return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("Key"));
+            }
+        }
+        public const String sTestFieldName = "sTest";
         public DevExpress.Data.Filtering.OperandProperty sTest
         {
             get
             {
                 return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("sTest"));
             }
-        }
-    }
-
-    private static FieldsClass _fields;
-    public new static FieldsClass Fields
-    {
-        get
-        {
-            if (ReferenceEquals(_fields, null))
-                _fields = new FieldsClass();
-            return _fields;
         }
     }
 }
