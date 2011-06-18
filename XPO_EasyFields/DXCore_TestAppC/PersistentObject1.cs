@@ -13,7 +13,7 @@ namespace DXCore_TestAppC
             // Do not place any code here.
         }
 
-        public PersistentObject1(Session session)
+        public PersistentObject1(DevExpress.Xpo.Session session)
             : base(session)
         {
             // This constructor is used when an object is loaded from a persistent storage.
@@ -96,8 +96,8 @@ namespace DXCore_TestAppC
                 return _Fields;
             }
         }
-        //Created/Updated: PC-DEV\Michael on PC-DEV at 18/06/2011 10:48 AM
-        public new class FieldsClass : XPObject.FieldsClass
+        //Created/Updated: PC-DEV\Michael on PC-DEV at 18/06/2011 12:30 PM
+        public new class FieldsClass : DevExpress.Xpo.XPObject.FieldsClass
         {
             public FieldsClass()
                 : base()
@@ -107,18 +107,20 @@ namespace DXCore_TestAppC
                 : base(propertyName)
             {
             }
-            public OperandProperty IListPropertyOfPersistentObject1
+            public const String IListPropertyOfPersistentObject1FieldName = "IListPropertyOfPersistentObject1";
+            public DevExpress.Data.Filtering.OperandProperty IListPropertyOfPersistentObject1
             {
                 get
                 {
-                    return new OperandProperty(GetNestedName("IListPropertyOfPersistentObject1"));
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("IListPropertyOfPersistentObject1"));
                 }
             }
-            public OperandProperty TestByteArray
+            public const String TestByteArrayFieldName = "TestByteArray";
+            public DevExpress.Data.Filtering.OperandProperty TestByteArray
             {
                 get
                 {
-                    return new OperandProperty(GetNestedName("TestByteArray"));
+                    return new DevExpress.Data.Filtering.OperandProperty(GetNestedName("TestByteArray"));
                 }
             }
             public const String PersistentPropertyFieldName = "PersistentProperty";
