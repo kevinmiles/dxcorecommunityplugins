@@ -1,20 +1,20 @@
 #summary Removes the need for the shift key when creating PascalCased or camelCased identifiers
 [http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_EasierIdentifiers/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 since build =====
+===== Requires DXCore 10.2 =====
 === Introduction ===
 Plugin to convert spaces into shift keys during the creation of identifiers.
 
 === Configuration === 
 Aside from [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions the usual installation] you'll also need to do some minimal configuration to get this plugin to function.
 
-Use the [http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx shortcuts options page] to locate the TemplateExpand binding (*Code\Expansion\`<space>* by default) and add a requirement that *System\ConvertingSpacesToCamelCase* is false.
+Use the [http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx shortcuts options page] to locate the !TemplateExpand binding (*Code\Expansion\[[Space]]* by default) and add a requirement that *System\ConvertingSpacesToCamelCase* is false.
 
 === Usage ===
 
-With the caret in a TextField, type it's name using spaces instead of shift keys. Any characters following the space will be converted into uppercase.
+With the caret in a !TextField, type it's name using spaces instead of shift keys. Any characters following the space will be converted into uppercase.
 
-Thus typing *my`<space>variable`<space>name* will result in *MyVariableName*
+Thus typing *my[[space]]variable[[space]]name* will result in *MyVariableName*
 
 === Credits ===
 
