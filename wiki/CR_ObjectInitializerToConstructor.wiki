@@ -1,0 +1,30 @@
+#summary Refactoring and CodeProvider for changing an Object Initializer into a constructor call (creating said constructor if needed)
+[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_ObjectInitializerToConstructor/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Requires DXCore 10.2 =====
+=== Introduction ===
+This Refactoring / CodeProvider combination provide the user with the ability to convert an Object Initializer into a constructor call
+
+The refactoring will perform the following conversion:
+
+ie from...
+
+    var myBox = new Box() {Height = 22, Width = 44, Depth = 88}
+
+..into..
+
+    var myBox = new Box(22, 44, 88)
+
+The !CodeProvider will additionally create the required constructor
+
+=== Usage ===
+
+Place your caret on any part of the right hand expression...
+
+    new Box() {Height = 22, Width = 44, Depth = 88}
+
+...and select either "*Create (and convert initializer to) Constructor Call*" or "*Convert Initializer to Constructor Call*" as appropriate
+
+=== Credits ===
+
+Author: [http://community.devexpress.com/blogs/markmiller/default.aspx Mark Miller]
