@@ -42,12 +42,14 @@ namespace CR_ObjectInitializerToConstructor
 		}
 		#endregion
 
+		private static string FormatAsParameter(string name)
+		{
+			return CodeRush.Strings.Get("FormatParamName", name);
+		}
 		private void targetPicker1_TargetSelected(object sender, TargetSelectedEventArgs ea)
 		{
 			ElementBuilder elementBuilder = new ElementBuilder();
-
-			IElementCollection existingDefaultConstructors = ParserServices.SourceTreeResolver.FindConstructors(_TypeElement, new ExpressionCollection());
-			bool missingDefaultConstructor = existingDefaultConstructors == null || existingDefaultConstructors.Count == 0;
+			bool missingDefaultConstructor = _TypeElement.HasDefaultConstructor();
 			if (missingDefaultConstructor)
 			{
 				Method defaultConstructor = elementBuilder.BuildConstructor(null);
@@ -66,20 +68,24 @@ namespace CR_ObjectInitializerToConstructor
 				if (memberInitializerExpression == null)
 					continue;
 
-				// Using the FormatParamName StringProvider...
-				string parameterName = CodeRush.Strings.Get("FormatParamName", memberInitializerExpression.Name);
-				IElement resolve = memberInitializerExpression.Resolve(ParserServices.SourceTreeResolver);
-				if (resolve != null)
+				string parameterName = FormatAsParameter(memberInitializerExpression.Name);
+				IElement initializerType = memberInitializerExpression.GetInitializerType();
+				if (initializerType != null)
 				{
-					Param param = new Param(resolve.Name, parameterName);
+					Param param = new Param(initializerType.Name, parameterName);
 					constructor.Parameters.Add(param);
 
 					Assignment assignment = new Assignment();
 					ElementReferenceExpression leftSide = new ElementReferenceExpression(memberInitializerExpression.Name);
 					if (CodeRush.Language.IdentifiersMatch(memberInitializerExpression.Name, parameterName))
 					{
-						string selfQualifier = CodeRush.Language.GenerateElement(new ThisReferenceExpression());
-						leftSide = new ElementReferenceExpression(selfQualifier + "." + memberInitializerExpression.Name);
+						// Old way of building a "this.Xxxx" expression:
+						//string selfQualifier = CodeRush.Language.GenerateElement(new ThisReferenceExpression());
+						//leftSide = new ElementReferenceExpression(selfQualifier +  CodeRush.Language.MemberAccessOperator + memberInitializerExpression.Name);
+
+						// Recommended way of building a "this.Xxxx" expression:
+						leftSide = new QualifiedElementReference(memberInitializerExpression.Name);
+						leftSide.Qualifier = new ThisReferenceExpression();
 					}
 					assignment.LeftSide = leftSide;
 					assignment.Expression = new ElementReferenceExpression(parameterName);
@@ -128,7 +134,8 @@ namespace CR_ObjectInitializerToConstructor
 
 		private static bool HasMatchingConstructors(ObjectInitializerExpression initializer, ITypeElement typeElement)
 		{
-			IElementCollection foundConstructors = ParserServices.SourceTreeResolver.FindConstructors(typeElement, initializer.Initializers);
+			ExpressionCollection parameters = initializer.Initializers;
+			IElementCollection foundConstructors = typeElement.FindConstructors(parameters);
 			return foundConstructors != null && foundConstructors.Count > 0;
 		}
 
@@ -158,16 +165,16 @@ namespace CR_ObjectInitializerToConstructor
 				}
 			}
 
-			// IElement -- Liteweight elements for representing source code, including referenced assemblies.
+			// IElement -- Lightweight elements for representing source code, including referenced assemblies.
 			// LanguageElement -- Heavier, bigger elements
-			// We can convert from liteweight to heavy using LanguageElementRestorer.ConvertToLanguageElement();
+			// We can convert from lightweight to heavy using LanguageElementRestorer.ConvertToLanguageElement();
 
-			Class typeElement = LanguageElementRestorer.ConvertToLanguageElement(_TypeElement) as Class;
+			Class typeElement = _TypeElement.GetLanguageElement() as Class;
 			if (typeElement == null)
 			{
-				// We just opened the file, and we need to get a new resolve on the _TypeElement.
-				_TypeElement = _ObjectCreationExpression.ObjectType.Resolve(ParserServices.SourceTreeResolver) as ITypeElement;
-				typeElement = LanguageElementRestorer.ConvertToLanguageElement(_TypeElement) as Class;
+				// We just opened the file -- we need to get a new resolve on the _TypeElement.
+				_TypeElement = _ObjectCreationExpression.ObjectType.GetTypeDeclaration();
+				typeElement = _TypeElement.GetLanguageElement() as Class;
 				if (typeElement == null)
 					return;
 			}
@@ -185,20 +192,14 @@ namespace CR_ObjectInitializerToConstructor
 				_Changes = new FileChangeCollection();
 			else
 				_Changes.Clear();
-			try
-			{
-				_Changes.Add(newFileChange);
-			}
-			catch (Exception ex)
-			{
-
-			}
+			
+			_Changes.Add(newFileChange);
 
 			TextDocument textDocument = CodeRush.Documents.Get(_TypeElement.FirstFile.Name) as TextDocument;
 			if (textDocument == null)
 			{
 				_WaitingForViewActivate = true;
-				textDocument = CodeRush.File.Activate(_TypeElement.FirstFile.Name) as TextDocument;
+				CodeRush.File.Activate(_TypeElement.FirstFile.Name);
 				return;
 			}
 

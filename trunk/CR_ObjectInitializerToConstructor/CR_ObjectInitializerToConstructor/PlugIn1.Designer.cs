@@ -53,7 +53,7 @@ namespace CR_ObjectInitializerToConstructor
 			this.cdeCreateConstructorCall.AutoActivate = true;
 			this.cdeCreateConstructorCall.AutoUndo = false;
 			this.cdeCreateConstructorCall.CodeIssueMessage = null;
-			this.cdeCreateConstructorCall.Description = "Creates a constructor call mathing the object initializer arguments and calls it." +
+			this.cdeCreateConstructorCall.Description = "Creates a constructor call matching the object initializer arguments and calls it." +
     "";
 			this.cdeCreateConstructorCall.Image = ((System.Drawing.Bitmap)(resources.GetObject("cdeCreateConstructorCall.Image")));
 			this.cdeCreateConstructorCall.NeedsSelection = false;
