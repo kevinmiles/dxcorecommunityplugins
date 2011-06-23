@@ -68,6 +68,7 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="PlugIn1.cs">
       <SubType>Component</SubType>
     </Compile>
