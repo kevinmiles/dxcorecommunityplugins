@@ -24,7 +24,7 @@ namespace CR_StyleCop.TestCode
 			get
 			{
 				return this.propertyName;
-			}
+	    	}
 
 			set
 			{
