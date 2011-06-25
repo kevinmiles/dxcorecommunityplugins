@@ -71,6 +71,8 @@
     <Compile Include="SA1023TestCode.cs" />
     <Compile Include="SA1024TestCode.cs" />
     <Compile Include="SA1025TestCode.cs" />
+    <Compile Include="SA1026TestCode.cs" />
+    <Compile Include="SA1027TestCode.cs" />
     <Compile Include="SA1632TestCode.cs" />
     <Compile Include="SA1610TestCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
