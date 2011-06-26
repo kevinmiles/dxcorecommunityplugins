@@ -33,45 +33,34 @@ Public Class TryCatchGenerator
 
 #End Region
 
-
 #Region "Try Catch wrapping methods"
-
-
-	''' <summary>
-	''' Inserts a Try Catch block around the textDocument active Selection 
-	''' </summary>
-	''' <param name="handlers">set of exceptions to provide catch blocks for.</param>
-	''' <remarks></remarks>
+    ''' <summary>
+    ''' Inserts a Try Catch block around the textDocument active Selection 
+    ''' </summary>
+    ''' <param name="handlers">set of exceptions to provide catch blocks for.</param>
+    ''' <remarks></remarks>
 	Friend Sub WrapSelectionInTryCatch(ByVal handlers As IEnumerable(Of ExceptionHandler))
 
-		Dim doc As TextDocument = CodeRush.Documents.ActiveTextDocument
+        Dim ActiveDoc = CodeRush.Documents.ActiveTextDocument
 
-		Dim selectionStartLine As Integer = CodeRush.TextViews.Active.Selection.Range.Top.Line
-		Dim startLine As String = doc.GetLine(selectionStartLine)
-		Dim leadingWhiteSpace As String = CodeRush.StrUtil.GetLeadingWhiteSpace(startLine)
+        Dim selectionStartLine = CodeRush.TextViews.Active.Selection.Range.Top.Line
+        Dim startLine = ActiveDoc.GetLine(selectionStartLine)
+        Dim leadingWhiteSpace = CodeRush.StrUtil.GetLeadingWhiteSpace(startLine)
 
-		Dim code As String = WrapInTryCatch(CodeRush.TextViews.Active.Selection.Text, leadingWhiteSpace, handlers)
+        Dim code = WrapInTryCatch(CodeRush.TextViews.Active.Selection.Text, leadingWhiteSpace, handlers)
 
-        Dim sr As SourceRange = doc.Selection.Range
-		If Not sr.StartPrecedesEnd Then 'swap the start and end to ensure correct replace
-			sr = New SourceRange(sr.End, sr.Start)
-		End If
+        Dim sr = ActiveDoc.ActiveView.Selection.Range
+        If Not sr.StartPrecedesEnd Then 'swap the start and end to ensure correct replace
+            sr = New SourceRange(sr.End, sr.Start)
+        End If
 
-		Dim lParentUnit As ParentUndoUnit = CodeRush.UndoStack.OpenParentUnit("Add Exception Handlers", True)
-		Try
-			doc.DeleteText(sr)
-			Dim insertedTextRange As SourceRange = doc.ExpandText(sr.Start, code)	 ' Using ExpandText to expand "«Caret»" and "«Marker»", added by WrapInTryCatch - Mark.
-			doc.Format(insertedTextRange)
-		Finally
-			CodeRush.UndoStack.CommitParentUnit(lParentUnit)
-		End Try
-
-		' The Queued edits do not format the code, and in C# this is necessary, so the lines below
-		' have been replaced with the lines above.
-
-		'doc.QueueReplace(sr, code)
-		'doc.apApplyQueuedEdits("Add Exception Handler")
-	End Sub
+        Using CompoundAction = ActiveDoc.NewCompoundAction("Add Exception Handlers", True)
+            ActiveDoc.DeleteText(sr)
+            ' Using ExpandText to expand "«Caret»" and "«Marker»", added by WrapInTryCatch - Mark.
+            Dim insertedTextRange = ActiveDoc.ExpandText(sr.Start, code)
+            ActiveDoc.Format(insertedTextRange)
+        End Using
+    End Sub
 
 
     ''' <summary>
