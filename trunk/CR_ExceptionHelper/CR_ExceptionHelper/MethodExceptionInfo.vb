@@ -70,48 +70,40 @@ Friend Class MethodExceptionInfo
     ''' <returns>A MethodExceptionInfo instance, or null</returns>
     ''' <remarks></remarks>
     Public Shared Function Create(ByVal element As LanguageElement) As MethodExceptionInfo
-
         If Not TypeOf element Is IMethodCallExpression _
-                AndAlso Not TypeOf element Is IMethodCallStatement Then
+           AndAlso Not TypeOf element Is IMethodCallStatement Then
             Return Nothing
         End If
 
-        Dim methodInfo As MethodExceptionInfo = Nothing
-        Dim methodDeclaration As IMethodElement
-        Dim strMethodDescriptor As String
-
-        methodDeclaration = TryCast(ParserServices.SourceModelService.GetDeclaration(element), IMethodElement)
-
-        If methodDeclaration Is Nothing Then
+        Dim MethodDeclaration = TryCast(ParserServices.SourceModelService.GetDeclaration(element), IMethodElement)
+        If Not MethodDeclaration.InReferencedAssembly Then
             ' Call is to sourcecode rather than a library.
             Return Nothing
         End If
 
-        strMethodDescriptor = GetMethodDescriptor(methodDeclaration)
-        ' Of Form "System.IO.Directory.Delete(System.String)"
-
-        If strMethodDescriptor = Nothing Then
+        Dim MethodDescriptorString = GetMethodDescriptor(MethodDeclaration)
+        If MethodDescriptorString = Nothing Then
             ' Couldn't build Method Descriptor
             Return Nothing
         End If
-
-        If m_DiscoveredMethods.TryGetValue(strMethodDescriptor, methodInfo) Then
+        Dim methodInfo As MethodExceptionInfo = Nothing
+        If m_DiscoveredMethods.TryGetValue(MethodDescriptorString, methodInfo) Then
             methodInfo.NameRanges.Add(element.NameRange)    ' Store this location for later when we paint references contributing to this exception.
         Else
             'locate the assemblyreference
-            Dim assemblyModel As MetaDataAssemblyModel = TryCast(methodDeclaration.AssemblyModel, MetaDataAssemblyModel)
+            Dim assemblyModel As MetaDataAssemblyModel = TryCast(MethodDeclaration.AssemblyModel, MetaDataAssemblyModel)
             Dim assemblyRef As AssemblyReference = Nothing
             If assemblyModel IsNot Nothing Then
                 assemblyRef = assemblyModel.Assembly
             End If
 
             If assemblyRef IsNot Nothing Then
-                methodInfo = New MethodExceptionInfo(strMethodDescriptor, assemblyRef, element.NameRange)
+                methodInfo = New MethodExceptionInfo(MethodDescriptorString, assemblyRef, element.NameRange)
                 m_DiscoveredMethods.Add(methodInfo.MethodDescriptor, methodInfo)
             Else
-                Dim codeEl As CodeElement = TryCast(methodDeclaration, CodeElement)
+                Dim codeEl As CodeElement = TryCast(MethodDeclaration, CodeElement)
                 If codeEl IsNot Nothing Then
-                    methodInfo = New MethodExceptionInfo(strMethodDescriptor, codeEl.DocComment, element.NameRange)
+                    methodInfo = New MethodExceptionInfo(MethodDescriptorString, codeEl.DocComment, element.NameRange)
                 End If
             End If
 
@@ -248,7 +240,8 @@ Friend Class MethodExceptionInfo
             fileinfo = New IO.FileInfo(assemblyReference.FilePath)
         End If
 
-        fileinfo = New IO.FileInfo(fileinfo.DirectoryName & "\en\" & fileinfo.Name.Substring(0, fileinfo.Name.Length - fileinfo.Extension.Length) & ".xml")
+        Dim SubDir As String = If(fileinfo.Directory.GetDirectories("en").Count = 0, "en\", "")
+        fileinfo = New IO.FileInfo(fileinfo.DirectoryName & "\" & SubDir & fileinfo.Name.Substring(0, fileinfo.Name.Length - fileinfo.Extension.Length) & ".xml")
 
         If Not fileinfo.Exists Then Return
 
@@ -283,7 +276,7 @@ Friend Class MethodExceptionInfo
 
         strComment = "<member name=""M:" & m_MethodDescriptor & """>" & String.Join(vbCrLf, lines) & "</member>"
 
-        Using reader As Xml.XmlReader = New Xml.XmlTextReader(strComment, Xml.XmlNodeType.Element, Nothing)
+        Using reader As System.Xml.XmlReader = New System.Xml.XmlTextReader(strComment, System.Xml.XmlNodeType.Element, Nothing)
             If reader.ReadToDescendant("exception") Then
                 Do
                     Dim exName As String = reader.GetAttribute("cref")
@@ -302,7 +295,7 @@ Friend Class MethodExceptionInfo
     End Sub
 
 
-    Private Sub FindExceptions(ByVal reader As Xml.XmlReader)
+    Private Sub FindExceptions(ByVal reader As System.Xml.XmlReader)
         reader.ReadToFollowing("member")
         Dim strName As String = "M:" & m_MethodDescriptor
         While reader.GetAttribute("name") <> strName
