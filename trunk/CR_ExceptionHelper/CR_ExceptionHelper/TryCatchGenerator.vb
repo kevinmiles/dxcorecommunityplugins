@@ -1,45 +1,53 @@
 Option Strict On
 Option Explicit On
-
-Imports System
 Imports System.ComponentModel
-Imports System.Drawing
-Imports System.Windows.Forms
 Imports DevExpress.CodeRush.Core
-Imports DevExpress.CodeRush.PlugInCore
 Imports DevExpress.CodeRush.StructuralParser
-Imports DevExpress.CodeRush.Interop.OLE.Helpers
-Imports System.Collections
 
 <DesignerCategory("")> <ToolboxItem(True)> _
 Public Class TryCatchGenerator
-	Implements IComponent
+    Implements IComponent
 
+#Region "Utility Methods"
+    ''' <summary>
+    ''' Creates an ExceptionHandlerCollection based on a list of MethodExceptionInfos
+    ''' </summary>
+    ''' <param name="methods">The MethodExceptionInfos to combine</param>
+    ''' <returns>An ExceptionHandlerCollection</returns>
+    ''' <remarks></remarks>
+    Friend Shared Function GetExceptionHandlerCollection(ByVal methods As IEnumerable(Of MethodExceptionInfo)) As ExceptionHandlerCollection
+        Dim handlers As New ExceptionHandlerCollection
+        For Each item As MethodExceptionInfo In methods
+            For Each ex As ExceptionInfo In item.Exceptions
+                handlers.Add(ex.TypeName, item.MethodDescriptor, item.NameRanges, ex.Description)
+            Next
+        Next
+        Return handlers
+    End Function
+#End Region
+#Region "Construction"
+    ''' <summary>
+    ''' called by the component design surface
+    ''' </summary>
+    ''' <param name="container">contianer for disposal linking</param>
+    ''' <remarks></remarks>
+    Public Sub New(ByVal container As IContainer)
+        MyClass.New()
+        If container IsNot Nothing Then container.Add(Me)
+    End Sub
 
-#Region "Constructors"
-	''' <summary>
-	''' called by the component design surface
-	''' </summary>
-	''' <param name="container">contianer for disposal linking</param>
-	''' <remarks></remarks>
-	Public Sub New(ByVal container As System.ComponentModel.IContainer)
-		MyClass.New()
-		If container IsNot Nothing Then container.Add(Me)
-	End Sub
-
-	Public Sub New()
-		MyBase.New()
-	End Sub
+    Public Sub New()
+        MyBase.New()
+    End Sub
 
 #End Region
-
 #Region "Try Catch wrapping methods"
     ''' <summary>
     ''' Inserts a Try Catch block around the textDocument active Selection 
     ''' </summary>
     ''' <param name="handlers">set of exceptions to provide catch blocks for.</param>
     ''' <remarks></remarks>
-	Friend Sub WrapSelectionInTryCatch(ByVal handlers As IEnumerable(Of ExceptionHandler))
+    Friend Sub WrapSelectionInTryCatch(ByVal handlers As IEnumerable(Of ExceptionHandler))
 
         Dim ActiveDoc = CodeRush.Documents.ActiveTextDocument
 
@@ -70,20 +78,20 @@ Public Class TryCatchGenerator
     ''' <param name="handlers">set of exceptions to provide Catch blocks for</param>
     ''' <returns>the text wrapped in the Try Catch</returns>
     ''' <remarks></remarks>
-	Friend Function WrapInTryCatch(ByVal selectionText As String, ByVal leadingWhiteSpace As String, ByVal handlers As IEnumerable(Of ExceptionHandler)) As String
-        Dim listOfHandlers As List(Of ExceptionHandler) = SortExceptions(handlers)
-        Dim lang As LanguageServices = CodeRush.Language
-        Dim eb As ElementBuilder = lang.GetActiveElementBuilder
-        Dim tryElem As LanguageElement = eb.AddTry(Nothing)
+    Friend Function WrapInTryCatch(ByVal selectionText As String, ByVal leadingWhiteSpace As String, ByVal handlers As IEnumerable(Of ExceptionHandler)) As String
+        Dim HandlerList = SortExceptions(handlers)
+        Dim Language = CodeRush.Language
+        Dim Builder = Language.GetActiveElementBuilder
+        Dim TryElement = Builder.AddTry(Nothing)
 
-        eb.AddSnippetCodeElement(tryElem, selectionText)
-        For Each item As ExceptionHandler In listOfHandlers
-            Dim ce As [Catch] = eb.AddCatch(Nothing, item.ExceptionName, "ex")
-            Dim throwersAlreadyDocumented As Hashtable = New Hashtable()     ' Make sure we document multiple callers only once.
+        Builder.AddSnippetCodeElement(TryElement, selectionText)
+        For Each item As ExceptionHandler In HandlerList
+            Dim [Catch] = Builder.AddCatch(Nothing, item.ExceptionName, "ex")
+            Dim DocumentedThrowers = New Hashtable()     ' Make sure we document multiple callers only once.
             For Each exMethInfo As ExceptionInfo In item.ExceptionMethodInfos
-                Dim exceptionThrower As String = exMethInfo.TypeName
-                If Not throwersAlreadyDocumented.ContainsKey(exceptionThrower) Then
-                    throwersAlreadyDocumented.Add(exceptionThrower, Nothing)
+                Dim ExceptionThrower As String = exMethInfo.TypeName
+                If Not DocumentedThrowers.ContainsKey(ExceptionThrower) Then
+                    DocumentedThrowers.Add(ExceptionThrower, Nothing)
 
                     'AddComment(ce, String.Format("Thrown from {0}.", exceptionThrower))
                     ' TODO: Convert <cref> and other XML doc tags in exMethInfo.Description to plain text. -- Suggested by Mark.
@@ -97,16 +105,16 @@ Public Class TryCatchGenerator
             Next
 
             ' To add an empty line, use this code (the call to AddStatement with an empty string generated lines consisting of semi-colons in C# -- Mark.
-            eb.AddSnippetCodeElement(ce, leadingWhiteSpace & "«Marker»" & Environment.NewLine)
+            Builder.AddSnippetCodeElement([Catch], leadingWhiteSpace & "«Marker»" & Environment.NewLine)
 
-            ce.AddNode(New [Throw])
+            [Catch].AddNode(New [Throw])
             ' Use the code above (instead of the code below) to add a new throw statement. We'll add an AddThrow method to ElementBuilder as well -- Mark.
             'eb.AddStatement(ce, lang.CreateLanguageElement(LanguageElementType.Throw))
         Next
 
-		Return eb.GenerateCode()
+        Return Builder.GenerateCode()
 
-	End Function
+    End Function
     Private Sub AddComment(ByVal parentElement As LanguageElement, ByVal commentText As String)
         Dim eb As New ElementBuilder
         Dim CommentLines As List(Of String) = ConvertToMaxWidthParagraph(commentText, 80)
@@ -140,138 +148,109 @@ Public Class TryCatchGenerator
 
 
 #End Region
+#Region "Exception Sorting"
+
+    'Private m_Exceptions As New Dictionary(Of String, Int32)
+
+    Private Function SortExceptions(ByVal handlers As IEnumerable(Of ExceptionHandler)) As List(Of ExceptionHandler)
+        Dim listOfHandlers As New List(Of ExceptionHandler)
+        For Each item As ExceptionHandler In handlers
+            listOfHandlers.Add(item)
+        Next
+        listOfHandlers.Sort(New Comparison(Of ExceptionHandler)(AddressOf HandlerComparer))
+        ' only cache exception depth per call per thread
+        Me.ExceptionDepths.Clear()
+        Return listOfHandlers
+    End Function
 
 
-#Region "utility methods"
+    Private Function HandlerComparer(ByVal x As ExceptionHandler, ByVal y As ExceptionHandler) As Int32
+        Return GetExceptionDepth(y).CompareTo(GetExceptionDepth(x))
+    End Function
 
 
-	''' <summary>
-	''' Creates an ExceptionHandlerCollection based on a list of MethodExceptionInfos
-	''' </summary>
-	''' <param name="methods">The MethodExceptionInfos to combine</param>
-	''' <returns>An ExceptionHandlerCollection</returns>
-	''' <remarks></remarks>
-	Friend Shared Function GetExceptionHandlerCollection(ByVal methods As IEnumerable(Of MethodExceptionInfo)) As ExceptionHandlerCollection
-		Dim handlers As New ExceptionHandlerCollection
-		For Each item As MethodExceptionInfo In methods
-			For Each ex As ExceptionInfo In item.Exceptions
-				handlers.Add(ex.TypeName, item.MethodDescriptor, item.NameRanges, ex.Description)
-			Next
-		Next
-		Return handlers
-	End Function
+    Private Function GetExceptionDepth(ByVal ex As ExceptionHandler) As Int32
+        Dim value As Int32 = 0
+        If Me.ExceptionDepths.TryGetValue(ex.ExceptionName, value) Then Return value
+
+        Dim typ As Type = Type.GetType(ex.ExceptionName, False, False)
+
+        If typ Is Nothing Then
+            For Each AssemblyReference As AssemblyReference In CodeRush.Documents.Active.ProjectElement.AssemblyReferences
+                Dim Assembly = Reflection.Assembly.ReflectionOnlyLoadFrom(AssemblyReference.FilePath)
+                typ = Assembly.GetType(ex.ExceptionName, False, False)
+                If typ IsNot Nothing Then Exit For
+            Next
+        End If
+
+        If typ Is Nothing Then
+            ' must be a live code declaration
+            Dim TypeElement = TryCast(CodeRush.Documents.Active.ProjectElement.FindElementByFullName(ex.ExceptionName, True, True), ITypeElement)
+            While TypeElement IsNot Nothing
+                TypeElement = TypeElement.GetBaseType
+                value += 1
+            End While
+
+        Else
+            Do While typ IsNot Nothing
+                typ = typ.BaseType
+                value += 1
+            Loop
+        End If
+
+        Me.ExceptionDepths.Add(ex.ExceptionName, value)
+
+        Return value
+    End Function
 
 
-#End Region
+    ' thread safe storage of exceptions per call per thread
+    Private m_ExceptionDepths As New My.MyProject.ThreadSafeObjectProvider(Of Dictionary(Of String, Int32))
 
-
-#Region "(private) sorting of exceptions"
-
-	'Private m_Exceptions As New Dictionary(Of String, Int32)
-
-	Private Function SortExceptions(ByVal handlers As IEnumerable(Of ExceptionHandler)) As List(Of ExceptionHandler)
-		Dim listOfHandlers As New List(Of ExceptionHandler)
-		For Each item As ExceptionHandler In handlers
-			listOfHandlers.Add(item)
-		Next
-		listOfHandlers.Sort(New Comparison(Of ExceptionHandler)(AddressOf HandlerComparer))
-		' only cache exception depth per call per thread
-		Me.ExceptionDepths.Clear()
-		Return listOfHandlers
-	End Function
-
-
-	Private Function HandlerComparer(ByVal x As ExceptionHandler, ByVal y As ExceptionHandler) As Int32
-		Return GetExceptionDepth(y).CompareTo(GetExceptionDepth(x))
-	End Function
-
-
-	Private Function GetExceptionDepth(ByVal ex As ExceptionHandler) As Int32
-		Dim value As Int32 = 0
-		If Me.ExceptionDepths.TryGetValue(ex.ExceptionName, value) Then Return value
-
-		Dim typ As Type = Type.GetType(ex.ExceptionName, False, False)
-
-		If typ Is Nothing Then
-			For Each ass As AssemblyReference In CodeRush.Documents.Active.ProjectElement.AssemblyReferences
-				Dim assembly As Reflection.Assembly = Reflection.Assembly.ReflectionOnlyLoadFrom(ass.FilePath)
-				typ = assembly.GetType(ex.ExceptionName, False, False)
-				If typ IsNot Nothing Then Exit For
-			Next
-		End If
-
-		If typ Is Nothing Then
-			' must be a live code declaration
-			Dim el As ITypeElement = TryCast(CodeRush.Documents.Active.ProjectElement.FindElementByFullName(ex.ExceptionName, True, True), ITypeElement)
-			While el IsNot Nothing
-				el = el.GetBaseType
-				value += 1
-			End While
-
-		Else
-			Do While typ IsNot Nothing
-				typ = typ.BaseType
-				value += 1
-			Loop
-		End If
-
-		Me.ExceptionDepths.Add(ex.ExceptionName, value)
-
-		Return value
-	End Function
-
-
-	' thread safe storage of exceptions per call per thread
-	Private m_ExceptionDepths As New My.MyProject.ThreadSafeObjectProvider(Of Dictionary(Of String, Int32))
-
-	Private ReadOnly Property ExceptionDepths() As Dictionary(Of String, Int32)
-		Get
-			Return m_ExceptionDepths.GetInstance
-		End Get
-	End Property
+    Private ReadOnly Property ExceptionDepths() As Dictionary(Of String, Int32)
+        Get
+            Return m_ExceptionDepths.GetInstance
+        End Get
+    End Property
 
 
 #End Region
-
 
 #Region "IComponent Interface"
-	<System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1725:ParameterNamesShouldMatchBaseDeclaration", MessageId:="0#")> <System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1725:ParameterNamesShouldMatchBaseDeclaration", MessageId:="0#")> _
-	Public Event Disposed As EventHandler Implements System.ComponentModel.IComponent.Disposed
+    <System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1725:ParameterNamesShouldMatchBaseDeclaration", MessageId:="0#")> <System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1725:ParameterNamesShouldMatchBaseDeclaration", MessageId:="0#")> _
+    Public Event Disposed As EventHandler Implements IComponent.Disposed
 
-	Private m_Site As ISite
+    Private m_Site As ISite
 
-	Private Property Site() As System.ComponentModel.ISite Implements System.ComponentModel.IComponent.Site
-		Get
-			Return Me.m_Site
-		End Get
-		Set(ByVal value As System.ComponentModel.ISite)
-			Me.m_Site = value
-		End Set
-	End Property
+    Private Property Site() As ISite Implements IComponent.Site
+        Get
+            Return Me.m_Site
+        End Get
+        Set(ByVal value As ISite)
+            Me.m_Site = value
+        End Set
+    End Property
 
-	Private disposedValue As Boolean		' To detect redundant calls
+    Private disposedValue As Boolean        ' To detect redundant calls
 
-	' IDisposable
-	Protected Overridable Sub Dispose(ByVal disposing As Boolean)
-		If Not Me.disposedValue Then
-			If disposing Then
-				' free unmanaged resources when explicitly called
-			End If
+    ' IDisposable
+    Protected Overridable Sub Dispose(ByVal disposing As Boolean)
+        If Not Me.disposedValue Then
+            If disposing Then
+                ' free unmanaged resources when explicitly called
+            End If
 
-			' free shared unmanaged resources
-		End If
-		Me.disposedValue = True
-		RaiseEvent Disposed(Me, EventArgs.Empty)
-	End Sub
+            ' free shared unmanaged resources
+        End If
+        Me.disposedValue = True
+        RaiseEvent Disposed(Me, EventArgs.Empty)
+    End Sub
 
 #End Region
-
-#Region " IDisposable Support "
-
-	Public Sub Dispose() Implements IDisposable.Dispose
-		Dispose(True)
-		GC.SuppressFinalize(Me)
-	End Sub
+#Region "IDisposable Support"
+    Public Sub Dispose() Implements IDisposable.Dispose
+        Dispose(True)
+        GC.SuppressFinalize(Me)
+    End Sub
 #End Region
-
 End Class

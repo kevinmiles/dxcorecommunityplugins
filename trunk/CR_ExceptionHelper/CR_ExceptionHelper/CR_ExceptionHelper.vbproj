@@ -61,6 +61,7 @@
     <Reference Include="DevExpress.CodeRush.Interop, Version=9.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3, Version=11.1.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.DXCore.Parser, Version=10.2.3.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -111,7 +112,15 @@
     <Compile Include="ExceptionsForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Logger.vb" />
     <Compile Include="MethodExceptionInfo.vb" />
+    <Compile Include="Options1.Designer.vb">
+      <DependentUpon>Options1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Options1.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PluginSettings.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
     <Compile Include="TryCatchGenerator.vb" />
   </ItemGroup>
@@ -121,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ExceptionsForm.resx">
       <DependentUpon>ExceptionsForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options1.resx">
+      <DependentUpon>Options1.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
