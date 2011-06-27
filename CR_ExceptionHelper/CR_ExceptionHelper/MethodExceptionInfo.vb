@@ -12,24 +12,19 @@ Imports System.Xml.Linq
 ''' </summary>
 ''' <remarks></remarks>
 Friend Class MethodExceptionInfo
-
+#Region "Fields"
+    Private ReadOnly mLogger As Logger
+#End Region
 #Region " Private Members "
-
     Private ReadOnly m_MethodDescriptor As String
     Private m_NameRanges As SourceRangeCollection
     Private m_ExceptionInfos As ChainedList(Of ExceptionInfo)
-
 #End Region
-
 #Region " Shared Members "
-
     'TODO: add the ability to refresh the cache, or remove it again (which is possible).
-    Private Shared m_DiscoveredMethods As New Dictionary(Of String, MethodExceptionInfo)
-
+    Private Shared ReadOnly m_DiscoveredMethods As New Dictionary(Of String, MethodExceptionInfo)()
 #End Region
-
 #Region " Constructors "
-
     ''' <summary>
     ''' Standard Constructor
     ''' </summary>
@@ -37,24 +32,24 @@ Friend Class MethodExceptionInfo
     ''' <param name="assemblyReference">A DXCore assembly reference.</param>
     ''' <param name="nameRange">A SourceRange indicating the location of the method call reference in the code.</param>
     ''' <remarks></remarks>
-    Public Sub New(ByVal methodDescriptor As String, ByVal assemblyReference As AssemblyReference, ByVal nameRange As SourceRange)
-        'Store field values
+    ''' <param name="Logger"></param>
+    Public Sub New(ByVal methodDescriptor As String, ByVal assemblyReference As AssemblyReference, ByVal nameRange As SourceRange, ByVal Logger As Logger)
+        mLogger = Logger
         m_MethodDescriptor = methodDescriptor
         NameRanges.Add(nameRange)
         FindExceptions(assemblyReference)
     End Sub
 
-    Public Sub New(ByVal methodDescriptor As String, ByVal docComment As XmlDocComment, ByVal nameRange As SourceRange)
+    Public Sub New(ByVal methodDescriptor As String, ByVal docComment As XmlDocComment, ByVal nameRange As SourceRange, ByVal Logger As Logger)
+        mLogger = Logger
         m_MethodDescriptor = methodDescriptor
         NameRanges.Add(nameRange)
         FindExceptions(docComment)
     End Sub
-
+    Public Sub New(ByVal Logger As Logger)
+    End Sub
 #End Region
-
-
 #Region " Shared Factory Methods "
-
     ''' <summary>
     ''' Clears the cache of previously discovered methodsexceptioninfos
     ''' </summary>
@@ -69,7 +64,8 @@ Friend Class MethodExceptionInfo
     ''' <param name="element">A language element which possibly represents a method call</param>
     ''' <returns>A MethodExceptionInfo instance, or null</returns>
     ''' <remarks></remarks>
-    Public Shared Function Create(ByVal element As LanguageElement) As MethodExceptionInfo
+    ''' <param name="Logger"></param>
+    Public Shared Function Create(ByVal element As LanguageElement, ByVal Logger As Logger) As MethodExceptionInfo
         If Not TypeOf element Is IMethodCallExpression _
            AndAlso Not TypeOf element Is IMethodCallStatement Then
             Return Nothing
@@ -91,26 +87,23 @@ Friend Class MethodExceptionInfo
             methodInfo.NameRanges.Add(element.NameRange)    ' Store this location for later when we paint references contributing to this exception.
         Else
             'locate the assemblyreference
-            Dim assemblyModel As MetaDataAssemblyModel = TryCast(MethodDeclaration.AssemblyModel, MetaDataAssemblyModel)
+            Dim assemblyModel = TryCast(MethodDeclaration.AssemblyModel, MetaDataAssemblyModel)
             Dim assemblyRef As AssemblyReference = Nothing
             If assemblyModel IsNot Nothing Then
                 assemblyRef = assemblyModel.Assembly
             End If
 
             If assemblyRef IsNot Nothing Then
-                methodInfo = New MethodExceptionInfo(MethodDescriptorString, assemblyRef, element.NameRange)
+                methodInfo = New MethodExceptionInfo(MethodDescriptorString, assemblyRef, element.NameRange, Logger)
                 m_DiscoveredMethods.Add(methodInfo.MethodDescriptor, methodInfo)
             Else
-                Dim codeEl As CodeElement = TryCast(MethodDeclaration, CodeElement)
+                Dim codeEl = TryCast(MethodDeclaration, CodeElement)
                 If codeEl IsNot Nothing Then
-                    methodInfo = New MethodExceptionInfo(MethodDescriptorString, codeEl.DocComment, element.NameRange)
+                    methodInfo = New MethodExceptionInfo(MethodDescriptorString, codeEl.DocComment, element.NameRange, Logger)
                 End If
             End If
-
         End If
-
         Return methodInfo
-
     End Function
 
 
@@ -121,7 +114,6 @@ Friend Class MethodExceptionInfo
     ''' <returns>The methodDescriptor string</returns>
     ''' <remarks></remarks>
     Private Shared Function GetMethodDescriptor(ByVal methodDeclaration As IMethodElement) As String
-
         Dim sb As New System.Text.StringBuilder(64)
         Dim parameter As IParameterElement
         Dim iCount As Int32 = 0
@@ -129,8 +121,7 @@ Friend Class MethodExceptionInfo
         Dim genericParameterNames() As String = Nothing
 
         If Not methodDeclaration Is Nothing Then
-
-            Dim genericElem As IMethodElement = TryCast(methodDeclaration.GenericTemplate, IMethodElement)
+            Dim genericElem = TryCast(methodDeclaration.GenericTemplate, IMethodElement)
             If genericElem IsNot Nothing Then
                 methodDeclaration = genericElem
                 blnIsGeneric = True
@@ -139,22 +130,16 @@ Friend Class MethodExceptionInfo
                     genericParameterNames(i) = methodDeclaration.TypeParameters(i).Name
                 Next
             End If
-
             sb.Append(methodDeclaration.FullName)
             If blnIsGeneric Then sb.Replace("`", "``")
-
             If methodDeclaration.Parameters.Count > 0 Then
                 sb.Append("(")
-
                 For Each parameter In methodDeclaration.Parameters
-
                     Dim paramName As String
-
                     If Not parameter.Type Is Nothing Then
                         If iCount > 0 Then
                             sb.Append(",")
                         End If
-
                         If parameter.Type.IsArrayType Then
                             paramName = ParserServices.LanguageService.GetFullTypeName(parameter.Type.BaseType.Name)
                             If blnIsGeneric Then paramName = "``" & Array.IndexOf(genericParameterNames, paramName)
@@ -164,23 +149,16 @@ Friend Class MethodExceptionInfo
                             If blnIsGeneric Then paramName = "``" & Array.IndexOf(genericParameterNames, paramName)
                             sb.Append(paramName)
                         End If
-
                         iCount += 1
                     End If
                 Next
-
                 sb.Append(")")
-
             End If
-
         End If
-
         Return sb.ToString
-
     End Function
 
 #End Region
-
 #Region " Public Properties "
 
     ''' <summary>
@@ -218,9 +196,7 @@ Friend Class MethodExceptionInfo
     End Property
 
 #End Region
-
 #Region " Private Methods "
-
     ''' <summary>
     ''' Analyses the exception entries in the assembly's xml file
     ''' </summary>
@@ -243,7 +219,12 @@ Friend Class MethodExceptionInfo
         Dim SubDir As String = If(fileinfo.Directory.GetDirectories("en").Count = 0, "en\", "")
         fileinfo = New IO.FileInfo(fileinfo.DirectoryName & "\" & SubDir & fileinfo.Name.Substring(0, fileinfo.Name.Length - fileinfo.Extension.Length) & ".xml")
 
-        If Not fileinfo.Exists Then Return
+        If Not fileinfo.Exists Then
+            If ExceptionHelperWizard.Settings.ShouldLog Then
+                mLogger.Write(String.Format("File not found {0}", fileinfo.FullName))
+            End If
+            Exit Sub
+        End If
 
         Dim XMLDoc = XElement.Parse(My.Computer.FileSystem.ReadAllText(fileinfo.FullName))
         Dim Member = (From item In XMLDoc.<members>.<member> _
