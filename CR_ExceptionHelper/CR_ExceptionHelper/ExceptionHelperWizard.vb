@@ -103,11 +103,6 @@ Public NotInheritable Class ExceptionHelperWizard
 
 #Region " clear cache on references changed"
 
-    Private Sub ExceptionHelperWizard_OptionsChanged(ByVal ea As DevExpress.CodeRush.Core.OptionsChangedEventArgs) Handles Me.OptionsChanged
-        If ea.OptionsPages.Contains(GetType(Options1)) Then
-            mSettings = PluginSettings.LoadFromStorage(Options1.Storage)
-        End If
-    End Sub
 
     Private Sub ExceptionHelper_ReferenceAdded(ByVal ea As DevExpress.CodeRush.Core.ReferenceEventArgs) Handles Me.ReferenceAdded, Me.ReferenceChanged, Me.ReferenceRemoved
         ClearCache()
@@ -149,6 +144,7 @@ Public NotInheritable Class ExceptionHelperWizard
 #End Region
 
 
+#Region "Settings"
     Public Shared ReadOnly Property Settings As PluginSettings
         Get
             If mSettings Is Nothing Then
@@ -158,5 +154,11 @@ Public NotInheritable Class ExceptionHelperWizard
         End Get
     End Property
 
+    Private Sub ExceptionHelperWizard_OptionsChanged(ByVal ea As DevExpress.CodeRush.Core.OptionsChangedEventArgs) Handles Me.OptionsChanged
+        If ea.OptionsPages.Contains(GetType(Options1)) Then
+            mSettings = PluginSettings.LoadFromStorage(Options1.Storage)
+        End If
+    End Sub
+#End Region
 
 End Class

@@ -9,6 +9,6 @@ Public Class PluginSettings
     End Function
 #End Region
     Public Sub SaveToStorage(ByVal Storage As DecoupledStorage)
-        Storage.WriteBoolean("ExceptionHandler", "ShouldLog", ShouldLog)
+        Storage.WriteBoolean("ExceptionHelper", "ShouldLog", ShouldLog)
     End Sub
 End Class
