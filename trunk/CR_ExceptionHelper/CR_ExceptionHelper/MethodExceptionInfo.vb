@@ -216,7 +216,7 @@ Friend Class MethodExceptionInfo
             fileinfo = New IO.FileInfo(assemblyReference.FilePath)
         End If
 
-        Dim SubDir As String = If(fileinfo.Directory.GetDirectories("en").Count = 0, "en\", "")
+        Dim SubDir As String = If(fileinfo.Directory.GetDirectories("en").Count > 0, "en\", "")
         fileinfo = New IO.FileInfo(fileinfo.DirectoryName & "\" & SubDir & fileinfo.Name.Substring(0, fileinfo.Name.Length - fileinfo.Extension.Length) & ".xml")
 
         If Not fileinfo.Exists Then
