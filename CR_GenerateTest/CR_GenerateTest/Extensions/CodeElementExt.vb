@@ -12,6 +12,10 @@ Public Module CodeElementExt
     End Function
     <Extension()> _
     Public Sub AddAttribute(ByVal Element As CodeElement, ByVal AttributeName As String)
+        Dim Section As AttributeSection = GetFirstOrNewAttributeSection(Element)
+        Section.AttributeCollection.Add(New Attribute() With {.Name = AttributeName})
+    End Sub
+    Private Function GetFirstOrNewAttributeSection(ByVal Element As CodeElement) As AttributeSection
         Dim Section As AttributeSection
         If Element.AttributeSections.Count = 0 Then
             Section = New AttributeSection()
@@ -19,7 +23,7 @@ Public Module CodeElementExt
         Else
             Section = TryCast(Element.AttributeSections(0), AttributeSection)
         End If
-        Section.AttributeCollection.Add(New Attribute() With {.Name = AttributeName})
-    End Sub
+        Return Section
+    End Function
 
 End Module

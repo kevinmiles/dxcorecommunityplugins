@@ -4,20 +4,8 @@ Imports DevExpress.CodeRush.StructuralParser
 Imports SP = DevExpress.CodeRush.StructuralParser
 Public MustInherit Class BaseTestGenerator
     Implements ITestGenerator
-
-#Region "Fields"
     Private ReadOnly ProjectCRUD As New ProjectCRUD
-    Protected mTestFrameworkAssemblyName As String
-    Protected mTestFrameworkNamespace As String
-    Protected mTestFrameworkAttributeName As String
-    Protected mTestFrameworkFixtureAttributeName As String
-
-    Protected mTestProjectSuffix As String
-    Protected mTestNameSuffix As String
-    Protected mTestFixtureSuffix As String
-    Protected mTestNamePrefix As String
-#End Region
-#Region "Constructors"
+#Region "Construction"
     Protected Sub New(ByVal FrameworkAssemblyName As String, _
                           ByVal FrameworkNamespace As String, _
                           ByVal FrameworkFixtureAttributeName As String, _
@@ -28,6 +16,21 @@ Public MustInherit Class BaseTestGenerator
         mTestFrameworkAttributeName = FrameworkTestAttributeName
         Call SetOptions("_Tests", "_Tests", "", "_Test")
     End Sub
+
+#End Region
+#Region "Options"
+#Region "Fields"
+    Protected mTestFrameworkAssemblyName As String
+    Protected mTestFrameworkNamespace As String
+    Protected mTestFrameworkAttributeName As String
+    Protected mTestFrameworkFixtureAttributeName As String
+
+    Protected mTestProjectSuffix As String
+    Protected mTestNameSuffix As String
+    Protected mTestFixtureSuffix As String
+    Protected mTestNamePrefix As String
+#End Region
+
     Public Sub SetOptions(ByVal ProjectSuffix As String, ByVal FixtureSuffix As String, ByVal TestPrefix As String, ByVal TestPostfix As String) Implements ITestGenerator.SetOptions
         mTestProjectSuffix = ProjectSuffix
         mTestFixtureSuffix = FixtureSuffix
@@ -35,7 +38,6 @@ Public MustInherit Class BaseTestGenerator
         mTestNameSuffix = TestPostfix
     End Sub
 #End Region
-
 #Region "ITestGenerator"
     Public Function IsNonTestClass(ByVal CodeActive As DevExpress.CodeRush.StructuralParser.LanguageElement) As Boolean Implements ITestGenerator.IsNonTestClass
         Dim Dec = TryCast(CodeActive, TypeDeclaration)
@@ -123,6 +125,9 @@ Public MustInherit Class BaseTestGenerator
             Type = Project.GetTypeWithName(ClassName)
         End If
         Return Type
+    End Function
+    Private Shared Function ShowCode(ByVal Element As LanguageElement) As String
+        Return CodeRush.CodeMod.GenerateCode(Element)
     End Function
 #End Region
     Private Function CreateTestMethod(ByVal Document As TextDocument, ByVal Type As TypeDeclaration, ByVal TestLanguage As String) As Method

@@ -24,7 +24,7 @@ Public Class PlugIn1
     End Sub
 #End Region
 
-    Private TestGenerator As ITestGenerator
+#Region "Options"
     Private Options As NamingOptions
     Private Sub PlugIn1_OptionsChanged(ByVal ea As DevExpress.CodeRush.Core.OptionsChangedEventArgs) Handles Me.OptionsChanged
         If (ea.OptionsPages.Contains(GetType(Options1))) Then
@@ -34,6 +34,8 @@ Public Class PlugIn1
     Private Sub LoadSettings()
         Options = Options1.LoadNamingOptions
     End Sub
+#End Region
+    Private TestGenerator As ITestGenerator
     Private Sub GenerateTest_CheckAvailability(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.CheckContentAvailabilityEventArgs) Handles GenerateTest.CheckAvailability
         TestGenerator = New NUnitTestGenerator
         Call TestGenerator.SetOptions(Options.ProjectSuffix, _
