@@ -1,0 +1,17 @@
+#summary Provides a CodeProvider to implement IDisposable, including the disposal of any disposable fields.
+[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_Dispos-o-matic/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Requires DXCore 11.1 =====
+=== Introduction ===
+Provides a !CodeProvider to implement IDisposable, including the disposal of any disposable fields.
+
+=== Usage ===
+Place the caret on the source of a class which does not implement IDisposable, but which has fields which do.
+
+The "Implement IDisposable" !CodeProvider will become available from the Code !SmartTagMenu
+
+Select this item and the plugin will implement IDisposable including the disposal of each of the fields (on the condition that they are not null)
+
+=== Credits ===
+
+Author: [http://devexpress.com/mark/ Mark Miller]
