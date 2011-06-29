@@ -17,19 +17,19 @@
         internal class IssueLocator : ICodeIssueLocator
         {
             public IEnumerable<StyleCopCodeIssue> GetCodeIssues(
-                IDocument document, 
+                ISourceCode sourceCode, 
                 Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, 
                 Violation violation, 
                 CsElement csElement)
             {
-                for (int lineNumber = violation.Line; lineNumber < document.LineCount; lineNumber++)
+                for (int lineNumber = violation.Line; lineNumber < sourceCode.LineCount; lineNumber++)
                 {
-                    string nextLine = document.GetText(lineNumber + 1).Trim();
+                    string nextLine = sourceCode.GetText(lineNumber + 1).Trim();
                     if (string.IsNullOrEmpty(nextLine))
                     {
-                        string lineText = document.GetText(lineNumber);
+                        string lineText = sourceCode.GetText(lineNumber);
                         string textToUnderline = lineText.TrimStart();
-                        var sourceRange = new SourceRange(lineNumber, lineText.Length - textToUnderline.Length, lineNumber, document.LengthOfLine(lineNumber) + 1);
+                        var sourceRange = new SourceRange(lineNumber, lineText.Length - textToUnderline.Length, lineNumber, sourceCode.LengthOfLine(lineNumber) + 1);
                         yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, sourceRange);
                     }
                 }

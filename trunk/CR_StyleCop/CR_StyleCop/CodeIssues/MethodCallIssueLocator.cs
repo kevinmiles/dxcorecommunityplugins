@@ -20,7 +20,7 @@ namespace CR_StyleCop.CodeIssues
         }
 
         public IEnumerable<StyleCopCodeIssue> GetCodeIssues(
-            IDocument document,
+            ISourceCode sourceCode,
             Func<ElementTypeFilter, IEnumerable<IElement>> enumerate,
             Violation violation,
             CsElement csElement)

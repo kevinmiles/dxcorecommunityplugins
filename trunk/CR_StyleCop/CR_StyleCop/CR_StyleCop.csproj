@@ -217,14 +217,17 @@
     <Compile Include="CR_StyleCopPlugIn.Designer.cs">
       <DependentUpon>CR_StyleCopPlugIn.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileSourceCode.cs" />
     <Compile Include="ICodeIssueLocator.cs" />
     <Compile Include="CodeIssues\NullIssueLocator.cs" />
+    <Compile Include="ISourceCode.cs" />
     <Compile Include="IStyleCopRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CodeIssueFactory.cs" />
     <Compile Include="CodeIssues\ElementNameIssueLocator.cs" />
     <Compile Include="StyleCopCodeIssue.cs" />
     <Compile Include="StyleCopRule.cs" />
+    <Compile Include="VSSourceCode.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CR_StyleCopPlugIn.resx">

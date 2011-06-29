@@ -8,6 +8,6 @@
     
     internal interface ICodeIssueLocator
     {
-        IEnumerable<StyleCopCodeIssue> GetCodeIssues(IDocument document, Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, Violation violation, CsElement csElement);
+        IEnumerable<StyleCopCodeIssue> GetCodeIssues(ISourceCode sourceCode, Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, Violation violation, CsElement csElement);
     }
 }

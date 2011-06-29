@@ -9,9 +9,13 @@
 
     internal class WholeLineIssueLocator : ICodeIssueLocator
     {
-        public IEnumerable<StyleCopCodeIssue> GetCodeIssues(IDocument document, Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, Violation violation, CsElement csElement)
+        public IEnumerable<StyleCopCodeIssue> GetCodeIssues(
+            ISourceCode sourceCode, 
+            Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, 
+            Violation violation, 
+            CsElement csElement)
         {
-            yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, new SourceRange(violation.Line, 1, violation.Line, document.LengthOfLine(violation.Line) + 1));
+            yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, new SourceRange(violation.Line, 1, violation.Line, sourceCode.LengthOfLine(violation.Line) + 1));
         }
     }
 }

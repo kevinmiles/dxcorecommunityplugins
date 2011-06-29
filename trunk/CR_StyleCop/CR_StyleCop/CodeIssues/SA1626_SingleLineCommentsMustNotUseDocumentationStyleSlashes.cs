@@ -17,7 +17,11 @@
 
         internal class IssueLocator : ICodeIssueLocator
         {
-            public IEnumerable<StyleCopCodeIssue> GetCodeIssues(IDocument document, Func<ElementTypeFilter, IEnumerable<IElement>> crEnumerable, Violation violation, CsElement csElement)
+            public IEnumerable<StyleCopCodeIssue> GetCodeIssues(
+                ISourceCode sourceCode, 
+                Func<ElementTypeFilter, IEnumerable<IElement>> crEnumerable, 
+                Violation violation, 
+                CsElement csElement)
             {
                 return from token in csElement.ElementTokens
                        where token.Text.StartsWith("///") && !token.Text.StartsWith("////")

@@ -17,7 +17,11 @@
 
         private class IssueLocator : ICodeIssueLocator
         {
-            public IEnumerable<StyleCopCodeIssue> GetCodeIssues(IDocument document, Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, Violation violation, CsElement csElement)
+            public IEnumerable<StyleCopCodeIssue> GetCodeIssues(
+                ISourceCode sourceCode, 
+                Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, 
+                Violation violation, 
+                CsElement csElement)
             {
                 int prefixLength = "The call to ".Length;
                 var memberName = violation.Message.Substring(prefixLength, violation.Message.IndexOf(" must") - prefixLength);
