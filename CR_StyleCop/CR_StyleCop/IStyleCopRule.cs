@@ -2,11 +2,10 @@
 {
     using System;
     using DevExpress.CodeRush.Core;
-    using DevExpress.CodeRush.StructuralParser;
     using StyleCop;
 
     internal interface IStyleCopRule
     {
-        void AddViolationIssue(CheckCodeIssuesEventArgs ea, IDocument document, Violation violation);
+        void AddViolationIssue(CheckCodeIssuesEventArgs ea, ISourceCode sourceCode, Violation violation);
     }
 }

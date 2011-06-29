@@ -13,10 +13,24 @@ namespace CR_StyleCop
 
     public partial class CR_StyleCopPlugIn : StandardPlugIn
     {
+        private bool checkForSuppressions = true;
         private Dictionary<string, List<Violation>> violations;
         private CodeIssueFactory issuesFactory;
         private ObjectBasedEnvironment environment;
         private StyleCopObjectConsole styleCopConsole;
+
+        public IEnumerable<CodeIssue> GetCodeIssuesFor(IElement element)
+        {
+            this.checkForSuppressions = false;
+            try
+            {
+                return styleCopIssueProvider.GetCodeIssues(element);
+            }
+            finally
+            {
+                this.checkForSuppressions = true;
+            }
+        }
 
         public override void InitializePlugIn()
         {
@@ -45,13 +59,13 @@ namespace CR_StyleCop
 
         private void StyleCopIssueProvider_CheckCodeIssues(object sender, CheckCodeIssuesEventArgs ea)
         {
-            if (ea.IsSuppressed(ea.Scope))
+            if (this.checkForSuppressions && ea.IsSuppressed(ea.Scope))
             {
                 return;
             }
 
             var scope = ea.Scope as SourceFile;
-            if (scope == null || scope.Document == null)
+            if (scope == null)
             {
                 return;
             }
@@ -64,11 +78,12 @@ namespace CR_StyleCop
 
             this.violations.Clear();
 
+            ea.AddWarning(new SourceRange(1, 1, 1, 10), "Test");
             string settingsFolder = this.GetProjectFolder(project);
             var configuration = new Configuration(new[] { "DEBUG", "TRACE" });
             var styleCopProject = new CodeProject(project.FullName.GetHashCode(), settingsFolder, configuration);
-            string analyzedCode = scope.Document.GetText(scope.StartLine, scope.StartOffset, scope.EndLine, scope.EndOffset);
-            this.environment.AddSourceCode(styleCopProject, scope.FilePath, analyzedCode);
+            ISourceCode sourceCode = this.SetupSourceCode(scope);
+            this.environment.AddSourceCode(styleCopProject, scope.FilePath, sourceCode);
             this.styleCopConsole.Start(new List<CodeProject> { styleCopProject });
 
             foreach (var violationList in this.violations.Values)
@@ -76,18 +91,14 @@ namespace CR_StyleCop
                 foreach (var violation in violationList)
                 {
                     IStyleCopRule rule = this.issuesFactory.GetRuleFor(violation);
-                    IDocument document = scope.Document;
-                    if (document != null)
-                    {
-                        rule.AddViolationIssue(ea, document, violation);
-                    }
+                    rule.AddViolationIssue(ea, sourceCode, violation);
                 }
             }
         }
 
         private SourceCode SourceCodeFactory(string path, CodeProject project, SourceParser parser, object context)
         {
-            string codeToAnalyze = (string)context;
+            string codeToAnalyze = context.ToString();
             return new AnalyzedSourceCode(project, parser, path, codeToAnalyze);
         }
 
@@ -134,6 +145,18 @@ namespace CR_StyleCop
         private string GetProjectFolder(ProjectElement project)
         {
             return Path.GetDirectoryName(project.FilePath);
+        }
+
+        private ISourceCode SetupSourceCode(SourceFile scope)
+        {
+            if (scope.Document != null)
+            {
+                return new VSSourceCode(scope);
+            }
+            else
+            {
+                return new FileSourceCode(scope.FilePath);
+            }
         }
 
         private void OnViolationEncountered(object sender, ViolationEventArgs e)

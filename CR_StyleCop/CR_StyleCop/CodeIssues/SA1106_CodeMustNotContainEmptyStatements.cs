@@ -18,7 +18,11 @@
 
         internal class IssueLocator : ICodeIssueLocator
         {
-            public IEnumerable<StyleCopCodeIssue> GetCodeIssues(IDocument document, Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, Violation violation, CsElement csElement)
+            public IEnumerable<StyleCopCodeIssue> GetCodeIssues(
+                ISourceCode sourceCode, 
+                Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, 
+                Violation violation, 
+                CsElement csElement)
             {
                 return from x in enumerate(new ElementTypeFilter(LanguageElementType.Statement))
                        let statement = (DX.Statement)x.ToLanguageElement()

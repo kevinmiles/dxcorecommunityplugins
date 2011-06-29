@@ -11,7 +11,7 @@ namespace CR_StyleCop.CodeIssues
     internal class ElementNameIssueLocator : ICodeIssueLocator
     {
         public IEnumerable<StyleCopCodeIssue> GetCodeIssues(
-            IDocument document, 
+            ISourceCode sourceCode, 
             Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, 
             Violation violation, 
             CsElement csElement)

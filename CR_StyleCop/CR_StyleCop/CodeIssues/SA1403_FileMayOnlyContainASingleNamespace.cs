@@ -17,7 +17,11 @@
 
         internal class IssueLocator : ICodeIssueLocator
         {
-            public IEnumerable<StyleCopCodeIssue> GetCodeIssues(IDocument document, Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, Violation violation, CsElement csElement)
+            public IEnumerable<StyleCopCodeIssue> GetCodeIssues(
+                ISourceCode sourceCode, 
+                Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, 
+                Violation violation, 
+                CsElement csElement)
             {
                 SourcePoint? startPoint = null;
                 SourcePoint? endPoint = null;
