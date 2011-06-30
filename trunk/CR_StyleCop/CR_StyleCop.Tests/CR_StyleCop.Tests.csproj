@@ -8,8 +8,8 @@
     <ProjectGuid>{E610C68D-4EF1-4D07-82D6-0C39400C77A8}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestDXCoreConsoleApp</RootNamespace>
-    <AssemblyName>TestDXCoreConsoleApp</AssemblyName>
+    <RootNamespace>CR_StyleCop.Tests</RootNamespace>
+    <AssemblyName>CR_StyleCop.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -68,6 +68,12 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.Build.Engine" />
+    <Reference Include="StyleCop, Version=4.5.25.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\Program Files\StyleCop 4.5\StyleCop.dll</HintPath>
+    </Reference>
+    <Reference Include="StyleCop.CSharp, Version=4.5.25.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\Program Files\StyleCop 4.5\StyleCop.CSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -82,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\LanguageHelper.cs" />
+    <Compile Include="Program2.cs" />
     <Compile Include="Loaders\MsBuildProjectLoader.cs" />
     <Compile Include="Loaders\ProjectLoaderBase.cs" />
     <Compile Include="Loaders\SolutionLoaderBase.cs" />
