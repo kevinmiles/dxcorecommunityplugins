@@ -10,7 +10,7 @@ It produces the same effect as using "Introduce Local" followed by "Promote to P
 So all it really does is save you a a few keystrokes/ mouse movements. but that's ok, since making you more efficient is what CodeRush and the DXCore are all about.
 
 === Usage ===
-Position your caret anywhere which allows a "Introduce Local" and you should see the additional option of "Declare Parameter" in the code section of the !CodeRush !SmartTagMenu
+Select any expression, on which you would normally be able to apply "Introduce Local" and you should see the additional option of "Declare Parameter" in the code section of the !CodeRush !SmartTagMenu
 
 === Caveats === 
 See [CR_DeclareParameter]
