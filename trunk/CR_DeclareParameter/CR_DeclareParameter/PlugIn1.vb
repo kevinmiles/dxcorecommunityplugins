@@ -58,6 +58,13 @@ Public Class PlugIn1
                 Dim rpPromoteToParameter = CodeRush.Refactoring.Get("Promote to Parameter")
                 'CodeRush.Source.Active
                 ea.TextDocument.ParseIfTextChanged()
+                Dim ERE As ElementReferenceExpression = TryCast(CodeRush.Source.Active, ElementReferenceExpression)
+                If ERE IsNot Nothing Then
+                    Dim Declaration = TryCast(SourceModelUtils.GetDeclaration(CodeRush.Source.Active), InitializedVariable)
+                    If Declaration IsNot Nothing Then
+                        CodeRush.Caret.MoveTo(Declaration.NameRange.Start)
+                    End If
+                End If
                 CodeRush.SmartTags.UpdateContext()
                 If rpPromoteToParameter.IsAvailable Then
                     Try
