@@ -67,12 +67,18 @@
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Gallio40, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gallio.3.2.601\lib\NET40\Gallio40.dll</HintPath>
+    </Reference>
+    <Reference Include="MbUnit40, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gallio.3.2.601\lib\NET40\MbUnit40.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Build.Engine" />
     <Reference Include="StyleCop, Version=4.5.25.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\Program Files\StyleCop 4.5\StyleCop.dll</HintPath>
+      <HintPath>..\packages\StyleCop.4.5.25.0\lib\net35\StyleCop.dll</HintPath>
     </Reference>
     <Reference Include="StyleCop.CSharp, Version=4.5.25.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\Program Files\StyleCop 4.5\StyleCop.CSharp.dll</HintPath>
+      <HintPath>..\packages\StyleCop.4.5.25.0\lib\net35\StyleCop.CSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -103,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CR_StyleCop\CR_StyleCop.csproj">
