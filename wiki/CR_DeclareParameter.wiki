@@ -57,5 +57,6 @@ Alternatively, if you were to inline !SomeLocal...
 === Credits ===
 
 Author: [RoryBecker] 
+
 Core Techniques: [http://www.skorkin.com Alex Skorkin]
 Specifically: [http://www.skorkin.com/2010/12/how-to-perform-an-existing-refactoring-from-another-one/ How to perform an existing refactoring from another one]
