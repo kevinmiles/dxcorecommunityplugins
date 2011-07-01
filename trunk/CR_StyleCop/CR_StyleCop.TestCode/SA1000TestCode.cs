@@ -19,6 +19,7 @@ namespace CR_StyleCop.TestCode
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1119:StatementMustNotUseUnnecessaryParenthesis", Justification = "This is about SA1000 rule.")]
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "This is about SA1000 rule.")]
     [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1008:OpeningParenthesisMustBeSpacedCorrectly", Justification = "This is about SA1000 rule.")]
+    [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1012:OpeningCurlyBracketsMustBeSpacedCorrectly", Justification = "This is about SA1000 rule.")]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1000 rule.")]
     public class SA1000TestCode
     {
@@ -37,7 +38,7 @@ namespace CR_StyleCop.TestCode
                           select(y);
             var values3 = from x in values
                           join p in(values2) on(x.ToString()) equals(p.ToString())
-                          select Tuple.Create(x, p);
+                          select new{ X = x, P = p };
             foreach(var value in values2)
             {
             }
