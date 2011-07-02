@@ -7,21 +7,41 @@
     public partial class RulesTests
     {
         [Test]
-        [Row(15, 33, 15, 34)]
-        [Row(18, 35, 18, 36)]
-        [Row(19, 33, 19, 34)]
-        [Row(25, 27, 25, 28)]
-        [Row(27, 33, 27, 34)]
-        [Row(28, 27, 28, 28)]
+        [CodeIssue(15, 33, 15, 34)]
+        [CodeIssue(18, 35, 18, 36)]
+        [CodeIssue(19, 33, 19, 34)]
+        [CodeIssue(25, 27, 25, 28)]
+        [CodeIssue(27, 33, 27, 34)]
+        [CodeIssue(28, 27, 28, 28)]
         public void SA1500_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
         {
             this.AssertSpecificCodeIssueExists("SA1500", startLine, startOffset, endLine, endOffset);
         }
 
         [Test]
-        public void All_SA1500_should_be_tested()
+        [Rule("SA1500")]
+        //[Rule("SA1501")]
+        //[Rule("SA1502")]
+        //[Rule("SA1503")]
+        //[Rule("SA1504")]
+        //[Rule("SA1505")]
+        //[Rule("SA1506")]
+        public void All_layout_code_issues_should_be_tested(string ruleCheck)
         {
-            this.AssertAllSpecificCodeIssuesAreTested("SA1500");
+            this.AssertAllReportedCodeIssuesAreTested(ruleCheck);
+        }
+
+        [Test]
+        [Rule("SA1500")]
+        [Rule("SA1501")]
+        [Rule("SA1502")]
+        [Rule("SA1503")]
+        [Rule("SA1504")]
+        [Rule("SA1505")]
+        [Rule("SA1506")]
+        public void All_layout_violations_should_have_code_issue(string ruleCheck)
+        {
+            this.AssertAllStyleCopReportedViolationsHaveCodeIssue(ruleCheck);
         }
     }
 }
