@@ -78,7 +78,6 @@ namespace CR_StyleCop
 
             this.violations.Clear();
 
-            ea.AddWarning(new SourceRange(1, 1, 1, 10), "Test");
             string settingsFolder = this.GetProjectFolder(project);
             var configuration = new Configuration(new[] { "DEBUG", "TRACE" });
             var styleCopProject = new CodeProject(project.FullName.GetHashCode(), settingsFolder, configuration);
