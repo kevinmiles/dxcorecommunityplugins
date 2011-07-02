@@ -12,6 +12,11 @@ namespace CR_StyleCop
             this.sourceFile = sourceFile;
         }
 
+        public string FilePath
+        {
+            get { return this.sourceFile.FilePath; }
+        }
+        
         public int LineCount
         {
             get { return this.sourceFile.Document.LineCount; }

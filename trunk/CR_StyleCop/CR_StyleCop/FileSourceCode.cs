@@ -5,13 +5,20 @@ namespace CR_StyleCop
 
     internal class FileSourceCode : ISourceCode
     {
-        private string allCode;
-        private string[] lines;
+        private readonly string allCode;
+        private readonly string filePath;
+        private readonly string[] lines;
 
         public FileSourceCode(string filePath)
         {
+            this.filePath = filePath;
             this.lines = File.ReadAllLines(filePath);
             this.allCode = string.Join(Environment.NewLine, this.lines);
+        }
+
+        public string FilePath
+        {
+            get { return this.filePath; }
         }
 
         public int LineCount

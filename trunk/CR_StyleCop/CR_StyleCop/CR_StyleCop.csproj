@@ -225,6 +225,7 @@
     <Compile Include="CodeIssues\ElementNameIssueLocator.cs" />
     <Compile Include="StyleCopCodeIssue.cs" />
     <Compile Include="StyleCopRule.cs" />
+    <Compile Include="StyleCopRunner.cs" />
     <Compile Include="VSSourceCode.cs" />
   </ItemGroup>
   <ItemGroup>
