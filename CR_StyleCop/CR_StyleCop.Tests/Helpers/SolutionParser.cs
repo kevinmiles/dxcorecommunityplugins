@@ -5,7 +5,7 @@ using DevExpress.CodeRush.StructuralParser;
 
 namespace CR_StyleCop.Tests.Helpers
 {
-    public class SolutionParser
+    internal class SolutionParser
     {
         string _Path;
         SolutionElement _SolutionElement;

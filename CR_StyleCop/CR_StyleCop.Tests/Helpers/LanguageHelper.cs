@@ -3,7 +3,7 @@ using System.IO;
 
 namespace CR_StyleCop.Tests.Helpers
 {
-    public enum LanguageID
+    internal enum LanguageID
     {
         None,
         CSharp,
@@ -19,7 +19,7 @@ namespace CR_StyleCop.Tests.Helpers
         Xml
     }
 
-    public class LanguageHelper
+    internal class LanguageHelper
     {
         #region Constants...
         const string STR_Cs = "cs";

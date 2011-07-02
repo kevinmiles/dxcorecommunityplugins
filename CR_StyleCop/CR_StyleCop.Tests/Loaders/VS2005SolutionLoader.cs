@@ -2,7 +2,7 @@ using System;
 
 namespace CR_StyleCop.Tests.Helpers
 {
-    public class VS2005SolutionLoader : VS2002SolutionLoader
+    internal class VS2005SolutionLoader : VS2002SolutionLoader
     {
         protected override FileProjectLoaderBase CreateProjectLoader(ProjectInfo info)
         {

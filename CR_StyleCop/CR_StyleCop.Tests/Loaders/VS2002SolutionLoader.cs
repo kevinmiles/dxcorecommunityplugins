@@ -7,7 +7,7 @@ using DevExpress.CodeRush.StructuralParser;
 
 namespace CR_StyleCop.Tests.Helpers
 {
-    public class ProjectInfo
+    internal class ProjectInfo
     {
         public string Guid;
         public string Name;
@@ -33,7 +33,7 @@ namespace CR_StyleCop.Tests.Helpers
         }
     }
 
-    public class VS2002SolutionLoader : SolutionLoaderBase
+    internal class VS2002SolutionLoader : SolutionLoaderBase
     {
         #region Consts
         const char CHAR_Comma = ',';

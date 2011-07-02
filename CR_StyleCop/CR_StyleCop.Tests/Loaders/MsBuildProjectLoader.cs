@@ -7,7 +7,7 @@ using Microsoft.Build.BuildEngine;
 
 namespace CR_StyleCop.Tests.Loaders
 {
-    public class MsBuildProjectLoader
+    internal class MsBuildProjectLoader
     {
         Project _Project;
 

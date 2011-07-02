@@ -7,13 +7,13 @@ using DevExpress.CodeRush.StructuralParser;
 
 namespace CR_StyleCop.Tests.Helpers
 {
-    public abstract class FileProjectLoaderBase
+    internal abstract class FileProjectLoaderBase
     {
         public abstract ProjectElement Load(ProjectInfo info, Hashtable projects);
         public abstract ProjectElement Load(ProjectInfo info, Hashtable projects, string configuration, string platform);
     }
 
-    public sealed class PathUtilities
+    internal sealed class PathUtilities
     {
         public static string GetPath(string basePath, string relative)
         {
@@ -29,7 +29,7 @@ namespace CR_StyleCop.Tests.Helpers
         }
     }
 
-    public class Vs2002VSLangProjectLoader : FileProjectLoaderBase
+    internal class Vs2002VSLangProjectLoader : FileProjectLoaderBase
     {
         #region Consts
         protected const string STR_ImportsQueryFormat = "VisualStudioProject/{0}/Build/Imports/Import";
@@ -183,7 +183,7 @@ namespace CR_StyleCop.Tests.Helpers
         #endregion
     }
 
-    public class Vs2002VCProjectLoader : Vs2002VSLangProjectLoader
+    internal class Vs2002VCProjectLoader : Vs2002VSLangProjectLoader
     {
         #region LoadReferences
         protected override void LoadReferences(ProjectElement project, Hashtable projects, XmlDocument doc, string projectDir, string projectLangTag)

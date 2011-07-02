@@ -9,7 +9,7 @@ using CR_StyleCop.Tests.Loaders;
 
 namespace CR_StyleCop.Tests.Helpers
 {
-    public class VS2005VSLangProjectLoader : Vs2002VSLangProjectLoader
+    internal class VS2005VSLangProjectLoader : Vs2002VSLangProjectLoader
     {
         private const char CHAR_Comma = ',';
         private const char CHAR_SemiColon = ';';

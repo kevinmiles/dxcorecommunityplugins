@@ -11,7 +11,7 @@ using DevExpress.CodeRush.Core;
 
 namespace CR_StyleCop.Tests.Helpers
 {
-    public class ParserHelper
+    internal class ParserHelper
     {
         static ParserHelper()
         {
