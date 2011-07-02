@@ -6,10 +6,12 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Test code for SA1500 rule - curly brackets must be on own line.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1500 rule.")]
     public class SA1500TestCode {
         private int i = 10;
 

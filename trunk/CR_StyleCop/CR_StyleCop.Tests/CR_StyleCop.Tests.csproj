@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E610C68D-4EF1-4D07-82D6-0C39400C77A8}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CR_StyleCop.Tests</RootNamespace>
     <AssemblyName>CR_StyleCop.Tests</AssemblyName>
@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.CodeRush.Common, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -41,6 +44,7 @@
     <Reference Include="DevExpress.CodeRush.Core, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.CodeRush.PlugInCore, Version=11.1.5.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.CodeRush.StructuralParser, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -66,8 +70,12 @@
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Gallio, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL" />
     <Reference Include="Gallio35, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <HintPath>..\packages\Gallio.3.2.601\lib\NET35\Gallio35.dll</HintPath>
+    </Reference>
+    <Reference Include="MbUnit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="MbUnit35, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <HintPath>..\packages\Gallio.3.2.601\lib\NET35\MbUnit35.dll</HintPath>
@@ -78,6 +86,9 @@
     </Reference>
     <Reference Include="StyleCop.CSharp, Version=4.5.25.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
       <HintPath>..\packages\StyleCop.4.5.25.0\lib\net35\StyleCop.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="StyleCop.CSharp.Rules">
+      <HintPath>..\packages\StyleCop.4.5.25.0\lib\net35\StyleCop.CSharp.Rules.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -92,7 +103,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\LanguageHelper.cs" />
-    <Compile Include="Program2.cs" />
     <Compile Include="Loaders\MsBuildProjectLoader.cs" />
     <Compile Include="Loaders\ProjectLoaderBase.cs" />
     <Compile Include="Loaders\SolutionLoaderBase.cs" />
@@ -101,13 +111,14 @@
     <Compile Include="Loaders\VS2005ProjectLoader.cs" />
     <Compile Include="Loaders\VS2005SolutionLoader.cs" />
     <Compile Include="Helpers\ParserHelper.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\SolutionParser.cs" />
+    <Compile Include="RulesTests.cs" />
+    <Compile Include="RulesTests.SpacingRules.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
+    <Compile Include="RulesTests.LayoutRules.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CR_StyleCop\CR_StyleCop.csproj">
