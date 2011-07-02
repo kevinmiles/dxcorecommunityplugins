@@ -8,6 +8,7 @@
     using DevExpress.CodeRush.StructuralParser;
     using MbUnit.Framework;
     using System.Reflection;
+    using StyleCop;
 
     [TestFixture]
     public partial class RulesTests
@@ -52,20 +53,44 @@
             }
         }
 
-        private void AssertAllSpecificCodeIssuesAreTested(string ruleCheck)
+        private void AssertAllReportedCodeIssuesAreTested(string ruleCheck)
         {
             var method = typeof(RulesTests).GetMethod(ruleCheck + "_should_be_reported");
-            var coveredCodeIssues = method.GetCustomAttributes(typeof(RowAttribute), false);
+            var coveredCodeIssues = method.GetCustomAttributes(typeof(CodeIssueAttribute), false).Cast<CodeIssueAttribute>();
             foreach (SourceFile file in files.Where(x => x.Name.EndsWith(string.Format("{0}TestCode.cs", ruleCheck))))
             {
                 var codeIssues = plugin.GetCodeIssuesFor(file);
-                Assert.AreEqual(
-                    coveredCodeIssues.Length,
-                    codeIssues.Count(),
-                    "Not all occurances of {0} are covered with tests",
-                    ruleCheck);
+                foreach (var codeIssue in codeIssues)
+                {
+                    Assert.Exists(
+                        coveredCodeIssues,
+                        x => x.StartLine == codeIssue.Range.Start.Line
+                            && x.StartOffset == codeIssue.Range.Start.Offset
+                            && x.EndLine == codeIssue.Range.End.Line
+                            && x.EndOffset == codeIssue.Range.End.Offset,
+                        "Not all occurances of {0} are covered with tests",
+                        ruleCheck);
+                }
             }
+        }
 
+        private void AssertAllStyleCopReportedViolationsHaveCodeIssue(string ruleCheck)
+        {
+            ViolationComparer comparer = new ViolationComparer();
+            foreach (SourceFile file in files.Where(x => x.Name.EndsWith(string.Format("{0}TestCode.cs", ruleCheck))))
+            {
+                var codeIssues = plugin.GetCodeIssuesFor(file);
+                var violations = plugin.GetStyleCopViolations(file, ruleCheck);
+                foreach (var violation in violations)
+                {
+                    Assert.Exists(
+                        codeIssues, 
+                        x => comparer.Equals(violation, x.Data as Violation), 
+                        "{0} violation is not reported as code issue: Ln {1}", 
+                        ruleCheck, 
+                        violation.Line);
+                }
+            }
         }
     }
 }
