@@ -7,9 +7,9 @@ Imports DevExpress.CodeRush.StructuralParser
 Imports DevExpress.Refactor
 
 Public Class PlugIn1
+#Region "Constants"
     Private Const PromoteExpressiontoParameter_DisplayName As String = "Promote (Expression) to Parameter"
-
-    'DXCore-generated code...
+#End Region
 #Region " InitializePlugIn "
     Public Overrides Sub InitializePlugIn()
         MyBase.InitializePlugIn()
@@ -24,6 +24,7 @@ Public Class PlugIn1
     End Sub
 #End Region
 
+#Region "CreatePromoteExpressionToParameter"
     Public Sub CreatePromoteExpressionToParameter()
         Dim PromoteExpressionToParameter As New DevExpress.Refactor.Core.RefactoringProvider(components)
         CType(PromoteExpressionToParameter, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -33,13 +34,25 @@ Public Class PlugIn1
         AddHandler PromoteExpressionToParameter.Apply, AddressOf PromoteExpressionToParameter_Execute
         CType(PromoteExpressionToParameter, System.ComponentModel.ISupportInitialize).EndInit()
     End Sub
+#End Region
+#Region "PromoteExpressionToParameter_CheckAvailability"
     Private Sub PromoteExpressionToParameter_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
         Dim DeclareLocalProvider As RefactoringProviderBase = CodeRush.Refactoring.Get("Introduce Local")
         If DeclareLocalProvider Is Nothing Then
             Return
         End If
+
+        ' Remove once supported by DXCore.
+        Dim Expression = TryCast(CodeRush.Source.Active, Expression)
+        Dim Method As Method = CodeRush.Source.ActiveMethod
+        If ReferencesLocals(Expression, GetLocals(Method)) Then
+            Return
+        End If
+
         ea.Available = DeclareLocalProvider.IsAvailable
     End Sub
+#End Region
+#Region "PromoteExpressionToParameter_Execute"
     Private Sub PromoteExpressionToParameter_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
         Dim cpDeclareLocal As RefactoringProviderBase = CodeRush.Refactoring.Get("Introduce Local")
         If cpDeclareLocal Is Nothing Then
@@ -58,13 +71,7 @@ Public Class PlugIn1
                 cpDeclareLocal.Execute()
                 Dim rpPromoteToParameter = CodeRush.Refactoring.Get("Promote to Parameter")
                 ea.TextDocument.ParseIfTextChanged()
-                'Dim ERE As ElementReferenceExpression = TryCast(CodeRush.Source.Active, ElementReferenceExpression)
-                'If ERE IsNot Nothing Then
-                '    Dim Declaration = TryCast(SourceModelUtils.GetDeclaration(CodeRush.Source.Active), InitializedVariable)
-                '    If Declaration IsNot Nothing Then
-                '        CodeRush.Caret.MoveTo(Declaration.NameRange.Start)
-                '    End If
-                'End If
+
                 CodeRush.SmartTags.UpdateContext()
                 If rpPromoteToParameter.IsAvailable Then
                     Try
@@ -82,12 +89,43 @@ Public Class PlugIn1
             End Try
         End If
     End Sub
+#End Region
 
-    'Private Sub MethodName()
-    '    Dim SomeLongStringName As String = "fred"
+#Region "Helper Methods"
+    Private Shared Function GetLocals(ByVal Method As Method) As IEnumerable(Of Variable)
+        Dim Locals As New List(Of Variable)
+        For Each Variable As Variable In Method.AllVariables
+            If Variable.IsLocal Then
+                Locals.Add(Variable)
+            End If
+        Next
+        Return Locals
+    End Function
+    Private Function ReferencesLocals(ByVal Expression As Expression, ByVal Locals As IEnumerable(Of Variable)) As Boolean
+        Dim ElementExpression = TryCast(Expression, ElementReferenceExpression)
+        If ElementExpression IsNot Nothing Then
+            ' Direct Reference
+            Dim Variable = TryCast(ElementExpression.GetDeclaration(True), BaseVariable)
+            If Variable IsNot Nothing AndAlso Variable.IsLocal Then
+                Return True
+            End If
+        End If
+        For Each Node In Expression.Nodes
+            ' Sub Expression References
+            Dim SubExpression = TryCast(Node, Expression)
+            If SubExpression IsNot Nothing AndAlso ReferencesLocals(SubExpression, Locals) Then
+                Return True
+            End If
+        Next
+        For Each Node In Expression.DetailNodes
+            ' Sub Expression References
+            Dim SubExpression = TryCast(Node, Expression)
+            If SubExpression IsNot Nothing AndAlso ReferencesLocals(SubExpression, Locals) Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+#End Region
 
-    '    Dim NewVariable As String = SomeLongStringName & "1"
-    '    Dim Y As String = NewVariable
-
-    'End Sub
 End Class
