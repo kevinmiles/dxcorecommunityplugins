@@ -67,7 +67,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Refactor.core, Version=11.1.4.0, Culture=neutral, PublicKeyToken=3f8e338797a7a380, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Refactor.core, Version=11.1.5.0, Culture=neutral, PublicKeyToken=3f8e338797a7a380, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
