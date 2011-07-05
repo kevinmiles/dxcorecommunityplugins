@@ -55,6 +55,8 @@ Place the caret on the Class name of your persistent object, bring up the Refact
 
 
 = History =
+  * Build 1905
+    * (partially fixed) if property referenced external type (from referenced library), EasyFields wouldn't sync, EasyFields now won't crash however it also can't see if that referenced type derives from PersistentBase or is a Structure so therefore it will only ever generate a standard OperandProperty at the moment, going to hit the CR guys up with how to properly handle this scenario.
   * Build 1829
     * (fixed) incompatibility 
   * Build 1439
