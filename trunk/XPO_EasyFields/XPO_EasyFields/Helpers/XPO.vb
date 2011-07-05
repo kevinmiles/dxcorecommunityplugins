@@ -354,6 +354,8 @@ Namespace Helpers
                 Dim PropertyType As ITypeReferenceExpression = CType(Member, IHasType).Type
 
                 Dim PropertyTypeElement = Source.ResolveType(PropertyType)
+                If PropertyTypeElement Is Nothing Then PropertyTypeElement = PropertyType
+
                 newPropertyType = Names.OperandProperty
                 If TypeOf PropertyTypeElement Is IClassElement Then
                     If XPO.IsPersistentClass(PropertyTypeElement) And Not XPO.IsXPCollection(PropertyTypeElement) Then
@@ -363,7 +365,7 @@ Namespace Helpers
                             newPropertyType = Names.CollectionFieldsClass
                         End If
                     End If
-                ElseIf TypeOf PropertyTypeElement Is IStructElement And Not PropertyTypeElement.FullName.StartsWith("System.") Then
+                ElseIf TypeOf PropertyTypeElement Is IStructElement AndAlso Not PropertyTypeElement.FullName.StartsWith("System.") Then
                     AddMembersToFieldsClass(BobClass, NewFieldsClass, CType(PropertyTypeElement, IStructElement).Members, Member.Name & "_", Member.Name)
                     'Exit Sub
                 Else
