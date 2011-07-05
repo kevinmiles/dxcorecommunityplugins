@@ -1,0 +1,31 @@
+#summary Enhances the Tab to Next Reference feature of CodeRush, allowing one to Tab between primitives of the same value
+[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_PrimitiveTab/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Requires DXCore 11.1 =====
+=== Introduction ===
+
+This plugin extends the existing [http://community.devexpress.com/blogs/rorybecker/archive/2011/04/08/coderush-tip-tab-to-next-reference.aspx Tab to Next Reference] feature that comes with !CodeRush
+
+The existing feature works in all sorts of contexts. From Identifiers, to Types and across multiple languages. 
+
+This plugin adds the ability to Tab among references to primitives (string, int, bool etc) of the same value within a single file.
+
+So you might tab between references to the number 10 or to the string "This is a string"
+
+=== Usage ===
+Place your caret within the primitive and hit *Tab*
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_PrimitiveTab/Screenshots/TabNextPrimitive.png
+
+=== Additional Configuration ===
+
+The existing Tab to Next Reference feature is unaware of the new functionality and the default context of 3 related shortcuts will prevent this plugin from working unless altered.
+
+You will need to add the *Editor\Code\!InPrimitive* context to the *Shift+Tab*, *Tab*, and *Shift+Alt+U* 
+These bindings can be found in the *Navigation\References\Nav Fields* folder of the [http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx Shortcuts Options Page]
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_PrimitiveTab/Screenshots/InPrimitiveContextChange.png
+
+=== Credits ===
+
+Author: [http://devexpress.com/mark Mark Miller] 
