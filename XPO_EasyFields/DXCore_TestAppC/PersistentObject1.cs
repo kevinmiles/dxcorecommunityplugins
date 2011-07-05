@@ -96,7 +96,7 @@ namespace DXCore_TestAppC
                 return _Fields;
             }
         }
-        //Created/Updated: PC-DEV\Michael on PC-DEV at 18/06/2011 12:30 PM
+        //Created/Updated: PC-DEV\Michael on PC-DEV at 5/07/2011 1:58 PM
         public new class FieldsClass : DevExpress.Xpo.XPObject.FieldsClass
         {
             public FieldsClass()
