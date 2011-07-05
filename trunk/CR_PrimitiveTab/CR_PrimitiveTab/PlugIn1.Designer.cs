@@ -64,7 +64,6 @@ namespace CR_PrimitiveTab
 			// 
 			// PlugIn1
 			// 
-			this.KeyPressed += new DevExpress.CodeRush.Core.KeyPressedEventHandler(this.PlugIn1_KeyPressed);
 			((System.ComponentModel.ISupportInitialize)(this.spFindPrimitives)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.ctxInPrimitive)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
