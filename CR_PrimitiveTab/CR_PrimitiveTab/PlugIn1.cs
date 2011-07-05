@@ -92,13 +92,13 @@ namespace CR_PrimitiveTab
 				ea.Satisfied = true;
 		}
 
-		private void PlugIn1_KeyPressed(KeyPressedEventArgs ea)
-		{
-			if (ea.CtrlKeyDown && ea.KeyCode == 32)
-			{
-				ea.EatKey();
-			}
-			
-		}
+		//private void PlugIn1_KeyPressed(KeyPressedEventArgs ea)
+		//{
+		//	if (ea.CtrlKeyDown && ea.KeyCode == 32)
+		//	{
+		//		ea.EatKey();
+		//	}
+		//	
+		//}
 	}
 }
