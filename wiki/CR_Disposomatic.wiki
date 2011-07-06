@@ -1,16 +1,31 @@
-#summary Provides a CodeProvider to implement IDisposable, including the disposal of any disposable fields.
+#summary Provides a 2 CodeProviders and  CodeIssues which will warn of, and correct, missing implementations of IDisposable.
 [http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_Dispos-o-matic/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== Requires DXCore 11.1 =====
 === Introduction ===
-Provides a !CodeProvider to implement IDisposable, including the disposal of any disposable fields.
+Provides: 
+  * 2 !CodeIssues 
+    * Class should Implement IDisposable
+    * Fields should be Disposed
+  * 2 !CodeProviders 
+    * Implement IDisposable
+    * Dispose Fields.
 
 === Usage ===
-Place the caret on the source of a class which does not implement IDisposable, but which has fields which do.
 
-The "Implement IDisposable" !CodeProvider will become available from the Code !SmartTagMenu
+==== Scenario 1 ==== 
+A class which *does not* implement IDisposable, but which has fields of types which do.
 
-Select this item and the plugin will implement IDisposable including the disposal of each of the fields (on the condition that they are not null)
+The _Class should Implement IDisposable_ !CodeIssue highlights the class and provides the _Implement IDisposable_ !CodeProvider as a fix.
+
+The _Implement IDisposable_ !CodeProvider implements IDisposable interface and disposes of all disposable fields appropriately in the newly created Dispose method.
+
+==== Scenario 2 ==== 
+A class which *does* implement IDisposable, but which has some Disposable fields which are *Not* disposed
+
+The _Fields Should be Disposed_ !CodeIssue highlights undisposed disposable fields in any class which does implement IDisposable. 
+
+The _Dispose Fields_ !CodeProvider adds code to the Dispose method of the class which Disposes any undisposed fields
 
 === Credits ===
 
