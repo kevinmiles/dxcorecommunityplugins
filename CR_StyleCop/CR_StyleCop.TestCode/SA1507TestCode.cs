@@ -6,11 +6,14 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
 
+    
     /// <summary>
     /// Test code for SA1507 rule - multiple blank lines are bad.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1507 rule.")]
     public class SA1507TestCode
     {
         private int PropertyName { get; set; }
