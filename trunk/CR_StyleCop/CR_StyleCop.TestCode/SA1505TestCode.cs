@@ -7,10 +7,12 @@ namespace CR_StyleCop.TestCode
 {
 
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Test code for SA1505 rule - opening curly bracket must not be followed by blank line.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1505 rule.")]
     public class SA1505TestCode
     {
 
@@ -28,7 +30,7 @@ namespace CR_StyleCop.TestCode
             set
             {
 
-            	this.syncRoot = value;
+                this.syncRoot = value;
             }
         }
 
