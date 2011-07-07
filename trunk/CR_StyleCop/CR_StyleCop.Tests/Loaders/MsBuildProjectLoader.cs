@@ -47,8 +47,8 @@ namespace CR_StyleCop.Tests.Loaders
             if (prjPath == null)
                 throw new ArgumentNullException("prjPath");
 
-            string msBuildPath = GetDotNetRoot();
-            Engine engine = new Engine(msBuildPath);
+            //string msBuildPath = GetDotNetRoot();
+            Engine engine = new Engine(); //msBuildPath);
             _Project = new Project(engine);
             _Project.Load(prjPath);
         }
