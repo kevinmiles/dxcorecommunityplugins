@@ -15,7 +15,7 @@
             Violation violation, 
             CsElement csElement)
         {
-            yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, new SourceRange(violation.Line, 1, violation.Line, sourceCode.LengthOfLine(violation.Line) + 1));
+            yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, new SourceRange(violation.Line, 1, violation.Line, Math.Max(2, sourceCode.LengthOfLine(violation.Line) + 1)));
         }
     }
 }

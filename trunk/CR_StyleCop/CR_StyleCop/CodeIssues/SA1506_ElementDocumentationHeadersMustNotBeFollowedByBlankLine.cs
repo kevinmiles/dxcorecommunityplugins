@@ -22,14 +22,12 @@
                 Violation violation, 
                 CsElement csElement)
             {
-                for (int lineNumber = violation.Line; lineNumber < sourceCode.LineCount; lineNumber++)
+                for (int lineNumber = violation.Line + 1; lineNumber < sourceCode.LineCount; lineNumber++)
                 {
-                    string nextLine = sourceCode.GetText(lineNumber + 1).Trim();
-                    if (string.IsNullOrEmpty(nextLine))
+                    string lineText = sourceCode.GetText(lineNumber).Trim();
+                    if (string.IsNullOrEmpty(lineText))
                     {
-                        string lineText = sourceCode.GetText(lineNumber);
-                        string textToUnderline = lineText.TrimStart();
-                        var sourceRange = new SourceRange(lineNumber, lineText.Length - textToUnderline.Length, lineNumber, sourceCode.LengthOfLine(lineNumber) + 1);
+                        var sourceRange = new SourceRange(lineNumber, 1, lineNumber, Math.Max(2, sourceCode.LengthOfLine(lineNumber) + 1));
                         yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, sourceRange);
                     }
                 }
