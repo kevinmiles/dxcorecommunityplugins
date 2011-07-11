@@ -68,8 +68,12 @@
                             && x.StartOffset == codeIssue.Range.Start.Offset
                             && x.EndLine == codeIssue.Range.End.Line
                             && x.EndOffset == codeIssue.Range.End.Offset,
-                        "Not all occurances of {0} are covered with tests",
-                        ruleCheck);
+                        "Not all occurances of {0} are covered with tests. Issue from line {1}, col {2} to line {3}, col {4} is not covered.",
+                        ruleCheck,
+                        codeIssue.Range.Start.Line,
+                        codeIssue.Range.Start.Offset,
+                        codeIssue.Range.End.Line,
+                        codeIssue.Range.End.Offset);
                 }
             }
         }
