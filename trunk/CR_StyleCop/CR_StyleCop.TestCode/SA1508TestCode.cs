@@ -30,6 +30,7 @@ namespace CR_StyleCop.TestCode
                 this.syncRoot = value;
 
             }
+
         }
 
         private void MethodName(string x)

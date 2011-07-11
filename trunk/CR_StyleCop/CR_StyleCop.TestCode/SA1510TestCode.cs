@@ -6,10 +6,12 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Test code for SA1510 rule - chained elements must not be separated with blank line.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1510 rule.")]
     public class SA1510TestCode
     {
         private int MethodName(bool parameter)
