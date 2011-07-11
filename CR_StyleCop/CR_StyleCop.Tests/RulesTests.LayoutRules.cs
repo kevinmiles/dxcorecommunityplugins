@@ -81,12 +81,12 @@
         }
 
         [Test]
-        [CodeIssue(14, 1, 14, 2)]
-        [CodeIssue(21, 1, 21, 9)]
-        [CodeIssue(29, 1, 29, 2)]
-        [CodeIssue(35, 1, 35, 2)]
-        [CodeIssue(45, 1, 45, 2)]
-        [CodeIssue(51, 1, 51, 9)]
+        [CodeIssue(13, 5, 13, 19)]
+        [CodeIssue(20, 9, 29, 23)]
+        [CodeIssue(28, 9, 28, 23)]
+        [CodeIssue(34, 9, 34, 23)]
+        [CodeIssue(44, 9, 44, 23)]
+        [CodeIssue(50, 9, 50, 23)]
         public void SA1506_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
         {
             this.AssertSpecificCodeIssueExists("SA1506", startLine, startOffset, endLine, endOffset);
@@ -103,6 +103,68 @@
         }
 
         [Test]
+        [CodeIssue(26, 13, 26, 14)]
+        [CodeIssue(32, 13, 32, 14)]
+        [CodeIssue(34, 9, 34, 10)]
+        [CodeIssue(42, 13, 42, 14)]
+        [CodeIssue(48, 13, 48, 14)]
+        [CodeIssue(54, 13, 54, 14)]
+        [CodeIssue(60, 13, 60, 14)]
+        [CodeIssue(66, 13, 66, 14)]
+        [CodeIssue(72, 13, 72, 14)]
+        [CodeIssue(79, 13, 79, 14)]
+        [CodeIssue(81, 9, 81, 10)]
+        [CodeIssue(83, 5, 83, 6)]
+        [CodeIssue(85, 1, 85, 2)]
+        public void SA1508_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1508", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(8, 1, 8, 2)]
+        [CodeIssue(18, 5, 18, 6)]
+        [CodeIssue(23, 9, 23, 10)]
+        [CodeIssue(26, 13, 26, 14)]
+        [CodeIssue(32, 13, 32, 14)]
+        [CodeIssue(39, 9, 39, 10)]
+        [CodeIssue(42, 13, 42, 14)]
+        [CodeIssue(48, 13, 48, 14)]
+        [CodeIssue(54, 13, 54, 14)]
+        [CodeIssue(60, 13, 60, 14)]
+        [CodeIssue(66, 13, 66, 14)]
+        [CodeIssue(72, 13, 72, 14)]
+        [CodeIssue(79, 13, 79, 14)]
+        public void SA1509_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1509", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(25, 13, 25, 17)]
+        [CodeIssue(35, 13, 35, 18)]
+        [CodeIssue(40, 13, 40, 18)]
+        [CodeIssue(45, 13, 45, 20)]
+        public void SA1510_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1510", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(26, 13, 26, 18)]
+        public void SA1511_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1511", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(17, 9, 17, 36)]
+        public void SA1512_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1512", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
         [Rule("SA1500")]
         [Rule("SA1501")]
         [Rule("SA1502")]
@@ -111,6 +173,11 @@
         [Rule("SA1505")]
         [Rule("SA1506")]
         [Rule("SA1507")]
+        [Rule("SA1508")]
+        [Rule("SA1509")]
+        [Rule("SA1510")]
+        [Rule("SA1511")]
+        [Rule("SA1512")]
         public void All_layout_code_issues_should_be_tested(string ruleCheck)
         {
             this.AssertAllReportedCodeIssuesAreTested(ruleCheck);
@@ -125,6 +192,11 @@
         [Rule("SA1505")]
         [Rule("SA1506")]
         [Rule("SA1507")]
+        [Rule("SA1508")]
+        [Rule("SA1509")]
+        [Rule("SA1510")]
+        [Rule("SA1511")]
+        [Rule("SA1512")]
         public void All_layout_violations_should_have_code_issue(string ruleCheck)
         {
             this.AssertAllStyleCopReportedViolationsHaveCodeIssue(ruleCheck);
