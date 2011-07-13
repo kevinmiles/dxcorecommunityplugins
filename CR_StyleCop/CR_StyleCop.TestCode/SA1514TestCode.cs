@@ -11,6 +11,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1514 rule - xml doc comments must be preceded by blank line.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1514 rule.")]
     [SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1516:ElementsMustBeSeparatedByBlankLine", Justification = "This is about SA1513 rule.")]
     public class SA1514TestCode
     {

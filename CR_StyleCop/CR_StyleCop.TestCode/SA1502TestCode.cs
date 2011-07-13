@@ -16,11 +16,20 @@ namespace CR_StyleCop.TestCode
     {
         private bool propertyName = true;
 
+        internal interface IMyInterface
+        {
+            bool PropertyName { get; }
+
+            int this[int index] { get; }
+        }
+
         internal interface InnerInterface { }
 
         internal bool PropertyName { get { return this.propertyName; } }
 
         internal abstract bool PropertyName2 { get; set; }
+
+        private int this[int index] { get { return 42; } }
 
         private void MethodName() { }
 
