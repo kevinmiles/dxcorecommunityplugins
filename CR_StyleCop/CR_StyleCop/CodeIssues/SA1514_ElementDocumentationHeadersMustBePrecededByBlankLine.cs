@@ -5,7 +5,7 @@
     internal class SA1514_ElementDocumentationHeadersMustBePrecededByBlankLine : StyleCopRule
     {
         public SA1514_ElementDocumentationHeadersMustBePrecededByBlankLine()
-            : base(new SingleLineCommentIssueLocator())
+            : base(new XmlDocCommentIssueLocator())
         {
         }
     }
