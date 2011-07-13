@@ -11,6 +11,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1516 rule - elements must be separated by blank line.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1516 rule.")]
     [SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1513:ClosingCurlyBracketMustBeFollowedByBlankLine", Justification = "This is about SA1516 rule.")]
     public class SA1516TestCode
     {

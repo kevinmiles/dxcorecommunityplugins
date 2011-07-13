@@ -11,6 +11,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1513 rule - closing curly bracket must be followed by blank line.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1513 rule.")]
     [SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1516:ElementsMustBeSeparatedByBlankLine", Justification = "This is about SA1513 rule.")]
     public class SA1513TestCode
     {
@@ -72,7 +73,7 @@ namespace CR_StyleCop.TestCode
             }
             while (string.IsNullOrEmpty(x));
         }
-        private void Anothermethod()
+        private void AnotherMethod()
         {
         }
     }

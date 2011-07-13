@@ -6,10 +6,12 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Test code for SA1515 rule - single line comments must be preceded by blank line.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1515 rule.")]
     public class SA1515TestCode
     {
         // Valid comment.
