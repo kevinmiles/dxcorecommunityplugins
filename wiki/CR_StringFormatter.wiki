@@ -9,12 +9,11 @@ This plugin provides 3 enhancements:
   * A !CodeIssue.
   * A Builder Dialog.
 
-
 === Usage ===
 
 ==== Tab to Next Reference Extension ====
 
-Simply place the caret on a String.Format token (ie {0}) then press the Tab key. The Tab to Next Reference engine is engages and the user may now tab between the references to that token and the argument which will be used to fill it at run-time.
+Simply place the caret on a String.Format token (ie {0}) then press the Tab key. The Tab to Next Reference engine is engaged, and the user may now tab between the references to that token and the argument which will be used to fill it at run-time.
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_StringFormatter/Screenshots/TabToNextStringToken.gif
 
