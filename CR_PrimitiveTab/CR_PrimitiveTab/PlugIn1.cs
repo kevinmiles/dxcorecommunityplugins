@@ -40,6 +40,11 @@ namespace CR_PrimitiveTab
 		{
 			if (ea.Element is PrimitiveExpression)
 			{
+				ContextProviderBase inFormatItemProvider = CodeRush.Context.GetContextProvider("Editor\\Code\\InFormatItem");
+				if (inFormatItemProvider != null)
+					if (inFormatItemProvider.IsContextSatisfied(""))
+						return;
+
 				//PrimitiveExpression primitiveExpression = (PrimitiveExpression)ea.Element;
 				//if (primitiveExpression.PrimitiveType == PrimitiveType.String)
 				//{
