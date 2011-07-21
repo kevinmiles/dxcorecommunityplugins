@@ -7,7 +7,12 @@
     public class CodeIssueAttribute : RowAttribute
     {
         public CodeIssueAttribute(int startLine, int startOffset, int endLine, int endOffset)
-            : base(startLine, startOffset, endLine, endOffset)
+            : this(startLine, startOffset, endLine, endOffset, string.Empty)
+        {
+        }
+
+        public CodeIssueAttribute(int startLine, int startOffset, int endLine, int endOffset, string fileNameSuffix)
+            : base(startLine, startOffset, endLine, endOffset, fileNameSuffix)
         {
         }
 
@@ -29,6 +34,11 @@
         public int EndOffset
         {
             get { return (int)this.Values[3]; }
+        }
+
+        public string FileNameSuffix
+        {
+            get { return (string)this.Values[4]; }
         }
     }
 }
