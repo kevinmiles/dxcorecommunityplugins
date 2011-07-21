@@ -17,9 +17,12 @@ namespace CR_StyleCop.TestCode
 
 namespace Second
 {
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// Test code for SA1403 rule - file can have only one namespace declaration.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "This is about SA1403 rule.")]
     public class SecondClass2
     {
     }

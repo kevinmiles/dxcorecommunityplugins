@@ -15,7 +15,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1401 rule - fields must be private.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "We are interested only in SA1401TestCode violations here. We don't want to pollute test code with zillion of comments.")]
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1401 rule.")]
     public class SA1401TestCode
     {
         public static readonly string PublicStaticReadonlyField;

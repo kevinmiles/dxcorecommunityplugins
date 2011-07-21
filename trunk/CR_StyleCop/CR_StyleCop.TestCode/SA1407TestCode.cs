@@ -6,10 +6,12 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Test code for SA1407 rule - arithmetic expressions must declare precedence.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1407 rule.")]
     public class SA1407TestCode
     {
         private int Invalid()

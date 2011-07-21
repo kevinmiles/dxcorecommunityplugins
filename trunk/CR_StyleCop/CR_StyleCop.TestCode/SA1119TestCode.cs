@@ -7,19 +7,19 @@ namespace CR_StyleCop.TestCode
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+
+#pragma warning disable 1591
 
     /// <summary>
     /// Test code for SA1119 rule - line has redundant parenthesis.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1119 rule.")]
     public class SA1119TestCode
     {
         private readonly int y = (2 + 3);
 
-        /// <summary>
-        /// Some method documentation.
-        /// </summary>
-        /// <returns>Something returned.</returns>
         public int Method()
         {
             int f = (2 + 5);
@@ -33,18 +33,11 @@ namespace CR_StyleCop.TestCode
             return (y ?? x);
         }
 
-        /// <summary>
-        /// This should also report SA1119.
-        /// </summary>
-        /// <returns>The number of 13.</returns>
         public IEnumerable<int> Yielder()
         {
             yield return (11 + 2);
         }
 
-        /// <summary>
-        /// Statements below should not report SA1119 violations.
-        /// </summary>
         public void ValidParenthesis()
         {
             var list = new List<int>();
