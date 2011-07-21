@@ -12,8 +12,8 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1405 rule - Debug.Assert must provide message.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1121:UseBuiltInTypeAlias", Justification = "This is about SA1406 rule")]
-    [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1122:UseStringEmptyForEmptyStrings", Justification = "This is about SA1406 rule")]
+    [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "*", Justification = "This is about SA1405 rule")]
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1405 rule.")]
     public class SA1405TestCode
     {
         private const string MessageConstant = "";

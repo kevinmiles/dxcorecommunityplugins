@@ -6,10 +6,12 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Test code for SA1409 rule - report redundant code.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1409 rule.")]
     public class SA1409TestCode
     {
         static SA1409TestCode()
@@ -18,7 +20,7 @@ namespace CR_StyleCop.TestCode
         
         private int MethodName()
         {
-            int xdType = 9;
+            int xdtype = 9;
 
             unchecked
             {
@@ -45,18 +47,18 @@ namespace CR_StyleCop.TestCode
 
             try
             {
-                xdType = 2;
+                xdtype = 2;
             }
             finally
             {
             }
             
-            try
+            try // BUGBUG
             {
             }
             finally
             {
-                xdType = 2;
+                xdtype = 2;
             }
 
             try
@@ -68,7 +70,7 @@ namespace CR_StyleCop.TestCode
 
             try
             {
-                xdType = 3;
+                xdtype = 3;
             }
             catch (Exception)
             {
@@ -79,22 +81,11 @@ namespace CR_StyleCop.TestCode
             }
             catch (Exception)
             {
-                xdType = 6;
+                xdtype = 6;
             }
 
             try
             {
-            }
-            catch (Exception)
-            {
-            }
-            finally
-            {
-            }
-
-            try
-            {
-                xdType = 9;
             }
             catch (Exception)
             {
@@ -105,10 +96,21 @@ namespace CR_StyleCop.TestCode
 
             try
             {
+                xdtype = 9;
             }
             catch (Exception)
             {
-                xdType = 4;
+            }
+            finally
+            {
+            }
+
+            try
+            {
+            }
+            catch (Exception)
+            {
+                xdtype = 4;
             }
             finally
             {
@@ -122,16 +124,16 @@ namespace CR_StyleCop.TestCode
             }
             finally
             {
-                xdType = 8;
+                xdtype = 8;
             }
 
             try
             {
-                xdType = 8;
+                xdtype = 8;
             }
             catch (Exception)
             {
-                xdType = 7;
+                xdtype = 7;
             }
             finally
             {
@@ -139,14 +141,14 @@ namespace CR_StyleCop.TestCode
 
             try
             {
-                xdType = 7;
+                xdtype = 7;
             }
             catch (Exception)
             {
             }
             finally
             {
-                xdType = 8;
+                xdtype = 8;
             }
 
             try
@@ -154,14 +156,14 @@ namespace CR_StyleCop.TestCode
             }
             catch (Exception)
             {
-                xdType = 7;
+                xdtype = 7;
             }
             finally
             {
-                xdType = 3;
+                xdtype = 3;
             }
 
-            return xdType;
+            return xdtype;
         }
     }
 }

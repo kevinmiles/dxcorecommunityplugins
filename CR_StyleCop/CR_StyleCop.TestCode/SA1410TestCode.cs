@@ -6,10 +6,12 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Test code for SA1410 rule - remove redundant parens from anonymous methods.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1410 rule.")]
     internal class SA1410TestCode
     {
         private bool MethodName(Func<bool> predicate)

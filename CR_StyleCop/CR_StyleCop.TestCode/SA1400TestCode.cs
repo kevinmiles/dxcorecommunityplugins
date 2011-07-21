@@ -6,10 +6,12 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Test code for SA1400 rule - elements should have access modifier.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1400 rule.")]
     class SA1400TestCode
     {
         bool fieldName;
@@ -36,7 +38,7 @@ namespace CR_StyleCop.TestCode
 
         void Test()
         {
-            Event(this, EventArgs.Empty);
+            this.Event(this, EventArgs.Empty);
         }
 
         struct MyStruct
