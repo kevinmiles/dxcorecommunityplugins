@@ -43,7 +43,7 @@
 
         private void AssertSpecificCodeIssueExists(string ruleCheck, int startLine, int startOffset, int endLine, int endOffset, string fileNameSuffix)
         {
-            foreach (SourceFile file in files.Where(x => x.Name == string.Format("{0}TestCode{1}.cs", ruleCheck, fileNameSuffix)))
+            foreach (SourceFile file in files.Where(x => Path.GetFileName(x.Name) == string.Format("{0}TestCode{1}.cs", ruleCheck, fileNameSuffix)))
             {
                 var codeIssues = plugin.GetCodeIssuesFor(file);
                 Assert.Exists(
