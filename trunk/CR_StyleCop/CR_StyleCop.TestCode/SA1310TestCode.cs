@@ -6,12 +6,14 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
 #pragma warning disable 169
 
     /// <summary>
     /// Test code for SA1310 rule - field name must not contain _.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1310 rule.")]
     public class SA1310TestCode
     {
         private int field_name;
