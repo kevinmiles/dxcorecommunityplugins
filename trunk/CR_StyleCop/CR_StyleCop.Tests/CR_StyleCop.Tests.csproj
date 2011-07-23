@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeIssueAttribute.cs" />
+    <Compile Include="RulesTests.OrderingRules.cs" />
     <Compile Include="RulesTests.NamingRules.cs" />
     <Compile Include="RulesTests.MaintainabilityRules.cs" />
     <Compile Include="Helpers\LanguageHelper.cs" />
