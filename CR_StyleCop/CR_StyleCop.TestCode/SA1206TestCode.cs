@@ -6,12 +6,14 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
 #pragma warning disable 169
 
     /// <summary>
     /// Test code for SA1206 rule - declaration keywords must be ordered correctly.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1206 rule.")]
     public class SA1206TestCode
     {
         private static readonly int aaaa;

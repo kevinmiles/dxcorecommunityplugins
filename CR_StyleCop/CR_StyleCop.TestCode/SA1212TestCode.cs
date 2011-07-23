@@ -6,13 +6,13 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
-    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Test code for SA1212 rule - getter must come before setter.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1212 rule.")]
     public class SA1212TestCode
     {
         private string validOrder;
