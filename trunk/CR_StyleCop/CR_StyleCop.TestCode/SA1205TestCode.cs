@@ -13,8 +13,8 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1205 rule - partial elements must declare access.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "This is about SA1207 rule.")]
-    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1400:AccessModifierMustBeDeclared", Justification = "This is about SA1207 rule.")]
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1205 rule.")]
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "*", Justification = "This is about SA1205 rule.")]
     public class SA1205TestCode
     {
         partial class PartialInner

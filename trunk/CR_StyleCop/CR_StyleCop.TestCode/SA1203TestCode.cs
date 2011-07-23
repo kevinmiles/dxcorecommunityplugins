@@ -13,7 +13,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1203 rule - const and readonly fields must come first.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "This is about SA1203 rule.")]
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1203 rule.")]
     public class SA1203TestCode
     {
         private string regular;

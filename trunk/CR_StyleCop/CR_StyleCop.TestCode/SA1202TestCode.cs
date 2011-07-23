@@ -13,7 +13,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1202 rule - elements must be sorted by access correctly.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "This is about SA1202 rule.")]
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1202 rule.")]
     public class SA1202TestCode
     {
         private void MethodName1()

@@ -13,7 +13,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1204 rule - static members must come first.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "This is about SA1207 rule.")]
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1204 rule.")]
     public class SA1204TestCode
     {
         private string regularProperty;
