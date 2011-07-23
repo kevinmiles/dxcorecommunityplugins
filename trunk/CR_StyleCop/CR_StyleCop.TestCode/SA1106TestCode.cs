@@ -14,6 +14,8 @@ namespace CR_StyleCop.TestCode
     /// Test code for SA1106 rule - code must not contain empty statements.
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.LayoutRules", "*", Justification = "This is about SA1106 rule.")]
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1106 rule.")]
+    [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1002:SemicolonsMustBeSpacedCorrectly", Justification = "This is about SA1106 rule.")]
     public class SA1106TestCode
     {
         private void MethodName()

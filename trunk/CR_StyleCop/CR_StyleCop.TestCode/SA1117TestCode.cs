@@ -6,13 +6,15 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
-    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Test code for SA1117 rule - parameters must be on the same line or on separate lines each.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1117 rule.")]
+    [SuppressMessage("StyleCop.CSharp.SpacingRules", "*", Justification = "This is about SA1117 rule.")]
+    [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "This is about SA1117 rule.")]
     public class SA1117TestCode
     {
         private int this[

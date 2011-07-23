@@ -6,13 +6,14 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
-    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Test code for SA1111 rule - closing paren must be on last parameter line.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1111 rule.")]
+    [SuppressMessage("StyleCop.CSharp.SpacingRules", "*", Justification = "This is about SA1111 rule.")]
     public class SA1111TestCode
     {
         private int this[int x

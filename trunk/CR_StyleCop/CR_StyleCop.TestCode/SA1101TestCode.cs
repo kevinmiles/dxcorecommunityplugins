@@ -13,7 +13,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1101 rule - use this to indicate instance member access.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1100 rule.")]
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1101 rule.")]
     public class SA1101TestCode
     {
         public event EventHandler BasePublicEvent;
