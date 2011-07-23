@@ -61,7 +61,7 @@
         [CodeIssue(33, 42, 33, 53)]
         [CodeIssue(41, 30, 41, 44)]
         [CodeIssue(60, 28, 60, 38)]
-        [CodeIssue(64, 28, 60, 41)]
+        [CodeIssue(64, 28, 64, 41)]
         public void SA1204_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
         {
             this.AssertSpecificCodeIssueExists("SA1204", startLine, startOffset, endLine, endOffset);
