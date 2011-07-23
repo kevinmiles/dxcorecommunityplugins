@@ -6,11 +6,13 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     /// <summary>
     /// Test code for SA1104 rule - query clause must be on new line when previous clause spans multiple lines.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1104 rule.")]
     public class SA1104TestCode
     {
         private void MethodName()

@@ -6,11 +6,13 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     /// <summary>
     /// Test code for SA1103 rule - query clauses must be on separate lines or on single line.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1103 rule.")]
     public class SA1103TestCode
     {
         private void MethodName()

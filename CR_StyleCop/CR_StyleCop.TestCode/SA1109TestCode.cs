@@ -11,6 +11,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1109 rule - block statements must not contain region directive.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1107 rule.")]
     [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1123:DoNotPlaceRegionsWithinElements", Justification = "This is about SA1109 rule.")]
     public class SA1109TestCode
     {

@@ -6,13 +6,14 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
-    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Test code for SA1118 rule - only first parameter can span multiple lines.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1117 rule.")]
+    [SuppressMessage("StyleCop.CSharp.SpacingRules", "*", Justification = "This is about SA1117 rule.")]
     public class SA1118TestCode
     {
         private int this[

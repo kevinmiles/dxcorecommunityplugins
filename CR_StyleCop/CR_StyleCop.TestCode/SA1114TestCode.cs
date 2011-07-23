@@ -6,13 +6,14 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
-    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Test code for SA1114 rule - parameters must be on the same or on the next line as opening paren.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1114 rule.")]
+    [SuppressMessage("StyleCop.CSharp.SpacingRules", "*", Justification = "This is about SA1114 rule.")]
     public class SA1114TestCode
     {
         private int this[

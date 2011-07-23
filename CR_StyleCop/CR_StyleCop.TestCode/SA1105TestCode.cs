@@ -6,11 +6,13 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     /// <summary>
     /// Test code for SA1105 rule - query clause must begin on its own line when spans multiple lines.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1105 rule.")]
     public class SA1105TestCode
     {
         private void MethodName()

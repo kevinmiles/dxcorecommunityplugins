@@ -6,13 +6,14 @@
 namespace CR_StyleCop.TestCode
 {
     using System;
-    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Test code for SA1113 rule - comma must follow previous parameter.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1113 rule.")]
+    [SuppressMessage("StyleCop.CSharp.SpacingRules", "*", Justification = "This is about SA1113 rule.")]
     public class SA1113TestCode
     {
         private int this[
