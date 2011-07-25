@@ -41,11 +41,15 @@ namespace CR_StringFormatter
 				return false;
 
 			MethodReferenceExpression formatCall = methodCallExpression.Qualifier as MethodReferenceExpression;
-			if (formatCall.Name != "Format")
-				return false;
-
-			ElementReferenceExpression stringQualifier = formatCall.Qualifier as ElementReferenceExpression;
-			return stringQualifier.Name == "String" || stringQualifier.Name == CodeRush.Language.GetSimpleTypeName("System.String");
+			ReferenceExpressionBase qualifier = formatCall.Qualifier as ReferenceExpressionBase;
+			if (formatCall.Name == "Format")
+				return qualifier.Name == "String" || qualifier.Name == CodeRush.Language.GetSimpleTypeName("System.String");
+			else if (formatCall.Name == "AppendFormat")
+			{
+				ITypeElement qualifierDeclaration = qualifier.Resolve(ParserServices.SourceTreeResolver) as ITypeElement;
+				return qualifierDeclaration != null && qualifierDeclaration.Is("System.Text.StringBuilder");
+			}
+			return false;
 		}
 		#endregion
 		#region InFirstStringArgument
