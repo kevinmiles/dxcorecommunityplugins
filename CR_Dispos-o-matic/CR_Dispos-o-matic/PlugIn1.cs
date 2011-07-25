@@ -157,13 +157,16 @@ namespace CR_Dispos_o_matic
 		}
 		#endregion
 
-		private static IList<BaseVariable> GetDisposableFieldsThatHaveNotBeenDisposed(IClassElement iClassElement, out IIfStatement parentIfDisposing)
+		private static IList<BaseVariable> GetDisposableFieldsThatHaveNotBeenDisposed(IElement scope, IClassElement iClassElement, out IIfStatement parentIfDisposing)
 		{
 			parentIfDisposing = null;
 			IList<BaseVariable> disposableFields = new List<BaseVariable>();
 
 			foreach (IElement child in iClassElement.AllChildren)
 			{
+				// fix for partial classes
+				if (child.FirstFile.Name != scope.FirstFile.Name)
+					continue;
 				IBaseVariable iBaseVariable = child as IBaseVariable;
 				if (iBaseVariable != null)
 				{
@@ -234,7 +237,7 @@ namespace CR_Dispos_o_matic
 				// We DO implement IDisposable! Let's make sure all the fields are disposed....
 
 				IIfStatement parentIfDisposing;
-				IList<BaseVariable> disposableFields = GetDisposableFieldsThatHaveNotBeenDisposed(iClassElement, out parentIfDisposing);
+				IList<BaseVariable> disposableFields = GetDisposableFieldsThatHaveNotBeenDisposed(ea.Scope, iClassElement, out parentIfDisposing);
 				if (disposableFields.Count > 0)
 					foreach (BaseVariable disposableField in disposableFields)
 						ea.AddWarning(disposableField.NameRange, ipFieldsShouldBeDisposed.DisplayName);
@@ -245,13 +248,10 @@ namespace CR_Dispos_o_matic
 		private static bool AlreadyImplementsIDisposable(IClassElement iClassElement)
 		{
 			ITypeElement[] baseTypes = iClassElement.GetBaseTypes();
-			bool alreadyImplementsIDisposable = false;
 			foreach (ITypeElement item in baseTypes)
-			{
-				if (item.Name == "IDisposable")
-					alreadyImplementsIDisposable = true;
-			}
-			return alreadyImplementsIDisposable;
+				if (item.Is("System.IDisposable"))
+					return true;
+			return false;
 		}
 		#endregion
 		private void ipClassShouldImplementIDisposable_CheckCodeIssues(object sender, CheckCodeIssuesEventArgs ea)
@@ -300,7 +300,7 @@ namespace CR_Dispos_o_matic
 			// We DO implement IDisposable! Let's make sure all the fields are disposed....
 
 			IIfStatement parentIfDisposing;
-			IList<BaseVariable> disposableFields = GetDisposableFieldsThatHaveNotBeenDisposed(iClassElement, out parentIfDisposing);
+			IList<BaseVariable> disposableFields = GetDisposableFieldsThatHaveNotBeenDisposed(iClassElement, iClassElement, out parentIfDisposing);
 			if (disposableFields.Count > 0 && parentIfDisposing != null)
 			{
 				If ifParent = LanguageElementRestorer.ConvertToLanguageElement(parentIfDisposing) as If;
