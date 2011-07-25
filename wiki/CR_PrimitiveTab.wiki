@@ -15,7 +15,7 @@ So you might tab between references to the number 10 or to the string "This is a
 === Usage ===
 Place your caret within the primitive and hit *Tab*
 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_PrimitiveTab/Screenshots/TabNextPrimitive.png
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_PrimitiveTab/Screenshots/TabToNextPrimitive.gif
 
 === Additional Configuration ===
 
