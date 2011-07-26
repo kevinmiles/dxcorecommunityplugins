@@ -157,7 +157,7 @@ namespace CR_Dispos_o_matic
 		}
 		#endregion
 
-		private static IList<BaseVariable> GetDisposableFieldsThatHaveNotBeenDisposed(IElement scope, IClassElement iClassElement, out IIfStatement parentIfDisposing)
+		private static IList<BaseVariable> GetDisposableFieldsThatHaveNotBeenDisposed(ISourceFile scope, IClassElement iClassElement, out IIfStatement parentIfDisposing)
 		{
 			parentIfDisposing = null;
 			IList<BaseVariable> disposableFields = new List<BaseVariable>();
@@ -237,7 +237,7 @@ namespace CR_Dispos_o_matic
 				// We DO implement IDisposable! Let's make sure all the fields are disposed....
 
 				IIfStatement parentIfDisposing;
-				IList<BaseVariable> disposableFields = GetDisposableFieldsThatHaveNotBeenDisposed(ea.Scope, iClassElement, out parentIfDisposing);
+				IList<BaseVariable> disposableFields = GetDisposableFieldsThatHaveNotBeenDisposed(ea.Scope as ISourceFile, iClassElement, out parentIfDisposing);
 				if (disposableFields.Count > 0)
 					foreach (BaseVariable disposableField in disposableFields)
 						ea.AddWarning(disposableField.NameRange, ipFieldsShouldBeDisposed.DisplayName);
@@ -300,7 +300,7 @@ namespace CR_Dispos_o_matic
 			// We DO implement IDisposable! Let's make sure all the fields are disposed....
 
 			IIfStatement parentIfDisposing;
-			IList<BaseVariable> disposableFields = GetDisposableFieldsThatHaveNotBeenDisposed(iClassElement, iClassElement, out parentIfDisposing);
+			IList<BaseVariable> disposableFields = GetDisposableFieldsThatHaveNotBeenDisposed(ea.ClassInterfaceOrStruct.GetSourceFile(), iClassElement, out parentIfDisposing);
 			if (disposableFields.Count > 0 && parentIfDisposing != null)
 			{
 				If ifParent = LanguageElementRestorer.ConvertToLanguageElement(parentIfDisposing) as If;
