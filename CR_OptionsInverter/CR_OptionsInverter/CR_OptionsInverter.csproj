@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\Source\IDE Tools\2011.1\bin\PlugIns</OutputPath>
+    <OutputPath>..\..\..\..\Documents\DevExpress\IDE Tools\Community\PlugIns\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
