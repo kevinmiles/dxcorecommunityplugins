@@ -3,14 +3,14 @@
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== Requires DXCore 11.1 =====
 === Introduction ===
- This plugin provides a new CodeProvider which will implement a buddy class to hold contracts for an interface.
+ This plugin provides a new !CodeProvider which will implement a buddy class to hold contracts for an interface.
 
 === Usage ===
  * Place your caret on the interface declaration 
- * Press the CodeRush/Refactor key
+ * Press the !CodeRush/Refactor key
  * Choose *Create Contract Class*
 
-CR_CreateContracts will then generate a new Contract class, named after you interface and place it in a file of it's own.
+CR_!CreateContracts will then generate a new Contract class, named after you interface and place it in a file of it's own.
 
 For full details see [https://ihadthisideaonce.wordpress.com/2011/07/20/codeprovider-create-contract-class/ This blogpost]
 === Credits ===
