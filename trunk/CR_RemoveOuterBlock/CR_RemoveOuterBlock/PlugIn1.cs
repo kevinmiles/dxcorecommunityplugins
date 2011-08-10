@@ -52,7 +52,8 @@ namespace CR_RemoveOuterBlock
 			ParentingStatement parentingStatement = ea.Element as ParentingStatement;
 			if (parentingStatement == null)
 				return;
-
+			if (parentingStatement.ElementType == LanguageElementType.Switch)
+				return;
 			ea.Available = true;
 		}
 
