@@ -17,9 +17,11 @@ http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Scree
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Screenshots/RemoveOuterBlockForLoop.gif
 
 ===== A Try Catch Block =====
+In this example, see how the catch block content is also removed.
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Screenshots/RemoveOuterBlockTryCatch.gif
 
 ===== A Try Catch Finally Block =====
+In this example, see how the catch block content is remove, but the finally block content is retained.
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Screenshots/RemoveOuterBlockTryCatchFinally.gif
 
 === Credits ===
