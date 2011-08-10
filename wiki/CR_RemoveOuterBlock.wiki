@@ -1,0 +1,27 @@
+#summary Provides a new CodeProvider to remove a block of code, whilst leaving the code within it intact.
+[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_RemoveOuterBlock/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Requires DXCore 11.1 =====
+=== Introduction ===
+This plugin provides a CodeProvider "Remove Outer Block" which will remove a block of code and replace it with it's own contents.
+=== Usage ===
+Position your caret on any of these blocks and choose the "Remove Outer Block" option from the Code menu .
+
+===== A Simple If Block =====
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Screenshots/RemoveOuterBlockSimpleIf.gif
+
+===== A While Loop =====
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Screenshots/RemoveOuterBlockWhileLoop.gif
+
+===== A For Loop =====
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Screenshots/RemoveOuterBlockForLoop.gif
+
+===== A Try Catch Block =====
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Screenshots/RemoveOuterBlockTryCatch.gif
+
+===== A Try Catch Finally Block =====
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Screenshots/RemoveOuterBlockTryCatchFinally.gif
+
+=== Credits ===
+
+Author: [http://devexpress.com/mark Mark Miller] 
