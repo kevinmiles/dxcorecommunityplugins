@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using DevExpress.CodeRush.StructuralParser;
 using DevExpress.CodeRush.Core;
 using System.Text.RegularExpressions;
