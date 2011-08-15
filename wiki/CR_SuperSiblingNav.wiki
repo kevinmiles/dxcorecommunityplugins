@@ -1,6 +1,6 @@
 [http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_SuperSiblingNav/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 since build =====
+===== Requires DXCore 10.1  =====
 === Introduction ===
 Provides 2 additional Navigation providers which allow you to skip between sibling methods and properties whilst retaining relative selection and/or caret position
 
