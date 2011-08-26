@@ -1,8 +1,8 @@
 #summary Generates a Proxy class A, of Source class B, without altering B.
 [http://www.rorybecker.co.uk/DevExpress/Plugins/Community/DX_GenerateProxy http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 since build 1601 =====
-= Introduction =
+===== Requires DXCore 11.1 since build 1689 =====
+=== Introduction ===
 Generates a Proxy class A, of Source class B, without altering B.
 
 This is useful for mocking Webservices. One can generate a proxy and then extract an interface from the proxy. 
@@ -11,10 +11,13 @@ One can now mock the interface safe in the knowledge that it accurately represen
 
 The generated Proxy provides wrapper methods and properties for all the public methods and properties on the source class. It takes an instance of the source class in it's constructor, redirecting calls made to itself to this inner instance.
 
-= Usage =
-Place the caret on the source class name, and activate the "Generate Proxy" Code Provider.
+=== Usage ===
+  * Place the caret on the source class name, and activate the "Generate Proxy" Code Provider.
+  * Place caret on any Type reference, and activate the "Generate Proxy" Code Provider.
 
-A new Class will be generated which takes an instance of the source in it's constructor.
-
-= Credits =
+A new Proxy Class will be generated with a constructor which takes a single instance of the base type from which the which takes an instance of the source in it's constructor.
+=== Updates ===
+  * 1973 - Added ability to generate from framework types.
+  * 1689 - Initial build
+=== Credits ===
 RoryBecker
