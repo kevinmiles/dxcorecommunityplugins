@@ -1,5 +1,12 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿//-----------------------------------------------------------------------
+// <copyright file="AssemblyInfo.cs" company="Jim Counts">
+//     Copyright (c) Jim Counts 2011. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 using DevExpress.CodeRush.Common;
 
@@ -31,6 +38,10 @@ using DevExpress.CodeRush.Common;
 //      Minor Version 
 //      Build Number
 //      Revision
-//
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.*")]
+[assembly: NeutralResourcesLanguageAttribute("en-US")]
+[module: SuppressMessage("Microsoft.Design", "CA1014:MarkAssembliesWithClsCompliant", Justification = "Depends on libraries that are not compliant.")]
+[module: SuppressMessage("Microsoft.Design", "CA2210:AssembliesShouldHaveValidStrongNames", Justification = "PlugIn should not be placed in the GAC.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Name follows PlugIn naming convention.")]
+[module: SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Scope = "namespace", Target = "CR_CreateContract", Justification = "Name follows PlugIn naming convention.")]
+[module: SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "CR_CreateContract", Justification = "Types must be in thier own namespace to avoid conflicts with other PlugIns.")]
