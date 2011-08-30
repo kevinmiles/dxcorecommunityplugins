@@ -54,7 +54,6 @@ Public Class PlugIn1
     End Sub
 
     Private Sub GenerateTest_Apply(ByVal sender As Object, ByVal ea As DevExpress.CodeRush.Core.ApplyContentEventArgs) Handles GenerateTest.Apply
-
         Dim SourceProject = CodeRush.Source.ActiveProject
         Dim SourceType = CodeRush.Source.ActiveClass
         Dim ProjectLanguage = SourceProject.Language
