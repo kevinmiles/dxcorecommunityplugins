@@ -64,9 +64,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.DXCore.Parser, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.DXCore.Parser">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\PROGRAM FILES (X86)\DEVEXPRESS 2011.1\IDETOOLS\System\DXCore\Bin\DevExpress.DXCore.Parser.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -101,6 +100,9 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\Components.vb" />
+    <Compile Include="Extensions\Fluent.vb" />
+    <Compile Include="Extensions\IO.vb" />
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -131,20 +133,10 @@
     <Content Include="DeploymentFiles\Dynamic Lists_TemplatesWeb.xml" />
     <Content Include="DeploymentFiles\Dynamic Lists_TemplatesWin.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\DX_Extras\DX_Extras\DX_Extras.vbproj">
-      <Project>{6744ABF2-9CC1-479A-932E-A1E93249B964}</Project>
-      <Name>DX_Extras</Name>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PostBuildEvent>CD $(OutDir)
-COPY $(TargetFileName) temp.dll
-ILMerge.exe /out:$(TargetFileName) temp.dll DX_Extras.dll
-DEL DX_Extras.*
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
