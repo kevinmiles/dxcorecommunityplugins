@@ -7,8 +7,6 @@ Imports DevExpress.CodeRush.StructuralParser
 Imports EnvDTE80
 Imports System.IO
 Imports System.Runtime.CompilerServices
-Imports DX_Extras.Fluent
-Imports DX_Extras.IO
 Public Class PlugIn1
 
     'DXCore-generated code...
