@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CR_EasierIdentiers</RootNamespace>
-    <AssemblyName>CR_EasierIdentiers</AssemblyName>
+    <AssemblyName>CR_EasierIdentifiers</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
