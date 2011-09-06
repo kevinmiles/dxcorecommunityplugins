@@ -5,8 +5,11 @@
 === Introduction ===
 A simple plugin to locate the currently active file in the solution explorer
 
+=== Configuration ===
+Bind the *!LocateInSolExplorer* to a key ([http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx see Binding keys in CodeRush])
+
 === Usage ===
-Bind the *!LocateInSolExplorer* to a key ([http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx see Binding keys in CodeRush]) and use said key whenever you want to locate the current file.
+Simply press the configured shortcut combo whenever you want to locate the current file.
 
 === Credits ===
 Author: RoryBecker 
