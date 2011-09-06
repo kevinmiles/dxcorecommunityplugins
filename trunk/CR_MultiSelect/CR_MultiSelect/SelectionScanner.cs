@@ -4,7 +4,7 @@ using System.Linq;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.StructuralParser;
 
-namespace CR_MultiSelect
+namespace DevExpress.CodeRush.Core
 {
 	public class SelectionScanner
 	{
