@@ -34,38 +34,79 @@
   <ItemGroup>
     <Reference Include="DevExpress.CodeRush.Extensions, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.UserControls, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.DXCore.Controls.Data.v6.3, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.DXCore.Controls.XtraBars.v6.3, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.DXCore.Controls.XtraEditors.v6.3, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.DXCore.Controls.XtraTreeList.v6.3, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.DXCore.Platform, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Design" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="EnvDTE" />
     <Reference Include="EnvDTE80" />
-    <Reference Include="DevExpress.CodeRush.Common" />
-    <Reference Include="DevExpress.CodeRush.Core" />
-    <Reference Include="DevExpress.CodeRush.PlugInCore" />
-    <Reference Include="DevExpress.CodeRush.StructuralParser" />
-    <Reference Include="DevExpress.DXCore.Parser" />
-    <Reference Include="DevExpress.CodeRush.VSCore" />
+    <Reference Include="DevExpress.CodeRush.Common">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.PlugInCore">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.StructuralParser">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.DXCore.Parser">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.VSCore">
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeRushPlaceholder.cs" />
     <Compile Include="CommentBuilder.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="MultiSelect.cs" />
+    <Compile Include="MultiSelectEnumerator.cs" />
+    <Compile Include="MultiSelectServices.cs" />
+    <Compile Include="OptMultiSelect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OptMultiSelect.Designer.cs">
+      <DependentUpon>OptMultiSelect.cs</DependentUpon>
+    </Compile>
     <Compile Include="PartialSelection.cs" />
     <Compile Include="PlugIn1.cs">
       <SubType>Component</SubType>
@@ -75,8 +116,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectionScanner.cs" />
+    <Compile Include="StartPointComparer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="OptMultiSelect.resx">
+      <DependentUpon>OptMultiSelect.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PlugIn1.resx">
       <DependentUpon>PlugIn1.cs</DependentUpon>
     </EmbeddedResource>

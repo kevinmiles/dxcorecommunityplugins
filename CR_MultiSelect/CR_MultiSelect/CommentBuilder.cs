@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.CodeRush.Core;
 
-namespace CR_MultiSelect
+namespace DevExpress.CodeRush.Core
 {
 	public class CommentBuilder
 	{

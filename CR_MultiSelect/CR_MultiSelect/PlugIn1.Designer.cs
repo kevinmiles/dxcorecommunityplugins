@@ -43,11 +43,15 @@ namespace CR_MultiSelect
 			this.actMultiSelectUndo = new DevExpress.CodeRush.Core.Action(this.components);
 			this.actMultiSelectRedo = new DevExpress.CodeRush.Core.Action(this.components);
 			this.ctxMultiSelectExists = new DevExpress.CodeRush.Extensions.ContextProvider(this.components);
+			this.ctxMultiSelectRedoAvailable = new DevExpress.CodeRush.Extensions.ContextProvider(this.components);
+			this.actMultiSelectIntegratedPaste = new DevExpress.CodeRush.Core.Action(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.actMultiSelectAdd)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.actMultiSelectClear)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.actMultiSelectUndo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.actMultiSelectRedo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.ctxMultiSelectExists)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.ctxMultiSelectRedoAvailable)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.actMultiSelectIntegratedPaste)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
 			// 
 			// actMultiSelectAdd
@@ -105,16 +109,38 @@ namespace CR_MultiSelect
 			this.ctxMultiSelectExists.Register = true;
 			this.ctxMultiSelectExists.ContextSatisfied += new DevExpress.CodeRush.Core.ContextSatisfiedEventHandler(this.ctxMultiSelectExists_ContextSatisfied);
 			// 
+			// ctxMultiSelectRedoAvailable
+			// 
+			this.ctxMultiSelectRedoAvailable.Description = "Satisfied if a multi-select redo operation is available for the active view.";
+			this.ctxMultiSelectRedoAvailable.ProviderName = "Editor\\Selection\\MultiSelect Redo Available";
+			this.ctxMultiSelectRedoAvailable.Register = true;
+			this.ctxMultiSelectRedoAvailable.ContextSatisfied += new DevExpress.CodeRush.Core.ContextSatisfiedEventHandler(this.ctxMultiSelectRedoAvailable_ContextSatisfied);
+			// 
+			// actMultiSelectIntegratedPaste
+			// 
+			this.actMultiSelectIntegratedPaste.ActionName = "MultiSelectIntegratedPaste";
+			this.actMultiSelectIntegratedPaste.ButtonText = "Integrated Paste";
+			this.actMultiSelectIntegratedPaste.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.EditorContext;
+			this.actMultiSelectIntegratedPaste.Description = "Pastes the members of the MultiSelect list that\'s on the clipboard into their app" +
+    "ropriate locations in the active type.";
+			this.actMultiSelectIntegratedPaste.Image = ((System.Drawing.Bitmap)(resources.GetObject("actMultiSelectIntegratedPaste.Image")));
+			this.actMultiSelectIntegratedPaste.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+			this.actMultiSelectIntegratedPaste.ToolbarItem.ButtonIsPressed = false;
+			this.actMultiSelectIntegratedPaste.ToolbarItem.Caption = null;
+			this.actMultiSelectIntegratedPaste.ToolbarItem.Image = null;
+			this.actMultiSelectIntegratedPaste.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.actMultiSelectIntegratedPaste_Execute);
+			// 
 			// PlugIn1
 			// 
 			this.CommandExecuting += new DevExpress.CodeRush.Core.CommandExecutingEventHandler(this.PlugIn1_CommandExecuting);
-			this.DocumentRenamed += new DevExpress.CodeRush.Core.DocumentRenamedEventHandler(this.PlugIn1_DocumentRenamed);
-			this.TextChanged += new DevExpress.CodeRush.Core.TextChangedEventHandler(this.PlugIn1_TextChanged);
+			this.EditorContextMenuShowing += new DevExpress.CodeRush.Core.EditorContextMenuShowingEventHandler(this.PlugIn1_EditorContextMenuShowing);
 			((System.ComponentModel.ISupportInitialize)(this.actMultiSelectAdd)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.actMultiSelectClear)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.actMultiSelectUndo)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.actMultiSelectRedo)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.ctxMultiSelectExists)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.ctxMultiSelectRedoAvailable)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.actMultiSelectIntegratedPaste)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
 		}
@@ -126,5 +152,7 @@ namespace CR_MultiSelect
 		private DevExpress.CodeRush.Core.Action actMultiSelectUndo;
 		private DevExpress.CodeRush.Core.Action actMultiSelectRedo;
 		private DevExpress.CodeRush.Extensions.ContextProvider ctxMultiSelectExists;
+		private DevExpress.CodeRush.Extensions.ContextProvider ctxMultiSelectRedoAvailable;
+		private DevExpress.CodeRush.Core.Action actMultiSelectIntegratedPaste;
 	}
 }
