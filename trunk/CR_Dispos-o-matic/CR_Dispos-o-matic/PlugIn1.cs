@@ -9,7 +9,7 @@ using DevExpress.CodeRush.StructuralParser;
 
 namespace CR_Dispos_o_matic
 {
-	public partial class DisposOMaticPlugIn : StandardPlugIn
+	public partial class PlugIn1 : StandardPlugIn
 	{
 		private TypeDeclaration _ActiveClass;
 		private string _CodeForNewIfDisposingBlock;
