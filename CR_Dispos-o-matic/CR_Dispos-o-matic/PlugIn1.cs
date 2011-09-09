@@ -9,7 +9,7 @@ using DevExpress.CodeRush.StructuralParser;
 
 namespace CR_Dispos_o_matic
 {
-	public partial class PlugIn1 : StandardPlugIn
+	public partial class DisposOMaticPlugIn : StandardPlugIn
 	{
 		private TypeDeclaration _ActiveClass;
 		private string _CodeForNewIfDisposingBlock;
@@ -133,17 +133,19 @@ namespace CR_Dispos_o_matic
 		{
 			using (_TextDocument.NewCompoundAction("Implement IDisposable"))
 			{
-				CodeRush.Source.ImplementInterface(_ActiveClass, new Interface("IDisposable"));
+				
 				SourceRange insertedRange = _TextDocument.InsertText(_InsertionPoint, _DisposableImplementationCode);
 				insertedRange.End.Line++;
 				_TextDocument.Format(insertedRange);
+        CodeRush.Source.ImplementInterface(_ActiveClass, new Interface("IDisposable"));
+        CodeRush.Source.DeclareNamespaceReference("System");
 			}
 		}
 		#endregion
 		private void cpImplementIDisposable_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
 		{
 			Class activeClass = ea.ClassInterfaceOrStruct as Class;
-			if (activeClass == null)
+			if (activeClass == null || activeClass.IsStatic)
 				return;
 			if (ea.Caret.Line == activeClass.Range.Start.Line)
 				ea.Available = !AlreadyImplementsIDisposable(activeClass);
@@ -164,9 +166,13 @@ namespace CR_Dispos_o_matic
 
 			foreach (IElement child in iClassElement.AllChildren)
 			{
-				// fix for partial classes
-				if (child.FirstFile.Name != scope.FirstFile.Name)
-					continue;
+        if (child.FirstFile == null)
+          continue;
+
+        // fix for partial classes
+        if (child.FirstFile.Name != scope.Name)
+          continue;
+
 				IBaseVariable iBaseVariable = child as IBaseVariable;
 				if (iBaseVariable != null)
 				{
@@ -237,7 +243,7 @@ namespace CR_Dispos_o_matic
 				// We DO implement IDisposable! Let's make sure all the fields are disposed....
 
 				IIfStatement parentIfDisposing;
-				IList<BaseVariable> disposableFields = GetDisposableFieldsThatHaveNotBeenDisposed(ea.Scope as ISourceFile, iClassElement, out parentIfDisposing);
+        IList<BaseVariable> disposableFields = GetDisposableFieldsThatHaveNotBeenDisposed(ea.Scope as ISourceFile, iClassElement, out parentIfDisposing);
 				if (disposableFields.Count > 0)
 					foreach (BaseVariable disposableField in disposableFields)
 						ea.AddWarning(disposableField.NameRange, ipFieldsShouldBeDisposed.DisplayName);
