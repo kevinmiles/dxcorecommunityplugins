@@ -3,7 +3,7 @@
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== Build using DXCore 11.1 =====
 === Introduction ===
-This plugin implements the !NotifyPropertyChanged interface pattern for properties.
+This code expansion plugin allows you to expand or convert a property declaration so that it also fires the PropertyChanged event of the !INotifyPropertyChanged interface.
 
      * It can convert auto-implemented or normal properties to include a call to fire the !PropertyChanged event.
      * It will implement the INPC interface if it is not already implemented on the containing type.
@@ -13,7 +13,7 @@ This plugin contains two !CodeProviders:
      * The first will simply fire the INPC.!PropertyChanged event directly in the property set block after expansion.
      * The second assumes you have base class support for firing !PropertyChanged through an !OnPropertyChanged method that takes a lambda expression. 
 
-For the base class support, you can use the Prism 4 !NotificationObject base class: http://prism.codeplex.com.
+For the lambda expression base class support, you can use the Prism 4 !NotificationObject base class: http://msdn.microsoft.com/en-us/library/microsoft.practices.prism.viewmodel.notificationobject(v=pandp.39).aspx.
 === Usage ===
 
 === Credits ===
