@@ -196,7 +196,7 @@ namespace Refactor_ConvertProperty
             var propAccess = new ElementReferenceExpression(propertyClone.Name);
             lambda.AddNode(propAccess);
             args.Add(lambda);
-            var propChangedCall = eb.BuildMethodCall("OnPropertyChanged", args, null);
+            var propChangedCall = eb.BuildMethodCall("RaisePropertyChanged", args, null);
             ifStatement.AddNode(propChangedCall);
             setter.AddNode(ifStatement);
             return setter;
