@@ -15,6 +15,44 @@ This plugin contains two !CodeProviders:
 
 For the lambda expression base class support, you can use the Prism 4 !NotificationObject base class: http://msdn.microsoft.com/en-us/library/microsoft.practices.prism.viewmodel.notificationobject(v=pandp.39).aspx.
 === Usage ===
+Place the cursor anywhere in the property name, invoke refactoring (CTRL-~ default). Select either "Convert to INPC Property" or "Convert to "Convert to INPC Property Base Class Call" from the Code extension operations context menu.
+
+=== Details ===
+For initial code like this:
+
+{{{
+public class Customer
+{
+    public int CustomerId { get; set; }
+}
+}}}
+
+If you select "Convert to INPC Property", you will get:
+{{{
+public class Customer : INotifyPropertyChanged
+{
+    int _CustomerId;
+    public int CustomerId
+    {
+        get { return _CustomerId; }
+        set
+        {
+            if (value != _CustomerId)
+            {
+                _CustomerId = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("CustomerId"));
+            }
+        }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged = delegate { };
+}
+}}}
+
+Note the expansion of the property with a backing store, the call to PropertyChanged event from the set block, the addition of the INotifyPropertyChanged interface to the class, and the declaration of the PropertyChanged to satisfy the interface. The code uses an anonymous method to initialize the event so that there is always an empty subscriber in the list, removing the need for null checking before firing the event.
+
+If you instead choose "Convert to INPC Property Base Class Call", the resulting code will look like this:
+
 
 === Credits ===
 
