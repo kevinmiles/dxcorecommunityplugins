@@ -3,7 +3,7 @@
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== Build using DXCore 11.1 =====
 === Introduction ===
-This code expansion plugin allows you to expand or convert a property declaration so that it also fires the PropertyChanged event of the !INotifyPropertyChanged interface.
+This code expansion plugin allows you to expand or convert a property declaration so that it also fires the PropertyChanged event of the INotifyPropertyChanged interface.
 
      * It can convert auto-implemented or normal properties to include a call to fire the !PropertyChanged event.
      * It will implement the INPC interface if it is not already implemented on the containing type.
