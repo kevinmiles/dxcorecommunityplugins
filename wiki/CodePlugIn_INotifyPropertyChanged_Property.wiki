@@ -66,6 +66,24 @@ Then you invoke refactoring on the property and select "Convert to INPC Property
 }}}
  choose "Convert to INPC Property Base Class Call", the resulting code will look like this:
 
+{{{
+public class Customer : NotificationObject
+{
+    int _CustomerId;
+    public int CustomerId
+    {
+        get { return _CustomerId; }
+        set
+        {
+            if (value != _CustomerId)
+            {
+                _CustomerId = value;
+                RaisePropertyChanged(() => CustomerId);
+            }
+        }
+    }
+}
+}}}
 
 === Credits ===
 
