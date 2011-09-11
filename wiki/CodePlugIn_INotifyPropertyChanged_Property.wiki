@@ -51,7 +51,7 @@ public class Customer : INotifyPropertyChanged
 
 Note the expansion of the property with a backing store, the call to PropertyChanged event from the set block, the addition of the INotifyPropertyChanged interface to the class, and the declaration of the PropertyChanged to satisfy the interface. The code uses an anonymous method to initialize the event so that there is always an empty subscriber in the list, removing the need for null checking before firing the event.
 
-If you instead you first add a base class that implements INPC and has an OnPropertyChanged virtual method, such as the Prism NotificationObject class:
+If you instead you first add a base class that implements INPC and has an RaisePropertyChanged virtual method, such as the Prism NotificationObject class that supports a lambda expression pointer to the property:
 
 {{{
 public class Customer : NotificationObject
