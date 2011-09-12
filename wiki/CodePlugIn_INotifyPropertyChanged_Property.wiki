@@ -51,7 +51,7 @@ public class Customer : INotifyPropertyChanged
 
 Note the expansion of the property with a backing store, the call to PropertyChanged event from the set block, the addition of the INotifyPropertyChanged interface to the class, and the declaration of the PropertyChanged to satisfy the interface. The code uses an anonymous method to initialize the event so that there is always an empty subscriber in the list, removing the need for null checking before firing the event.
 
-If you instead you first add a base class that implements INPC and has an RaisePropertyChanged virtual method, such as the Prism NotificationObject class that supports a lambda expression pointer to the property:
+If instead you first add a base class that implements INPC and has an RaisePropertyChanged virtual method, such as the Prism NotificationObject class that supports a lambda expression pointer to the property:
 
 {{{
 public class Customer : NotificationObject
@@ -61,10 +61,6 @@ public class Customer : NotificationObject
 }}}
 
 Then you invoke refactoring on the property and select "Convert to INPC Property Base Class Call", the result will be:
-
-{{{
-}}}
- choose "Convert to INPC Property Base Class Call", the resulting code will look like this:
 
 {{{
 public class Customer : NotificationObject
