@@ -1,7 +1,7 @@
 #summary Paints delimited blocks in the editor.
 #labels Phase-Support
 
-[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_BlockPainterPlus/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_BlockPainterPlus/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 ===== Requires DXCore 10.2 since build 1552 =====
 = Introduction =
 

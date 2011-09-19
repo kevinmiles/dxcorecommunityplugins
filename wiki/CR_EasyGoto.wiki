@@ -1,6 +1,6 @@
 #summary Plugin allows to jump between various places within a class and its base classes with ease.
 
-[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_EasyGoto/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]
+[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_EasyGoto/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 

@@ -6,7 +6,7 @@ This plugin provides a single action "Add Exception Handlers" which, when bound 
 
 = Download = 
 
-Primary download is http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_ExceptionHelper/
+Primary download is http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_ExceptionHelper/
 
 = Installation =
 

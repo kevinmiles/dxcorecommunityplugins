@@ -1,5 +1,5 @@
 #summary Provides an additional glyph for collapsing
-[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/DX_CollapseFromEnd/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://tv.devexpress.com/CRDXCollapseFromBottom.movie http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Screencast.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/DX_CollapseFromEnd/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://tv.devexpress.com/CRDXCollapseFromBottom.movie http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Screencast.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== Requires DXCore 10.2 since build 1557 =====
 === Introduction ===

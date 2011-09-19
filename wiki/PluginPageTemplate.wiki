@@ -1,6 +1,6 @@
 #summary Template for pages that describe plugin functionality.
 #labels Phase-Design
-[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 = Introduction =
 Give a one or two sentence description of the problem the plugin solves here. (Don't forget to fill in the summary with a short, one-sentence description of the plugin proper.) The introduction is like a problem statement and solution description. If there are external blog links that explain why things are the way they are, you may want to put them here.
 

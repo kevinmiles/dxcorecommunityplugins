@@ -1,5 +1,5 @@
 #summary Creates a delegate from a method signature.
-[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_CreateDelegate/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_CreateDelegate/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 === Introduction ===
 
@@ -12,7 +12,7 @@ http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_CreateDelegate/Screens
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_CreateDelegate/Screenshots/After.png
 
 === Download === 
-Primary download is http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_CreateDelegate/
+Primary download is http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_CreateDelegate/
 
 === Usage ===
 Place your caret on the signature of the method and select "Create Delegate" from the Smart tag menu. 

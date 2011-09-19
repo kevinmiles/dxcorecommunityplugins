@@ -7,7 +7,7 @@ Create a multi-file Winform without going near the file new dialog
 
 Proof of concept....
 
-  * Install Plug-in and import templates [http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_MultiFileTemplates/ found here]
+  * Install Plug-in and import templates [http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_MultiFileTemplates/ found here]
   * Create Console App
   * Type {{{cnf<space> }}}
   * Witness the creation of a new Form without visiting the File new Dialog
