@@ -27,8 +27,9 @@ Assuming that you've setup the keys as directed above..
 
 Once you have defined your selections, you may either Cut or Copy those selections to the clipboard.
 
-This clipboard content may be pasted anywhere in windows into which text could normally be entered.
+This clipboard content may be pasted anywhere in Windows where text could normally be entered.
 
+For more details see [http://community.devexpress.com/blogs/rorybecker/archive/2011/09/20/new-plugin-cr-multiselect.aspx this blogpost]
 
 === Credits ===
 
