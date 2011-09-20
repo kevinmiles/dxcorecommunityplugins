@@ -15,7 +15,7 @@ This plugin contains two !CodeProviders:
 
 For the lambda expression base class support, you can use the Prism 4 !NotificationObject base class: http://msdn.microsoft.com/en-us/library/microsoft.practices.prism.viewmodel.notificationobject(v=pandp.39).aspx.
 === Usage ===
-Place the cursor anywhere in the property name, invoke refactoring (CTRL-~ default). Select either "Convert to INPC Property" or "Convert to "Convert to INPC Property Base Class Call" from the Code extension operations context menu.
+Place the cursor anywhere in the property name, invoke refactoring (CTRL-~ default). Select either "*Convert to INPC Property*" or "*Convert to INPC Property Base Class Call*" from the Code extension operations context menu.
 
 === Details ===
 For initial code like this:
