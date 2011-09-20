@@ -2,7 +2,33 @@
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== Tested under DXCore 11.1 =====
 === Introduction ===
-This is a temporary placeholder page. It will remain to guide users who watched the original webinar to the download of this plugin, until a proper page can be created to replace it.
+This awesome plugin allows you to define and use multiple selections instead of the normal singular selection supported by Windows natively.
+
+=== Additional Configuration === 
+
+You will need to [http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx bind some shortcut keys] to make this plugin useful.
+
+We suggest binding...
+
+ * Ctrl + !NumEnter = !MultiSelectAdd
+ * Ctrl + !NumDel   = !MultiSelectClear
+ * Ctrl + !NumMinus = !MultiSelectUndo
+ * Ctrl + !NumPlud  = !MultiSelectRedo
+
+=== Usage === 
+Assuming that you've setup the keys as directed above..
+
+ * Defining Multiple Selections.
+   * Highlight come text
+   * Use Ctrl + !NumEnter to add a !MultiSelect selection.
+   * Repeat the first 2 steps as needed.
+
+ * Use Ctrl + !NumMinus to remove the most recently created selection.
+
+Once you have defined your selections, you may either Cut or Copy those selections to the clipboard.
+
+This clipboard content may be pasted anywhere in windows into which text could normally be entered.
+
 
 === Credits ===
 
