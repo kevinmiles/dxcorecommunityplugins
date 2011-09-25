@@ -47,10 +47,9 @@ namespace CR_BlockPainterPlus
             if (block != null && block.HasDelimitedBlock && !_processedLines.Contains(block.EndLine))
             {
                 IList<DelimiterCapableBlock> blocksOnLine = GetBlocksOnLine(block);
-                SourcePoint startPointToPaint = new SourcePoint(block.EndLine, CodeRush.TextViews.Active.LengthOfLine(block.EndLine) + 1);
-
                 DelimiterCapableBlock lastBlockOnLine = blocksOnLine[blocksOnLine.Count - 1];
-
+                SourcePoint startPointToPaint = new SourcePoint(block.EndLine, lastBlockOnLine.EndOffset + 1);
+                
                 for (int i = 0; i < blocksOnLine.Count; i++)
                 {
                     block = blocksOnLine[i];
