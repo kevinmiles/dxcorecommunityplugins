@@ -7,14 +7,15 @@ namespace CR_StyleCop.TestCode
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Text;
 
 #pragma warning disable 162
 
     /// <summary>
     /// Test code for SA1124 rule - do not use regions at all.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1121 rule.")]
     public class SA1124TestCode
     {
         #region fields
