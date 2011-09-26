@@ -20,7 +20,7 @@ If you invoke the !CautiousChange Command when the caret is resident on the "End
 == Future Directions ==
  * Transition to a !CodeProvider
  * Tab to Next !CautiousChange
- * CodeIssue - "!CautiousChange is incomplete"
+ * !CodeIssue - "!CautiousChange is incomplete"
 
 === Credits ===
 Original Idea: [http://twitter.com/Surlydev @SurlyDev]
