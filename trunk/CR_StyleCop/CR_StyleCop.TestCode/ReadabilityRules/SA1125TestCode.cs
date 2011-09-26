@@ -7,12 +7,13 @@ namespace CR_StyleCop.TestCode
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Test code for SA1125 rule - use shorthand for nullable types.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1121 rule.")]
     public class SA1125TestCode : List<Nullable<int>>
     {
         private Nullable<int> intProperty;

@@ -14,6 +14,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1123 rule - do not use regions within code elements.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1121 rule.")]
     [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1124:DoNotUseRegions", Justification = "This is test code SA1123 rule.")]
     public class SA1123TestCode
     {

@@ -7,12 +7,14 @@ namespace CR_StyleCop.TestCode
 {
     using System;
     using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
 
 #pragma warning disable 414
 
     /// <summary>
     /// Test code for SA1122 rule - string.Empty should be used for empty strings.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1121 rule.")]
     public class SA1122TestCode
     {
         [Category("")]
