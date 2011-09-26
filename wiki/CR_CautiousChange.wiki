@@ -7,7 +7,7 @@ the idea is to be able to refer to the original copy whilst editing a new versio
 
 == Additional Configuration ==
 
-[http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx Bind the !CautiousChange command] to a key or your choosing.
+[http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx Bind the CautiousChange command] to a key or your choosing.
 @SurlyDev chose *Ctrl+'*, because it was similar to VB's natural comment key of *'*
 
 === Usage ===
