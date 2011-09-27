@@ -16,8 +16,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1000 rule - keywords must be spaces correctly.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1119:StatementMustNotUseUnnecessaryParenthesis", Justification = "This is about SA1000 rule.")]
-    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "This is about SA1000 rule.")]
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "*", Justification = "This is about SA1000 rule.")]
     [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1008:OpeningParenthesisMustBeSpacedCorrectly", Justification = "This is about SA1000 rule.")]
     [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1012:OpeningCurlyBracketsMustBeSpacedCorrectly", Justification = "This is about SA1000 rule.")]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1000 rule.")]
