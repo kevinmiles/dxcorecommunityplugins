@@ -148,7 +148,7 @@ namespace CR_Dispos_o_matic
       GenerateIDisposableImplementationCode();
     }
     #endregion
-    public static IList<IFieldElement> GetDisposableFieldsThatHaveNotBeenDisposed(ISourceFile scope, IClassElement iClassElement, out IIfStatement parentIfDisposing)
+    public static IList<IFieldElement> GetDisposableFieldsThatHaveNotBeenDisposed(ScopeResolveResult resolveResult, ISourceFile scope, IClassElement iClassElement, out IIfStatement parentIfDisposing)
     {
       parentIfDisposing = null;
       IList<IFieldElement> disposableFields = new List<IFieldElement>();
@@ -162,7 +162,7 @@ namespace CR_Dispos_o_matic
         IFieldElement iBaseVariable = child as IFieldElement;
         if (iBaseVariable != null)
         {
-          if (iBaseVariable.Is("System.IDisposable") && !IsDisposed(iClassElement, iBaseVariable))
+          if (iBaseVariable.Is("System.IDisposable") && !IsDisposed(resolveResult, iClassElement, iBaseVariable))
             disposableFields.Add(iBaseVariable);
         }
         else
@@ -191,7 +191,7 @@ namespace CR_Dispos_o_matic
       }
       return disposableFields;
     }
-    private static bool IsDisposed(IClassElement scope, IFieldElement field)
+    private static bool IsDisposed(ScopeResolveResult resolveResult, IClassElement scope, IFieldElement field)
     {
       if (scope == null || field == null)
         return false;
@@ -217,10 +217,114 @@ namespace CR_Dispos_o_matic
           // B188310
           if (IsAddedToControls(parent))
             return true;
+          if (ComponentsInstancePassedIntoConstructor(resolveResult, parent))
+            return true;
+          if (PassedIntoDifferentDisposeMethod(resolveResult, parent, reference))
+            return true;
         }
       }
       return false;
     }
+
+    private static bool PassedIntoDifferentDisposeMethod(ScopeResolveResult resolveResult, IElement parent, IElement reference)
+    {
+      if (parent == null || reference == null)
+        return false;
+
+      if (parent.ElementType != LanguageElementType.MethodCall && parent.ElementType != LanguageElementType.MethodCallExpression)
+        return false;
+
+      IWithArguments withArguments = parent as IWithArguments;
+      if (withArguments == null)
+        return false;
+
+      int argumentIndex = withArguments.Args.IndexOf(reference as IExpression);
+      if (argumentIndex < 0)
+        return false;
+
+      IWithParameters declaration = GetDeclaration(resolveResult, parent);
+      if (declaration == null)
+        return false;
+
+      if (declaration.Parameters.Count < argumentIndex)
+        return false;
+
+      IParameterElement param = declaration.Parameters[argumentIndex];
+      if (param == null)
+        return false;
+
+      IElementCollection references = param.FindAllReferences(param.ParentMethod);
+      foreach (IElement paramReference in references)
+      {
+        IElement referenceParent = paramReference.Parent;
+        IWithSource referenceParentWithSource = referenceParent as IWithSource;
+        if (referenceParentWithSource == null)
+          continue;
+
+        if (referenceParentWithSource.Source == paramReference)
+          if (referenceParent.Name == STR_Dispose)
+            return true;
+      }
+      return false;
+    }
+
+    private static IWithParameters GetDeclaration(ScopeResolveResult resolveResult, IElement parent)
+    {
+      IWithParameters declaration = null;
+      if (resolveResult != null)
+      {
+        ReferenceDeclarationMapping mapping = resolveResult.GetReferenceDeclarationMapping();
+        if (mapping != null)
+        {
+          declaration = mapping[parent] as IWithParameters;
+          if (declaration == null)
+            declaration = parent.GetDeclaration(false) as IWithParameters;
+        }
+      }
+      else
+        declaration = parent.GetDeclaration(false) as IWithParameters;
+      return declaration;
+    }
+
+    private static bool ComponentsInstancePassedIntoConstructor(ScopeResolveResult resolveResult, IElement parent)
+    {
+      IAssignmentStatement assignment = parent as IAssignmentStatement;
+      if (assignment == null)
+        return false;
+
+      IObjectCreationExpression objectCreationExp = assignment.Expression as IObjectCreationExpression;
+      if (objectCreationExp == null)
+        return false;
+
+      if (objectCreationExp.Arguments.Count != 1)
+        return false;
+
+      IElementReferenceExpression referenceExp = objectCreationExp.Arguments[0] as IElementReferenceExpression;
+      if (referenceExp == null)
+        return false;
+
+      if (referenceExp.Name != "components")
+        return false;
+
+      if (resolveResult != null)
+      {
+        ReferenceDeclarationMapping mapping = resolveResult.GetReferenceDeclarationMapping();
+        if (mapping != null)
+        {
+          IHasType declaration = mapping[referenceExp] as IHasType;
+          if (declaration != null && declaration.Type != null)
+          {
+            IElement typeDeclaration = mapping[declaration.Type];
+            if (typeDeclaration != null)
+              return typeDeclaration.FullName == "System.ComponentModel.IContainer";
+          } 
+        }
+      }
+
+      // NOTE: true by default, assuming that components is the corrent reference...
+      return true;
+    }
+
     private static bool IsAddedToControls(IElement parent)
     {
       if (parent == null)
@@ -289,7 +393,7 @@ namespace CR_Dispos_o_matic
         return;
       // We DO implement IDisposable! Let's make sure all the fields are disposed....
       IIfStatement parentIfDisposing;
-      IList<IFieldElement> disposableFields = GetDisposableFieldsThatHaveNotBeenDisposed(ea.ClassInterfaceOrStruct.GetSourceFile(), iClassElement, out parentIfDisposing);
+      IList<IFieldElement> disposableFields = GetDisposableFieldsThatHaveNotBeenDisposed(null, ea.ClassInterfaceOrStruct.GetSourceFile(), iClassElement, out parentIfDisposing);
       if (disposableFields.Count > 0 && parentIfDisposing != null)
       {
         If ifParent = LanguageElementRestorer.ConvertToLanguageElement(parentIfDisposing) as If;
