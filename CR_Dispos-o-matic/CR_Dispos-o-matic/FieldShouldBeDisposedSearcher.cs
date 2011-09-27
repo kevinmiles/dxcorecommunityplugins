@@ -19,7 +19,7 @@ namespace CR_Dispos_o_matic
           continue;
         // We DO implement IDisposable! Let's make sure all the fields are disposed....
         IIfStatement parentIfDisposing;
-        IList<IFieldElement> disposableFields = PlugIn1.GetDisposableFieldsThatHaveNotBeenDisposed(ea.Scope as ISourceFile, iClassElement, out parentIfDisposing);
+        IList<IFieldElement> disposableFields = PlugIn1.GetDisposableFieldsThatHaveNotBeenDisposed(ea.ResolveScope(), ea.Scope as ISourceFile, iClassElement, out parentIfDisposing);
         if (disposableFields.Count > 0)
           foreach (IFieldElement disposableField in disposableFields)
             ea.AddWarning(disposableField.FirstNameRange, "Fields should be disposed");
