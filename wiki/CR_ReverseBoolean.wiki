@@ -1,0 +1,21 @@
+#summary Reverses the logical meaning of a boolean variable without changing program behavior.
+[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_ReverseBoolean/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Build with 11.1.8 =====
+=== Introduction ===
+Reverses the logical meaning of a boolean variable without changing program behavior.
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ReverseBoolean/Screenshots/CR_ReverseBoolean.png
+
+This is useful if you want to rename a Boolean variable to it's opposite intended meaning.( eg 'missing' -> 'found')
+
+This refactoring reverses all assignments and references and removes any resulting double negations.
+
+=== Usage ===
+Place your caret on a variable whose type is bool/Boolean and invoke "Reverse Boolean" via the refactor menu.
+
+
+
+=== Credits ===
+
+Author: [http://devexpress.com/mark Mark Miller] 
