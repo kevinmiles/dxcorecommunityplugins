@@ -18,6 +18,7 @@ namespace CR_Dispos_o_matic
     private string _DisposableImplementationCode;
     private TextDocument _TextDocument;
     private SourcePoint _InsertionPoint;
+
     // DXCore-generated code...
     #region InitializePlugIn
     public override void InitializePlugIn()
@@ -37,6 +38,7 @@ namespace CR_Dispos_o_matic
       base.FinalizePlugIn();
     }
     #endregion
+
     private static PrimitiveExpression GetBooleanLiteral(bool booleanValue)
     {
       PrimitiveExpression primitive = new PrimitiveExpression("");
@@ -73,11 +75,20 @@ namespace CR_Dispos_o_matic
     }
     #endregion
     #region AddVirtualDisposeMethod
-    private void AddVirtualDisposeMethod(ElementBuilder elementBuilder)
+    private void AddVirtualDisposeMethod(TypeDeclaration activeType, ElementBuilder elementBuilder)
     {
       Method virtualDisposeMethod = elementBuilder.AddMethod(null, null, STR_Dispose);
+
+      if (activeType.ElementType == LanguageElementType.Struct)
+      {
+        virtualDisposeMethod.Visibility = MemberVisibility.Public;
+      }
+      else
+      {
       virtualDisposeMethod.Visibility = MemberVisibility.Protected;
       virtualDisposeMethod.IsVirtual = true;
+      }
+
       string typeName = CodeRush.Language.GetSimpleTypeName("System.Boolean");
       virtualDisposeMethod.AddParameter(new Param(typeName, "disposing"));
       If ifDisposingBlock = new If();
@@ -98,7 +109,7 @@ namespace CR_Dispos_o_matic
       _TextDocument = ea.TextDocument;
       ElementBuilder elementBuilder = new ElementBuilder();
       AddDisposeImplementer(elementBuilder);
-      AddVirtualDisposeMethod(elementBuilder);
+      AddVirtualDisposeMethod(_ActiveClass, elementBuilder);
       _DisposableImplementationCode = elementBuilder.GenerateCode(_TextDocument.Language);
       if (_ActiveClass.FirstChild == null)
       {
