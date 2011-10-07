@@ -51,6 +51,8 @@ namespace CR_StyleCop.TestCode
             varName = 1| 2;
             varName = 1^2;
             varName = ~ 1;
+            varName = ~
+                1;
             varName = true ?1: 2;
             varName = (int?)null ??1;
 
@@ -62,6 +64,8 @@ namespace CR_StyleCop.TestCode
             boolVar = true|| false;
             boolVar = ! true;
             boolVar =!true;
+            boolVar = !
+                true;
             boolVar = (this.SomeReallyObscuredMethod(42, "foo"))is IConvertible; // BUGBUG
             IConvertible convertible = (this.SomeReallyObscuredMethod(42, "foo"))as IConvertible; // BUGBUG
 
