@@ -1,0 +1,66 @@
+[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/DX_PluginUpdater/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Requires DXCore 11.1.8 or better =====
+=== Introduction ===
+
+*Before we start, make sure you're running version 11.1.8 of CodeRush or better.*
+
+This plugin is not like others.
+
+It's Beta. Very Beta. In fact it's Alpha. If Alpha or Beta scare you, then this plugin is not for you (Yet!) :P
+
+*What does it do?*
+
+ * You tell it what community plugins you're interested in.
+ * It works out which of those have updates.
+ * It downloads the zips.
+ * It unzips the plugins.
+ * ... and it installs the plugins in the right place.
+
+*Why is it Beta?*
+
+Well it has some limitations...
+
+ * By "install" I mean "dumps the content of the zip file in your 'community plugins' folder".
+ * It can't restart the DXCore for you after installing the plugins. (Yet!)
+ * It can't get plugins from any site other than the community site (Yet!)
+ * It can't tell you anything about the plugin you're downloading other than the name(Yet!)
+  * I'm planning to provide links to source, wiki and binaries (Although you won't need them :) )
+
+=== Configuration ===
+
+ * Requirements 
+   * You must have CodeRush 11.1.8 or better (Yes I do keep saying that)
+   * You must turn on "Use Raw Assembly Load"
+      * DevExpress\Options ... Core \ Startup ... Last option.
+   * You must have no fear. Am I making myself clear on this? :D
+
+=== Usage ===
+
+Everything (For now) is done from the options page.
+
+*Visit options page*
+
+ * Visit DevExpress\Options ... Community\Plugins\PluginUpdater 
+  * (Yes I know the location is crap, but I'm doing this in my spare spare time (and there's very little of that))
+ * Tick the plugins you're interested in.
+ * Hit "Check for Updates Now"
+
+*Choose Interesting Plugins*
+ * Tabs
+   * Plugins Tab - This is the list of plugins you can currently choose to keep up to date with.
+     * *Note: The list of plugins will only recalculate when the refresh button is pressed.* 
+   * Feeds Tab - The feeds listed here contribute to the list of plugins listed on the plugins tab.
+   * Custom Tab - Community plugin names listed here (newline separated) will be added to the checklistbox on the plugins page
+   * Keywords Tab - This is currently non functional.
+ * Checkboxes and Radio buttons**
+   * All, New, Local: Determines if the updates shown on the plugin tab, include plugins you already have locally, plugins you don't yet have or both. 
+ * 'Show All Community Site plugins': Does exactly what it says on the tin. Adds all community plugins to plugins Tab regardless of other options.
+   * Note: Adds plugins to list, but does *NOT* tick them.
+
+*Check for Updates to Plugin*
+  * Press 'Check for updates Now'
+
+=== Credits ===
+
+Author: [http://devexpress.com/rory Rory Becker] 
