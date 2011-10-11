@@ -147,7 +147,7 @@ namespace CR_Dispos_o_matic
     private void cpImplementIDisposable_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
     {
       Class activeClass = ea.ClassInterfaceOrStruct as Class;
-      if (activeClass == null || activeClass.IsStatic)
+      if (activeClass == null || activeClass.IsStatic || activeClass.IsFakeNode)
         return;
       if (ea.Caret.Line == activeClass.Range.Start.Line)
         ea.Available = !AlreadyImplementsIDisposable(activeClass);
