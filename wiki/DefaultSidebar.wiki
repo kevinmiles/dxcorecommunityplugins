@@ -34,6 +34,8 @@
     * [CR_ClearAllMarkers]
     * [CR_MarkerCloseOnCollect]
     * [DX_TabNav]
+    * [CR_StringFormatter]
+    * [CR_PrimitiveTab]
   * Decorative Plugins
     * [CR_MethodPreview]
     * [CR_MetricShader]
