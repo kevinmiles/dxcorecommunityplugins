@@ -123,7 +123,6 @@ namespace CR_ReverseBoolean
 		}
 		private void InvertAssignment(FileChangeCollection changes, Assignment assignment, List<LanguageElement> references)
 		{
-			// TODO: Check for simple assignment boolean toggle (e.g., "a = !a;"). If we have a match, then exit (no changes needed).
 			Assignment clonedAssignment = assignment.Clone() as Assignment;
 			//clonedAssignment.SetParent(assignment.Parent);		// So GetDeclaration() call will work.
 
@@ -180,6 +179,9 @@ namespace CR_ReverseBoolean
 
 			foreach (LanguageElement reference in allReferences)
 			{
+        if (IsSpecialCase(reference))
+          continue;
+
 				if (reference.Parent is Assignment)
 				{
 					Assignment assignment = (Assignment)reference.Parent;
@@ -197,6 +199,37 @@ namespace CR_ReverseBoolean
 					standAloneReferences.Add(reference);
 			}
 		}
+
+    /// <summary>
+    /// Returns true if a refences is inside this statements: a = !a
+    /// </summary>
+    /// <param name="reference"></param>
+    /// <returns></returns>
+    private static bool IsSpecialCase(LanguageElement reference)
+    {
+      if (reference == null)
+        return false;
+
+      string referenceName = reference.Name;
+
+      Assignment parentAssignment = reference.Parent as Assignment;
+      if (parentAssignment != null && parentAssignment.LeftSide == reference)
+      {
+        LogicalInversion logicalIversion = parentAssignment.Expression as LogicalInversion;
+        if (logicalIversion != null && logicalIversion.Expression.Name == referenceName)
+          return true;
+      }
+
+      LogicalInversion parentInversion = reference.Parent as LogicalInversion;
+      if (parentInversion != null && parentInversion.Expression.Name == referenceName)
+      {
+        parentAssignment = parentInversion.Parent as Assignment;
+        if (parentAssignment != null && parentAssignment.LeftSide.Name == referenceName)
+          return true;
+      }
+
+      return false;
+    }
 		private FileChangeCollection GetChanges(LanguageElement declaration, Dictionary<Assignment, List<LanguageElement>> assignments, List<LanguageElement> standAloneReferences)
 		{
 			FileChangeCollection changes = new FileChangeCollection();
