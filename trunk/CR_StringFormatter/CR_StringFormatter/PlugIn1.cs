@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
@@ -41,15 +40,17 @@ namespace CR_StringFormatter
 				return false;
 
 			MethodReferenceExpression formatCall = methodCallExpression.Qualifier as MethodReferenceExpression;
-			ReferenceExpressionBase qualifier = formatCall.Qualifier as ReferenceExpressionBase;
-			if (formatCall.Name == "Format")
-				return qualifier.Name == "String" || qualifier.Name == CodeRush.Language.GetSimpleTypeName("System.String");
-			else if (formatCall.Name == "AppendFormat")
-			{
-				ITypeElement qualifierDeclaration = qualifier.Resolve(ParserServices.SourceTreeResolver) as ITypeElement;
-				return qualifierDeclaration != null && qualifierDeclaration.Is("System.Text.StringBuilder");
-			}
-			return false;
+      if (formatCall == null)
+        return false;
+      ReferenceExpressionBase qualifier = formatCall.Qualifier as ReferenceExpressionBase;
+      if (formatCall.Name == "Format")
+        return qualifier.Name == "String" || qualifier.Name == CodeRush.Language.GetSimpleTypeName("System.String");
+      else if (formatCall.Name == "AppendFormat")
+      {
+        ITypeElement qualifierDeclaration = qualifier.Resolve(ParserServices.SourceTreeResolver) as ITypeElement;
+        return qualifierDeclaration != null && qualifierDeclaration.Is("System.Text.StringBuilder");
+      }
+      return false;
 		}
 		#endregion
 		#region InFirstStringArgument
