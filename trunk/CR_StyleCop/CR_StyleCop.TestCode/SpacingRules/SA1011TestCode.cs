@@ -34,6 +34,7 @@ namespace CR_StyleCop.TestCode
         private string MethodName()
         {
             string[]xt;
+            string[ ] xb;
             return this.s[1 ]
                 + this.t[0] ;
         }
