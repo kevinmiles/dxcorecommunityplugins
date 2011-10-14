@@ -290,6 +290,15 @@
         }
 
         [Test]
+        [CodeIssue(12, 5, 12, 12)]
+        [CodeIssue(21, 9, 21, 16)]
+        [CodeIssue(25, 13, 25, 20)]
+        public void SA1005_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1005", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
         [CodeIssue(12, 1, 12, 8)]
         [CodeIssue(13, 1, 13, 11)]
         [CodeIssue(14, 1, 14, 8)]
@@ -301,6 +310,157 @@
         public void SA1006_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
         {
             this.AssertSpecificCodeIssueExists("SA1006", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(22, 28, 22, 38)]
+        [CodeIssue(27, 28, 27, 38)]
+        [CodeIssue(32, 28, 32, 38)]
+        [CodeIssue(37, 28, 37, 38)]
+        [CodeIssue(42, 28, 42, 37)]
+        [CodeIssue(47, 28, 47, 37)]
+        [CodeIssue(52, 38, 52, 47)]
+        [CodeIssue(57, 38, 57, 47)]
+        [CodeIssue(62, 38, 62, 47)]
+        [CodeIssue(67, 38, 67, 47)]
+        [CodeIssue(72, 38, 72, 47)]
+        [CodeIssue(77, 38, 77, 47)]
+        [CodeIssue(82, 38, 82, 47)]
+        [CodeIssue(87, 38, 87, 48)]
+        [CodeIssue(92, 38, 92, 48)]
+        [CodeIssue(97, 38, 97, 47)]
+        [CodeIssue(102, 38, 102, 47)]
+        [CodeIssue(107, 38, 107, 47)]
+        [CodeIssue(112, 38, 112, 47)]
+        [CodeIssue(117, 38, 117, 48)]
+        [CodeIssue(122, 38, 122, 48)]
+        public void SA1007_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1007", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(17, 21, 17, 22)]
+        [CodeIssue(18, 22, 18, 23)]
+        [CodeIssue(22, 57, 22, 58)]
+        [CodeIssue(24, 56, 24, 57)]
+        [CodeIssue(26, 32, 26, 33)]
+        [CodeIssue(28, 25, 28, 26)]
+        [CodeIssue(28, 27, 28, 28)]
+        [CodeIssue(33, 20, 33, 21)]
+        public void SA1008_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1008", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(15, 110, 15, 111)]
+        [CodeIssue(16, 154, 16, 155)]
+        [CodeIssue(20, 33, 20, 34)]
+        [CodeIssue(22, 38, 22, 39)]
+        [CodeIssue(23, 27, 23, 28)]
+        [CodeIssue(23, 42, 23, 43)]
+        [CodeIssue(23, 44, 23, 44)]
+        public void SA1009_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1009", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(22, 23, 22, 24)]
+        [CodeIssue(23, 18, 23, 19)]
+        [CodeIssue(25, 24, 25, 25)]
+        [CodeIssue(26, 19, 26, 20)]
+        [CodeIssue(28, 26, 28, 27)]
+        [CodeIssue(33, 25, 33, 26)]
+        [CodeIssue(40, 20, 40, 21)]
+        [CodeIssue(41, 19, 41, 20)]
+        [CodeIssue(42, 27, 42, 28)]
+        [CodeIssue(43, 25, 43, 26)]
+        public void SA1010_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1010", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(23, 25, 23, 26)]
+        [CodeIssue(24, 20, 24, 21)]
+        [CodeIssue(27, 19, 27, 20)]
+        [CodeIssue(29, 36, 29, 37)]
+        [CodeIssue(37, 21, 37, 22)]
+        [CodeIssue(38, 29, 38, 30)]
+        [CodeIssue(39, 27, 39, 28)]
+        public void SA1011_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1011", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(23, 56, 23, 57)]
+        [CodeIssue(25, 57, 25, 58)]
+        [CodeIssue(27, 34, 27, 35)]
+        [CodeIssue(28, 41, 28, 42)]
+        [CodeIssue(29, 40, 29, 41)]
+        public void SA1012_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1012", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(23, 58, 23, 59)]
+        [CodeIssue(25, 59, 25, 60)]
+        [CodeIssue(29, 65, 29, 66)]
+        [CodeIssue(30, 66, 30, 67)]
+        [CodeIssue(31, 9, 31, 10)]
+        [CodeIssue(31, 10, 31, 11)]
+        public void SA1013_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1013", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(21, 32, 21, 33)]
+        [CodeIssue(23, 22, 23, 23)]
+        [CodeIssue(24, 21, 24, 22)]
+        [CodeIssue(26, 33, 26, 34)]
+        [CodeIssue(28, 18, 28, 19)]
+        [CodeIssue(29, 29, 29, 30)]
+        [CodeIssue(32, 33, 32, 34)]
+        [CodeIssue(34, 17, 34, 18)]
+        [CodeIssue(35, 29, 35, 30)]
+        [CodeIssue(38, 32, 38, 33)]
+        public void SA1014_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1014", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(25, 26, 25, 27)]
+        [CodeIssue(28, 36, 28, 37)]
+        [CodeIssue(30, 22, 30, 23)]
+        [CodeIssue(31, 32, 31, 33)]
+        [CodeIssue(40, 35, 40, 36)]
+        public void SA1015_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1015", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(16, 5, 16, 6)]
+        [CodeIssue(20, 9, 20, 10)]
+        [CodeIssue(21, 32, 21, 33)]
+        public void SA1016_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1016", startLine, startOffset, endLine, endOffset);
+        }
+
+        [Test]
+        [CodeIssue(16, 111, 16, 112)]
+        [CodeIssue(20, 49, 20, 50)]
+        [CodeIssue(21, 42, 21, 43)]
+        public void SA1017_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        {
+            this.AssertSpecificCodeIssueExists("SA1017", startLine, startOffset, endLine, endOffset);
         }
 
         [Test]
