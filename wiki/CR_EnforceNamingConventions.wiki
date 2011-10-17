@@ -13,6 +13,8 @@ The specific naming convention will perform 3 operations:
 === Usage ===
 Simply pick the 'Enforce Naming Convention' option from the DevExpress menu.
 
+*Note:* You may also [http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx bind a key] to the 'Enforce Naming Convention' command, and invoke the action this way
+
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_EnforceNamingConventions/Screenshots/EnforceNamingConventions.png
 
 The plugin will then iterate through your solution, adjusting the name of every member of every type in accordance with the stated naming convention.
