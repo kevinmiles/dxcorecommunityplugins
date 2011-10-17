@@ -258,62 +258,23 @@ namespace CR_ReverseBoolean
 			List<LanguageElement> standAloneReferences;
 			GetAssignmentsAndStandAloneReferences(CodeRush.Source.ActiveSolution, declaration, out assignments, out standAloneReferences);
 
-			ICompoundAction newMultiFileCompoundAction = CodeRush.TextBuffers.NewMultiFileCompoundAction(rpReverseBoolean.DisplayName);
+			ICompoundAction newMultiFileCompoundAction = CodeRush.TextBuffers.NewMultiFileCompoundAction(rpReverseBoolean.DisplayName, true);
 			try
 			{
 				FileChangeCollection changes = GetChanges(declaration, assignments, standAloneReferences);
 				if (CodeRush.Caret.SourcePoint.Line != declaration.Range.Start.Line)
 					CodeRush.Markers.Drop();
 				CodeRush.File.ApplyChanges(changes);
+
+        Helper.ApplyRenameRefactoring(declaration.Name);
+        RenameExecutedUndoUnit undoUnit = new RenameExecutedUndoUnit(declaration.Name);
+        CodeRush.UndoStack.Add(undoUnit);
 			}
 			finally
 			{
 				if (newMultiFileCompoundAction != null)
 					newMultiFileCompoundAction.Close();
 			}
-
-			CodeRush.Source.ParseIfTextChanged();
-
-			// Now, let's move the caret to the declaration and rename...
-			IElement declarationAtCaret = CodeRush.Source.GetDeclarationAtCaret(declaration.Name);
-			if (declarationAtCaret != null)
-			{
-				// TODO: Figure out why sometimes GetDeclarationAtCaret returns null (e.g., works for local variables but not for properties).
-				CodeRush.Caret.MoveTo(declarationAtCaret.FirstNameRange.Start);
-				RefactoringProviderBase renameRefactoring = CodeRush.Refactoring.Get("Rename");
-				CodeRush.SmartTags.UpdateContext();
-				if (renameRefactoring != null && renameRefactoring.IsAvailable)
-				{
-					try
-					{
-						renameRefactoring.IsNestedProvider = true;
-						renameRefactoring.Execute();
-					}
-					finally
-					{
-						renameRefactoring.IsNestedProvider = false;
-					}
-				}
-			}
-		}
-
-    public bool ElementTypeIs(LanguageElement element, string fullTypeName)
-    {
-      if (element == null)
-        return false;
-
-      IHasType declaration = element as IHasType;
-      if (declaration == null)
-      {
-        declaration = element.GetDeclaration(false) as IHasType;
-        if (declaration == null)
-          return false;
-      }
-      ITypeReferenceExpression type = declaration.Type;
-      if (type == null)
-        return false;
-
-      return type.Is(fullTypeName);
     }
 
 		private void rpReverseBoolean_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
@@ -330,7 +291,13 @@ namespace CR_ReverseBoolean
       if (declaration == null)
         return;
 
-			ea.Available = ElementTypeIs(ea.Element, "System.Boolean");
+      // B188869
+      IElementCollection declarationReferences = declaration.FindAllReferences(ea.MethodOrPropertyAccessor);
+      foreach (IElement reference in declarationReferences)
+        if (CodeRush.Refactoring.ReferenceIsPassedByRefOrOutArgument(reference))
+          return;
+
+			ea.Available = ea.ElementTypeIs("System.Boolean");
 		}
 
 		private void rpReverseBoolean_PreparePreview(object sender, PrepareContentPreviewEventArgs ea)
