@@ -5,7 +5,7 @@ using DevExpress.CodeRush.Interop.OLE.Helpers;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.StructuralParser;
 
-namespace Refactor_ReverseBoolean
+namespace CR_ReverseBoolean
 {
   class RenameExecutedUndoUnit : UndoUnit
   {
@@ -27,11 +27,7 @@ namespace Refactor_ReverseBoolean
       if (activeDocument == null)
         return;
 
-      ILinkedIdentifierInfo linkedIdentifierInfo = CodeRush.LinkedIdentifiers.ActiveLink;
-      if (linkedIdentifierInfo == null)
-        return;
-
-      ILinkedIdentifier[] activeLinks = CodeRush.LinkedIdentifiers.Find(activeDocument, linkedIdentifierInfo.Range);
+      ILinkedIdentifier[] activeLinks = CodeRush.LinkedIdentifiers.Find(activeDocument, activeDocument.GetLineRange(CodeRush.Caret.Line));
       if (activeLinks == null || activeLinks.Length == 0)
         return;
 

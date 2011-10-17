@@ -5,7 +5,7 @@ using DevExpress.CodeRush.StructuralParser;
 using DevExpress.CodeRush.Core;
 using DevExpress.DXCore.Constants;
 
-namespace Refactor_ReverseBoolean
+namespace CR_ReverseBoolean
 {
   class Helper
   {
