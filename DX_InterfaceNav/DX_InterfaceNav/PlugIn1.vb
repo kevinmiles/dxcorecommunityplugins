@@ -55,7 +55,7 @@ Public Class PlugIn1
         If [Interface] Is Nothing Then
             Exit Sub
         End If
-        Dim Classes = CType(GetClassesImplementingInterface([Interface]), IEnumerable(Of IElement))
+        Dim Classes = CType(GetTypesImplementingInterface([Interface]), IEnumerable(Of IElement))
         Call PopulateMenuWithElements(ea, Classes)
         ea.Available = Classes.Any
     End Sub
@@ -232,9 +232,9 @@ Public Class PlugIn1
         End If
         Dim ItemAdded As Boolean
         For Each [Interface] In Interfaces
-            Dim Classes = CType(GetClassesImplementingInterface([Interface]), IEnumerable(Of IElement))
+            Dim Types = CType(GetTypesImplementingInterface([Interface]), IEnumerable(Of IElement))
             mElements = New Dictionary(Of String, IElement)
-            For Each Element In Classes
+            For Each Element In Types
                 Call AddItemToMenu(ea, mElements, Element)
                 ItemAdded = True
             Next
@@ -316,7 +316,7 @@ Public Class PlugIn1
     '    Return CType(GetMembersImplementingInterfaceMethod([Interface], Method), IEnumerable(Of IElement))
     'End Function
     Private Function GetMembersImplementingInterfaceMember(ByVal [Interface] As IInterfaceElement, ByVal InterfaceMember As Member) As IEnumerable(Of IElement)
-        Dim Types = GetClassesImplementingInterface([Interface])
+        Dim Types = GetTypesImplementingInterface([Interface])
         Dim Members = Types.SelectMany(Function(TheType) TheType.Members.OfType(Of Member)())
         Return Members.Where(Function(FoundMember) MemberImplementsMember(FoundMember, InterfaceMember)).Cast(Of IElement)()
     End Function
@@ -324,10 +324,9 @@ Public Class PlugIn1
         Dim DeclarationType = CType((New SourceTreeResolver()).GetDeclaration(Declaration.Type), ITypeElement)
         Return GetTypeInterfaces(DeclarationType).First
     End Function
-    Private Function GetClassesImplementingInterface(ByVal [Interface] As IInterfaceElement) As IEnumerable(Of IClassElement)
-        Dim Result As New List(Of IClassElement)
-        Dim AllTypes = AllSolutionTypes()
-        For Each Type In AllTypes
+    Private Function GetTypesImplementingInterface(ByVal [Interface] As IInterfaceElement) As IEnumerable(Of ITypeElement)
+        Dim Result As New List(Of ITypeElement)
+        For Each Type As ITypeElement In CodeRush.Source.ActiveSolution.AllTypes
             If Type.DescendsFrom([Interface]) Then
                 Result.Add(Type)
             End If
@@ -363,12 +362,6 @@ Public Class PlugIn1
             Return False
         End If
         Return True
-    End Function
-
-    Private Shared Function AllSolutionTypes() As IEnumerable(Of IClassElement)
-        Dim Solution = CodeRush.Source.ActiveSolution
-        Dim Projects = Solution.AllProjects.OfType(Of ProjectElement)()
-        Return Projects.SelectMany(Function(Project) Project.AllTypes.OfType(Of IClassElement)())
     End Function
 
     Private Sub JumpToFirstElementWithName(ByVal ElementName As String)
