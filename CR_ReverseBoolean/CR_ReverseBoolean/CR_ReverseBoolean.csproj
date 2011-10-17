@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.CodeRush.Interop, Version=11.2.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Bin\DevExpress.CodeRush.Interop.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.CodeRush.UserControls, Version=11.1.0.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -60,6 +64,8 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper.cs" />
+    <Compile Include="Undo.cs" />
     <Compile Include="ReverseBooleanPlugIn.cs">
       <SubType>Component</SubType>
     </Compile>
