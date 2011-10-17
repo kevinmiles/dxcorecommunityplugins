@@ -7,7 +7,7 @@
 A simple plugin which provides a single command for eliminating all current markers in the system.
 
 === Setup ===
-Bind the "ClearAllMarkers" command to a key. I chose to bind to 'ESC'
+[http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx Bind the "ClearAllMarkers" command to a key]. I chose to bind to 'ESC'
 
 === Usage ===
   * Activate any time you like.
