@@ -297,8 +297,28 @@ namespace CR_ReverseBoolean
         if (CodeRush.Refactoring.ReferenceIsPassedByRefOrOutArgument(reference))
           return;
 
-			ea.Available = ea.ElementTypeIs("System.Boolean");
+			ea.Available = ElementTypeIs(ea.Element, "System.Boolean");
 		}
+
+    private bool ElementTypeIs(LanguageElement element, string fullTypeName)
+    {
+      if (element == null)
+        return false;
+
+      IHasType declaration = element as IHasType;
+      if (declaration == null)
+      {
+        declaration = element.GetDeclaration(false) as IHasType;
+        if (declaration == null)
+          return false;
+      }
+      ITypeReferenceExpression type = declaration.Type;
+      if (type == null)
+        return false;
+
+      return type.Is(fullTypeName);
+    }
+
 
 		private void rpReverseBoolean_PreparePreview(object sender, PrepareContentPreviewEventArgs ea)
 		{
