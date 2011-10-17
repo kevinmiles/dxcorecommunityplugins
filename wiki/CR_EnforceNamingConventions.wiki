@@ -1,0 +1,21 @@
+#summary Provides action to alter naming convention of members.
+[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_EnforceNamingConventions/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Built using CodeRush 11.1 =====
+=== Introduction ===
+This plugin is an example of how to apply a naming convention across your solution.
+
+The specific naming convention will perform 3 operations:
+ * Remove any underscore prefixing.
+ * Change non-public fields to have a lowercase first letter.
+ * Change other members to have an uppercase first letter.
+
+=== Usage ===
+Simply pick the 'Enforce Naming Convention' option from the DevExpress menu.
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_EnforceNamingConventions/Screenshots/EnforceNamingConventions.png
+
+The plugin will then iterate through your solution, adjusting the name of every member of every type in accordance with the stated naming convention.
+=== Credits ===
+
+Author: [http://devexpress.com/mark Mark Miller] 
