@@ -292,7 +292,7 @@ namespace CR_ReverseBoolean
         return;
 
       // B188869
-      IElementCollection declarationReferences = declaration.FindAllReferences(ea.MethodOrPropertyAccessor);
+      IElementCollection declarationReferences = declaration.FindAllReferences();
       foreach (IElement reference in declarationReferences)
         if (CodeRush.Refactoring.ReferenceIsPassedByRefOrOutArgument(reference))
           return;
