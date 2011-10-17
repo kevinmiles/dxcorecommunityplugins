@@ -75,8 +75,9 @@ namespace CR_Dispos_o_matic
     }
     #endregion
     #region AddVirtualDisposeMethod
-    private void AddVirtualDisposeMethod(TypeDeclaration activeType, ElementBuilder elementBuilder)
+    private void AddVirtualDisposeMethod(ElementBuilder elementBuilder)
     {
+      TypeDeclaration activeType = _ActiveClass;
       Method virtualDisposeMethod = elementBuilder.AddMethod(null, null, STR_Dispose);
 
       if (activeType.ElementType == LanguageElementType.Struct)
@@ -100,6 +101,15 @@ namespace CR_Dispos_o_matic
           AddFieldDisposeBlock(elementBuilder, ifDisposingBlock, field);
     }
     #endregion
+    private void AddDestructorMember(ElementBuilder elementBuilder)
+    {
+      Method destructor = elementBuilder.AddMethod(null, null, _ActiveClass.Name);
+      destructor.MethodType = MethodTypeEnum.Destructor;
+
+      ExpressionCollection arguments = new ExpressionCollection();
+      arguments.Add(GetBooleanLiteral(false));
+      elementBuilder.AddMethodCall(destructor, STR_Dispose, arguments, new ThisReferenceExpression());
+    }
     #region cpImplementIDisposable_Apply
     private void cpImplementIDisposable_Apply(object sender, ApplyContentEventArgs ea)
     {
@@ -109,7 +119,8 @@ namespace CR_Dispos_o_matic
       _TextDocument = ea.TextDocument;
       ElementBuilder elementBuilder = new ElementBuilder();
       AddDisposeImplementer(elementBuilder);
-      AddVirtualDisposeMethod(_ActiveClass, elementBuilder);
+      AddVirtualDisposeMethod(elementBuilder);
+      AddDestructorMember(elementBuilder);
       _DisposableImplementationCode = elementBuilder.GenerateCode(_TextDocument.Language);
       if (_ActiveClass.FirstChild == null)
       {
@@ -147,7 +158,7 @@ namespace CR_Dispos_o_matic
     private void cpImplementIDisposable_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
     {
       Class activeClass = ea.ClassInterfaceOrStruct as Class;
-      if (activeClass == null || activeClass.IsStatic || activeClass.IsFakeNode)
+      if (activeClass == null || activeClass.IsStatic || activeClass.IsFakeNode || activeClass.ElementType == LanguageElementType.Interface)
         return;
       if (ea.Caret.Line == activeClass.Range.Start.Line)
         ea.Available = !AlreadyImplementsIDisposable(activeClass);
