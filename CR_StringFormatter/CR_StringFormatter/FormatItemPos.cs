@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using DevExpress.CodeRush.StructuralParser;
 
 namespace CR_StringFormatter
@@ -14,7 +13,7 @@ namespace CR_StringFormatter
 		{
 			get
 			{
-				return Parent.Parent.PrimitiveExpression.Range.Start.Offset;
+				return Parent.Parent.PrimitiveExpression.FirstNameRange.Start.Offset + 1 /* quote */;
 			}
 		}
 		public SourceRange GetSourceRange(int line)

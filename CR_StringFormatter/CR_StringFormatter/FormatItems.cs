@@ -1,21 +1,42 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using DevExpress.CodeRush.StructuralParser;
 
 namespace CR_StringFormatter
 {
 	public class FormatItems : Dictionary<int, FormatItem>
 	{
-		public PrimitiveExpression PrimitiveExpression { get; set; }
-		public MethodCallExpression ParentMethodCall { get; set; }
-		public SourceFile SourceFile
+    private IPrimitiveExpression _PrimitiveExpression;
+    public IPrimitiveExpression PrimitiveExpression
+    {
+      get
+      {
+        return _PrimitiveExpression;
+      }
+      set
+      {
+        _PrimitiveExpression = value;
+      }
+    }
+    private IMethodCallExpression _ParentMethodCall;
+    public IMethodCallExpression ParentMethodCall
+    {
+      get
+      {
+        return _ParentMethodCall;
+      }
+      set
+      {
+        _ParentMethodCall = value;
+      }
+    }
+		public ISourceFile SourceFile
 		{
 			get
 			{
 				if (ParentMethodCall == null)
 					return null;
-				return ParentMethodCall.GetSourceFile();
+				return ParentMethodCall.FirstFile;
 			}
 		}
     public bool HasFormatItem(int number)
@@ -40,7 +61,7 @@ namespace CR_StringFormatter
 				}
 			return null;
 		}
-		public void AddFormatItem(int number, Expression argument)
+		public void AddFormatItem(int number, IExpression argument)
 		{
 			Add(number, new FormatItem(this, number, argument));
 		}
