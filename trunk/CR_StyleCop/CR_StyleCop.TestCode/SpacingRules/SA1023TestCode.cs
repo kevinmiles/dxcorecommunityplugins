@@ -25,8 +25,8 @@ namespace CR_StyleCop.TestCode
             * x1 = null;
 
         private int * x2 = null;
-        private int*x3 = null;
-        private int* [] y4 = null;
+        private int*x3 = null; // BUGBUG
+        private int* [] y4 = null; // BUGBUG
 
         private void MethodName(int p)
         {
@@ -37,15 +37,15 @@ namespace CR_StyleCop.TestCode
 
             int * y2 = null;
             int z2 = * y2;
-            int*y3 = null;
-            int z3 =*y3;
-            int* [] y4 = null;
+            int*y3 = null; // BUGBUG
+            int z3 =*y3; // BUGBUG
+            int* [] y4 = null; // BUGBUG
             int[] zz = null;
-            int z4 = zz[ *y3];
-            this.MethodName( *y3);
+            int z4 = zz[ *y3]; // BUGBUG
+            this.MethodName( *y3); // BUGBUG
 
             DateTime * date = null;
-            int day = ( *date).Day;
+            int day = ( *date).Day; // BUGBUG
         }
     }
 }
