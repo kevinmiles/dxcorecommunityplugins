@@ -21,6 +21,11 @@ namespace CR_StyleCop.TestCode
         private void MethodName()
         {
             var a = new [] { 1, 10, 100, 1000 };
+            var b = new
+                [] 
+                { 
+                    1, 10, 100, 1000 
+                };
         }
     }
 }
