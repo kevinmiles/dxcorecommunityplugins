@@ -34,8 +34,12 @@ namespace CR_StyleCop.TestCode
             DateTime* date = null;
             int day2 = date ->Day;
             int day3 = date-> Day;
+            int day4 = date->
+                Day;
+            int day5 = date
+                ->Day;
 
-            return x + day2 + day3;
+            return x + day2 + day3 + day4 + day5;
         }
     }
 }
