@@ -17,14 +17,14 @@ namespace CR_StyleCop.TestCode
     public class SA1118TestCode
     {
         private int this[
-            int x, 
+            int x,
             int
             y]
         {
             get
             {
                 return this[
-                    x, 
+                    x,
                     y
                     + y];
             }
