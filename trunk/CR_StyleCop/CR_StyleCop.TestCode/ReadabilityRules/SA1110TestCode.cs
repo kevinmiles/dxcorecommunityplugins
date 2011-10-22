@@ -19,10 +19,10 @@ namespace CR_StyleCop.TestCode
         private int this
             [int x]
         {
-            get 
-            { 
+            get
+            {
                 return this
-                    [x]; 
+                    [x];
             }
         }
 
