@@ -399,12 +399,27 @@ namespace CR_Dispos_o_matic
             continue;
           if (iBaseVariable.Is("System.IDisposable"))
           {
-            // Holy cow! We are available!
-            ea.AddWarning(iClassElement.FirstNameRange, ipClassShouldImplementIDisposable.DisplayName);
+            TextRange issueRange = GetIssueRange(ea.Scope, iClassElement);
+            ea.AddWarning(issueRange, ipClassShouldImplementIDisposable.DisplayName);
             break;
           }
         }
       }
+    }
+    private TextRange GetIssueRange(IElement scope, ITypeElement element)
+    {
+      int filesCount = element.Files.Count;
+      if ((element.IsPartial || filesCount > 1) && scope is ISourceFile)
+      {
+        for (int i = 0; i < filesCount; i++)
+        {
+          ISourceFile typeFile = element.Files[i];
+          if (typeFile.Name == scope.Name)
+            if (i < element.NameRanges.Count)
+              return element.NameRanges[i];
+        }
+      }
+      return element.FirstNameRange;
     }
     private void cpDisposeFields_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
     {
