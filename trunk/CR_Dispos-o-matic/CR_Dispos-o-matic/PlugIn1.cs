@@ -389,6 +389,8 @@ namespace CR_Dispos_o_matic
         IClassElement iClassElement = element as IClassElement;
         if (iClassElement == null)
           continue;
+        if (iClassElement.IsStatic)
+          continue;
         if (AlreadyImplementsIDisposable(iClassElement))
           continue;
         // We do NOT implement IDisposable! Let's see if any of the fields implement IDisposable....
