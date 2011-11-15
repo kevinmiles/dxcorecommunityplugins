@@ -108,7 +108,7 @@ namespace CR_Dispos_o_matic
 
       ExpressionCollection arguments = new ExpressionCollection();
       arguments.Add(GetBooleanLiteral(false));
-      elementBuilder.AddMethodCall(destructor, STR_Dispose, arguments, new ThisReferenceExpression());
+      elementBuilder.AddMethodCall(destructor, STR_Dispose, arguments, null);
     }
     #region cpImplementIDisposable_Apply
     private void cpImplementIDisposable_Apply(object sender, ApplyContentEventArgs ea)
