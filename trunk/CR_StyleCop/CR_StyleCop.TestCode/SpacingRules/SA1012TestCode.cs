@@ -22,7 +22,7 @@ namespace CR_StyleCop.TestCode
     {
         private int propertyName;
 
-        public event EventHandler EventName1 = delegate { };
+        public event EventHandler EventName1 = delegate{ };
 
         public event EventHandler EventName2 = delegate {};
 
