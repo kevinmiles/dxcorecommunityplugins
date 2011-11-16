@@ -20,13 +20,28 @@ namespace CR_StyleCop.TestCode
     [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1013:ClosingCurlyBracketsMustBeSpacedCorrectly", Justification = "This is about SA1012 rule.")]
     public class SA1012TestCode
     {
-        public event EventHandler EventName1 = delegate{ };
+        private int propertyName;
+
+        public event EventHandler EventName1 = delegate { };
 
         public event EventHandler EventName2 = delegate {};
 
-        private void MethodName(){
-            this.EventName1 += delegate {throw new Exception(); };
-            this.EventName2 += delegate{ throw new Exception(); };
+        public event EventHandler EventName
+        {
+            add{ this.EventName1 += value; }
+            remove {this.EventName1 += value; }
+        }
+
+        public int PropertyName
+        {
+            get{ return this.propertyName; }
+            set {this.propertyName = value; }
+        }
+
+        private void MethodName()
+        {
+            this.EventName1 += delegate { throw new Exception(); };
+            this.EventName2 += delegate { throw new Exception(); };
         }
     }
 }
