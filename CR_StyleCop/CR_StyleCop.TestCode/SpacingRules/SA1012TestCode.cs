@@ -40,8 +40,8 @@ namespace CR_StyleCop.TestCode
 
         private void MethodName()
         {
-            this.EventName1 += delegate { throw new Exception(); };
-            this.EventName2 += delegate { throw new Exception(); };
+            this.EventName1 += delegate{ throw new Exception(); };
+            this.EventName2 += delegate {throw new Exception(); };
         }
     }
 }
