@@ -43,6 +43,8 @@ namespace CR_StringFormatter
       if (formatCall == null)
         return false;
       IReferenceExpression qualifier = formatCall.Source as IReferenceExpression;
+      if (qualifier == null)
+        return false;
       if (formatCall.Name == "Format")
         return qualifier.Name == "String" || qualifier.Name == CodeRush.Language.GetSimpleTypeName("System.String");
       else if (formatCall.Name == "AppendFormat")
