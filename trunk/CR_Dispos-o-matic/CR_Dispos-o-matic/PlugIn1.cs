@@ -170,6 +170,13 @@ namespace CR_Dispos_o_matic
       GenerateIDisposableImplementationCode();
     }
     #endregion
+
+    public static bool CanAnalyseAsDisposable(IFieldElement field)
+    {
+      if (field == null)
+        return false;
+      return !field.IsAspxTag && !field.IsRunAtServer;
+    }
     public static IList<IFieldElement> GetDisposableFieldsThatHaveNotBeenDisposed(ScopeResolveResult resolveResult, ISourceFile scope, IClassElement iClassElement, out IIfStatement parentIfDisposing)
     {
       parentIfDisposing = null;
@@ -184,7 +191,8 @@ namespace CR_Dispos_o_matic
         IFieldElement iBaseVariable = child as IFieldElement;
         if (iBaseVariable != null)
         {
-          if (iBaseVariable.Is("System.IDisposable") && !IsDisposed(resolveResult, iClassElement, iBaseVariable))
+          if (CanAnalyseAsDisposable(iBaseVariable) &&
+            iBaseVariable.Is("System.IDisposable") && !IsDisposed(resolveResult, iClassElement, iBaseVariable))
             disposableFields.Add(iBaseVariable);
         }
         else
