@@ -51,19 +51,24 @@ namespace CR_StringFormatter
         return false;
 
       string formatCallName = formatCall.Name;
-      string expectedTypeName = null;
+      List<string> expectedTypeNames = new List<string>();
       if (formatCallName == "Format")
-        expectedTypeName = "System.String";
+        expectedTypeNames.Add("System.String");
       else if (formatCallName == "AppendFormat")
-        expectedTypeName = "System.Text.StringBuilder";
+        expectedTypeNames.Add("System.Text.StringBuilder");
       else if (formatCallName == "Write" || formatCall.Name == "WriteLine")
-        expectedTypeName = "System.Console";
-
-      if (!String.IsNullOrEmpty(expectedTypeName))
       {
-        ITypeElement qualifierDeclaration = qualifier.Resolve(ParserServices.SourceTreeResolver) as ITypeElement;
-        return qualifierDeclaration != null && qualifierDeclaration.Is(expectedTypeName);
+        expectedTypeNames.Add("System.Console");
+        expectedTypeNames.Add("System.IO.TextWriter");
       }
+
+      if (expectedTypeNames.Count > 0)
+        foreach (string expectedTypeName in expectedTypeNames)
+        {
+          ITypeElement qualifierDeclaration = qualifier.Resolve(ParserServices.SourceTreeResolver) as ITypeElement;
+          if (qualifierDeclaration != null && qualifierDeclaration.Is(expectedTypeName))
+            return true;
+        }
       return false;
     }
     #endregion
