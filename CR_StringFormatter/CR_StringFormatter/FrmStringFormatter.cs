@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -55,7 +54,7 @@ namespace CR_StringFormatter
 			string leadingZeros = _LeadingZeros;
 			if (chkThousandsSeparator.Checked)
 			{
-				if (_LeadingZeros == string.Empty)
+				if (string.IsNullOrEmpty(_LeadingZeros))
 					thousandsSeparator = "0,0";
 				else
 				{
