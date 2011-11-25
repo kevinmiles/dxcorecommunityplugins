@@ -18,8 +18,8 @@ namespace CR_StringFormatter
         _PrimitiveExpression = value;
       }
     }
-    private IMethodCallExpression _ParentMethodCall;
-    public IMethodCallExpression ParentMethodCall
+    private IWithArguments _ParentMethodCall;
+    public IWithArguments ParentMethodCall
     {
       get
       {
@@ -34,9 +34,9 @@ namespace CR_StringFormatter
 		{
 			get
 			{
-				if (ParentMethodCall == null)
+        if (PrimitiveExpression == null)
 					return null;
-				return ParentMethodCall.FirstFile;
+        return PrimitiveExpression.FirstFile;
 			}
 		}
     public bool HasFormatItem(int number)
