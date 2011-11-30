@@ -1,7 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
@@ -42,21 +40,75 @@ namespace Refactor_NamedParameters
 				return null;
       LanguageElement replacementCall = originalCall.Clone() as LanguageElement;
       (replacementCall as IHasArguments).Arguments.Clear();
-      IMethodElement methodDeclaration = originalCall.GetDeclaration(false) as IMethodElement;
-			
-			if (methodDeclaration == null || methodDeclaration.Parameters.Count != originalArguments.Count)
+      
+      IWithParameters declaration = GetValidDeclaration(originalCall);
+
+      if (declaration == null ||
+        !(declaration.Parameters.Count == originalArguments.Count || 
+        (declaration.Parameters.Count == originalArguments.Count + 1 && HasParamArray(declaration))
+        || (declaration.Parameters.Count == originalArguments.Count + 1 && IsExtensionMethod(declaration))
+        ))
 				return null;
+      int startParamIndex = 0;
+      if (IsExtensionMethod(declaration))
+        startParamIndex = 1;
 
 			for (int i = 0; i < originalArguments.Count; i++)
 			{
-				ElementReferenceExpression leftSide = new ElementReferenceExpression(methodDeclaration.Parameters[i].Name);
-				AttributeVariableInitializer namedArgument = new AttributeVariableInitializer();
-				namedArgument.LeftSide = leftSide;
-				namedArgument.RightSide = originalArguments[i];
+        Expression originalArgument = originalArguments[i];
+        AttributeVariableInitializer namedArgument = originalArgument as AttributeVariableInitializer;
+        if (namedArgument == null)
+        {
+          ElementReferenceExpression leftSide = new ElementReferenceExpression(declaration.Parameters[startParamIndex + i].Name);
+          namedArgument = new AttributeVariableInitializer();
+          namedArgument.LeftSide = leftSide;
+          namedArgument.RightSide = originalArgument.Clone() as Expression;
+        }
         (replacementCall as IHasArguments).Arguments.Add(namedArgument);
 			}
 			return CodeRush.CodeMod.GenerateCode(replacementCall, true);
 		}
+
+    private static bool IsExtensionMethod(IWithParameters declaration)
+    {
+      if (declaration == null || declaration.Parameters == null || declaration.Parameters.Count == 0)
+        return false;
+
+      IMethodElement methodElement = declaration as IMethodElement;
+      if (methodElement == null)
+        return false;
+
+         
+      return methodElement.IsExtensionMethod();
+    }
+
+    private static bool HasParamArray(IWithParameters declaration)
+    {
+      if (declaration == null)
+        return false;
+
+      IParameterElementCollection parameters = declaration.Parameters;
+      if (parameters == null || parameters.Count == 0)
+        return false;
+
+      return parameters[parameters.Count - 1].IsParamArray;
+    }
+
+    private static IWithParameters GetValidDeclaration(LanguageElement originalCall)
+    {
+      if (originalCall == null)
+        return null;
+
+      IElement declaration = originalCall.GetDeclaration(false);
+      if (declaration is IMethodElement)
+        return declaration as IWithParameters;
+      IEventElement eventElement = declaration as IEventElement;
+      if (eventElement != null && eventElement.Type != null)
+      {
+        return eventElement.Type.Resolve(ParserServices.SourceTreeResolver) as IWithParameters;
+      }
+      return null;
+    }
 		private void rpUseNamedParameters_Apply(object sender, ApplyContentEventArgs ea)
 		{
 			LanguageElement originalCall = GetMethodCall(ea.Element);
@@ -65,7 +117,6 @@ namespace Refactor_NamedParameters
 				return;
 
 			ea.TextDocument.SetText(originalCall.Range, generatedCode);
-			//originalCall.ReplaceWith(leadingWhiteSpace + generatedCode, "Use Named Parameters");
 		}
 
     private LanguageElement GetMethodCall(LanguageElement element)
@@ -76,6 +127,11 @@ namespace Refactor_NamedParameters
         if (elementParent is MethodCall || elementParent is MethodCallExpression)
           return elementParent;
       }
+      if (element is ObjectCreationExpression)
+        return element;
+      if (element is TypeReferenceExpression && element.Parent is ObjectCreationExpression)
+        return element.Parent;
+
       return null;
     }
 		private void rpUseNamedParameters_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
@@ -88,12 +144,28 @@ namespace Refactor_NamedParameters
       if (hasArguments == null)
         return;
 
-      if (methodCall.GetDeclaration(false) == null)
+      IWithParameters declaration = GetValidDeclaration(methodCall);
+      if (declaration == null)
         return;
 
       ExpressionCollection arguments = hasArguments.Arguments;
-      if (arguments != null && arguments.Count > 0)
-        ea.Available = !(arguments[0] is AttributeVariableInitializer);
+      if (arguments == null || arguments.Count <= 0)
+        return;
+
+      bool hasAttributeVarInitializer = false;
+      foreach (Expression arg in arguments)
+      {
+        if (arg is AttributeVariableInitializer)
+        {
+          hasAttributeVarInitializer = true;
+          break;
+        }
+        if (arg is AnonymousMethodExpression)
+          return;
+      }
+
+      if (!hasAttributeVarInitializer)
+        ea.Available = true;
 		}
 
 		private void rpUseNamedParameters_PreparePreview(object sender, PrepareContentPreviewEventArgs ea)
