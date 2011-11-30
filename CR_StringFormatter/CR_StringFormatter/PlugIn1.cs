@@ -36,18 +36,18 @@ namespace CR_StringFormatter
     #region IsStringFormatCall
     public static bool IsStringFormatCall(IElement methodCallExpression)
     {
-      if (methodCallExpression == null)
-        return false;
-      if (!(methodCallExpression is IWithArguments))
-        return false;
-      if (!(methodCallExpression is IWithSource))
+      IElement validMethodCallExpression = GetValidMethodCallExpression(methodCallExpression);
+      if (validMethodCallExpression == null)
         return false;
 
-      IMethodReferenceExpression formatCall = (methodCallExpression as IWithSource).Source as IMethodReferenceExpression;
+      IMethodReferenceExpression formatCall = (validMethodCallExpression as IWithSource).Source as IMethodReferenceExpression;
       if (formatCall == null)
         return false;
-      IReferenceExpression qualifier = formatCall.Source as IReferenceExpression;
+      IExpression qualifier = formatCall.Source as IExpression;
       if (qualifier == null)
+        return false;
+
+      if (!(qualifier is IReferenceExpression || qualifier is IThisReferenceExpression || qualifier is IBaseReferenceExpression))
         return false;
 
       string formatCallName = formatCall.Name;
@@ -72,6 +72,21 @@ namespace CR_StringFormatter
       return false;
     }
     #endregion
+    private static IElement GetValidMethodCallExpression(IElement methodCallExpression)
+    {
+      if (methodCallExpression == null)
+        return null;
+
+      if (methodCallExpression is IAttributeVariableInitializer)
+        return methodCallExpression.Parent;
+
+      if (!(methodCallExpression is IWithArguments))
+        return null;
+      if (!(methodCallExpression is IWithSource))
+        return null;
+
+      return methodCallExpression;
+    }
     #region InFirstStringArgument
     private static bool InFirstStringArgument(LanguageElement element, int line, int offset)
     {
@@ -94,21 +109,51 @@ namespace CR_StringFormatter
     #endregion
     private static IExpression GetFormatStringArgument(LanguageElement methodCallExpression)
     {
+      if (methodCallExpression is IAttributeVariableInitializer)
+        methodCallExpression = methodCallExpression.Parent;
+
       IHasArguments hasArguments = methodCallExpression as IHasArguments;
       if (hasArguments == null)
         return null;
-
       if (hasArguments.ArgumentsCount <= 0)
         return null;
 
       IExpression firstArgument = hasArguments.Arguments[0];
-      if (firstArgument is IPrimitiveExpression)
-        return firstArgument;
+      if (IsPrimitiveExpressionArg(firstArgument))
+        return GetPrimitiveExpressionArg(firstArgument);
       else if (hasArguments.ArgumentsCount > 1)
-        return hasArguments.Arguments[1] as IPrimitiveExpression;
+      {
+        IExpression secondArgument = hasArguments.Arguments[1];
+        if (IsPrimitiveExpressionArg(secondArgument))
+          return GetPrimitiveExpressionArg(secondArgument);
+      }
+      return null;
+    }
+
+    public static bool IsPrimitiveExpressionArg(IExpression exp)
+    {
+      if (exp is IPrimitiveExpression)
+        return true;
+
+      IAttributeVariableInitializer attrInitializer = exp as IAttributeVariableInitializer;
+      if (attrInitializer != null)
+        return attrInitializer.RightSide is IPrimitiveExpression;
+
+      return false;
+    }
+
+    private static IPrimitiveExpression GetPrimitiveExpressionArg(IExpression exp)
+    {
+      if (exp is IPrimitiveExpression)
+        return exp as IPrimitiveExpression;
+
+      IAttributeVariableInitializer attrInitializer = exp as IAttributeVariableInitializer;
+      if (attrInitializer != null)
+        return attrInitializer.RightSide as IPrimitiveExpression;
 
       return null;
     }
+
     private bool InFormatItem(LanguageElement element, int line, int offset)
     {
       if (!InFirstStringArgument(element, line, offset))
@@ -158,7 +203,7 @@ namespace CR_StringFormatter
     public static FormatItems GetFormatItems(IPrimitiveExpression primitiveExpression)
     {
       FormatItems formatItems = new FormatItems();
-      formatItems.ParentMethodCall = primitiveExpression.Parent as IWithArguments;
+      formatItems.ParentMethodCall = GetValidMethodCallExpression(primitiveExpression.Parent) as IWithArguments;
       int argumentCount = formatItems.ParentMethodCall.Args.Count;
       formatItems.PrimitiveExpression = primitiveExpression;
       if (primitiveExpression == null)
@@ -421,12 +466,13 @@ namespace CR_StringFormatter
       if (withArguments == null)
         return -1;
 
-      if (withArguments.Args.Count > 0)
+      int argsCount = withArguments.Args.Count;
+      if (argsCount > 0)
       {
-        if (withArguments.Args[0] is IPrimitiveExpression)
-          return withArguments.Args.Count;
+        if (PlugIn1.IsPrimitiveExpressionArg(withArguments.Args[0]))
+          return argsCount;
         else
-          return withArguments.Args.Count - 1;
+          return argsCount - 1; // skip IFormatter argument...
       }
       return -1;
     }
