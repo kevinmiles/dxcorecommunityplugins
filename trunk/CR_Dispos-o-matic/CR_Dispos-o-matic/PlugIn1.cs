@@ -70,6 +70,7 @@ namespace CR_Dispos_o_matic
       If ifFieldIsAssignedBlock = new If();
       ifFieldIsAssignedBlock.Expression = CodeRush.Language.GetNullCheck(field.Name).Invert();
       elementBuilder.AddMethodCall(ifFieldIsAssignedBlock, field.Name + CodeRush.Language.MemberAccessOperator + STR_Dispose);
+      if (!field.IsReadOnly)
       elementBuilder.AddAssignment(ifFieldIsAssignedBlock, field.Name, CodeRush.Language.GetNullReferenceExpression());
       parentIfDisposingBlock.AddNode(ifFieldIsAssignedBlock);
     }
@@ -97,8 +98,10 @@ namespace CR_Dispos_o_matic
       virtualDisposeMethod.AddNode(ifDisposingBlock);
       // Dispose fields individually...
       foreach (BaseVariable field in _ActiveClass.AllFields)
-        if (field.Is("System.IDisposable"))
+      {
+        if (!field.IsStatic && field.Is("System.IDisposable"))
           AddFieldDisposeBlock(elementBuilder, ifDisposingBlock, field);
+    }
     }
     #endregion
     private void AddDestructorMember(ElementBuilder elementBuilder)
@@ -406,6 +409,8 @@ namespace CR_Dispos_o_matic
         {
           IFieldElement iBaseVariable = child as IFieldElement;
           if (iBaseVariable == null)
+            continue;
+          if (iBaseVariable.IsStatic)
             continue;
           if (iBaseVariable.Is("System.IDisposable"))
           {
