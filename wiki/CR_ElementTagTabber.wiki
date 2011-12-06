@@ -1,20 +1,20 @@
 #summary Plugin to allow tabbing between start and end tags in html or xml documents.
 [http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_ElementTagTabber/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Build using CodeRush 11.1 =====
+===== Build using !CodeRush 11.1 =====
 === Introduction ===
 This plugin allows you to use the existing !TabToNextReference functionality to navigate between the an open and close pair of tags.
 
 === Additional Configuration ===
-In addition to downloading and installing the plugin dll, you will need to adjust the context of the Tab and Shift+Tab shortcuts in order to make this work.
+In addition to downloading and installing the plugin dll, you will need to adjust the context of the *Tab* and *Shift+Tab* shortcuts in order to make this work.
 
 Here are the steps needed to achieve this:
 
-  * DevExpress\Options (Or Ctrl+Shift+Alt+O)
+  * !DevExpress\Options (Or Ctrl+Shift+Alt+O)
   * IDE\Shortcuts
-  * Navigation\References\Nav Fields
+  * Navigation\References\NavFields
   * Highlight the *Tab* shortcut
-  * Locate the Editor\Code\InPairedHtmlElementNameTag
+  * Locate the *Editor\Code\!InPairedHtmlElementNameTag*
   * Ensure that this context is ticked.
   * Repeat previous steps for the *Shift+Tab* shortcut
 
