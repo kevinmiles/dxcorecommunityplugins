@@ -5,11 +5,11 @@ namespace CR_ImportNamespace
 {
   public class AssemblyNamespaceList : List<AssemblyNamespace>
   {
-    HashSet<Tuple<string, string>> hashSet;
+    HashSet<DevExpress.DXCore.Common.Tuple<string, string>> hashSet;
 
     public AssemblyNamespaceList()
     {
-      hashSet = new HashSet<Tuple<string, string>>();
+      hashSet = new HashSet<DevExpress.DXCore.Common.Tuple<string, string>>();
     }
 
     public void AddUnique(IEnumerable<AssemblyNamespace> assemblyNamespaces)
@@ -19,7 +19,7 @@ namespace CR_ImportNamespace
     }
     public void AddUnique(AssemblyNamespace assemblyNamespace)
     {
-      Tuple<string, string> tuple = new Tuple<string,string>(assemblyNamespace.Assembly, assemblyNamespace.Namespace);
+      DevExpress.DXCore.Common.Tuple<string, string> tuple = new DevExpress.DXCore.Common.Tuple<string, string>(assemblyNamespace.Assembly, assemblyNamespace.Namespace);
       if (hashSet.Contains(tuple))
         return;
       hashSet.Add(tuple);

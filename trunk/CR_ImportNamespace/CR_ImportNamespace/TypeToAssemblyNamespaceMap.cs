@@ -9,16 +9,22 @@ using DevExpress.DXCore.MetaData;
 
 namespace CR_ImportNamespace
 {
-  public class TypeToAssemblyNamespaceMap : Dictionary<string, AssemblyNamespaceList>
+  public class TypeToAssemblyNamespaceMap
   {
     string _AssemblyPath;
     FileSignature _AssemblySignature;
 
     Dictionary<string, TypeToAssemblyNamespaceMap> _Assemblies;
 
+    Dictionary<string, AssemblyNamespaceList> _CaseSensitiveData;
+    Dictionary<string, AssemblyNamespaceList> _CaseInSensitiveData;
+
     public TypeToAssemblyNamespaceMap()
     {
       _Assemblies = new Dictionary<string, TypeToAssemblyNamespaceMap>();
+
+      _CaseSensitiveData = new Dictionary<string,AssemblyNamespaceList>();
+      _CaseInSensitiveData = new Dictionary<string,AssemblyNamespaceList>(StringComparer.OrdinalIgnoreCase);
     }
 
     static byte[] GetAssemblyBytes(string name)
@@ -126,13 +132,13 @@ namespace CR_ImportNamespace
       Clear();
       foreach (TypeToAssemblyNamespaceMap map in _Assemblies.Values)
       {
-        foreach (string key in map.Keys)
+        foreach (string key in map._CaseSensitiveData.Keys)
         {
-          AssemblyNamespaceList namespaceList = map[key];
+          AssemblyNamespaceList namespaceList = map._CaseSensitiveData[key];
           if (namespaceList != null)
           {
             AssemblyNamespaceList addedList;
-            if (TryGetValue(key, out addedList))
+            if (_CaseSensitiveData.TryGetValue(key, out addedList))
               addedList.AddUnique(namespaceList);
             else
               Add(key, namespaceList);
@@ -157,7 +163,8 @@ namespace CR_ImportNamespace
       {
         if (!result.ContainsKey(typeInfo.NestedName))
           result.Add(typeInfo.NestedName, new AssemblyNamespaceList());
-        result[typeInfo.NestedName].AddUnique(new AssemblyNamespace(typeLoadResult.AssemblyInfo.FullName, typeInfo.Namespace, frameworkVersion));
+        AssemblyNamespaceList list = result.GetNamespaceList(typeInfo.NestedName);
+        list.AddUnique(new AssemblyNamespace(typeLoadResult.AssemblyInfo.FullName, typeInfo.Namespace, frameworkVersion));
       }
       return result;
     }
@@ -282,7 +289,7 @@ namespace CR_ImportNamespace
 
         if (!result.ContainsKey(typeName))
           result.Add(typeName, new AssemblyNamespaceList());
-        AssemblyNamespaceList assemblyNamespaces = result[typeName];
+        AssemblyNamespaceList assemblyNamespaces = result.GetNamespaceList(typeName);
         for (int i = 0; i < namespaceCount; i++)
         {
           int assemblyIndex = reader.ReadInt32();
@@ -297,11 +304,11 @@ namespace CR_ImportNamespace
       writer.Write(map._AssemblyPath);
       map._AssemblySignature.Write(writer);
 
-      writer.Write(map.Keys.Count);
+      writer.Write(map._CaseSensitiveData.Keys.Count);
       int typeIndex = 0;
-      foreach (string typeName in map.Keys)
+      foreach (string typeName in map._CaseSensitiveData.Keys)
       {
-        AssemblyNamespaceList assemblyNamespaces = map[typeName];
+        AssemblyNamespaceList assemblyNamespaces = map._CaseSensitiveData[typeName];
         writer.Write(typeName);
         writer.Write(assemblyNamespaces.Count);
         for (int i = 0; i < assemblyNamespaces.Count; i++)
@@ -314,7 +321,47 @@ namespace CR_ImportNamespace
       }
     }
 
+    Dictionary<string, AssemblyNamespaceList> GetDataDictionary(bool caseSensitive)
+    {
+      Dictionary<string, AssemblyNamespaceList> dictionary = _CaseSensitiveData;
+      if (!caseSensitive)
+        dictionary = _CaseInSensitiveData;
+      return dictionary;
+    }
+
     // public methods...
+    public bool ContainsKey(string key)
+    {
+      return ContainsKey(key, true);
+    }
+    public bool ContainsKey(string key, bool caseSensitive)
+    {
+      Dictionary<string, AssemblyNamespaceList> dictionary = GetDataDictionary(caseSensitive);
+      return dictionary.ContainsKey(key);
+    }
+    
+    public AssemblyNamespaceList GetNamespaceList(string key)
+    {
+      return GetNamespaceList(key, true);
+    }
+    public AssemblyNamespaceList GetNamespaceList(string key, bool caseSensitive)
+    {
+      Dictionary<string, AssemblyNamespaceList> dictionary = GetDataDictionary(caseSensitive);
+      return dictionary[key];
+    }
+
+    public void Add(string key, AssemblyNamespaceList namespaceList)
+    {
+      _CaseSensitiveData.Add(key, namespaceList);
+      _CaseInSensitiveData[key] = namespaceList;
+    }
+
+    public void Clear()
+    {
+      _CaseSensitiveData.Clear();
+      _CaseInSensitiveData.Clear();
+    }
+
     public void Load(BinaryReader reader, ExtendedFrameworkVersion frameworkVersion)
     {
       int count = reader.ReadInt32();
@@ -361,6 +408,12 @@ namespace CR_ImportNamespace
           progress.Stop();
         }
       });
+    }
+
+    // public properties...
+    public int Count
+    {
+      get { return _CaseSensitiveData.Count; }
     }
   }
 }

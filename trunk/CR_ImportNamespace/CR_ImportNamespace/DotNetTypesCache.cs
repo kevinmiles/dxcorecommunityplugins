@@ -78,7 +78,7 @@ namespace CR_ImportNamespace
       return true;
     }
 
-    public NamespacesResult FastGetNamespaces(string typeName, ExtendedFrameworkVersion frameworkVersion)
+    public NamespacesResult FastGetNamespaces(string typeName, bool caseSensitive, ExtendedFrameworkVersion frameworkVersion)
     {
       NamespacesResult result = new NamespacesResult();
       result.State = LoadState.NoActiveProject;
@@ -90,11 +90,11 @@ namespace CR_ImportNamespace
 
       result.State = LoadState.TypeNotFound;
       TypeToAssemblyNamespaceMap knownTypes = this[frameworkVersion];
-      if (!knownTypes.ContainsKey(typeName))
+      if (!knownTypes.ContainsKey(typeName, caseSensitive))
         return result;
 
       result.State = LoadState.TypeFound;
-      result.Namespaces = knownTypes[typeName];
+      result.Namespaces = knownTypes.GetNamespaceList(typeName, caseSensitive);
       return result;
     }
 

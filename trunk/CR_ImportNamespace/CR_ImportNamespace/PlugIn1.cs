@@ -145,7 +145,7 @@ namespace CR_ImportNamespace
         ProjectElement activeProject = CodeRush.Source.ActiveProject;
 
         if (activeProject != null)
-          matchingTypes = GetMatchingTypes(GetExtendedFrameworkVersion(activeProject), word.Text);
+          matchingTypes = GetMatchingTypes(GetExtendedFrameworkVersion(activeProject), word.Text, activeProject.IsCaseSensitiveLanguage);
       }
 
       if (matchingTypes == null || matchingTypes.Count <= 0)
@@ -193,12 +193,12 @@ namespace CR_ImportNamespace
         return;
 
       TypeToAssemblyNamespaceMap knownTypes = _DotNetTypes[frameworkVersion];
-      if (!knownTypes.ContainsKey(typeName))
+      if (!knownTypes.ContainsKey(typeName, activeProject.IsCaseSensitiveLanguage))
         return;
 
       ApplyOperationWithUndoStack(() =>
       {
-        AssemblyNamespaceList namespaces = knownTypes[typeName];
+        AssemblyNamespaceList namespaces = knownTypes.GetNamespaceList(typeName);
         foreach (AssemblyNamespace assemblyNamespace in namespaces)
         {
           if (assemblyNamespace.Namespace == namespaceToImport)
@@ -225,7 +225,7 @@ namespace CR_ImportNamespace
         return result;
 
       ExtendedFrameworkVersion frameworkVersion = GetExtendedFrameworkVersion(activeProject);
-      return _DotNetTypes.FastGetNamespaces(typeName, frameworkVersion);
+      return _DotNetTypes.FastGetNamespaces(typeName, activeProject.IsCaseSensitiveLanguage, frameworkVersion);
     }
 
     static string GetShortAssemblyName(string assemblyName)
@@ -258,13 +258,13 @@ namespace CR_ImportNamespace
       CodeRush.UndoStack.Add(undo);
     }
 
-    static AssemblyNamespaceList GetMatchingTypes(ExtendedFrameworkVersion frameworkVersion, string typeName)
+    static AssemblyNamespaceList GetMatchingTypes(ExtendedFrameworkVersion frameworkVersion, string typeName, bool caseSensitive)
     {
       IAssemblyPathsProvider pathsProvider = new DefaultAssemblyPathsProvider();
       TypeToAssemblyNamespaceMap dotNetTypesInThisFramework = _DotNetTypes.GetTypeToAssemblyMap(pathsProvider, frameworkVersion);
-      if (!dotNetTypesInThisFramework.ContainsKey(typeName))
+      if (!dotNetTypesInThisFramework.ContainsKey(typeName, caseSensitive))
         return null;
-      return dotNetTypesInThisFramework[typeName];
+      return dotNetTypesInThisFramework.GetNamespaceList(typeName, caseSensitive);
     }
 
     static void TryLoadTypesCache()
