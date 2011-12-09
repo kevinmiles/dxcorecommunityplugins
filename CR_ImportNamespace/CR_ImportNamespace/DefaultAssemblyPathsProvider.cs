@@ -111,6 +111,8 @@ namespace CR_ImportNamespace
     {
       HashSet<string> result = new HashSet<string>();
 
+      //AddItemToHashSet(result, "c:\\TestAssemblies\\");
+
       FrameworkVersion version = ExtendedFrameworkVersionUtil.ToFrameworkVersion(frameworkVersion);
       string[] frameworkPaths = FrameworkHelper.GetFrameworkPaths(version);
       AddItemsToHashSet(result, frameworkPaths);

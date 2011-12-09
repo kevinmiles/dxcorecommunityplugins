@@ -130,6 +130,7 @@ namespace CR_ImportNamespace
     void MergeAssemblyMaps()
     {
       Clear();
+      HashSet<string> keysHash = new HashSet<string>();
       foreach (TypeToAssemblyNamespaceMap map in _Assemblies.Values)
       {
         foreach (string key in map._CaseSensitiveData.Keys)
@@ -348,6 +349,16 @@ namespace CR_ImportNamespace
     {
       Dictionary<string, AssemblyNamespaceList> dictionary = GetDataDictionary(caseSensitive);
       return dictionary[key];
+    }
+
+    public bool TryGetValue(string key, out AssemblyNamespaceList result)
+    {
+      return TryGetValue(key, true, out result);
+    }
+    public bool TryGetValue(string key, bool caseSensitive, out AssemblyNamespaceList result)
+    {
+      Dictionary<string, AssemblyNamespaceList> dictionary = GetDataDictionary(caseSensitive);
+      return dictionary.TryGetValue(key, out result);
     }
 
     public void Add(string key, AssemblyNamespaceList namespaceList)

@@ -145,7 +145,7 @@ namespace CR_ImportNamespace
         ProjectElement activeProject = CodeRush.Source.ActiveProject;
 
         if (activeProject != null)
-          matchingTypes = GetMatchingTypes(GetExtendedFrameworkVersion(activeProject), word.Text, activeProject.IsCaseSensitiveLanguage);
+          matchingTypes = GetMatchingTypes(activeProject, word.Text);
       }
 
       if (matchingTypes == null || matchingTypes.Count <= 0)
@@ -159,12 +159,123 @@ namespace CR_ImportNamespace
           if (matchingTypes.Count > 1)
             ShowImportNamespaceSmartTagMenu(matchingTypes);
           else
-          {
-            AddReference(envDteProject, matchingTypes[0].Assembly);
-            CodeRush.Source.DeclareNamespaceReference(matchingTypes[0].Namespace);
-          }
+            ImportNamespace(envDteProject, matchingTypes[0]);
         }
       });
+    }
+
+    static List<AssemblyReference> GetProjectReferences(ProjectElement project)
+    {
+      if (project == null)
+        return null;
+      List<AssemblyReference> projectReferences = new List<AssemblyReference>();
+      foreach (AssemblyReference reference in project.AssemblyReferences)
+      {
+        if (!reference.IsProjectReference)
+          continue;
+        projectReferences.Add(reference);
+      }
+      return projectReferences;
+    }
+    static List<AssemblyReference> GetAllProjectReferences(ProjectElement project)
+    {
+      List<AssemblyReference> collector = new List<AssemblyReference>();
+      GetAllProjectReferences(collector, project);
+      return collector;
+    }
+    static bool ContainsReference(List<AssemblyReference> collector, AssemblyReference reference)
+    {
+      foreach (AssemblyReference item in collector)
+        if (item.IsEqual(reference))
+          return true;
+      return false;
+    }
+    static ProjectElement GetReferencedProject(AssemblyReference reference)
+    {
+      if (!reference.IsProjectReference)
+        return null;
+      return reference.SourceProject;
+    }
+    static void GetAllProjectReferences(List<AssemblyReference> collector, ProjectElement project)
+    {
+      List<AssemblyReference> references = GetProjectReferences(project);
+      foreach (AssemblyReference reference in references)
+      {
+        if (ContainsReference(collector, reference))
+          continue;
+        collector.Add(reference);
+        ProjectElement referencedProject = GetReferencedProject(reference);
+        GetAllProjectReferences(collector, referencedProject);
+      }
+    }
+    static bool IsProjectReferencedBy(ProjectElement project, List<AssemblyReference> references)
+    {
+      foreach (AssemblyReference reference in references)
+      {
+        ProjectElement referencedProject = GetReferencedProject(reference);
+        if (referencedProject == project)
+          return true;
+      }
+      return false;
+    }
+    static ITypeElement[] GetTypesDeclaredInProject(ProjectElement project)
+    {
+      List<ITypeElement> result = new List<ITypeElement>();
+      IElementCollection allTypes = project.SourceModel.GetAllTypes();
+      foreach (IElement element in allTypes)
+      {
+        ITypeElement typeElement = element as ITypeElement;
+        if (typeElement == null)
+          continue;
+        result.Add(typeElement);
+      }
+      return result.ToArray();
+    }
+    static List<ProjectElement> GetProjectsToScanForType(ProjectElement project)
+    {
+      List<ProjectElement> projectsToGetTypes = new List<ProjectElement>();
+      SolutionElement solution = project.Solution as SolutionElement;
+      foreach (ProjectElement prj in solution.AllProjects)
+      {
+        if (prj == project)
+          continue;
+        List<AssemblyReference> allProjectReferences = GetAllProjectReferences(prj);
+        if (IsProjectReferencedBy(project, allProjectReferences))
+          continue;
+        projectsToGetTypes.Add(prj);
+      }
+      return projectsToGetTypes;
+    }
+    static TypeToAssemblyNamespaceMap ScanProjectTypes(List<ProjectElement> projectsToGetTypes)
+    {
+      TypeToAssemblyNamespaceMap result = new TypeToAssemblyNamespaceMap();
+      foreach (ProjectElement projectToGetTypes in projectsToGetTypes)
+      {
+        ITypeElement[] projectTypes = GetTypesDeclaredInProject(projectToGetTypes);
+        foreach (ITypeElement typeElement in projectTypes)
+        {
+          string typeNamespace = typeElement.ParentNamespace.FullName;
+
+          AssemblyNamespaceList namespaceList;
+          if (!result.TryGetValue(typeElement.Name, out namespaceList))
+          {
+            namespaceList = new AssemblyNamespaceList();
+            result.Add(typeElement.Name, namespaceList);
+          }
+          AssemblyNamespace nameSpace = new AssemblyNamespace();
+          nameSpace.ReferenceProject = projectToGetTypes;
+          nameSpace.Namespace = typeNamespace;
+          namespaceList.Add(nameSpace);
+        }
+      }
+      return result;
+    }
+    static TypeToAssemblyNamespaceMap GetTypeToProjectReferenceNamespaceMap(ProjectElement project)
+    {
+      if (project == null)
+        return null;
+      List<ProjectElement> projectsToGetTypes = GetProjectsToScanForType(project);
+      return ScanProjectTypes(projectsToGetTypes);
     }
 
     // private static methods...
@@ -188,44 +299,78 @@ namespace CR_ImportNamespace
       if (activeProject == null)
         return;
 
-      ExtendedFrameworkVersion frameworkVersion = GetExtendedFrameworkVersion(activeProject);
-      if (!_DotNetTypes.ContainsKey(frameworkVersion))
-        return;
-
-      TypeToAssemblyNamespaceMap knownTypes = _DotNetTypes[frameworkVersion];
-      if (!knownTypes.ContainsKey(typeName, activeProject.IsCaseSensitiveLanguage))
+      NamespacesResult namespaceResult = FastGetNamespaces(activeProject, typeName);
+      if (namespaceResult == null || namespaceResult.State != LoadState.TypeFound)
         return;
 
       ApplyOperationWithUndoStack(() =>
       {
-        AssemblyNamespaceList namespaces = knownTypes.GetNamespaceList(typeName);
+        AssemblyNamespaceList namespaces = namespaceResult.Namespaces;
         foreach (AssemblyNamespace assemblyNamespace in namespaces)
         {
           if (assemblyNamespace.Namespace == namespaceToImport)
           {
             Project envDteProject = CodeRush.Project.Active;
-            if (envDteProject != null)
-            {
-              AddReference(envDteProject, assemblyNamespace.Assembly);
-              CodeRush.Source.DeclareNamespaceReference(assemblyNamespace.Namespace);
-            }
+            ImportNamespace(envDteProject, assemblyNamespace);
             return;
           }
         }
       });
     }
+    static void ImportNamespace(Project envDteProject, AssemblyNamespace assemblyNamespace)
+    {
+      if (envDteProject == null)
+        return;
 
-    static NamespacesResult FastGetNamespaces(string typeName)
+      if (!assemblyNamespace.IsProjectReference)
+        AddReference(envDteProject, assemblyNamespace.Assembly);
+      else
+        AddProjectReference(envDteProject, assemblyNamespace.ReferenceProject);
+      CodeRush.Source.DeclareNamespaceReference(assemblyNamespace.Namespace);
+    }
+
+    static NamespacesResult GetNamespaceFromReferencedProjects(ProjectElement project, string typeName)
+    {
+      NamespacesResult projectTypesResult = new NamespacesResult();
+      projectTypesResult.State = LoadState.TypeNotFound;
+      TypeToAssemblyNamespaceMap projectsTypeMap = GetTypeToProjectReferenceNamespaceMap(project);
+      AssemblyNamespaceList projectsNamespaceList;
+      if (projectsTypeMap != null && projectsTypeMap.TryGetValue(typeName, project.IsCaseSensitiveLanguage, out projectsNamespaceList))
+      {
+        projectTypesResult.State = LoadState.TypeFound;
+        projectTypesResult.Namespaces = projectsNamespaceList;
+      }
+      return projectTypesResult;
+    }
+
+    static NamespacesResult FastGetNamespaces(ProjectElement project, string typeName)
     {
       NamespacesResult result = new NamespacesResult();
       result.State = LoadState.NoActiveProject;
-
-      ProjectElement activeProject = CodeRush.Source.ActiveProject;
-      if (activeProject == null)
+      if (project == null)
         return result;
 
-      ExtendedFrameworkVersion frameworkVersion = GetExtendedFrameworkVersion(activeProject);
-      return _DotNetTypes.FastGetNamespaces(typeName, activeProject.IsCaseSensitiveLanguage, frameworkVersion);
+      NamespacesResult projectTypesResult = GetNamespaceFromReferencedProjects(project, typeName);
+
+      ExtendedFrameworkVersion frameworkVersion = GetExtendedFrameworkVersion(project);
+      NamespacesResult dotNetTypesResult = _DotNetTypes.FastGetNamespaces(typeName, project.IsCaseSensitiveLanguage, frameworkVersion);
+
+      return CombineResults(projectTypesResult, dotNetTypesResult);
+    }
+
+    static NamespacesResult CombineResults(NamespacesResult first, NamespacesResult second)
+    {
+      NamespacesResult combinedResult = new NamespacesResult();
+      if (first.State == LoadState.TypeFound || second.State == LoadState.TypeFound)
+        combinedResult.State = LoadState.TypeFound;
+
+      AssemblyNamespaceList combinedList = new AssemblyNamespaceList();
+      combinedList.AddUnique(first.Namespaces);
+      combinedList.AddUnique(second.Namespaces);
+
+      combinedResult.Namespaces = combinedList;
+
+      return combinedResult;
     }
 
     static string GetShortAssemblyName(string assemblyName)
@@ -241,25 +386,45 @@ namespace CR_ImportNamespace
     {
       if (project == null || String.IsNullOrEmpty(assemblyName))
         return;
+      AddAssemblyOrProjectReference(project, GetShortAssemblyName(assemblyName), false);
+    }
+    static void AddProjectReference(Project project, ProjectElement referencedProject)
+    {
+      if (project == null || referencedProject == null)
+        return;
+      AddAssemblyOrProjectReference(project, referencedProject.Name, true);
+    }
+
+    static void AddAssemblyOrProjectReference(Project project, string reference, bool isProjectReference)
+    {
+      if (String.IsNullOrEmpty(reference))
+        return;
 
       VSProject vsProject = project as VSProject;
       if (vsProject == null)
         return;
 
-      string shortAssemblyName = GetShortAssemblyName(assemblyName);
-      if (String.IsNullOrEmpty(shortAssemblyName))
+      if (vsProject.HasReference(reference))
         return;
 
-      if (vsProject.HasReference(shortAssemblyName))
-        return;
+      if (isProjectReference)
+        vsProject.AddProjectReference(reference);
+      else
+        project.AddReference(reference);
 
-      project.AddReference(assemblyName);
-      CustomAddedAssemblyReferenceUndoUnit undo = new CustomAddedAssemblyReferenceUndoUnit(project.Name, shortAssemblyName);
+      CustomAddedAssemblyReferenceUndoUnit undo = new CustomAddedAssemblyReferenceUndoUnit(project.Name, reference);
       CodeRush.UndoStack.Add(undo);
     }
 
-    static AssemblyNamespaceList GetMatchingTypes(ExtendedFrameworkVersion frameworkVersion, string typeName, bool caseSensitive)
+    static AssemblyNamespaceList GetMatchingTypes(ProjectElement project, string typeName)
     {
+      bool caseSensitive = project.IsCaseSensitiveLanguage;
+      ExtendedFrameworkVersion frameworkVersion = GetExtendedFrameworkVersion(project);
+
+      NamespacesResult projectTypesResult = GetNamespaceFromReferencedProjects(project, typeName);
+      if (projectTypesResult.State == LoadState.TypeFound)
+        return projectTypesResult.Namespaces;
+
       IAssemblyPathsProvider pathsProvider = new DefaultAssemblyPathsProvider();
       TypeToAssemblyNamespaceMap dotNetTypesInThisFramework = _DotNetTypes.GetTypeToAssemblyMap(pathsProvider, frameworkVersion);
       if (!dotNetTypesInThisFramework.ContainsKey(typeName, caseSensitive))
@@ -303,7 +468,7 @@ namespace CR_ImportNamespace
 
       TryLoadTypesCache();
 
-      NamespacesResult namespaceResult = FastGetNamespaces(typeName);
+      NamespacesResult namespaceResult = FastGetNamespaces(typeReferenceExpression.Project as ProjectElement, typeName);
       LoadState state = namespaceResult.State;
       AssemblyNamespaceList namespaces = namespaceResult.Namespaces;
       if (state == LoadState.NoActiveProject || state == LoadState.TypeNotFound)
