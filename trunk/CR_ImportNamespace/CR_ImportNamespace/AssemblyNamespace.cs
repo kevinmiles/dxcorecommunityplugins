@@ -7,6 +7,7 @@ namespace CR_ImportNamespace
 {
   public class AssemblyNamespace
   {
+    private bool _IsProjectReference;
     const string STR_AssemblyCacheFormat = "AssemblyCache{0}";
 
     readonly static Dictionary<ExtendedFrameworkVersion, List<string>> assemblyCache = new Dictionary<ExtendedFrameworkVersion, List<string>>();
@@ -16,9 +17,12 @@ namespace CR_ImportNamespace
     int assemblyIndex;
     int namespaceIndex;
 
-    /// <summary>
-    /// Initializes a new instance of the AssemblyNamespace class.
-    /// </summary>
+    ProjectElement referenceProject;
+
+    public AssemblyNamespace()
+    {
+    }
+
     public AssemblyNamespace(string assemblyName, string @namespace, ExtendedFrameworkVersion frameworkVersion)
     {
       this.frameworkVersion = frameworkVersion;
@@ -141,6 +145,17 @@ namespace CR_ImportNamespace
           namespaceCache.Add(value);
         }
       }
+    }
+
+    public bool IsProjectReference
+    {
+      get { return ReferenceProject != null; }
+    }
+    
+    public ProjectElement ReferenceProject
+    {
+      get { return referenceProject; }
+      set { referenceProject = value; }
     }
   }
 }

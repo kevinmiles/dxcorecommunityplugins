@@ -67,6 +67,9 @@
     <Reference Include="DevExpress.CodeRush.StructuralParser" />
     <Reference Include="DevExpress.DXCore.Parser" />
     <Reference Include="DevExpress.CodeRush.VSCore" />
+    <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyNamespace.cs" />
