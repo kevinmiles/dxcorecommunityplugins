@@ -91,6 +91,7 @@
     <Compile Include="CodeIssues\FirstTokenByTypeIssueLocator.cs" />
     <Compile Include="CodeIssues\FirstToLastTokenByTypeIssueLocator.cs" />
     <Compile Include="CodeIssues\LastXmlDocCommentIssueLocator.cs" />
+    <Compile Include="CodeIssues\SA1000_KeywordsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\XmlDocCommentIssueLocator.cs" />
     <Compile Include="CodeIssues\Keywords.cs" />
     <Compile Include="CodeIssues\LastTokenByTypeIssueLocator.cs" />
