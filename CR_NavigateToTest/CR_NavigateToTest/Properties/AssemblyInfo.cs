@@ -9,11 +9,11 @@ using DevExpress.CodeRush.Common;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CR_NavigateToTest")]
-[assembly: AssemblyDescription(" ")]
+[assembly: AssemblyDescription("CodeRush™ Plug-in which allows navigation from a class to it's test(s)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Envisage")]
+[assembly: AssemblyCompany("Casey Kramer")]
 [assembly: AssemblyProduct("CR_NavigateToTest")]
-[assembly: AssemblyCopyright("Copyright © Envisage 2009")]
+[assembly: AssemblyCopyright("Copyright © Casey Kramer 2009-2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using DevExpress.CodeRush.Common;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.1.10")]
+[assembly: AssemblyFileVersion("1.0.1.10")]
