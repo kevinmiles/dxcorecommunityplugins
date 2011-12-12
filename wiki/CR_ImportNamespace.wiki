@@ -10,11 +10,11 @@ Ever gone a stage further, and used a type whose assembly isn't even referenced?
 These situations are obviously solvable, but their existing solutions are a pain...
 
 ==== The Existing Solutions ====
-If the case of a missing assembly reference, your only real option is to use one of 2 'Add Reference' dialogs. The original one that comes with Visual Studio is extremely slow. the excersize of populating it is mind numbing. 
+If the case of a missing assembly reference, your only real option is to use one of 2 'Add Reference' dialogs. The original one that comes with Visual Studio is extremely slow. the exercise of populating it is mind numbing. 
 
 Alternatively it's successor (Previewing in the Microsoft Productivity Power Tools and available in VS11) is a little better, but again the caching is still very slow.
 
-After this, or on those occasions where you don't need to add an assembly, you still need to visit the top of the reavent file, add a namespace reference ('Imports' or 'using' statement) and then return to the point you started from. 
+After this, or on those occasions where you don't need to add an assembly, you still need to visit the top of the relevant file, add a namespace reference ('Imports' or 'using' statement) and then return to the point you started from. 
 
 There really should be a better way... Enter CR_ImportNamespace
 
