@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
@@ -39,6 +39,7 @@ namespace CR_NavigateToTest
         {
             if (ea.Element == null)
                 return;
+            
             IElement declaration;
 
             if (ea.Element.ElementType == LanguageElementType.TypeReferenceExpression)
@@ -69,29 +70,44 @@ namespace CR_NavigateToTest
             _classes = elementsInTests.ToList();
             
             ea.Available = true;
-            ea.MenuCaption = String.Format("{0} Test{1}", typeElement.Name, _classes.MoreThanOne() ? "s":"");
-
+            ea.MenuCaption = string.Format("Test{0} {1} {2}", _classes.MoreThanOne() ? "s" : "",(char)0x21d2 ,typeElement.Name);
         }
 
         private void navigationProvider1_Apply(object sender, DevExpress.Refactor.Core.ApplyRefactoringEventArgs ea)
         {
             var location = GetCaretPositionScreenPoint(true);
             
+            if(_classes.Count == 1)
+            {
+                GoToTestFile(_classes[0]);
+            }
+            else
+            {
+                ShowChooserForm(location);
+            }
+        }
+
+
+        private void ShowChooserForm(Point location)
+        {
             var form = new frmPickTarget(_classes);
-            if (form.ShowAt(CodeRush.IDE,location) == DialogResult.OK)
+            if (form.ShowAt(CodeRush.IDE, location) == DialogResult.OK)
             {
                 var selectedElement = form.SelectedElement;
                 if (selectedElement != null && selectedElement.FileNode != null)
                 {
-                    CodeRush.Markers.Drop(MarkerStyle.System);
-                    CodeRush.File.Activate(selectedElement.FileNode.Name);
-                    var start = selectedElement.Range.Start;
-                    CodeRush.Caret.MoveTo(start);
-                    locatorBeacon1.Start(CodeRush.TextViews.Active,start.Line, start.Offset);
+                    GoToTestFile(selectedElement);
                 }
             }
         }
-
+        private void GoToTestFile(LanguageElement selectedElement)
+        {
+            CodeRush.Markers.Drop(MarkerStyle.System);
+            CodeRush.File.Activate(selectedElement.FileNode.Name);
+            var start = selectedElement.Range.Start;
+            CodeRush.Caret.MoveTo(start);
+            locatorBeacon1.Start(CodeRush.TextViews.Active, start.Line, start.Offset);
+        }
 
         private static bool ClassIsTestClass(Class cls)
         {
@@ -101,6 +117,7 @@ namespace CR_NavigateToTest
                    cls.AttributeCount > 0 &&
                    cls.Attributes.OfType<DevExpress.CodeRush.StructuralParser.Attribute>().Count(attr => testClassAttributes.Contains(attr.Name)) > 0;
         }
+
         public static Point GetCaretPositionScreenPoint(bool newLine)
         {
             SourcePoint point2;
