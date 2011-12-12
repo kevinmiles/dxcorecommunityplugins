@@ -7,6 +7,8 @@
 
 This plugin provides a new Navigation Item (in the Jump To) menu which lists all test classes that reference either the current class, or the type reference under the cursor (so you can right click on a reference to a class, and see where it is being tested).  Test classes are determined by looking at all of the references for the class being searched for, and returning only those that have appropriate test class attributes.  This should work with NUnit, MbUnit, and MSTest.  Currently, xUnit.Net is not supported, since it does not use a class level attribute to identify tests.
 
+*Update:* I've changed the text displayed in the menu to (hopefully) make it easier to find among the navigation options.  Now the menu displays "Test ⇒ ClassName".  I've also modified the behavior for cases where there is a single test.  The plugin will now navigate directly to the test when the menu item is selected (rather than showing the class/method picker).
+
 *Invoke Jump-To menu:*
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_NavigateToTest/ScreenShots/NavToTest-ScreenShot%20-%200.jpg
