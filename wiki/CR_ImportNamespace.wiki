@@ -52,4 +52,4 @@ http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ImportNamespace/Screen
 
 === Credits ===
 
-Author: [Team CodeRush] 
+Author: Team !CodeRush
