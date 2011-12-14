@@ -19,7 +19,7 @@ namespace CR_StyleCop.TestCode
         private void MethodName(string x)
         {
             if (string.IsNullOrEmpty(x))
-                throw new ArgumentException("x is null or empty.", " x");
+                throw new ArgumentException("x is null or empty.", "x");
 
             while (string.IsNullOrEmpty(x))
                 x = x.Substring(1);

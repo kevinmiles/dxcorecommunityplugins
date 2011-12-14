@@ -11,7 +11,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1213 rule - add must come before remove.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1207 rule.")]
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1213 rule.")]
     public class SA1213TestCode
     {
         private EventHandler validEvent;
