@@ -364,6 +364,10 @@ namespace CR_ImportNamespace
       if (first.State == LoadState.TypeFound || second.State == LoadState.TypeFound)
         combinedResult.State = LoadState.TypeFound;
 
+      if (combinedResult.State != LoadState.TypeFound)
+        if (first.State == LoadState.FrameworkNotLoaded || second.State == LoadState.FrameworkNotLoaded)
+          combinedResult.State = LoadState.FrameworkNotLoaded;
+
       AssemblyNamespaceList combinedList = new AssemblyNamespaceList();
       combinedList.AddUnique(first.Namespaces);
       combinedList.AddUnique(second.Namespaces);

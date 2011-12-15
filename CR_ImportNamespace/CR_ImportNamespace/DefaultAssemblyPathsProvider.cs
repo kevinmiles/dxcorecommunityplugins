@@ -86,7 +86,7 @@ namespace CR_ImportNamespace
 
     string GetReferenceAssembliesBasePath(ExtendedFrameworkVersion frameworkVersion)
     {
-      string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+      string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
       if (IsSilveright(frameworkVersion))
         return Path.Combine(programFiles, STR_ReferenceAssembliesSilverlightPart);
       return Path.Combine(programFiles, STR_ReferenceAssembliesPart);
@@ -106,6 +106,25 @@ namespace CR_ImportNamespace
       return string.Empty;
     }
 
+    List<FrameworkVersion> GetFrameworkVersions(FrameworkVersion version)
+    {
+      List<FrameworkVersion> result = new List<FrameworkVersion>();
+      result.Add(version);
+      if (version == FrameworkVersion.Version30 || version == FrameworkVersion.Version35)
+        result.Add(FrameworkVersion.Version20);
+      return result;
+    }
+    void GetFrameworkAssembliesPaths(HashSet<string> result, ExtendedFrameworkVersion frameworkVersion)
+    {
+      FrameworkVersion version = ExtendedFrameworkVersionUtil.ToFrameworkVersion(frameworkVersion);
+      List<FrameworkVersion> versions = GetFrameworkVersions(version);
+      foreach (FrameworkVersion item in versions)
+      {
+        string[] frameworkPaths = FrameworkHelper.GetFrameworkPaths(item);
+        AddItemsToHashSet(result, frameworkPaths);
+      }
+    }
+
     // public methods...
     public string[] GetPathsToScanAssemblies(ExtendedFrameworkVersion frameworkVersion)
     {
@@ -113,9 +132,7 @@ namespace CR_ImportNamespace
 
       //AddItemToHashSet(result, "c:\\TestAssemblies\\");
 
-      FrameworkVersion version = ExtendedFrameworkVersionUtil.ToFrameworkVersion(frameworkVersion);
-      string[] frameworkPaths = FrameworkHelper.GetFrameworkPaths(version);
-      AddItemsToHashSet(result, frameworkPaths);
+      GetFrameworkAssembliesPaths(result, frameworkVersion);
 
       string referenceAssembliesPath = GetReferenceAssembliesPath(frameworkVersion);
       if (!String.IsNullOrEmpty(referenceAssembliesPath))
