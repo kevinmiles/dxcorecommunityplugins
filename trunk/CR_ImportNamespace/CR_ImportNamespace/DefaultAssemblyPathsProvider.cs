@@ -86,7 +86,7 @@ namespace CR_ImportNamespace
 
     string GetReferenceAssembliesBasePath(ExtendedFrameworkVersion frameworkVersion)
     {
-      string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+      string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
       if (IsSilveright(frameworkVersion))
         return Path.Combine(programFiles, STR_ReferenceAssembliesSilverlightPart);
       return Path.Combine(programFiles, STR_ReferenceAssembliesPart);
