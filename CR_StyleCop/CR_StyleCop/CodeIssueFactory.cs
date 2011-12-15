@@ -139,6 +139,7 @@
             this.handlers.Add("SA1119", new SA1119_StatementMustNotUseUnnecessaryParenthesis());
 
             this.handlers.Add("SA1000", new SA1000_KeywordsMustBeSpacedCorrectly());
+            this.handlers.Add("SA1001", new SA1001_CommasMustBeSpacedCorrectly());
             this.handlers.Add("SA1006", new SA1006_PreprocessorKeywordsMustNotBePrecededBySpace());
         }
 
