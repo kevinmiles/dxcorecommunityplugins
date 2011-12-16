@@ -10,8 +10,8 @@
         public SA1001_CommasMustBeSpacedCorrectly()
             : base(new AggregatedIssueLocator(new ICodeIssueLocator[] 
                 { 
-                    new AllTokensByTypePrecededByWhitespaceIssueLocator(CsTokenType.Comma),
-                    new AllTokensByTypeNotFollowedByWhitespaceIssueLocator(CsTokenType.Comma),
+                    new AllTokensByTypePrecededByBannedElementIssueLocator(CsTokenType.WhiteSpace, CsTokenType.Comma),
+                    new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(CsTokenType.WhiteSpace, CsTokenType.Comma),
                 }))
         {
         }

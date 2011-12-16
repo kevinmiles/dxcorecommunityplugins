@@ -87,17 +87,19 @@
   <ItemGroup>
     <Compile Include="AnalyzedSourceCode.cs" />
     <Compile Include="CodeIssues\AggregatedIssueLocator.cs" />
-    <Compile Include="CodeIssues\AllTokensByTypeFollowedByWhitespaceIssueLocator.cs" />
+    <Compile Include="CodeIssues\AllTokensByTypeFollowedByBannedElementIssueLocator.cs" />
     <Compile Include="CodeIssues\AllTokensByTypeIssueLocator.cs" />
-    <Compile Include="CodeIssues\AllTokensByTypeNotFollowedByWhitespaceIssueLocator.cs" />
-    <Compile Include="CodeIssues\AllTokensByTypePrecededByWhitespaceIssueLocator.cs" />
-    <Compile Include="CodeIssues\AllTokensByTypeNotPrecededByWhitespaceIssueLocator.cs" />
+    <Compile Include="CodeIssues\AllTokensByTypeNotFollowedByRequiredElementIssueLocator.cs" />
+    <Compile Include="CodeIssues\AllTokensByTypePrecededByBannedElementIssueLocator.cs" />
+    <Compile Include="CodeIssues\AllTokensByTypeNotPrecededByRequiredElementIssueLocator.cs" />
     <Compile Include="CodeIssues\FirstParameterIssueLocator.cs" />
     <Compile Include="CodeIssues\FirstTokenByTypeIssueLocator.cs" />
     <Compile Include="CodeIssues\FirstToLastTokenByTypeIssueLocator.cs" />
     <Compile Include="CodeIssues\LastXmlDocCommentIssueLocator.cs" />
     <Compile Include="CodeIssues\SA1000_KeywordsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\SA1001_CommasMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1002_SemicolonsMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1003_SymbolsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\XmlDocCommentIssueLocator.cs" />
     <Compile Include="CodeIssues\Keywords.cs" />
     <Compile Include="CodeIssues\LastTokenByTypeIssueLocator.cs" />

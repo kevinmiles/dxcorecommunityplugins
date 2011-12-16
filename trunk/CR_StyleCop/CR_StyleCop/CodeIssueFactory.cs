@@ -140,6 +140,8 @@
 
             this.handlers.Add("SA1000", new SA1000_KeywordsMustBeSpacedCorrectly());
             this.handlers.Add("SA1001", new SA1001_CommasMustBeSpacedCorrectly());
+            this.handlers.Add("SA1002", new SA1002_SemicolonsMustBeSpacedCorrectly());
+            this.handlers.Add("SA1003", new SA1003_SymbolsMustBeSpacedCorrectly());
             this.handlers.Add("SA1006", new SA1006_PreprocessorKeywordsMustNotBePrecededBySpace());
         }
 
