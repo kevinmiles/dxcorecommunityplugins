@@ -221,7 +221,10 @@ namespace CR_ImportNamespace
     static ITypeElement[] GetTypesDeclaredInProject(ProjectElement project)
     {
       List<ITypeElement> result = new List<ITypeElement>();
-      IElementCollection allTypes = project.SourceModel.GetAllTypes();
+      ProjectSourceModelCache sourceModel = project.SourceModel;
+      if (sourceModel == null)
+        return result.ToArray();
+      IElementCollection allTypes = sourceModel.GetAllTypes();
       foreach (IElement element in allTypes)
       {
         ITypeElement typeElement = element as ITypeElement;
@@ -249,12 +252,26 @@ namespace CR_ImportNamespace
     static TypeToAssemblyNamespaceMap ScanProjectTypes(List<ProjectElement> projectsToGetTypes)
     {
       TypeToAssemblyNamespaceMap result = new TypeToAssemblyNamespaceMap();
+      if (projectsToGetTypes == null)
+        return result;
+
       foreach (ProjectElement projectToGetTypes in projectsToGetTypes)
       {
         ITypeElement[] projectTypes = GetTypesDeclaredInProject(projectToGetTypes);
+        if (projectTypes == null)
+          continue;
+
         foreach (ITypeElement typeElement in projectTypes)
         {
+          if (typeElement == null)
+            continue;
+
+          if (typeElement.ParentNamespace == null)
+            continue;
+          
           string typeNamespace = typeElement.ParentNamespace.FullName;
+          if (String.IsNullOrEmpty(typeNamespace))
+            continue;
 
           AssemblyNamespaceList namespaceList;
           if (!result.TryGetValue(typeElement.Name, out namespaceList))
@@ -262,6 +279,7 @@ namespace CR_ImportNamespace
             namespaceList = new AssemblyNamespaceList();
             result.Add(typeElement.Name, namespaceList);
           }
+
           AssemblyNamespace nameSpace = new AssemblyNamespace();
           nameSpace.ReferenceProject = projectToGetTypes;
           nameSpace.Namespace = typeNamespace;
