@@ -47,9 +47,9 @@
         public SA1000_KeywordsMustBeSpacedCorrectly()
             : base(new AggregatedIssueLocator(new ICodeIssueLocator[] 
                 { 
-                    new AllTokensByTypeFollowedByBannedElementIssueLocator(CsTokenType.WhiteSpace, tokenTypesWithoutSpace), 
-                    new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(CsTokenType.WhiteSpace, tokenTypesWithRequiredSpace),
-                    new AllTokensByTypeNotPrecededByRequiredElementIssueLocator(CsTokenType.WhiteSpace, tokenTypesWithoutSpace.Concat(tokenTypesWithRequiredSpace))
+                    new AllTokensByTypeFollowedByBannedElementIssueLocator(element => element.ElementTokens, CsTokenType.WhiteSpace, tokenTypesWithoutSpace), 
+                    new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(element => element.ElementTokens, CsTokenType.WhiteSpace, tokenTypesWithRequiredSpace),
+                    new AllTokensByTypeNotPrecededByRequiredElementIssueLocator(element => element.ElementTokens, CsTokenType.WhiteSpace, tokenTypesWithoutSpace.Concat(tokenTypesWithRequiredSpace))
                 }))
         {
         }

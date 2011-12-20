@@ -43,10 +43,12 @@
         [CodeIssue(17, 63, 17, 64)]
         [CodeIssue(18, 35, 18, 36)]
         [CodeIssue(20, 27, 20, 28)]
-        [CodeIssue(22, 47, 22, 48)]
-        [CodeIssue(24, 30, 24, 31)]
-        [CodeIssue(25, 31, 25, 32)]
+        [CodeIssue(21, 50, 21, 51)]
+        [CodeIssue(21, 56, 21, 57)]
+        [CodeIssue(23, 47, 23, 48)]
+        [CodeIssue(25, 30, 25, 31)]
         [CodeIssue(26, 31, 26, 32)]
+        [CodeIssue(27, 31, 27, 32)]
         public void SA1001_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
         {
             this.AssertSpecificCodeIssueExists("SA1001", startLine, startOffset, endLine, endOffset);

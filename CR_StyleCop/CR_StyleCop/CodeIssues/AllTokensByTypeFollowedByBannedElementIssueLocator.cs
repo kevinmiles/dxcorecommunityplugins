@@ -8,31 +8,36 @@
     using StyleCop;
     using StyleCop.CSharp;
 
-    internal class AllTokensByTypeFollowedByBannedElementIssueLocator : ICodeIssueLocator
+    internal class AllTokensByTypeFollowedByBannedElementIssueLocator : AllTokensByTypeLocator, ICodeIssueLocator
     {
         private readonly IEnumerable<CsTokenType> bannedFollowers;
         private readonly IEnumerable<CsTokenType> tokenTypesToInspect;
+        private readonly Func<CsElement, IEnumerable<CsToken>> getTokens;
 
-        public AllTokensByTypeFollowedByBannedElementIssueLocator(CsTokenType bannedFollower, params CsTokenType[] tokenTypesToInspect)
+        public AllTokensByTypeFollowedByBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, CsTokenType bannedFollower, params CsTokenType[] tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.bannedFollowers = new[] { bannedFollower };
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
 
-        public AllTokensByTypeFollowedByBannedElementIssueLocator(CsTokenType bannedFollower, IEnumerable<CsTokenType> tokenTypesToInspect)
+        public AllTokensByTypeFollowedByBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, CsTokenType bannedFollower, IEnumerable<CsTokenType> tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.bannedFollowers = new[] { bannedFollower };
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
 
-        public AllTokensByTypeFollowedByBannedElementIssueLocator(IEnumerable<CsTokenType> bannedFollowers, params CsTokenType[] tokenTypesToInspect)
+        public AllTokensByTypeFollowedByBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, IEnumerable<CsTokenType> bannedFollowers, params CsTokenType[] tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.bannedFollowers = bannedFollowers;
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
 
-        public AllTokensByTypeFollowedByBannedElementIssueLocator(IEnumerable<CsTokenType> bannedFollowers, IEnumerable<CsTokenType> tokenTypesToInspect)
+        public AllTokensByTypeFollowedByBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, IEnumerable<CsTokenType> bannedFollowers, IEnumerable<CsTokenType> tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.bannedFollowers = bannedFollowers;
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
@@ -44,7 +49,7 @@
             CsElement csElement)
         {
             CodeLocation issueLocation = null;
-            foreach (var token in csElement.ElementTokens.Where(x => x.LineNumber == violation.Line))
+            foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).SelectMany(token => Flatten(token)))
             {
                 if (this.tokenTypesToInspect.Contains(token.CsTokenType))
                 {

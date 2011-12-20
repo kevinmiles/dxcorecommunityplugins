@@ -17,8 +17,8 @@
         public SA1003_SymbolsMustBeSpacedCorrectly()
             : base(new AggregatedIssueLocator(new ICodeIssueLocator[] 
                 { 
-                    new AllTokensByTypeNotPrecededByRequiredElementIssueLocator(requiredPredecessors, CsTokenType.OperatorSymbol),
-                    new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(CsTokenType.WhiteSpace, CsTokenType.OperatorSymbol),
+                    new AllTokensByTypeNotPrecededByRequiredElementIssueLocator(element => element.ElementTokens, requiredPredecessors, CsTokenType.OperatorSymbol),
+                    new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(element => element.ElementTokens, CsTokenType.WhiteSpace, CsTokenType.OperatorSymbol),
                 }))
         {
         }
