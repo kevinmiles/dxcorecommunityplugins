@@ -12,7 +12,7 @@
                 { 
                     new AllTokensByTypePrecededByBannedElementIssueLocator(element => element.ElementTokens, CsTokenType.WhiteSpace, CsTokenType.Comma),
                     new AllTokensByTypePrecededByBannedElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), CsTokenType.WhiteSpace, CsTokenType.Comma),
-                    new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(element => element.ElementTokens, CsTokenType.WhiteSpace, CsTokenType.Comma),
+                    new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(element => element.ElementTokens, new[] { CsTokenType.WhiteSpace, CsTokenType.CloseGenericBracket, CsTokenType.CloseSquareBracket }, CsTokenType.Comma),
                     new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), CsTokenType.WhiteSpace, CsTokenType.Comma),
                 }))
         {
