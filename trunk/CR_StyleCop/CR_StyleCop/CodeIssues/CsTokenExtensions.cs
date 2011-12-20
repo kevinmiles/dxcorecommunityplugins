@@ -4,11 +4,16 @@ namespace CR_StyleCop.CodeIssues
     using System.Linq;
     using StyleCop.CSharp;
 
-    public class AllTokensByTypeLocator
+    internal static class CsTokenExtensions
     {
-        protected IEnumerable<CsToken> Flatten(CsToken token)
+        public static IEnumerable<CsToken> Flatten(this IEnumerable<CsToken> tokens)
         {
-            TypeToken typeToken = token as TypeToken;
+            return tokens.SelectMany(token => Flatten(token));
+        }
+
+        private static IEnumerable<CsToken> Flatten(CsToken token)
+        {
+            var typeToken = token as TypeToken;
             if (typeToken != null)
             {
                 return typeToken.ChildTokens.SelectMany(child => Flatten(child));

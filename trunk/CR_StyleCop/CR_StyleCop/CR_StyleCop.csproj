@@ -85,7 +85,7 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllTokensByTypeFollowedByBannedElementIssueLocatorBase.cs" />
+    <Compile Include="CodeIssues\CsTokenExtensions.cs" />
     <Compile Include="AnalyzedSourceCode.cs" />
     <Compile Include="CodeIssues\AggregatedIssueLocator.cs" />
     <Compile Include="CodeIssues\AllTokensByTypeFollowedByBannedElementIssueLocator.cs" />
