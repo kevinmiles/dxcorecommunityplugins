@@ -8,31 +8,36 @@
     using StyleCop;
     using StyleCop.CSharp;
 
-    internal class AllTokensByTypeNotPrecededByRequiredElementIssueLocator : ICodeIssueLocator
+    internal class AllTokensByTypeNotPrecededByRequiredElementIssueLocator : AllTokensByTypeLocator, ICodeIssueLocator
     {
+        private readonly Func<CsElement, IEnumerable<CsToken>> getTokens;
         private readonly IEnumerable<CsTokenType> requiredPredecessors;
         private readonly IEnumerable<CsTokenType> tokenTypesToInspect;
 
-        public AllTokensByTypeNotPrecededByRequiredElementIssueLocator(CsTokenType requiredPredecessor, params CsTokenType[] tokenTypesToInspect)
+        public AllTokensByTypeNotPrecededByRequiredElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, CsTokenType requiredPredecessor, params CsTokenType[] tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.requiredPredecessors = new[] { requiredPredecessor };
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
 
-        public AllTokensByTypeNotPrecededByRequiredElementIssueLocator(CsTokenType requiredPredecessor, IEnumerable<CsTokenType> tokenTypesToInspect)
+        public AllTokensByTypeNotPrecededByRequiredElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, CsTokenType requiredPredecessor, IEnumerable<CsTokenType> tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.requiredPredecessors = new[] { requiredPredecessor };
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
 
-        public AllTokensByTypeNotPrecededByRequiredElementIssueLocator(IEnumerable<CsTokenType> requiredPredecessors, params CsTokenType[] tokenTypesToInspect)
+        public AllTokensByTypeNotPrecededByRequiredElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, IEnumerable<CsTokenType> requiredPredecessors, params CsTokenType[] tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.requiredPredecessors = requiredPredecessors;
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
 
-        public AllTokensByTypeNotPrecededByRequiredElementIssueLocator(IEnumerable<CsTokenType> requiredPredecessors, IEnumerable<CsTokenType> tokenTypesToInspect)
+        public AllTokensByTypeNotPrecededByRequiredElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, IEnumerable<CsTokenType> requiredPredecessors, IEnumerable<CsTokenType> tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.requiredPredecessors = requiredPredecessors;
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
@@ -44,7 +49,7 @@
             CsElement csElement)
         {
             bool predecessorFound = true;
-            foreach (var token in csElement.ElementTokens.Where(x => x.LineNumber == violation.Line))
+            foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).SelectMany(token => Flatten(token)))
             {
                 if (!predecessorFound && this.tokenTypesToInspect.Contains(token.CsTokenType))
                 {

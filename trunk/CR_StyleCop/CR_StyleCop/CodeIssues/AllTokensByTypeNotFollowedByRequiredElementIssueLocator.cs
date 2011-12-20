@@ -8,31 +8,36 @@
     using StyleCop;
     using StyleCop.CSharp;
 
-    internal class AllTokensByTypeNotFollowedByRequiredElementIssueLocator : ICodeIssueLocator
+    internal class AllTokensByTypeNotFollowedByRequiredElementIssueLocator : AllTokensByTypeLocator, ICodeIssueLocator
     {
+        private readonly Func<CsElement, IEnumerable<CsToken>> getTokens;
         private readonly IEnumerable<CsTokenType> requiredFollowers;
         private readonly IEnumerable<CsTokenType> tokenTypesToInspect;
 
-        public AllTokensByTypeNotFollowedByRequiredElementIssueLocator(CsTokenType requiredFollower, params CsTokenType[] tokenTypesToInspect)
+        public AllTokensByTypeNotFollowedByRequiredElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, CsTokenType requiredFollower, params CsTokenType[] tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.requiredFollowers = new[] { requiredFollower };
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
 
-        public AllTokensByTypeNotFollowedByRequiredElementIssueLocator(CsTokenType requiredFollower, IEnumerable<CsTokenType> tokenTypesToInspect)
+        public AllTokensByTypeNotFollowedByRequiredElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, CsTokenType requiredFollower, IEnumerable<CsTokenType> tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.requiredFollowers = new[] { requiredFollower };
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
 
-        public AllTokensByTypeNotFollowedByRequiredElementIssueLocator(IEnumerable<CsTokenType> requiredFollowers, params CsTokenType[] tokenTypesToInspect)
+        public AllTokensByTypeNotFollowedByRequiredElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, IEnumerable<CsTokenType> requiredFollowers, params CsTokenType[] tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.requiredFollowers = requiredFollowers;
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
 
-        public AllTokensByTypeNotFollowedByRequiredElementIssueLocator(IEnumerable<CsTokenType> requiredFollowers, IEnumerable<CsTokenType> tokenTypesToInspect)
+        public AllTokensByTypeNotFollowedByRequiredElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, IEnumerable<CsTokenType> requiredFollowers, IEnumerable<CsTokenType> tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.requiredFollowers = requiredFollowers;
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
@@ -44,7 +49,7 @@
             CsElement csElement)
         {
             CodeLocation issueLocation = null;
-            foreach (var token in csElement.ElementTokens.Where(x => x.LineNumber == violation.Line))
+            foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).SelectMany(token => Flatten(token)))
             {
                 if (this.tokenTypesToInspect.Contains(token.CsTokenType))
                 {

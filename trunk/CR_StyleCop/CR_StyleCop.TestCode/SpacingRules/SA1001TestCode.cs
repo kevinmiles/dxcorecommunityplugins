@@ -18,6 +18,7 @@ namespace CR_StyleCop.TestCode
     public class SA1001TestCode<T1,T2>
     {
         private int field1,field2;
+        private SA1001TestCode<SA1001TestCode<int,int> ,int[,]> s;
 
         private void MethodName(int paramName , int paramName2)
         {

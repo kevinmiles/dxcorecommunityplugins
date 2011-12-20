@@ -8,31 +8,36 @@
     using StyleCop;
     using StyleCop.CSharp;
 
-    internal class AllTokensByTypePrecededByBannedElementIssueLocator : ICodeIssueLocator
+    internal class AllTokensByTypePrecededByBannedElementIssueLocator : AllTokensByTypeLocator, ICodeIssueLocator
     {
+        private readonly Func<CsElement, IEnumerable<CsToken>> getTokens;
         private readonly IEnumerable<CsTokenType> bannedPredecessors;
         private readonly IEnumerable<CsTokenType> tokenTypesToInspect;
 
-        public AllTokensByTypePrecededByBannedElementIssueLocator(CsTokenType bannedPredecessor, params CsTokenType[] tokenTypesToInspect)
+        public AllTokensByTypePrecededByBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, CsTokenType bannedPredecessor, params CsTokenType[] tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.bannedPredecessors = new[] { bannedPredecessor };
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
 
-        public AllTokensByTypePrecededByBannedElementIssueLocator(CsTokenType bannedPredecessor, IEnumerable<CsTokenType> tokenTypesToInspect)
+        public AllTokensByTypePrecededByBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, CsTokenType bannedPredecessor, IEnumerable<CsTokenType> tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.bannedPredecessors = new[] { bannedPredecessor };
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
 
-        public AllTokensByTypePrecededByBannedElementIssueLocator(IEnumerable<CsTokenType> bannedPredecessors, params CsTokenType[] tokenTypesToInspect)
+        public AllTokensByTypePrecededByBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, IEnumerable<CsTokenType> bannedPredecessors, params CsTokenType[] tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.bannedPredecessors = bannedPredecessors;
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
 
-        public AllTokensByTypePrecededByBannedElementIssueLocator(IEnumerable<CsTokenType> bannedPredecessors, IEnumerable<CsTokenType> tokenTypesToInspect)
+        public AllTokensByTypePrecededByBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, IEnumerable<CsTokenType> bannedPredecessors, IEnumerable<CsTokenType> tokenTypesToInspect)
         {
+            this.getTokens = getTokens;
             this.bannedPredecessors = bannedPredecessors;
             this.tokenTypesToInspect = tokenTypesToInspect;
         }
@@ -44,7 +49,7 @@
             CsElement csElement)
         {
             bool predecessorFound = false;
-            foreach (var token in csElement.ElementTokens.Where(x => x.LineNumber == violation.Line))
+            foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).SelectMany(token => Flatten(token)))
             {
                 if (predecessorFound && this.tokenTypesToInspect.Contains(token.CsTokenType))
                 {
