@@ -8,7 +8,7 @@
     using StyleCop;
     using StyleCop.CSharp;
 
-    internal class AllTokensByTypeFollowedByBannedElementIssueLocator : AllTokensByTypeLocator, ICodeIssueLocator
+    internal class AllTokensByTypeFollowedByBannedElementIssueLocator : ICodeIssueLocator
     {
         private readonly IEnumerable<CsTokenType> bannedFollowers;
         private readonly IEnumerable<CsTokenType> tokenTypesToInspect;
@@ -49,7 +49,7 @@
             CsElement csElement)
         {
             CodeLocation issueLocation = null;
-            foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).SelectMany(token => Flatten(token)))
+            foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).Flatten())
             {
                 if (this.tokenTypesToInspect.Contains(token.CsTokenType))
                 {

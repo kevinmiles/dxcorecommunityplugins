@@ -8,7 +8,7 @@
     using StyleCop;
     using StyleCop.CSharp;
 
-    internal class AllTokensByTypeNotPrecededByRequiredElementIssueLocator : AllTokensByTypeLocator, ICodeIssueLocator
+    internal class AllTokensByTypeNotPrecededByRequiredElementIssueLocator : ICodeIssueLocator
     {
         private readonly Func<CsElement, IEnumerable<CsToken>> getTokens;
         private readonly IEnumerable<CsTokenType> requiredPredecessors;
@@ -49,7 +49,7 @@
             CsElement csElement)
         {
             bool predecessorFound = true;
-            foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).SelectMany(token => Flatten(token)))
+            foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).Flatten())
             {
                 if (!predecessorFound && this.tokenTypesToInspect.Contains(token.CsTokenType))
                 {
