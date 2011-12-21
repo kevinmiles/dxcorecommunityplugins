@@ -10,8 +10,8 @@
         public SA1002_SemicolonsMustBeSpacedCorrectly()
             : base(new AggregatedIssueLocator(new ICodeIssueLocator[] 
                 { 
-                    new AllTokensByTypePrecededByBannedElementIssueLocator(element => element.ElementTokens, CsTokenType.WhiteSpace, CsTokenType.Semicolon),
-                    new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(element => element.ElementTokens, CsTokenType.WhiteSpace, CsTokenType.Semicolon),
+                    new AllTokensByTypePrecededByBannedElementIssueLocator(element => element.ElementTokens, CsTokenType.Semicolon, CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
+                    new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(element => element.ElementTokens, CsTokenType.Semicolon, CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
                 }))
         {
         }
