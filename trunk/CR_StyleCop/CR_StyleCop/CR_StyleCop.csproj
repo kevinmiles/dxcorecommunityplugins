@@ -89,6 +89,7 @@
     <Compile Include="CodeIssues\AllTokensNotPrecededByRequiredElementIssueLocator.cs" />
     <Compile Include="CodeIssues\AllTokensPrecededByBannedElementIssueLocator.cs" />
     <Compile Include="CodeIssues\AllTokensFollowedByBannedElementIssueLocator.cs" />
+    <Compile Include="CodeIssues\AllTokensPrecededByBannedElementAndWhitespaceIssueLocator.cs" />
     <Compile Include="CodeIssues\CsTokenExtensions.cs" />
     <Compile Include="AnalyzedSourceCode.cs" />
     <Compile Include="CodeIssues\AggregatedIssueLocator.cs" />

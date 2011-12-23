@@ -14,7 +14,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1003 rule - operators must be spaced correctly.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1003 rule.")]
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification ="This is about SA1003 rule.")]
     [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1008:OpeningParenthesisMustBeSpacedCorrectly", Justification = "This is about SA1003 rule.")]
     [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1009:ClosingParenthesisMustBeSpacedCorrectly", Justification = "This is about SA1003 rule.")]
     [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1012:OpeningCurlyBracketsMustBeSpacedCorrectly", Justification = "This is about SA1003 rule.")]
@@ -74,6 +74,7 @@ namespace CR_StyleCop.TestCode
             }
         }
 
+        []
         private object SomeReallyObscuredMethod(int intParam, string stringParam)
         {
             return true;

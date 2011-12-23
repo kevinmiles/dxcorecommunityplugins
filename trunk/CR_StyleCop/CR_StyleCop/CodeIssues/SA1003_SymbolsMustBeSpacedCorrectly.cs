@@ -21,15 +21,21 @@
             };
 
         private static readonly string[] unaryOperators = new[] { "!", "-", "~" };
-        private static readonly string[] binaryOperators = new[] { "=", "=>", "-", "+", "*", "/", "%", "<<", ">>", "??", "==", "!=", ">", "<", ">=", "<=", "&&", "||", "+=", "-=", "*=", "/=", "%=", "<<=", ">>=", ":", "&", "|", "^", "&=", "|=", "^=" };
+        private static readonly string[] binaryOperators = new[] { "=", "=>", "-", "+", "*", "/", "%", "<<", ">>", "??", "==", "!=", ">", "<", ">=", "<=", "&&", "||", "+=", "-=", "*=", "/=", "%=", "<<=", ">>=", "?", ":", "&", "|", "^", "&=", "|=", "^=" };
 
         public SA1003_SymbolsMustBeSpacedCorrectly()
             : base(new AggregatedIssueLocator(new ICodeIssueLocator[] 
                 { 
                     new AllTokensNotPrecededByRequiredElementIssueLocator(element => element.ElementTokens, (token, violation) => token.CsTokenType == CsTokenType.OperatorSymbol && unaryOperators.Contains(token.Text) && violation.Message.Contains(token.Text), requiredPredecessors),
                     new AllTokensFollowedByBannedElementIssueLocator(element => element.ElementTokens, (token, violation) => token.CsTokenType == CsTokenType.OperatorSymbol && unaryOperators.Contains(token.Text) && violation.Message.Contains(token.Text), CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
+                    new AllTokensPrecededByBannedElementAndWhitespaceIssueLocator(element => element.ElementTokens, (token, violation) => token.CsTokenType == CsTokenType.OperatorSymbol && unaryOperators.Contains(token.Text) && violation.Message.Contains(token.Text), CsTokenType.OpenParenthesis, CsTokenType.OpenSquareBracket),
+                    new AllTokensNotPrecededByRequiredElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), (token, violation) => token.CsTokenType == CsTokenType.OperatorSymbol && unaryOperators.Contains(token.Text) && violation.Message.Contains(token.Text), requiredPredecessors),
+                    new AllTokensFollowedByBannedElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), (token, violation) => token.CsTokenType == CsTokenType.OperatorSymbol && unaryOperators.Contains(token.Text) && violation.Message.Contains(token.Text), CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
+                    new AllTokensPrecededByBannedElementAndWhitespaceIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), (token, violation) => token.CsTokenType == CsTokenType.OperatorSymbol && unaryOperators.Contains(token.Text) && violation.Message.Contains(token.Text), CsTokenType.OpenParenthesis, CsTokenType.OpenSquareBracket),
                     new AllTokensNotPrecededByRequiredElementIssueLocator(element => element.ElementTokens, (token, violation) => token.CsTokenType == CsTokenType.OperatorSymbol && binaryOperators.Contains(token.Text) && violation.Message.Contains(token.Text), requiredPredecessors),
                     new AllTokensNotFollowedByRequiredElementIssueLocator(element => element.ElementTokens, (token, violation) => token.CsTokenType == CsTokenType.OperatorSymbol && binaryOperators.Contains(token.Text) && violation.Message.Contains(token.Text), CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
+                    new AllTokensNotPrecededByRequiredElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), (token, violation) => token.CsTokenType == CsTokenType.OperatorSymbol && binaryOperators.Contains(token.Text) && violation.Message.Contains(token.Text), requiredPredecessors),
+                    new AllTokensNotFollowedByRequiredElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), (token, violation) => token.CsTokenType == CsTokenType.OperatorSymbol && binaryOperators.Contains(token.Text) && violation.Message.Contains(token.Text), CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
                     new AllTokensNotPrecededByRequiredElementIssueLocator(element => element.ElementTokens, (token, violation) => colons.Contains(token.CsTokenType) && violation.Message.Contains(token.Text), CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
                     new AllTokensNotFollowedByRequiredElementIssueLocator(element => element.ElementTokens, (token, violation) => colons.Contains(token.CsTokenType) && violation.Message.Contains(token.Text), CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
                 }))

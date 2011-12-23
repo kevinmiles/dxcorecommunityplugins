@@ -65,6 +65,7 @@
         }
 
         [Test]
+        [CodeIssue(17, 79, 17, 80)]
         [CodeIssue(22, 32, 22, 33)]
         [CodeIssue(25, 13, 25, 14)]
         [CodeIssue(29, 49, 29, 50)]
