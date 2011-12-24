@@ -142,7 +142,11 @@
             this.handlers.Add("SA1001", new SA1001_CommasMustBeSpacedCorrectly());
             this.handlers.Add("SA1002", new SA1002_SemicolonsMustBeSpacedCorrectly());
             this.handlers.Add("SA1003", new SA1003_SymbolsMustBeSpacedCorrectly());
+            this.handlers.Add("SA1004", new SA1004_DocumentationLinesMustBeginWithSingleSpace());
+            this.handlers.Add("SA1005", new SA1005_SingleLineCommentsMustBeginWithSingleSpace());
             this.handlers.Add("SA1006", new SA1006_PreprocessorKeywordsMustNotBePrecededBySpace());
+            this.handlers.Add("SA1007", new SA1007_OperatorKeywordMustBeFollowedBySpace());
+            this.handlers.Add("SA1008", new SA1008_OpeningParenthesisMustBeSpacedCorrectly());
         }
 
         public IStyleCopRule GetRuleFor(Violation violation)
