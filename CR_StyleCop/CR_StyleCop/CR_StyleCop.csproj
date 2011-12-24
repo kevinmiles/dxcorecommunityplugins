@@ -90,6 +90,7 @@
     <Compile Include="CodeIssues\AllTokensPrecededByBannedElementIssueLocator.cs" />
     <Compile Include="CodeIssues\AllTokensFollowedByBannedElementIssueLocator.cs" />
     <Compile Include="CodeIssues\AllTokensPrecededByBannedElementAndWhitespaceIssueLocator.cs" />
+    <Compile Include="CodeIssues\AllTokensPrecededByBannedWhitespaceNotPrecededBySpecialElementIssueLocator.cs" />
     <Compile Include="CodeIssues\CsTokenExtensions.cs" />
     <Compile Include="AnalyzedSourceCode.cs" />
     <Compile Include="CodeIssues\AggregatedIssueLocator.cs" />
@@ -106,6 +107,10 @@
     <Compile Include="CodeIssues\SA1001_CommasMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\SA1002_SemicolonsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\SA1003_SymbolsMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1004_DocumentationLinesMustBeginWithSingleSpace.cs" />
+    <Compile Include="CodeIssues\SA1005_SingleLineCommentsMustBeginWithSingleSpace.cs" />
+    <Compile Include="CodeIssues\SA1007_OperatorKeywordMustBeFollowedBySpace.cs" />
+    <Compile Include="CodeIssues\SA1008_OpeningParenthesisMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\XmlDocCommentIssueLocator.cs" />
     <Compile Include="CodeIssues\Keywords.cs" />
     <Compile Include="CodeIssues\LastTokenByTypeIssueLocator.cs" />

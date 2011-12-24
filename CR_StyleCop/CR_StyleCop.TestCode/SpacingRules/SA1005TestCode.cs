@@ -15,7 +15,7 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1005 - single line comments must start with single space.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1003 rule.")]
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1005 rule.")]
     public class SA1005TestCode
     {
         //Uh oh
