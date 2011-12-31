@@ -111,6 +111,7 @@
     <Compile Include="CodeIssues\SA1005_SingleLineCommentsMustBeginWithSingleSpace.cs" />
     <Compile Include="CodeIssues\SA1007_OperatorKeywordMustBeFollowedBySpace.cs" />
     <Compile Include="CodeIssues\SA1008_OpeningParenthesisMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1018_NullableTypeSymbolsMustNotBePrecededBySpace.cs" />
     <Compile Include="CodeIssues\XmlDocCommentIssueLocator.cs" />
     <Compile Include="CodeIssues\Keywords.cs" />
     <Compile Include="CodeIssues\LastTokenByTypeIssueLocator.cs" />
