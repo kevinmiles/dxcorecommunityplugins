@@ -34,7 +34,7 @@
             Violation violation,
             CsElement csElement)
         {
-            bool specialPredecessorFound = false;
+            bool specialPredecessorFound = true;
             bool whitespaceFound = false;
             foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).Flatten())
             {
