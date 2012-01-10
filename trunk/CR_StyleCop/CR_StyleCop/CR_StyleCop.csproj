@@ -85,6 +85,7 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeIssues\AllTokensFollowedByWhitespaceAndBannedElementIssueLocator.cs" />
     <Compile Include="CodeIssues\AllTokensNotFollowedByRequiredElementIssueLocator.cs" />
     <Compile Include="CodeIssues\AllTokensNotPrecededByRequiredElementIssueLocator.cs" />
     <Compile Include="CodeIssues\AllTokensPrecededByBannedElementIssueLocator.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="CodeIssues\SA1005_SingleLineCommentsMustBeginWithSingleSpace.cs" />
     <Compile Include="CodeIssues\SA1007_OperatorKeywordMustBeFollowedBySpace.cs" />
     <Compile Include="CodeIssues\SA1008_OpeningParenthesisMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1009_ClosingParenthesisMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\SA1018_NullableTypeSymbolsMustNotBePrecededBySpace.cs" />
     <Compile Include="CodeIssues\XmlDocCommentIssueLocator.cs" />
     <Compile Include="CodeIssues\Keywords.cs" />
