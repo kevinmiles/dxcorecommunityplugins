@@ -4,7 +4,6 @@ namespace CR_StyleCop.CodeIssues
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
 
     internal class SA1008_OpeningParenthesisMustBeSpacedCorrectly : StyleCopRule
     {
@@ -42,8 +41,6 @@ namespace CR_StyleCop.CodeIssues
                 {
                     new AllTokensByTypeFollowedByBannedElementIssueLocator(element => element.ElementTokens, CsTokenType.OpenParenthesis, CsTokenType.WhiteSpace),
                     new AllTokensByTypeFollowedByBannedElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), CsTokenType.OpenParenthesis, CsTokenType.WhiteSpace),
-                    new AllTokensByTypePrecededByBannedElementIssueLocator(element => element.ElementTokens, CsTokenType.OpenParenthesis, CsTokenType.WhiteSpace),
-                    new AllTokensByTypePrecededByBannedElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), CsTokenType.OpenParenthesis, CsTokenType.WhiteSpace),
                     new AllTokensPrecededByBannedWhitespaceNotPrecededBySpecialElementIssueLocator(element => element.ElementTokens, (token, violation) => token.CsTokenType == CsTokenType.OpenParenthesis, tokenTypesWithRequiredSpace),
                     new AllTokensPrecededByBannedWhitespaceNotPrecededBySpecialElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), (token, violation) => token.CsTokenType == CsTokenType.OpenParenthesis, CsTokenType.OperatorSymbol),
                 }))

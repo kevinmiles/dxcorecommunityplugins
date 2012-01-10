@@ -147,6 +147,7 @@
             this.handlers.Add("SA1006", new SA1006_PreprocessorKeywordsMustNotBePrecededBySpace());
             this.handlers.Add("SA1007", new SA1007_OperatorKeywordMustBeFollowedBySpace());
             this.handlers.Add("SA1008", new SA1008_OpeningParenthesisMustBeSpacedCorrectly());
+            this.handlers.Add("SA1009", new SA1009_ClosingParenthesisMustBeSpacedCorrectly());
             this.handlers.Add("SA1018", new SA1018_NullableTypeSymbolsMustNotBePrecededBySpace());
         }
 

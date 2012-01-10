@@ -352,11 +352,17 @@
         [Test]
         [CodeIssue(15, 110, 15, 111)]
         [CodeIssue(16, 154, 16, 155)]
-        [CodeIssue(20, 33, 20, 34)]
-        [CodeIssue(22, 38, 22, 39)]
-        [CodeIssue(23, 27, 23, 28)]
-        [CodeIssue(23, 42, 23, 43)]
-        [CodeIssue(23, 44, 23, 44)]
+        [CodeIssue(22, 33, 22, 34)]
+        [CodeIssue(24, 38, 24, 39)]
+        [CodeIssue(25, 27, 25, 28)]
+        [CodeIssue(25, 42, 25, 43)]
+        [CodeIssue(25, 44, 25, 45)]
+        [CodeIssue(30, 37, 30, 38)]
+        [CodeIssue(30, 52, 30, 53)]
+        [CodeIssue(31, 38, 31, 39)]
+        [CodeIssue(31, 53, 31, 54)]
+        [CodeIssue(32, 27, 32, 28)]
+        [CodeIssue(33, 25, 33, 26)]
         public void SA1009_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
         {
             this.AssertSpecificCodeIssueExists("SA1009", startLine, startOffset, endLine, endOffset);
