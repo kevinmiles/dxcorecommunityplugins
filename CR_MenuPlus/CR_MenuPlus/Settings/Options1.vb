@@ -20,7 +20,7 @@ Public Class Options1
 #End Region
 #Region " GetPageName "
     Public Shared Function GetPageName() As String
-        Return "Menus"
+        Return "MenuPlus"
     End Function
 #End Region
     Private mPluginSettings As PluginSettings

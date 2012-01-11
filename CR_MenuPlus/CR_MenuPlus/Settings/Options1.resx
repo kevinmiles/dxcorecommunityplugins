@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Label1.Text" xml:space="preserve">
-    <value>Note: If specifying an alternative menu, please be sure to give the correct name for the menu, using &amp; just pror to the accellerator key. For example the actual name of the 'DevExpress' menu is 'DevE&amp;&amp;xpress' (without quotes.)</value>
+    <value>Note: If specifying an alternative menu, please be sure to give the correct name for the menu, using '&amp;&amp;' just prior to the accelerator key. For example the actual name of the 'DevExpress' menu is 'DevE&amp;&amp;xpress' (without quotes.)</value>
   </data>
 </root>
