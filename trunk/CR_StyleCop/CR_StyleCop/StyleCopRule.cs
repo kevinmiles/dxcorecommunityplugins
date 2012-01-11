@@ -6,7 +6,7 @@
     using StyleCop;
     using StyleCop.CSharp;
 
-    internal class StyleCopRule : IStyleCopRule
+    internal abstract class StyleCopRule : IStyleCopRule
     {
         private ICodeIssueLocator issueLocator;
 
