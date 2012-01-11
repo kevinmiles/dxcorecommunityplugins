@@ -106,6 +106,8 @@ Public Class PlugIn1
         Call RegisterMenuItem(VisualMenu, "Arrows...", CodeRush.Actions.Item("Options"), "Hinting\Action Hints")
         Call RegisterMenuItem(VisualMenu, "Billboard...", CodeRush.Actions.Item("Options"), "Hinting\Billboard Messages")
         Call RegisterMenuItem(VisualMenu, "Shortcut Hints...", CodeRush.Actions.Item("Options"), "Hinting\Billboard Messages")
+        Call RegisterMenuItem(OptionsMenu, "DXV2...", CodeRush.Actions.Item("Options"), Options1.GetCategory & "\" & Options1.GetPageName)
+
     End Sub
     Private Sub InitializeHelpOnlineMenu(ByVal ParentMenu As IMenuPopup)
         Dim HelpOnlineMenu = RegisterMenuItem(ParentMenu, "Help (Online)")
