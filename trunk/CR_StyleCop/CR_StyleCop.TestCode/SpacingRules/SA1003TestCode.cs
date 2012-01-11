@@ -74,7 +74,6 @@ namespace CR_StyleCop.TestCode
             }
         }
 
-        []
         private object SomeReallyObscuredMethod(int intParam, string stringParam)
         {
             return true;
