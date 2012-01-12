@@ -14,6 +14,20 @@ namespace CR_StyleCop.CodeIssues
         private readonly Func<CsToken, bool> isBannedFollower;
         private readonly Func<CsToken, Violation, bool> reportIssueFor;
 
+        public AllTokensFollowedByWhitespaceAndBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, Func<CsToken, Violation, bool> predicate, params CsTokenType[] bannedFollowers)
+        {
+            this.getTokens = getTokens;
+            this.isBannedFollower = token => bannedFollowers.Contains(token.CsTokenType);
+            this.reportIssueFor = predicate;
+        }
+
+        public AllTokensFollowedByWhitespaceAndBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, Func<CsToken, Violation, bool> predicate, IEnumerable<CsTokenType> bannedFollowers)
+        {
+            this.getTokens = getTokens;
+            this.isBannedFollower = token => bannedFollowers.Contains(token.CsTokenType);
+            this.reportIssueFor = predicate;
+        }
+
         public AllTokensFollowedByWhitespaceAndBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, Func<CsToken, Violation, bool> predicate, Func<CsToken, bool> isBannedFollower)
         {
             this.getTokens = getTokens;

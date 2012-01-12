@@ -8,7 +8,7 @@
     internal class SA1007_OperatorKeywordMustBeFollowedBySpace : StyleCopRule
     {
         public SA1007_OperatorKeywordMustBeFollowedBySpace()
-            : base(new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(element => element.ElementTokens, CsTokenType.Operator, CsTokenType.WhiteSpace))
+            : base(new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(ElementTokens, CsTokenType.Operator, CsTokenType.WhiteSpace))
         {
         }
     }
