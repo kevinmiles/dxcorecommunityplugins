@@ -19,6 +19,12 @@ namespace CR_StyleCop.CodeIssues
                 return typeToken.ChildTokens.SelectMany(child => Flatten(child));
             }
 
+            var attributeToken = token as Attribute;
+            if (attributeToken != null)
+            {
+                return attributeToken.ChildTokens.SelectMany(child => Flatten(child));
+            }
+
             return Enumerable.Repeat(token, 1);
         }
     }
