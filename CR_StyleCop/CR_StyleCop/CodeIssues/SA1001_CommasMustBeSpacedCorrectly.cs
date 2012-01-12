@@ -10,10 +10,10 @@
         public SA1001_CommasMustBeSpacedCorrectly()
             : base(new AggregatedIssueLocator(new ICodeIssueLocator[] 
                 { 
-                    new AllTokensByTypePrecededByBannedElementIssueLocator(element => element.ElementTokens, CsTokenType.Comma, CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
-                    new AllTokensByTypePrecededByBannedElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), CsTokenType.Comma, CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
-                    new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(element => element.ElementTokens, CsTokenType.Comma, CsTokenType.WhiteSpace, CsTokenType.EndOfLine, CsTokenType.CloseGenericBracket, CsTokenType.CloseSquareBracket),
-                    new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), CsTokenType.Comma, CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
+                    new AllTokensByTypePrecededByBannedElementIssueLocator(ElementTokens, CsTokenType.Comma, CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
+                    new AllTokensByTypePrecededByBannedElementIssueLocator(AttributesTokens, CsTokenType.Comma, CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
+                    new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(ElementTokens, CsTokenType.Comma, CsTokenType.WhiteSpace, CsTokenType.EndOfLine, CsTokenType.CloseGenericBracket, CsTokenType.CloseSquareBracket),
+                    new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(AttributesTokens, CsTokenType.Comma, CsTokenType.WhiteSpace, CsTokenType.EndOfLine, CsTokenType.CloseGenericBracket, CsTokenType.CloseSquareBracket),
                 }))
         {
         }

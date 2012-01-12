@@ -1,6 +1,8 @@
 ﻿namespace CR_StyleCop
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using DevExpress.CodeRush.Core;
     using DevExpress.CodeRush.StructuralParser;
     using StyleCop;
@@ -8,11 +10,24 @@
 
     internal abstract class StyleCopRule : IStyleCopRule
     {
-        private ICodeIssueLocator issueLocator;
+        private static readonly Func<CsElement, IEnumerable<CsToken>> elementTokens = element => element.ElementTokens;
+        private static readonly Func<CsElement, IEnumerable<CsToken>> attributesTokens = element => element.Attributes.SelectMany(attribute => attribute.ChildTokens);
+        
+        private readonly ICodeIssueLocator issueLocator;
 
         public StyleCopRule(ICodeIssueLocator issueLocator)
         {
             this.issueLocator = issueLocator;
+        }
+
+        public static Func<CsElement, IEnumerable<CsToken>> AttributesTokens
+        {
+            get { return attributesTokens; }
+        }
+
+        public static Func<CsElement, IEnumerable<CsToken>> ElementTokens
+        {
+            get { return elementTokens; }
         }
 
         public void AddViolationIssue(CheckCodeIssuesEventArgs ea, ISourceCode sourceCode, Violation violation)

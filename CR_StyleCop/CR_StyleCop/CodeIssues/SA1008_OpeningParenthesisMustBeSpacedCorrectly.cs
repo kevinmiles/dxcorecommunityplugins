@@ -1,9 +1,9 @@
-﻿using StyleCop.CSharp;
-namespace CR_StyleCop.CodeIssues
+﻿namespace CR_StyleCop.CodeIssues
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using StyleCop.CSharp;
 
     internal class SA1008_OpeningParenthesisMustBeSpacedCorrectly : StyleCopRule
     {
@@ -39,13 +39,12 @@ namespace CR_StyleCop.CodeIssues
         public SA1008_OpeningParenthesisMustBeSpacedCorrectly()
             : base(new AggregatedIssueLocator(new ICodeIssueLocator[] 
                 {
-                    new AllTokensByTypeFollowedByBannedElementIssueLocator(element => element.ElementTokens, CsTokenType.OpenParenthesis, CsTokenType.WhiteSpace),
-                    new AllTokensByTypeFollowedByBannedElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), CsTokenType.OpenParenthesis, CsTokenType.WhiteSpace),
-                    new AllTokensPrecededByBannedWhitespaceNotPrecededBySpecialElementIssueLocator(element => element.ElementTokens, (token, violation) => token.CsTokenType == CsTokenType.OpenParenthesis, tokenTypesWithRequiredSpace),
-                    new AllTokensPrecededByBannedWhitespaceNotPrecededBySpecialElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), (token, violation) => token.CsTokenType == CsTokenType.OpenParenthesis, CsTokenType.OperatorSymbol),
+                    new AllTokensByTypeFollowedByBannedElementIssueLocator(ElementTokens, CsTokenType.OpenParenthesis, CsTokenType.WhiteSpace),
+                    new AllTokensByTypeFollowedByBannedElementIssueLocator(AttributesTokens, CsTokenType.OpenParenthesis, CsTokenType.WhiteSpace),
+                    new AllTokensPrecededByBannedWhitespaceNotPrecededBySpecialElementIssueLocator(ElementTokens, (token, violation) => token.CsTokenType == CsTokenType.OpenParenthesis, tokenTypesWithRequiredSpace),
+                    new AllTokensPrecededByBannedWhitespaceNotPrecededBySpecialElementIssueLocator(AttributesTokens, (token, violation) => token.CsTokenType == CsTokenType.OpenParenthesis, CsTokenType.OperatorSymbol),
                 }))
         {
-
         }
     }
 }

@@ -11,20 +11,27 @@
     internal class AllTokensNotFollowedByRequiredElementIssueLocator : ICodeIssueLocator
     {
         private readonly Func<CsElement, IEnumerable<CsToken>> getTokens;
-        private readonly IEnumerable<CsTokenType> requiredFollowers;
+        private readonly Func<CsToken, bool> isRequiredFollower;
         private readonly Func<CsToken, Violation, bool> reportIssueFor;
 
         public AllTokensNotFollowedByRequiredElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, Func<CsToken, Violation, bool> predicate, params CsTokenType[] requiredFollowers)
         {
             this.getTokens = getTokens;
-            this.requiredFollowers = requiredFollowers;
+            this.isRequiredFollower = token => requiredFollowers.Contains(token.CsTokenType);
             this.reportIssueFor = predicate;
         }
 
         public AllTokensNotFollowedByRequiredElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, Func<CsToken, Violation, bool> predicate, IEnumerable<CsTokenType> requiredFollowers)
         {
             this.getTokens = getTokens;
-            this.requiredFollowers = requiredFollowers;
+            this.isRequiredFollower = token => requiredFollowers.Contains(token.CsTokenType);
+            this.reportIssueFor = predicate;
+        }
+
+        public AllTokensNotFollowedByRequiredElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, Func<CsToken, Violation, bool> predicate, Func<CsToken, bool> isRequiredFollower)
+        {
+            this.getTokens = getTokens;
+            this.isRequiredFollower = isRequiredFollower;
             this.reportIssueFor = predicate;
         }
 
@@ -37,14 +44,14 @@
             CodeLocation issueLocation = null;
             foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).Flatten())
             {
-                if (this.reportIssueFor(token, violation))
-                {
-                    issueLocation = token.Location;
-                }
-                else if (!this.requiredFollowers.Contains(token.CsTokenType) && issueLocation != null)
+                if (!this.isRequiredFollower(token) && issueLocation != null)
                 {
                     yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, new SourceRange(issueLocation.StartPoint.LineNumber, issueLocation.StartPoint.IndexOnLine + 1, issueLocation.EndPoint.LineNumber, issueLocation.EndPoint.IndexOnLine + 2));
                     issueLocation = null;
+                }
+                else if (this.reportIssueFor(token, violation))
+                {
+                    issueLocation = token.Location;
                 }
                 else
                 {

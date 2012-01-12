@@ -398,11 +398,14 @@
         }
 
         [Test]
-        [CodeIssue(23, 56, 23, 57)]
-        [CodeIssue(25, 57, 25, 58)]
-        [CodeIssue(27, 34, 27, 35)]
-        [CodeIssue(28, 41, 28, 42)]
-        [CodeIssue(29, 40, 29, 41)]
+        [CodeIssue(25, 56, 25, 57)]
+        [CodeIssue(27, 57, 27, 58)]
+        [CodeIssue(31, 16, 31, 17)]
+        [CodeIssue(32, 20, 32, 21)]
+        [CodeIssue(37, 16, 37, 17)]
+        [CodeIssue(38, 17, 38, 18)]
+        [CodeIssue(43, 40, 43, 41)]
+        [CodeIssue(44, 41, 44, 42)]
         public void SA1012_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
         {
             this.AssertSpecificCodeIssueExists("SA1012", startLine, startOffset, endLine, endOffset);

@@ -113,6 +113,10 @@
     <Compile Include="CodeIssues\SA1007_OperatorKeywordMustBeFollowedBySpace.cs" />
     <Compile Include="CodeIssues\SA1008_OpeningParenthesisMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\SA1009_ClosingParenthesisMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1010_OpeningSquareBracketsMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1011_ClosingSquareBracketsMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1012_OpeningCurlyBracketsMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1013_ClosingCurlyBracketsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\SA1018_NullableTypeSymbolsMustNotBePrecededBySpace.cs" />
     <Compile Include="CodeIssues\XmlDocCommentIssueLocator.cs" />
     <Compile Include="CodeIssues\Keywords.cs" />

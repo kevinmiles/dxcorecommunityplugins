@@ -24,12 +24,12 @@
         public SA1009_ClosingParenthesisMustBeSpacedCorrectly()
             : base(new AggregatedIssueLocator(new ICodeIssueLocator[]
                 {
-                    new AllTokensByTypePrecededByBannedElementIssueLocator(element => element.ElementTokens, CsTokenType.CloseParenthesis, CsTokenType.WhiteSpace),
-                    new AllTokensByTypePrecededByBannedElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), CsTokenType.CloseParenthesis, CsTokenType.WhiteSpace),
-                    new AllTokensFollowedByWhitespaceAndBannedElementIssueLocator(element => element.ElementTokens, (token, violation) => token.CsTokenType == CsTokenType.CloseParenthesis, isBannedFollower),
-                    new AllTokensFollowedByWhitespaceAndBannedElementIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens), (token, violation) => token.CsTokenType == CsTokenType.CloseParenthesis, isBannedFollower),
-                    new TypeCastFollowedByWhiteSpaceIssueLocator(element => element.ElementTokens),
-                    new TypeCastFollowedByWhiteSpaceIssueLocator(element => element.Attributes.SelectMany(attribute => attribute.ChildTokens)),
+                    new AllTokensByTypePrecededByBannedElementIssueLocator(ElementTokens, CsTokenType.CloseParenthesis, CsTokenType.WhiteSpace),
+                    new AllTokensByTypePrecededByBannedElementIssueLocator(AttributesTokens, CsTokenType.CloseParenthesis, CsTokenType.WhiteSpace),
+                    new AllTokensFollowedByWhitespaceAndBannedElementIssueLocator(ElementTokens, (token, violation) => token.CsTokenType == CsTokenType.CloseParenthesis, isBannedFollower),
+                    new AllTokensFollowedByWhitespaceAndBannedElementIssueLocator(AttributesTokens, (token, violation) => token.CsTokenType == CsTokenType.CloseParenthesis, isBannedFollower),
+                    new TypeCastFollowedByWhiteSpaceIssueLocator(ElementTokens),
+                    new TypeCastFollowedByWhiteSpaceIssueLocator(AttributesTokens),
                 }))
         {
         }
