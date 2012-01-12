@@ -117,6 +117,10 @@
     <Compile Include="CodeIssues\SA1011_ClosingSquareBracketsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\SA1012_OpeningCurlyBracketsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\SA1013_ClosingCurlyBracketsMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1014_OpeningGenericBracketsMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1015_ClosingGenericBracketsMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1016_OpeningAttributeBracketsMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1017_ClosingAttributeBracketsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\SA1018_NullableTypeSymbolsMustNotBePrecededBySpace.cs" />
     <Compile Include="CodeIssues\XmlDocCommentIssueLocator.cs" />
     <Compile Include="CodeIssues\Keywords.cs" />
