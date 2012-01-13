@@ -124,6 +124,8 @@
     <Compile Include="CodeIssues\SA1018_NullableTypeSymbolsMustNotBePrecededBySpace.cs" />
     <Compile Include="CodeIssues\SA1019_MemberAccessSymbolsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\SA1020_IncrementDecrementSymbolsMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1021_NegativeSignsMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1022_PositiveSignsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\XmlDocCommentIssueLocator.cs" />
     <Compile Include="CodeIssues\Keywords.cs" />
     <Compile Include="CodeIssues\LastTokenByTypeIssueLocator.cs" />
