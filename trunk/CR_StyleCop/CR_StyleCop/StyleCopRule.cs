@@ -11,7 +11,10 @@
     internal abstract class StyleCopRule : IStyleCopRule
     {
         private static readonly Func<CsElement, IEnumerable<CsToken>> elementTokens = element => element.ElementTokens;
-        private static readonly Func<CsElement, IEnumerable<CsToken>> attributesTokens = element => element.Attributes.SelectMany(attribute => attribute.ChildTokens);
+        
+        private static readonly Func<CsElement, IEnumerable<CsToken>> attributesTokens = element => element.Attributes != null 
+            ? element.Attributes.SelectMany(attribute => attribute.ChildTokens) 
+            : Enumerable.Empty<CsToken>();
         
         private readonly ICodeIssueLocator issueLocator;
 

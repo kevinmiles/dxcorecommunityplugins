@@ -483,7 +483,7 @@
 
         [Test]
         [CodeIssue(8, 18, 8, 20)]
-        [CodeIssue(9, 17, 9, 18)]
+        [CodeIssue(9, 17, 9, 19)]
         [CodeIssue(10, 26, 10, 27)]
         [CodeIssue(21, 18, 21, 19)]
         [CodeIssue(22, 17, 22, 18)]
@@ -493,6 +493,7 @@
         [CodeIssue(35, 29, 35, 31)]
         [CodeIssue(36, 28, 36, 30)]
         [CodeIssue(37, 28, 37, 30)]
+        [CodeIssue(48, 31, 48, 32)]
         public void SA1019_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
         {
             this.AssertSpecificCodeIssueExists("SA1019", startLine, startOffset, endLine, endOffset);

@@ -41,5 +41,12 @@ namespace CR_StyleCop.TestCode
 
             return x + day2 + day3 + day4 + day5;
         }
+
+        private int CalculateInt2()
+        {
+            return this.CalculateInt2()
+                .GetHashCode().
+                GetHashCode();
+        }
     }
 }
