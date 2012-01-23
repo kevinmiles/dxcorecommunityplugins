@@ -1,0 +1,16 @@
+#summary A Plugin to allow you to "Tab" between the attributes (and their values) contained within a html or xml tag.
+[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_AttributeTabber/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Created using CodeRush 11.2 =====
+=== Introduction ===
+
+This plugin allows you to use those Tab to Next Reference skillz to navigate between the attributes of a HTML or XML tag (including their values)
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_AttributeTabber/Screenshots/CR_AttributeTabber.gif 
+
+=== Usage ===
+Install as usual and use Tab or Shift+Tab to navigate.
+
+=== Credits ===
+
+Author: RoryBecker 
