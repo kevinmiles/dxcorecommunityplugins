@@ -9,7 +9,7 @@ This plugin allows you to use those Tab to Next Reference skillz to navigate bet
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_AttributeTabber/Screenshots/CR_AttributeTabber.gif 
 
 === Usage ===
-Install as usual and use Tab or Shift+Tab to navigate.
+Simply place your caret on an HTML\XML Attribute, and hit either Tab or Shift+Tab to navigate as usual.
 
 === Credits ===
 
