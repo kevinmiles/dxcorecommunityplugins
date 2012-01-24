@@ -14,9 +14,9 @@ namespace CR_StyleCop.TestCode
     /// <summary>
     /// Test code for SA1024 rule - colons must be spaced correctly.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1024 rule.")]
-    [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1107:CodeMustNotContainMultipleStatementsOnOneLine", Justification = "This is about SA1024 rule.")]
-    [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1003:SymbolsMustBeSpacedCorrectly", Justification = "This is about SA1024 rule.")]
+    [type : SuppressMessage("StyleCop.CSharp.DocumentationRules", "*", Justification = "This is about SA1024 rule.")]
+    [type:SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1107:CodeMustNotContainMultipleStatementsOnOneLine", Justification = "This is about SA1024 rule.")]
+    [type: SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1003:SymbolsMustBeSpacedCorrectly", Justification = "This is about SA1024 rule.")]
     public class SA1024TestCode
     {
         private void MethodName<T>(T param, int x)
