@@ -1,6 +1,6 @@
 [http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_RegionTabber/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Build using CodeRush 11.2.7 =====
+===== Build using !CodeRush 11.2.7 =====
 === Introduction ===
 This plugin provides an extension to the Tab-To-Next-Reference feature of !CodeRush.
 
