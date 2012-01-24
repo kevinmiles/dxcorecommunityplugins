@@ -35,7 +35,7 @@
             CsElement csElement)
         {
             CodeLocation issueLocation = null;
-            foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).Flatten())
+            foreach (var token in this.getTokens(csElement).Flatten().Where(x => x.LineNumber == violation.Line))
             {
                 if (this.reportIssueFor(token, violation))
                 {
