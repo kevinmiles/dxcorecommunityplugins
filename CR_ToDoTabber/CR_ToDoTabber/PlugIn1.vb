@@ -62,7 +62,12 @@ Public Class PlugIn1
             Dim Comments = CodeRush.Source.GetComments(TryCast(Document.FileNode, SourceFile))
             For Each Comment As Comment In Comments
                 If Comment.Name.StartsWith(StartPhrase) Then
-                    Dim CommentStartRange = New SourceRange(Comment.InternalRange.Start.OffsetPoint(0, 1), Comment.InternalRange.Start.OffsetPoint(0, StartPhrase.Length + 1))
+                    Dim CommentCharLength = CodeRush.Language.GetComment("", Comment.Document.Language).Trim.Length
+                    Dim WhiteSpaceLength = Comment.Name.IndexOf(Comment.Name.TrimStart.Substring(0, 1))
+                    Dim CommentStartPoint = CommentCharLength + WhiteSpaceLength
+                    Dim StartPoint As SourcePoint = Comment.Range.Start.OffsetPoint(0, CommentStartPoint)
+                    Dim Endpoint As SourcePoint = Comment.Range.Start.OffsetPoint(0, CommentStartPoint + StartPhrase.Trim.Length)
+                    Dim CommentStartRange = New SourceRange(StartPoint, Endpoint)
                     ea.AddRange(Comment.FileNode, CommentStartRange)
                 End If
             Next
