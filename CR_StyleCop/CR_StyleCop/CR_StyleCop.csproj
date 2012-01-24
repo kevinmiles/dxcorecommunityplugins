@@ -127,6 +127,7 @@
     <Compile Include="CodeIssues\SA1021_NegativeSignsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\SA1022_PositiveSignsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\SA1023_DereferenceAndAccessOfMustBeSpacedCorrectly.cs" />
+    <Compile Include="CodeIssues\SA1024_ColonsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\XmlDocCommentIssueLocator.cs" />
     <Compile Include="CodeIssues\Keywords.cs" />
     <Compile Include="CodeIssues\LastTokenByTypeIssueLocator.cs" />

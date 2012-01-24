@@ -541,6 +541,8 @@
         }
 
         [Test]
+        //[CodeIssue(17, 11, 17, 12)] // BUGBUG: in StyleCop parser
+        //[CodeIssue(18, 10, 18, 11)] // BUGBUG: in StyleCop parser
         [CodeIssue(30, 23, 30, 24)]
         [CodeIssue(31, 24, 31, 25)]
         [CodeIssue(32, 24, 32, 25)]
