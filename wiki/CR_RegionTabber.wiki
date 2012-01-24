@@ -1,0 +1,15 @@
+[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_RegionTabber/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Build using CodeRush 11.2.7 =====
+=== Introduction ===
+This plugin provides an extension to the Tab-To-Next-Reference feature of !CodeRush.
+
+Using this plugin you can now Tab between matching #Region and #End region directives.
+
+=== Usage ===
+Place your caret on a *#Region* or *#End Region* directive and hit the *Tab* or *Shift+Tab* key combination.
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RegionTabber/Screenshots/CR_RegionTabber.gif
+=== Credits ===
+
+Author: [RoryBecker] 
