@@ -1,0 +1,26 @@
+[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_ToDoTabber/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== built using CodeRush 11.2.7 =====
+=== Introduction ===
+This plugin extends the Tab-to-Next-Reference feature of CodeRush so that one may Tab through all comments which match a given pattern.
+
+The starting Pattern may be one of:
+
+// TODO: 
+
+// BUG:
+
+// FIXME: 
+
+In fact, CR_ToDoTabber requires only that your comment contain a : character.
+
+This being the case it will scan all characters up to that point, and then find all other comments in your solution which start in the same way and mark these for navigation, allowing you to tab through them to your hearts content.
+
+=== Usage ===
+
+Place your caret within the comment and press either Tab or Shift+Tab
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ToDoTabber/Screenshots/CR_ToDoTabber.gif
+=== Credits ===
+
+Author: [RoryBecker] 
