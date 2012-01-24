@@ -9,6 +9,8 @@ Using this plugin you can now Tab between matching #Region and #End region direc
 === Usage ===
 Place your caret on a *#Region* or *#End Region* directive and hit the *Tab* or *Shift+Tab* key combination.
 
+*Note: Currently this plugin is disabled when Region Paining is enabled.*
+
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RegionTabber/Screenshots/CR_RegionTabber.gif
 === Credits ===
 
