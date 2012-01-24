@@ -35,7 +35,7 @@
             CsElement csElement)
         {
             int predecessorFound = 0;
-            foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).Flatten())
+            foreach (var token in this.getTokens(csElement).Flatten().Where(x => x.LineNumber == violation.Line))
             {
                 if (predecessorFound == 2 && this.reportIssueFor(token, violation))
                 {

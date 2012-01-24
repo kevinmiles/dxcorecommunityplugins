@@ -43,7 +43,7 @@ namespace CR_StyleCop.CodeIssues
         {
             CsToken potentialViolation = null;
             bool whitespaceFound = false;
-            foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).Flatten())
+            foreach (var token in this.getTokens(csElement).Flatten().Where(x => x.LineNumber == violation.Line))
             {
                 if (potentialViolation != null && token.CsTokenType == CsTokenType.WhiteSpace)
                 {

@@ -36,7 +36,7 @@
         {
             bool specialPredecessorFound = true;
             bool whitespaceFound = false;
-            foreach (var token in this.getTokens(csElement).Where(x => x.LineNumber == violation.Line).Flatten())
+            foreach (var token in this.getTokens(csElement).Flatten().Where(x => x.LineNumber == violation.Line))
             {
                 if (!specialPredecessorFound && whitespaceFound && this.reportIssueFor(token, violation))
                 {
