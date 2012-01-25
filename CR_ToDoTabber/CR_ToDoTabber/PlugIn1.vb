@@ -61,7 +61,7 @@ Public Class PlugIn1
         For Each Document As TextDocument In CodeRush.Documents.AllSolutionTextDocuments
             Dim Comments = CodeRush.Source.GetComments(TryCast(Document.FileNode, SourceFile))
             For Each Comment As Comment In Comments
-                If Comment.Name.StartsWith(StartPhrase) Then
+                If Comment.Name.ToLower.StartsWith(StartPhrase.ToLower) Then
                     Dim CommentCharLength = CodeRush.Language.GetComment("", Comment.Document.Language).Trim.Length
                     Dim WhiteSpaceLength = Comment.Name.IndexOf(Comment.Name.TrimStart.Substring(0, 1))
                     Dim CommentStartPoint = CommentCharLength + WhiteSpaceLength
