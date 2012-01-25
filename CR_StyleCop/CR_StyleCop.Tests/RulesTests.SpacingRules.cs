@@ -557,10 +557,12 @@
         }
 
         [Test]
+        [CodeIssue(6, 10, 6, 12)]
+        [CodeIssue(10, 10, 10, 12)]
         [CodeIssue(18, 129, 18, 131)]
         [CodeIssue(24, 14, 24, 16)]
         [CodeIssue(32, 16, 32, 18)]
-        [CodeIssue(33, 28, 33, 20)]
+        [CodeIssue(33, 28, 33, 30)]
         [CodeIssue(33, 33, 33, 35)]
         [CodeIssue(36, 20, 36, 27)]
         public void SA1025_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)

@@ -3,11 +3,11 @@
 // </copyright>
 // <summary>Summary for the file</summary>
 
-namespace CR_StyleCop.TestCode
+namespace  CR_StyleCop.TestCode
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
+    using  System.Linq;
 
 #pragma warning disable 1591
 
@@ -18,7 +18,7 @@ namespace CR_StyleCop.TestCode
     [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1107:CodeMustNotContainMultipleStatementsOnOneLine", Justification =  "This is about SA1025 rule.")]
     public class SA1025TestCode
     {
-        private int x,  y;
+        private int x,  y; // not reported
 
         public SA1025TestCode()
             :  base()
@@ -27,7 +27,7 @@ namespace CR_StyleCop.TestCode
 
         private void MethodName(int x,  int y, bool condition)
         {
-            this.x = x;  this.y = y;
+            this.x = x;  this.y = y; // not reported
             x  = y; // not reported
             x =  y;
             y = condition ?  x :  y;
