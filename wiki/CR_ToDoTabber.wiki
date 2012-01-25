@@ -2,7 +2,7 @@
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== built using !CodeRush 11.2.7 =====
 === Introduction ===
-This plugin extends the Tab-to-Next-Reference feature of CodeRush so that one may Tab through all comments which match a given pattern.
+This plugin extends the Tab-to-Next-Reference feature of !CodeRush so that one may Tab through all comments which match a given pattern.
 
 The starting pattern may be one of:
 
