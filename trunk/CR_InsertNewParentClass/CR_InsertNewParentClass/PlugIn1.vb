@@ -45,7 +45,7 @@ Public Class PlugIn1
     Private Sub InsertNewParentClass_Execute(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
         Dim SourceClass As [Class] = TryCast(ea.CodeActive, [Class])
         Dim SourceClassName As String = SourceClass.Name
-        Dim NewAncestorClassName As String = SourceClass.Name & "Ancestor"
+        Dim NewAncestorClassName As String = SourceClass.Name & "Parent"
         Dim NewAncestorClass As New [Class](NewAncestorClassName)
         If Not SourceClass.PrimaryAncestorType Is Nothing Then
             '   Set Newclass = Abstract
