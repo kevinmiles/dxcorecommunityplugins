@@ -1,23 +1,25 @@
 #summary Provides a !CodeProvider to insert a new Parent class in the hierarchy above your current class
 [http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_InsertNewParentClass/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Built using CodeRush 11.2.7 =====
+===== Built using !CodeRush 11.2.7 =====
 === Introduction ===
 The existing *Create Ancestor* !CodeProvider that comes with !CodeRush does not function if the Class in question already has a code ancestor.
 
-This plugin is to fill that void.
-
-An animated picture often works better than words -> 
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_InsertNewParentClass/Screenshots/InsertNewParentClass.gif
+This plugin is intended to fill that void. 
 
 === Usage ===
 
  * Place your *caret* (`That blinky thing where text comes out in the editor`) in a *class declaration* (on it's name is good) 
  * Trigger the CodeRush\Refactor !SmartMenu. 
  * Choose *Insert New Parent Class*
-
+ * Name the generated class.
  * You're done :)
+
+An animated picture often works better than words -> 
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_InsertNewParentClass/Screenshots/InsertNewParentClass.gif
+
+
 
 === Credits ===
 
