@@ -3,17 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using DevExpress.CodeRush.Core;
     using DevExpress.CodeRush.StructuralParser;
     using StyleCop;
     using StyleCop.CSharp;
-    using DevExpress.CodeRush.Core;
 
     internal class SA1004_DocumentationLinesMustBeginWithSingleSpace : StyleCopRule
     {
         public SA1004_DocumentationLinesMustBeginWithSingleSpace()
             : base(new IssueLocator())
         {
-            
         }
 
         private class IssueLocator : ICodeIssueLocator

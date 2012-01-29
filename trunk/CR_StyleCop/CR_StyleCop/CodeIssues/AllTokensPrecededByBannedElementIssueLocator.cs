@@ -11,20 +11,27 @@
     internal class AllTokensPrecededByBannedElementIssueLocator : ICodeIssueLocator
     {
         private readonly Func<CsElement, IEnumerable<CsToken>> getTokens;
-        private readonly IEnumerable<CsTokenType> bannedPredecessors;
+        private readonly Func<CsToken, bool> isBannedPredecessor;
         private readonly Func<CsToken, Violation, bool> reportIssueFor;
 
         public AllTokensPrecededByBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, Func<CsToken, Violation, bool> predicate, params CsTokenType[] bannedPredecessors)
         {
             this.getTokens = getTokens;
-            this.bannedPredecessors = bannedPredecessors;
+            this.isBannedPredecessor = token => bannedPredecessors.Contains(token.CsTokenType);
             this.reportIssueFor = predicate;
         }
 
         public AllTokensPrecededByBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, Func<CsToken, Violation, bool> predicate, IEnumerable<CsTokenType> bannedPredecessors)
         {
             this.getTokens = getTokens;
-            this.bannedPredecessors = bannedPredecessors;
+            this.isBannedPredecessor = token => bannedPredecessors.Contains(token.CsTokenType);
+            this.reportIssueFor = predicate;
+        }
+
+        public AllTokensPrecededByBannedElementIssueLocator(Func<CsElement, IEnumerable<CsToken>> getTokens, Func<CsToken, Violation, bool> predicate, Func<CsToken, bool> isBannedPredecessor)
+        {
+            this.getTokens = getTokens;
+            this.isBannedPredecessor = isBannedPredecessor;
             this.reportIssueFor = predicate;
         }
 
@@ -42,7 +49,7 @@
                     predecessorFound = false;
                     yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, new SourceRange(token.Location.StartPoint.LineNumber, token.Location.StartPoint.IndexOnLine + 1, token.Location.EndPoint.LineNumber, token.Location.EndPoint.IndexOnLine + 2));
                 }
-                else if (this.bannedPredecessors.Contains(token.CsTokenType))
+                else if (this.isBannedPredecessor(token))
                 {
                     predecessorFound = true;
                 }

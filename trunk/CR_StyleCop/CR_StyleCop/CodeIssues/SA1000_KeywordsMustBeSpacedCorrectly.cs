@@ -49,7 +49,7 @@
                 { 
                     new AllTokensByTypeFollowedByBannedElementIssueLocator(ElementTokens, tokenTypesWithoutSpace, CsTokenType.WhiteSpace, CsTokenType.EndOfLine), 
                     new AllTokensByTypeNotFollowedByRequiredElementIssueLocator(ElementTokens, tokenTypesWithRequiredSpace, CsTokenType.WhiteSpace, CsTokenType.EndOfLine),
-                    new AllTokensByTypeNotPrecededByRequiredElementIssueLocator(ElementTokens, tokenTypesWithoutSpace.Concat(tokenTypesWithRequiredSpace), CsTokenType.WhiteSpace, CsTokenType.EndOfLine)
+                    new AllTokensByTypeNotPrecededByRequiredElementIssueLocator(ElementTokens, tokenTypesWithoutSpace.Concat(tokenTypesWithRequiredSpace), CsTokenType.WhiteSpace, CsTokenType.OpenParenthesis, CsTokenType.OpenSquareBracket)
                 }))
         {
         }
