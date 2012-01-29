@@ -14,6 +14,8 @@
             : base(new AggregatedIssueLocator(new ICodeIssueLocator[]
                 {
                     new IssueLocator(ElementTokens),
+                    new IssueLocator(AttributesTokens),
+                    new IssueLocator(XmlDocTokens),
                 }))
         {
         }
@@ -28,16 +30,43 @@
             }
 
             public IEnumerable<StyleCopCodeIssue> GetCodeIssues(
-                ISourceCode sourceCode, 
-                Func<ElementTypeFilter, IEnumerable<IElement>> enumerate, 
-                Violation violation, 
+                ISourceCode sourceCode,
+                Func<ElementTypeFilter, IEnumerable<IElement>> enumerate,
+                Violation violation,
                 CsElement csElement)
             {
-                foreach (var token in this.getTokens(csElement).Flatten().Where(x => x.LineNumber == violation.Line))
+                int tabSize = sourceCode is FileSourceCode ? 4 : CodeRush.VSSettings.GetTabSettings(ParserLanguageID.CSharp).TabSize;
+                int charIndex = 1;
+                int start = 0;
+                int end = 0;
+                bool inTabs = false;
+                foreach (char character in sourceCode.GetText(violation.Line))
                 {
-                    if (token.CsTokenType == CsTokenType.WhiteSpace && token.Text.Contains("\t"))
+                    if (character == '\t')
                     {
-                        yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, new SourceRange(token.Location.StartPoint.LineNumber, token.Location.StartPoint.IndexOnLine + 1, token.Location.EndPoint.LineNumber, token.Location.EndPoint.IndexOnLine + 2));
+                        if (inTabs)
+                        {
+                            end += tabSize;
+                        }
+                        else
+                        {
+                            start = charIndex;
+                            inTabs = true;
+                            end = charIndex + tabSize - ((charIndex - 1) % tabSize);
+                        }
+                    }
+                    else
+                    {
+                        if (inTabs)
+                        {
+                            inTabs = false;
+                            charIndex = end + 1;
+                            yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, new SourceRange(violation.Line, start, violation.Line, end));
+                        }
+                        else
+                        {
+                            charIndex++;
+                        }
                     }
                 }
             }

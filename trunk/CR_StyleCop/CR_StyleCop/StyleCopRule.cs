@@ -15,7 +15,11 @@
         private static readonly Func<CsElement, IEnumerable<CsToken>> attributesTokens = element => element.Attributes != null 
             ? element.Attributes.SelectMany(attribute => attribute.ChildTokens) 
             : Enumerable.Empty<CsToken>();
-        
+
+        private static readonly Func<CsElement, IEnumerable<CsToken>> xmlDocTokens = element => element.Header != null
+            ? element.Header.ChildTokens
+            : Enumerable.Empty<CsToken>();
+
         private readonly ICodeIssueLocator issueLocator;
 
         public StyleCopRule(ICodeIssueLocator issueLocator)
@@ -31,6 +35,11 @@
         public static Func<CsElement, IEnumerable<CsToken>> ElementTokens
         {
             get { return elementTokens; }
+        }
+
+        public static Func<CsElement, IEnumerable<CsToken>> XmlDocTokens
+        {
+            get { return xmlDocTokens; }
         }
 
         public void AddViolationIssue(CheckCodeIssuesEventArgs ea, ISourceCode sourceCode, Violation violation)

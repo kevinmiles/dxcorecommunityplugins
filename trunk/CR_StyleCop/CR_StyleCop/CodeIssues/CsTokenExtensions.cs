@@ -25,6 +25,12 @@ namespace CR_StyleCop.CodeIssues
                 return attributeToken.ChildTokens.SelectMany(child => Flatten(child));
             }
 
+            var xmlHeader = token as XmlHeader;
+            if (xmlHeader != null)
+            {
+                return xmlHeader.ChildTokens.SelectMany(child => Flatten(child));
+            }
+
             return Enumerable.Repeat(token, 1);
         }
     }
