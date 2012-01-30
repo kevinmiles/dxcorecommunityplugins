@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using DevExpress.CodeRush.Core;
     using DevExpress.CodeRush.StructuralParser;
     using StyleCop;
@@ -15,7 +16,24 @@
             Violation violation, 
             CsElement csElement)
         {
-            yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, new SourceRange(violation.Line, 1, violation.Line, Math.Max(2, sourceCode.LengthOfLine(violation.Line) + 1)));
+            CodePoint startPoint = null;
+            CodePoint endPoint = null;
+            foreach (var token in csElement.ElementTokens.Flatten().Where(x => x.LineNumber == violation.Line))
+            {
+                if (token.CsTokenType != CsTokenType.WhiteSpace && token.CsTokenType != CsTokenType.EndOfLine)
+                {
+                    if (startPoint == null)
+                    {
+                        startPoint = token.Location.StartPoint;
+                    }
+
+                    endPoint = token.Location.EndPoint;
+                }
+                else if (token.CsTokenType == CsTokenType.EndOfLine && startPoint != null && endPoint != null)
+                {
+                    yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, new SourceRange(startPoint.LineNumber, startPoint.IndexOnLine + 1, endPoint.LineNumber, endPoint.IndexOnLine + 2));
+                }
+            }
         }
     }
 }
