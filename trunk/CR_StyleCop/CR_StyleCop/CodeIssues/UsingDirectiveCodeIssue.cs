@@ -22,7 +22,7 @@ namespace CR_StyleCop.CodeIssues
                                   where token.LineNumber >= violation.Line
                                   select token)
             {
-                if (token.CsTokenType == CsTokenType.UsingDirective)
+                if (token.CsTokenType == CsTokenType.UsingDirective || token.CsTokenType == CsTokenType.Using)
                 {
                     startPoint = token.Location.StartPoint;
                     continue;
