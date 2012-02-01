@@ -29,12 +29,12 @@
         [CodeIssue(52, 21, 52, 30, "2")]
         [CodeIssue(57, 35, 57, 44, "2")]
         [CodeIssue(59, 30, 59, 44, "2")]
-        [CodeIssue(61, 10, 61, 25, "2")]
+        [CodeIssue(61, 9, 61, 25, "2")]
         [CodeIssue(65, 16, 65, 31, "2")]
         [CodeIssue(71, 21, 71, 33, "2")]
-        public void SA1201_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
+        public void SA1201_should_be_reported(int startLine, int startOffset, int endLine, int endOffset, string fileNameSuffix)
         {
-            this.AssertSpecificCodeIssueExists("SA1201", startLine, startOffset, endLine, endOffset);
+            this.AssertSpecificCodeIssueExists("SA1201", startLine, startOffset, endLine, endOffset, fileNameSuffix);
         }
 
         [Test]
