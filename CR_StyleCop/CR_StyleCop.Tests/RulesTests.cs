@@ -7,7 +7,6 @@
     using CR_StyleCop.Tests.Helpers;
     using DevExpress.CodeRush.StructuralParser;
     using MbUnit.Framework;
-    using System.Reflection;
     using StyleCop;
 
     [TestFixture]
@@ -43,7 +42,7 @@
 
         private void AssertSpecificCodeIssueExists(string ruleCheck, int startLine, int startOffset, int endLine, int endOffset, string fileNameSuffix)
         {
-            foreach (SourceFile file in files.Where(x => Path.GetFileName(x.Name) == string.Format("{0}TestCode{1}.cs", ruleCheck, fileNameSuffix)))
+            foreach (var file in files.Where(x => Path.GetFileName(x.Name) == string.Format("{0}TestCode{1}.cs", ruleCheck, fileNameSuffix)))
             {
                 var codeIssues = plugin.GetCodeIssuesFor(file);
                 Assert.Exists(
@@ -62,10 +61,10 @@
         {
             var method = typeof(RulesTests).GetMethod(ruleCheck + "_should_be_reported");
             var coveredCodeIssues = method.GetCustomAttributes(typeof(CodeIssueAttribute), false).Cast<CodeIssueAttribute>();
-            foreach (SourceFile file in files.Where(x => x.Name.EndsWith(string.Format("{0}TestCode.cs", ruleCheck))))
+            foreach (var file in files.Where(x => x.Name.StartsWith(string.Format("{0}TestCode", ruleCheck))))
             {
                 var codeIssues = plugin.GetCodeIssuesFor(file);
-                foreach (var codeIssue in codeIssues)
+                foreach (var codeIssue in codeIssues.Where(x => x.Message.StartsWith(ruleCheck)))
                 {
                     Assert.Exists(
                         coveredCodeIssues,
@@ -73,7 +72,7 @@
                             && x.StartOffset == codeIssue.Range.Start.Offset
                             && x.EndLine == codeIssue.Range.End.Line
                             && x.EndOffset == codeIssue.Range.End.Offset,
-                        "Not all occurances of {0} are covered with tests. Issue from line {1}, col {2} to line {3}, col {4} is not covered.",
+                        "Not all occurrences of {0} are covered with tests. Issue from line {1}, col {2} to line {3}, col {4} is not covered.",
                         ruleCheck,
                         codeIssue.Range.Start.Line,
                         codeIssue.Range.Start.Offset,
@@ -85,8 +84,8 @@
 
         private void AssertAllStyleCopReportedViolationsHaveCodeIssue(string ruleCheck)
         {
-            ViolationComparer comparer = new ViolationComparer();
-            foreach (SourceFile file in files.Where(x => x.Name.EndsWith(string.Format("{0}TestCode.cs", ruleCheck))))
+            var comparer = new ViolationComparer();
+            foreach (var file in files.Where(x => x.Name.StartsWith(string.Format("{0}TestCode", ruleCheck))))
             {
                 var codeIssues = plugin.GetCodeIssuesFor(file);
                 var violations = plugin.GetStyleCopViolations(file, ruleCheck);
