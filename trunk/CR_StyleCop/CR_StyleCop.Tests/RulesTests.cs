@@ -60,6 +60,11 @@
         private void AssertAllReportedCodeIssuesAreTested(string ruleCheck)
         {
             var method = typeof(RulesTests).GetMethod(ruleCheck + "_should_be_reported");
+            if (method == null)
+            {
+                return;
+            }
+
             var coveredCodeIssues = method.GetCustomAttributes(typeof(CodeIssueAttribute), false).Cast<CodeIssueAttribute>();
             foreach (var file in files.Where(x => x.Name.StartsWith(string.Format("{0}TestCode", ruleCheck))))
             {
