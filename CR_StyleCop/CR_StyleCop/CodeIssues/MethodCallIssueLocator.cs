@@ -26,12 +26,13 @@ namespace CR_StyleCop.CodeIssues
             CsElement csElement)
         {
             foreach (var element in from x in enumerate(new ElementTypeFilter(LanguageElementType.MethodCall))
-                                    where x.FirstNameRange.Start.Line == violation.Line
+                                    where x.FirstNameRange.Start.Line == violation.Line && x.Name == this.methodName
                                     select x)
             {
-                if (element.Name == this.methodName && this.qualifyParameters((MethodCall)element.ToLanguageElement()))
+                MethodCall methodCall = (MethodCall)element.ToLanguageElement();
+                if (this.qualifyParameters(methodCall))
                 {
-                    yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, element.FirstNameRange);
+                    yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, methodCall.Range);
                 }
             }
         }

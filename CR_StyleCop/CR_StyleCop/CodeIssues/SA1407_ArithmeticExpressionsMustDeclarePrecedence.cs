@@ -15,7 +15,7 @@
         {
         }
 
-        internal class IssueLocator : ICodeIssueLocator
+        private class IssueLocator : ICodeIssueLocator
         {
             private Dictionary<string, OperatorType> operators = new Dictionary<string, OperatorType>() 
             {
@@ -41,12 +41,18 @@
                                                                       || binaryOperation.RightSide.ElementType == LanguageElementType.BinaryOperatorExpression)
                                                                select binaryOperation)
                 {
-                    OperatorType parentType = operators[operation.Name];
-                    OperatorType leftChildType = operation.LeftSide.ElementType == LanguageElementType.BinaryOperatorExpression ? operators[operation.LeftSide.Name] : parentType;
-                    OperatorType rightChildType = operation.RightSide.ElementType == LanguageElementType.BinaryOperatorExpression ? operators[operation.RightSide.Name] : parentType;
-                    if (leftChildType != parentType || rightChildType != parentType)
+                    var parentType = operators[operation.Name];
+                    var leftChildType = operation.LeftSide.ElementType == LanguageElementType.BinaryOperatorExpression ? operators[operation.LeftSide.Name] : parentType;
+                    var rightChildType = operation.RightSide.ElementType == LanguageElementType.BinaryOperatorExpression ? operators[operation.RightSide.Name] : parentType;
+                    var isLeftModulo = operation.LeftSide.ElementType == LanguageElementType.BinaryOperatorExpression ? operation.LeftSide.Name == "%" : operation.Name == "%";
+                    var isRightModulo = operation.RightSide.ElementType == LanguageElementType.BinaryOperatorExpression ? operation.RightSide.Name == "%" : operation.Name == "%";
+                    if (rightChildType > parentType)
                     {
-                        yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, operation.RecoveredRange);
+                        yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, operation.RightSide.RecoveredRange);
+                    }
+                    else if (leftChildType > parentType || (leftChildType == rightChildType && isLeftModulo != isRightModulo))
+                    {
+                        yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, operation.LeftSide.RecoveredRange);
                     }
                 }
             }
@@ -54,10 +60,10 @@
 
         private enum OperatorType
         {
-            Sum,
-            Multiply,
-            Shift,
-            Modulo
+            Shift = 0,
+            Sum = 1,
+            Multiply = 2,
+            Modulo = 2
         }
     }
 }

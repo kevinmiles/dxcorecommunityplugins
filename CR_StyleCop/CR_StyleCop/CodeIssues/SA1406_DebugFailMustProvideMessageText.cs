@@ -15,23 +15,23 @@
             if (methodCall.ArgumentsCount < 1)
                 return true;
 
-            PrimitiveExpression doubleQuotesExpression = methodCall.Arguments[0] as PrimitiveExpression;
+            var doubleQuotesExpression = methodCall.Arguments[0] as PrimitiveExpression;
             if (doubleQuotesExpression != null
                 && doubleQuotesExpression.PrimitiveType == PrimitiveType.String
-                && doubleQuotesExpression.Name == "\"\"")
+                && (doubleQuotesExpression.Name == "\"\"" || doubleQuotesExpression.Name == "@\"\""))
                 return true;
 
-            PrimitiveExpression nullExpression = methodCall.Arguments[0] as PrimitiveExpression;
+            var nullExpression = methodCall.Arguments[0] as PrimitiveExpression;
             if (nullExpression != null
                 && nullExpression.PrimitiveType == PrimitiveType.Void
                 && nullExpression.Name == "null")
                 return true;
 
-            ElementReferenceExpression stringEmptyExpression = methodCall.Arguments[0] as ElementReferenceExpression;
+            var stringEmptyExpression = methodCall.Arguments[0] as ElementReferenceExpression;
             if (stringEmptyExpression != null
                 && stringEmptyExpression.Name == "Empty"
-                && stringEmptyExpression.DetailNodeCount == 1
-                && stringEmptyExpression.FirstDetail.Name.ToLowerInvariant() == "string")
+                && stringEmptyExpression.Qualifier != null
+                && stringEmptyExpression.Qualifier.Name.ToLowerInvariant() == "string")
                 return true;
 
             return false;
