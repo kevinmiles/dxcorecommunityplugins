@@ -30,19 +30,23 @@
                 Violation violation,
                 CsElement csElement)
             {
-                foreach (LogicalOperation operation in from x in enumerate(new ElementTypeFilter(LanguageElementType.LogicalOperation))
+                foreach (var operation in from x in enumerate(new ElementTypeFilter(LanguageElementType.LogicalOperation))
                                                        let logicalOperation = (LogicalOperation)x.ToLanguageElement()
                                                        where logicalOperation.RecoveredRange.Start.Line == violation.Line
                                                             && (logicalOperation.LeftSide.ElementType == LanguageElementType.LogicalOperation
                                                                  || logicalOperation.RightSide.ElementType == LanguageElementType.LogicalOperation)
                                                        select logicalOperation)
                 {
-                    OperatorType parentType = operators[operation.Name];
-                    OperatorType leftChildType = operation.LeftSide.ElementType == LanguageElementType.LogicalOperation ? operators[operation.LeftSide.Name] : parentType;
-                    OperatorType rightChildType = operation.RightSide.ElementType == LanguageElementType.LogicalOperation ? operators[operation.RightSide.Name] : parentType;
-                    if (leftChildType != parentType || rightChildType != parentType)
+                    var parentType = operators[operation.Name];
+                    var leftChildType = operation.LeftSide.ElementType == LanguageElementType.LogicalOperation ? operators[operation.LeftSide.Name] : parentType;
+                    var rightChildType = operation.RightSide.ElementType == LanguageElementType.LogicalOperation ? operators[operation.RightSide.Name] : parentType;
+                    if (rightChildType > parentType)
                     {
-                        yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, operation.RecoveredRange);
+                        yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, operation.RightSide.RecoveredRange);
+                    }
+                    else if (leftChildType > parentType)
+                    {
+                        yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, operation.LeftSide.RecoveredRange);
                     }
                 }
             }
@@ -50,8 +54,8 @@
 
         private enum OperatorType
         {
-            Or,
-            And
+            Or = 0,
+            And = 1
         }
     }
 }

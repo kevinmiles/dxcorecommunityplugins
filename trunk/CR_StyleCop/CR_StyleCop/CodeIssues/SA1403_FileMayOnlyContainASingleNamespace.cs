@@ -26,28 +26,26 @@
                 SourcePoint? startPoint = null;
                 SourcePoint? endPoint = null;
                 foreach (var token in from token in csElement.ElementTokens
-                                      where token.LineNumber >= violation.Line && token.CsTokenType != CsTokenType.WhiteSpace
+                                      where token.LineNumber == violation.Line && token.CsTokenType != CsTokenType.WhiteSpace
                                       select token)
                 {
                     if (token.CsTokenType == CsTokenType.Namespace)
                     {
                         startPoint = endPoint = new SourcePoint(token.Location.StartPoint.LineNumber, token.Location.StartPoint.IndexOnLine + 1);
-                        continue;
                     }
-
-                    if (token.CsTokenType == CsTokenType.OpenCurlyBracket)
+                    else if (token.CsTokenType == CsTokenType.OpenCurlyBracket || token.CsTokenType == CsTokenType.EndOfLine)
                     {
                         if (startPoint != null)
                         {
                             var sourceRange = new SourceRange(startPoint.Value, endPoint.Value);
                             yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, sourceRange);
                         }
-                    }
 
-                    if (startPoint != null)
+                        yield break;
+                    }
+                    else if (startPoint != null)
                     {
                         endPoint = new SourcePoint(token.Location.EndPoint.LineNumber, token.Location.EndPoint.IndexOnLine + 2);
-                        continue;
                     }
                 }
             }

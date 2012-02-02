@@ -18,7 +18,7 @@
             var doubleQuotesExpression = methodCall.Arguments[1] as PrimitiveExpression;
             if (doubleQuotesExpression != null 
                 && doubleQuotesExpression.PrimitiveType == PrimitiveType.String
-                && doubleQuotesExpression.Name == "\"\"")
+                && (doubleQuotesExpression.Name == "\"\"" || doubleQuotesExpression.Name == "@\"\""))
                 return true;
 
             var nullExpression = methodCall.Arguments[1] as PrimitiveExpression;
@@ -30,8 +30,8 @@
             var stringEmptyExpression = methodCall.Arguments[1] as ElementReferenceExpression;
             if (stringEmptyExpression != null
                 && stringEmptyExpression.Name == "Empty"
-                && stringEmptyExpression.DetailNodeCount == 1
-                && stringEmptyExpression.FirstDetail.Name.ToLowerInvariant() == "string")
+                && stringEmptyExpression.Qualifier != null
+                && stringEmptyExpression.Qualifier.Name.ToLowerInvariant() == "string")
                 return true;
 
             return false;
