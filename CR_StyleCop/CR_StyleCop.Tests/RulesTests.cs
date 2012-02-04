@@ -15,6 +15,11 @@
         private IEnumerable<SourceFile> files;
         private CR_StyleCopPlugIn plugin;
 
+        private int SortFile(SourceFile x, SourceFile y)
+        {
+            return x.Name.CompareTo(y.Name);
+        }
+
         [FixtureSetUp]
         public void SetUp()
         {
@@ -66,7 +71,7 @@
             }
 
             var coveredCodeIssues = method.GetCustomAttributes(typeof(CodeIssueAttribute), false).Cast<CodeIssueAttribute>();
-            foreach (var file in files.Where(x => x.Name.StartsWith(string.Format("{0}TestCode", ruleCheck))))
+            foreach (var file in files.Where(x => Path.GetFileName(x.Name).StartsWith(string.Format("{0}TestCode", ruleCheck))))
             {
                 var codeIssues = plugin.GetCodeIssuesFor(file);
                 foreach (var codeIssue in codeIssues.Where(x => x.Message.StartsWith(ruleCheck)))
@@ -90,7 +95,7 @@
         private void AssertAllStyleCopReportedViolationsHaveCodeIssue(string ruleCheck)
         {
             var comparer = new ViolationComparer();
-            foreach (var file in files.Where(x => x.Name.StartsWith(string.Format("{0}TestCode", ruleCheck))))
+            foreach (var file in files.Where(x => Path.GetFileName(x.Name).StartsWith(string.Format("{0}TestCode", ruleCheck))))
             {
                 var codeIssues = plugin.GetCodeIssuesFor(file);
                 var violations = plugin.GetStyleCopViolations(file, ruleCheck);

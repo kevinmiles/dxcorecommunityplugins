@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using CR_StyleCop;
     using DevExpress.CodeRush.Core;
     using DevExpress.CodeRush.StructuralParser;
     using StyleCop;
@@ -17,7 +16,7 @@
         {
         }
 
-        internal class IssueLocator : ICodeIssueLocator
+        private class IssueLocator : ICodeIssueLocator
         {
             private LanguageElementType[] deleteWhenEmpty = new LanguageElementType[]
             {
@@ -42,7 +41,7 @@
                                           && method.FirstChild == null
                                        select method)
                 {
-                    yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, method.RecoveredRange);
+                    yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, method.NameRange);
                 }
 
                 foreach (var statement in from x in enumerate(new ElementTypeFilter(deleteWhenEmpty))
