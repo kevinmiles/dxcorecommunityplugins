@@ -41,7 +41,6 @@
         public void Dispose()
         {
             this.styleCopConsole.ViolationEncountered -= this.OnViolationEncountered;
-            this.styleCopConsole.Dispose();
             this.styleCopConsole = null;
             this.environment = null;
             this.configuration = null;
@@ -75,7 +74,9 @@
         {
             try
             {
-                string settingsPath = Path.Combine(path, "Settings.StyleCop");
+                string settingsPath = path.EndsWith(Settings.DefaultFileName) || path.EndsWith(Settings.AlternateFileName)
+                    ? path
+                    : Path.Combine(path, Settings.DefaultFileName);
                 if (!File.Exists(settingsPath))
                 {
                     return null;
@@ -84,7 +85,7 @@
                 var document = new XmlDocument();
                 document.Load(settingsPath);
                 var writeTime = File.GetLastWriteTime(settingsPath);
-
+                
                 if (readOnly)
                 {
                     return new Settings(this.styleCopConsole.Core, settingsPath, document, writeTime);
