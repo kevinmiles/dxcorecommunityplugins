@@ -138,7 +138,7 @@
         [CodeIssue(17, 16, 17, 30)]
         [CodeIssue(25, 13, 25, 22)]
         [CodeIssue(29, 13, 29, 20)]
-        [CodeIssue(33, 13, 33, 24)]
+        [CodeIssue(33, 13, 33, 17)]
         [CodeIssue(37, 13, 37, 19)]
         [CodeIssue(41, 13, 41, 16)]
         [CodeIssue(44, 13, 44, 20)]

@@ -107,6 +107,7 @@
     <Compile Include="CodeIssues\FirstParameterIssueLocator.cs" />
     <Compile Include="CodeIssues\FirstTokenByTypeIssueLocator.cs" />
     <Compile Include="CodeIssues\FirstToLastTokenByTypeIssueLocator.cs" />
+    <Compile Include="CodeIssues\LanguageElementExtensions.cs" />
     <Compile Include="CodeIssues\LastXmlDocCommentIssueLocator.cs" />
     <Compile Include="CodeIssues\SA1000_KeywordsMustBeSpacedCorrectly.cs" />
     <Compile Include="CodeIssues\SA1001_CommasMustBeSpacedCorrectly.cs" />
