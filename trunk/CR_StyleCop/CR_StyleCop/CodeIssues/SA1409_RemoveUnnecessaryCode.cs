@@ -50,7 +50,7 @@
                                              && (statement.ElementType == LanguageElementType.Try || statement.FirstChild == null)
                                           select statement)
                 {
-                    yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, statement.RecoveredRange);
+                    yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, statement.GetKeywordRange());
                 }
             }
         }
