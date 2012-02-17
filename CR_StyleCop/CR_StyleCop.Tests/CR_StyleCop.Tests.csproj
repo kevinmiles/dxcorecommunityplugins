@@ -94,19 +94,17 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Build.Engine" />
-    <Reference Include="StyleCop, Version=0.0.0.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
-      <HintPath>..\packages\StyleCop.4.5.25.0\lib\net35\StyleCop.dll</HintPath>
+    <Reference Include="StyleCop, Version=4.7.10.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
+      <HintPath>..\packages\StyleCop.4.7.10.0\lib\StyleCop.dll</HintPath>
     </Reference>
-    <Reference Include="StyleCop.CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
-      <HintPath>..\packages\StyleCop.4.5.25.0\lib\net35\StyleCop.CSharp.dll</HintPath>
+    <Reference Include="StyleCop.CSharp, Version=4.7.10.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
+      <HintPath>..\packages\StyleCop.4.7.10.0\lib\StyleCop.CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="StyleCop.CSharp.Rules">
-      <HintPath>..\packages\StyleCop.4.5.25.0\lib\net35\StyleCop.CSharp.Rules.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="StyleCop.CSharp.Rules, Version=4.7.10.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\StyleCop.4.7.10.0\lib\StyleCop.CSharp.Rules.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -154,6 +152,11 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties CodeStyleEnforcer_Active="0" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
