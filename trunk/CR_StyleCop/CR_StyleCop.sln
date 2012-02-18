@@ -9,6 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_StyleCop.TestCode", "CR_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_StyleCop.Tests", "CR_StyleCop.Tests\CR_StyleCop.Tests.csproj", "{E610C68D-4EF1-4D07-82D6-0C39400C77A8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code Style Enforcer", "Code Style Enforcer", "{AF8603E4-5DB3-4BC0-81CD-F7C7183AECF7}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Documents and Settings\Ja\My Documents\Code Style Enforcer\CustomRules\ImplementationRules.xml = ..\..\..\Documents and Settings\Ja\My Documents\Code Style Enforcer\CustomRules\ImplementationRules.xml
+		..\..\..\Documents and Settings\Ja\My Documents\Code Style Enforcer\CustomRules\NameRules.xml = ..\..\..\Documents and Settings\Ja\My Documents\Code Style Enforcer\CustomRules\NameRules.xml
+		..\..\..\Documents and Settings\Ja\My Documents\Code Style Enforcer\CustomRules\VisibilityRules.xml = ..\..\..\Documents and Settings\Ja\My Documents\Code Style Enforcer\CustomRules\VisibilityRules.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,7 +71,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		CodeStyleEnforcer_Active = -1
 		CodeStyleEnforcer_RulesLocation = 0
+		CodeStyleEnforcer_Active = -1
 	EndGlobalSection
 EndGlobal

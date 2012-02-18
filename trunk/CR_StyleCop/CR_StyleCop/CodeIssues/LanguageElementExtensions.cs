@@ -13,22 +13,41 @@ namespace CR_StyleCop.CodeIssues
                     LanguageElementType.Unchecked,
                     LanguageElementType.Lock,
                     LanguageElementType.Try,
-                    LanguageElementType.Finally
+                    LanguageElementType.Finally,
+                    LanguageElementType.If,
+                    LanguageElementType.For,
+                    LanguageElementType.ForEach,
+                    LanguageElementType.While,
+                    LanguageElementType.Do,
                 };
 
         public static SourceRange GetKeywordRange(this LanguageElement element)
         {
+            return new SourceRange(element.RecoveredRange.Start, element.RecoveredRange.Start.OffsetPoint(0, element.GetKeywordLength()));
+        }
+
+        public static string GetKeyword(this LanguageElement element)
+        {
+            return element.ElementType.ToString().Replace("Statement", string.Empty).ToLowerInvariant();
+        }
+
+        private static int GetKeywordLength(this LanguageElement element)
+        {
             if (keywords.Contains(element.ElementType))
             {
-                return new SourceRange(element.RecoveredRange.Start, element.RecoveredRange.Start.OffsetPoint(0, element.ElementType.ToString().Length));
+                return element.ElementType.ToString().Length;
             }
             else if (element.ElementType == LanguageElementType.UnsafeStatement)
             {
-                return new SourceRange(element.RecoveredRange.Start, element.RecoveredRange.Start.OffsetPoint(0, 6));
+                return 6;
+            }
+            else if (element.ElementType == LanguageElementType.UsingStatement)
+            {
+                return 5;
             }
             else
             {
-                return element.NameRange;
+                return element.Name.Length;
             }
         }
     }
