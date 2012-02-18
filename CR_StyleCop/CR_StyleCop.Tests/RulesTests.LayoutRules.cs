@@ -39,7 +39,7 @@
         }
 
         [Test]
-        [CodeIssue(22, 17, 22, 74)]
+        [CodeIssue(22, 17, 22, 73)]
         [CodeIssue(25, 17, 25, 36)]
         [CodeIssue(28, 17, 28, 36)]
         [CodeIssue(31, 17, 31, 36)]
