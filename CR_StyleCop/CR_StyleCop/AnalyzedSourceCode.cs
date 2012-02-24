@@ -7,8 +7,8 @@
 
     internal class AnalyzedSourceCode : SourceCode
     {
-        private string codeToAnalyze;
-        private string path;
+        private readonly string codeToAnalyze;
+        private readonly string path;
 
         public AnalyzedSourceCode(CodeProject project, SourceParser parser, string path, string codeToAnalyze)
             : base(project, parser)
