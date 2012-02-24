@@ -20,16 +20,17 @@
             CodePoint endPoint = null;
             foreach (var token in csElement.ElementTokens.Flatten().Where(x => x.LineNumber == violation.Line))
             {
-                if (token.CsTokenType != CsTokenType.WhiteSpace && token.CsTokenType != CsTokenType.EndOfLine)
+                if (startPoint == null)
                 {
-                    if (startPoint == null)
-                    {
-                        startPoint = token.Location.StartPoint;
-                    }
-
+                    startPoint = token.Location.StartPoint;
                     endPoint = token.Location.EndPoint;
                 }
-                else if (token.CsTokenType == CsTokenType.EndOfLine && startPoint != null && endPoint != null)
+                
+                if (token.CsTokenType != CsTokenType.WhiteSpace && token.CsTokenType != CsTokenType.EndOfLine)
+                {
+                    endPoint = token.Location.EndPoint;
+                }
+                else if (token.CsTokenType == CsTokenType.EndOfLine)
                 {
                     yield return new StyleCopCodeIssue(CodeIssueType.CodeSmell, new SourceRange(startPoint.LineNumber, startPoint.IndexOnLine + 1, endPoint.LineNumber, endPoint.IndexOnLine + 2));
                 }

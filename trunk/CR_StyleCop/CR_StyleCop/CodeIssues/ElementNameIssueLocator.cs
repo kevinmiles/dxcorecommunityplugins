@@ -30,7 +30,11 @@ namespace CR_StyleCop.CodeIssues
         {
             foreach (var token in csElement.ElementTokens.Flatten().Where(
                 x => x.LineNumber == violation.Line
-                    && x.CsTokenType == CsTokenType.Other
+                    && (x.CsTokenType == CsTokenType.Other 
+                        || x.CsTokenType == CsTokenType.Add 
+                        || x.CsTokenType == CsTokenType.Remove 
+                        || x.CsTokenType == CsTokenType.Get 
+                        || x.CsTokenType == CsTokenType.Set)
                     && csElement.Name.Contains(x.Text)
                     && this.reportViolation(x)))
             {

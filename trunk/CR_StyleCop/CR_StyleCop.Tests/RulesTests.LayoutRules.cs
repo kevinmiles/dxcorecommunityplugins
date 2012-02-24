@@ -93,10 +93,10 @@
         }
 
         [Test]
-        [CodeIssue(11, 1, 11, 2)]
+        [CodeIssue(11, 1, 11, 3)]
         [CodeIssue(12, 1, 12, 5)]
-        [CodeIssue(21, 1, 21, 2)]
-        [CodeIssue(26, 1, 26, 2)]
+        [CodeIssue(21, 1, 21, 3)]
+        [CodeIssue(26, 1, 26, 3)]
         public void SA1507_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
         {
             this.AssertSpecificCodeIssueExists("SA1507", startLine, startOffset, endLine, endOffset);
@@ -216,14 +216,14 @@
         }
 
         [Test]
-        [CodeIssue(1, 1, 1, 2)]
+        [CodeIssue(1, 1, 1, 3)]
         public void SA1517_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
         {
             this.AssertSpecificCodeIssueExists("SA1517", startLine, startOffset, endLine, endOffset);
         }
 
         [Test]
-        [CodeIssue(18, 1, 18, 2)]
+        [CodeIssue(18, 1, 18, 3)]
         public void SA1518_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
         {
             this.AssertSpecificCodeIssueExists("SA1518", startLine, startOffset, endLine, endOffset);

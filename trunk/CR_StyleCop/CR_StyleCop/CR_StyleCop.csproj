@@ -136,6 +136,8 @@
     <Compile Include="CodeIssues\SA1026_CodeMustNotContainSpaceAfterNewKeywordInImplicitlyTypedArrayAllocation.cs" />
     <Compile Include="CodeIssues\SA1027_TabsMustNotBeUsed.cs" />
     <Compile Include="CodeIssues\SA1107_CodeMustNotContainMultipleStatementsOnOneLine.cs" />
+    <Compile Include="CodeIssues\SA1517_CodeMustNotContainBlankLinesAtStartOfFile.cs" />
+    <Compile Include="CodeIssues\SA1518_CodeMustNotContainBlankLinesAtEndOfFile.cs" />
     <Compile Include="CodeIssues\XmlDocCommentIssueLocator.cs" />
     <Compile Include="CodeIssues\Keywords.cs" />
     <Compile Include="CodeIssues\LastTokenByTypeIssueLocator.cs" />
