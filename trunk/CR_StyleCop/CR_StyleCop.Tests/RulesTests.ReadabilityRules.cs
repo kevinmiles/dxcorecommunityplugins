@@ -46,6 +46,7 @@
 
         [Test]
         [CodeIssue(26, 24, 26, 29)]
+        [CodeIssue(26, 41, 26, 47)]
         [CodeIssue(31, 24, 31, 30)]
         public void SA1103_should_be_reported(int startLine, int startOffset, int endLine, int endOffset)
         {
