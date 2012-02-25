@@ -12,8 +12,8 @@ namespace CR_StyleCop
         public FileSourceCode(string filePath)
         {
             this.filePath = filePath;
-            this.lines = File.ReadAllLines(filePath);
-            this.allCode = string.Join(Environment.NewLine, this.lines);
+            this.allCode = File.ReadAllText(filePath);
+            this.lines = this.allCode.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
         }
 
         public string FilePath
