@@ -18,16 +18,24 @@
         {
             CodePoint startPoint = null;
             CodePoint endPoint = null;
+            bool emptyLine = true;
             foreach (var token in csElement.ElementTokens.Flatten().Where(x => x.LineNumber == violation.Line))
             {
                 if (startPoint == null)
                 {
                     startPoint = token.Location.StartPoint;
                     endPoint = token.Location.EndPoint;
+                    emptyLine = token.CsTokenType == CsTokenType.WhiteSpace || token.CsTokenType == CsTokenType.EndOfLine;
                 }
                 
                 if (token.CsTokenType != CsTokenType.WhiteSpace && token.CsTokenType != CsTokenType.EndOfLine)
                 {
+                    if (emptyLine)
+                    {
+                        startPoint = token.Location.StartPoint;
+                        emptyLine = false;
+                    }
+
                     endPoint = token.Location.EndPoint;
                 }
                 else if (token.CsTokenType == CsTokenType.EndOfLine)
