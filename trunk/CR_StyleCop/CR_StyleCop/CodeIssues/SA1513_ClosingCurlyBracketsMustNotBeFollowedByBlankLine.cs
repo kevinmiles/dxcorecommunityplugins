@@ -6,7 +6,7 @@
     internal class SA1513_ClosingCurlyBracketsMustNotBeFollowedByBlankLine : StyleCopRule
     {
         public SA1513_ClosingCurlyBracketsMustNotBeFollowedByBlankLine()
-            : base(new LastTokenByTypeIssueLocator(CsTokenType.CloseCurlyBracket))
+            : base(new LastTokenByTypeIssueLocator(ElementTokens, CsTokenType.CloseCurlyBracket))
         {
         }
     }
