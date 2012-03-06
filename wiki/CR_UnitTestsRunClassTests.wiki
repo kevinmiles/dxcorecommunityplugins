@@ -30,7 +30,7 @@ Simply [http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/bind
 
 === Usage ===
 
-Invoke the provided actions using the bound shortcuts.
+Invoke the provided actions using the bound shortcuts from within a class which has a corresponding {{{_Test}}} class
 
 === Credits ===
 
