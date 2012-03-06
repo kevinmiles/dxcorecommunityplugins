@@ -13,6 +13,7 @@ Public Class PlugIn1
         MyBase.InitializePlugIn()
 
         Call CreateUnitTestsRunClassTests()
+        Call CreateUnitTestsDebugClassTests()
     End Sub
 #End Region
 #Region " FinalizePlugIn "
@@ -33,6 +34,21 @@ Public Class PlugIn1
         CType(UnitTestsRunClassTests, System.ComponentModel.ISupportInitialize).EndInit()
     End Sub
     Private Sub UnitTestsRunClassTests_Execute(ByVal ea As ExecuteEventArgs)
+        CodeRush.UnitTests.Execute(CType(GetTestClass(), TypeDeclaration))
+    End Sub
+    Public Sub CreateUnitTestsDebugClassTests()
+        Dim UnitTestsDebugClassTests As New DevExpress.CodeRush.Core.Action(components)
+        CType(UnitTestsDebugClassTests, System.ComponentModel.ISupportInitialize).BeginInit()
+        UnitTestsDebugClassTests.ActionName = "UnitTestsDebugClassTests"
+        UnitTestsDebugClassTests.ButtonText = "UnitTestsDebugClassTests" ' Used if button is placed on a menu.
+        UnitTestsDebugClassTests.RegisterInCR = True
+        AddHandler UnitTestsDebugClassTests.Execute, AddressOf UnitTestsDebugClassTests_Execute
+        CType(UnitTestsDebugClassTests, System.ComponentModel.ISupportInitialize).EndInit()
+    End Sub
+    Private Sub UnitTestsDebugClassTests_Execute(ByVal ea As ExecuteEventArgs)
+        CodeRush.UnitTests.Debug(CType(GetTestClass(), TypeDeclaration))
+    End Sub
+    Private Function GetTestClass() As TypeDeclaration
         Dim CurrentClass = CodeRush.Source.ActiveClass
         Dim ClassNameToFind As String = CurrentClass.Name
         Dim TestClass As TypeDeclaration = Nothing
@@ -47,8 +63,8 @@ Public Class PlugIn1
         If TestClass Is Nothing Then
             TestClass = FindTypeDeclaration(Function(c) c.Name = ClassNameToFind & "_Tests")
         End If
-        CodeRush.UnitTests.Execute(TestClass)
-    End Sub
+        Return TestClass
+    End Function
     Private Function AddTestsToFirstNameSpace(ByVal FullName As String) As String
         Dim Pos = FullName.IndexOf(".")
         Return FullName.Substring(0, Pos) & "_Tests" & FullName.Substring(Pos)
