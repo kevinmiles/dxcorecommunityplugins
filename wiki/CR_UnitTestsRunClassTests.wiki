@@ -1,0 +1,37 @@
+#summary Provides new actions to run or debug tests.
+[http://www.rorybecker.co.uk/DevExpress/Plugins/Community/CR_UnitTestsRunClassTests/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Built using DXCore 11.2 =====
+=== Introduction ===
+
+This plugin provides 2 new actions which may be bound to keys.
+
+These actions are *!UnitTestsRunClassTests* and *!UnitTestsDebugClassTests*.
+
+These function similarly to the other UnitTestsXXXXX actions, in that a given set of tests are either run or debugged depending on the action invoked.
+
+For the purpose of this plugin, !ClassTests refers to the set of Tests that are found within a class named after the original source class with a suffix of "_Tests"
+
+Therefore, when invoked from within a class '!MyClass', the plugin will look for a class called '!MyClass_Tests' and execute any tests within that class.
+
+The plugin will look for this class in several locations.
+{{{
+ - [OriginalNamespace].[SourceClass]_Tests (Original Project)
+ - [OriginalNamespace].[SourceClass]_Tests (Other Projects)
+ - [InitialOriginalNamespace]_Tests.[RemainingNamespace].[SourceClass]_Tests (Original Project)
+ - [InitialOriginalNamespace]_Tests.[RemainingNamespace].[SourceClass]_Tests (Other Projects)
+}}}
+If none of these are found, the plugin will search all classes in all solutions, looking for the first one called {{{[SourceClass]_Tests}}}
+
+The first of these, if any, to be found will have any tests found within it executed.
+
+=== Configuration ===
+Simply [http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx add bindings] to *!UnitTestsRunClassTests* and *!UnitTestsDebugClassTests*
+
+=== Usage ===
+
+Invoke the provided actions using the bound shortcuts.
+
+=== Credits ===
+
+Author: RoryBecker 
