@@ -14,6 +14,10 @@ Public Class PlugIn1
 
         Call CreateUnitTestsRunClassTests()
         Call CreateUnitTestsDebugClassTests()
+        Call LoadSettings()
+    End Sub
+    Private Sub LoadSettings()
+        mSettings = Options1.LoadSettingsFromStorage(Options1.Storage)
     End Sub
 #End Region
 #Region " FinalizePlugIn "
@@ -24,6 +28,7 @@ Public Class PlugIn1
     End Sub
 #End Region
 
+    Private mSettings As PluginSettings
     Public Sub CreateUnitTestsRunClassTests()
         Dim UnitTestsRunClassTests As New DevExpress.CodeRush.Core.Action(components)
         CType(UnitTestsRunClassTests, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -54,20 +59,20 @@ Public Class PlugIn1
         Dim TestClass As TypeDeclaration = Nothing
         If TestClass Is Nothing Then
             ' [Namespace].[Class]_Tests
-            TestClass = GetTypeDeclaration(CurrentClass.FullName & "_Tests")
+            TestClass = GetTypeDeclaration(CurrentClass.FullName & mSettings.TestClassSuffix)
         End If
         If TestClass Is Nothing Then
             ' [Namespace]_Tests.[Class]_Tests
-            TestClass = GetTypeDeclaration(AddTestsToFirstNameSpace(CurrentClass.FullName) & "_Tests")
+            TestClass = GetTypeDeclaration(AddTestsToFirstNameSpace(CurrentClass.FullName) & mSettings.TestClassSuffix)
         End If
         If TestClass Is Nothing Then
-            TestClass = FindTypeDeclaration(Function(c) c.Name = ClassNameToFind & "_Tests")
+            TestClass = FindTypeDeclaration(Function(c) c.Name = ClassNameToFind & mSettings.TestClassSuffix)
         End If
         Return TestClass
     End Function
     Private Function AddTestsToFirstNameSpace(ByVal FullName As String) As String
         Dim Pos = FullName.IndexOf(".")
-        Return FullName.Substring(0, Pos) & "_Tests" & FullName.Substring(Pos)
+        Return FullName.Substring(0, Pos) & mSettings.TestNamespaceSuffix & FullName.Substring(Pos)
     End Function
     Private Function GetTypeDeclaration(ByVal FullTypeName As String) As TypeDeclaration
         Dim FoundType = GetTypeInProject(FullTypeName, CodeRush.Source.ActiveProject)
@@ -102,4 +107,10 @@ Public Class PlugIn1
         Next
         Return Nothing
     End Function
+
+    Private Sub PlugIn1_OptionsChanged(ea As DevExpress.CodeRush.Core.OptionsChangedEventArgs) Handles Me.OptionsChanged
+        If ea.OptionsPages.Contains(GetType(Options1)) Then
+            Call LoadSettings()
+        End If
+    End Sub
 End Class

@@ -66,6 +66,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3, Version=11.2.8.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -100,12 +101,19 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Options1.Designer.vb">
+      <DependentUpon>Options1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Options1.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="PlugIn1.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PlugIn1.Designer.vb">
       <DependentUpon>PlugIn1.vb</DependentUpon>
     </Compile>
+    <Compile Include="PluginSettings.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +132,11 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Options1.resx">
+      <DependentUpon>Options1.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
