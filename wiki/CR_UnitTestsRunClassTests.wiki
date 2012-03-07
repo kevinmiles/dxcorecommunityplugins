@@ -28,6 +28,10 @@ The first of these, if any, to be found will have any tests found within it exec
 === Configuration ===
 Simply [http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx add bindings] to *!UnitTestsRunClassTests* and *!UnitTestsDebugClassTests*
 
+*Note* Since build 2174, there is now a configuration page in the option sscreen.
+
+Using this page you may configure alternative values for the *Test Class Suffix* and the *Test Namespace Suffix*
+
 === Usage ===
 
 Invoke the provided actions using the bound shortcuts from within a class which has a corresponding {{{_Test}}} class
