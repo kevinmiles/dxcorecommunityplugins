@@ -44,6 +44,30 @@ namespace MiniCodeColumn
         Rectangle last_code_rect = new Rectangle();
 
         System.Timers.Timer repaint_tool_window_timer;
+        System.Timers.Timer first_show_window_timer;
+
+        public CodeToolWindow()
+        {
+            // Required for Windows.Forms Class Composition Designer support
+            InitializeComponent();
+
+            first_show_window_timer = new System.Timers.Timer(3000);
+            first_show_window_timer.AutoReset = false;
+            first_show_window_timer.Elapsed += new System.Timers.ElapsedEventHandler(first_show_window_timer_Elapsed);
+            SetButtonImage();
+        }
+
+        void first_show_window_timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            try
+            {
+				first_show_window_timer.Dispose();
+				Show();
+            }
+            catch //(Exception ex)
+            {                
+            }
+        }
 
         // DXCore-generated code...
         #region InitializePlugIn
@@ -81,13 +105,9 @@ namespace MiniCodeColumn
         #region FinalizePlugIn
         public override void FinalizePlugIn()
         {
-            //
-            // TODO: Add your finalization code here.
-            //
             try
             {
                 DisposeGraphicElements();
-                //HideWindow().Close(EnvDTE.vsSaveChanges.vsSaveChangesYes);
             }
             catch //(Exception ex)
             {
@@ -108,7 +128,6 @@ namespace MiniCodeColumn
                         if (item.Caption.ToUpperInvariant() == "MINICODECOLUMN")
                         {
                             IMenuButton btn = item as IMenuButton;
-
                             btn.Face = Image;
                         }
                     }

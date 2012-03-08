@@ -9,12 +9,6 @@ namespace MiniCodeColumn
         private System.ComponentModel.IContainer components = null;
         private DevExpress.DXCore.PlugInCore.DXCoreEvents events;
 
-        public CodeToolWindow()
-        {
-            // Required for Windows.Forms Class Composition Designer support
-            InitializeComponent();
-        }
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>

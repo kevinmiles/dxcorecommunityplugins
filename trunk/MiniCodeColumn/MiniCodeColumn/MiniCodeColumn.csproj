@@ -136,7 +136,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>if "%25USERDOMAIN%25"=="RalfNB" (
+    <PostBuildEvent>if "%25USERDOMAIN%25"=="WarnatNB" (
 copy /Y "$(TargetPath)" "D:\DevExpress.PlugIns\PlugIns\"
 copy /Y "$(TargetDir)$(TargetName).pdb" "D:\DevExpress.PlugIns\PlugIns\"
 )
