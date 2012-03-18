@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using DevExpress.CodeRush.StructuralParser;
+using System.Reflection;
 
 namespace CR_ImportNamespace
 {
@@ -18,6 +19,8 @@ namespace CR_ImportNamespace
     int namespaceIndex;
 
     ProjectElement referenceProject;
+
+    string _AssemblyFilePath;
 
     public AssemblyNamespace()
     {
@@ -108,6 +111,38 @@ namespace CR_ImportNamespace
       }
     }
 
+    public string GetReferenceName()
+    {
+      string referenceName = String.Empty;
+      if (IsProjectReference)
+        return ReferenceProject.Name;
+      else if (!String.IsNullOrEmpty(AssemblyFilePath))
+        return AssemblyFilePath;
+      else
+        return Assembly;
+    }
+
+    public string GetFullAssemblyName()
+    {
+      string referenceName = String.Empty;
+      try
+      {
+        if (IsProjectReference)
+          return ReferenceProject.Name;
+        else if (!String.IsNullOrEmpty(AssemblyFilePath))
+        {
+          AssemblyName name = AssemblyName.GetAssemblyName(AssemblyFilePath);
+          return name.FullName;
+        }
+        else
+          return Assembly;
+      }
+      catch (Exception ex)
+      {
+        return String.Empty;
+      }
+    }
+
     // public properties...
     public string Assembly
     {
@@ -145,6 +180,12 @@ namespace CR_ImportNamespace
           namespaceCache.Add(value);
         }
       }
+    }
+
+    public string AssemblyFilePath
+    {
+      get { return _AssemblyFilePath; }
+      set { _AssemblyFilePath = value; }
     }
 
     public bool IsProjectReference

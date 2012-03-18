@@ -130,22 +130,28 @@ namespace CR_ImportNamespace
       return extVersion;
     }
 
+    string GetIdentifierAtCaret()
+    {
+      Word word;
+      GetWordResult result = CodeRush.TextViews.Active.GetTokenAt(CodeRush.Caret.SourcePoint, out word);
+      if (result == GetWordResult.Success && word.IsIdentifier)
+        return word.Text;
+      return null;
+    }
+
     void ImportNamespace()
     {
       SolutionElement activeSolution = CodeRush.Source.ActiveSolution;
       if (activeSolution == null || activeSolution.ProjectElements == null || activeSolution.ProjectElements.Count == 0)
         return;
 
-      Word word;
-      GetWordResult result = CodeRush.TextViews.Active.GetTokenAt(CodeRush.Caret.SourcePoint, out word);
       AssemblyNamespaceList matchingTypes = null;
-
-      if (result == GetWordResult.Success && word.IsIdentifier)
+      string identifierAtCaret = GetIdentifierAtCaret();
+      if (!String.IsNullOrEmpty(identifierAtCaret))
       {
         ProjectElement activeProject = CodeRush.Source.ActiveProject;
-
         if (activeProject != null)
-          matchingTypes = GetMatchingTypes(activeProject, word.Text);
+          matchingTypes = GetMatchingTypes(activeProject, identifierAtCaret);
       }
 
       if (matchingTypes == null || matchingTypes.Count <= 0)
@@ -176,6 +182,20 @@ namespace CR_ImportNamespace
         projectReferences.Add(reference);
       }
       return projectReferences;
+    }
+    static List<AssemblyReference> GetAssemblyReferences(ProjectElement project)
+    {
+      if (project == null)
+        return null;
+      List<AssemblyReference> references = new List<AssemblyReference>();
+      foreach (AssemblyReference reference in project.AssemblyReferences)
+      {
+        if (String.IsNullOrEmpty(reference.FilePath))
+          continue;
+        if (!reference.IsProjectReference)
+          references.Add(reference);
+      }
+      return references;
     }
     static List<AssemblyReference> GetAllProjectReferences(ProjectElement project)
     {
@@ -225,12 +245,34 @@ namespace CR_ImportNamespace
       if (sourceModel == null)
         return result.ToArray();
       IElementCollection allTypes = sourceModel.GetAllTypes();
-      foreach (IElement element in allTypes)
+      AddAllTypes(result, allTypes);
+      return result.ToArray();
+    }
+    static void AddAllTypes(List<ITypeElement> typeList, IElementCollection types)
+    {
+      foreach (IElement element in types)
       {
         ITypeElement typeElement = element as ITypeElement;
         if (typeElement == null)
           continue;
-        result.Add(typeElement);
+        typeList.Add(typeElement);
+      }
+    }
+    static ITypeElement[] GetTypesDeclaredInAssembly(AssemblyReference assemblyReference)
+    {
+      List<ITypeElement> result = new List<ITypeElement>();
+      if (assemblyReference == null)
+        return result.ToArray();
+      MetaDataAssemblyModel assemblyModel = assemblyReference.AssemblyModel as MetaDataAssemblyModel;
+      if (assemblyModel == null)
+        return result.ToArray();
+      
+      IElementCollection rootElements = assemblyModel.RootElements;
+      foreach (IElement element in rootElements)
+      {
+        IElementCollection allTypes = ElementCollector.Collect(element, DefaultElementFilters.Type);
+        if (allTypes != null)
+          AddAllTypes(result, allTypes);
       }
       return result.ToArray();
     }
@@ -288,12 +330,59 @@ namespace CR_ImportNamespace
       }
       return result;
     }
+    static TypeToAssemblyNamespaceMap ScanAssemblyReferenceTypes(List<AssemblyReference> assemblyReferences)
+    {
+      TypeToAssemblyNamespaceMap result = new TypeToAssemblyNamespaceMap();
+      if (assemblyReferences == null)
+        return result;
+
+      foreach (AssemblyReference assemblyReference in assemblyReferences)
+      {
+        ITypeElement[] types = GetTypesDeclaredInAssembly(assemblyReference);
+        if (types == null)
+          continue;
+
+        foreach (ITypeElement typeElement in types)
+        {
+          if (typeElement == null)
+            continue;
+
+          if (typeElement.ParentNamespace == null)
+            continue;
+          
+          string typeNamespace = typeElement.ParentNamespace.FullName;
+          if (String.IsNullOrEmpty(typeNamespace))
+            continue;
+
+          AssemblyNamespaceList namespaceList;
+          if (!result.TryGetValue(typeElement.Name, out namespaceList))
+          {
+            namespaceList = new AssemblyNamespaceList();
+            result.Add(typeElement.Name, namespaceList);
+          }
+
+          AssemblyNamespace nameSpace = new AssemblyNamespace();
+          nameSpace.AssemblyFilePath = assemblyReference.FilePath;
+          nameSpace.Namespace = typeNamespace;
+          namespaceList.Add(nameSpace);
+        }
+      }
+      return result;
+    }
     static TypeToAssemblyNamespaceMap GetTypeToProjectReferenceNamespaceMap(ProjectElement project)
     {
       if (project == null)
         return null;
       List<ProjectElement> projectsToGetTypes = GetProjectsToScanForType(project);
       return ScanProjectTypes(projectsToGetTypes);
+    }
+
+    static TypeToAssemblyNamespaceMap GetTypeToAssemblyReferenceNamespaceMap(ProjectElement project)
+    {
+      if (project == null)
+        return null;
+      List<AssemblyReference> assemblyReferences = GetAssemblyReferences(project);
+      return ScanAssemblyReferenceTypes(assemblyReferences);
     }
 
     // private static methods...
@@ -341,7 +430,10 @@ namespace CR_ImportNamespace
         return;
 
       if (!assemblyNamespace.IsProjectReference)
-        AddReference(envDteProject, assemblyNamespace.Assembly);
+      {
+        string referenceName = assemblyNamespace.GetReferenceName();
+        AddReference(envDteProject, referenceName);
+      }
       else
         AddProjectReference(envDteProject, assemblyNamespace.ReferenceProject);
       CodeRush.Source.DeclareNamespaceReference(assemblyNamespace.Namespace);
@@ -352,6 +444,20 @@ namespace CR_ImportNamespace
       NamespacesResult projectTypesResult = new NamespacesResult();
       projectTypesResult.State = LoadState.TypeNotFound;
       TypeToAssemblyNamespaceMap projectsTypeMap = GetTypeToProjectReferenceNamespaceMap(project);
+      AssemblyNamespaceList projectsNamespaceList;
+      if (projectsTypeMap != null && projectsTypeMap.TryGetValue(typeName, project.IsCaseSensitiveLanguage, out projectsNamespaceList))
+      {
+        projectTypesResult.State = LoadState.TypeFound;
+        projectTypesResult.Namespaces = projectsNamespaceList;
+      }
+      return projectTypesResult;
+    }
+
+    static NamespacesResult GetNamespaceFromReferencedAssemblies(ProjectElement project, string typeName)
+    {
+      NamespacesResult projectTypesResult = new NamespacesResult();
+      projectTypesResult.State = LoadState.TypeNotFound;
+      TypeToAssemblyNamespaceMap projectsTypeMap = GetTypeToAssemblyReferenceNamespaceMap(project);
       AssemblyNamespaceList projectsNamespaceList;
       if (projectsTypeMap != null && projectsTypeMap.TryGetValue(typeName, project.IsCaseSensitiveLanguage, out projectsNamespaceList))
       {
@@ -373,7 +479,11 @@ namespace CR_ImportNamespace
       ExtendedFrameworkVersion frameworkVersion = GetExtendedFrameworkVersion(project);
       NamespacesResult dotNetTypesResult = _DotNetTypes.FastGetNamespaces(typeName, project.IsCaseSensitiveLanguage, frameworkVersion);
 
-      return CombineResults(projectTypesResult, dotNetTypesResult);
+      NamespacesResult projectAndDotNetTypes = CombineResults(projectTypesResult, dotNetTypesResult);
+
+      NamespacesResult referencesAssembliesTypesResult = GetNamespaceFromReferencedAssemblies(project, typeName);
+
+      return projectAndDotNetTypes = CombineResults(projectAndDotNetTypes, referencesAssembliesTypesResult);
     }
 
     static NamespacesResult CombineResults(NamespacesResult first, NamespacesResult second)
@@ -450,7 +560,11 @@ namespace CR_ImportNamespace
       IAssemblyPathsProvider pathsProvider = new DefaultAssemblyPathsProvider();
       TypeToAssemblyNamespaceMap dotNetTypesInThisFramework = _DotNetTypes.GetTypeToAssemblyMap(pathsProvider, frameworkVersion);
       if (!dotNetTypesInThisFramework.ContainsKey(typeName, caseSensitive))
-        return null;
+      {
+        NamespacesResult referencesAssembliesTypesResult = GetNamespaceFromReferencedAssemblies(project, typeName);
+        if (referencesAssembliesTypesResult.State == LoadState.TypeFound)
+          return referencesAssembliesTypesResult.Namespaces;
+      }
       return dotNetTypesInThisFramework.GetNamespaceList(typeName, caseSensitive);
     }
 
@@ -472,6 +586,29 @@ namespace CR_ImportNamespace
       }
     }
 
+    bool IsCaretOnDeclaredType(CheckContentAvailabilityEventArgs ea, out string typeName)
+    {
+      typeName = null;
+      IReferenceExpression referenceExpression = ea.Element as IReferenceExpression;
+      if (referenceExpression != null)
+      {
+        IElement declaration = referenceExpression.GetDeclaration();
+        if (declaration != null)
+          return true;
+        typeName = ea.Element.Name;
+      }
+      else
+      {
+        typeName = GetIdentifierAtCaret();
+        if (String.IsNullOrEmpty(typeName))
+          return true;
+        IElement declaration = ParserServices.SourceTreeResolver.ResolveType(ea.Element, typeName);
+        if (declaration != null)
+          return true;
+      }
+      return false;
+    }
+
     // event handlers...
     void actImportNamespace_Execute(ExecuteEventArgs ea)
 		{
@@ -479,18 +616,20 @@ namespace CR_ImportNamespace
 		}
     void cpImportNamespace_CheckAvailability(object sender, CheckContentAvailabilityEventArgs ea)
     {
-      TypeReferenceExpression typeReferenceExpression = ea.Element as TypeReferenceExpression;
-      if (typeReferenceExpression == null)
+      if (ea.Element == null)
         return;
 
-      IElement declaration = typeReferenceExpression.GetDeclaration();
-      string typeName = ea.Element.Name;
-      if (declaration != null)
+      ProjectElement project = ea.Element.Project as ProjectElement;
+      if (project == null)
+        return;
+
+      string typeName;
+      if (IsCaretOnDeclaredType(ea, out typeName))
         return;
 
       TryLoadTypesCache();
 
-      NamespacesResult namespaceResult = FastGetNamespaces(typeReferenceExpression.Project as ProjectElement, typeName);
+      NamespacesResult namespaceResult = FastGetNamespaces(project as ProjectElement, typeName);
       LoadState state = namespaceResult.State;
       AssemblyNamespaceList namespaces = namespaceResult.Namespaces;
       if (state == LoadState.NoActiveProject || state == LoadState.TypeNotFound)
