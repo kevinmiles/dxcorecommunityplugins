@@ -36,12 +36,7 @@ namespace CR_ImportNamespace
       if (assemblyNamespace == null)
         return;
 
-      string referenceName = String.Empty;
-      if (assemblyNamespace.IsProjectReference)
-        referenceName = assemblyNamespace.ReferenceProject.Name;
-      else
-        referenceName = assemblyNamespace.Assembly;
-
+      string referenceName = assemblyNamespace.GetFullAssemblyName();
       string hashStr = String.Concat(referenceName, assemblyNamespace.Namespace);
       int hashCode = hashStr.GetHashCode();
       if (_HashSet.Contains(hashCode))
