@@ -14,6 +14,11 @@ http://www.virgotech.pl/wp-content/uploads/2010/08/EasyGoto_01.png
 
 http://www.virgotech.pl/wp-content/uploads/2010/08/EasyGoto_02.png
 
+= History =
+
+  * 15.08.2010 - First version released to public.
+
 = Credits =
 
-Krzysztof Blacha - You can contact me at krzysztof.blacha@gmail.com
+Krzysztof Blacha
+You can contact me at krzysztof.blacha@gmail.com
