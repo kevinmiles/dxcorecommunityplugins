@@ -103,4 +103,5 @@ http://www.virgotech.pl/wp-content/uploads/2010/08/ConvertToXPoProp_03.png
 
 = Credits =
 
-Krzysztof Blacha - You can contact me at krzysztof.blacha@gmail.com
+Krzysztof Blacha
+You can contact me at krzysztof.blacha@gmail.com
