@@ -15,7 +15,7 @@ Namespace SA12XX
         Public Function Qualifies_SA1200(ByVal Element As IElement) As Boolean
             ' GetNamespaceReference
             Dim IsReference = Element.ElementType = LanguageElementType.NamespaceReference
-            Dim PoorlyParented = Element.Parent.ElementType <> LanguageElementType.Namespace
+            Dim PoorlyParented = Element.Parent isnot Nothing andalso Element.Parent.ElementType <> LanguageElementType.Namespace
             Return IsReference AndAlso PoorlyParented
         End Function
 
@@ -36,8 +36,8 @@ Namespace SA12XX
         End Sub
         Private Function GetCombinedBlockRange(ByVal NamespaceReferences As System.Collections.Generic.IEnumerable(Of LanguageElement)) As SourceRange
             Dim Result As SourceRange
-            Result.Start = NamespaceReferences.First.GetFullBlockCutRange.Start
-            Result.End = NamespaceReferences.Last.GetFullBlockCutRange.End
+            Result.Start = NamespaceReferences.First.Range.Start
+            Result.End = NamespaceReferences.Last.Range.Start.OffsetPoint(1,0)
             Return Result
         End Function
 
