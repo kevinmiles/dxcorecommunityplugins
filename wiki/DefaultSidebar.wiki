@@ -36,6 +36,7 @@
     * [DX_TabNav]
     * [CR_StringFormatter]
     * [CR_PrimitiveTab]
+    * [CR_EasyGoto]
   * Decorative Plugins
     * [CR_MethodPreview]
     * [CR_MetricShader]
