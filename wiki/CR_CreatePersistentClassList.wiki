@@ -33,8 +33,6 @@ namespace SampleProject
 
 and use it to generate this:
 
-Sample output (file B.cs):
-
 {{{
 namespace SampleProject
 {
