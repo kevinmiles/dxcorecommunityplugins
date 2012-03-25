@@ -14,6 +14,7 @@
     * [Refactor_Generalize]
     * [Refactor_Resolve]
     * [Refactor_ConvertToXPOProperty]
+    * [Refactor_MoveTypesToFiles]
   * Code Plugins
     * [DX_MoveCode]
   * !CodeIssue Plugins
