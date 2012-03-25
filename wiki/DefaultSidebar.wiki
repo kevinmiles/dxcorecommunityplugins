@@ -17,6 +17,7 @@
     * [Refactor_MoveTypesToFiles]
   * Code Plugins
     * [DX_MoveCode]
+    * [CR_CreatePartialClasses]
   * !CodeIssue Plugins
     * [CR_StackOverflowIssues]
     * [CR_StyleNinja]
@@ -57,6 +58,7 @@
     * [XPO_EasyFields]
     * [CR_CreatePersistentClassList]
     * [Refactor_ConvertToXPOProperty]
+    * [CR_CreatePartialClasses]
   * Misc Plugins
     * [DX_GuidGen]
     * [CR_SmartQuotes]
