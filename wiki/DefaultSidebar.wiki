@@ -13,6 +13,7 @@
     * [Refactor_FormatAssignments]
     * [Refactor_Generalize]
     * [Refactor_Resolve]
+    * [Refactor_ConvertToXPOProperty]
   * Code Plugins
     * [DX_MoveCode]
   * !CodeIssue Plugins
@@ -54,6 +55,7 @@
   * XPO Plugins
     * [XPO_EasyFields]
     * [CR_CreatePersistentClassList]
+    * [Refactor_ConvertToXPOProperty]
   * Misc Plugins
     * [DX_GuidGen]
     * [CR_SmartQuotes]
