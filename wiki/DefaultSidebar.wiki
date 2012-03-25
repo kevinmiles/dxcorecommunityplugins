@@ -52,6 +52,7 @@
     * [Impromptu]
   * XPO Plugins
     * [XPO_EasyFields]
+    * [CR_CreatePersistentClassList]
   * Misc Plugins
     * [DX_GuidGen]
     * [CR_SmartQuotes]
