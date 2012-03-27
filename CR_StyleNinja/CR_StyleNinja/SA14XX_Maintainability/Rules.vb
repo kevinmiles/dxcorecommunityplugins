@@ -160,7 +160,7 @@ Namespace SA14XX
                 Return False
             End If
             Return MethodCall.GetDeclaration.FullName = "System.Diagnostics.Debug.Assert" _
-            AndAlso Not MethodCall.DetailNodes.OfType(Of Param).Count = 1 ' No Message
+            AndAlso MethodCall.DetailNodes.Count = 1 ' No Message
         End Function
         ' No fix possible
 #End Region

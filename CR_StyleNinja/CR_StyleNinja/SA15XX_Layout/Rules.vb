@@ -25,7 +25,7 @@ Namespace SA15XX
             ea.Available = Qualifies_SA1507(ea.Caret.Line)
         End Sub
         Public Function Qualifies_SA1507(ByVal Line As Integer) As Boolean
-            Return LineIsBlank(Line) AndAlso LineIsBlank(Line - 1)
+            Return Line > 1 AndAlso LineIsBlank(Line) AndAlso LineIsBlank(Line - 1)
         End Function
         Private Function LineIsBlank(ByVal Line As Integer) As Boolean
             Return CodeRush.Documents.GetLineAt(Line).Trim = String.Empty
