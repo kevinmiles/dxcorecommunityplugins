@@ -15,8 +15,8 @@ Public Module LanguageElementExt
 
     <Extension()> _
     Friend Function IsHungarian(ByVal Source As String) As Boolean
-        Return (Char.IsLower(Source.First) AndAlso Char.IsUpper(Source.Skip(1).First)) _
-        OrElse (Char.IsLower(Source.First) AndAlso Char.IsLower(Source.Skip(1).First) AndAlso Char.IsUpper(Source.Skip(2).First))
+        Return Source.Length > 2 andalso (Char.IsLower(Source.First) AndAlso Char.IsUpper(Source.Skip(1).First)) _
+        OrElse Source.Length > 3 andalso (Char.IsLower(Source.First) AndAlso Char.IsLower(Source.Skip(1).First) AndAlso Char.IsUpper(Source.Skip(2).First))
     End Function
     <Extension()> _
     Public Function GenerateCode(ByVal Source As LanguageElement) As String
