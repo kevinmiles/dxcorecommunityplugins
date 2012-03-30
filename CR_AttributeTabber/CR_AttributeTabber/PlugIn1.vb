@@ -24,8 +24,7 @@ Public Class PlugIn1
 
 #Region "Utility"
     Private Function IsOnHTMLXMLAttribute(ByRef Attribute As HtmlAttribute) As Boolean
-
-        Dim ActiveElement As LanguageElement = CodeRush.Source.Active
+        Dim ActiveElement As LanguageElement = TryCast(CodeRush.Source.Active, HtmlAttribute)
         If ActiveElement Is Nothing Then
             Return False
         End If
