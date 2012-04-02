@@ -43,8 +43,14 @@ Public Class PlugIn1
 
         ' Remove once supported by DXCore.
         Dim Expression = TryCast(CodeRush.Source.Active, Expression)
+        If Expression Is Nothing Then
+            Return
+        End If
         Dim Method As Method = CodeRush.Source.ActiveMethod
-        If Method IsNot Nothing AndAlso ReferencesLocals(Expression, GetLocals(Method)) Then
+        If Method Is Nothing Then
+            Return
+        End If
+        If ReferencesLocals(Expression, GetLocals(Method)) Then
             Return
         End If
         ea.Available = DeclareLocalProvider.IsAvailable
