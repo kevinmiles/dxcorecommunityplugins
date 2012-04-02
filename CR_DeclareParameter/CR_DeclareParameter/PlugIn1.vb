@@ -104,6 +104,9 @@ Public Class PlugIn1
 
 #Region "Helper Methods"
     Private Shared Function GetLocals(ByVal Method As Method) As IEnumerable(Of Variable)
+        If Method Is Nothing Then
+            Return New Variable()
+        End If
         Dim Locals As New List(Of Variable)
         For Each Variable As Variable In Method.AllVariables
             If Variable.IsLocal Then
@@ -113,6 +116,9 @@ Public Class PlugIn1
         Return Locals
     End Function
     Private Function ReferencesLocals(ByVal Expression As Expression, ByVal Locals As IEnumerable(Of Variable)) As Boolean
+        If Not Locals.GetEnumerator.MoveNext Then ' No Locals
+            Return False
+        End If
         Dim ElementExpression = TryCast(Expression, ElementReferenceExpression)
         If ElementExpression IsNot Nothing Then
             ' Direct Reference
