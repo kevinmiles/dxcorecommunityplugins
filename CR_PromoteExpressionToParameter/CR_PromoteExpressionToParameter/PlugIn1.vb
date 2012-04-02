@@ -44,8 +44,14 @@ Public Class PlugIn1
 
         ' Remove once supported by DXCore.
         Dim Expression = TryCast(CodeRush.Source.Active, Expression)
+        If Expression Is Nothing Then
+            Return
+        End If
         Dim Method As Method = CodeRush.Source.ActiveMethod
-        If Method IsNot Nothing AndAlso ReferencesLocals(Expression, GetLocals(Method)) Then
+        If Method Is Nothing Then
+            Return
+        End If
+        If ReferencesLocals(Expression, GetLocals(Method)) Then
             Return
         End If
 
@@ -102,6 +108,9 @@ Public Class PlugIn1
         Return Locals
     End Function
     Private Function ReferencesLocals(ByVal Expression As Expression, ByVal Locals As IEnumerable(Of Variable)) As Boolean
+        If Not Locals.GetEnumerator.MoveNext Then
+            Return False
+        End If
         Dim ElementExpression = TryCast(Expression, ElementReferenceExpression)
         If ElementExpression IsNot Nothing Then
             ' Direct Reference
