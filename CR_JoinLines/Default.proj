@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="All" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!--
+		* Standard build = msbuild Default.proj
+		* Release build = msbuild Default.proj /p:Configuration=Release
+	-->
+	<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+	<PropertyGroup>
+		<Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+		<BuildDir>..\build</BuildDir>
+		<BuildBinDir>$(BuildDir)\bin</BuildBinDir>
+		<BuildPackageDir>$(BuildDir)\package</BuildPackageDir>
+	</PropertyGroup>
+	<ItemGroup>
+		<CleanFolders Include="$(BuildDir)"/>
+		<CleanFolders Include="CR_JoinLines\bin"/>
+		<CleanFolders Include="CR_JoinLines\obj"/>
+	</ItemGroup>
+	<Target Name="All">
+		<CallTarget Targets="Clean;Compile;Test"/>
+		<CallTarget Targets="Package" Condition="'$(Configuration)' == 'Release'"/>
+		<Message Text="Build complete."/>
+	</Target>
+	<Target Name="Compile">
+		<Message Text="Creating build output folder hierarchy..."/>
+		<MakeDir Directories="$(BuildBinDir)"/>
+		<Message Text="Compiling plugin..."/>
+		<MSBuild Projects="CR_JoinLines.sln" Properties="Configuration=$(Configuration)"/>
+		<CreateItem Include="CR_JoinLines\bin\$(Configuration)\**">
+			<Output TaskParameter="Include" ItemName="BuildOutput"/>
+		</CreateItem>
+		<Copy SourceFiles="@(BuildOutput)" DestinationFolder="$(BuildBinDir)"/>
+		<Message Text="Plugin compiled."/>
+	</Target>
+	<Target Name="Clean">
+		<Message Text="Removing compilation artifact folders..."/>
+		<RemoveDir Directories="@(CleanFolders)"/>
+		<Delete Files="@(CleanFiles)"/>
+		<Message Text="Clean complete."/>
+	</Target>
+	<Target Name="Test">
+	</Target>
+	<Target Name="Package">
+		<MakeDir Directories="$(BuildPackageDir)"/>
+		<GetAssemblyIdentity AssemblyFiles="$(BuildBinDir)\CR_JoinLines.dll">
+			<Output ItemName="AssemblyIdentities" TaskParameter="Assemblies"/>
+		</GetAssemblyIdentity>
+		<CreateProperty Value="%(AssemblyIdentities.Version)">
+			<Output PropertyName="Version" TaskParameter="Value"/>
+		</CreateProperty>
+		<CreateItem Include="$(BuildBinDir)\CR_JoinLines.dll;CR_JoinLines\readme.txt">
+			<Output ItemName="BinaryPackageFiles" TaskParameter="Include"/>
+		</CreateItem>
+		<Zip Files="@(BinaryPackageFiles)" ZipFileName="$(BuildPackageDir)\CR_JoinLines-$(Version).zip" Flatten="true"/>
+		<Copy SourceFiles="$(BuildBinDir)\CR_JoinLines.vsix" DestinationFolder="$(BuildPackageDir)"/>
+	</Target>
+</Project>

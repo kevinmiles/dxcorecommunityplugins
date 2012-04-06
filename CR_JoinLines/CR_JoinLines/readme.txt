@@ -18,7 +18,7 @@ free - you can't ask for much more than that.
 
 REQUIREMENTS:
 
-This product requires DXCore for Visual Studio .NET 1.1.58 or later.
+This product requires DXCore for Visual Studio .NET 11.2.8 or later.
 
 DXCore is a free download from Developer Express, Inc.:
 http://www.devexpress.com/Downloads/NET/DXCore/
@@ -30,7 +30,7 @@ INSTALLATION:
 
 2) Copy the CR_JoinLines.dll assembly into your DXCore plug-ins folder.  This
 is typically something like:
-   C:\Program Files\Developer Express Inc\DXCore for Visual Studio NET\1.1\Bin\Plugins
+   C:\Users\YOURUSERNAME\Documents\DevExpress\IDE Tools\Community\PlugIns
 
 3) Open Visual Studio.
 
@@ -124,10 +124,13 @@ VERSION HISTORY:
 1.1.1.0307:
 	* Fixed bug with later versions of DXCore where joining based on
 	  selection functioned incorrectly.
+2.0.0.0:
+	* Updated for .NET 4.0/VS 2010.
+	* Fixed issues interacting with DXCore 11.x.
+	* Added VSIX installer.
 
 
 CONTACT:
 
 Travis Illig
-tillig@paraesthesia.com
 http://www.paraesthesia.com
