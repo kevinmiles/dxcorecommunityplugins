@@ -1,13 +1,11 @@
 using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
+using DevExpress.CodeRush.Diagnostics.Commands;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
-using DevExpress.CodeRush.Diagnostics.Commands;
 
-namespace CR_JoinLines {
+namespace CR_JoinLines
+{
 	/// <summary>
 	/// Joins one or more lines in the code editor.
 	/// </summary>
@@ -18,19 +16,12 @@ namespace CR_JoinLines {
 	/// such as <c>Ctrl+J</c>.
 	/// </para>
 	/// </remarks>
-	public class JoinLinesPlugIn: StandardPlugIn {
-		#region JoinLinesPlugIn Variables
-
-		#region Constants
-
+	public class JoinLinesPlugIn : StandardPlugIn
+	{
 		/// <summary>
 		/// Prefix for all log messages
 		/// </summary>
 		private const string LOG_PREFIX = "JoinLines:";
-
-		#endregion
-
-		#region Instance
 
 		/// <summary>
 		/// Design-time support object.
@@ -41,14 +32,6 @@ namespace CR_JoinLines {
 		/// Primary action for this plugin.
 		/// </summary>
 		private DevExpress.CodeRush.Core.Action actionJoinLines;
-
-		#endregion
-
-		#endregion
-
-
-
-		#region JoinLinesPlugIn Properties
 
 		/// <summary>
 		/// Gets a flag indicating whether or not this command should be made available.
@@ -64,30 +47,21 @@ namespace CR_JoinLines {
 		/// not, or if the context is not found, this property is <see langword="false" />.
 		/// </para>
 		/// </remarks>
-		public bool Available{
-			get{
+		public bool Available
+		{
+			get
+			{
 				return CodeRush.Context.Satisfied(@"Focus\Documents\Source\Code Editor", false);
 			}
 		}
 
-		#endregion
-
-
-
-		#region JoinLinesPlugIn Implementation
-
-		#region Constructors
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CR_JoinLines.JoinLinesPlugIn" /> class.
 		/// </summary>
-		public JoinLinesPlugIn() {
+		public JoinLinesPlugIn()
+		{
 			InitializeComponent();
 		}
-
-		#endregion
-
-		#region Event Handlers
 
 		/// <summary>
 		/// Executes the "join lines" action.
@@ -108,49 +82,54 @@ namespace CR_JoinLines {
 		/// be placed at the beginning of the complete joined line.
 		/// </para>
 		/// </remarks>
-		private void actionJoinLines_Execute(DevExpress.CodeRush.Core.ExecuteEventArgs ea) {
+		private void actionJoinLines_Execute(DevExpress.CodeRush.Core.ExecuteEventArgs ea)
+		{
 			// Don't do anything if we're not available.
-			if(!this.Available){
+			if (!this.Available)
+			{
 				return;
 			}
 
 			// Don't do anything if we don't have an active text document.
-			if(CodeRush.Documents.ActiveTextDocument == null){
+			if (CodeRush.Documents.ActiveTextDocument == null)
+			{
 				Log.SendError("{0}Active text document is null.", LOG_PREFIX);
 				return;
 			}
 
 			SourcePoint origLocation = CodeRush.Caret.SourcePoint;
-			
-			Log.Enter(ImageType.Info, "{0}Joining lines.", LOG_PREFIX);
+
+			Log.SendMsg(ImageType.Info, "{0}Joining lines.", LOG_PREFIX);
 			CodeRush.UndoStack.BeginUpdate("JoinLines");
-			try{
+			try
+			{
 				string delimiter = ea.Action.Parameters.GetString("Delimiter", "");
-				
-				if(CodeRush.Selection.Exists){
+				if (CodeRush.TextViews.Active.Selection.Exists)
+				{
 					// Join the selected lines
-					int topLine = CodeRush.Selection.Active.TopEditLine;
-					int numLines = CodeRush.Selection.Active.BottomEditLine - topLine;
-					if(CodeRush.Selection.Active.TopPoint.AtStartOfLine && CodeRush.Selection.Active.BottomPoint.AtStartOfLine){
-						numLines--;
-					}
-					if(numLines == 0){
+					CodeRush.TextViews.Active.Selection.ExtendToWholeLines();
+					int topLine = CodeRush.TextViews.Active.Selection.StartLine;
+					int numLines = CodeRush.TextViews.Active.Selection.EndLine - topLine - 1;
+					if (numLines == 0)
+					{
 						numLines = 1;
 					}
-					for(int i = 0; i < numLines; i++){
+					for (int i = 0; i < numLines; i++)
+					{
 						ExecuteJoin(topLine, delimiter);
 					}
 					CodeRush.Caret.MoveTo(topLine, 0);
 				}
-				else{
+				else
+				{
 					// Join the current line with the next line
 					ExecuteJoin(origLocation.Line, delimiter);
 					CodeRush.Caret.MoveTo(origLocation);
 				}
 			}
-			finally{
+			finally
+			{
 				CodeRush.UndoStack.EndUpdate();
-				Log.Exit();
 			}
 		}
 
@@ -165,20 +144,17 @@ namespace CR_JoinLines {
 		/// is <see langword="false" />, this command is unsupported.
 		/// </para>
 		/// </remarks>
-		private void actionJoinLines_QueryStatus(DevExpress.CodeRush.Core.QueryStatusEventArgs ea) {
-			if(!this.Available){
+		private void actionJoinLines_QueryStatus(DevExpress.CodeRush.Core.QueryStatusEventArgs ea)
+		{
+			if (!this.Available)
+			{
 				ea.Status = EnvDTE.vsCommandStatus.vsCommandStatusUnsupported;
 			}
-			else{
+			else
+			{
 				ea.Status = EnvDTE.vsCommandStatus.vsCommandStatusEnabled | EnvDTE.vsCommandStatus.vsCommandStatusSupported;
 			}
 		}
-
-		#endregion
-
-		#region Methods
-
-		#region Instance
 
 		/// <summary>
 		/// Executes the bulk of a line join.
@@ -192,26 +168,25 @@ namespace CR_JoinLines {
 		/// whitespace at the beginning of the joined line.
 		/// </para>
 		/// </remarks>
-		private void ExecuteJoin(int line, string delimiter){
+		private void ExecuteJoin(int line, string delimiter)
+		{
 			CodeRush.Caret.MoveTo(line, CodeRush.Documents.ActiveTextDocument.GetLastCharacterOffset(line));
 			CodeRush.Caret.DeleteLeftWhiteSpace();
 			CodeRush.Caret.DeleteRightWhiteSpace();
 			CodeRush.Caret.DeleteRight(System.Environment.NewLine.Length);
 			CodeRush.Caret.DeleteRightWhiteSpace();
-			if(delimiter != null && delimiter != String.Empty){
+			if (String.IsNullOrEmpty(delimiter))
+			{
 				CodeRush.Caret.Insert(delimiter);
 			}
 		}
-
-		#endregion
-
-		#region Component Designer generated code
 
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
-		private void InitializeComponent() {
+		private void InitializeComponent()
+		{
 			this.components = new System.ComponentModel.Container();
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(JoinLinesPlugIn));
 			DevExpress.CodeRush.Core.Parameter parameter1 = new DevExpress.CodeRush.Core.Parameter(new DevExpress.CodeRush.Core.StringParameterType());
@@ -240,12 +215,5 @@ namespace CR_JoinLines {
 			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
 		}
-
-		#endregion
-
-		#endregion
-
-		#endregion
-
 	}
 }
