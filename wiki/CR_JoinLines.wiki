@@ -1,7 +1,7 @@
 #summary Plugin for joining selected lines together, optionally with a delimiter.
 #labels Phase-Support
 
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_JoinLines/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://visualstudiogallery.msdn.microsoft.com/bee53ee3-8841-42ab-bddc-b14ed5a1a9ff http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Introduction =
 I use !TextPad for text editing and one of the things I like a lot about !TextPad is the Ctrl+J shortcut that allows you to join selected lines to each other. Visual Studio doesn't offer that line joining capability, so I decided to write it.
@@ -46,3 +46,6 @@ Once installed and bound to a keyboard shortcut (as noted above):
 = Credits =
 
 Author: [http://code.google.com/u/travis.illig/ Travis Illig]
+
+= Previous Version =
+If you're not on VS2010/DXCore 11.2.8 yet, you can try [http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_JoinLines/ this older version of the plugin].
