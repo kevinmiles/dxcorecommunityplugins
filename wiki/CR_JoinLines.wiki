@@ -43,6 +43,15 @@ Once installed and bound to a keyboard shortcut (as noted above):
   # Without selecting anything, enter the keyboard shortcut to activate the command.  The current line the caret is on will be joined with the subsequent line.
   # Select multiple lines then enter the keyboard shortcut to activate the command.  All selected lines will be joined.
 
+= Version History =
+2.0.0.0:
+	* Updated for .NET 4.0/VS 2010.
+	* Fixed issues interacting with DXCore 11.x.
+	* Added VSIX installer.
+2.0.1.0:
+	* Fixed bug where delimiter wasn't getting properly inserted.
+
+
 = Credits =
 
 Author: [http://code.google.com/u/travis.illig/ Travis Illig]
