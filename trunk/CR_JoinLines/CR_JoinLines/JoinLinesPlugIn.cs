@@ -175,7 +175,7 @@ namespace CR_JoinLines
 			CodeRush.Caret.DeleteRightWhiteSpace();
 			CodeRush.Caret.DeleteRight(System.Environment.NewLine.Length);
 			CodeRush.Caret.DeleteRightWhiteSpace();
-			if (String.IsNullOrEmpty(delimiter))
+			if (!String.IsNullOrEmpty(delimiter))
 			{
 				CodeRush.Caret.Insert(delimiter);
 			}

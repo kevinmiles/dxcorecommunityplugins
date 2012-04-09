@@ -128,6 +128,8 @@ VERSION HISTORY:
 	* Updated for .NET 4.0/VS 2010.
 	* Fixed issues interacting with DXCore 11.x.
 	* Added VSIX installer.
+2.0.1.0:
+	* Fixed bug where delimiter wasn't getting properly inserted.
 
 
 CONTACT:
