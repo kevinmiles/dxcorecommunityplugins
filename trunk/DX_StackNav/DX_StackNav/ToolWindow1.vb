@@ -42,7 +42,7 @@ Public Class ToolWindow1
             CodeRush.TextViews.Active.Caret.MoveTo(Line, 1)
         End If
     End Sub
-    Private Sub Refresh()
+    Private Sub RefresGrid()
         Dim Frames = GetStackFrames(TextBox1.Text)
         Grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         Grid.DataSource = Frames
@@ -54,11 +54,11 @@ Public Class ToolWindow1
 #End Region
 #Region "UI Events "
     Private Sub TextBox1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox1.TextChanged
-        Call Refresh()
+        Call RefresGrid()
     End Sub
 
     Private Sub cmdRefresh_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRefresh.Click
-        Refresh()
+        Call RefresGrid()
     End Sub
     Private Sub Grid_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles Grid.CellDoubleClick
         Dim Frame = TryCast(Grid.Rows(e.RowIndex).DataBoundItem, StackNavEntry)
