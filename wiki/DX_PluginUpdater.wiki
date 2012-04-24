@@ -52,7 +52,7 @@ Plugin Updater does not:
    * (You can do this via *DevExpress\Reload*)
  * ...locate plugins not hosted on the community site (Yet!)
 
- _Plugin Updater requires that you check the *Use raw assembly load* setting_. This setting is found on the *Core\Startup*
+ _Plugin Updater requires that you check the *Use raw assembly load* setting_. This setting is found on the *Core\Startup*. a Studio Restart will be necessary to ensure no plugins are locked.
 
  Plugin Updater currently operates with a subset of the plugins available from the community site. Please [RoryBecker let me know] if you think a community plugin is stable \ important enough to be added to this list.
 
