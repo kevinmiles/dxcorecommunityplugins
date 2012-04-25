@@ -71,10 +71,8 @@ Feel free to contact me about these plugins
  * Twitter: http://twitter.com/RoryBecker
  * Email: !RoryBecker@gmail.com
  * Blog: http://rorybecker.blogspot.com
-Since ~June/July 2010 I have also been doing some work directly for !DevExpress. You can also reach me via roryb@!DevExpress.com
 
-=== Stuff I want to fix on this site ===
- * Write a better Front page
-   * Remove plugin lists
-   * Add graphical buttons for things like *Get Plugins*, *Get Source Code*, *Contribute Plugin* etc
-   * Add page for [CR_ClassCleaner] plugin.
+Since ~June/July 2010 I have also been doing some work directly for !DevExpress. 
+
+So you can now reach me via roryb@!DevExpress.com
+My DevExpress Blog is here -> http://devexpress.com/rory
