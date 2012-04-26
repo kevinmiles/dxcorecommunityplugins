@@ -2,20 +2,15 @@
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== Built against DXCore 11.2.11 =====
 === Introduction ===
-Plugin to find...
- * Updates to already installed plugins.
- * New plugins that you don't already have installed.
-... and offer to download and install them for you.
+This is a plugin designed to find New plugins and Updates to plugins you already have
 
 Please read *Notes* and *Requirements* sections (below) before installing this plugin.
 
 === Detailed version ===
 
-This plugin has 2 functions (*Update Plugins* and *Find New Plugins*) which are presented on the DevExpress menu.
+Function 1: *Update Plugins* will scan the community site for any updates to plugins you already have installed.
 
-**Update Plugins** will scan the community site for any updates to plugins you already have installed. 
-
-**Find New Plugins** will scan the community site for plugins you do not already have installed.
+Function 2: *Find New Plugins* will scan the community site for plugins you do not already have installed.
 
 When invoked, each menu item will present you with a list of it's plugins, and allow you to choose which to download and update\install.
 
@@ -25,14 +20,14 @@ When invoked, each menu item will present you with a list of it's plugins, and a
 
 You have several plugins installed and you are happy with this, but wonder if you have the latest versions of all of these.
 
- * Choose *DevExpress \ Update Plugins*. Plugin Updater will present you with a list of installed plugins.
+ * Choose *DevExpress \ Update Plugins*. Plugin Updater will present you with a list of locally installed plugins which can be found on the community site.
  * Select those you'd like to update and click Ok.
 
 *Scenario 2*
 
 You are curious what other plugins might exist beyond those you already have in place. 
 
- * Choose *DevExpress \ Find New Pugins*. Plugin Updater will present you with a list of plugins which you do not have installed on this machine.
+ * Choose *DevExpress \ Find New Pugins*. Plugin Updater will present you with a list of plugins from the Community site, which you do not have installed on your machine.
  * Select those you'd like to install and click Ok.
 
 === Notes ===
@@ -42,6 +37,8 @@ Plugin Updater will:
  * ...provide a list of plugins to download\update.
  * ...download the latest version of any selected plugin.
  * ...unzip the downloaded zip file into your currently configured Community plugins folder.
+ * ...output messages in the status bar, letting you know what it's doing.
+ * ...output messages in the 'Plugin updater' output window, letting you know what it's doing.
  * ...Offer to restart the DXCore (necessary to load plugin updates)
 
 Plugin Updater does not:
