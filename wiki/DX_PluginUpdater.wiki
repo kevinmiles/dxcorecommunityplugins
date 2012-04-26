@@ -42,14 +42,13 @@ Plugin Updater will:
  * ...provide a list of plugins to download\update.
  * ...download the latest version of any selected plugin.
  * ...unzip the downloaded zip file into your currently configured Community plugins folder.
+ * ...Offer to restart the DXCore (necessary to load plugin updates)
 
 Plugin Updater does not:
 
  * ...know the specific requirements of any given plugin. 
  * ...know if the plugin will run with a given version of VS, CodeRush
  * ...install any settings or key bindings.
- * ...restart the DXCore (necessary to load plugin updates)
-   * (You can do this via *DevExpress\Reload*)
  * ...locate plugins not hosted on the community site (Yet!)
 
  _Plugin Updater requires that you check the *Use raw assembly load* setting_. This setting is found on the *Core\Startup*. a Studio Restart will be necessary to ensure no plugins are locked.
