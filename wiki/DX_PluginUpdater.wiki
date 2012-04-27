@@ -12,7 +12,12 @@ Function 1: *Update Plugins* will scan the community site for any updates to plu
 
 Function 2: *Find New Plugins* will scan the community site for plugins you do not already have installed.
 
+[https://github.com/RoryBecker/DX_PluginUpdater/raw/master/Screenshots/PluginUpdaterMenuItems.png]
+
+
 When invoked, each menu item will present you with a list of its plugins, and allow you to choose which to download and update\install.
+
+[https://github.com/RoryBecker/DX_PluginUpdater/raw/master/Screenshots/PluginUpdaterPluginPicker.png]
 
 === Usage ===
 
@@ -29,6 +34,10 @@ You are curious what other plugins might exist beyond those you already have in 
 
  * Choose *DevExpress \ Find New Pugins*. Plugin Updater will present you with a list of plugins from the Community site, which you do not have installed on your machine.
  * Select those you'd like to install and click Ok.
+
+=== Options ===
+The Plugin Updater has numerous options for you to play with...
+[https://github.com/RoryBecker/DX_PluginUpdater/raw/master/Screenshots/PluginUpdaterOptions.png]
 
 === Notes ===
 
