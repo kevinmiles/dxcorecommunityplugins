@@ -12,7 +12,7 @@ Function 1: *Update Plugins* will scan the community site for any updates to plu
 
 Function 2: *Find New Plugins* will scan the community site for plugins you do not already have installed.
 
-When invoked, each menu item will present you with a list of it's plugins, and allow you to choose which to download and update\install.
+When invoked, each menu item will present you with a list of its plugins, and allow you to choose which to download and update\install.
 
 === Usage ===
 
