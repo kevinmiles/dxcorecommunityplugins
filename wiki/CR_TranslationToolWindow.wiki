@@ -1,0 +1,17 @@
+[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_TranslationToolWindow/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Built using CodeRush 11.2 =====
+=== Introduction ===
+A ToolWindow to translate the active member to another language.
+
+=== Usage ===
+Bring up the !ToolWindow using !DevExpress\!ToolWindows\Translator
+
+Place the caret within some code. 
+
+the !ToolWindow will translate the active member to the language specified within the !ToolWindow.
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_TranslationToolWindow/Screenshots/Translator.gif
+=== Credits ===
+
+Author: [http://devexpress.com/mark Mark Miller] 
