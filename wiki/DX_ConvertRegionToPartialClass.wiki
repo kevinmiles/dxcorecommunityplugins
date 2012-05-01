@@ -1,0 +1,17 @@
+[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/DX_ConvertRegionToPartialClass/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+
+=== Introduction ===
+AS the name suggests, this plugin converts a region into a partial class.
+It creates the new file using "{{{{Class}_{RegionCharacters}.{ext}}}}" as a pattern, and adds moves the region to it as a partial class of the original class.
+
+=== Configuration ===
+
+[http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx Bind a key] to the *ConvertRegionToPartialClass* action
+
+=== Usage ===
+Place your caret on the region declaration and invoke the action using your configured shortcut.
+
+=== Credits ===
+
+Author: [RoryBecker]
