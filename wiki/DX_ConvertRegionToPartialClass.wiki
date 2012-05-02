@@ -2,7 +2,7 @@
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 
 === Introduction ===
-AS the name suggests, this plugin converts a region into a partial class.
+As the name suggests, this plugin converts a region into a partial class.
 It creates the new file using "{{{{Class}_{RegionCharacters}.{ext}}}}" as a pattern, and adds moves the region to it as a partial class of the original class.
 
 === Configuration ===
