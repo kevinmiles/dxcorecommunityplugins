@@ -47,10 +47,10 @@ namespace CR_TranslatorToolWindow
 			this.optSourceFile = new System.Windows.Forms.RadioButton();
 			this.optSourceMember = new System.Windows.Forms.RadioButton();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.optCpp = new System.Windows.Forms.RadioButton();
-			this.optBasic = new System.Windows.Forms.RadioButton();
-			this.optJavaScript = new System.Windows.Forms.RadioButton();
-			this.optCSharp = new System.Windows.Forms.RadioButton();
+			this.optLanguageCpp = new System.Windows.Forms.RadioButton();
+			this.optLanguageBasic = new System.Windows.Forms.RadioButton();
+			this.optLanguageJavaScript = new System.Windows.Forms.RadioButton();
+			this.optLanguageCSharp = new System.Windows.Forms.RadioButton();
 			this.codeView1 = new DevExpress.CodeRush.UserControls.CodeView();
 			((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
 			this.panel1.SuspendLayout();
@@ -112,10 +112,10 @@ namespace CR_TranslatorToolWindow
 			// 
 			// groupBox1
 			// 
-			this.groupBox1.Controls.Add(this.optCpp);
-			this.groupBox1.Controls.Add(this.optBasic);
-			this.groupBox1.Controls.Add(this.optJavaScript);
-			this.groupBox1.Controls.Add(this.optCSharp);
+			this.groupBox1.Controls.Add(this.optLanguageCpp);
+			this.groupBox1.Controls.Add(this.optLanguageBasic);
+			this.groupBox1.Controls.Add(this.optLanguageJavaScript);
+			this.groupBox1.Controls.Add(this.optLanguageCSharp);
 			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
 			this.groupBox1.Location = new System.Drawing.Point(0, 0);
 			this.groupBox1.Name = "groupBox1";
@@ -126,49 +126,49 @@ namespace CR_TranslatorToolWindow
 			// 
 			// optCpp
 			// 
-			this.optCpp.AutoSize = true;
-			this.optCpp.Location = new System.Drawing.Point(208, 16);
-			this.optCpp.Name = "optCpp";
-			this.optCpp.Size = new System.Drawing.Size(59, 17);
-			this.optCpp.TabIndex = 0;
-			this.optCpp.Text = "C/C++";
-			this.optCpp.UseVisualStyleBackColor = true;
-			this.optCpp.Click += new System.EventHandler(this.TranslationLanguageChanged);
+			this.optLanguageCpp.AutoSize = true;
+			this.optLanguageCpp.Location = new System.Drawing.Point(208, 16);
+			this.optLanguageCpp.Name = "optCpp";
+			this.optLanguageCpp.Size = new System.Drawing.Size(59, 17);
+			this.optLanguageCpp.TabIndex = 0;
+			this.optLanguageCpp.Text = "C/C++";
+			this.optLanguageCpp.UseVisualStyleBackColor = true;
+			this.optLanguageCpp.Click += new System.EventHandler(this.TranslationLanguageChanged);
 			// 
 			// optBasic
 			// 
-			this.optBasic.AutoSize = true;
-			this.optBasic.Checked = true;
-			this.optBasic.Location = new System.Drawing.Point(6, 16);
-			this.optBasic.Name = "optBasic";
-			this.optBasic.Size = new System.Drawing.Size(49, 17);
-			this.optBasic.TabIndex = 0;
-			this.optBasic.TabStop = true;
-			this.optBasic.Text = "Basic";
-			this.optBasic.UseVisualStyleBackColor = true;
-			this.optBasic.Click += new System.EventHandler(this.TranslationLanguageChanged);
+			this.optLanguageBasic.AutoSize = true;
+			this.optLanguageBasic.Checked = true;
+			this.optLanguageBasic.Location = new System.Drawing.Point(6, 16);
+			this.optLanguageBasic.Name = "optBasic";
+			this.optLanguageBasic.Size = new System.Drawing.Size(49, 17);
+			this.optLanguageBasic.TabIndex = 0;
+			this.optLanguageBasic.TabStop = true;
+			this.optLanguageBasic.Text = "Basic";
+			this.optLanguageBasic.UseVisualStyleBackColor = true;
+			this.optLanguageBasic.Click += new System.EventHandler(this.TranslationLanguageChanged);
 			// 
 			// optJavaScript
 			// 
-			this.optJavaScript.AutoSize = true;
-			this.optJavaScript.Location = new System.Drawing.Point(127, 16);
-			this.optJavaScript.Name = "optJavaScript";
-			this.optJavaScript.Size = new System.Drawing.Size(75, 17);
-			this.optJavaScript.TabIndex = 0;
-			this.optJavaScript.Text = "JavaScript";
-			this.optJavaScript.UseVisualStyleBackColor = true;
-			this.optJavaScript.Click += new System.EventHandler(this.TranslationLanguageChanged);
+			this.optLanguageJavaScript.AutoSize = true;
+			this.optLanguageJavaScript.Location = new System.Drawing.Point(127, 16);
+			this.optLanguageJavaScript.Name = "optJavaScript";
+			this.optLanguageJavaScript.Size = new System.Drawing.Size(75, 17);
+			this.optLanguageJavaScript.TabIndex = 0;
+			this.optLanguageJavaScript.Text = "JavaScript";
+			this.optLanguageJavaScript.UseVisualStyleBackColor = true;
+			this.optLanguageJavaScript.Click += new System.EventHandler(this.TranslationLanguageChanged);
 			// 
 			// optCSharp
 			// 
-			this.optCSharp.AutoSize = true;
-			this.optCSharp.Location = new System.Drawing.Point(61, 16);
-			this.optCSharp.Name = "optCSharp";
-			this.optCSharp.Size = new System.Drawing.Size(60, 17);
-			this.optCSharp.TabIndex = 0;
-			this.optCSharp.Text = "CSharp";
-			this.optCSharp.UseVisualStyleBackColor = true;
-			this.optCSharp.Click += new System.EventHandler(this.TranslationLanguageChanged);
+			this.optLanguageCSharp.AutoSize = true;
+			this.optLanguageCSharp.Location = new System.Drawing.Point(61, 16);
+			this.optLanguageCSharp.Name = "optCSharp";
+			this.optLanguageCSharp.Size = new System.Drawing.Size(60, 17);
+			this.optLanguageCSharp.TabIndex = 0;
+			this.optLanguageCSharp.Text = "CSharp";
+			this.optLanguageCSharp.UseVisualStyleBackColor = true;
+			this.optLanguageCSharp.Click += new System.EventHandler(this.TranslationLanguageChanged);
 			// 
 			// codeView1
 			// 
@@ -225,10 +225,10 @@ namespace CR_TranslatorToolWindow
 		#endregion
 
 		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.RadioButton optCpp;
-		private System.Windows.Forms.RadioButton optJavaScript;
-		private System.Windows.Forms.RadioButton optCSharp;
-		private System.Windows.Forms.RadioButton optBasic;
+		private System.Windows.Forms.RadioButton optLanguageCpp;
+		private System.Windows.Forms.RadioButton optLanguageJavaScript;
+		private System.Windows.Forms.RadioButton optLanguageCSharp;
+		private System.Windows.Forms.RadioButton optLanguageBasic;
 		private DevExpress.CodeRush.UserControls.CodeView codeView1;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.RadioButton optSourceFile;
