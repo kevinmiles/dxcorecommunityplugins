@@ -39,15 +39,22 @@ namespace CR_TranslatorToolWindow
 
 		private void ShowCode()
 		{
-			string code = CodeRush.Language.GenerateElement(lastMember, language);
+			LanguageElement sourceNode;
+			sourceNode = optSourceFile.Checked ? lastMember.FileNode : lastMember;
+			string code = CodeRush.Language.GenerateElement(sourceNode, language);
 			codeView1.ShowCode(code, language);
 		}
-		private void LanguageChanged(object sender, EventArgs e)
+		private void TranslationLanguageChanged(object sender, EventArgs e)
 		{
 			RadioButton radioButton = sender as RadioButton;
 			if (radioButton == null)
 				return;
 			language = radioButton.Text;
+			ShowCode();
+		}
+
+		private void SourceChanged(object sender, EventArgs e)
+		{
 			ShowCode();
 		}
 
@@ -59,5 +66,7 @@ namespace CR_TranslatorToolWindow
 			lastMember = activeMember;
 			ShowCode();
 		}
+
+
 	}
 }
