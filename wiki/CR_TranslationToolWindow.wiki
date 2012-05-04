@@ -24,4 +24,5 @@ http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_TranslationToolWindow/
 
 === Credits ===
 
-Author: [http://devexpress.com/mark Mark Miller] 
+Original Author: [http://devexpress.com/mark Mark Miller] 
+Additional Work: RoryBecker
