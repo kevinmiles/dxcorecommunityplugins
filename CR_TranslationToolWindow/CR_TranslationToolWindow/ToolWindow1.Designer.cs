@@ -44,6 +44,8 @@ namespace CR_TranslatorToolWindow
 			this.events = new DevExpress.DXCore.PlugInCore.DXCoreEvents(this.components);
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.cmdCopyOriginal = new System.Windows.Forms.Button();
+			this.cmdCopyTranslation = new System.Windows.Forms.Button();
 			this.optSourceFile = new System.Windows.Forms.RadioButton();
 			this.optSourceMember = new System.Windows.Forms.RadioButton();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -76,6 +78,8 @@ namespace CR_TranslatorToolWindow
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.cmdCopyOriginal);
+			this.groupBox2.Controls.Add(this.cmdCopyTranslation);
 			this.groupBox2.Controls.Add(this.optSourceFile);
 			this.groupBox2.Controls.Add(this.optSourceMember);
 			this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -86,14 +90,34 @@ namespace CR_TranslatorToolWindow
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Source";
 			// 
+			// cmdCopyOriginal
+			// 
+			this.cmdCopyOriginal.Location = new System.Drawing.Point(244, 13);
+			this.cmdCopyOriginal.Name = "cmdCopyOriginal";
+			this.cmdCopyOriginal.Size = new System.Drawing.Size(89, 23);
+			this.cmdCopyOriginal.TabIndex = 2;
+			this.cmdCopyOriginal.Text = "Copy Original";
+			this.cmdCopyOriginal.UseVisualStyleBackColor = true;
+			this.cmdCopyOriginal.Click += new System.EventHandler(this.cmdCopyOriginal_Click);
+			// 
+			// cmdCopyTranslation
+			// 
+			this.cmdCopyTranslation.Location = new System.Drawing.Point(141, 13);
+			this.cmdCopyTranslation.Name = "cmdCopyTranslation";
+			this.cmdCopyTranslation.Size = new System.Drawing.Size(97, 23);
+			this.cmdCopyTranslation.TabIndex = 1;
+			this.cmdCopyTranslation.Text = "Copy Translation";
+			this.cmdCopyTranslation.UseVisualStyleBackColor = true;
+			this.cmdCopyTranslation.Click += new System.EventHandler(this.cmdCopyTranslation_Click);
+			// 
 			// optSourceFile
 			// 
 			this.optSourceFile.AutoSize = true;
-			this.optSourceFile.Location = new System.Drawing.Point(134, 16);
+			this.optSourceFile.Location = new System.Drawing.Point(94, 16);
 			this.optSourceFile.Name = "optSourceFile";
-			this.optSourceFile.Size = new System.Drawing.Size(72, 17);
+			this.optSourceFile.Size = new System.Drawing.Size(41, 17);
 			this.optSourceFile.TabIndex = 0;
-			this.optSourceFile.Text = "Whole file";
+			this.optSourceFile.Text = "File";
 			this.optSourceFile.UseVisualStyleBackColor = true;
 			this.optSourceFile.CheckedChanged += new System.EventHandler(this.SourceChanged);
 			// 
@@ -103,10 +127,10 @@ namespace CR_TranslatorToolWindow
 			this.optSourceMember.Checked = true;
 			this.optSourceMember.Location = new System.Drawing.Point(25, 16);
 			this.optSourceMember.Name = "optSourceMember";
-			this.optSourceMember.Size = new System.Drawing.Size(103, 17);
+			this.optSourceMember.Size = new System.Drawing.Size(63, 17);
 			this.optSourceMember.TabIndex = 0;
 			this.optSourceMember.TabStop = true;
-			this.optSourceMember.Text = "Current Member";
+			this.optSourceMember.Text = "Member";
 			this.optSourceMember.UseVisualStyleBackColor = true;
 			this.optSourceMember.CheckedChanged += new System.EventHandler(this.SourceChanged);
 			// 
@@ -124,23 +148,23 @@ namespace CR_TranslatorToolWindow
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Language";
 			// 
-			// optCpp
+			// optLanguageCpp
 			// 
 			this.optLanguageCpp.AutoSize = true;
 			this.optLanguageCpp.Location = new System.Drawing.Point(208, 16);
-			this.optLanguageCpp.Name = "optCpp";
+			this.optLanguageCpp.Name = "optLanguageCpp";
 			this.optLanguageCpp.Size = new System.Drawing.Size(59, 17);
 			this.optLanguageCpp.TabIndex = 0;
 			this.optLanguageCpp.Text = "C/C++";
 			this.optLanguageCpp.UseVisualStyleBackColor = true;
 			this.optLanguageCpp.Click += new System.EventHandler(this.TranslationLanguageChanged);
 			// 
-			// optBasic
+			// optLanguageBasic
 			// 
 			this.optLanguageBasic.AutoSize = true;
 			this.optLanguageBasic.Checked = true;
 			this.optLanguageBasic.Location = new System.Drawing.Point(6, 16);
-			this.optLanguageBasic.Name = "optBasic";
+			this.optLanguageBasic.Name = "optLanguageBasic";
 			this.optLanguageBasic.Size = new System.Drawing.Size(49, 17);
 			this.optLanguageBasic.TabIndex = 0;
 			this.optLanguageBasic.TabStop = true;
@@ -148,22 +172,22 @@ namespace CR_TranslatorToolWindow
 			this.optLanguageBasic.UseVisualStyleBackColor = true;
 			this.optLanguageBasic.Click += new System.EventHandler(this.TranslationLanguageChanged);
 			// 
-			// optJavaScript
+			// optLanguageJavaScript
 			// 
 			this.optLanguageJavaScript.AutoSize = true;
 			this.optLanguageJavaScript.Location = new System.Drawing.Point(127, 16);
-			this.optLanguageJavaScript.Name = "optJavaScript";
+			this.optLanguageJavaScript.Name = "optLanguageJavaScript";
 			this.optLanguageJavaScript.Size = new System.Drawing.Size(75, 17);
 			this.optLanguageJavaScript.TabIndex = 0;
 			this.optLanguageJavaScript.Text = "JavaScript";
 			this.optLanguageJavaScript.UseVisualStyleBackColor = true;
 			this.optLanguageJavaScript.Click += new System.EventHandler(this.TranslationLanguageChanged);
 			// 
-			// optCSharp
+			// optLanguageCSharp
 			// 
 			this.optLanguageCSharp.AutoSize = true;
 			this.optLanguageCSharp.Location = new System.Drawing.Point(61, 16);
-			this.optLanguageCSharp.Name = "optCSharp";
+			this.optLanguageCSharp.Name = "optLanguageCSharp";
 			this.optLanguageCSharp.Size = new System.Drawing.Size(60, 17);
 			this.optLanguageCSharp.TabIndex = 0;
 			this.optLanguageCSharp.Text = "CSharp";
@@ -234,5 +258,7 @@ namespace CR_TranslatorToolWindow
 		private System.Windows.Forms.RadioButton optSourceFile;
 		private System.Windows.Forms.RadioButton optSourceMember;
 		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.Button cmdCopyOriginal;
+		private System.Windows.Forms.Button cmdCopyTranslation;
 	}
 }

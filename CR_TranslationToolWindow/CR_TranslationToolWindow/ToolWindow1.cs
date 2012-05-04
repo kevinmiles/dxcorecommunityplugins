@@ -15,7 +15,7 @@ namespace CR_TranslatorToolWindow
 	{
 		private LanguageElement lastMember = null;
 		private string source = "Member";
-		private string language = "Basic";
+		private string _language = "Basic";
 		// DXCore-generated code...
 
 
@@ -48,7 +48,7 @@ namespace CR_TranslatorToolWindow
 			RadioButton radioButton = sender as RadioButton;
 			if (radioButton == null)
 				return;
-			language = radioButton.Text;
+			_language = radioButton.Text;
 
 			ShowCode();
 			SaveSettings();
@@ -64,13 +64,13 @@ namespace CR_TranslatorToolWindow
 		#region Settings
 		private void SaveSettings()
 		{
-			Storage.WriteString("Translation", "Language", language);
+			Storage.WriteString("Translation", "Language", _language);
 			Storage.WriteString("Translation", "Source", source);
 		}
 		private void LoadSettings()
 		{
-			language = Storage.ReadString("Translation", "Language", "Basic");
-			switch (language)
+			_language = Storage.ReadString("Translation", "Language", "Basic");
+			switch (_language)
 			{
 				case "Basic":
 					optLanguageBasic.Checked = true;
@@ -111,9 +111,28 @@ namespace CR_TranslatorToolWindow
 		{
 			if (lastMember == null)
 				return;
+			codeView1.ShowCode(GetCode(_language), _language);
+		}
+		private string GetCode(string language)
+		{
 			LanguageElement sourceNode = optSourceFile.Checked ? lastMember.FileNode : lastMember;
-			string code = CodeRush.Language.GenerateElement(sourceNode, language);
-			codeView1.ShowCode(code, language);
+			return CodeRush.Language.GenerateElement(sourceNode, language);
+		}
+
+		private void cmdCopyTranslation_Click(object sender, EventArgs e)
+		{
+			TextDocument ActiveDoc = CodeRush.Documents.ActiveTextDocument;
+			if (ActiveDoc == null)
+				return;
+			Clipboard.SetText(GetCode(_language));
+		}
+
+		private void cmdCopyOriginal_Click(object sender, EventArgs e)
+		{
+			TextDocument ActiveDoc = CodeRush.Documents.ActiveTextDocument;
+			if (ActiveDoc == null)
+				return;
+			Clipboard.SetText(GetCode(ActiveDoc.Language));
 		}
 
 
