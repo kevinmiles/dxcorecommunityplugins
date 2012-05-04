@@ -13,17 +13,22 @@ namespace CR_TranslatorToolWindow
 	[Title("Translator")]
 	public partial class ToolWindow1 : ToolWindowPlugIn
 	{
-		private string language = "Basic";
 		private LanguageElement lastMember = null;
+		private string source = "Member";
+		private string language = "Basic";
 		// DXCore-generated code...
+
+
+		public DecoupledStorage Storage
+		{
+			get { return CodeRush.Options.GetStorage("ToolWindows", "TranslationToolWindow"); }
+		}
+
 		#region InitializePlugIn
 		public override void InitializePlugIn()
 		{
 			base.InitializePlugIn();
-
-			//
-			// TODO: Add your initialization code here.
-			//
+			LoadSettings();
 		}
 		#endregion
 		#region FinalizePlugIn
@@ -37,26 +42,61 @@ namespace CR_TranslatorToolWindow
 		}
 		#endregion
 
-		private void ShowCode()
-		{
-			LanguageElement sourceNode;
-			sourceNode = optSourceFile.Checked ? lastMember.FileNode : lastMember;
-			string code = CodeRush.Language.GenerateElement(sourceNode, language);
-			codeView1.ShowCode(code, language);
-		}
+		#region Radio Button Change Events
 		private void TranslationLanguageChanged(object sender, EventArgs e)
 		{
 			RadioButton radioButton = sender as RadioButton;
 			if (radioButton == null)
 				return;
 			language = radioButton.Text;
+
 			ShowCode();
+			SaveSettings();
 		}
 
 		private void SourceChanged(object sender, EventArgs e)
 		{
+			source = optSourceFile.Checked ? "File" : "Member";
 			ShowCode();
+			SaveSettings();
 		}
+		#endregion
+		#region Settings
+		private void SaveSettings()
+		{
+			Storage.WriteString("Translation", "Language", language);
+			Storage.WriteString("Translation", "Source", source);
+		}
+		private void LoadSettings()
+		{
+			language = Storage.ReadString("Translation", "Language", "Basic");
+			switch (language)
+			{
+				case "Basic":
+					optLanguageBasic.Checked = true;
+					break;
+				case "CSharp":
+					optLanguageCSharp.Checked = true;
+					break;
+				case "JavaScript":
+					optLanguageJavaScript.Checked = true;
+					break;
+				case "C/C++":
+					optLanguageCpp.Checked = true;
+					break;
+			}
+			source = Storage.ReadString("Translation", "Source", "Member");
+			switch (source)
+			{
+				case "Member":
+					optSourceMember.Checked = true;
+					break;
+				case "File":
+					optSourceFile.Checked = true;
+					break;
+			}
+		}
+		#endregion
 
 		private void events_LanguageElementActivated(LanguageElementActivatedEventArgs ea)
 		{
@@ -65,6 +105,15 @@ namespace CR_TranslatorToolWindow
 				return;
 			lastMember = activeMember;
 			ShowCode();
+		}
+
+		private void ShowCode()
+		{
+			if (lastMember == null)
+				return;
+			LanguageElement sourceNode = optSourceFile.Checked ? lastMember.FileNode : lastMember;
+			string code = CodeRush.Language.GenerateElement(sourceNode, language);
+			codeView1.ShowCode(code, language);
 		}
 
 
