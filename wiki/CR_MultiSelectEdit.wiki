@@ -20,6 +20,8 @@ The user can then proceed to edit all locations at the same  time.
  * Invoke the !MultiSelectEdit command to change all of those selections into links.
  * Make your edits and hit Enter to confirm them.
 
+[http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MultiSelectEdit/Screenshots/CR_MultiSelectEdit.png]
+
 === Credits ===
 
 Author: [RoryBecker Rory Becker]
