@@ -1,6 +1,11 @@
 [http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_MultiSelect/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== Tested under DXCore 11.1 =====
+
+== Warning ==
+
+This plugin now ships natively with CodeRush 11.2 and higher. It remains here as an example only.
+
 === Introduction ===
 This awesome plugin allows you to define and use multiple selections instead of the normal singular selection supported by Windows natively.
 
