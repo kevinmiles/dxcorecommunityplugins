@@ -70,8 +70,7 @@ namespace CR_MultiSelectEdit
 		{
 			CodeRush.LinkedIdentifiers.BreakAllLinks();
 			var List = CodeRush.LinkedIdentifiers.GetStorage(TheView.TextDocument).NewList();
-			bool SomethingSelected = CurrentSelection.Start != CurrentSelection.End;
-			if (SomethingSelected)
+			if (!CurrentSelection.IsPoint)
 			{
 				List.Add(CurrentSelection);
 			}
