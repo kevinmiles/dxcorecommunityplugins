@@ -4,7 +4,7 @@
 ===== Built using CodeRush 11.2 =====
 === Introduction ===
 
-Augments the existing CodeRush !MultiSelect functionality.
+Augments the existing !CodeRush !MultiSelect functionality.
 
 Provides a new action to link all current selections as in a rename.
 
