@@ -4,7 +4,7 @@
 
 == Warning ==
 
-This plugin now ships natively with CodeRush 11.2 and higher. It remains here as an example only.
+*This plugin now ships natively with CodeRush 11.2 and higher. It remains here as an example only.*
 
 === Introduction ===
 This awesome plugin allows you to define and use multiple selections instead of the normal singular selection supported by Windows natively.
