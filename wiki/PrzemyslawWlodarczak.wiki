@@ -1,0 +1,16 @@
+#summary Author page for Przemyslaw Wlodarczak :)
+
+My name is Przemyslaw Wlodarczak. I am author of:
+ * [CR_SmartQuotes] 
+ * [CR_SmartGenerics]
+ * [CR_StackOverflowIssues]
+
+Currently I work on
+ * [CR_StyleCop]
+
+
+== Contact me ==
+If you find any bug in one of above or want to share any other feedback,
+I am available via:
+ * Twitter: http://twitter.com/pwlodarczak
+ * Email: wlodarczak.przemyslaw@gmail.com
