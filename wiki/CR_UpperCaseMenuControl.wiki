@@ -4,7 +4,7 @@
 === Introduction ===
 A simple plugin which allows one to reverse the ALL CAPS nature of VS2012 RC's main menus.
 
-This allows you to change the VS2012 RC Menus from...
+This allows you to change the VS2012 RC menus from...
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_UpperCaseMenuControl/Screenshots/UPPERCASE.png
 
