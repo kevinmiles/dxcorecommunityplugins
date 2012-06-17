@@ -1,0 +1,28 @@
+[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_UpperCaseMenuControl/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+===== Built using DXCore 12.1 =====
+=== Introduction ===
+A simple plugin which allows one to reverse the ALL CAPS nature of VS2012 RC's main menus.
+
+This allows you to change the VS2012 RC Menus from...
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_UpperCaseMenuControl/Screenshots/UPPERCASE.png
+
+...To...
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_UpperCaseMenuControl/Screenshots/MixedCase.png
+
+
+=== Usage ===
+  * Visit *DevExpress\Options* ... 
+  * Locate *IDE\UPPER CASE MENUS*
+  * Choose either '*ALL CAPS*' or '*Title Case*'
+  * Click OK.
+  * Note: You will need to restart Visual Studio for this setting to take effect.
+
+http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_UpperCaseMenuControl/Screenshots/CR_UpperCaseMenuControl.png
+
+
+=== Credits ===
+
+Author: [http://devexpress.com/mark Mark Miller] 
