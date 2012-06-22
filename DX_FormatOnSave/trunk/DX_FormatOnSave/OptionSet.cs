@@ -17,7 +17,7 @@ namespace DX_FormatOnSave
 		/// Initializes a new instance of the <see cref="DX_FormatOnSave.OptionSet" /> class
 		/// with default options enabled.
 		/// </summary>
-        public OptionSet()
+		public OptionSet()
 		{
 			this.Enabled = true;
 			this.LanguagesToFormat = DocumentLanguages.CPlusPlus | DocumentLanguages.CSharp | DocumentLanguages.JavaScript | DocumentLanguages.VisualBasic | DocumentLanguages.Xml;
@@ -56,21 +56,14 @@ namespace DX_FormatOnSave
 			{
 				throw new ArgumentNullException("storage");
 			}
-			Log.IncreaseLevel("Loading 'format on save' options.");
-			try
-			{
-				OptionSet options = new OptionSet();
-				OptionSet defaults = new OptionSet();
-				options.Enabled = storage.ReadBoolean(SectionGeneral, KeyEnabled, defaults.Enabled);
-				Log.SendBool("Enabled", options.Enabled);
-				options.LanguagesToFormat = storage.ReadEnum<DocumentLanguages>(SectionGeneral, KeyLanguagesToFormat, defaults.LanguagesToFormat);
-				Log.SendEnum("Languages to format", options.LanguagesToFormat);
-				return options;
-			}
-			finally
-			{
-				Log.DecreaseLevel();
-			}
+			Log.SendMsg("Loading 'format on save' options.");
+			OptionSet options = new OptionSet();
+			OptionSet defaults = new OptionSet();
+			options.Enabled = storage.ReadBoolean(SectionGeneral, KeyEnabled, defaults.Enabled);
+			Log.SendBool("Enabled", options.Enabled);
+			options.LanguagesToFormat = storage.ReadEnum<DocumentLanguages>(SectionGeneral, KeyLanguagesToFormat, defaults.LanguagesToFormat);
+			Log.SendEnum("Languages to format", options.LanguagesToFormat);
+			return options;
 		}
 
 		/// <summary>
@@ -86,20 +79,13 @@ namespace DX_FormatOnSave
 			{
 				throw new ArgumentNullException("storage");
 			}
-			Log.IncreaseLevel("Saving 'format on save' options.");
-			try
-			{
-				storage.LanguageID = "";
-				storage.WriteBoolean(SectionGeneral, KeyEnabled, this.Enabled);
-				Log.SendBool("Enabled", this.Enabled);
-				storage.WriteEnum(SectionGeneral, KeyLanguagesToFormat, this.LanguagesToFormat);
-				Log.SendEnum("Languages to format", this.LanguagesToFormat);
-				storage.UpdateStorage();
-			}
-			finally
-			{
-				Log.DecreaseLevel();
-			}
+			Log.SendMsg("Saving 'format on save' options.");
+			storage.LanguageID = "";
+			storage.WriteBoolean(SectionGeneral, KeyEnabled, this.Enabled);
+			Log.SendBool("Enabled", this.Enabled);
+			storage.WriteEnum(SectionGeneral, KeyLanguagesToFormat, this.LanguagesToFormat);
+			Log.SendEnum("Languages to format", this.LanguagesToFormat);
+			storage.UpdateStorage();
 		}
 	}
 }
