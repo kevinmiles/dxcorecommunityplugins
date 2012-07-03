@@ -21,11 +21,6 @@ Namespace SA14XX
             Return ASE.VisibilityRange <> SourceRange.Empty
         End Function
 #End Region
-        Public Enum test
-            Item1
-            Item2
-
-        End Enum
 
 #Region "SA1400 + Fix"
         Public Const Message_SA1400 As String = "SA1400 - Access Modifier Must Be Declared"
@@ -104,14 +99,6 @@ Namespace SA14XX
             End If
             Return TheClass.Parent.Nodes.OfType(Of [Class]).Count > 1
         End Function
-        Public Sub Fix_SA1402(ByVal sender As Object, ByVal ea As ApplyContentEventArgs)
-            If CodeRush.Options.GetPage("Editor\Templates") IsNot Nothing Then
-                ' Call CodeRush 
-
-            Else
-
-            End If
-        End Sub
 #End Region
 #Region "SA1403"
         Public Const Message_SA1403 As String = "SA1403 - Files must only contain a single Namespace"
