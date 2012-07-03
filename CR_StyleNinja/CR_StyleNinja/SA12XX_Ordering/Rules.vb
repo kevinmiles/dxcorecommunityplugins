@@ -1,10 +1,8 @@
-
 Imports System.ComponentModel
 Imports DevExpress.CodeRush.StructuralParser
 Imports DevExpress.CodeRush.Core
 Imports System.Diagnostics.CodeAnalysis
 Imports System.Runtime.CompilerServices
-
 Namespace SA12XX
     Friend Module Rules
 #Region "SA1200"
@@ -13,9 +11,16 @@ Namespace SA12XX
             ea.Available = Qualifies_SA1200(ea.CodeActive)
         End Sub
         Public Function Qualifies_SA1200(ByVal Element As IElement) As Boolean
-            ' GetNamespaceReference
+            If CodeRush.Language.GetLanguageID(Element) <> "CSharp" Then
+                Return False
+            End If
+            Element = Element.GetParent(LanguageElementType.NamespaceReference)
+            If Element Is Nothing Then
+                Return False
+            End If
             Dim IsReference = Element.ElementType = LanguageElementType.NamespaceReference
-            Dim PoorlyParented = Element.Parent isnot Nothing andalso Element.Parent.ElementType <> LanguageElementType.Namespace
+            Dim PoorlyParented = Element.Parent IsNot Nothing AndAlso Element.Parent.ElementType <> LanguageElementType.Namespace
+
             Return IsReference AndAlso PoorlyParented
         End Function
 
@@ -37,7 +42,7 @@ Namespace SA12XX
         Private Function GetCombinedBlockRange(ByVal NamespaceReferences As System.Collections.Generic.IEnumerable(Of LanguageElement)) As SourceRange
             Dim Result As SourceRange
             Result.Start = NamespaceReferences.First.Range.Start
-            Result.End = NamespaceReferences.Last.Range.Start.OffsetPoint(1,0)
+            Result.End = NamespaceReferences.Last.Range.Start.OffsetPoint(1, 0)
             Return Result
         End Function
 
