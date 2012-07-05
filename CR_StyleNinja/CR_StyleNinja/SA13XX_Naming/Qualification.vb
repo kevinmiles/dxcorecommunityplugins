@@ -37,6 +37,7 @@ Namespace SA13XX
             End If
 
             Return Variable.IsLocal _
+             AndAlso CodeRush.CodeStyle.PrefixLocal <> String.Empty _
             AndAlso Not Element.Name.StartsWith(CodeRush.CodeStyle.PrefixLocal)
         End Function
 #End Region
@@ -48,6 +49,7 @@ Namespace SA13XX
                 Return False
             End If
             Return Variable.IsField _
+            AndAlso CodeRush.CodeStyle.PrefixField <> String.Empty _
             AndAlso Not Element.Name.StartsWith(CodeRush.CodeStyle.PrefixParam)
         End Function
 #End Region
@@ -55,6 +57,7 @@ Namespace SA13XX
         Friend Message_ParamsShouldStart As String = String.Format("Params should start with '{0}'", CodeRush.CodeStyle.PrefixParam)
         Friend Function Qualifies_ParamWithPoorPrefix(ByVal Element As IElement) As Boolean
             Return Element.ElementType = LanguageElementType.Parameter _
+            AndAlso CodeRush.CodeStyle.PrefixParam <> String.Empty _
             AndAlso Not Element.Name.StartsWith(CodeRush.CodeStyle.PrefixParam)
         End Function
 #End Region
