@@ -9,7 +9,6 @@ Imports System.Text.RegularExpressions
 Public Class PlugIn1
     Private Const RegExStartsWithHeader As String = "(//|') RefreshTemplate:(.+)"
     Private Const RegExStartsWithFooter As String = "(//|') EndRefreshTemplate:(.+)"
-
     'DXCore-generated code...
 #Region " InitializePlugIn "
     Public Overrides Sub InitializePlugIn()
@@ -91,6 +90,5 @@ Public Class PlugIn1
     Private Function LineMatchesPattern(ByVal Line As Integer, ByVal Pattern As String) As Boolean
         Return Regex.IsMatch(CodeRush.Documents.ActiveTextDocument.GetText(Line), Pattern)
     End Function
-
 
 End Class
