@@ -4,11 +4,6 @@ The !DevExpress Support Center is *not* the correct location for issues with com
 
 If you have an issue with a community plugin, please check our [http://code.google.com/p/dxcorecommunityplugins/issues/list list of issues] and if yours is not listed then perhaps [http://code.google.com/p/dxcorecommunityplugins/issues/entry add a new one]
 
-=== Forum ===
-Developer Express have been kind enough to allow us to use their [http://community.devexpress.com/forums/181.aspx 'DXCore Plugins' forum] for any discussions pertaining to the plugins on this site.
-
-If you'd like to discuss bugs, existing features, suggestions or just shoot the breeze and talk about how various plugins achieve what they do... then please feel free to make yourself known in the forum, and we'll see what we can do to help you. 
-
 === Author Pages ===
 Some authors are happy to engage in some form of direct communication, and have created an author page (linked to from the credits section of relevant plugins). This page might contain contact information, such as email address or links to their blogs or twitter account. 
 
