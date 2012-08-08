@@ -34,38 +34,48 @@ Public Class PlugIn1
     End Sub
     Private Sub NavToNamedMVCView_CheckAvailability(ByVal sender As Object, ByVal ea As CheckContentAvailabilityEventArgs)
         Dim ViewDocument As String = GetNamedMVCViewDocumentPath(ea.CodeActive)
-        ea.Available = ViewDocument IsNot String.Empty
+        ea.Available = ViewDocument <> String.Empty
     End Sub
     Function GetNamedMVCViewDocumentPath(ByVal Element As LanguageElement) As String
-        ' Caret should be on View Or PartialView
+        ' Primitive
+        Dim ViewNamePrimitive As PrimitiveExpression = TryCast(Element, PrimitiveExpression)
+        If ViewNamePrimitive Is Nothing Then
+            Return Nothing
+        End If
+        If ViewNamePrimitive.PrimitiveType <> PrimitiveType.String Then
+            Return Nothing
+        End If
+
+        ' Controller Class
         Dim ParentClass = Element.GetParent(LanguageElementType.Class)
-        If ParentClass Is Nothing Then
+        If ParentClass Is Nothing OrElse Not ParentClass.Name.EndsWith("Controller") Then
             Return Nothing
         End If
-        If Not ParentClass.Name.EndsWith("Controller") Then
+
+        '-------------------------------------------------------------
+        'Dim ParentElement = TryCast(Element.Parent, MethodCallExpression)
+        'If ParentElement Is Nothing Then
+        '    Return Nothing
+        'End If
+
+        ' -- Method Name Check -------------------------------------------------------------
+        Dim Sibling = Element.NextNode()
+        If Sibling.ElementType <> LanguageElementType.MethodReferenceExpression Then
             Return Nothing
         End If
-        If Element.ElementType <> LanguageElementType.MethodReferenceExpression Then
-            Return Nothing
-        End If
-        Dim MRE = TryCast(Element, MethodReferenceExpression)
+        Dim MRE = TryCast(Sibling, MethodReferenceExpression)
         If MRE.Name <> "View" AndAlso MRE.Name <> "PartialView" Then
             Return Nothing
         End If
-        Dim MethodCallExpression As LanguageElement = MRE.Parent
-        If MethodCallExpression.DetailNodes.Count = 0 Then
-            Return Nothing
-        End If
-        Dim FirstParam As PrimitiveExpression = TryCast(MethodCallExpression.DetailNodes(0), PrimitiveExpression)
-        If FirstParam.PrimitiveType <> PrimitiveType.String Then
-            Return Nothing
-        End If
-        Dim ViewName = FirstParam.Name.Trim("""")
+
+        Return GetNamedMVCViewDocumentPathExtracted(ParentClass, ViewNamePrimitive)
+    End Function
+    Private Shared Function GetNamedMVCViewDocumentPathExtracted(ByVal ParentClass As LanguageElement, ByVal ViewNamePrimitive As PrimitiveExpression) As String
+        Dim ViewName = ViewNamePrimitive.Name.Trim("""")
         Dim ThisDocPath As String = CodeRush.Documents.ActiveTextDocument.Path.RemoveLast("Controllers\".Length)
-        Dim RelativePath = String.Format("Views\{0}\{1}", ParentClass.Name.RemoveLast("Controller".Length), FirstParam.PrimitiveValue)
+        Dim RelativePath = String.Format("Views\{0}\{1}", ParentClass.Name.RemoveLast("Controller".Length), ViewNamePrimitive.PrimitiveValue)
         Dim HtmlFileType As String = If(CodeRush.Language.Active = "Basic", ".vbhtml", ".cshtml")
-        Dim ViewPath As String = System.IO.Path.Combine(ThisDocPath, RelativePath) & HtmlFileType
-        Return ViewPath
+        Return System.IO.Path.Combine(ThisDocPath, RelativePath) & HtmlFileType
     End Function
 
     Private Sub NavToNamedMVCView_Apply(ByVal Sender As Object, ByVal ea As ApplyContentEventArgs)
