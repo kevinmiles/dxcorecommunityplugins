@@ -59,7 +59,7 @@ Public Class PlugIn1
         'End If
 
         ' -- Method Name Check -------------------------------------------------------------
-        Dim Sibling = Element.NextNode()
+        Dim Sibling = Element.Parent.Nodes(0)
         If Sibling.ElementType <> LanguageElementType.MethodReferenceExpression Then
             Return Nothing
         End If
