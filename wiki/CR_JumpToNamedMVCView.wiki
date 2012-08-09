@@ -2,7 +2,7 @@
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== Requires DXCore 10.2 since build =====
 === Introduction ===
-This plugin provides a new NavigationProider to help you navigate to a razor view from a controller that calls it by name.
+This plugin provides a new !NavigationProider to help you navigate to a razor view from a controller that calls it by name.
 
 === Usage ===
 
@@ -11,18 +11,18 @@ http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToNamedMVCView/Scr
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToNamedMVCView/Screenshots/JumpToNamedMVCViewCustomerControllerFull.png
 
-  * Place your caret on the name of the View call 
+  * Place your caret on the name of the View being called 
   * Hit Ctrl+Alt+N
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToNamedMVCView/Screenshots/JumpToNamedMVCViewCustomerControllerJumpToView.png
   * Choose Named MVC View
-  * CodeRush transports you to the correct view.
+  * !CodeRush transports you to the correct view.
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToNamedMVCView/Screenshots/JumpToNamedMVCViewCustomerListView.png
 
 ==== Further Configuration ====
 
 You want to, you could [http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx bind this navigation directly to a keyboard shortcut]. 
 
-I might suggest the F12 key, since this functionality is akin to !GotoDefinition.
+I suggest the F12 key, since this functionality is akin to !GotoDefinition.
 
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToNamedMVCView/Screenshots/JumpToNamedMVCViewShorctuts.png
 http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToNamedMVCView/Screenshots/JumpToNamedMVCViewShortcutDetail.png
