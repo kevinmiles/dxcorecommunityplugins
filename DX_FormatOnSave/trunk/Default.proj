@@ -58,5 +58,6 @@
 			<Output ItemName="BinaryPackageFiles" TaskParameter="Include"/>
 		</CreateItem>
 		<Zip Files="@(BinaryPackageFiles)" ZipFileName="$(BuildPackageDir)\DX_FormatOnSave-$(Version).zip" Flatten="true"/>
+		<Copy SourceFiles="$(BuildBinDir)\DX_FormatOnSave.vsix" DestinationFolder="$(BuildPackageDir)" />
 	</Target>
 </Project>
