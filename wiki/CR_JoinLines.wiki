@@ -12,7 +12,7 @@ http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JoinLines/screenshots/
 
 = Installation =
 
-  # Follow the InstallInstructions to place the `CR_JoinLines.dll` in the DXCore plugins folder.
+  # [http://visualstudiogallery.msdn.microsoft.com/bee53ee3-8841-42ab-bddc-b14ed5a1a9ff Install the plugin from the Visual Studio Extension Gallery] or follow the InstallInstructions to place the `CR_JoinLines.dll` in the DXCore plugins folder.
   # Open Visual Studio.
   # From the !DevExpress menu, select "Options," then "IDE/Shortcuts" from the treeview on the side.
   # Add a new shortcut.
