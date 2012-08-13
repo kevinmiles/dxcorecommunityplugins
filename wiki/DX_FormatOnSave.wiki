@@ -1,7 +1,7 @@
 #summary Plugin for automatically formatting code documents when they're saved.
 #labels Phase-Support
 
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/DX_FormatOnSave/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
+[http://visualstudiogallery.msdn.microsoft.com/ebe64669-9236-4e73-9336-5c07f524d763 http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 
 = Introduction =
 
@@ -11,7 +11,10 @@ Wouldn't it be nice if the whole document would adhere to the same formatting wi
 
 With this plugin, you can automatically have Visual Studio apply code formatting to the entire document you're working on when you save. That way you don't have to think about it - your documents will always be formatted.
 
-= Installation =
+= Automatic Installation =
+Use the Visual Studio Extension Manager to [http://visualstudiogallery.msdn.microsoft.com/ebe64669-9236-4e73-9336-5c07f524d763 install the plugin from the Visual Studio Extension Gallery].
+
+= Manual Installation =
 Follow the InstallInstructions to place the `DX_FormatOnSave.dll` in the DXCore plugins folder.
 
 = Configuration =
