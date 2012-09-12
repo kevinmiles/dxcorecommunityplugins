@@ -42,22 +42,11 @@ I am R.Warnat and I created this plugin on top of their ideas.
 With some combinations of vista and/or service packs !RockScroll 
 stopped working on my machine and _I reinvented the wheel_. 
 
-Thanks to Rory Becker this project came still quick to life.
-
-So this got again my favorite sticker :
-</td><td>
-[http://www.hanselman.com/blog/content/binary/WindowsLiveWriter/IntroducingRockScroll_C29C/works-on-my-machine-starburst_3.png]
-</td></tr></table>
-
-I recently set up a [http://code-seeker.blogspot.com/2009/05/minicodecolumn.html personal blog]. See you there :-)
 
 === Small Update ===
 
 The flickering and slowing down of the studio is fixed as well as 
 handling the highliting of more than one doubleclicked word.
 
-=== Call for Comments ===
-
-If you like it - or not - please drop a comment.
 
 If you find some serious errors , please use the [http://code.google.com/p/dxcorecommunityplugins/issues/list issues tab].
