@@ -1,5 +1,5 @@
 Partial Class PlugIn1
-	Inherits DevExpress.CodeRush.PlugInCore.StandardPlugIn
+    Inherits DevExpress.CodeRush.PlugInCore.StandardPlugIn
 
 	<System.Diagnostics.DebuggerNonUserCode()> _
 	Public Sub New()
