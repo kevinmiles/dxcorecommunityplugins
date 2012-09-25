@@ -43,7 +43,7 @@ namespace CR_MarkerExtensions
 
     private enum NavDestination { None, First, Prev, Next, Last, AtCaret, StackTop, StackBottom }
 
-    private void GetMarkerActionProperties(Action action, out NavDestination destination, out bool collect)
+    private void GetMarkerActionProperties(DevExpress.CodeRush.Core.Action action, out NavDestination destination, out bool collect)
     {
       if ( action == MarkerFirstAction || action == MarkerCollectFirstAction )
         destination = NavDestination.First;
