@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 namespace DX_FormatOnSave
 {
-	partial class FormatOnSavePlugIn
+	partial class FormatOnSavePlugin
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -9,9 +9,9 @@ namespace DX_FormatOnSave
 		private System.ComponentModel.IContainer components = null;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="DX_FormatOnSave.FormatOnSavePlugIn" /> class.
+		/// Initializes a new instance of the <see cref="DX_FormatOnSave.FormatOnSavePlugin" /> class.
 		/// </summary>
-		public FormatOnSavePlugIn()
+		public FormatOnSavePlugin()
 		{
 			// Required for Windows.Forms Class Composition Designer support
 			InitializeComponent();

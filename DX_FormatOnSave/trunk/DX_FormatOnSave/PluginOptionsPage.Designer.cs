@@ -3,7 +3,7 @@ using DevExpress.CodeRush.Core;
 
 namespace DX_FormatOnSave
 {
-	partial class PlugInOptionsPage
+	partial class PluginOptionsPage
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -11,9 +11,9 @@ namespace DX_FormatOnSave
 		private System.ComponentModel.IContainer components = null;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="DX_FormatOnSave.PlugInOptionsPage" /> class.
+		/// Initializes a new instance of the <see cref="DX_FormatOnSave.PluginOptionsPage" /> class.
 		/// </summary>
-        public PlugInOptionsPage()
+        public PluginOptionsPage()
 		{
 			// Required for Windows.Forms Class Composition Designer support
 			InitializeComponent();
@@ -168,7 +168,7 @@ namespace DX_FormatOnSave
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.Controls.Add(this.languageFormatSelectors);
 			this.Controls.Add(this.chkEnabled);
-			this.Name = "PlugInOptionsPage";
+			this.Name = "PluginOptionsPage";
 			this.languageFormatSelectors.ResumeLayout(false);
 			this.languageFormatSelectors.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
@@ -201,7 +201,7 @@ namespace DX_FormatOnSave
 		{
 			get
 			{
-				return PlugInOptionsPage.GetCategory();
+				return PluginOptionsPage.GetCategory();
 			}
 		}
 		/// <summary>
@@ -211,7 +211,7 @@ namespace DX_FormatOnSave
 		{
 			get
 			{
-				return PlugInOptionsPage.GetPageName();
+				return PluginOptionsPage.GetPageName();
 			}
 		}
 		/// <summary>
