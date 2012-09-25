@@ -8,7 +8,7 @@ namespace DX_FormatOnSave
 	/// Page for setting plugin options.
 	/// </summary>
 	[UserLevel(UserLevel.NewUser)]
-	public partial class PlugInOptionsPage : OptionsPage
+	public partial class PluginOptionsPage : OptionsPage
 	{
 		/// <summary>
 		/// Gets the options being worked with in this window.
@@ -49,20 +49,20 @@ namespace DX_FormatOnSave
 		{
 			base.Initialize();
 
-			this.CommitChanges += new CommitChangesEventHandler(PlugInOptionsPage_CommitChanges);
-			this.RestoreDefaults += new RestoreDefaultsEventHandler(PlugInOptionsPage_RestoreDefaults);
+			this.CommitChanges += new CommitChangesEventHandler(PluginOptionsPage_CommitChanges);
+			this.RestoreDefaults += new RestoreDefaultsEventHandler(PluginOptionsPage_RestoreDefaults);
 			this.Options = OptionSet.Load(Storage);
 			this.SyncOptionsToForm(this.Options);
 		}
 
-		void PlugInOptionsPage_RestoreDefaults(object sender, OptionsPageEventArgs ea)
+		void PluginOptionsPage_RestoreDefaults(object sender, OptionsPageEventArgs ea)
 		{
 			OptionSet defaults = new OptionSet();
 			this.SyncOptionsToForm(defaults);
 			this.Options = defaults;
 		}
 
-		void PlugInOptionsPage_CommitChanges(object sender, CommitChangesEventArgs ea)
+		void PluginOptionsPage_CommitChanges(object sender, CommitChangesEventArgs ea)
 		{
 			this.Options = this.SyncOptionsFromForm();
 			this.Options.Save(Storage);

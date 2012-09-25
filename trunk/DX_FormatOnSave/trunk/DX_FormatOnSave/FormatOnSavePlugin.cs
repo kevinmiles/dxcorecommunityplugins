@@ -38,7 +38,7 @@ namespace DX_FormatOnSave
 	/// </item>
 	/// </list>
 	/// </remarks>
-	public partial class FormatOnSavePlugIn : StandardPlugIn
+	public partial class FormatOnSavePlugin : StandardPlugIn
 	{
 		/// <summary>
 		/// Keeps track of which documents are currently being formatted so
@@ -173,7 +173,7 @@ namespace DX_FormatOnSave
 			}
 		}
 
-		private void FormatOnSavePlugIn_OptionsChanged(OptionsChangedEventArgs ea)
+		private void FormatOnSavePlugin_OptionsChanged(OptionsChangedEventArgs ea)
 		{
 			this.RefreshOptions();
 		}
@@ -184,7 +184,7 @@ namespace DX_FormatOnSave
 		public override void InitializePlugIn()
 		{
 			base.InitializePlugIn();
-			this.OptionsChanged += FormatOnSavePlugIn_OptionsChanged;
+			this.OptionsChanged += FormatOnSavePlugin_OptionsChanged;
 			this._docEvents = new RunningDocumentTableEventProvider();
 			this._docEvents.Initialize();
 			this._docEvents.Saving += DocumentSaving;
@@ -235,7 +235,7 @@ namespace DX_FormatOnSave
 		/// </summary>
 		public void RefreshOptions()
 		{
-			this.Options = OptionSet.Load(PlugInOptionsPage.Storage);
+			this.Options = OptionSet.Load(PluginOptionsPage.Storage);
 		}
 	}
 }
