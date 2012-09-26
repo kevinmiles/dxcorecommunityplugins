@@ -37,7 +37,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>C:\Documents and Settings\ckramer\My Documents\DevExpress\IDE Tools\Community\PlugIns\</OutputPath>
+    <OutputPath>..\..\..\..\..\Users\Rory.Becker\Documents\DevExpress\IDE Tools\Community\Plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
