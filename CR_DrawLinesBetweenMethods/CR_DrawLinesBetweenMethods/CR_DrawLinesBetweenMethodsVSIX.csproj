@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -26,7 +27,7 @@
     </StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
+    <OldToolsVersion>4.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -36,6 +37,14 @@
     <StartAction>Program</StartAction>
     <StartProgram>$(DevEnvDir)devenv.exe</StartProgram>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <GeneratePkgDefFile>false</GeneratePkgDefFile>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>true</CopyOutputSymbolsToOutputDirectory>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -50,13 +59,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
-    <GeneratePkgDefFile>false</GeneratePkgDefFile>
-    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
-    <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
-    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
-    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
-    <CopyOutputSymbolsToOutputDirectory>true</CopyOutputSymbolsToOutputDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -106,38 +108,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="DevExpress.CodeRush.Common">
-      <Name>DevExpress.CodeRush.Common</Name>
-      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.Common.dll</HintPath>
-      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
-    </Reference>
-    <Reference Include="DevExpress.CodeRush.Core">
-      <Name>DevExpress.CodeRush.Core</Name>
-      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.Core.dll</HintPath>
-      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
-    </Reference>
-    <Reference Include="DevExpress.CodeRush.PlugInCore">
-      <Name>DevExpress.CodeRush.PlugInCore</Name>
-      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.PlugInCore.dll</HintPath>
-      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
-    </Reference>
-    <Reference Include="DevExpress.CodeRush.StructuralParser">
-      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.StructuralParser.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.CodeRush.VSCore">
-      <Name>DevExpress.CodeRush.VSCore</Name>
-      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.VSCore.dll</HintPath>
-      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
-    </Reference>
-    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(DxCoreInstallFolder)DevExpress.DXCore.Controls.Utils.v6.3.dll</HintPath>
-    </Reference>
+    <Reference Include="DevExpress.CodeRush.Common"/>
+    <Reference Include="DevExpress.CodeRush.Core"/>
+    <Reference Include="DevExpress.CodeRush.PlugInCore"/>
+    <Reference Include="DevExpress.CodeRush.StructuralParser"/>
+    <Reference Include="DevExpress.CodeRush.VSCore"/>
+    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3"/>
     <Reference Include="DevExpress.DXCore.Parser" />
-    <Reference Include="DevExpress.DXCore.Platform">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <Reference Include="DevExpress.DXCore.Platform"/>
     <Reference Include="EnvDTE">
       <Name>EnvDTE</Name>
     </Reference>
@@ -210,8 +188,13 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\VSSDK\Microsoft.VsSDK.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\VSSDK\Microsoft.VsSDK.targets" Condition="false" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
