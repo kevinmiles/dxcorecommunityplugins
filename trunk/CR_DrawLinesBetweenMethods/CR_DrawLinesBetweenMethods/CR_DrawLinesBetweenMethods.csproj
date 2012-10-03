@@ -102,29 +102,35 @@
       <Name>DevExpress.CodeRush.Common</Name>
       <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.Common.dll</HintPath>
       <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.CodeRush.Core">
       <Name>DevExpress.CodeRush.Core</Name>
       <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.Core.dll</HintPath>
       <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.CodeRush.PlugInCore">
       <Name>DevExpress.CodeRush.PlugInCore</Name>
       <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.PlugInCore.dll</HintPath>
       <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.CodeRush.StructuralParser">
       <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.StructuralParser.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.CodeRush.VSCore">
       <Name>DevExpress.CodeRush.VSCore</Name>
       <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.VSCore.dll</HintPath>
       <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(DxCoreInstallFolder)DevExpress.DXCore.Controls.Utils.v6.3.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.DXCore.Parser" />
     <Reference Include="DevExpress.DXCore.Platform">
