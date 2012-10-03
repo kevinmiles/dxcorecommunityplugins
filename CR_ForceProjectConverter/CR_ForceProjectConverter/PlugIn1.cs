@@ -47,7 +47,7 @@ namespace CR_ForceProjectConverter
         foreach (AssemblyReference reference in project.AssemblyReferences)
         {
           if (reference.Name.StartsWith("DevExpress"))
-           // if (!File.Exists(reference.FilePath))
+            if (!File.Exists(reference.FilePath))
               unresolvedAssemblies.Add(reference.Name);
         }
       }
