@@ -1,7 +1,6 @@
-
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_INotifyPropChangeRename", "CR_INotifyPropChangeRename\CR_INotifyPropChangeRenameVSIX.csproj", "{16009302-5D1F-4034-81B5-EBC02F957B64}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_INotifyPropChangeRenameVSIX", "CR_INotifyPropChangeRename\CR_INotifyPropChangeRenameVSIX.csproj", "{16009302-5D1F-4034-81B5-EBC02F957B64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
