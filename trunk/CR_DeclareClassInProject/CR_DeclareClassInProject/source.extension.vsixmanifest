@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
   <Identifier Id="CR_DeclareClassInProject">
-    <Name>CR_DeclareClassInProject</Name>
+    <Name>DeclareClassInProject for CodeRush</Name>
     <Author>Rory Becker</Author>
     <Version>1.0</Version>
-    <Description xml:space="preserve">CR_DeclareClassInProject adds CodeProviders which help to create classes structs and interfaces in other projects.</Description>
+    <Description xml:space="preserve">DeclareClassInProject adds CodeProviders which help to create classes structs and interfaces in other projects.</Description>
     <Locale>1033</Locale>
+    <Icon>CR-Plug-in.png</Icon>
     <SupportedProducts>
       <VisualStudio Version="10.0">
         <Edition>Pro</Edition>
