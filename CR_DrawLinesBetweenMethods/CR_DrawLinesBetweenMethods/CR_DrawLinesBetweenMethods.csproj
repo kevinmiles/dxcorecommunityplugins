@@ -200,6 +200,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\Common\Graphics\CR-Plug-in.png">
+      <Link>CR-Plug-in.png</Link>
+    </Content>
     <Content Include="Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
