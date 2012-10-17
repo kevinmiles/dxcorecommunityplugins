@@ -1,7 +1,6 @@
-
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_ElementTagTabber", "CR_ElementTagTabber\CR_ElementTagTabberVSIX.csproj", "{97FE8D57-0FC4-4455-BE8F-186BD5FDDC14}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_ElementTagTabberVSIX", "CR_ElementTagTabber\CR_ElementTagTabberVSIX.csproj", "{97FE8D57-0FC4-4455-BE8F-186BD5FDDC14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
