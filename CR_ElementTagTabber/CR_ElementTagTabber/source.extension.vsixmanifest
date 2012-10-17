@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
   <Identifier Id="CR_ElementTagTabber">
-    <Name>CR_ElementTagTabber</Name>
+    <Name>ElementTagTabber for CodeRush</Name>
     <Author>Mark Miller</Author>
     <Version>1.0</Version>
-    <Description xml:space="preserve">CR_ElementTagTabber extends the 'Tab to Next Reference' feature of coderush, by allowing the use to 'Tab' between an open tag and it's corresponding close tag in html or XML files.</Description>
+    <Description xml:space="preserve">ElementTagTabber extends the 'Tab to Next Reference' feature of coderush, by allowing the use to 'Tab' between an open tag and it's corresponding close tag in html or XML files.</Description>
     <Locale>1033</Locale>
+    <Icon>CR-Plug-in.png</Icon>
     <SupportedProducts>
       <VisualStudio Version="10.0">
         <Edition>Pro</Edition>

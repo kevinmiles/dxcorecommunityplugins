@@ -59,6 +59,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\Common\Graphics\CR-Plug-in.png">
+      <Link>CR-Plug-in.png</Link>
+    </Content>
     <Content Include="HTMLPage1.htm" />
     <Content Include="XMLFile1.xml" />
   </ItemGroup>
