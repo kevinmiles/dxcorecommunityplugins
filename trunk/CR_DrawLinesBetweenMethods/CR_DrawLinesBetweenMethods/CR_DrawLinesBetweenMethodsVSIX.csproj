@@ -37,14 +37,6 @@
     <StartAction>Program</StartAction>
     <StartProgram>$(DevEnvDir)devenv.exe</StartProgram>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
-    <GeneratePkgDefFile>false</GeneratePkgDefFile>
-    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
-    <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
-    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
-    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
-    <CopyOutputSymbolsToOutputDirectory>true</CopyOutputSymbolsToOutputDirectory>
-    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -59,6 +51,14 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <GeneratePkgDefFile>false</GeneratePkgDefFile>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>true</CopyOutputSymbolsToOutputDirectory>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -108,14 +108,44 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="DevExpress.CodeRush.Common"/>
-    <Reference Include="DevExpress.CodeRush.Core"/>
-    <Reference Include="DevExpress.CodeRush.PlugInCore"/>
-    <Reference Include="DevExpress.CodeRush.StructuralParser"/>
-    <Reference Include="DevExpress.CodeRush.VSCore"/>
-    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3"/>
+    <Reference Include="DevExpress.CodeRush.Common">
+      <Name>DevExpress.CodeRush.Common</Name>
+      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.Common.dll</HintPath>
+      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.Core">
+      <Name>DevExpress.CodeRush.Core</Name>
+      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.Core.dll</HintPath>
+      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.PlugInCore">
+      <Name>DevExpress.CodeRush.PlugInCore</Name>
+      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.PlugInCore.dll</HintPath>
+      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.StructuralParser">
+      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.StructuralParser.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.CodeRush.VSCore">
+      <Name>DevExpress.CodeRush.VSCore</Name>
+      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.VSCore.dll</HintPath>
+      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(DxCoreInstallFolder)DevExpress.DXCore.Controls.Utils.v6.3.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="DevExpress.DXCore.Parser" />
-    <Reference Include="DevExpress.DXCore.Platform"/>
+    <Reference Include="DevExpress.DXCore.Platform">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="EnvDTE">
       <Name>EnvDTE</Name>
     </Reference>
@@ -181,6 +211,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\Common\Graphics\CR-Plug-in.png">
+      <Link>CR-Plug-in.png</Link>
+    </Content>
     <Content Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>
