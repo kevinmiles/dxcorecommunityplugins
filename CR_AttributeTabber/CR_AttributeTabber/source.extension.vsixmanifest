@@ -6,6 +6,8 @@
     <Version>1.0</Version>
     <Description xml:space="preserve">Extends CodeRush's 'Tab to Next Reference' feature to allow tabbing between attributes and their values.</Description>
     <Locale>1033</Locale>
+    <Icon>CR-Plug-in.png</Icon>
+    <PreviewImage>CR_AttributeTabber.gif</PreviewImage>
     <SupportedProducts>
       <VisualStudio Version="10.0">
         <Edition>Pro</Edition>
