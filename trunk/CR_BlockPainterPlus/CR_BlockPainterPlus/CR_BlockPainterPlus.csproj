@@ -143,7 +143,11 @@
       <DependentUpon>BlockPainterPlusOptions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\..\Common\Graphics\CR-Plug-in.png">
+      <Link>CR-Plug-in.png</Link>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <None Include="Properties\DataSources\IBlockPaintingStrategySettings.datasource" />
   </ItemGroup>
