@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
   <Identifier Id="CR_AttributeTabber">
-    <Name>CR_AttributeTabber</Name>
+    <Name>AttributeTabber for CodeRush</Name>
     <Author>Rory Becker</Author>
     <Version>1.0</Version>
     <Description xml:space="preserve">Extends CodeRush's 'Tab to Next Reference' feature to allow tabbing between attributes and their values.</Description>
