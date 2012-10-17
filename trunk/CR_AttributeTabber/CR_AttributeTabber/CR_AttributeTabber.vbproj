@@ -128,6 +128,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\Common\Graphics\CR-Plug-in.png">
+      <Link>CR-Plug-in.png</Link>
+    </Content>
+    <Content Include="..\Screenshots\CR_AttributeTabber.gif">
+      <Link>CR_AttributeTabber.gif</Link>
+    </Content>
     <Content Include="HTMLPage1.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
