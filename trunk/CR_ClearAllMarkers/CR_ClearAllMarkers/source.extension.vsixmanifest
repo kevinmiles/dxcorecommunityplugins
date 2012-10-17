@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
   <Identifier Id="CR_ClearAllMarkers">
-    <Name>CR_ClearAllMarkers</Name>
+    <Name>ClearAllMarkers for CodeRush</Name>
     <Author>Rory Becker</Author>
     <Version>1.0</Version>
-    <Description xml:space="preserve">CR_ClearAllMarkers adds a command to clear any and all Markers that may be active within the open source files.</Description>
+    <Description xml:space="preserve">ClearAllMarkers adds a command to clear any and all Markers that may be active within the open source files.</Description>
     <Locale>1033</Locale>
+    <Icon>CR-plug-in.png</Icon>
     <SupportedProducts>
       <VisualStudio Version="10.0">
         <Edition>Pro</Edition>
