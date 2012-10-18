@@ -1,7 +1,6 @@
-
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_EnforceNamingConventions", "CR_EnforceNamingConventions\CR_EnforceNamingConventionsVSIX.csproj", "{D1E7E85A-BE63-406F-8076-BD83A0759D43}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_EnforceNamingConventionsVSIX", "CR_EnforceNamingConventions\CR_EnforceNamingConventionsVSIX.csproj", "{D1E7E85A-BE63-406F-8076-BD83A0759D43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
