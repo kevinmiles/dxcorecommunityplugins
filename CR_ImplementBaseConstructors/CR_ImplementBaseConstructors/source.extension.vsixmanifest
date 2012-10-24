@@ -6,6 +6,7 @@
     <Version>1.0</Version>
     <Description xml:space="preserve">CR_ImplementBaseConstructors adds a codeprovider which will implement constructors for each constructor in the base class.</Description>
     <Locale>1033</Locale>
+    <Icon>CR-Plug-in.png</Icon>
     <SupportedProducts>
       <VisualStudio Version="10.0">
         <Edition>Pro</Edition>
