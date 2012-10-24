@@ -147,6 +147,7 @@
   <ItemGroup>
     <Content Include="..\..\Common\Graphics\CR-Plug-in.png">
       <Link>CR-Plug-in.png</Link>
+      <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
   </ItemGroup>
   <PropertyGroup>
