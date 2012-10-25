@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
+using DevExpress.CodeRush.Diagnostics.Commands;
 
 namespace DX_FormatOnSave
 {
@@ -94,6 +95,11 @@ namespace DX_FormatOnSave
 					try
 					{
 						FormatDocument(e.Document);
+					}
+					catch (Exception ex)
+					{
+						// Issue #147: Unhandled exception while attempting to format the document.
+						Log.SendException("Error formatting document on save.", ex);
 					}
 					finally
 					{
