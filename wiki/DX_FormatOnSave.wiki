@@ -24,6 +24,10 @@ From the !DevExpress menu, select "Options." In the tree on the left, go to "Edi
 
 https://dxcorecommunityplugins.googlecode.com/svn/trunk/DX_FormatOnSave/screenshots/options.png
 
+= Release Notes =
+  * 2.0.1: Visual Studio 2012 compatibility.
+  * 2.0.2: Fix for Issue #147 - exception when save-on-close.
+
 = For Plugin Developers =
 If you are a plugin developer, the source to this plugin may interest you. It shows you how to use lower-level Visual Studio functions that DXCore doesn't expose (yet) from within a DXCore plugin. In this case, DXCore doesn't expose a "Before Document Save" event, but Visual Studio does. This plugin handles the native event from inside a DXCore plugin.
 
