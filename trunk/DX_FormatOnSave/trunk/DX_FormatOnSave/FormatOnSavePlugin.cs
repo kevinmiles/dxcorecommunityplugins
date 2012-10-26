@@ -99,6 +99,10 @@ namespace DX_FormatOnSave
 					catch (Exception ex)
 					{
 						// Issue #147: Unhandled exception while attempting to format the document.
+						// This happens if the user closes the document and has
+						// unsaved changes - they elect to save on close and this
+						// will run AFTER the doc is already closed so we can't
+						// cause the document to focus and can't format.
 						Log.SendException("Error formatting document on save.", ex);
 					}
 					finally
@@ -165,7 +169,9 @@ namespace DX_FormatOnSave
 			}
 
 			// You can only format the active document, so we have to temporarily
-			// activate each document that needs formatting.
+			// activate each document that needs formatting. This is a limitation
+			// because if the document is ALSO closing we can't make it active
+			// so we can't format it.
 			Document active = CodeRush.Documents.Active;
 			if (doc != active)
 			{
