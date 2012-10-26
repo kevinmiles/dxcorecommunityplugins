@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
   <Identifier Id="CR_ImplementBaseConstructors">
-    <Name>CR_ImplementBaseConstructors</Name>
+    <Name>ImplementBaseConstructors</Name>
     <Author>Rory Becker</Author>
     <Version>1.0</Version>
-    <Description xml:space="preserve">CR_ImplementBaseConstructors adds a codeprovider which will implement constructors for each constructor in the base class.</Description>
+    <Description xml:space="preserve">ImplementBaseConstructors adds a codeprovider which will implement constructors for each constructor in the base class.</Description>
     <Locale>1033</Locale>
     <Icon>CR-Plug-in.png</Icon>
     <SupportedProducts>
