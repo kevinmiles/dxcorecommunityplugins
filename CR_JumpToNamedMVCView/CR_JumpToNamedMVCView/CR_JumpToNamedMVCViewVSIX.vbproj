@@ -76,8 +76,10 @@
     <CopyVsixExtensionLocation>c:\Test</CopyVsixExtensionLocation>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.CodeRush.Library, Version=12.1.5.0, Culture=neutral, PublicKeyToken=e1a72e979dafdca7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="DevExpress.CodeRush.Library, Version=12.1.5.0, Culture=neutral, PublicKeyToken=e1a72e979dafdca7, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
