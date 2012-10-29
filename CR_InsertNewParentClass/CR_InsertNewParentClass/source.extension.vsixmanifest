@@ -4,7 +4,7 @@
     <Name>InsertNewParentClass</Name>
     <Author>Rory Becker</Author>
     <Version>1.0</Version>
-    <Description xml:space="preserve">InsertNewParentClass provides a refactoring which injects a new parent class inbetween the current class and it's existing parent.</Description>
+    <Description xml:space="preserve">InsertNewParentClass provides a CodeProvider which injects a new parent class inbetween the current class and it's existing parent.</Description>
     <Locale>1033</Locale>
       <Icon>CR-Plug-in.png</Icon>
     <SupportedProducts>
