@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DX_ContextLab", "DX_ContextLab\DX_ContextLab.csproj", "{A4FDC246-D399-4D59-97BC-81B73D8B89FE}"
 EndProject
 Global

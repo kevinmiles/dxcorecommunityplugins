@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.Diagnostics.ToolWindows;
@@ -149,23 +150,38 @@ namespace DX_ContextLab
 		/// be logged and it will be assumed that context is not fulfilled.
 		/// </para>
 		/// </remarks>
+		[SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Catching the exception so it can be logged.")]
 		public void UpdateContextList()
 		{
 			if (!this.ToolWindowEnabled)
 			{
 				return;
 			}
-			this.contextList.Items.Clear();
+			this.contextList.BeginUpdate();
 			ContextServices currentContext = CodeRush.Context;
 			string[] allContexts = currentContext.GetAllContextPaths("All");
-			List<string> satisfied = new List<string>();
+			currentContext.BeginCheck();
 			foreach (string context in allContexts)
 			{
 				try
 				{
+					if (context == "System\\Table Dimensions Are Set")
+					{
+						// This specific context has a side-effect where if
+						// it isn't satisfied, a table dimension picker pops
+						// up and locks up the IDE.
+						continue;
+					}
 					if (currentContext.Satisfied(context, false))
 					{
-						satisfied.Add(context);
+						if (!this.contextList.Items.Contains(context))
+						{
+							this.contextList.Items.Add(context);
+						}
+					}
+					else
+					{
+						this.contextList.Items.Remove(context);
 					}
 				}
 				catch (Exception e)
@@ -176,7 +192,8 @@ namespace DX_ContextLab
 					Log.SendException(String.Format(CultureInfo.InvariantCulture, "Exception while evaluating context '{0}'", context), e);
 				}
 			}
-			this.contextList.Items.AddRange(satisfied.ToArray());
+			currentContext.EndCheck();
+			this.contextList.EndUpdate();
 		}
 	}
 }

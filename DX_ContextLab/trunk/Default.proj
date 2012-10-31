@@ -13,8 +13,8 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<CleanFolders Include="$(BuildDir)"/>
-		<CleanFolders Include="DX_FormatOnSave\bin"/>
-		<CleanFolders Include="DX_FormatOnSave\obj"/>
+		<CleanFolders Include="DX_ContextLab\bin"/>
+		<CleanFolders Include="DX_ContextLab\obj"/>
 	</ItemGroup>
 	<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
 	<Target Name="All">
@@ -25,13 +25,13 @@
 	<Target Name="Compile">
 		<Message Text="Creating build output folder hierarchy..."/>
 		<MakeDir Directories="$(BuildDir);$(BuildBinDir);$(BuildLogDir)"/>
-		<Message Text="Compiling DX_FormatOnSave plugin..."/>
-		<MSBuild Projects="DX_FormatOnSave.sln" Properties="Configuration=$(Configuration)"/>
-		<CreateItem Include="DX_FormatOnSave\bin\$(Configuration)\DX_FormatOnSave.*">
+		<Message Text="Compiling DX_ContextLab plugin..."/>
+		<MSBuild Projects="DX_ContextLab.sln" Properties="Configuration=$(Configuration)"/>
+		<CreateItem Include="DX_ContextLab\bin\$(Configuration)\DX_ContextLab.*">
 			<Output TaskParameter="Include" ItemName="BuildOutput"/>
 		</CreateItem>
 		<Copy SourceFiles="@(BuildOutput)" DestinationFolder="$(BuildBinDir)"/>
-		<CreateItem Include="DX_FormatOnSave\bin\$(Configuration)\*.CodeAnalysisLog.xml">
+		<CreateItem Include="DX_ContextLab\bin\$(Configuration)\*.CodeAnalysisLog.xml">
 			<Output TaskParameter="Include" ItemName="LogOutput"/>
 		</CreateItem>
 		<Copy SourceFiles="@(LogOutput)" DestinationFolder="$(BuildLogDir)"/>
@@ -48,16 +48,16 @@
 	</Target>
 	<Target Name="Package">
 		<MakeDir Directories="$(BuildPackageDir)"/>
-		<GetAssemblyIdentity AssemblyFiles="$(BuildBinDir)\DX_FormatOnSave.dll">
+		<GetAssemblyIdentity AssemblyFiles="$(BuildBinDir)\DX_ContextLab.dll">
 			<Output ItemName="AssemblyIdentities" TaskParameter="Assemblies"/>
 		</GetAssemblyIdentity>
 		<CreateProperty Value="%(AssemblyIdentities.Version)">
 			<Output PropertyName="Version" TaskParameter="Value"/>
 		</CreateProperty>
-		<CreateItem Include="$(BuildBinDir)\DX_FormatOnSave.dll;readme.html">
+		<CreateItem Include="$(BuildBinDir)\DX_ContextLab.dll;readme.html">
 			<Output ItemName="BinaryPackageFiles" TaskParameter="Include"/>
 		</CreateItem>
-		<Zip Files="@(BinaryPackageFiles)" ZipFileName="$(BuildPackageDir)\DX_FormatOnSave-$(Version).zip" Flatten="true"/>
-		<Copy SourceFiles="$(BuildBinDir)\DX_FormatOnSave.vsix" DestinationFolder="$(BuildPackageDir)" />
+		<Zip Files="@(BinaryPackageFiles)" ZipFileName="$(BuildPackageDir)\DX_ContextLab-$(Version).zip" Flatten="true"/>
+		<Copy SourceFiles="$(BuildBinDir)\DX_ContextLab.vsix" DestinationFolder="$(BuildPackageDir)" />
 	</Target>
 </Project>

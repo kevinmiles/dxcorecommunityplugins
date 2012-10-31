@@ -11,11 +11,11 @@ namespace DX_ContextLab
 		private System.ComponentModel.IContainer components = null;
 		private DevExpress.DXCore.PlugInCore.DXCoreEvents events;
 
+		/// <summary>
+		/// Required for Windows.Forms Class Composition Designer support
+		/// </summary>
 		public ContextWindow()
 		{
-			/// <summary>
-			/// Required for Windows.Forms Class Composition Designer support
-			/// </summary>
 			InitializeComponent();
 		}
 
@@ -47,6 +47,7 @@ namespace DX_ContextLab
 			this.contextPolling = new System.Windows.Forms.CheckBox();
 			this.evaluateContextAction = new DevExpress.CodeRush.Core.Action(this.components);
 			this.pollingTimer = new System.Windows.Forms.Timer(this.components);
+			((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.evaluateContextAction)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -54,9 +55,9 @@ namespace DX_ContextLab
 			// 
 			// contextList
 			// 
-			this.contextList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.contextList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.contextList.FormattingEnabled = true;
 			this.contextList.Location = new System.Drawing.Point(3, 29);
 			this.contextList.Name = "contextList";
@@ -69,7 +70,7 @@ namespace DX_ContextLab
 			this.contextPolling.AutoSize = true;
 			this.contextPolling.Location = new System.Drawing.Point(4, 4);
 			this.contextPolling.Name = "contextPolling";
-			this.contextPolling.Size = new System.Drawing.Size(130, 17);
+			this.contextPolling.Size = new System.Drawing.Size(131, 17);
 			this.contextPolling.TabIndex = 1;
 			this.contextPolling.Text = "Enable context polling";
 			this.contextPolling.UseVisualStyleBackColor = true;
@@ -83,6 +84,8 @@ namespace DX_ContextLab
 			this.evaluateContextAction.Description = "Manually updates the Context Lab plugin with the caret\'s current context.";
 			this.evaluateContextAction.Image = ((System.Drawing.Bitmap)(resources.GetObject("evaluateContextAction.Image")));
 			this.evaluateContextAction.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+			this.evaluateContextAction.ToolbarItem.ButtonIsPressed = false;
+			this.evaluateContextAction.ToolbarItem.Image = null;
 			this.evaluateContextAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.EvaluateContextAction_Execute);
 			this.evaluateContextAction.QueryStatus += new DevExpress.CodeRush.Core.QueryStatusEventHandler(this.EvaluateContextAction_QueryStatus);
 			// 
@@ -99,6 +102,7 @@ namespace DX_ContextLab
 			this.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
 			this.Name = "ContextWindow";
 			this.Size = new System.Drawing.Size(150, 400);
+			((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.events)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.evaluateContextAction)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
