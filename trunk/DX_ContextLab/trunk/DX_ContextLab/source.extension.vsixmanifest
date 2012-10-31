@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
-	<Identifier Id="DX_FormatOnSave">
+	<Identifier Id="DX_ContextLab">
 		<Name>DX_ContextLab</Name>
 		<Author>Travis Illig</Author>
 		<Version>2.0.0.0</Version>
