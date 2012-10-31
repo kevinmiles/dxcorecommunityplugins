@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 using DevExpress.CodeRush.Core;
-using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.Diagnostics.Commands;
+using DevExpress.CodeRush.PlugInCore;
 
 namespace DX_FormatOnSave
 {
@@ -41,6 +43,12 @@ namespace DX_FormatOnSave
 	/// </remarks>
 	public partial class FormatOnSavePlugin : StandardPlugIn
 	{
+		/// <summary>
+		/// Reflection lookup for a document full name. Used if the document has
+		/// already been closed so we can find the original path.
+		/// </summary>
+		private static readonly FieldInfo _fullNameFieldInfo = typeof(Document).GetField("_FullName", BindingFlags.Instance | BindingFlags.GetField | BindingFlags.NonPublic);
+
 		/// <summary>
 		/// Keeps track of which documents are currently being formatted so
 		/// we don't end up in an endless loop of format/save.
@@ -168,26 +176,75 @@ namespace DX_FormatOnSave
 				throw new ArgumentNullException("doc");
 			}
 
-			// You can only format the active document, so we have to temporarily
-			// activate each document that needs formatting. This is a limitation
-			// because if the document is ALSO closing we can't make it active
-			// so we can't format it.
-			Document active = CodeRush.Documents.Active;
-			if (doc != active)
+			// Issue #147: You have to handle documents that were save-on-close
+			// differently than documents that are currently open.
+			// Closed documents return null for the full name because they've
+			// been disposed and there's no backing VS DocumentObject.
+			var isClosed = doc.FullName == null;
+			var docFullName = GetDocFullName(doc);
+
+			// The TextBuffers collection will have the document if it's open.
+			var textBuffer = CodeRush.TextBuffers[docFullName];
+			if (textBuffer == null && docFullName != null)
 			{
-				doc.Activate();
+				// If the document has already closed, we can re-open it in the
+				// background to format it.
+				textBuffer = CodeRush.TextBuffers.Open(docFullName);
 			}
-			CodeRush.Documents.Format();
-			doc.Save();
-			if (doc != active)
+			if (textBuffer == null)
 			{
-				active.Activate();
+				Log.SendError("Unable to load text buffer for formatting document '{0}'", docFullName);
+				return;
+			}
+
+			// Format the document and if it's successful write the changes back.
+			var result = textBuffer.Format(textBuffer.Range);
+			if (result != FormatResult.Success)
+			{
+				Log.SendError("Unable to format document '{0}'.", docFullName);
+			}
+			if (isClosed)
+			{
+				UpdateClosedDocument(docFullName, textBuffer.Text);
+			}
+			else
+			{
+				doc.Save(docFullName);
 			}
 		}
 
 		private void FormatOnSavePlugin_OptionsChanged(OptionsChangedEventArgs ea)
 		{
 			this.RefreshOptions();
+		}
+
+		/// <summary>
+		/// Gets the full name/path for a document even if it's closed.
+		/// </summary>
+		/// <param name="doc">
+		/// The document for which the name should be retrieved.
+		/// </param>
+		/// <returns>
+		/// A <see cref="System.String"/> with the document full name/path.
+		/// </returns>
+		/// <exception cref="System.ArgumentNullException">
+		/// Thrown if <paramref name="doc" /> is <see langword="null" />.
+		/// </exception>
+		public static string GetDocFullName(Document doc)
+		{
+			if (doc == null)
+			{
+				throw new ArgumentNullException("doc");
+			}
+			var docFullName = doc.FullName;
+			if (docFullName == null && _fullNameFieldInfo != null)
+			{
+				// The document name will be null if the file is closed, but the
+				// private instance property will still have the filename we need
+				// to re-format.
+				docFullName = _fullNameFieldInfo.GetValue(doc) as String;
+			}
+			return docFullName;
 		}
 
 		/// <summary>
@@ -248,6 +305,30 @@ namespace DX_FormatOnSave
 		public void RefreshOptions()
 		{
 			this.Options = OptionSet.Load(PluginOptionsPage.Storage);
+		}
+
+		/// <summary>
+		/// Saves/overwrites the contents of a closed document.
+		/// </summary>
+		/// <param name="path">
+		/// The path to the document to overwrite.
+		/// </param>
+		/// <param name="content">
+		/// The new content that should be in the file.
+		/// </param>
+		[SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "The file stream gets disposed through the using and inside the writer, but it's OK to double-dispose a stream.")]
+		private static void UpdateClosedDocument(string path, string content)
+		{
+			// If the document is closed, we have to manually save
+			// it using an exclusive locking filestream. Without the
+			// locking, VS may not have fully written the doc yet and we
+			// end up in a race condition where the file contents
+			// get all mangled.
+			using (var stream = File.Open(path, FileMode.Truncate, FileAccess.Write, FileShare.None))
+			using (var writer = new StreamWriter(stream))
+			{
+				writer.Write(content);
+			}
 		}
 	}
 }
