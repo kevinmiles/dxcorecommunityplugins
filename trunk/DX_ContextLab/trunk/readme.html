@@ -2,7 +2,7 @@
 
 <html>
 <head>
-	<title>DX_FormatOnSave Readme</title>
+	<title>DX_ContextLab Readme</title>
 	<style type="text/css">
 	<!--
 	body
@@ -35,21 +35,19 @@
 
 <body>
 
-<h1>DX_FormatOnSave</h1>
+<h1>DX_ContextLab</h1>
 
 <h2>Description</h2>
 
-<p>Visual Studio allows you to specify different code formatting rules for different languages it understands, but in many cases the formatting only applies to new code you're writing. For example, C# lines generally get formatted when you hit the end of the line and type the semicolon... but the only line that gets formatted is the one you just completed.</p>
+<p>When working with DXCore Actions or other plugins, sometimes you need to enable, disable, or otherwise manipulate something based on whether a given context is satisfied. Unfortunately, it's hard to know what contexts are satisfied at any given time. That's where this plugin helps.</p>
 
-<p>Wouldn't it be nice if the whole document would adhere to the same formatting without you having to pay attention to it?</p>
-
-<p>With this plugin, you can automatically have Visual Studio apply code formatting to the entire document you're working on when you save. That way you don't have to think about it - your documents will always be formatted.</p>
+<p>DX_ContextLab adds a tool window to the DevExpress\Diagnostics menu that you can set to poll every second for the complete list of contexts that are satisfied at any given time. It also adds a command ("Update Context Lab") that you can bind to a keyboard shortcut to manually refresh the list of satisfied contexts, should you not want polling to run.</p>
 
 <h2>License</h2>
 
 <p>Licensed under <a href="http://www.opensource.org/licenses/mit-license.php" target="_blank">the MIT License</a>.</p>
 
-<p>Copyright 2010 Travis Illig</p>
+<p>Copyright 2009 Travis Illig</p>
 
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -80,7 +78,7 @@ THE SOFTWARE.</p>
 <p>There are two ways to install - Visual Studio Extension Manager or Manual Installation.</p>
 
 <h3>Visual Studio Extension Manager</h3>
-<p>In Visual Studio, go to <code>Tools -&gt; Extension Manager</code> and search for <code>DX_FormatOnSave</code>. Click the handy button to install.</p>
+<p>In Visual Studio, go to <code>Tools -&gt; Extension Manager</code> and search for <code>DX_ContextLab</code>. Click the handy button to install.</p>
 
 <h3>Manual Installation</h3>
 
@@ -96,18 +94,25 @@ THE SOFTWARE.</p>
 	<li>Your community plugin folder <strong>may have been reconfigured to be elsewhere</strong>. </li>
 	<li>Its current location can be determined from the Core\Settings <a href="http://sites.google.com/site/coderushdocs/screens/options" rel="nofollow">options page</a>.</li>
 	</ul>
-<li>Put the DX_FormatOnSave.dll in your community plugins folder.</li>
+<li>Put the DX_ContextLab.dll in your community plugins folder.</li>
 <li>Right-click the plugin DLL, select &quot;Properties,&quot; and on the &quot;General&quot; tab, click the &quot;Unblock&quot; button. This is required to enable DXCore to properly execute the code in the plugin. </li>
 <li>Restart Visual Studio.</li>
 </ol>
 
 <h2>Configuration</h2>
-<p>While usage is transparent - documents automatically get formatted when you save them - you can configure which documents the formatting will get applied to.</p>
-
-<p>From the DevExpress menu, select "Options." In the tree on the left, go to "Editor/Code Style" and select the "Format On Save" options window. There you will be able to select which document types get formatted. </p>
+<p>There are no explicit configuration options; however, you may bind a key to the refresh action:</p>
+<ol>
+<li>Open Visual Studio.</li>
+<li>From the DevExpress menu, select "Options," then "IDE/Shortcuts" from the treeview on the side.</li>
+<li>Add a new shortcut.</li>
+<li>Bind a key to the shortcut in the "Key 1" field ("Ctrl + Shift + Alt + U" is recommended).</li>
+<li>Set the shortcut's command to "Update Context Lab".</li>
+<li>Do not set any context for the shortcut. It should be allowed to run always.</li>
+<li>Click "OK" to close the options window when you are done adding shortcuts.</li>
+</ol>
 
 <h2>Additional Info</h2>
 
-<p>For more info, see the <a href="http://code.google.com/p/dxcorecommunityplugins/wiki/DX_FormatOnSave" target="_blank">DX_FormatOnSave wiki page</a> on the <a href="http://code.google.com/p/dxcorecommunityplugins/" target="_blank">DXCore Community Plugins site</a>.</p>
+<p>For more info, see the <a href="http://code.google.com/p/dxcorecommunityplugins/wiki/DX_ContextLab" target="_blank">DX_ContextLab wiki page</a> on the <a href="http://code.google.com/p/dxcorecommunityplugins/" target="_blank">DXCore Community Plugins site</a>.</p>
 </body>
 </html>
