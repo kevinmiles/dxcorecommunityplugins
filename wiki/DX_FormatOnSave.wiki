@@ -26,7 +26,8 @@ https://dxcorecommunityplugins.googlecode.com/svn/trunk/DX_FormatOnSave/screensh
 
 = Release Notes =
   * 2.0.1: Visual Studio 2012 compatibility.
-  * 2.0.2: Fix for Issue #147 - exception when save-on-close.
+  * 2.0.2: Fix for Issue #147 - exception when save-on-close. Unable to do save-on-close.
+  * 2.0.3: Added support to handle save-on-close. Unable to save-on-close if VS is also shutting down at the same time.
 
 = For Plugin Developers =
 If you are a plugin developer, the source to this plugin may interest you. It shows you how to use lower-level Visual Studio functions that DXCore doesn't expose (yet) from within a DXCore plugin. In this case, DXCore doesn't expose a "Before Document Save" event, but Visual Studio does. This plugin handles the native event from inside a DXCore plugin.
