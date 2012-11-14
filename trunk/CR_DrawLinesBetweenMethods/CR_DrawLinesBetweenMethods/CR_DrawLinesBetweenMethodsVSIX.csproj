@@ -82,6 +82,8 @@
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CopyVsixExtensionFiles>False</CopyVsixExtensionFiles>
+    <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -108,12 +110,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="DevExpress.CodeRush.Common">
-      <Name>DevExpress.CodeRush.Common</Name>
-      <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.Common.dll</HintPath>
-      <AssemblyFolderKey>hklm\dxcore</AssemblyFolderKey>
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="DevExpress.CodeRush.Common"/>
     <Reference Include="DevExpress.CodeRush.Core">
       <Name>DevExpress.CodeRush.Core</Name>
       <HintPath>$(DxCoreInstallFolder)DevExpress.CodeRush.Core.dll</HintPath>
