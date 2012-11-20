@@ -117,7 +117,6 @@ namespace CR_TranslatorToolWindow
         private string GetCode(string language)
         {
             SourceFile file = new SourceFile();
-
             LanguageElement sourceNode = null;
             sourceNode = optSourceFile.Checked ? lastMember.FileNode : lastMember;
             if (CodeRush.Language.Active == "Basic")
@@ -138,8 +137,8 @@ namespace CR_TranslatorToolWindow
                     sourceNode = RootSpace;
                 }
             }
-            file.AddNode((LanguageElement)sourceNode.Clone());
-
+            LanguageElement sourceNodeClone = (LanguageElement)sourceNode.Clone();
+            file.AddNode(sourceNodeClone);
             //NodeList sourceNodes = new NodeList();
             //if (optSourceFile.Checked)
             //    sourceNodes = lastMember.FileNode.Nodes;
@@ -158,13 +157,9 @@ namespace CR_TranslatorToolWindow
             //        {
             //            RootSpace.AddNode(Node);
             //        }
-
             //        sourceNodes.Add(RootSpace);
             //    }
             //}
-
-
-
             return CodeRush.Language.GenerateElement(file, language);
         }
 
