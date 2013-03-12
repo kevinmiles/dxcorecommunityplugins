@@ -47,6 +47,11 @@ namespace RenameXamlNamespacePrefix
                 tagPrefixRange = new SourceRange(xmlnsNameStart, end);
                 tagPrefixName = xmlnsName;
             }
+            else
+            {
+                SourcePoint end = new SourcePoint(start.Line, start.Offset + tagPrefixName.Length);
+                tagPrefixRange  = new SourceRange(start, end);
+            }
             return new TagPrefix() { Name = tagPrefixName, Range = tagPrefixRange };
         }
         #endregion
