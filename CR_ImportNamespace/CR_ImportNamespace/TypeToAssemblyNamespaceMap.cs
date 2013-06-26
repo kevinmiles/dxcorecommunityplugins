@@ -89,7 +89,7 @@ namespace CR_ImportNamespace
 
       try
       {
-        scope = ScopeManager.FromBytes(assemblyBytes, ScopeOptions.OpenLocal | ScopeOptions.LoadInternalElements | ScopeOptions.LoadPrivateElements | ScopeOptions.LoadMethodBodies | ScopeOptions.LoadAssemblyReferences, new AssemblyResolver(), true);
+        scope = ScopeManager.FromBytes(assemblyBytes, ScopeOptions.OpenLocal | ScopeOptions.LoadAssemblyReferences, null, true);
       }
       catch (ArgumentException ex)
       {
