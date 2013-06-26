@@ -78,7 +78,6 @@
     <Compile Include="AssemblyNamespaceList.cs" />
     <Compile Include="ExtendedFrameworkVersion.cs" />
     <Compile Include="IAssemblyPathsProvider.cs" />
-    <Compile Include="AssemblyResolver.cs" />
     <Compile Include="DefaultAssemblyPathsProvider.cs" />
     <Compile Include="DotNetTypesCache.cs" />
     <Compile Include="FrmCollectingClasses.cs">
