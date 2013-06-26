@@ -3,9 +3,10 @@
   <Identifier Id="CR_ImportNamespace">
     <Name>CR_ImportNamespace</Name>
     <Author>Team CodeRush</Author>
-    <Version>**GeneratedVersion**</Version>
-    <Description xml:space="preserve">CR_ImportNamespace Description</Description>
+    <Version>1.0</Version>
+    <Description xml:space="preserve">ImportNamespace allows the user to add assembly and namespace references of items referenced from Code menu.</Description>
     <Locale>1033</Locale>
+    <Icon>CR-Plug-in.png</Icon>
     <SupportedProducts>
       <VisualStudio Version="10.0">
         <Edition>Pro</Edition>
