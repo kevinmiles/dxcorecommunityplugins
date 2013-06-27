@@ -1,6 +1,6 @@
 [http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_ImportNamespace/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Build using !CodeRush 11.2 =====
+===== Build using !CodeRush 13.1 =====
 === Introduction ===
 ==== The Problem ====
 Ever started to write code that uses a type, only to discover that you haven't imported the namespace the type lives in?
