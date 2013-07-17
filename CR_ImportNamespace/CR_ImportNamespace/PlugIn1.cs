@@ -295,6 +295,7 @@ namespace CR_ImportNamespace
                     continue;
                 projectsToGetTypes.Add(prj);
             }
+            projectsToGetTypes.Add(project);
             return projectsToGetTypes;
         }
         static TypeToAssemblyNamespaceMap ScanProjectTypes(List<ProjectElement> projectsToGetTypes)
