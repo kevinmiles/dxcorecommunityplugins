@@ -1,12 +1,14 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_JoinLines", "CR_JoinLines\CR_JoinLines.csproj", "{71241F9A-7236-404D-81D5-2460DB95E125}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B677F79C-7578-4A50-8FF3-395521CD4762}"
 	ProjectSection(SolutionItems) = preProject
 		Default.proj = Default.proj
 		CR_JoinLines\readme.txt = CR_JoinLines\readme.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CR_JoinLines", "CR_JoinLines\CR_JoinLines.csproj", "{71241F9A-7236-404D-81D5-2460DB95E125}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
