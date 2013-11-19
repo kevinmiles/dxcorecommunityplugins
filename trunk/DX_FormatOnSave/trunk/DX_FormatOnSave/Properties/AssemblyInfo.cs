@@ -17,5 +17,5 @@ using DevExpress.CodeRush.Common;
 [assembly: ComVisible(false)]
 [assembly: Guid("97150a1d-b4ad-4403-98f2-2e6a4aa6f721")]
 
-[assembly: AssemblyVersion("2.0.3.0")]
-[assembly: AssemblyFileVersion("2.0.3.0")]
+[assembly: AssemblyVersion("2.1.0.0")]
+[assembly: AssemblyFileVersion("2.1.0.0")]
