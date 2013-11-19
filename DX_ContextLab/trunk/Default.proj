@@ -6,7 +6,7 @@
 	-->
 	<PropertyGroup>
 		<Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
-		<BuildDir>..\build</BuildDir>
+		<BuildDir>build_output</BuildDir>
 		<BuildBinDir>$(BuildDir)\bin</BuildBinDir>
 		<BuildLogDir>$(BuildDir)\log</BuildLogDir>
 		<BuildPackageDir>$(BuildDir)\package</BuildPackageDir>
