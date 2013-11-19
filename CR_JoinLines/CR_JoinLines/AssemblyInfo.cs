@@ -13,4 +13,4 @@ using DevExpress.CodeRush.Common;
 [assembly: AssemblyDescription("DXCore plug-in providing a command to join text lines in the editor")]
 [assembly: AssemblyProduct("DXCore for Visual Studio .NET")]
 [assembly: AssemblyCopyright("Copyright © 2005 Travis Illig")]
-[assembly: AssemblyVersion("2.0.1.0")]
+[assembly: AssemblyVersion("2.1.0.0")]
