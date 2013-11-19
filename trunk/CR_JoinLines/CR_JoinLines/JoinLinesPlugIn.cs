@@ -109,7 +109,11 @@ namespace CR_JoinLines
 					// Join the selected lines
 					CodeRush.TextViews.Active.Selection.ExtendToWholeLines();
 					int topLine = CodeRush.TextViews.Active.Selection.StartLine;
-					int numLines = CodeRush.TextViews.Active.Selection.EndLine - topLine - 1;
+					int numLines = CodeRush.TextViews.Active.Selection.EndLine - topLine;
+					if (CodeRush.TextViews.Active.Selection.EndViewColumn == 1)
+					{
+						numLines--;
+					}
 					if (numLines == 0)
 					{
 						numLines = 1;
