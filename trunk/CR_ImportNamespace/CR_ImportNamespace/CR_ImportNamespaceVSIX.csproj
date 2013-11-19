@@ -36,6 +36,12 @@
     <WarningLevel>4</WarningLevel>
     <CopyVsixExtensionFiles>true</CopyVsixExtensionFiles>
     <CopyVsixExtensionLocation>c:\Test</CopyVsixExtensionLocation>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.ComponentModel.Composition" />
