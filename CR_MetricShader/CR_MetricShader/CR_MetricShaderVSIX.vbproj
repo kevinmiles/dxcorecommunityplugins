@@ -71,6 +71,9 @@
     <CopyVsixExtensionLocation>c:\Test</CopyVsixExtensionLocation>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.CodeRush.Common, Version=12.2.2.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="DevExpress.CodeRush.Extensions, Version=9.2.4.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d">
       <SpecificVersion>False</SpecificVersion>
@@ -101,7 +104,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="EnvDTE" />
     <Reference Include="EnvDTE80" />
-    <Reference Include="DevExpress.CodeRush.Common" />
     <Reference Include="DevExpress.CodeRush.Core" />
     <Reference Include="DevExpress.CodeRush.PlugInCore" />
     <Reference Include="DevExpress.CodeRush.StructuralParser" />
