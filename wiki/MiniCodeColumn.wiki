@@ -50,3 +50,8 @@ handling the highliting of more than one doubleclicked word.
 
 
 If you find some serious errors , please use the [http://code.google.com/p/dxcorecommunityplugins/issues/list issues tab].
+
+=== Goodbye ===
+For VS > 2012 this is obsolete.
+You can grab Power-Tools and switch the scroll-bar to "Show Full Mode"
+via context-menu on the scrollbar itself.
