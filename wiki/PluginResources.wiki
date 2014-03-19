@@ -30,7 +30,7 @@ The best place to ask any questions is in the [http://community.devexpress.com/f
 = End to End - Plugin Tutorials =
 
 === Kevin Wolf ===
- * [http://new.efficientcoder.net/2008/11/custom-string-to-resource-refactoring.html Custom String to Resource Refactoring with DXCore]
+ * [https://web.archive.org/web/20090817184943/http://new.efficientcoder.net/2008/11/custom-string-to-resource-refactoring.html Custom String to Resource Refactoring with DXCore]
 === Kim Major  ===
 [http://blogs.microsoft.co.il/blogs/kim/ Kim's Blog]
 
@@ -67,4 +67,3 @@ DNR TV - [http://www.dnrtv.com/default.aspx]
 
  * 10 Feb 2006 - [http://www.dnrtv.com/default.aspx?showNum=5 Mark Miller works the DXCore]
  * 02 Oct 2009  - [http://www.dnrtv.com/default.aspx?showNum=152 Mark Miller on Intelligent Code Generation in Visual Studio]
-
