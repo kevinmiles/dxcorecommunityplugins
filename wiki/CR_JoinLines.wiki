@@ -50,7 +50,11 @@ Once installed and bound to a keyboard shortcut (as noted above):
 	* Added VSIX installer.
 2.0.1.0:
 	* Fixed bug where delimiter wasn't getting properly inserted.
-
+2.1.0.0:
+	* Added support for VS 2012, 2013.
+	* Fixed bug when joining the last line in the file.
+2.1.1.0:
+	* Compatibility fix for DXCore 14.
 
 = Credits =
 
