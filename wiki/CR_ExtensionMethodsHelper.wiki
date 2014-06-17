@@ -1,7 +1,10 @@
 #summary Adds a CodeProvider which adds missing namespace references for extension methods.
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_ExtensionMethodsHelper http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 since build 1728 =====
+
+Community plugins are slowly being migrated to [http://github.com GitHub].
+
+This particular plugin has now been [https://github.com/RoryBecker/CR_ExtensionMethodsHelper relocated here].
+
+The latest release of this plugin is [https://github.com/RoryBecker/CR_ExtensionMethodsHelper/releases/latest available here].
 
 == Introduction ==
 
