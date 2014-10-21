@@ -5,7 +5,7 @@ This plugin and it's source have moved to github
 The new address for this plugin is [https://github.com/RoryBecker/CR_StyleNinja https://github.com/RoryBecker/CR_StyleNinja]
 
 The latest release [https://github.com/RoryBecker/CR_StyleNinja/releases/latest can be found here] 
----
+----
 
 
 [http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_StyleNinja http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
