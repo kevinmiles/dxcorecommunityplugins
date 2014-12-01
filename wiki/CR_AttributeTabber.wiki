@@ -8,10 +8,6 @@ The new address for this plugin is [https://github.com/RoryBecker/CR_AttributeTa
 
 The latest release [https://github.com/RoryBecker/CR_AttributeTabber/releases/latest can be found here] 
 
-The latest release can be found here 
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_AttributeTabber/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Created using CodeRush 11.2 =====
 === Introduction ===
 
 This plugin allows you to use those Tab to Next Reference skillz to navigate between the attributes of a HTML or XML tag (including their values)
