@@ -1,4 +1,14 @@
 #summary Provides a !CodeProvider to insert a new Parent class in the hierarchy above your current class
+
+= This Plugin Has Moved =
+
+This plugin and it's source have moved to github.
+
+The new address for this plugin is [https://github.com/RoryBecker/CR_InsertNewParentClass https://github.com/RoryBecker/CR_InsertNewParentClass]
+
+The latest release [https://github.com/RoryBecker/CR_InsertNewParentClass/releases/latest can be found here] 
+
+----
 [http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_InsertNewParentClass/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== Built using !CodeRush 11.2.7 =====
