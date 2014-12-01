@@ -9,9 +9,7 @@ The new address for this plugin is [https://github.com/RoryBecker/CR_InsertNewPa
 The latest release [https://github.com/RoryBecker/CR_InsertNewParentClass/releases/latest can be found here] 
 
 ----
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_InsertNewParentClass/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Built using !CodeRush 11.2.7 =====
+
 === Introduction ===
 The existing *Create Ancestor* !CodeProvider that comes with !CodeRush does not function if the Class in question already has a code ancestor.
 
