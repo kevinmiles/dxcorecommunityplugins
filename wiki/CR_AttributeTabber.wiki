@@ -7,6 +7,7 @@ This plugin and it's source have moved to github.
 The new address for this plugin is [https://github.com/RoryBecker/CR_AttributeTabber https://github.com/RoryBecker/CR_AttributeTabber]
 
 The latest release [https://github.com/RoryBecker/CR_AttributeTabber/releases/latest can be found here] 
+----
 
 === Introduction ===
 
