@@ -1,4 +1,14 @@
 #summary A Plugin to allow you to "Tab" between the attributes (and their values) contained within a html or xml tag.
+
+= This Plugin Has Moved =
+
+This plugin and it's source have moved to github.
+
+The new address for this plugin is [https://github.com/RoryBecker/CR_AttributeTabber https://github.com/RoryBecker/CR_AttributeTabber]
+
+The latest release [https://github.com/RoryBecker/CR_AttributeTabber/releases/latest can be found here] 
+
+The latest release can be found here 
 [http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_AttributeTabber/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
 [http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
 ===== Created using CodeRush 11.2 =====
