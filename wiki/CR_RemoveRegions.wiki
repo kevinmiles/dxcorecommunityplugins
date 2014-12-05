@@ -1,18 +1,9 @@
 #summary Refactoring to remove all regions in a file.
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_RemoveRegions http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 since build 1579 =====
-=== Introduction ===
-Provides a refactoring that removes all region directives in a file.
 
-=== Usage ===
-Place the caret on a region directive and invoke the "Remove File Regions" refactoring.
+= This Plugin Has Moved =
 
-=== History ===
+This plugin and it's source have moved to github.
 
- * Build 1154
-   * Renamed Menu item from "Remove Regions" to "Remove File Regions"
- * Build 1153
-   * Fixed bug in availability check.
-=== Credits ===
-RoryBecker
+The new address for this plugin is [https://github.com/RoryBecker/CR_RemoveRegions https://github.com/RoryBecker/CR_RemoveRegions]
+
+The latest release [https://github.com/RoryBecker/CR_RemoveRegions/releases/latest can be found here] 
