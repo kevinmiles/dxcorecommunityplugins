@@ -7,17 +7,3 @@ This plugin and it's source have moved to github.
 The new address for this plugin is [https://github.com/RoryBecker/CR_AttributeTabber https://github.com/RoryBecker/CR_AttributeTabber]
 
 The latest release [https://github.com/RoryBecker/CR_AttributeTabber/releases/latest can be found here] 
-----
-
-=== Introduction ===
-
-This plugin allows you to use those Tab to Next Reference skillz to navigate between the attributes of a HTML or XML tag (including their values)
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_AttributeTabber/Screenshots/CR_AttributeTabber.gif 
-
-=== Usage ===
-Simply place your caret on an HTML\XML Attribute, and hit either Tab or Shift+Tab to navigate as usual.
-
-=== Credits ===
-
-Author: RoryBecker 
