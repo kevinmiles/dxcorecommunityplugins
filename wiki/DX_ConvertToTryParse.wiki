@@ -1,25 +1,9 @@
 #summary Replaces the use of Int.Parse with Int.!TryParse
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/DX_ConvertToTryParse http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 since build 1601 =====
-= Introduction =
-Replaces the use of Int.Parse with Int.!TryParse
 
-Specifically, will translate 
+= This Plugin Has Moved =
 
-{{{
-    int Parsed = Int32.Parse("23");
-}}}
+This plugin and it's source have moved to github.
 
-into 
+The new address for this plugin is [https://github.com/RoryBecker/CR_ConvertToTryParse https://github.com/RoryBecker/CR_ConvertToTryParse]
 
-{{{
-    Int32 Parsed;
-    bool Success = Int32.TryParse("23", out Parsed);
-}}}
-
-= Usage =
-Place the caret on the '=' sign, and activate the "Convert to !TryParse" Refactoring.
-
-= Credits =
-RoryBecker
+The latest release [https://github.com/RoryBecker/CR_ConvertToTryParse/releases/latest can be found here] 
