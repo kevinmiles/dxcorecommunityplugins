@@ -1,23 +1,8 @@
 #summary Provides a new "Promote (Expression) To Parameter" Refactoring
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_PromoteExpressionToParameter/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 since build =====
-=== Introduction ===
-This plugin provides a new "Promote (Expression) To Parameter" Refactoring
+= This Plugin Has Moved =
 
-It produces the same effect as using "Introduce Local" followed by "Promote to Parameter"
+This plugin and it's source have moved to github.
 
-So all it really does is save you a a few keystrokes/ mouse movements. but that's ok, since making you more efficient is what CodeRush and the DXCore are all about.
+The new address for this plugin is [https://github.com/RoryBecker/CR_PromoteExpressionToParameter https://github.com/RoryBecker/CR_PromoteExpressionToParameter]
 
-=== Usage ===
-Select any expression, on which you would normally be able to apply "Introduce Local" and you should see the additional option of "Declare Parameter" in the code section of the !CodeRush !SmartTagMenu
-
-=== Caveats === 
-See [CR_DeclareParameter]
-
-=== Credits ===
-
-Author: [RoryBecker] 
-
-Core Techniques: [http://www.skorkin.com Alex Skorkin]
-Specifically: [http://www.skorkin.com/2010/12/how-to-perform-an-existing-refactoring-from-another-one/ How to perform an existing refactoring from another one]
+The latest release [https://github.com/RoryBecker/CR_PromoteExpressionToParameter/releases/latest can be found here] 
