@@ -1,63 +1,9 @@
 #summary Provides a new "Declare Parameter" CodeProvider
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_DeclareParameter/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 since build =====
-=== Introduction ===
-This plugin provides a new "Declare Parameter" !CodeProvider
 
-It produces the same effect as using "Declare Local" followed by "Promote to Parameter"
+= This Plugin Has Moved =
 
-So all it really does is save you a a few keystrokes/ mouse movements. but that's ok, since making you more efficient is what CodeRush and the DXCore are all about.
+This plugin and it's source have moved to github.
 
-=== Usage ===
-Position your caret anywhere which allows a "Declare Local" and you should see the additional option of "Declare Parameter" in the code section of the !CodeRush !SmartTagMenu
+The new address for this plugin is [https://github.com/RoryBecker/CR_DeclareParameter https://github.com/RoryBecker/CR_DeclareParameter]
 
-=== Caveats === 
-This !CodeProvider is pretty dumb. It was thrown together pretty hastily
-
-Once activated, it will execute "Declare Local" and once that is completed, it will move on to test for the availability of "Promote to Parameter". At this point it is entirely possible that "Promote to Parameter" will not be available.
-
-If this is the case, "Declare Parameter" will stop here and leave you with the your new local. you can choose to undo this (Ctrl+Z) or carry on in another direction. 
-
-The main reason that Promote to Parameter would not be available is if the expression you are declaring is not extractable from the current method.
-
-for example
-{{{
-    Public Sub MethodName() Implements SomeInterface.MethodName
-        Dim SomeLocal As String = ""
-        New PrimitiveExpression(SomeLocal)«CaretHere»
-    End Sub
-}}}
-Note that the expression to the left of the caret includes a reference to !SomeLocal which is a local variable and therefore not available to any calling method.
-
-"Declare Parameter" does not currently look ahead to find this out and therefore will still present itself.
-In this case, a new local will be created, but it will not be promoted to a parameter of the method. 
-
-{{{
-    Public Sub MethodName()
-        Dim SomeLocal As String = ""
-        Dim PrimitiveExpression As PrimitiveExpression = New PrimitiveExpression(SomeLocal)
-    End Sub
-}}}
-
-Alternatively, if you were to inline !SomeLocal...
-{{{
-    Public Sub MethodName()
-        New PrimitiveExpression("")«CaretHere»
-    End Sub
-}}}
-
-...and then execute "Declare Parameter", you'd end up with this:
-
-{{{
-    Public Sub MethodName(ByVal PrimitiveExpression As PrimitiveExpression)
-    End Sub
-}}}
-
-
-=== Credits ===
-
-Author: [RoryBecker] 
-
-Core Techniques: [http://www.skorkin.com Alex Skorkin]
-Specifically: [http://www.skorkin.com/2010/12/how-to-perform-an-existing-refactoring-from-another-one/ How to perform an existing refactoring from another one]
+The latest release [https://github.com/RoryBecker/CR_DeclareParameter/releases/latest can be found here] 
