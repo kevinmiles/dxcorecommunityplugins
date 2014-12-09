@@ -1,4 +1,4 @@
-#summary Provides a new "Declare Parameter" CodeProvider
+#summary Moved to GitHub - Provides a new "Declare Parameter" CodeProvider
 
 = This Plugin Has Moved =
 
