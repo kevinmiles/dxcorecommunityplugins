@@ -1,38 +1,9 @@
 #summary A community attempt to make navigating interfaces a little more simple.
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/DX_InterfaceNav http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 since build 1601 =====
-== Introduction ==
-Provides a number of implementations of "To Implementor" within the CodeRush Navigate !SmartTag
 
+= This Plugin Has Moved =
 
-== Usage ==
- * Place caret in any supported location 
- * Activate using default Navigate keystroke of Ctrl+Alt+N 
- * Choose "To Implementor"
- * Select implementation of method or class you'd like to jump to.
+This plugin and it's source have moved to github.
 
-== Supports ==
-{{{
-            // MyVar is declared as *MyInterface*
+The new address for this plugin is [https://github.com/RoryBecker/CR_InterfaceNav https://github.com/RoryBecker/CR_InterfaceNav]
 
-            MyInterface MyVar = new MyImplementor(); 
-            MyInterface Value1 = MyVar;         // From MyVar 
-            string Value2 = MyVar.MyProp;       // From MyVar or MyProp
-            string Value3 = MyVar.MyFunc();     // From MyVar or MyFunc
-            MyVar.MySub();                      // From MyVar or MySub
-}}}
-[http://dxcorecommunityplugins.googlecode.com/svn/trunk/DX_InterfaceNav/Screenshots/DX_InterfaceNavExample1.png]
-{{{
-            // MyVar declared as *MyImplementor*
-
-            MyImplementor MyVar = new MyImplementor();
-            MyInterface Value1 = MyVar;         // From MyVar 
-            string Value2 = MyVar.MyProp;       // From MyVar or MyProp
-            string Value3 = MyVar.MyFunc();     // From MyVar or MyFunc
-            MyVar.MySub();                      // From MyVar or MySub
-}}}
-[http://dxcorecommunityplugins.googlecode.com/svn/trunk/DX_InterfaceNav/Screenshots/DX_InterfaceNavExample2.png]
-
-== Credits ==
-RoryBecker
+The latest release [https://github.com/RoryBecker/CR_InterfaceNav/releases/latest can be found here] 
