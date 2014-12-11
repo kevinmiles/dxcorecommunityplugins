@@ -1,35 +1,8 @@
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_JumpToNamedMVCView/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 since build =====
-=== Introduction ===
-This plugin provides a new !NavigationProider to help you navigate to a razor view from a controller that calls it by name.
 
-=== Usage ===
+= This Plugin Has Moved =
 
-  * Start off in an MVC Controller
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToNamedMVCView/Screenshots/JumpToNamedMVCViewCustomerController.png
+This plugin and it's source have moved to github.
 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToNamedMVCView/Screenshots/JumpToNamedMVCViewCustomerControllerFull.png
+The new address for this plugin is [https://github.com/RoryBecker/CR_JumpToNamedMVCView https://github.com/RoryBecker/CR_JumpToNamedMVCView]
 
-  * Place your caret on the name of the View being called 
-  * Hit Ctrl+Alt+N
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToNamedMVCView/Screenshots/JumpToNamedMVCViewCustomerControllerJumpToView.png
-  * Choose Named MVC View
-  * !CodeRush transports you to the correct view.
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToNamedMVCView/Screenshots/JumpToNamedMVCViewCustomerListView.png
-
-==== Further Configuration ====
-
-You want to, you could [http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx bind this navigation directly to a keyboard shortcut]. 
-
-I suggest the F12 key, since this functionality is akin to !GotoDefinition.
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToNamedMVCView/Screenshots/JumpToNamedMVCViewShorctuts.png
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToNamedMVCView/Screenshots/JumpToNamedMVCViewShortcutDetail.png
-
-==== Limitations ====
-This version of the navigation can only find Razor views. ie vbhtml or cshtml files.
-
-=== Credits ===
-
-Author: RoryBecker 
+The latest release [https://github.com/RoryBecker/CR_JumpToNamedMVCView/releases/latest can be found here] 
