@@ -1,35 +1,9 @@
-#summary Provides an additional 'Type Declaration' on the Navigate menu
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_JumpToType/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Built using DXCore 11.1 since build =====
-=== Introduction ===
-This plugin provides an additional menu item on the Navigate menu.
+#summary Moved to GitHub - A Plugin to allow you to "Tab" between the attributes (and their values) contained within a html or xml tag.
 
-It allows the user to jump from a variable reference, to the variable's type's declaration.
+= This Plugin Has Moved =
 
-=== Usage ===
-Simply place you caret on a reference to a variable and press Ctrl+Alt+N (Navigate Shortcut)
+This plugin and it's source have moved to github.
 
-One of the options should be to navigate to the "Type Declaration". If this is selected then a marker will be dropped and CodeRush will navigate to the declaration of that variable's type.
+The new address for this plugin is [https://github.com/RoryBecker/CR_JumpToType https://github.com/RoryBecker/CR_JumpToType]
 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToType/Screenshots/NavigateTypeDeclaration.png
-
-=== Optional Configuration ===
-
-You can also configure a shortcut to directly trigger this navigation. 
-
-Shortcuts may be configured via the [http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx DevExpress\Options ... IDE\Shortcuts] page.
-
-In this case you bind to the 'Navigate' command passing 'Type Declaration' as a parameter.
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToType/Screenshots/NavigateShortcut2.png
-
-You should also configure the shortcut to only work whilst the code editor has focus. This is done through the contextpicker. Locate the *Focus\Documents\Source\Code Editor* context and place a checkmark next to it. This will only allow this shortcut to operate when this context evaluates to true.
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToType/Screenshots/ContextFocusCodeEditor.png
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_JumpToType/Screenshots/NavigateShortcut1.png
-
-=== Credits ===
-
-Author: [http://devexpress.com/mark Mark Miller] 
+The latest release [https://github.com/RoryBecker/CR_JumpToType/releases/latest can be found here] 
