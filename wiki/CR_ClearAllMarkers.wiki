@@ -1,22 +1,9 @@
-#summary Provides an action to eliminate all Markers, without moving the caret anywhere.
+#summary Moved to GitHub - A Plugin to allow you to "Tab" between the attributes (and their values) contained within a html or xml tag.
 
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_ClearAllMarkers/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
+= This Plugin Has Moved =
 
-=== Introduction ===
-A simple plugin which provides a single command for eliminating all current markers in the system.
+This plugin and it's source have moved to github.
 
-=== Setup ===
-[http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx Bind the "ClearAllMarkers" command to a key]. I chose to bind to 'ESC'
+The new address for this plugin is [https://github.com/RoryBecker/CR_ClearAllMarkers https://github.com/RoryBecker/CR_ClearAllMarkers]
 
-=== Usage ===
-  * Activate any time you like.
-    * All markers should disappear.
-    * Your caret should not move.
-
-=== Why did I build this ===
-Well for that you'll have to visit [http://rorybecker.blogspot.com/2009/06/crclearallmarkers.html my Blogpost] :)
-
-= Credits =
-
-Original Author: RoryBecker
+The latest release [https://github.com/RoryBecker/CR_ClearAllMarkers/releases/latest can be found here] 
