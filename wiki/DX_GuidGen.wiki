@@ -1,18 +1,9 @@
 #summary StringProvider to generate a guid
 
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/DX_GuidGen/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-= Introduction =
+= This Plugin Has Moved =
 
-Does exactly what it says on the tin.. Generates a guid.
+This plugin and it's source have moved to github.
 
-= Configuration =
-So anywhere you can use string providers, (Templates, Selection Embedding / Inversion etc) just use the phrase "«?GenerateGuid»" without quotes and this will cause a new Guid to be generated in that location.
+The new address for this plugin is [https://github.com/RoryBecker/CR_AttributeTabber https://github.com/RoryBecker/CR_AttributeTabber]
 
-For example..
- * Create a new template (in the neutral language category for best effect).
- * Name this template "NewGuid" (without quotes) 
- * Set content of Template to "«?GenerateGuid»" (without quotes) 
- * Click Ok to save everything
-
-Now you can type "NewGuid" (without quotes and case insensitive by default) and produce a new guid anywhere in the text editor :D
+The latest release [https://github.com/RoryBecker/CR_AttributeTabber/releases/latest can be found here] 
