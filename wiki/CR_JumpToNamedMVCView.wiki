@@ -1,4 +1,4 @@
-
+#summary Moved to GitHub
 = This Plugin Has Moved =
 
 This plugin and it's source have moved to github.
