@@ -1,45 +1,9 @@
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_MenuPlus/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Built using DXCore 11.2 =====
-=== Introduction ===
-This plugin attempts to increase discoverability by creating a new menu 'DXV2' and placing several common CodeRush features on it. 
+#summary Moved to GitHub
 
-While the default is to create a new menu, you can also have it reuse the DevExpress menu or specify your own menu if you prefer.
+= This Plugin Has Moved =
 
-=== Usage ===
+This plugin and it's source have moved to github.
 
-Simply select a menu item from the new menu.
+The new address for this plugin is [https://github.com/RoryBecker/CR_MenuPlus https://github.com/RoryBecker/CR_MenuPlus]
 
-Options chosen from this menu will invoke as if triggered via standard shortcut combos.
-
-
-=== Main Menu === 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MenuPlus/Screenshots/CR_MenuPlus.png
-
-=== Markers ===
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MenuPlus/Screenshots/CR_MenuPlusMarkers.png
-=== QuickNav ===
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MenuPlus/Screenshots/CR_MenuPlusQuickNav.png
-=== Testing ===
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MenuPlus/Screenshots/CR_MenuPlusTesting.png
-=== Options ===
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MenuPlus/Screenshots/CR_MenuPlusOptions.png
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MenuPlus/Screenshots/CR_MenuPlusOptionsTesting.png
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MenuPlus/Screenshots/CR_MenuPlusOptionsCodeStyle.png
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MenuPlus/Screenshots/CR_MenuPlusOptionsCodeFormatting.png
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MenuPlus/Screenshots/CR_MenuPlusOptionsVisual.png
-
-=== Help (Local) ===
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MenuPlus/Screenshots/CR_MenuPlusHelpLocal.png
-=== Help (online) ===
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MenuPlus/Screenshots/CR_MenuPlusHelpOnline.png
-=== Help (Videos) ===
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MenuPlus/Screenshots/CR_MenuPlusVideos.png
-
-=== Extras ===
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_MenuPlus/Screenshots/CR_MenuPlusExtras.png
-
-
-=== Credits ===
-
-Author: [RoryBecker]  
+The latest release [https://github.com/RoryBecker/CR_MenuPlus/releases/latest can be found here] 
