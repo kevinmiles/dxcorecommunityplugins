@@ -1,5 +1,3 @@
-#summary Moved to GitHub - A Plugin to allow you to "Tab" between the attributes (and their values) contained within a html or xml tag.
-
 = This Plugin Has Moved =
 
 This plugin and it's source have moved to github.
