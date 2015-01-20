@@ -1,23 +1,9 @@
-#summary Provides an Action for inverting the Storage.ReadXXX instructions mused within a DXCore plugins Options Screen. Yields some Storage.WriteXXX statements instead.
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_OptionsInverter/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 11.1 =====
-=== Introduction ===
-Helps a plugin writer by providing a facility to change a *Storage.ReadXXX* assignment into a *Storage.WriteXXX* statement.
+#summary Moved to GitHub
 
-=== Configuration ===
-Simply [http://community.devexpress.com/blogs/rorybecker/archive/2010/10/05/binding-keys-in-coderush.aspx Add a shortcut] binding a key combo of your choice to the new *!ReadWriteInverter* command.
+= This Plugin Has Moved =
 
-=== Usage ===
-Simply ...
- * Copy the assignment statements from your *!PreparePage* event into your *!CommitChanges* event.
- * Highlight the copied code.
- * Activate the new *!ReadWriteInverter* command.
+This plugin and it's source have moved to github.
 
-Watch with wonder as your *Storage.ReadXXX* assignments are converted into *Storage.WriteXXX* statements.
+The new address for this plugin is [https://github.com/RoryBecker/CR_OptionsInverter https://github.com/RoryBecker/CR_OptionsInverter]
 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_OptionsInverter/Screenshots/CR_OptionsInverter.gif
-
-=== Credits ===
-
-Author: [http://devexpress.com/mark Mark Miller] 
+The latest release [https://github.com/RoryBecker/CR_OptionsInverter/releases/latest can be found here] 
