@@ -1,27 +1,9 @@
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_ProjectReferenceDefaults/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Built using DXCore 11.1 =====
-=== Introduction ===
-By default, when a new (non GAC) reference is added to a VS Project, it's *Copy Local* property is set to *true* and it's *Specific Version* property is set to *false*.
+#summary Moved to GitHub
 
-Sometimes this is not always desirable, and indeed studio lets you alter the values of these properties to suit your needs for any given reference.
+= This Plugin Has Moved =
 
-However sometimes it would be nice to be able to alter those default to work differently.
+This plugin and it's source have moved to github.
 
-CR_ProjectReferenceDefaults allows you to do just that.
+The new address for this plugin is [https://github.com/RoryBecker/CR_ProjectReferenceDefaults https://github.com/RoryBecker/CR_ProjectReferenceDefaults]
 
-=== Config ===
-
-Configuration is achieved through the !CodeRush options screen *Ctrl+Shift+Alt+O*
-
-The options in question, can be found under *Project\Default Reference Properties*
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_ProjectReferenceDefaults/Screenshots/ProjectReferenceDefaults.png
-
-=== Usage ===
-
-Just setup your preferences and add your references.
-
-=== Credits ===
-
-Author: [http://devexpress.com/mark Mark Miller] 
+The latest release [https://github.com/RoryBecker/CR_ProjectReferenceDefaults/releases/latest can be found here] 
