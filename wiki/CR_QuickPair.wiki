@@ -1,23 +1,9 @@
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_QuickPair/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 =====
-=== Introduction ===
+#summary Moved to GitHub
 
-Quick Pair is designed to make it easy to enter paired delimiters such as quotes, parens, brackets and braces.
+= This Plugin Has Moved =
 
-This plugin was created on during the first [http://community.devexpress.com/blogs/rorybecker/archive/2011/05/31/announcing-coderush-feature-workshop.aspx CodeRush Feature Workshop]
+This plugin and it's source have moved to github.
 
-=== Configuration ===
+The new address for this plugin is [https://github.com/RoryBecker/CR_QuickPair https://github.com/RoryBecker/CR_QuickPair]
 
-In addition to the [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions usual installation procedure], there are some configuration files, which should be deployed to the correct location.
-
-[http://community.devexpress.com/blogs/rorybecker/archive/2011/04/11/coderush-tip-where-are-my-coderush-settings-stored.aspx Locate your settings folder] and extract the xml files in the plugin zip file to your Settings.XML\IDE folder.
-
-=== Usage ===
-
-Full details on this plugins usage are available on [http://community.devexpress.com/blogs/markmiller/archive/2011/06/01/new-coderush-feature-quick-pair-parens-brackets-quotes-etc-for-visual-studio.aspx Mark Miller's Blog]
-
-
-=== Credits ===
-
-Author: [http://community.devexpress.com/blogs/markmiller/default.aspx Mark Miller]
+The latest release [https://github.com/RoryBecker/CR_QuickPair/releases/latest can be found here] 
