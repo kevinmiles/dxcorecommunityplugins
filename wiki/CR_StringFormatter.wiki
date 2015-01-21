@@ -1,39 +1,9 @@
-#summary Provides a Tab to Next Reference extension, a CodeIssue and a Builder dialog to aid productivity in the area of String.Format string tokens.
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_StringFormatter/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 11.1 =====
-=== Introduction ===
-This plugin provides 3 enhancements:
+#summary Moved to GitHub
 
-  * A Tab to Next Reference extension.
-  * A !CodeIssue.
-  * A Builder Dialog.
+= This Plugin Has Moved =
 
-=== Usage ===
+This plugin and it's source have moved to github.
 
-==== Tab to Next Reference Extension ====
+The new address for this plugin is [https://github.com/RoryBecker/CR_StringFormatter https://github.com/RoryBecker/CR_StringFormatter]
 
-Simply place the caret on a String.Format token (ie {0}) then press the Tab key. The Tab to Next Reference engine is engaged, and the user may now tab between the references to that token and the argument which will be used to fill it at run-time.
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_StringFormatter/Screenshots/TabToNextStringToken.gif
-
-==== CodeIssue - Format Item Index Too Large ====
-This !CodeIssue highlights when the index of a token in a string.Format string references an argument which is not present.
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_StringFormatter/Screenshots/FormatItemIndexTooLarge.png
-
-==== The Format String Builder Dialog ====
-
-This dialog is available via the "Format Item..." entry on the Code !SmartTagMenu.
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_StringFormatter/Screenshots/FormatItem.png
-
-This entry is available when the users caret is within a String.Format token. (ie {0})
-
-When chosen the user is presented with a dialog designed to aid them in the building of a suitable !FormatString which, upon acceptance, will replace the original item in the string from which the dialog was requested.
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_StringFormatter/Screenshots/StringFormatter.png
-
-=== Credits ===
-
-Author: [http://devexpress.com/mark Mark Miller] 
+The latest release [https://github.com/RoryBecker/CR_StringFormatter/releases/latest can be found here] 
