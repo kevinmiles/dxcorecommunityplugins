@@ -1,28 +1,9 @@
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_TranslationToolWindow/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Built using !CodeRush 11.2 =====
-=== Introduction ===
-A !ToolWindow to translate the active member (or file) to another language.
+#summary Moved to GitHub
 
-=== Usage ===
-Bring up the !ToolWindow using *!DevExpress\!ToolWindows\Translator*
+= This Plugin Has Moved =
 
-Place the caret within some code. 
+This plugin and it's source have moved to github.
 
-The !ToolWindow will translate the active member (or file) to the language specified within the !ToolWindow.
+The new address for this plugin is [https://github.com/RoryBecker/CR_TranslationToolWindow https://github.com/RoryBecker/CR_TranslationToolWindow]
 
-For example:
-
-A translation from CSharp...
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_TranslationToolWindow/Screenshots/TranslationFromCS.png
-
-..to Basic
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_TranslationToolWindow/Screenshots/TranslationToBasic.png
-
-
-=== Credits ===
-
-Original Author: [http://devexpress.com/mark Mark Miller] 
-Additional Work: RoryBecker
+The latest release [https://github.com/RoryBecker/CR_TranslationToolWindow/releases/latest can be found here] 
