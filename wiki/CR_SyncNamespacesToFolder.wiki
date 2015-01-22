@@ -1,13 +1,9 @@
-#summary Plugin to synchronize all classes' namespaces with folders they reside in.
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_SyncNamespacesToFolder/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 since build =====
-=== Introduction ===
-This plugin alters the namespaces of all classes in a project so that they reflect the folders they are within. Additionally it fixes up all references to those same classes.
+#summary Moved to GitHub
 
-=== Usage ===
-Select a mismatched namespace name and activate via the "Synchronize to Folder Names" option on the Refactor menu 
+= This Plugin Has Moved =
 
-=== Credits ===
+This plugin and it's source have moved to github.
 
-Author: [http://devexpress.com/mark Mark Miller] 
+The new address for this plugin is [https://github.com/RoryBecker/CR_SyncNamespacesToFolder https://github.com/RoryBecker/CR_SyncNamespacesToFolder]
+
+The latest release [https://github.com/RoryBecker/CR_SyncNamespacesToFolder/releases/latest can be found here] 
