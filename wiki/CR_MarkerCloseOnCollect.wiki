@@ -1,4 +1,4 @@
-#summary Closes the current file when a marker is collected
+#summary Moved to GitHub
 
 = This Plugin Has Moved =
 
