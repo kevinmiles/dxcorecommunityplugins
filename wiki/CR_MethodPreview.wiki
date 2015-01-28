@@ -1,30 +1,9 @@
-#summary Shows the code of a method in a tooltip from any call site.
+#summary Moved to GitHub
 
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_MethodPreview/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]    
-[http://tv.devexpress.com/CRMethodPreview.movie http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Screencast.png]  [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 10.2 since build 1491 =====
-= Introduction =
+= This Plugin Has Moved =
 
-Provides an action 'ToggleMethodPreview' actionable from any method call whose source is available and provides that source as a preview window.
+This plugin and it's source have moved to github.
 
-= Configuration =
- * Assign the 'ToggleMethodPreview' to a key. (see [http://rorybecker.blogspot.com/2009/08/how-to-bind-key-in-coderush.html Binding a Key])
+The new address for this plugin is [https://github.com/RoryBecker/CR_MethodPreview https://github.com/RoryBecker/CR_MethodPreview]
 
-= Usage =
-
- * Place caret on any Method Call for which the source is available within the solution.
- * Activate the 'ToggleMethodPreview' action using whichever key you bound to it.
-
- * Deactivate when done, using the same key.
-
-= Notes =
-
-This plugin currently shows the entire method.
-The plan is to limit this to the first n (defaulting to say 30) lines. However the DXCore currently needs the entire method in order to format things correctly.
-
-= Credits =
-
-Original Author: RoryBecker
-
-Idea by Neal Culiner (@ncsoftware) and Matthew MacSuga (@csharpbydesign)
+The latest release [https://github.com/RoryBecker/CR_MethodPreview/releases/latest can be found here] 
