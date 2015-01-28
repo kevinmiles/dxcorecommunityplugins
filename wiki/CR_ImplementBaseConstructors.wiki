@@ -1,4 +1,4 @@
-#summary Creates constructors for a class that call base constructors.
+#summary Moved to GitHub
 #labels Phase-Support
 
 = This Plugin Has Moved =
