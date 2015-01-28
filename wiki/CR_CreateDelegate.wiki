@@ -1,28 +1,9 @@
-#summary Creates a delegate from a method signature.
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_CreateDelegate/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-=== Introduction ===
+#summary Moved to GitHub
 
-It turns these:
+= This Plugin Has Moved =
 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_CreateDelegate/Screenshots/Before.png
+This plugin and it's source have moved to github.
 
-...into these...
+The new address for this plugin is [https://github.com/RoryBecker/CR_CreateDelegate https://github.com/RoryBecker/CR_CreateDelegate]
 
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_CreateDelegate/Screenshots/After.png
-
-=== Download === 
-Primary download is http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_CreateDelegate/
-
-=== Usage ===
-Place your caret on the signature of the method and select "Create Delegate" from the Smart tag menu. 
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_CreateDelegate/Screenshots/SmartTagMenu.png
-
-This item will be in blue as it is implemented as a CodeProvider.
-
-
-
-=== Credits ===
-
-RoryBecker 
+The latest release [https://github.com/RoryBecker/CR_CreateDelegate/releases/latest can be found here] 
