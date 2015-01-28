@@ -1,4 +1,4 @@
-#summary Provides a !CodeProvider to insert a new Parent class in the hierarchy above your current class
+#summary Moved to GitHub
 
 = This Plugin Has Moved =
 
