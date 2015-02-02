@@ -1,4 +1,4 @@
-#summary Refactoring to remove all regions in a file.
+#summary Moved to GitHub
 
 = This Plugin Has Moved =
 
