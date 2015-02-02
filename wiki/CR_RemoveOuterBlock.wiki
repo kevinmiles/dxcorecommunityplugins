@@ -1,38 +1,9 @@
-#summary Provides a new CodeProvider to remove a block of code, whilst leaving the code within it intact.
-[http://www.rorybecker.co.uk/DevExpress/Community/Plugins/CR_RemoveOuterBlock/ http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Download.png]      [http://code.google.com/p/dxcorecommunityplugins/wiki/InstallInstructions  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/InstallHelp.png]
-[http://code.google.com/p/dxcorecommunityplugins/wiki/Feedback  http://dxcorecommunityplugins.googlecode.com/svn/trunk/Common/Graphics/Feedback.png]
-===== Requires DXCore 11.1 =====
-=== Introduction ===
-This plugin provides a !CodeProvider "Remove Outer Block" which will remove a block of code and replace it with it's own contents.
+#summary Moved to GitHub
 
-Note: This plugin is intended to be used during the process of sculpting code. Since it provides a !CodeProvider and not a Refactoring, it is entirely possible for it to produce uncompilable code. 
+= This Plugin Has Moved =
 
-=== Usage ===
-Position your caret on a statement that parents another (If, While, !ForEach, Try..Catch etc) and choose the "Remove Outer Block" option from the Code menu. The !CodeProvider will then remove the outer block leaving the contained code in it's place.
+This plugin and it's source have moved to github.
 
-Note: This !CodeProvider will operate on all related siblings of the initial parenting statement, removing all structure but leaving all content. The one exception to this is the *catch* portion of a Try..Catch or Try..Catch..Finally which will be removed in it's entity.
+The new address for this plugin is [https://github.com/RoryBecker/CR_RemoveOuterBlock https://github.com/RoryBecker/CR_RemoveOuterBlock]
 
-=== Examples ===
-
-===== A Simple If Block =====
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Screenshots/RemoveOuterBlockSimpleIf.gif
-
-===== A While Loop =====
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Screenshots/RemoveOuterBlockWhileLoop.gif
-
-===== A For Loop =====
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Screenshots/RemoveOuterBlockForLoop.gif
-
-===== A Try Catch Block =====
-In this example, see how the catch block content is also removed.
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Screenshots/RemoveOuterBlockTryCatch.gif
-
-===== A Try Catch Finally Block =====
-In this example, see how the catch block content is remove, but the finally block content is retained.
-
-http://dxcorecommunityplugins.googlecode.com/svn/trunk/CR_RemoveOuterBlock/Screenshots/RemoveOuterBlockTryCatchFinally.gif
-
-=== Credits ===
-
-Author: [http://devexpress.com/mark Mark Miller] 
+The latest release [https://github.com/RoryBecker/CR_RemoveOuterBlock/releases/latest can be found here] 
