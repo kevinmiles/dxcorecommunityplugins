@@ -38,7 +38,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>X:\DevExpress\CodeRush\Community\PlugIns\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DocumentationFile>XPO_EasyFields.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
@@ -74,9 +74,6 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.DXCore.Parser, Version=10.2.3.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v10.2, Version=10.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
