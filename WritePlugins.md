@@ -1,0 +1,3 @@
+# Placeholder info #
+
+We have some [info on how to get started in creating a plugin](http://code.google.com/p/dxcorecommunityplugins/wiki/PluginResources)...
